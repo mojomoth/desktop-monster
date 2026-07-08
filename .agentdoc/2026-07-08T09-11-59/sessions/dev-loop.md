@@ -22,3 +22,4 @@ deterministic instantiations of `prompts/102-ops-template.md` and
 | 11 | T11 | DONE | pass | pass | 8acdd83 | Verified gates pass independently; accept T11 (re-spawn relay, no duplicate work), continue to T12 |
 | 12 | T12 | DONE | pass | pass | bfa67a4 | Verified gates pass independently; accept T12, continue to next task |
 | 13 | T13 | DONE | pass | pass | 6e190bb | Verified gates pass independently; accept T13, continue to next task |
+| 14 | T14 | DONE | pass | pass | 59fa474 | Verified gates pass independently; accept T14, continue to next task |
