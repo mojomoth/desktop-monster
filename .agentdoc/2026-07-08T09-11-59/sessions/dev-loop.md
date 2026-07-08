@@ -9,3 +9,4 @@ deterministic instantiations of `prompts/102-ops-template.md` and
 
 | iter | task | result | builder-gates | verified-gates | commit | decision |
 |---|---|---|---|---|---|---|
+| 01 | T01 | DONE | pass | pass | da27dce5e14ecf6236bf348bcd2c2f2f834ef229 | Verified gates pass independently; accept T01, continue to next task |
