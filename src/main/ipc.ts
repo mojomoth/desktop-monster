@@ -3,6 +3,7 @@
 import { app, ipcMain, shell } from 'electron';
 import { IPC } from '../shared/ipc.js';
 import type { InputModePayload } from '../shared/ipc.js';
+import { getCurrentInputMode } from './globalInput.js';
 import { readSaveFile, writeSaveFile } from './persistence.js';
 
 /** Deep link to the macOS Privacy & Security → Accessibility pane. */
@@ -16,11 +17,9 @@ export interface IpcOptions {
 
 /** Register all renderer→main handlers. Call once, before the window loads. */
 export function registerIpcHandlers(options: IpcOptions = {}): void {
-  // Stubbed until T04 wires the real global-input state machine.
-  ipcMain.handle(IPC.GET_INPUT_MODE, (): InputModePayload => ({
-    mode: 'fallback',
-    accessibilityGranted: false,
-  }));
+  // Live state from the T04 global-input state machine; before/without
+  // startGlobalInput (e.g. SMOKE=1) it reports the fallback default.
+  ipcMain.handle(IPC.GET_INPUT_MODE, (): InputModePayload => getCurrentInputMode());
 
   // Raw parsed JSON or null — validation is core's job (T08).
   ipcMain.handle(IPC.LOAD_STATE, (): unknown => readSaveFile(app.getPath('userData')));

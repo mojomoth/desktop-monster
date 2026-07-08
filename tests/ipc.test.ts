@@ -88,9 +88,11 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(mainIpcTs).toContain('ipcMain.on(IPC.FIRST_FRAME');
   });
 
-  it('stubs the input mode as fallback until T04', () => {
-    expect(mainIpcTs).toContain("mode: 'fallback'");
-    expect(mainIpcTs).toContain('accessibilityGranted: false');
+  it('serves the live input mode from the T04 global-input state machine', () => {
+    // Replaced the T03 fallback stub; the fallback DEFAULT (what SMOKE runs
+    // see) is behaviorally asserted in tests/globalInput.test.ts.
+    expect(mainIpcTs).toContain('getCurrentInputMode()');
+    expect(mainIpcTs).toContain("from './globalInput.js'");
   });
 
   it('persists under the userData directory via the persistence module', () => {
