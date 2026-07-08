@@ -1,0 +1,28 @@
+
+> desmon@0.1.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/window.test.ts (22 tests) 3ms
+ ✓ tests/ipc.test.ts (23 tests) 3ms
+ ✓ tests/scaffold.test.ts (1 test) 1ms
+ ✓ tests/persistence.test.ts (10 tests) 9ms
+ ✓ tests/globalInput.test.ts (19 tests) 8ms
+ ✓ tests/formulas.test.ts (10 tests) 8ms
+
+ Test Files  6 passed (6)
+      Tests  85 passed (85)
+   Start at  10:15:31
+   Duration  261ms (transform 173ms, setup 0ms, collect 275ms, tests 33ms, environment 1ms, prepare 318ms)
+
+
+> desmon@0.1.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.1.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+

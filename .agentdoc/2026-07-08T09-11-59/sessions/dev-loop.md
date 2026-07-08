@@ -13,3 +13,4 @@ deterministic instantiations of `prompts/102-ops-template.md` and
 | 02 | T02 | DONE | pass | pass | 98c8c1b | Verified gates pass independently; accept T02, continue to next task |
 | 03 | T03 | DONE | pass | pass | f86ea91 | Verified gates pass independently; accept T03, continue to next task |
 | 04 | T04 | DONE | pass | pass | 66cf6f5 | Verified gates pass independently; accept T04, continue to next task |
+| 05 | T05 | DONE | pass | pass | 7396d70 | Verified gates pass independently; accept T05, continue to next task |
