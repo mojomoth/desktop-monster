@@ -21,7 +21,10 @@ export {
 } from './formulas.js';
 
 export { createEngine } from './engine.js';
-export type { Engine, EngineSave } from './engine.js';
+export type { Engine } from './engine.js';
+
+export { DEFAULT_SAVE, parseSave, serializeSave } from './save.js';
+export type { SaveFileV1 } from './save.js';
 
 export { monsterForIndex, SPECIES_IDS } from './monsters.js';
 export type { SpeciesId } from './monsters.js';

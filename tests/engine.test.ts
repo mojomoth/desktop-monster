@@ -5,10 +5,12 @@ import {
   damageForLevel,
   monsterMaxHp,
   mulberry32,
+  parseSave,
+  serializeSave,
   xpReward,
   xpToNext,
 } from '../src/core/index.js';
-import type { EngineSave, GameEvent, Rng } from '../src/core/index.js';
+import type { GameEvent, Rng, SaveFileV1 } from '../src/core/index.js';
 
 /** Rng stub returning a scripted sequence (repeats its last value). */
 function scriptedRng(values: number[]): Rng {
@@ -21,7 +23,7 @@ function scriptedRng(values: number[]): Rng {
 /** 0.5 fails both the 0.1 crit roll and the 0.25 trinket roll: fully boring. */
 const calmRng = (): Rng => scriptedRng([0.5]);
 
-function makeSave(overrides: Partial<EngineSave> = {}): EngineSave {
+function makeSave(overrides: Partial<SaveFileV1> = {}): SaveFileV1 {
   const monsterIndex = overrides.monsterIndex ?? 0;
   return {
     version: 1,
@@ -217,6 +219,30 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const b = createEngine(save, mulberry32(1));
     expect(b.getState()).toEqual(a.getState());
     expect(b.toSave()).toEqual(save);
+  });
+
+  it('createEngine(save) resumes monsterIndex and monsterHp exactly', () => {
+    const save = makeSave({
+      level: 4,
+      xp: 11,
+      killCount: 12,
+      coins: 30,
+      items: { bone: 2, crown: 1 },
+      monsterIndex: 12,
+      monsterHp: 5,
+    });
+    const s = createEngine(save, calmRng()).getState();
+    expect(s.monster.index).toBe(12);
+    expect(s.monster.speciesId).toBe('ghost'); // 12 % 5 = 2
+    expect(s.monsterHp).toBe(5);
+    expect(s.level).toBe(4);
+    expect(s.xp).toBe(11);
+    expect(s.killCount).toBe(12);
+    expect(s.coins).toBe(30);
+    expect(s.items).toEqual({ bone: 2, crown: 1 });
+    // The full persistence path (F10 → F11): serialize → parse → resume.
+    const reparsed = createEngine(parseSave(serializeSave(save)), calmRng()).getState();
+    expect(reparsed).toEqual(s);
   });
 
   it('createEngine(save) resumes exactly and clamps monsterHp into [1, maxHp]', () => {

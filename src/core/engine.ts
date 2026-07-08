@@ -13,31 +13,14 @@ import { rollLoot } from './loot.js';
 import { monsterForIndex } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import type { Rng } from './rng.js';
+import type { SaveFileV1 } from './save.js';
 import type { GameEvent, GameState, InputSource } from './types.js';
-
-/**
- * Plain persisted shape. Field-for-field identical to the SaveFileV1 schema
- * that T08 introduces in save.ts; when that lands, engine.ts switches to the
- * shared type. Tolerant parsing of untrusted JSON is save.ts's job — this
- * type is assumed well-formed.
- */
-export interface EngineSave {
-  version: 1;
-  level: number;
-  xp: number;
-  killCount: number;
-  coins: number;
-  items: Record<string, number>;
-  /** 0-based global index of the monster that was on screen. */
-  monsterIndex: number;
-  monsterHp: number;
-}
 
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
   attack(source: InputSource): GameEvent[];
   getState(): Readonly<GameState>;
-  toSave(): EngineSave;
+  toSave(): SaveFileV1;
 }
 
 /** Non-deterministic seed for production use; tests ALWAYS inject an Rng. */
@@ -45,7 +28,13 @@ function randomSeed(): number {
   return (Math.random() * 0x100000000) >>> 0;
 }
 
-function initialState(save?: EngineSave | null): GameState {
+/**
+ * Save shapes are assumed well-formed here — tolerant parsing of untrusted
+ * JSON is save.ts's parseSave(). The engine still clamps the resumed
+ * monsterHp into [1, maxHp] so a stale save can never spawn an already-dead
+ * or over-healed monster.
+ */
+function initialState(save?: SaveFileV1 | null): GameState {
   if (!save) {
     const monster = monsterForIndex(0);
     return {
@@ -81,7 +70,7 @@ function initialState(save?: EngineSave | null): GameState {
  * Event order on a kill (SPEC F07):
  * attack, monsterHit, monsterKilled, itemDropped[, levelUp...], monsterSpawned.
  */
-export function createEngine(save?: EngineSave | null, rng: Rng = mulberry32(randomSeed())): Engine {
+export function createEngine(save?: SaveFileV1 | null, rng: Rng = mulberry32(randomSeed())): Engine {
   const state = initialState(save);
 
   return {
@@ -138,7 +127,7 @@ export function createEngine(save?: EngineSave | null, rng: Rng = mulberry32(ran
       };
     },
 
-    toSave(): EngineSave {
+    toSave(): SaveFileV1 {
       return {
         version: 1,
         level: state.level,
