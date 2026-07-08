@@ -26,3 +26,4 @@ deterministic instantiations of `prompts/102-ops-template.md` and
 | 15 | T15 | DONE | pass | pass | 0fc5875 | Verified gates pass independently; accept T15, continue to next task |
 | 16 | T16 | DONE | pass | pass | c8195e7 | Verified gates pass independently; accept T16, continue to next task |
 | 17 | T17 | DONE | pass | pass | bf6a465 | Verified gates pass independently; accept T17, continue to next task |
+| 18 | T18 | DONE | pass | pass | 77e0997 | Verified gates pass independently; accept T18, continue to next task |
