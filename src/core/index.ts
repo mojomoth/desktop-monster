@@ -23,6 +23,16 @@ export {
 export { createEngine } from './engine.js';
 export type { Engine } from './engine.js';
 
+export { createFallbackGate, SimulatedInputDriver } from './input.js';
+export type {
+  FallbackGate,
+  FallbackGateDeps,
+  InputDriver,
+  InputEvent,
+  InputListener,
+  InputMode,
+} from './input.js';
+
 export { DEFAULT_SAVE, parseSave, serializeSave } from './save.js';
 export type { SaveFileV1 } from './save.js';
 
