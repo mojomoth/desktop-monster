@@ -8,11 +8,12 @@
 
 ## Tasks
 
-### [~] T01 — Scaffold frozen command contract, empty-but-green
+### [x] T01 — Scaffold frozen command contract, empty-but-green
 - AC: `npm ci && npm test && npm run lint && npm run typecheck && npm run build && test -f dist/electron/main/index.js && test -f dist/web/renderer/index.js && node -e "const p=require('./package.json');const d={...p.dependencies,...p.devDependencies};process.exit(d.electron==='39.8.10'&&d['uiohook-napi']==='1.5.5'&&d.vite==='6.4.3'?0:1)" && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
 - Deps: none
 - Files: package.json, package-lock.json, tsconfig.base.json, tsconfig.main.json, tsconfig.renderer.json, tsconfig.test.json, eslint.config.mjs, vitest.config.ts, static/index.html, static/style.css, src/main/index.ts, src/preload/index.ts, src/renderer/index.ts, src/core/index.ts, tests/scaffold.test.ts
 - Notes: SPEC F01/F02/F03. Exceeds the 5-file cap by design — the ordering rule mandates T01 make EVERY AGENTS.md §Commands script exist with gates green; every file is a tiny stub. Copy package.json VERBATIM from GAME_ARCHITECTURE §5 (exact pins, no `^`, no `"type":"module"`, build config, scripts). Run `npm install` once and COMMIT package-lock.json (then `npm ci` works). tsconfigs per §5 notes (main=node16/CJS→dist/electron incl. src/{main,preload,core,shared}; renderer=es2022/bundler→dist/web; test=noEmit). All relative imports use explicit `.js` extension. Stub main: plain BrowserWindow, loadFile static/index.html; SMOKE=1 → print SMOKE_OK after did-finish-load then app.exit(0), 20s watchdog app.exit(1). Stub renderer paints one pixel on the canvas. static/index.html: 24-px drag strip div + canvas 160×110 (CSS 320×220, pixelated) + `<script type="module" src="../dist/web/renderer/index.js">`. tests/scaffold.test.ts imports the core barrel and asserts it is an object (durable — never delete tests). eslint flat config per §5 (ignores dist/release/node_modules in the first config object; no .eslintignore). Do NOT set engine-strict (host Node 20.12.2 only warns).
+- Notes (iter 01): DONE first try — package.json copied verbatim from §5, four tsconfigs + eslint flat config + vitest config as planned; npm install produced package-lock.json (committed); full AC line incl. `npm ci` and smoke exited 0 (SMOKE_OK, headful, no interaction). No dead ends. Non-obvious detail for later tasks: vitest/vite resolves the `.js`-extension relative imports in tests to `.ts` sources natively; engine-mismatch npm WARNs (Node 20.12.2) are expected and harmless.
 
 ### [ ] T02 — Transparent always-on-top overlay window + accessory lifecycle
 - AC: `grep -q "screen-saver" src/main/window.ts && grep -q "visibleOnFullScreen: true" src/main/window.ts && grep -q "backgroundThrottling: false" src/main/window.ts && grep -q "transparent: true" src/main/window.ts && grep -q "hasShadow: false" src/main/window.ts && grep -q "contextIsolation: true" src/main/window.ts && grep -q "nodeIntegration: false" src/main/window.ts && grep -q "sandbox: true" src/main/window.ts && grep -q requestSingleInstanceLock src/main/index.ts && grep -q "app.setName" src/main/index.ts && grep -q dock src/main/index.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
@@ -132,3 +133,4 @@
 
 | iter | ts | task | result | gates | commit | note |
 |---|---|---|---|---|---|---|
+| 01 | 2026-07-08T09:41 | T01 | DONE | pass | da27dce | scaffold: all 7 contract scripts green incl. smoke (SMOKE_OK) + npm ci from committed lockfile |
