@@ -1,7 +1,10 @@
-// Scene orchestration (SPEC F21 + F20 presentation, T14): full repaint every
-// frame — field strip, hero left, tier-tinted monster right, HUD, floating
-// damage numbers. The core FSMs from src/core/fsm.ts drive the hero's
-// 3-frame attack (restarting on spam) and the monster's white hit flash.
+// Scene orchestration (SPEC F21 + F20 presentation, T14/T15): full repaint
+// every frame — field strip, hero left, tier-tinted monster right, HUD,
+// floating damage numbers. The core FSMs from src/core/fsm.ts drive the
+// hero's 3-frame attack (restarting on spam), the monster's white hit flash,
+// the death pixel-scatter (dying) and the bottom-up spawn pop-in. Item drops
+// arc + bounce then fly to the coin counter; level-ups flash the "LEVEL UP!"
+// banner with hero sparkles (Manual M3).
 // DOM-free on purpose — draws through GameCanvas (SpriteCanvas + clearRect)
 // so tests run under vitest's node environment.
 
@@ -17,6 +20,7 @@ import {
   createMonsterAnim,
   HERO_ATTACK_MS,
   heroInput,
+  MONSTER_SPAWNING_MS,
   monsterHit,
   monsterKilled,
   tickHero,
@@ -29,17 +33,36 @@ import {
   heroAttack,
   heroIdle,
   heroSlash,
+  itemSprites,
   monsterSprites,
   paletteForTier,
+  TRANSPARENT,
 } from './sprites/index.js';
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
 import {
+  createDropPool,
+  createParticlePool,
+  drawParticles,
+  dropPosition,
+  easeOutQuad,
+  spawnDrop,
+  spawnSparkles,
+  spawnSpriteScatter,
+  tickDrops,
+  tickParticles,
+} from './anim.js';
+import {
+  COUNTER_POP_MS,
+  createBanner,
   createFloatPool,
+  drawBanner,
   drawCounters,
   drawFloats,
   drawHpBar,
   drawLevelHud,
+  showBanner,
   spawnFloat,
+  tickBanner,
   tickFloats,
 } from './hud.js';
 
@@ -61,6 +84,15 @@ export const IDLE_FRAME_MS = 500;
 export const ATTACK_FRAME_MS = HERO_ATTACK_MS / 3;
 /** The attack frame during which the slash-arc overlay shows. */
 export const SLASH_FRAME = 1;
+/** Where item drops land after their arc + bounce (gap left of the monster). */
+export const DROP_LAND_X = 100;
+/** Horizontal stagger between simultaneous drops so they never stack. */
+export const DROP_STAGGER_PX = 8;
+/** Drop flight destination: the top-right coin counter (icon position). */
+export const DROP_TARGET_X = VIEW_W - 12;
+export const DROP_TARGET_Y = 8;
+/** Sparkle burst size when a collected drop pops the counter. */
+const COLLECT_SPARKLE_COUNT = 6;
 
 /**
  * The minimal canvas surface the scene needs — a real 2D context satisfies
@@ -102,6 +134,51 @@ function drawField(ctx: SpriteCanvas): void {
   ctx.fillRect(0, GROUND_Y + 3, VIEW_W, VIEW_H - GROUND_Y - 3);
 }
 
+/** Item art for a runtime item id (unknown ids fall back to the coin). */
+function itemSpriteFor(itemId: string): Sprite {
+  // ItemDef.id is a plain string — widen the record to index it.
+  const byId: Partial<Record<string, Sprite>> = itemSprites;
+  return byId[itemId] ?? itemSprites.coin;
+}
+
+/**
+ * Draw only the bottom `visibleRows` rows of a sprite frame — the spawn
+ * pop-in reveals the new monster bottom-up out of the ground (Manual M3).
+ * Same skip rules as drawSprite: unknown chars/rows never throw.
+ */
+function drawSpriteBottomRows(
+  ctx: SpriteCanvas,
+  sprite: Sprite,
+  frame: number,
+  x: number,
+  y: number,
+  visibleRows: number,
+): void {
+  const rows = sprite.frames[frame];
+  if (rows === undefined) {
+    return;
+  }
+  const firstRow = Math.max(0, sprite.h - visibleRows);
+  for (let ry = firstRow; ry < sprite.h; ry++) {
+    const row = rows[ry];
+    if (row === undefined) {
+      continue;
+    }
+    for (let rx = 0; rx < sprite.w; rx++) {
+      const ch = row.charAt(rx);
+      if (ch === TRANSPARENT || ch === '') {
+        continue;
+      }
+      const color = sprite.palette[ch];
+      if (color === undefined) {
+        continue;
+      }
+      ctx.fillStyle = color;
+      ctx.fillRect(x + rx, y + ry, 1, 1);
+    }
+  }
+}
+
 export interface Game {
   /**
    * One input → one engine step, plus presentation (floating damage number).
@@ -123,8 +200,15 @@ export interface Game {
 export function createGame(engine: Engine): Game {
   let timeMs = 0;
   let heroAnim = createHeroAnim();
-  let monsterAnim = createMonsterAnim();
+  // Boot straight into idle: the monster on screen at load (fresh or resumed)
+  // is already alive — the spawn pop-in is for monsters born from a kill.
+  let monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
   const floats = createFloatPool();
+  const particles = createParticlePool();
+  const drops = createDropPool();
+  const banner = createBanner();
+  // ms since the last drop arrived at the counter; Infinity = never popped.
+  let coinPopAgeMs = Number.POSITIVE_INFINITY;
 
   return {
     attack(source: InputSource): GameEvent[] {
@@ -145,16 +229,45 @@ export function createGame(engine: Engine): Game {
           case 'monsterHit':
             monsterAnim = monsterHit(monsterAnim);
             break;
-          case 'monsterKilled':
-            // The dying scatter presentation lands in T15; the FSM already
-            // tracks the state so the transition wiring never changes.
+          case 'monsterKilled': {
+            // Decompose the (tier-tinted) sprite into gravity particles; the
+            // FSM rides DYING for the same 500ms the scatter lives.
+            const sprite = tintedIdleSprite(event.monster);
+            spawnSpriteScatter(particles, sprite, 0, MONSTER_X, GROUND_Y - sprite.h);
             monsterAnim = monsterKilled(monsterAnim);
             break;
-          case 'monsterSpawned':
-            monsterAnim = createMonsterAnim();
+          }
+          case 'itemDropped': {
+            let slot = 0;
+            for (const drop of event.drops) {
+              spawnDrop(drops, {
+                itemId: drop.item.id,
+                // Launch at the monster's left edge — the drop bursts out of
+                // the dying monster toward the gap without ever overlapping
+                // the scatter pixels.
+                startX: MONSTER_X - 6,
+                startY: GROUND_Y - 12,
+                landX: DROP_LAND_X - slot * DROP_STAGGER_PX,
+                landY: GROUND_Y - itemSpriteFor(drop.item.id).h,
+                targetX: DROP_TARGET_X,
+                targetY: DROP_TARGET_Y,
+              });
+              slot++;
+            }
             break;
-          default:
-            break; // itemDropped/levelUp presentation lands in T15
+          }
+          case 'levelUp':
+            showBanner(banner);
+            spawnSparkles(
+              particles,
+              HERO_X + Math.floor(heroIdle.w / 2),
+              HERO_Y + 4,
+            );
+            break;
+          case 'monsterSpawned':
+            // Deferred on purpose: the FSM's DYING → SPAWNING transition
+            // brings the new monster in after the scatter finishes.
+            break;
         }
       }
       return events;
@@ -166,6 +279,17 @@ export function createGame(engine: Engine): Game {
       heroAnim = tickHero(heroAnim, dt);
       monsterAnim = tickMonster(monsterAnim, dt);
       tickFloats(floats, dt);
+      tickParticles(particles, dt);
+      tickDrops(drops, dt);
+      tickBanner(banner, dt);
+      coinPopAgeMs += dt;
+      for (const drop of drops) {
+        if (drop.arrived) {
+          drop.arrived = false;
+          coinPopAgeMs = 0;
+          spawnSparkles(particles, drop.targetX, drop.targetY, COLLECT_SPARKLE_COUNT);
+        }
+      }
     },
 
     draw(ctx: GameCanvas): void {
@@ -189,7 +313,15 @@ export function createGame(engine: Engine): Game {
 
       const state = engine.getState();
       const species = speciesSpritesFor(state.monster.speciesId);
-      if (monsterAnim.state === 'hit') {
+      if (monsterAnim.state === 'dying') {
+        // The sprite is mid-scatter — its pixels live in the particle pool.
+      } else if (monsterAnim.state === 'spawning') {
+        // Bottom-up pop-in: the next monster grows out of the ground.
+        const sprite = tintedIdleSprite(state.monster);
+        const progress = easeOutQuad(monsterAnim.t / MONSTER_SPAWNING_MS);
+        const visibleRows = Math.ceil(sprite.h * progress);
+        drawSpriteBottomRows(ctx, sprite, 0, MONSTER_X, GROUND_Y - sprite.h, visibleRows);
+      } else if (monsterAnim.state === 'hit') {
         // White-flash recoil pose for MONSTER_HIT_MS; the full tint makes
         // the tier tint irrelevant while it lasts.
         drawSprite(ctx, species.hit, 0, MONSTER_X, GROUND_Y - species.hit.h, {
@@ -201,18 +333,31 @@ export function createGame(engine: Engine): Game {
         drawSprite(ctx, sprite, monsterFrame, MONSTER_X, GROUND_Y - sprite.h);
       }
 
-      drawHpBar(
-        ctx,
-        Math.round(MONSTER_X + species.idle.w / 2 - HP_BAR.w / 2),
-        HP_BAR.y,
-        HP_BAR.w,
-        HP_BAR.h,
-        state.monsterHp,
-        state.monster.maxHp,
-      );
+      for (const drop of drops) {
+        if (!drop.active) {
+          continue;
+        }
+        const pos = dropPosition(drop);
+        drawSprite(ctx, itemSpriteFor(drop.itemId), 0, Math.round(pos.x), Math.round(pos.y));
+      }
+      drawParticles(ctx, particles);
+
+      if (monsterAnim.state !== 'dying') {
+        // No HP bar over the scatter — it pops back with the next monster.
+        drawHpBar(
+          ctx,
+          Math.round(MONSTER_X + species.idle.w / 2 - HP_BAR.w / 2),
+          HP_BAR.y,
+          HP_BAR.w,
+          HP_BAR.h,
+          state.monsterHp,
+          state.monster.maxHp,
+        );
+      }
       drawLevelHud(ctx, state);
-      drawCounters(ctx, state, VIEW_W);
+      drawCounters(ctx, state, VIEW_W, coinPopAgeMs < COUNTER_POP_MS);
       drawFloats(ctx, floats);
+      drawBanner(ctx, banner, VIEW_W);
     },
 
     getState(): Readonly<GameState> {

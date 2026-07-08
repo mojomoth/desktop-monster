@@ -1,7 +1,8 @@
-// HUD painting (SPEC F21 + T14 combat presentation): boxed monster HP bar,
-// top-left `LV n` + XP bar, top-right kill/coin counters, and the pooled
-// floating-damage-number system — numbers rise 8px and fade over 600ms;
-// crits draw double-size and yellow (Manual M2).
+// HUD painting (SPEC F21 + T14/T15 presentation): boxed monster HP bar,
+// top-left `LV n` + XP bar, top-right kill/coin counters (with a collection
+// pop flash), the pooled floating-damage-number system — numbers rise 8px
+// and fade over 600ms; crits draw double-size and yellow (Manual M2) — and
+// the flashing "LEVEL UP!" banner (Manual M3).
 // DOM-free on purpose — everything draws through SpriteCanvas so the tests
 // run under vitest's node environment (same pattern as sprites/sprite.ts).
 
@@ -92,11 +93,19 @@ function drawSkullIcon(ctx: SpriteCanvas, x: number, y: number): void {
   ctx.fillRect(x + 2, y + 4, 1, 1); // tooth gap
 }
 
-/** Top-right HUD: skull × killCount row, coin × coins row (right-aligned). */
+/** How long the coin counter stays "popped" after a drop arrives, ms. */
+export const COUNTER_POP_MS = 150;
+
+/**
+ * Top-right HUD: skull × killCount row, coin × coins row (right-aligned).
+ * While `coinPop` is set (a collected drop just arrived, T15) the coin row
+ * pops: the count flashes white and the icon lifts one pixel.
+ */
 export function drawCounters(
   ctx: SpriteCanvas,
   state: Readonly<GameState>,
   viewW: number,
+  coinPop = false,
 ): void {
   const kills = String(state.killCount);
   const killsX = viewW - HUD_MARGIN - textWidth(kills);
@@ -105,8 +114,11 @@ export function drawCounters(
 
   const coins = String(state.coins);
   const coinsX = viewW - HUD_MARGIN - textWidth(coins);
-  drawText(ctx, coins, coinsX, HUD_MARGIN + FONT_H + 2, { color: COLORS.yellow });
-  drawSprite(ctx, itemSprites.coin, 0, coinsX - 8, HUD_MARGIN + FONT_H + 1);
+  drawText(ctx, coins, coinsX, HUD_MARGIN + FONT_H + 2, {
+    color: coinPop ? COLORS.white : COLORS.yellow,
+  });
+  const iconY = HUD_MARGIN + FONT_H + (coinPop ? 0 : 1);
+  drawSprite(ctx, itemSprites.coin, 0, coinsX - 8, iconY);
 }
 
 /** One pooled floating damage number. Slots are reused, never reallocated. */
@@ -246,4 +258,60 @@ export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
     const x = Math.round(f.x - (textWidth(f.text) * scale) / 2);
     drawScaledText(ctx, f.text, x, f.y - rise - (scale - 1) * FONT_H, scale, color);
   }
+}
+
+// ---------------------------------------------------------------------------
+// "LEVEL UP!" banner (Manual M3): a centered double-size flash triggered by
+// the engine's levelUp event. Single timer slot — a second level-up simply
+// restarts it (no unbounded state).
+// ---------------------------------------------------------------------------
+
+/** Banner text — every glyph exists in font.ts's GLYPH_CHARS. */
+export const LEVEL_UP_TEXT = 'LEVEL UP!';
+/** Banner lifetime, ms. */
+export const BANNER_MS = 1200;
+/** Banner pixel scale. */
+export const BANNER_SCALE = 2;
+/** Flash cadence: the banner alternates yellow/white every interval. */
+export const BANNER_FLASH_MS = 100;
+/** Banner top edge, game pixels (clear of the HUD rows and the monster). */
+export const BANNER_Y = 20;
+
+/** The banner's single timer slot. */
+export interface Banner {
+  active: boolean;
+  ageMs: number;
+}
+
+/** Fresh, inactive banner state. */
+export function createBanner(): Banner {
+  return { active: false, ageMs: 0 };
+}
+
+/** (Re)start the banner — called on every levelUp event. */
+export function showBanner(banner: Banner): void {
+  banner.active = true;
+  banner.ageMs = 0;
+}
+
+/** Age the banner; it deactivates after BANNER_MS. */
+export function tickBanner(banner: Banner, dtMs: number): void {
+  if (!banner.active) {
+    return;
+  }
+  banner.ageMs += dtMs;
+  if (banner.ageMs >= BANNER_MS) {
+    banner.active = false;
+  }
+}
+
+/** Draw the flashing centered banner while it is active. */
+export function drawBanner(ctx: SpriteCanvas, banner: Banner, viewW: number): void {
+  if (!banner.active) {
+    return;
+  }
+  const flashPhase = Math.floor(banner.ageMs / BANNER_FLASH_MS) % 2;
+  const color = flashPhase === 0 ? COLORS.yellow : COLORS.white;
+  const x = Math.round((viewW - textWidth(LEVEL_UP_TEXT) * BANNER_SCALE) / 2);
+  drawScaledText(ctx, LEVEL_UP_TEXT, x, BANNER_Y, BANNER_SCALE, color);
 }

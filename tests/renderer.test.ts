@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest';
 import {
   createEngine,
   HERO_ATTACK_MS,
+  MONSTER_DYING_MS,
   MONSTER_HIT_MS,
   MONSTER_SPAWNING_MS,
   monsterForIndex,
@@ -31,8 +32,14 @@ import {
 } from '../src/renderer/game.js';
 import type { GameCanvas } from '../src/renderer/game.js';
 import {
+  BANNER_FLASH_MS,
+  BANNER_MS,
+  BANNER_SCALE,
+  BANNER_Y,
+  createBanner,
   createFloatPool,
   CRIT_FLOAT_SCALE,
+  drawBanner,
   drawCounters,
   drawFloats,
   drawHpBar,
@@ -41,9 +48,12 @@ import {
   FLOAT_FADE_RATIO,
   FLOAT_LIFE_MS,
   FLOAT_POOL_SIZE,
+  showBanner,
   spawnFloat,
+  tickBanner,
   tickFloats,
 } from '../src/renderer/hud.js';
+import { DROP_ARC_MS, DROP_FLY_MS, SPARKLE_COUNT } from '../src/renderer/anim.js';
 import { COLORS, heroIdle } from '../src/renderer/sprites/index.js';
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
@@ -177,6 +187,63 @@ describe('drawCounters (top-right kills + coins)', () => {
     const { ctx, calls } = makeCtx();
     drawCounters(ctx, stateFixture({ coins: 7 }), VIEW_W);
     expect(calls.some((c) => c.fillStyle === COLORS.yellow)).toBe(true);
+  });
+
+  it('pops the coin row on collection: the count flashes white (T15)', () => {
+    // The coin-count glyphs live at y >= 9 (second HUD row); the only white
+    // pixels up there appear while the pop flash is on.
+    const countFlash = (calls: RectCall[]): RectCall[] =>
+      calls.filter((c) => c.w === 1 && c.h === 1 && c.y >= 9 && c.fillStyle === COLORS.white);
+
+    const normal = makeCtx();
+    drawCounters(normal.ctx, stateFixture({ coins: 7 }), VIEW_W);
+    expect(countFlash(normal.calls)).toEqual([]);
+
+    const popped = makeCtx();
+    drawCounters(popped.ctx, stateFixture({ coins: 7 }), VIEW_W, true);
+    expect(countFlash(popped.calls).length).toBeGreaterThan(0);
+  });
+});
+
+describe('LEVEL UP! banner (T15)', () => {
+  it('draws nothing until shown and nothing after it expires', () => {
+    const banner = createBanner();
+    const before = makeCtx();
+    drawBanner(before.ctx, banner, VIEW_W);
+    expect(before.calls).toEqual([]);
+
+    showBanner(banner);
+    tickBanner(banner, BANNER_MS);
+    expect(banner.active).toBe(false);
+    const after = makeCtx();
+    drawBanner(after.ctx, banner, VIEW_W);
+    expect(after.calls).toEqual([]);
+  });
+
+  it('draws a centered double-size banner that flashes yellow/white', () => {
+    const banner = createBanner();
+    showBanner(banner);
+
+    const fresh = makeCtx();
+    drawBanner(fresh.ctx, banner, VIEW_W);
+    expect(fresh.calls.length).toBeGreaterThan(0);
+    for (const c of fresh.calls) {
+      expect(c.w).toBe(BANNER_SCALE);
+      expect(c.h).toBe(BANNER_SCALE);
+      expect(c.y).toBeGreaterThanOrEqual(BANNER_Y);
+      expect(c.y).toBeLessThan(BANNER_Y + 5 * BANNER_SCALE);
+      expect(c.fillStyle).toBe(COLORS.yellow);
+    }
+    // Horizontally centered: the text block sits well inside both edges.
+    const xs = fresh.calls.map((c) => c.x);
+    expect(Math.min(...xs)).toBeGreaterThan(30);
+    expect(Math.max(...xs)).toBeLessThan(VIEW_W - 30);
+
+    tickBanner(banner, BANNER_FLASH_MS); // next flash phase
+    const flashed = makeCtx();
+    drawBanner(flashed.ctx, banner, VIEW_W);
+    expect(flashed.calls.length).toBeGreaterThan(0);
+    expect(flashed.calls.every((c) => c.fillStyle === COLORS.white)).toBe(true);
   });
 });
 
@@ -449,7 +516,7 @@ describe('combat presentation (core FSMs, T14)', () => {
     expect(monsterPixels(after.calls).some((c) => c.fillStyle !== COLORS.white)).toBe(true);
   });
 
-  it('a killing blow leaves the next monster spawning', () => {
+  it('a killing blow plays the 500ms dying scatter, then spawns the next monster', () => {
     const save: SaveFileV1 = {
       version: 1,
       level: 1,
@@ -463,10 +530,168 @@ describe('combat presentation (core FSMs, T14)', () => {
     const game = createGame(createEngine(save, mulberry32(7)));
     const events = game.attack('keyboard');
     expect(events.some((e) => e.type === 'monsterKilled')).toBe(true);
+    expect(game.getMonsterAnim()).toEqual({ state: 'dying', t: 0 });
+
+    game.update(MONSTER_DYING_MS);
     expect(game.getMonsterAnim()).toEqual({ state: 'spawning', t: 0 });
 
     game.update(MONSTER_SPAWNING_MS);
     expect(game.getMonsterAnim().state).toBe('idle');
+  });
+});
+
+describe('kill/loot/spawn/level-up presentation (T15)', () => {
+  const killSave: SaveFileV1 = {
+    version: 1,
+    level: 1,
+    xp: 0,
+    killCount: 0,
+    coins: 0,
+    items: {},
+    monsterIndex: 0,
+    monsterHp: 1,
+  };
+
+  // 1px pixels inside the monster art box, excluding item-drop colors (the
+  // coin launches from the monster and is yellow/orange — never in slime art).
+  const monsterBox = (calls: RectCall[]): string[] =>
+    calls
+      .filter(
+        (c) =>
+          c.w === 1 &&
+          c.x >= MONSTER_X &&
+          c.x < MONSTER_X + 12 &&
+          c.y >= GROUND_Y - 12 &&
+          c.y < GROUND_Y &&
+          c.fillStyle !== COLORS.yellow &&
+          c.fillStyle !== COLORS.orange,
+      )
+      .map((c) => `${String(c.x)},${String(c.y)},${c.fillStyle}`);
+
+  it('the dying monster scatters into its own pixels, which then move', () => {
+    // Reference: the same monster drawn alive (idle frame 0, untinted tier 0).
+    const alive = createGame(createEngine(killSave, mulberry32(7)));
+    const aliveDraw = makeCtx();
+    alive.draw(aliveDraw.ctx);
+    const spritePixels = new Set(monsterBox(aliveDraw.calls));
+    expect(spritePixels.size).toBeGreaterThan(0);
+
+    const game = createGame(createEngine(killSave, mulberry32(7)));
+    game.attack('keyboard');
+    expect(game.getMonsterAnim().state).toBe('dying');
+
+    // At the moment of death the scatter IS the sprite: same pixels/colors.
+    const at0 = makeCtx();
+    game.draw(at0.ctx);
+    expect(new Set(monsterBox(at0.calls))).toEqual(spritePixels);
+    // The HP bar hides while the scatter plays.
+    expect(
+      at0.calls.some((c) => c.y === HP_BAR.y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
+    ).toBe(false);
+
+    // Under gravity the pixels leave their sprite positions.
+    game.update(200);
+    const at200 = makeCtx();
+    game.draw(at200.ctx);
+    expect(new Set(monsterBox(at200.calls))).not.toEqual(spritePixels);
+
+    // Once dying ends the HP bar pops back with the next monster.
+    game.update(MONSTER_DYING_MS - 200);
+    const spawn = makeCtx();
+    game.draw(spawn.ctx);
+    expect(
+      spawn.calls.some((c) => c.y === HP_BAR.y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
+    ).toBe(true);
+  });
+
+  it('the item drop arcs through the gap, then flies off to the coin counter', () => {
+    const game = createGame(createEngine(killSave, mulberry32(7)));
+    const events = game.attack('keyboard');
+    expect(events.some((e) => e.type === 'itemDropped')).toBe(true);
+
+    // Coin pixels (orange core) in the gap between hero and monster, near
+    // the ground — a region nothing else paints in orange 1px cells.
+    const corridor = (calls: RectCall[]): RectCall[] =>
+      calls.filter(
+        (c) =>
+          c.w === 1 &&
+          c.fillStyle === COLORS.orange &&
+          c.x >= 90 &&
+          c.x < MONSTER_X &&
+          c.y >= 70,
+      );
+
+    game.update(DROP_ARC_MS / 2); // mid-arc
+    const mid = makeCtx();
+    game.draw(mid.ctx);
+    expect(corridor(mid.calls).length).toBeGreaterThan(0);
+
+    game.update(DROP_ARC_MS / 2 + DROP_FLY_MS); // full flight elapsed
+    const done = makeCtx();
+    game.draw(done.ctx);
+    expect(corridor(done.calls)).toEqual([]);
+    // Arrival pops the counter: the coin count flashes white this frame.
+    expect(
+      done.calls.some(
+        (c) => c.w === 1 && c.y >= 9 && c.y < 14 && c.x > 130 && c.fillStyle === COLORS.white,
+      ),
+    ).toBe(true);
+  });
+
+  it('the next monster pops in bottom-up during spawning', () => {
+    const game = createGame(createEngine(killSave, mulberry32(7)));
+    game.attack('keyboard');
+    game.update(MONSTER_DYING_MS);
+    expect(game.getMonsterAnim()).toEqual({ state: 'spawning', t: 0 });
+
+    game.update(90); // early spawn: only the bottom rows are revealed
+    const early = makeCtx();
+    game.draw(early.ctx);
+    const earlyPixels = early.calls.filter(
+      (c) => c.w === 1 && c.x >= MONSTER_X && c.x < MONSTER_X + 12 && c.y < GROUND_Y,
+    );
+    expect(earlyPixels.length).toBeGreaterThan(0);
+    const earlyTop = Math.min(...earlyPixels.map((c) => c.y));
+
+    game.update(60); // later: the reveal has grown upward
+    const later = makeCtx();
+    game.draw(later.ctx);
+    const laterPixels = later.calls.filter(
+      (c) => c.w === 1 && c.x >= MONSTER_X && c.x < MONSTER_X + 12 && c.y < GROUND_Y,
+    );
+    const laterTop = Math.min(...laterPixels.map((c) => c.y));
+    expect(laterTop).toBeLessThan(earlyTop);
+  });
+
+  it('a level-up shows the flashing banner and hero sparkles', () => {
+    const save: SaveFileV1 = { ...killSave, xp: 19 }; // +5 xp on kill → level 2
+    const game = createGame(createEngine(save, mulberry32(7)));
+    const events = game.attack('keyboard');
+    expect(events.some((e) => e.type === 'levelUp')).toBe(true);
+
+    const bannerPixels = (calls: RectCall[]): RectCall[] =>
+      calls.filter(
+        (c) =>
+          c.w === BANNER_SCALE &&
+          c.h === BANNER_SCALE &&
+          c.y >= BANNER_Y &&
+          c.y < BANNER_Y + 5 * BANNER_SCALE,
+      );
+
+    const during = makeCtx();
+    game.draw(during.ctx);
+    expect(bannerPixels(during.calls).length).toBeGreaterThan(0);
+
+    // The sparkle ring bursts from the hero's center (all 12 start there).
+    const heroCenter = during.calls.filter(
+      (c) => c.w === 1 && c.x === HERO_X + 7 && c.y === GROUND_Y - 12 + 4,
+    );
+    expect(heroCenter.length).toBeGreaterThanOrEqual(SPARKLE_COUNT);
+
+    game.update(BANNER_MS); // banner lifetime over
+    const after = makeCtx();
+    game.draw(after.ctx);
+    expect(bannerPixels(after.calls)).toEqual([]);
   });
 });
 
