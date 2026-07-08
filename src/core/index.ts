@@ -22,3 +22,15 @@ export {
 
 export { monsterForIndex, SPECIES_IDS } from './monsters.js';
 export type { SpeciesId } from './monsters.js';
+
+export { mulberry32 } from './rng.js';
+export type { Rng } from './rng.js';
+
+export {
+  COIN_ITEM,
+  coinsForIndex,
+  rollLoot,
+  TRINKET_CHANCE,
+  TRINKET_TABLE,
+} from './loot.js';
+export type { WeightedTrinket } from './loot.js';
