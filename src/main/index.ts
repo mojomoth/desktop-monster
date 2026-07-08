@@ -1,7 +1,8 @@
-// Main-process entry: accessory-app lifecycle (SPEC F16) + overlay window.
-// IPC lands in T03; guarded global input in T04.
+// Main-process entry: accessory-app lifecycle (SPEC F16) + overlay window
+// + IPC handlers (T03). Guarded global input lands in T04.
 
 import { app } from 'electron';
+import { registerIpcHandlers } from './ipc.js';
 import { createOverlayWindow } from './window.js';
 
 const isSmoke = Boolean(process.env.SMOKE);
@@ -23,6 +24,8 @@ if (!app.requestSingleInstanceLock()) {
 
   void app.whenReady().then(() => {
     app.dock?.hide(); // BEFORE window creation: accessory app, no dock icon
+
+    registerIpcHandlers(); // BEFORE the window loads, so early invokes resolve
 
     const win = createOverlayWindow();
 
