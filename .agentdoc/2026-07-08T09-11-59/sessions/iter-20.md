@@ -4,7 +4,7 @@
 - harness version: v1
 - task: T20 — SPEC criteria sweep (F01–F27)
 - result: DONE
-- commit: (task commit — sha patched in the follow-up docs commit)
+- commit: fc69ecb
 
 ## What I did
 
