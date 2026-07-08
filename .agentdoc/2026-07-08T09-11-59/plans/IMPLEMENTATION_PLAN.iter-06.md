@@ -1,0 +1,146 @@
+# IMPLEMENTATION_PLAN — Desktop Monster
+<!-- plan-format: v1
+     RULES: single writer (the active builder only); the orchestrator only snapshots.
+     Never renumber, reorder, or delete task IDs.
+     Status chars: [ ]=TODO [~]=IN_PROGRESS [x]=DONE [!]=BLOCKED [s]=SPLIT.
+     Split: flip parent to [s], append children T<NN>a.. directly below it.
+     Iteration Log is append-only. Converged == no [ ] [~] [!] headings remain. -->
+
+## Tasks
+
+### [x] T01 — Scaffold frozen command contract, empty-but-green
+- AC: `npm ci && npm test && npm run lint && npm run typecheck && npm run build && test -f dist/electron/main/index.js && test -f dist/web/renderer/index.js && node -e "const p=require('./package.json');const d={...p.dependencies,...p.devDependencies};process.exit(d.electron==='39.8.10'&&d['uiohook-napi']==='1.5.5'&&d.vite==='6.4.3'?0:1)" && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: none
+- Files: package.json, package-lock.json, tsconfig.base.json, tsconfig.main.json, tsconfig.renderer.json, tsconfig.test.json, eslint.config.mjs, vitest.config.ts, static/index.html, static/style.css, src/main/index.ts, src/preload/index.ts, src/renderer/index.ts, src/core/index.ts, tests/scaffold.test.ts
+- Notes: SPEC F01/F02/F03. Exceeds the 5-file cap by design — the ordering rule mandates T01 make EVERY AGENTS.md §Commands script exist with gates green; every file is a tiny stub. Copy package.json VERBATIM from GAME_ARCHITECTURE §5 (exact pins, no `^`, no `"type":"module"`, build config, scripts). Run `npm install` once and COMMIT package-lock.json (then `npm ci` works). tsconfigs per §5 notes (main=node16/CJS→dist/electron incl. src/{main,preload,core,shared}; renderer=es2022/bundler→dist/web; test=noEmit). All relative imports use explicit `.js` extension. Stub main: plain BrowserWindow, loadFile static/index.html; SMOKE=1 → print SMOKE_OK after did-finish-load then app.exit(0), 20s watchdog app.exit(1). Stub renderer paints one pixel on the canvas. static/index.html: 24-px drag strip div + canvas 160×110 (CSS 320×220, pixelated) + `<script type="module" src="../dist/web/renderer/index.js">`. tests/scaffold.test.ts imports the core barrel and asserts it is an object (durable — never delete tests). eslint flat config per §5 (ignores dist/release/node_modules in the first config object; no .eslintignore). Do NOT set engine-strict (host Node 20.12.2 only warns).
+- Notes (iter 01): DONE first try — package.json copied verbatim from §5, four tsconfigs + eslint flat config + vitest config as planned; npm install produced package-lock.json (committed); full AC line incl. `npm ci` and smoke exited 0 (SMOKE_OK, headful, no interaction). No dead ends. Non-obvious detail for later tasks: vitest/vite resolves the `.js`-extension relative imports in tests to `.ts` sources natively; engine-mismatch npm WARNs (Node 20.12.2) are expected and harmless.
+
+### [x] T02 — Transparent always-on-top overlay window + accessory lifecycle
+- AC: `grep -q "screen-saver" src/main/window.ts && grep -q "visibleOnFullScreen: true" src/main/window.ts && grep -q "backgroundThrottling: false" src/main/window.ts && grep -q "transparent: true" src/main/window.ts && grep -q "hasShadow: false" src/main/window.ts && grep -q "contextIsolation: true" src/main/window.ts && grep -q "nodeIntegration: false" src/main/window.ts && grep -q "sandbox: true" src/main/window.ts && grep -q requestSingleInstanceLock src/main/index.ts && grep -q "app.setName" src/main/index.ts && grep -q dock src/main/index.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T01
+- Files: src/main/window.ts, src/main/index.ts, static/index.html, static/style.css
+- Notes: SPEC F15/F16, risky-tech task pulled early. Copy the exact BrowserWindow options block from GAME_ARCHITECTURE §3.1 — the AC greps match literal spellings (keep `backgroundThrottling: false` etc. exactly as written). Order matters: `app.setName('DesMon')` → `app.dock?.hide()` BEFORE window creation → `setVisibleOnAllWorkspaces(true,{visibleOnFullScreen: true, skipTransformProcessType: true})` AFTER `setAlwaysOnTop(true,'screen-saver')`. Also: frame:false, resizable:false, roundedCorners:false, skipTaskbar:true, acceptFirstMouse:true, show:false + ready-to-show. Single instance: quit second instance. CSS: html/body transparent, only the 24-px top strip `-webkit-app-region: drag`, everything else no-drag (drag regions swallow mousedown — fallback input needs clicks).
+- Notes (iter 02): DONE first try — new src/main/window.ts holds the verbatim §3.1 options + level/workspace calls; index.ts rewritten around setName → single-instance gate → whenReady → dock?.hide() → createOverlayWindow(); style.css got body-wide no-drag. tests/window.test.ts asserts the F15/F16 literals AND call ordering; heads-up for later tasks touching window.ts/index.ts: its ordering checks match `win.setAlwaysOnTop`/`win.setVisibleOnAllWorkspaces` (win.-prefixed — bare names in comments broke the first run) and `app.dock?.hide()` must stay before `createOverlayWindow()`. Full AC line incl. headful smoke exited 0.
+
+### [x] T03 — Shared IPC constants, preload bridge, persistence handlers
+- AC: `grep -q contextBridge src/preload/index.ts && grep -q "desmon:first-frame" src/shared/ipc.ts && grep -q "save.json" src/main/persistence.ts && grep -q rename src/main/persistence.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T02
+- Files: src/shared/ipc.ts, src/preload/index.ts, src/main/ipc.ts, src/main/persistence.ts, src/main/index.ts
+- Notes: SPEC F17 + main half of F22. shared/ipc.ts: channel constants + payload types for the §3.2 table PLUS `FIRST_FRAME = 'desmon:first-frame'` (renderer→main send; drives smoke in T13). Preload (CJS, sandboxed): value-import ONLY `electron` — sandboxed preloads cannot require relative modules; inline channel string literals, use type-only imports from shared (erased at emit). Expose `window.desmon`: onInput, onInputMode, onReset, getInputMode, loadState, saveState, openAccessibilitySettings, reportFirstFrame (each on* returns an unsubscribe fn). main/ipc.ts: handle get-input-mode (stub `{mode:'fallback',accessibilityGranted:false}` until T04), load-state (raw parsed JSON or null — parsing/validation is core's job, arrives T08), save-state (atomic: write tmp file then fs.rename), open-accessibility-settings (shell.openExternal x-apple.systempreferences deep link). persistence.ts: read/write `app.getPath('userData')/save.json`, never throw (return null on any error).
+- Notes (iter 03): DONE first try — all four modules per §3.2/§3.3; gates + full AC (greps + headful smoke with the live bridge) exited 0. Design choices later tasks rely on: (1) persistence.ts is electron-free — the userData dir is a PARAMETER (`readSaveFile(dir)`/`writeSaveFile(dir, data)`, ipc.ts injects `app.getPath('userData')`), enabling real fs round-trip tests (tests/persistence.test.ts); keep it that way in T16. (2) `registerIpcHandlers(options)` takes `{onFirstFrame?}` — T13's SMOKE path should pass its callback there (`ipcMain.on(IPC.FIRST_FRAME)` is already wired). (3) Save payloads are typed `SaveStatePayload = unknown` until T08 tightens to SaveFileV1; preload exports `DesmonApi` for T13's global.d.ts. (4) tests/ipc.test.ts pins preload's inlined channel literals against shared IPC constants and that preload's only value import is 'electron' — new channels must be added in BOTH files, type-only imports elsewhere in preload.
+
+### [x] T04 — Guarded global input hook (uiohook, production only)
+- AC: `grep -q isTrustedAccessibilityClient src/main/globalInput.ts && grep -q will-quit src/main/index.ts && ! grep -rq uiohook-napi src/core src/shared src/renderer && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T03
+- Files: src/main/globalInput.ts, src/main/index.ts
+- Notes: SPEC F13, risky-tech task pulled early. Follow GAME_ARCHITECTURE §3.6 verbatim: call `systemPreferences.isTrustedAccessibilityClient(true)` exactly ONCE at startup (NEVER call with false first — electron#28395 suppresses the prompt); only if trusted, lazy `require('uiohook-napi')` inside try/catch (broken native module must never crash startup; inline-disable @typescript-eslint/no-require-imports) and uIOhook.start(); keydown/mousedown → forward `{source}` over `desmon:input` + mode over `desmon:input-mode`; if untrusted → fallback mode event + poll isTrustedAccessibilityClient(false) every 5s until granted; `uIOhook.stop()` on will-quit. SMOKE=1 must bypass globalInput ENTIRELY (no permission prompt during smoke). Calling start() without the Accessibility grant crashes the process (uiohook issue #24) — the guard is not optional.
+- Notes (iter 04): DONE first try — globalInput.ts is ELECTRON-FREE (persistence.ts pattern): isTrustedAccessibilityClient/loadHook/timers all injected, index.ts wires the live deps inside `if (!isSmoke)` + will-quit stop; 19 behavioral tests in tests/globalInput.test.ts. Also replaced ipc.ts's get-input-mode stub with `getCurrentInputMode()` from globalInput (T03 notes marked it "until T04") and updated that one ipc.test.ts pin. CAUTION for T09/T13/T14: tests/globalInput.test.ts deliberately never contains the string "uiohook" (T09's case-insensitive grep over tests/); the hook-facing interface is exported as `NativeHook`; mode-change events fired before window load are lost — renderer must seed from getInputMode() (now live, no longer a stub).
+
+### [x] T05 — Core types, progression formulas, monster catalog
+- AC: `npx vitest run tests/formulas.test.ts && grep -q "monsterMaxHp is exactly 10/20/40/163 at index 0/5/10/20" tests/formulas.test.ts && grep -q "xpToNext is exactly 20/28/39/54 at level 1/2/3/4" tests/formulas.test.ts && grep -q "formula outputs are positive integers and strictly increasing" tests/formulas.test.ts && grep -q "monsterForIndex cycles 5 species in order and tier increments every 5 monsters" tests/formulas.test.ts` → exit 0
+- Deps: T01
+- Files: src/core/types.ts, src/core/formulas.ts, src/core/monsters.ts, src/core/index.ts, tests/formulas.test.ts
+- Notes: SPEC F04/F05, Assumption 3 formulas FROZEN: damageForLevel(l)=l; CRIT_CHANCE=0.1, CRIT_MULT=2; monsterMaxHp(i)=Math.floor(10*1.15^i); xpReward(i)=5+3i; xpToNext(l)=Math.floor(20*1.4^(l-1)). Types per GAME_ARCHITECTURE §2 (MonsterDef, ItemDef/ItemDrop, GameState, GameEvent, InputSource). Species order fixed: slime, bat, ghost, golem, dragon; tier=Math.floor(i/5); maxHp from monsterMaxHp(i). Core imports NOTHING from electron/DOM/node. Test titles must match the AC greps verbatim.
+- Notes (iter 05): DONE first try — types.ts/formulas.ts/monsters.ts + barrel re-exports, 10 tests in tests/formulas.test.ts (AC titles verbatim); gates + AC exited 0. Decisions later tasks rely on: (1) display name Lv number is tier+1 ("Slime Lv.3" = the 3rd slime, index 10) — pinned by a test; (2) monsterForIndex clamps non-integer/negative indices via Math.max(0, Math.floor(i)) — total function, pinned by a test; (3) SPECIES_IDS is exported `as const` (plus SpeciesId type) — T12's monsters.ts art and T06/T07 should key off it, not re-declare the list; (4) core also re-exports InputSource — preload/shared keep their own copy (shared/ipc.ts must stay import-free from core per its tests).
+
+### [x] T06 — Deterministic RNG + loot tables
+- AC: `npx vitest run tests/loot.test.ts && grep -q "every kill drops exactly 1 + floor(index/3) coins" tests/loot.test.ts && grep -q "trinket drop rate over 10000 seeded kills is within 23 to 27 percent" tests/loot.test.ts` → exit 0
+- Deps: T05
+- Files: src/core/rng.ts, src/core/loot.ts, src/core/index.ts, tests/loot.test.ts
+- Notes: SPEC F09 + rng half of F06. rng.ts: `Rng` interface (`next(): number` in [0,1)) + `mulberry32(seed)`. loot.ts: `rollLoot(rng, monsterIndex)` — always `1+Math.floor(index/3)` coins; 25% chance of exactly one weighted trinket from {sword_shard:5, slime_gel:4, bone:3, gem:2, crown:1}. Statistical test: fixed seed, 10000 trials, band 23–27% (Assumption 15).
+- Notes (iter 06): DONE first try — rng.ts (Rng + mulberry32) and loot.ts (COIN_ITEM, TRINKET_CHANCE=0.25, TRINKET_TABLE frozen 5/4/3/2/1 order, coinsForIndex, rollLoot) + barrel re-exports; 11 tests in tests/loot.test.ts (both AC titles verbatim + weight-band/boundary/determinism pins); gates + AC exited 0. Facts T07 relies on: (1) rollLoot returns the coin drop FIRST (`drops[0]` is always the coin, trinket if any is `drops[1]`, amount always 1) — pinned by tests; (2) rng draw order is trinket-chance first, weighted-pick second, and only 1 draw is consumed when no trinket drops — engine crit rolls must NOT reuse the same Rng draw; (3) trinket chance boundary is exclusive (`rng.next() < 0.25`); (4) monsterIndex is clamped via Math.max(0, Math.floor(i)) like monsterForIndex; (5) import Rng/mulberry32/rollLoot from the core barrel.
+
+### [ ] T07 — Attack engine: event sequences, crits, XP/level-up
+- AC: `npx vitest run tests/engine.test.ts && grep -q "same seed yields an identical event log" tests/engine.test.ts && grep -q "crit rate over 10000 seeded attacks is within 8 to 12 percent" tests/engine.test.ts && grep -q "non-killing attack emits attack then monsterHit" tests/engine.test.ts && grep -q "killing blow emits attack, monsterHit, monsterKilled, itemDropped, monsterSpawned in order" tests/engine.test.ts && grep -q "next monster spawns with index+1 and higher maxHp" tests/engine.test.ts && grep -q "hero reaches level 2 at exactly 20 cumulative xp and damage becomes 2" tests/engine.test.ts` → exit 0
+- Deps: T06
+- Files: src/core/engine.ts, src/core/index.ts, tests/engine.test.ts
+- Notes: SPEC F06/F07/F08. `createEngine(save?, rng?)` → attack(source)/getState()/toSave(); rng defaults to mulberry32 but tests ALWAYS inject seeds. Event order on kill: attack, monsterHit, monsterKilled, itemDropped[, levelUp], monsterSpawned. XP carries over (subtract threshold); damage becomes damageForLevel(newLevel) immediately. Damage applied at input time (Assumption 8) — no timing/animation state here. toSave() may return a plain shape until T08 introduces SaveFileV1 (then align). If engine + tests overrun ~300 LOC, split ([s] + children) rather than rushing.
+
+### [ ] T08 — Save schema, tolerant parsing, engine resume
+- AC: `npx vitest run tests/save.test.ts tests/engine.test.ts && grep -q "serialize then parse round-trips losslessly" tests/save.test.ts && grep -q "junk, missing and wrong-typed fields yield DEFAULT_SAVE values" tests/save.test.ts && grep -q "createEngine(save) resumes monsterIndex and monsterHp exactly" tests/engine.test.ts` → exit 0
+- Deps: T07
+- Files: src/core/save.ts, src/core/engine.ts, src/core/index.ts, tests/save.test.ts, tests/engine.test.ts
+- Notes: SPEC F10/F11, Assumption 7. `SaveFileV1 {version:1, level, xp, killCount, coins, items, monsterIndex, monsterHp}`; `serializeSave` stable JSON; `parseSave(raw: unknown)` NEVER throws — junk/missing/wrong-typed fields fall back per-field to DEFAULT_SAVE values (cover `'{"level":"x"}'`-style cases). createEngine(save) resumes monsterIndex/monsterHp exactly (clamp hp to [1, maxHp]). The app must never fail to boot because of a bad save.
+
+### [ ] T09 — InputDriver abstraction + fallback gate (pure core)
+- AC: `npx vitest run tests/input.test.ts && ! grep -rqi uiohook tests src/core && grep -q "SimulatedInputDriver delivers keyboard and mouse events to subscribers" tests/input.test.ts && grep -q "fallback gate attaches listeners in fallback mode and detaches them when global mode activates" tests/input.test.ts` → exit 0
+- Deps: T05
+- Files: src/core/input.ts, src/core/index.ts, tests/input.test.ts
+- Notes: SPEC F12 + pure half of F14. `InputDriver` interface: start(), stop(), subscribe(cb)→unsubscribe, emitting `{source:'keyboard'|'mouse'}`. `SimulatedInputDriver` with programmatic `emit(source)` — used by ALL tests and by smoke (T13 wires it into main). Fallback gate: pure function taking injected attach/detach callbacks + mode transitions; attaches in fallback mode, detaches when global activates (prevents double counting). CAUTION: the AC greps case-insensitively for "uiohook" across tests/ and src/core — do not even mention it in comments there.
+
+### [ ] T10 — Animation state machines (pure FSMs)
+- AC: `npx vitest run tests/fsm.test.ts && grep -q "hero attack lasts 180ms then returns to idle" tests/fsm.test.ts && grep -q "input during attack restarts the attack" tests/fsm.test.ts && grep -q "monster dying lasts 500ms then transitions to spawning" tests/fsm.test.ts` → exit 0
+- Deps: T05
+- Files: src/core/fsm.ts, src/core/index.ts, tests/fsm.test.ts
+- Notes: SPEC F20, Assumption 9. Pure `{state, t}` machines advanced by injected dt (no Date.now, no timers): hero IDLE→ATTACK(180ms, re-input restarts)→IDLE; monster SPAWNING(300ms)→IDLE→HIT(120ms)→IDLE, hp≤0→DYING(500ms)→SPAWNING. Presentation-only — never gates engine logic. Renderer consumes these in T14/T15.
+
+### [ ] T11 — Sprite system, hero art, integrity tests
+- AC: `npx vitest run tests/sprites.test.ts && grep -q "every frame is rectangular with the declared width and height" tests/sprites.test.ts && grep -q "every non-transparent char exists in the palette" tests/sprites.test.ts` → exit 0
+- Deps: T01
+- Files: src/renderer/sprites/sprite.ts, src/renderer/sprites/palette.ts, src/renderer/sprites/hero.ts, tests/sprites.test.ts
+- Notes: SPEC F19 (part 1). Sprite = {w, h, palette, frames: string[][]}, '.'=transparent; `drawSprite(ctx, sprite, frame, x, y, {flipX, tint})` per GAME_ARCHITECTURE §4. palette.ts: DB16-style named hex colors + HSL tier-tint helper. Hero knight: idle×2, attack×3, slash-arc overlay. sprites.test.ts iterates over an exported registry of ALL sprites (so T12's additions are auto-covered): every frame has exactly h rows of length w; every non-'.' char in palette. sprite.ts must compile under tsconfig.test (node) — keep the Sprite type and data separate from any DOM-typed draw code, or use type-only DOM refs. NO binary assets ever.
+
+### [ ] T12 — Monster/species art, item sprites, pixel digit font
+- AC: `npx vitest run tests/sprites.test.ts && test -z "$(find src static tests -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.gif' -o -iname '*.bmp' -o -iname '*.ico' -o -iname '*.icns' -o -iname '*.svg' -o -iname '*.wav' -o -iname '*.mp3' -o -iname '*.ogg' \))" && grep -q golem src/renderer/sprites/monsters.ts && grep -q dragon src/renderer/sprites/monsters.ts` → exit 0
+- Deps: T11
+- Files: src/renderer/sprites/monsters.ts, src/renderer/sprites/items.ts, src/renderer/sprites/font.ts, src/renderer/sprites/index.ts, tests/sprites.test.ts
+- Notes: SPEC F19 (part 2), Assumption 4. 5 species (slime, bat, ghost, golem, dragon) × (idle×2 + hit) frames; items.ts: coin + 5 trinket sprites; font.ts: 3×5 glyphs (digits + letters needed for "LV", "LEVEL UP!"). Register every new sprite in the registry so T11's integrity tests cover them (extend test imports if needed). This is mostly string-matrix data — keep each sprite small (≈12×10).
+
+### [ ] T13 — Renderer boot: canvas scene, HUD, first-frame IPC, full smoke
+- AC: `grep -q reportFirstFrame src/renderer/index.ts && grep -q SimulatedInputDriver src/main/index.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T03, T08, T09, T12
+- Files: src/renderer/index.ts, src/renderer/game.ts, src/renderer/hud.ts, src/renderer/global.d.ts, src/main/index.ts
+- Notes: SPEC F21 + F18, Assumption 11. Renderer boot: loadState → parseSave → createEngine → subscribe window.desmon.onInput → engine.attack → rAF loop (dt clamp 100ms, imageSmoothingEnabled=false) draws the FULL scene each frame: field strip, hero left, monster right, boxed HP bar above monster, top-left `LV n`+XP bar, top-right kill/coin counters; after the first painted frame call reportFirstFrame() once. global.d.ts declares window.desmon. Main SMOKE=1 path upgrade: never touch globalInput; drive a `SimulatedInputDriver` (core, CJS build) firing ≥3 synthetic attacks over `desmon:input` after load; print SMOKE_OK + app.exit(0) only AFTER the first-frame IPC arrives; keep the 20s watchdog app.exit(1). Floating damage numbers may be minimal here — polish lands in T14/T15.
+
+### [ ] T14 — Fallback input wiring + combat presentation
+- AC: `grep -q onInputMode src/renderer/input.ts && grep -q mousedown src/renderer/input.ts && grep -q fsm src/renderer/game.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T04, T09, T10, T13
+- Files: src/renderer/input.ts, src/renderer/game.ts, src/renderer/hud.ts, src/renderer/anim.ts
+- Notes: SPEC F14 (renderer half) + Manual M2 visuals. renderer/input.ts: getInputMode + onInputMode drive the T09 fallback gate with real attach/detach of window keydown/mousedown listeners (ignore events on the drag strip; detach on global mode — no double counting). game.ts consumes core FSMs (T10) for hero ATTACK (3 frames/180ms, restart on spam) and monster HIT white-flash (120ms, palette swap/tint). hud.ts: pooled floating damage numbers (3×5 font, rise 8px/fade 600ms; crits larger+yellow; pool — no unbounded arrays under key-mash). anim.ts: easing helpers + particle pool (cap ~200).
+
+### [ ] T15 — Kill/loot/spawn/level-up presentation
+- AC: `grep -q "LEVEL UP" src/renderer/hud.ts && grep -qi particle src/renderer/anim.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T14
+- Files: src/renderer/game.ts, src/renderer/anim.ts, src/renderer/hud.ts
+- Notes: Manual M3 visuals; all driven by engine events (presentation only). DYING: decompose the monster sprite into its own pixels as gravity-scatter particles (500ms) → next monster SPAWNING pop-in (300ms) with tier tint every 5th. itemDropped: parabolic arc + bounce (600ms) → fly to HUD counter (300ms) → counter pop + sparkle. levelUp: "LEVEL UP!" banner + hero sparkles; LV/XP bar updates. Keep everything pooled/capped.
+
+### [ ] T16 — Persistence wiring (load/save/reset round-trip)
+- AC: `grep -q "save.json" src/main/persistence.ts && grep -q rename src/main/persistence.ts && npx vitest run tests/save.test.ts && grep -q saveState src/renderer/index.ts && grep -q blur src/renderer/index.ts && grep -q onReset src/renderer/index.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T13
+- Files: src/renderer/index.ts, src/renderer/game.ts
+- Notes: SPEC F22 (renderer half; main half landed in T03). Save via window.desmon.saveState(engine.toSave()): on every monsterKilled and levelUp event, debounced 500ms after damage, and on window blur. window.desmon.onReset → replace engine with createEngine() defaults + immediate save (tray menu item arrives in T17; the handler must already work). Restart round-trip itself is Manual M5.
+
+### [ ] T17 — Tray icon + menu
+- AC: `grep -q "Reset Progress" src/main/tray.ts && grep -q Quit src/main/tray.ts && grep -q deflateSync src/main/trayIcon.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T04, T16
+- Files: src/main/trayIcon.ts, src/main/tray.ts, src/main/index.ts
+- Notes: SPEC F23, Assumption 16. trayIcon.ts: 16×16 pixel matrix → minimal pure-code PNG encoder (PNG chunks + node:zlib deflateSync + CRC32 table) → nativeImage.createFromBuffer — NO asset file. Menu: `DesMon v0.1.0` (disabled) / input-mode status: `Input: Global` or `Input: Window-only (grant Accessibility…)` (click → open-accessibility-settings deep link) / separator / `Reset Progress` (send desmon:reset) / `Quit` (app.quit). Rebuild menu on every input-mode change (subscribe to T04's mode events). Keep a module-scope Tray reference (GC kills the icon otherwise).
+
+### [ ] T18 — WebAudio blips
+- AC: `grep -q createOscillator src/renderer/audio.ts && test -z "$(find src static -type f \( -iname '*.wav' -o -iname '*.mp3' -o -iname '*.ogg' \))" && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
+- Deps: T15
+- Files: src/renderer/audio.ts, src/renderer/game.ts
+- Notes: SPEC F24, Assumption 13. Exactly 3 synthesized blips via OscillatorNode (square wave + gain envelope): attack tick, kill arpeggio, level-up fanfare. AudioContext created LAZILY on first input (autoplay policy); no mute/volume UI (Non-Goal). Guard so a failed AudioContext never breaks the game loop or smoke.
+
+### [ ] T19 — Unsigned macOS packaging + README
+- AC: `node -e "const p=require('./package.json');const b=p.build;const ok=b.mac.identity===null&&b.npmRebuild===false&&b.mac.notarize===false&&b.mac.hardenedRuntime===false&&!!b.win&&!!b.nsis&&p.scripts.package.includes('CSC_IDENTITY_AUTO_DISCOVERY=false');process.exit(ok?0:1)" && npm run package && test -f release/DesMon-0.1.0-arm64.dmg && test -d release/mac-arm64/DesMon.app && grep -qi accessibility README.md && grep -q "Open Anyway" README.md && grep -qi reset README.md` → exit 0
+- Deps: T01, T17
+- Files: package.json, README.md
+- Notes: SPEC F25/F26/F27. Build config should already match GAME_ARCHITECTURE §5 from T01 — verify, don't rewrite (identity null, npmRebuild false, notarize false, hardenedRuntime false, asarUnpack **/*.node, files dist/static, output release/, win/nsis CONFIG ONLY — never build it). First electron-builder run downloads tooling — if dmg creation flakes (hdiutil), retry once; corrupt cache fix: clear ~/Library/Caches/electron-builder. README: how to run; Accessibility grant (dev = "Electron" at node_modules/electron/dist/Electron.app, packaged = "DesMon" separately); Gatekeeper "Open Anyway"; save-file location (~/Library/Application Support/DesMon/save.json) + Reset Progress; Windows target is config-only.
+
+### [ ] T20 — SPEC criteria sweep (F01–F27)
+- AC: `npm test && npm run lint && npm run typecheck && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log && test -f release/DesMon-0.1.0-arm64.dmg` → exit 0
+- Deps: T01–T19
+- Files: (whatever small gaps the sweep exposes — keep each fix ≤5 files)
+- Notes: Execute EVERY AC in SPEC.md's feature table F01–F27 LITERALLY from the repo root, one by one; record pass/fail per feature in the Iteration Log note (or a fenced list in the session record). Fix small gaps in place within this task's iteration; if any gap needs real work, do NOT balloon this task — split ([s] + T20a…) per the plan rules. Re-run `npm run package` only if a fix touched shipped files. Done only when all 27 ACs exit 0 and gates are green. Manual appendix M1–M8 is explicitly out of scope for the loop.
+
+## Iteration Log (append-only)
+
+| iter | ts | task | result | gates | commit | note |
+|---|---|---|---|---|---|---|
+| 01 | 2026-07-08T09:41 | T01 | DONE | pass | da27dce | scaffold: all 7 contract scripts green incl. smoke (SMOKE_OK) + npm ci from committed lockfile |
+| 02 | 2026-07-08T09:48 | T02 | DONE | pass | 98c8c1b | overlay window per §3.1 + accessory lifecycle; source-contract tests; AC greps + smoke green |
+| 03 | 2026-07-08T09:57 | T03 | DONE | pass | f86ea91 | shared IPC constants + sandboxed preload bridge + atomic save.json persistence; 33 new tests; AC + smoke green |
+| 04 | 2026-07-08T10:08 | T04 | DONE | pass | 66cf6f5 | electron-free guarded global-input state machine + index.ts wiring (SMOKE bypass, will-quit stop); live get-input-mode; 19 tests; AC + smoke green |
+| 05 | 2026-07-08T10:14 | T05 | DONE | pass | 7396d70 | core types + frozen Assumption-3 formulas + 5-species catalog (tier=⌊i/5⌋, Lv=tier+1 names); 10 formulas tests; gates + AC green |
+| 06 | 2026-07-08T10:19 | T06 | DONE | pass | 98b2fe3 | mulberry32 Rng + weighted loot tables (coins 1+⌊i/3⌋ always first, 25% trinket 5/4/3/2/1); 11 loot tests incl. 10000-trial 23–27% band; gates + AC green |
