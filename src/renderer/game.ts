@@ -41,6 +41,8 @@ import {
   TRANSPARENT,
 } from './sprites/index.js';
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
+import { createGameAudio } from './audio.js';
+import type { GameAudio } from './audio.js';
 import {
   createDropPool,
   createParticlePool,
@@ -207,8 +209,13 @@ export interface Game {
   getMonsterAnim(): MonsterAnim;
 }
 
-/** Wrap an engine with the scene/HUD presentation state. */
-export function createGame(initialEngine: Engine): Game {
+/**
+ * Wrap an engine with the scene/HUD presentation state.
+ * `audio` defaults to the real WebAudio blips (SPEC F24) — lazy and fully
+ * guarded, so the default is a silent no-op under node/tests and can never
+ * break the loop; tests inject a recording fake to pin the triggers.
+ */
+export function createGame(initialEngine: Engine, audio: GameAudio = createGameAudio()): Game {
   let engine = initialEngine;
   let timeMs = 0;
   let heroAnim = createHeroAnim();
@@ -230,6 +237,7 @@ export function createGame(initialEngine: Engine): Game {
       for (const event of events) {
         switch (event.type) {
           case 'attack':
+            audio.attackTick();
             spawnFloat(
               floats,
               MONSTER_X + 6,
@@ -244,6 +252,7 @@ export function createGame(initialEngine: Engine): Game {
           case 'monsterKilled': {
             // Decompose the (tier-tinted) sprite into gravity particles; the
             // FSM rides DYING for the same 500ms the scatter lives.
+            audio.killArpeggio();
             const sprite = tintedIdleSprite(event.monster);
             spawnSpriteScatter(particles, sprite, 0, MONSTER_X, GROUND_Y - sprite.h);
             monsterAnim = monsterKilled(monsterAnim);
@@ -269,6 +278,7 @@ export function createGame(initialEngine: Engine): Game {
             break;
           }
           case 'levelUp':
+            audio.levelUpFanfare();
             showBanner(banner);
             spawnSparkles(
               particles,
