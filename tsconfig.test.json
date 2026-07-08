@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "types": ["node"]
+  },
+  "include": ["tests", "src/core", "src/shared", "src/renderer/sprites"]
+}

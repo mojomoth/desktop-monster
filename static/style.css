@@ -1,0 +1,21 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+}
+
+.drag-handle {
+  height: 24px;
+  -webkit-app-region: drag;
+}
+
+canvas {
+  display: block;
+  width: 320px;
+  height: 220px;
+  image-rendering: pixelated;
+  -webkit-app-region: no-drag;
+}

@@ -8,7 +8,7 @@
 
 ## Tasks
 
-### [ ] T01 — Scaffold frozen command contract, empty-but-green
+### [~] T01 — Scaffold frozen command contract, empty-but-green
 - AC: `npm ci && npm test && npm run lint && npm run typecheck && npm run build && test -f dist/electron/main/index.js && test -f dist/web/renderer/index.js && node -e "const p=require('./package.json');const d={...p.dependencies,...p.devDependencies};process.exit(d.electron==='39.8.10'&&d['uiohook-napi']==='1.5.5'&&d.vite==='6.4.3'?0:1)" && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
 - Deps: none
 - Files: package.json, package-lock.json, tsconfig.base.json, tsconfig.main.json, tsconfig.renderer.json, tsconfig.test.json, eslint.config.mjs, vitest.config.ts, static/index.html, static/style.css, src/main/index.ts, src/preload/index.ts, src/renderer/index.ts, src/core/index.ts, tests/scaffold.test.ts

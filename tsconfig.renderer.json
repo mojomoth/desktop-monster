@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "outDir": "dist/web",
+    "rootDir": "src",
+    "lib": ["ES2022", "DOM"],
+    "types": []
+  },
+  "include": ["src/renderer", "src/core", "src/shared"]
+}
