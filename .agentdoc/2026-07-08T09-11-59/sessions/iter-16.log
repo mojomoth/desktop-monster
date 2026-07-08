@@ -1,0 +1,3 @@
+{"task":"T16","result":"DONE","gates":"pass","commit":"c8195e7","remaining":4,"sentinel":false,"note":"F22 renderer half: unit-tested save scheduler (kill/level-up immediate, 500ms damage debounce, blur flush) + Game.toSave/reset with live onReset round-trip; 14 new tests (247 total); gates + AC + headful smoke green"}
+
+Iteration 16 — builder completed T16 (F22 renderer half). Added a unit-tested save scheduler: immediate saves on kill/level-up, 500ms debounce for damage, flush on blur. Added Game.toSave/reset with a live onReset round-trip. 14 new tests bring the suite to 247. Builder reports gates, acceptance criteria, and headful smoke all green at commit c8195e7; 4 tasks remain.
