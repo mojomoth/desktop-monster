@@ -6,6 +6,7 @@
 // after a Reset Progress request from main.
 
 import { createEngine, parseSave } from '../core/index.js';
+import { setupWindowDrag } from './drag.js';
 import { createGame, createSaveScheduler } from './game.js';
 import { setupFallbackInput } from './input.js';
 
@@ -45,6 +46,16 @@ async function boot(): Promise<void> {
     bridge: window.desmon,
     onAttack: (source) => {
       saves.onEvents(game.attack(source));
+    },
+  });
+
+  // Whole-window drag (SPEC Assumption 10): mouse-dragging anywhere moves the
+  // overlay; clicks stay attacks (the drag engages only past a small
+  // cursor-travel threshold).
+  setupWindowDrag({
+    target: window,
+    moveBy: (dx, dy) => {
+      window.desmon.moveWindowBy(dx, dy);
     },
   });
 

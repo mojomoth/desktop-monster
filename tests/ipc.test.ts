@@ -18,7 +18,7 @@ const mainIpcTs = read('src/main/ipc.ts');
 const mainIndexTs = read('src/main/index.ts');
 
 describe('shared IPC channels (src/shared/ipc.ts)', () => {
-  it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame', () => {
+  it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame and move-window', () => {
     expect(IPC).toEqual({
       INPUT: 'desmon:input',
       INPUT_MODE: 'desmon:input-mode',
@@ -28,6 +28,7 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       RESET: 'desmon:reset',
       OPEN_ACCESSIBILITY_SETTINGS: 'desmon:open-accessibility-settings',
       FIRST_FRAME: 'desmon:first-frame',
+      MOVE_WINDOW: 'desmon:move-window',
     });
   });
 
@@ -54,6 +55,7 @@ describe('preload bridge (src/preload/index.ts)', () => {
     'saveState',
     'openAccessibilitySettings',
     'reportFirstFrame',
+    'moveWindowBy',
   ])('exposes %s on the bridge', (method) => {
     expect(preloadTs).toContain(`${method}:`);
   });
@@ -86,6 +88,13 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
 
   it('listens for the renderer first-frame report', () => {
     expect(mainIpcTs).toContain('ipcMain.on(IPC.FIRST_FRAME');
+  });
+
+  it('moves the SENDING window on validated move-window deltas (T21)', () => {
+    expect(mainIpcTs).toContain('ipcMain.on(IPC.MOVE_WINDOW');
+    expect(mainIpcTs).toContain('BrowserWindow.fromWebContents(event.sender)');
+    expect(mainIpcTs).toContain('win.setPosition(x + dx, y + dy)');
+    expect(mainIpcTs).toContain('Number.isFinite');
   });
 
   it('serves the live input mode from the T04 global-input state machine', () => {

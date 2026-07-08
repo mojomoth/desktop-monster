@@ -17,6 +17,7 @@ declare global {
       saveState(s: SaveStatePayload): Promise<void>;
       openAccessibilitySettings(): Promise<void>;
       reportFirstFrame(): void;
+      moveWindowBy(dx: number, dy: number): void;
     };
   }
 }

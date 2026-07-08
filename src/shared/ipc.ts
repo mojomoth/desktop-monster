@@ -22,6 +22,8 @@ export const IPC = {
   OPEN_ACCESSIBILITY_SETTINGS: 'desmon:open-accessibility-settings',
   /** renderer → main (send): first painted frame — drives smoke (T13). */
   FIRST_FRAME: 'desmon:first-frame',
+  /** renderer → main (send): whole-window drag — move the overlay by a cursor delta. */
+  MOVE_WINDOW: 'desmon:move-window',
 } as const;
 
 export type IpcChannel = (typeof IPC)[keyof typeof IPC];
@@ -49,3 +51,9 @@ export interface InputModePayload {
  * concrete SaveFileV1 schema lands in T08 and this alias tightens then.
  */
 export type SaveStatePayload = unknown;
+
+/** Payload of `desmon:move-window`: cursor delta (DIPs) since the last event. */
+export interface MoveWindowPayload {
+  dx: number;
+  dy: number;
+}

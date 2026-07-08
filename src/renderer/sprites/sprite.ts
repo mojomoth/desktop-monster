@@ -26,6 +26,8 @@ export interface DrawSpriteOptions {
   flipX?: boolean;
   /** Draw every opaque pixel in this color instead (hit-flash etc.). */
   tint?: string;
+  /** Integer pixel scale: every art pixel becomes a scale×scale rect (default 1). */
+  scale?: number;
 }
 
 /**
@@ -52,6 +54,7 @@ export function drawSprite(
   if (rows === undefined) {
     return;
   }
+  const scale = opts?.scale ?? 1;
   for (let ry = 0; ry < sprite.h; ry++) {
     const row = rows[ry];
     if (row === undefined) {
@@ -67,7 +70,7 @@ export function drawSprite(
         continue;
       }
       ctx.fillStyle = opts?.tint ?? color;
-      ctx.fillRect(x + rx, y + ry, 1, 1);
+      ctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
     }
   }
 }

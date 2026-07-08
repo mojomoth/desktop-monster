@@ -64,12 +64,38 @@ describe('accessory lifecycle (F16, src/main/index.ts)', () => {
 });
 
 describe('drag region (F15, static/style.css)', () => {
-  it('marks only the 24-px top strip as draggable', () => {
+  it('keeps the 24-px top strip as the only NATIVE drag region', () => {
+    // Whole-window drag is the custom threshold drag (tests/drag.test.ts) —
+    // a full-window -webkit-app-region would swallow the fallback clicks.
     expect(styleCss).toMatch(/\.drag-handle\s*{[^}]*-webkit-app-region: drag;/);
     expect(styleCss).toMatch(/\.drag-handle\s*{[^}]*height: 24px;/);
   });
 
   it('keeps the page no-drag elsewhere so fallback clicks reach it', () => {
     expect(styleCss).toMatch(/body\s*{[^}]*-webkit-app-region: no-drag;/);
+  });
+});
+
+describe('default position (Assumption 10, src/main/window.ts)', () => {
+  it('computes the bottom-right of the work area inset by the margin', () => {
+    expect(windowTs).toContain('EDGE_MARGIN = 16');
+    expect(windowTs).toContain('workArea.x + workArea.width - WINDOW_W - EDGE_MARGIN');
+    expect(windowTs).toContain('workArea.y + workArea.height - WINDOW_H - EDGE_MARGIN');
+  });
+
+  it('applies it from the primary display work area (Dock/taskbar excluded)', () => {
+    expect(windowTs).toContain('screen.getPrimaryDisplay().workArea');
+    expect(windowTs).toContain('win.setPosition(spot.x, spot.y)');
+  });
+
+  it('pure-math default: 1920×1080 with a 40px taskbar lands clear of it', () => {
+    // Mirror of defaultPosition() — window.ts value-imports electron and
+    // cannot load under vitest, so the formula is pinned here numerically.
+    const workArea = { x: 0, y: 0, width: 1920, height: 1040 };
+    const x = workArea.x + workArea.width - 320 - 16;
+    const y = workArea.y + workArea.height - 220 - 16;
+    expect(x).toBe(1584);
+    expect(y).toBe(804);
+    expect(y + 220).toBeLessThanOrEqual(workArea.height); // never over the bar
   });
 });

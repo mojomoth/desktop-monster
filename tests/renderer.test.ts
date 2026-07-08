@@ -26,10 +26,12 @@ import {
   createSaveScheduler,
   GROUND_Y,
   HERO_X,
+  HERO_Y,
   HP_BAR,
   IDLE_FRAME_MS,
   MONSTER_X,
   SAVE_DEBOUNCE_MS,
+  SPRITE_SCALE,
   VIEW_H,
   VIEW_W,
 } from '../src/renderer/game.js';
@@ -153,22 +155,40 @@ describe('drawMeter / drawHpBar (boxed bars)', () => {
   });
 });
 
-describe('drawLevelHud (top-left LV + XP bar)', () => {
-  it('paints LV text pixels in the top-left corner', () => {
+describe('drawLevelHud (LV + XP bar above the hero, Assumption 17)', () => {
+  // Anchor used by game.ts: hero center x, one pixel above the hero's head.
+  const CX = HERO_X + Math.floor((14 * SPRITE_SCALE) / 2);
+  const BOTTOM = HERO_Y - 2;
+
+  it('hugs the anchor: the XP bar box ends at `bottom`, centered on `cx`', () => {
     const { ctx, calls } = makeCtx();
-    drawLevelHud(ctx, stateFixture());
+    drawLevelHud(ctx, stateFixture(), CX, BOTTOM);
+    // First rect is the steel frame of the 40×4 meter.
+    expect(calls[0]).toEqual({
+      x: CX - 20,
+      y: BOTTOM - 4,
+      w: 40,
+      h: 4,
+      fillStyle: COLORS.steel,
+    });
+  });
+
+  it('paints the LV label centered above the bar (never overlapping the hero)', () => {
+    const { ctx, calls } = makeCtx();
+    drawLevelHud(ctx, stateFixture(), CX, BOTTOM);
     const text = calls.filter((c) => c.fillStyle === COLORS.white && c.w === 1 && c.h === 1);
     expect(text.length).toBeGreaterThan(0);
     for (const c of text) {
-      expect(c.x).toBeLessThan(40);
-      expect(c.y).toBeLessThan(8);
+      expect(c.y).toBeLessThan(BOTTOM - 4); // above the bar box
+      expect(c.y).toBeLessThan(HERO_Y); // and therefore above the hero
+      expect(Math.abs(c.x - CX)).toBeLessThanOrEqual(12); // roughly centered
     }
   });
 
   it('fills the XP bar in proportion to xp/xpToNext(level)', () => {
     const { ctx, calls } = makeCtx();
     const state = stateFixture({ level: 3, xp: 10 });
-    drawLevelHud(ctx, state);
+    drawLevelHud(ctx, state, CX, BOTTOM);
     const fill = calls.filter((c) => c.fillStyle === COLORS.cyan);
     expect(fill).toHaveLength(1);
     expect(fill[0]?.w).toBe(Math.max(1, Math.round(38 * (10 / xpToNext(3)))));
@@ -339,15 +359,25 @@ describe('createGame (scene orchestration)', () => {
     expect(clears).toEqual([{ x: 0, y: 0, w: VIEW_W, h: VIEW_H }]);
     // Field strip spans the full width at the ground line.
     expect(calls.some((c) => c.y === GROUND_Y && c.w === VIEW_W)).toBe(true);
-    // Hero pixels within the hero art box, feet on the ground.
+    // Hero pixels (2×2 rects, Assumption 17) within the scaled art box.
     expect(
       calls.some(
-        (c) => c.w === 1 && c.x >= HERO_X && c.x < HERO_X + heroIdle.w && c.y < GROUND_Y,
+        (c) =>
+          c.w === SPRITE_SCALE &&
+          c.x >= HERO_X &&
+          c.x < HERO_X + heroIdle.w * SPRITE_SCALE &&
+          c.y < GROUND_Y,
       ),
     ).toBe(true);
-    // Monster pixels within the monster art box on the right.
+    // Monster pixels within the scaled monster art box on the right.
     expect(
-      calls.some((c) => c.w === 1 && c.x >= MONSTER_X && c.x < MONSTER_X + 12 && c.y < GROUND_Y),
+      calls.some(
+        (c) =>
+          c.w === SPRITE_SCALE &&
+          c.x >= MONSTER_X &&
+          c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+          c.y < GROUND_Y,
+      ),
     ).toBe(true);
     // Boxed HP bar frame above the monster.
     expect(
@@ -421,7 +451,13 @@ describe('createGame (scene orchestration)', () => {
     const monsterColors = (calls: RectCall[]): Set<string> =>
       new Set(
         calls
-          .filter((c) => c.w === 1 && c.x >= MONSTER_X && c.x < MONSTER_X + 12 && c.y < GROUND_Y)
+          .filter(
+            (c) =>
+              c.w === SPRITE_SCALE &&
+              c.x >= MONSTER_X &&
+              c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+              c.y < GROUND_Y,
+          )
           .map((c) => c.fillStyle),
       );
     expect(monsterColors(b.calls)).not.toEqual(monsterColors(a.calls));
@@ -433,10 +469,10 @@ describe('combat presentation (core FSMs, T14)', () => {
     calls
       .filter(
         (c) =>
-          c.w === 1 &&
+          c.w === SPRITE_SCALE &&
           c.x >= HERO_X &&
-          c.x < HERO_X + 14 &&
-          c.y >= GROUND_Y - 12 &&
+          c.x < HERO_X + 14 * SPRITE_SCALE &&
+          c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
           c.y < GROUND_Y,
       )
       .map((c) => `${String(c.x)},${String(c.y)},${c.fillStyle}`);
@@ -444,10 +480,10 @@ describe('combat presentation (core FSMs, T14)', () => {
   const monsterPixels = (calls: RectCall[]): RectCall[] =>
     calls.filter(
       (c) =>
-        c.w === 1 &&
+        c.w === SPRITE_SCALE &&
         c.x >= MONSTER_X &&
-        c.x < MONSTER_X + 12 &&
-        c.y >= GROUND_Y - 12 &&
+        c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+        c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
         c.y < GROUND_Y,
     );
 
@@ -485,10 +521,14 @@ describe('combat presentation (core FSMs, T14)', () => {
     game.attack('keyboard');
 
     // The overlay paints in the gap between hero and monster; nothing else
-    // draws 1px cells at ground height in that x-range.
+    // draws scaled cells at ground height in that x-range.
     const slashPixels = (calls: RectCall[]): RectCall[] =>
       calls.filter(
-        (c) => c.w === 1 && c.x >= HERO_X + 14 && c.x < HERO_X + 19 && c.y >= GROUND_Y - 12,
+        (c) =>
+          c.w === SPRITE_SCALE &&
+          c.x >= HERO_X + 14 * SPRITE_SCALE &&
+          c.x < HERO_X + 19 * SPRITE_SCALE &&
+          c.y >= GROUND_Y - 12 * SPRITE_SCALE,
       );
 
     const windUp = makeCtx();
@@ -555,16 +595,16 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     monsterHp: 1,
   };
 
-  // 1px pixels inside the monster art box, excluding item-drop colors (the
+  // Scaled art pixels inside the monster box, excluding item-drop colors (the
   // coin launches from the monster and is yellow/orange — never in slime art).
   const monsterBox = (calls: RectCall[]): string[] =>
     calls
       .filter(
         (c) =>
-          c.w === 1 &&
+          c.w === SPRITE_SCALE &&
           c.x >= MONSTER_X &&
-          c.x < MONSTER_X + 12 &&
-          c.y >= GROUND_Y - 12 &&
+          c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+          c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
           c.y < GROUND_Y &&
           c.fillStyle !== COLORS.yellow &&
           c.fillStyle !== COLORS.orange,
@@ -647,21 +687,29 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     game.update(MONSTER_DYING_MS);
     expect(game.getMonsterAnim()).toEqual({ state: 'spawning', t: 0 });
 
+    // Restrict to the monster's own scaled height band so a still-fading
+    // damage float above the box can never pollute the top-row measurement.
+    const popInPixels = (calls: RectCall[]): RectCall[] =>
+      calls.filter(
+        (c) =>
+          c.w === SPRITE_SCALE &&
+          c.x >= MONSTER_X &&
+          c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+          c.y >= GROUND_Y - 10 * SPRITE_SCALE &&
+          c.y < GROUND_Y,
+      );
+
     game.update(90); // early spawn: only the bottom rows are revealed
     const early = makeCtx();
     game.draw(early.ctx);
-    const earlyPixels = early.calls.filter(
-      (c) => c.w === 1 && c.x >= MONSTER_X && c.x < MONSTER_X + 12 && c.y < GROUND_Y,
-    );
+    const earlyPixels = popInPixels(early.calls);
     expect(earlyPixels.length).toBeGreaterThan(0);
     const earlyTop = Math.min(...earlyPixels.map((c) => c.y));
 
     game.update(60); // later: the reveal has grown upward
     const later = makeCtx();
     game.draw(later.ctx);
-    const laterPixels = later.calls.filter(
-      (c) => c.w === 1 && c.x >= MONSTER_X && c.x < MONSTER_X + 12 && c.y < GROUND_Y,
-    );
+    const laterPixels = popInPixels(later.calls);
     const laterTop = Math.min(...laterPixels.map((c) => c.y));
     expect(laterTop).toBeLessThan(earlyTop);
   });
@@ -687,7 +735,10 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
 
     // The sparkle ring bursts from the hero's center (all 12 start there).
     const heroCenter = during.calls.filter(
-      (c) => c.w === 1 && c.x === HERO_X + 7 && c.y === GROUND_Y - 12 + 4,
+      (c) =>
+        c.w === 1 &&
+        c.x === HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2) &&
+        c.y === HERO_Y + 4 * SPRITE_SCALE,
     );
     expect(heroCenter.length).toBeGreaterThanOrEqual(SPARKLE_COUNT);
 
@@ -859,6 +910,8 @@ describe('renderer boot source contract (src/renderer/index.ts)', () => {
     'onInput',
     'requestAnimationFrame',
     'setupFallbackInput',
+    'setupWindowDrag',
+    'moveWindowBy',
     'createSaveScheduler',
     'saveState',
     'onReset',

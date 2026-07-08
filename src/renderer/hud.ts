@@ -68,18 +68,22 @@ export function drawHpBar(
   drawMeter(ctx, x, y, w, h, maxHp > 0 ? hp / maxHp : 0, COLORS.red);
 }
 
-/** Top-left HUD: `LV n` text plus the XP progress bar toward the next level. */
-export function drawLevelHud(ctx: SpriteCanvas, state: Readonly<GameState>): void {
-  drawText(ctx, `LV ${String(state.level)}`, HUD_MARGIN, HUD_MARGIN);
-  drawMeter(
-    ctx,
-    HUD_MARGIN,
-    HUD_MARGIN + FONT_H + 2,
-    XP_BAR_W,
-    XP_BAR_H,
-    state.xp / xpToNext(state.level),
-    COLORS.cyan,
-  );
+/**
+ * `LV n` text plus the XP progress bar, floating above the hero's head
+ * (Assumption 17): `cx` is the hero's horizontal center, `bottom` sits just
+ * above the hero's top row — the bar hugs the head, the label rides above it.
+ */
+export function drawLevelHud(
+  ctx: SpriteCanvas,
+  state: Readonly<GameState>,
+  cx: number,
+  bottom: number,
+): void {
+  const barX = Math.round(cx - XP_BAR_W / 2);
+  const barY = bottom - XP_BAR_H;
+  drawMeter(ctx, barX, barY, XP_BAR_W, XP_BAR_H, state.xp / xpToNext(state.level), COLORS.cyan);
+  const label = `LV ${String(state.level)}`;
+  drawText(ctx, label, Math.round(cx - textWidth(label) / 2), barY - FONT_H - 2);
 }
 
 /** 5×5 skull marker for the kill counter — HUD chrome, drawn directly. */

@@ -45,6 +45,9 @@ const desmon = {
   reportFirstFrame: (): void => {
     ipcRenderer.send('desmon:first-frame');
   },
+  moveWindowBy: (dx: number, dy: number): void => {
+    ipcRenderer.send('desmon:move-window', { dx, dy });
+  },
 };
 
 /** Shape of `window.desmon`; the renderer's global.d.ts imports this (T13). */

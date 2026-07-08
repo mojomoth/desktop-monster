@@ -75,13 +75,15 @@ export const VIEW_W = 160;
 export const VIEW_H = 110;
 /** Top of the ground strip; entities stand on it. */
 export const GROUND_Y = 92;
+/** Hero/monster art pixel scale (Assumption 17): every art pixel is 2×2. */
+export const SPRITE_SCALE = 2;
 /** Hero sprite position (left side, feet on the ground). */
 export const HERO_X = 26;
-export const HERO_Y = GROUND_Y - heroIdle.h;
+export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
 export const MONSTER_X = 118;
 /** Boxed HP bar above the monster (centered over it at draw time). */
-export const HP_BAR = { w: 34, h: 5, y: 68 } as const;
+export const HP_BAR = { w: 34, h: 5, y: 64 } as const;
 /** ms per idle bob frame (GAME_ARCHITECTURE §4: 2-frame bob, 500 ms/frame). */
 export const IDLE_FRAME_MS = 500;
 /** ms per hero attack frame: 3 frames (wind-up/slash/recover) over 180 ms. */
@@ -157,6 +159,7 @@ function drawSpriteBottomRows(
   x: number,
   y: number,
   visibleRows: number,
+  scale = 1,
 ): void {
   const rows = sprite.frames[frame];
   if (rows === undefined) {
@@ -178,7 +181,7 @@ function drawSpriteBottomRows(
         continue;
       }
       ctx.fillStyle = color;
-      ctx.fillRect(x + rx, y + ry, 1, 1);
+      ctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
     }
   }
 }
@@ -240,7 +243,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
             audio.attackTick();
             spawnFloat(
               floats,
-              MONSTER_X + 6,
+              MONSTER_X + (12 * SPRITE_SCALE) / 2, // centered over the 12px-wide species art
               HP_BAR.y - 6,
               String(event.damage),
               event.crit,
@@ -254,7 +257,14 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
             // FSM rides DYING for the same 500ms the scatter lives.
             audio.killArpeggio();
             const sprite = tintedIdleSprite(event.monster);
-            spawnSpriteScatter(particles, sprite, 0, MONSTER_X, GROUND_Y - sprite.h);
+            spawnSpriteScatter(
+              particles,
+              sprite,
+              0,
+              MONSTER_X,
+              GROUND_Y - sprite.h * SPRITE_SCALE,
+              SPRITE_SCALE,
+            );
             monsterAnim = monsterKilled(monsterAnim);
             break;
           }
@@ -282,8 +292,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
             showBanner(banner);
             spawnSparkles(
               particles,
-              HERO_X + Math.floor(heroIdle.w / 2),
-              HERO_Y + 4,
+              HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
+              HERO_Y + 4 * SPRITE_SCALE,
             );
             break;
           case 'monsterSpawned':
@@ -323,14 +333,16 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           heroAttack.frames.length - 1,
           Math.floor(heroAnim.t / ATTACK_FRAME_MS),
         );
-        drawSprite(ctx, heroAttack, frame, HERO_X, HERO_Y);
+        drawSprite(ctx, heroAttack, frame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
         if (frame === SLASH_FRAME) {
           // Slash arc in front of the blade, toward the monster.
-          drawSprite(ctx, heroSlash, 0, HERO_X + heroAttack.w, HERO_Y + 1);
+          drawSprite(ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
+            scale: SPRITE_SCALE,
+          });
         }
       } else {
         const heroFrame = Math.floor(timeMs / IDLE_FRAME_MS) % heroIdle.frames.length;
-        drawSprite(ctx, heroIdle, heroFrame, HERO_X, HERO_Y);
+        drawSprite(ctx, heroIdle, heroFrame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
       }
 
       const state = engine.getState();
@@ -342,17 +354,28 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         const sprite = tintedIdleSprite(state.monster);
         const progress = easeOutQuad(monsterAnim.t / MONSTER_SPAWNING_MS);
         const visibleRows = Math.ceil(sprite.h * progress);
-        drawSpriteBottomRows(ctx, sprite, 0, MONSTER_X, GROUND_Y - sprite.h, visibleRows);
+        drawSpriteBottomRows(
+          ctx,
+          sprite,
+          0,
+          MONSTER_X,
+          GROUND_Y - sprite.h * SPRITE_SCALE,
+          visibleRows,
+          SPRITE_SCALE,
+        );
       } else if (monsterAnim.state === 'hit') {
         // White-flash recoil pose for MONSTER_HIT_MS; the full tint makes
         // the tier tint irrelevant while it lasts.
-        drawSprite(ctx, species.hit, 0, MONSTER_X, GROUND_Y - species.hit.h, {
+        drawSprite(ctx, species.hit, 0, MONSTER_X, GROUND_Y - species.hit.h * SPRITE_SCALE, {
           tint: COLORS.white,
+          scale: SPRITE_SCALE,
         });
       } else {
         const sprite = tintedIdleSprite(state.monster);
         const monsterFrame = Math.floor(timeMs / IDLE_FRAME_MS) % sprite.frames.length;
-        drawSprite(ctx, sprite, monsterFrame, MONSTER_X, GROUND_Y - sprite.h);
+        drawSprite(ctx, sprite, monsterFrame, MONSTER_X, GROUND_Y - sprite.h * SPRITE_SCALE, {
+          scale: SPRITE_SCALE,
+        });
       }
 
       for (const drop of drops) {
@@ -368,7 +391,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         // No HP bar over the scatter — it pops back with the next monster.
         drawHpBar(
           ctx,
-          Math.round(MONSTER_X + species.idle.w / 2 - HP_BAR.w / 2),
+          Math.round(MONSTER_X + (species.idle.w * SPRITE_SCALE) / 2 - HP_BAR.w / 2),
           HP_BAR.y,
           HP_BAR.w,
           HP_BAR.h,
@@ -376,7 +399,13 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           state.monster.maxHp,
         );
       }
-      drawLevelHud(ctx, state);
+      // LV + XP gauge floats above the hero's head (Assumption 17).
+      drawLevelHud(
+        ctx,
+        state,
+        HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
+        HERO_Y - 2,
+      );
       drawCounters(ctx, state, VIEW_W, coinPopAgeMs < COUNTER_POP_MS);
       drawFloats(ctx, floats);
       drawBanner(ctx, banner, VIEW_W);

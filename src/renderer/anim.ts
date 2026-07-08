@@ -163,12 +163,13 @@ export function spawnSpriteScatter(
   frame: number,
   x: number,
   y: number,
+  scale = 1,
 ): void {
   const rows = sprite.frames[frame];
   if (rows === undefined) {
     return;
   }
-  const centerX = x + sprite.w / 2;
+  const centerX = x + (sprite.w * scale) / 2;
   for (let ry = 0; ry < sprite.h; ry++) {
     const row = rows[ry];
     if (row === undefined) {
@@ -183,14 +184,15 @@ export function spawnSpriteScatter(
       if (color === undefined) {
         continue;
       }
-      const px = x + rx;
+      const px = x + rx * scale;
       spawnParticle(pool, {
         x: px,
-        y: y + ry,
+        y: y + ry * scale,
         vx: (px - centerX) * 6 + ((rx * 31 + ry * 17) % 11) - 5,
         vy: -40 - ((rx * 13 + ry * 7) % 30),
         gravity: SCATTER_GRAVITY,
         color,
+        size: scale,
         lifeMs: SCATTER_LIFE_MS,
       });
     }
