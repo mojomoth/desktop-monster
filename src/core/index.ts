@@ -20,6 +20,9 @@ export {
   xpToNext,
 } from './formulas.js';
 
+export { createEngine } from './engine.js';
+export type { Engine, EngineSave } from './engine.js';
+
 export { monsterForIndex, SPECIES_IDS } from './monsters.js';
 export type { SpeciesId } from './monsters.js';
 
