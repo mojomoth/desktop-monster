@@ -1,13 +1,15 @@
 // Main-process entry: accessory-app lifecycle (SPEC F16) + overlay window
 // + IPC handlers (T03) + guarded global input hook (T04, production only)
-// + the SMOKE=1 self-test sequence (T13, SPEC F18).
+// + tray icon/menu (T17, SPEC F23) + the SMOKE=1 self-test sequence (T13).
 
-import { app, systemPreferences } from 'electron';
+import { app, Menu, nativeImage, shell, systemPreferences, Tray } from 'electron';
 import type { BrowserWindow } from 'electron';
 import { SimulatedInputDriver } from '../core/index.js';
 import { IPC } from '../shared/ipc.js';
-import { startGlobalInput } from './globalInput.js';
-import { registerIpcHandlers } from './ipc.js';
+import { getCurrentInputMode, startGlobalInput } from './globalInput.js';
+import { ACCESSIBILITY_SETTINGS_URL, registerIpcHandlers } from './ipc.js';
+import { setupTray } from './tray.js';
+import { encodeTrayIconPng } from './trayIcon.js';
 import { createOverlayWindow } from './window.js';
 
 const isSmoke = Boolean(process.env.SMOKE);
@@ -79,6 +81,26 @@ if (!app.requestSingleInstanceLock()) {
     const win = createOverlayWindow();
     smokeWin = win;
 
+    // Tray (SPEC F23): 16×16 pixel-matrix icon PNG-encoded in code, menu
+    // rebuilt on every input-mode change. setupTray holds the module-scope
+    // reference that keeps the icon from being garbage-collected.
+    const tray = setupTray({
+      createTray: () => new Tray(nativeImage.createFromBuffer(encodeTrayIconPng())),
+      buildMenu: (template) => Menu.buildFromTemplate(template),
+      getInputMode: getCurrentInputMode,
+      actions: {
+        openAccessibilitySettings: () => {
+          void shell.openExternal(ACCESSIBILITY_SETTINGS_URL);
+        },
+        resetProgress: () => {
+          win.webContents.send(IPC.RESET);
+        },
+        quit: () => {
+          app.quit();
+        },
+      },
+    });
+
     if (!isSmoke) {
       // SMOKE=1 bypasses global input ENTIRELY: no Accessibility prompt and
       // no native hook (starting it without the grant crashes the process).
@@ -90,6 +112,7 @@ if (!app.requestSingleInstanceLock()) {
         },
         onModeChange: (payload) => {
           win.webContents.send(IPC.INPUT_MODE, payload);
+          tray.refresh(payload); // SPEC F23: rebuild the menu on mode change
         },
       });
       app.on('will-quit', () => {
