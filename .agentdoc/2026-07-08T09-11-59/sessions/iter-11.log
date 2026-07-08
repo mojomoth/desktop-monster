@@ -1,0 +1,7 @@
+{"task":"T11","result":"DONE","gates":"pass","commit":"8acdd83","remaining":9,"sentinel":false,"note":"Re-spawn of iter 11: prior spawn had already completed T11 (commit 8acdd83, plan+log+session record at 69e8a30) but its report was lost; re-ran gates (exit 0, 157 tests) and T11 AC (exit 0) this iteration and relayed the result — no duplicate work, T12 is next."}
+
+Iteration 11 builder report (expanded):
+- Task T11 completed with result DONE at commit 8acdd83; 9 tasks remain.
+- This was a re-spawn: the prior iter-11 spawn had already finished T11 (records committed at 69e8a30) but its report was lost.
+- The re-spawn performed no duplicate work; it re-ran the gates (exit 0, 157 tests) and the T11 acceptance criteria (exit 0) and relayed the result.
+- No sentinel triggered. Next task is T12.
