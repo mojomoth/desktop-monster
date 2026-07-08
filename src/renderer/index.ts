@@ -4,6 +4,7 @@
 
 import { createEngine, parseSave } from '../core/index.js';
 import { createGame } from './game.js';
+import { setupFallbackInput } from './input.js';
 
 async function boot(): Promise<void> {
   const canvas = document.getElementById('game');
@@ -23,6 +24,17 @@ async function boot(): Promise<void> {
 
   window.desmon.onInput((event) => {
     game.attack(event.source);
+  });
+
+  // Window-focused fallback input (SPEC F14): keydown/mousedown listeners
+  // attach only while the input mode is 'fallback' and detach when the
+  // global hook takes over, so attacks are never double-counted.
+  setupFallbackInput({
+    target: window,
+    bridge: window.desmon,
+    onAttack: (source) => {
+      game.attack(source);
+    },
   });
 
   let reportedFirstFrame = false;

@@ -8,9 +8,18 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { createEngine, monsterForIndex, mulberry32, xpToNext } from '../src/core/index.js';
-import type { GameState } from '../src/core/index.js';
 import {
+  createEngine,
+  HERO_ATTACK_MS,
+  MONSTER_HIT_MS,
+  MONSTER_SPAWNING_MS,
+  monsterForIndex,
+  mulberry32,
+  xpToNext,
+} from '../src/core/index.js';
+import type { GameState, SaveFileV1 } from '../src/core/index.js';
+import {
+  ATTACK_FRAME_MS,
   createGame,
   GROUND_Y,
   HERO_X,
@@ -23,11 +32,13 @@ import {
 import type { GameCanvas } from '../src/renderer/game.js';
 import {
   createFloatPool,
+  CRIT_FLOAT_SCALE,
   drawCounters,
   drawFloats,
   drawHpBar,
   drawLevelHud,
   drawMeter,
+  FLOAT_FADE_RATIO,
   FLOAT_LIFE_MS,
   FLOAT_POOL_SIZE,
   spawnFloat,
@@ -213,6 +224,40 @@ describe('floating damage numbers (fixed pool)', () => {
     expect(agedTop).toBeLessThan(freshTop);
     expect(fresh.calls.every((c) => c.fillStyle === COLORS.yellow)).toBe(true);
   });
+
+  it('fades to a dim color in the last third of its life', () => {
+    const pool = createFloatPool();
+    spawnFloat(pool, 100, 60, '3', false);
+    tickFloats(pool, FLOAT_LIFE_MS * FLOAT_FADE_RATIO - 100);
+    const fresh = makeCtx();
+    drawFloats(fresh.ctx, pool);
+    expect(fresh.calls.length).toBeGreaterThan(0);
+    expect(fresh.calls.every((c) => c.fillStyle === COLORS.white)).toBe(true);
+
+    tickFloats(pool, 100); // now exactly at the fade boundary
+    const faded = makeCtx();
+    drawFloats(faded.ctx, pool);
+    expect(faded.calls.length).toBeGreaterThan(0);
+    expect(faded.calls.every((c) => c.fillStyle === COLORS.steel)).toBe(true);
+  });
+
+  it('draws crit numbers double-size and normal numbers single-size', () => {
+    const critPool = createFloatPool();
+    spawnFloat(critPool, 100, 60, '9', true);
+    const crit = makeCtx();
+    drawFloats(crit.ctx, critPool);
+    expect(crit.calls.length).toBeGreaterThan(0);
+    expect(
+      crit.calls.every((c) => c.w === CRIT_FLOAT_SCALE && c.h === CRIT_FLOAT_SCALE),
+    ).toBe(true);
+
+    const normalPool = createFloatPool();
+    spawnFloat(normalPool, 100, 60, '9', false);
+    const normal = makeCtx();
+    drawFloats(normal.ctx, normalPool);
+    expect(normal.calls.length).toBeGreaterThan(0);
+    expect(normal.calls.every((c) => c.w === 1 && c.h === 1)).toBe(true);
+  });
 });
 
 describe('createGame (scene orchestration)', () => {
@@ -259,8 +304,12 @@ describe('createGame (scene orchestration)', () => {
 
     const after = makeCtx();
     game.draw(after.ctx);
-    // Same presentation time — the only extra pixels are the damage number.
-    expect(after.calls.length).toBeGreaterThan(before.calls.length);
+    // The damage number paints between the HP bar and the counters — a
+    // region that held no pixels before the attack.
+    const floatRegion = (calls: RectCall[]): RectCall[] =>
+      calls.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 100);
+    expect(floatRegion(before.calls)).toEqual([]);
+    expect(floatRegion(after.calls).length).toBeGreaterThan(0);
   });
 
   it('update() advances the idle bob to the second frame after IDLE_FRAME_MS', () => {
@@ -309,6 +358,118 @@ describe('createGame (scene orchestration)', () => {
   });
 });
 
+describe('combat presentation (core FSMs, T14)', () => {
+  const heroPixels = (calls: RectCall[]): string[] =>
+    calls
+      .filter(
+        (c) =>
+          c.w === 1 &&
+          c.x >= HERO_X &&
+          c.x < HERO_X + 14 &&
+          c.y >= GROUND_Y - 12 &&
+          c.y < GROUND_Y,
+      )
+      .map((c) => `${String(c.x)},${String(c.y)},${c.fillStyle}`);
+
+  const monsterPixels = (calls: RectCall[]): RectCall[] =>
+    calls.filter(
+      (c) =>
+        c.w === 1 &&
+        c.x >= MONSTER_X &&
+        c.x < MONSTER_X + 12 &&
+        c.y >= GROUND_Y - 12 &&
+        c.y < GROUND_Y,
+    );
+
+  it('attack() restarts the 180ms hero attack animation on every input', () => {
+    const game = createGame(createEngine(null, mulberry32(42)));
+    expect(game.getHeroAnim().state).toBe('idle');
+
+    game.attack('keyboard');
+    expect(game.getHeroAnim()).toEqual({ state: 'attack', t: 0 });
+
+    game.update(HERO_ATTACK_MS / 2);
+    expect(game.getHeroAnim()).toEqual({ state: 'attack', t: HERO_ATTACK_MS / 2 });
+
+    game.attack('mouse'); // spam mid-attack restarts the animation
+    expect(game.getHeroAnim()).toEqual({ state: 'attack', t: 0 });
+
+    game.update(HERO_ATTACK_MS);
+    expect(game.getHeroAnim().state).toBe('idle');
+  });
+
+  it('draws the attack pose instead of the idle bob while attacking', () => {
+    const idle = createGame(createEngine(null, mulberry32(42)));
+    const attacking = createGame(createEngine(null, mulberry32(42)));
+    attacking.attack('keyboard');
+
+    const a = makeCtx();
+    idle.draw(a.ctx);
+    const b = makeCtx();
+    attacking.draw(b.ctx);
+    expect(heroPixels(b.calls)).not.toEqual(heroPixels(a.calls));
+  });
+
+  it('shows the slash arc overlay only during the attack frame after wind-up', () => {
+    const game = createGame(createEngine(null, mulberry32(42)));
+    game.attack('keyboard');
+
+    // The overlay paints in the gap between hero and monster; nothing else
+    // draws 1px cells at ground height in that x-range.
+    const slashPixels = (calls: RectCall[]): RectCall[] =>
+      calls.filter(
+        (c) => c.w === 1 && c.x >= HERO_X + 14 && c.x < HERO_X + 19 && c.y >= GROUND_Y - 12,
+      );
+
+    const windUp = makeCtx();
+    game.draw(windUp.ctx); // t=0: wind-up frame, no slash yet
+    expect(slashPixels(windUp.calls)).toEqual([]);
+
+    game.update(ATTACK_FRAME_MS); // t=60: the slash frame
+    const slash = makeCtx();
+    game.draw(slash.ctx);
+    expect(slashPixels(slash.calls).length).toBeGreaterThan(0);
+  });
+
+  it('flashes the monster white for the hit duration, then returns to color', () => {
+    const game = createGame(createEngine(null, mulberry32(42)));
+    game.attack('keyboard'); // slime at 10 hp — never a killing first blow
+    expect(game.getMonsterAnim()).toEqual({ state: 'hit', t: 0 });
+
+    const flash = makeCtx();
+    game.draw(flash.ctx);
+    const flashPixels = monsterPixels(flash.calls);
+    expect(flashPixels.length).toBeGreaterThan(0);
+    expect(flashPixels.every((c) => c.fillStyle === COLORS.white)).toBe(true);
+
+    game.update(MONSTER_HIT_MS);
+    expect(game.getMonsterAnim().state).toBe('idle');
+    const after = makeCtx();
+    game.draw(after.ctx);
+    expect(monsterPixels(after.calls).some((c) => c.fillStyle !== COLORS.white)).toBe(true);
+  });
+
+  it('a killing blow leaves the next monster spawning', () => {
+    const save: SaveFileV1 = {
+      version: 1,
+      level: 1,
+      xp: 0,
+      killCount: 0,
+      coins: 0,
+      items: {},
+      monsterIndex: 0,
+      monsterHp: 1,
+    };
+    const game = createGame(createEngine(save, mulberry32(7)));
+    const events = game.attack('keyboard');
+    expect(events.some((e) => e.type === 'monsterKilled')).toBe(true);
+    expect(game.getMonsterAnim()).toEqual({ state: 'spawning', t: 0 });
+
+    game.update(MONSTER_SPAWNING_MS);
+    expect(game.getMonsterAnim().state).toBe('idle');
+  });
+});
+
 describe('renderer boot source contract (src/renderer/index.ts)', () => {
   const rendererIndex = read('src/renderer/index.ts');
 
@@ -319,6 +480,7 @@ describe('renderer boot source contract (src/renderer/index.ts)', () => {
     'createGame',
     'onInput',
     'requestAnimationFrame',
+    'setupFallbackInput',
   ])('wires %s', (literal) => {
     expect(rendererIndex).toContain(literal);
   });

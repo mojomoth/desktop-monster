@@ -1,6 +1,7 @@
-// HUD painting (SPEC F21): boxed monster HP bar, top-left `LV n` + XP bar,
-// top-right kill/coin counters, and a minimal pooled floating-damage-number
-// system (spawn/rise/expire; fade + crit sizing polish lands in T14).
+// HUD painting (SPEC F21 + T14 combat presentation): boxed monster HP bar,
+// top-left `LV n` + XP bar, top-right kill/coin counters, and the pooled
+// floating-damage-number system — numbers rise 8px and fade over 600ms;
+// crits draw double-size and yellow (Manual M2).
 // DOM-free on purpose — everything draws through SpriteCanvas so the tests
 // run under vitest's node environment (same pattern as sprites/sprite.ts).
 
@@ -10,9 +11,14 @@ import {
   COLORS,
   drawSprite,
   drawText,
+  FONT_ADVANCE,
   FONT_H,
+  FONT_W,
+  fontSprite,
+  glyphIndex,
   itemSprites,
   textWidth,
+  TRANSPARENT,
 } from './sprites/index.js';
 import type { SpriteCanvas } from './sprites/index.js';
 
@@ -121,6 +127,10 @@ export const FLOAT_POOL_SIZE = 16;
 export const FLOAT_LIFE_MS = 600;
 /** Total rise over the lifetime, game pixels. */
 export const FLOAT_RISE_PX = 8;
+/** Age fraction past which a float draws in its dim fade color. */
+export const FLOAT_FADE_RATIO = 2 / 3;
+/** Pixel scale of crit damage numbers (Manual M2: crits show larger). */
+export const CRIT_FLOAT_SCALE = 2;
 
 /** Pre-allocate a pool of inactive floating-number slots. */
 export function createFloatPool(size: number = FLOAT_POOL_SIZE): FloatingNumber[] {
@@ -174,16 +184,66 @@ export function tickFloats(pool: FloatingNumber[], dtMs: number): void {
   }
 }
 
-/** Draw active floating numbers, risen by age; crits are yellow. */
+/**
+ * drawText at an integer pixel scale: every glyph pixel becomes a
+ * scale×scale rect. Local to the HUD — the sprite/font modules stay
+ * 1px-based (their data is covered by the T11 integrity sweep).
+ */
+function drawScaledText(
+  ctx: SpriteCanvas,
+  text: string,
+  x: number,
+  y: number,
+  scale: number,
+  color: string,
+): void {
+  if (scale === 1) {
+    drawText(ctx, text, x, y, { color });
+    return;
+  }
+  for (let i = 0; i < text.length; i++) {
+    const rows = fontSprite.frames[glyphIndex(text.charAt(i))];
+    if (rows === undefined) {
+      continue; // unknown chars still advance a cell — stable layout
+    }
+    for (let ry = 0; ry < FONT_H; ry++) {
+      const row = rows[ry];
+      if (row === undefined) {
+        continue;
+      }
+      for (let rx = 0; rx < FONT_W; rx++) {
+        const ch = row.charAt(rx);
+        if (ch === TRANSPARENT || ch === '') {
+          continue;
+        }
+        ctx.fillStyle = color;
+        ctx.fillRect(x + (i * FONT_ADVANCE + rx) * scale, y + ry * scale, scale, scale);
+      }
+    }
+  }
+}
+
+/**
+ * Draw active floating numbers, risen by age; the last third of the
+ * lifetime fades to a dim color. Crits draw double-size and yellow
+ * (bottom-anchored so the bigger glyphs grow upward, not into the monster).
+ */
 export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
   for (const f of pool) {
     if (!f.active) {
       continue;
     }
+    const scale = f.crit ? CRIT_FLOAT_SCALE : 1;
+    const faded = f.ageMs >= FLOAT_LIFE_MS * FLOAT_FADE_RATIO;
+    const color = f.crit
+      ? faded
+        ? COLORS.orange
+        : COLORS.yellow
+      : faded
+        ? COLORS.steel
+        : COLORS.white;
     const rise = Math.round(FLOAT_RISE_PX * (f.ageMs / FLOAT_LIFE_MS));
-    const x = Math.round(f.x - textWidth(f.text) / 2);
-    drawText(ctx, f.text, x, f.y - rise, {
-      color: f.crit ? COLORS.yellow : COLORS.white,
-    });
+    const x = Math.round(f.x - (textWidth(f.text) * scale) / 2);
+    drawScaledText(ctx, f.text, x, f.y - rise - (scale - 1) * FONT_H, scale, color);
   }
 }
