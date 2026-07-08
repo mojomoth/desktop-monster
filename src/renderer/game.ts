@@ -8,12 +8,14 @@
 // DOM-free on purpose — draws through GameCanvas (SpriteCanvas + clearRect)
 // so tests run under vitest's node environment.
 
+import { createEngine } from '../core/index.js';
 import type {
   Engine,
   GameEvent,
   GameState,
   InputSource,
   MonsterDef,
+  SaveFileV1,
 } from '../core/index.js';
 import {
   createHeroAnim,
@@ -182,7 +184,8 @@ function drawSpriteBottomRows(
 export interface Game {
   /**
    * One input → one engine step, plus presentation (floating damage number).
-   * Returns the engine events so callers can react (saving wires in at T16).
+   * Returns the engine events so callers can react (the T16 save scheduler
+   * feeds on them).
    */
   attack(source: InputSource): GameEvent[];
   /** Advance presentation time by dtMs (non-finite/negative counts as 0). */
@@ -190,6 +193,14 @@ export interface Game {
   /** Repaint the full VIEW_W×VIEW_H scene. */
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
+  /** Snapshot of the current progress for persistence (SPEC F22). */
+  toSave(): SaveFileV1;
+  /**
+   * Reset Progress (SPEC F22): swap in a fresh default engine and clear all
+   * in-flight presentation (floats, particles, drops, banner, anims). The
+   * caller persists the fresh state immediately (renderer boot does).
+   */
+  reset(): void;
   /** Presentation snapshot of the hero animation FSM (tests / T15). */
   getHeroAnim(): HeroAnim;
   /** Presentation snapshot of the monster animation FSM (tests / T15). */
@@ -197,7 +208,8 @@ export interface Game {
 }
 
 /** Wrap an engine with the scene/HUD presentation state. */
-export function createGame(engine: Engine): Game {
+export function createGame(initialEngine: Engine): Game {
+  let engine = initialEngine;
   let timeMs = 0;
   let heroAnim = createHeroAnim();
   // Boot straight into idle: the monster on screen at load (fresh or resumed)
@@ -364,8 +376,100 @@ export function createGame(engine: Engine): Game {
       return engine.getState();
     },
 
+    toSave(): SaveFileV1 {
+      return engine.toSave();
+    },
+
+    reset(): void {
+      engine = createEngine();
+      timeMs = 0;
+      heroAnim = createHeroAnim();
+      // Same idle boot as a fresh createGame — the pop-in stays reserved for
+      // kill-born spawns (T15 decision).
+      monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
+      for (const f of floats) {
+        f.active = false;
+      }
+      for (const p of particles) {
+        p.active = false;
+      }
+      for (const d of drops) {
+        d.active = false;
+        d.arrived = false;
+      }
+      banner.active = false;
+      coinPopAgeMs = Number.POSITIVE_INFINITY;
+    },
+
     getHeroAnim: (): HeroAnim => heroAnim,
 
     getMonsterAnim: (): MonsterAnim => monsterAnim,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Save scheduling (SPEC F22, T16): WHEN progress persists. Kills and level-ups
+// save immediately; damage-only attacks save at most once per debounce window;
+// window blur / reset flush unconditionally. DOM-free with injectable timers
+// so the policy is unit-testable (production uses the real setTimeout).
+// ---------------------------------------------------------------------------
+
+/** Debounce window for damage-only saves, ms (SPEC F22). */
+export const SAVE_DEBOUNCE_MS = 500;
+
+export interface SaveScheduler {
+  /** Feed one attack's engine events; decides whether/when to save. */
+  onEvents(events: readonly GameEvent[]): void;
+  /** Save immediately, canceling any pending debounce (blur, reset). */
+  flush(): void;
+}
+
+export interface SaveSchedulerOptions {
+  /** Performs the actual save (renderer boot passes saveState(toSave())). */
+  save(): void;
+  /** Timer injection for tests; defaults to the global setTimeout. */
+  setTimer?(cb: () => void, ms: number): unknown;
+  clearTimer?(handle: unknown): void;
+}
+
+export function createSaveScheduler(options: SaveSchedulerOptions): SaveScheduler {
+  const setTimer =
+    options.setTimer ?? ((cb: () => void, ms: number): unknown => setTimeout(cb, ms));
+  const clearTimer =
+    options.clearTimer ??
+    ((handle: unknown): void => {
+      clearTimeout(handle as ReturnType<typeof setTimeout>);
+    });
+  let pending: unknown = undefined;
+
+  const cancelPending = (): void => {
+    if (pending !== undefined) {
+      clearTimer(pending);
+      pending = undefined;
+    }
+  };
+
+  const saveNow = (): void => {
+    cancelPending();
+    options.save();
+  };
+
+  return {
+    onEvents(events: readonly GameEvent[]): void {
+      if (events.some((e) => e.type === 'monsterKilled' || e.type === 'levelUp')) {
+        saveNow();
+        return;
+      }
+      if (events.some((e) => e.type === 'attack')) {
+        // Damage without a kill: coalesce key-mash into one trailing save.
+        cancelPending();
+        pending = setTimer(() => {
+          pending = undefined;
+          options.save();
+        }, SAVE_DEBOUNCE_MS);
+      }
+    },
+
+    flush: saveNow,
   };
 }

@@ -18,15 +18,18 @@ import {
   mulberry32,
   xpToNext,
 } from '../src/core/index.js';
-import type { GameState, SaveFileV1 } from '../src/core/index.js';
+import { DEFAULT_SAVE } from '../src/core/index.js';
+import type { GameEvent, GameState, SaveFileV1 } from '../src/core/index.js';
 import {
   ATTACK_FRAME_MS,
   createGame,
+  createSaveScheduler,
   GROUND_Y,
   HERO_X,
   HP_BAR,
   IDLE_FRAME_MS,
   MONSTER_X,
+  SAVE_DEBOUNCE_MS,
   VIEW_H,
   VIEW_W,
 } from '../src/renderer/game.js';
@@ -695,6 +698,156 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
   });
 });
 
+describe('createSaveScheduler (T16 save policy)', () => {
+  const attackOnly: GameEvent[] = [
+    { type: 'attack', damage: 1, crit: false, source: 'keyboard' },
+    { type: 'monsterHit', hpAfter: 9, maxHp: 10 },
+  ];
+  const killEvents: GameEvent[] = [
+    ...attackOnly,
+    { type: 'monsterKilled', monster: monsterForIndex(0), xpGained: 5 },
+    { type: 'itemDropped', drops: [] },
+    { type: 'monsterSpawned', monster: monsterForIndex(1) },
+  ];
+  const levelUpEvents: GameEvent[] = [...killEvents, { type: 'levelUp', newLevel: 2 }];
+
+  interface FakeTimer {
+    cb: () => void;
+    ms: number;
+    cleared: boolean;
+  }
+
+  function harness(): {
+    scheduler: ReturnType<typeof createSaveScheduler>;
+    timers: FakeTimer[];
+    saveCount: () => number;
+  } {
+    let saves = 0;
+    const timers: FakeTimer[] = [];
+    const scheduler = createSaveScheduler({
+      save: () => {
+        saves += 1;
+      },
+      setTimer: (cb, ms) => {
+        const timer: FakeTimer = { cb, ms, cleared: false };
+        timers.push(timer);
+        return timer;
+      },
+      clearTimer: (handle) => {
+        (handle as FakeTimer).cleared = true;
+      },
+    });
+    return { scheduler, timers, saveCount: () => saves };
+  }
+
+  it('saves immediately on a kill and on a level-up', () => {
+    const { scheduler, timers, saveCount } = harness();
+    scheduler.onEvents(killEvents);
+    expect(saveCount()).toBe(1);
+    scheduler.onEvents(levelUpEvents);
+    expect(saveCount()).toBe(2);
+    expect(timers).toEqual([]); // immediate — never through the debounce
+  });
+
+  it('debounces a damage-only attack by 500ms', () => {
+    const { scheduler, timers, saveCount } = harness();
+    scheduler.onEvents(attackOnly);
+    expect(saveCount()).toBe(0);
+    expect(timers).toHaveLength(1);
+    expect(timers[0]?.ms).toBe(SAVE_DEBOUNCE_MS);
+    timers[0]?.cb();
+    expect(saveCount()).toBe(1);
+  });
+
+  it('coalesces key-mash damage into one trailing save', () => {
+    const { scheduler, timers, saveCount } = harness();
+    scheduler.onEvents(attackOnly);
+    scheduler.onEvents(attackOnly);
+    scheduler.onEvents(attackOnly);
+    expect(timers).toHaveLength(3);
+    expect(timers[0]?.cleared).toBe(true);
+    expect(timers[1]?.cleared).toBe(true);
+    expect(timers[2]?.cleared).toBe(false);
+    timers[2]?.cb();
+    expect(saveCount()).toBe(1);
+  });
+
+  it('a kill cancels the pending damage debounce (no double save)', () => {
+    const { scheduler, timers, saveCount } = harness();
+    scheduler.onEvents(attackOnly);
+    scheduler.onEvents(killEvents);
+    expect(saveCount()).toBe(1);
+    expect(timers[0]?.cleared).toBe(true);
+  });
+
+  it('flush() saves immediately and cancels any pending debounce', () => {
+    const { scheduler, timers, saveCount } = harness();
+    scheduler.onEvents(attackOnly);
+    scheduler.flush();
+    expect(saveCount()).toBe(1);
+    expect(timers[0]?.cleared).toBe(true);
+    scheduler.flush(); // blur always flushes, pending or not
+    expect(saveCount()).toBe(2);
+  });
+
+  it('an empty event batch neither saves nor schedules', () => {
+    const { scheduler, timers, saveCount } = harness();
+    scheduler.onEvents([]);
+    expect(saveCount()).toBe(0);
+    expect(timers).toEqual([]);
+  });
+});
+
+describe('game toSave/reset (T16 persistence wiring)', () => {
+  const killSave: SaveFileV1 = {
+    version: 1,
+    level: 1,
+    xp: 19, // +5 xp on the kill → level 2 (banner + sparkles in flight)
+    killCount: 0,
+    coins: 0,
+    items: {},
+    monsterIndex: 0,
+    monsterHp: 1,
+  };
+
+  it('toSave() mirrors the wrapped engine snapshot', () => {
+    const engine = createEngine(null, mulberry32(42));
+    const game = createGame(engine);
+    game.attack('keyboard');
+    expect(game.toSave()).toEqual(engine.toSave());
+  });
+
+  it('reset() returns progress to the defaults with idle animations', () => {
+    const game = createGame(createEngine(killSave, mulberry32(7)));
+    game.attack('keyboard'); // killing blow: progress + presentation in flight
+    expect(game.toSave().killCount).toBe(1);
+    expect(game.getMonsterAnim().state).toBe('dying');
+
+    game.reset();
+    expect(game.toSave()).toEqual(DEFAULT_SAVE);
+    expect(game.getState().level).toBe(1);
+    expect(game.getHeroAnim().state).toBe('idle');
+    expect(game.getMonsterAnim().state).toBe('idle');
+  });
+
+  it('reset() clears every in-flight presentation system', () => {
+    const game = createGame(createEngine(killSave, mulberry32(7)));
+    game.attack('keyboard'); // scatter + drops + float + banner all active
+    game.update(100); // and mid-flight
+    game.reset();
+
+    // A reset game paints the exact same scene as a brand-new game: no
+    // leftover floats, particles, drops, banner, pop flash or bob offset.
+    const fresh = createGame(createEngine(null, mulberry32(1)));
+    const a = makeCtx();
+    fresh.draw(a.ctx);
+    const b = makeCtx();
+    game.draw(b.ctx);
+    expect(b.calls).toEqual(a.calls);
+    expect(b.clears).toEqual(a.clears);
+  });
+});
+
 describe('renderer boot source contract (src/renderer/index.ts)', () => {
   const rendererIndex = read('src/renderer/index.ts');
 
@@ -706,8 +859,30 @@ describe('renderer boot source contract (src/renderer/index.ts)', () => {
     'onInput',
     'requestAnimationFrame',
     'setupFallbackInput',
+    'createSaveScheduler',
+    'saveState',
+    'onReset',
   ])('wires %s', (literal) => {
     expect(rendererIndex).toContain(literal);
+  });
+
+  it('persists via the scheduler on both input paths and on blur (T16)', () => {
+    // Every engine step routes its events into the save policy…
+    expect(rendererIndex).toContain('saves.onEvents(game.attack(event.source))');
+    expect(rendererIndex).toContain('saves.onEvents(game.attack(source))');
+    // …the save itself ships the engine snapshot over the bridge…
+    expect(rendererIndex).toContain('window.desmon.saveState(game.toSave())');
+    // …and losing focus flushes unconditionally.
+    expect(rendererIndex).toContain("addEventListener('blur'");
+    expect(rendererIndex).toContain('saves.flush()');
+  });
+
+  it('onReset swaps in a fresh engine, then saves immediately (T16)', () => {
+    const reset = rendererIndex.indexOf('game.reset()');
+    expect(reset).toBeGreaterThan(rendererIndex.indexOf('onReset'));
+    expect(reset).toBeGreaterThan(-1);
+    const flushAfterReset = rendererIndex.indexOf('saves.flush()', reset);
+    expect(flushAfterReset).toBeGreaterThan(reset);
   });
 
   it('disables image smoothing and clamps dt to 100ms', () => {

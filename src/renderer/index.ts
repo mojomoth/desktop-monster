@@ -1,9 +1,12 @@
 // Renderer boot (SPEC F21 + F18, Assumption 11): load save → parseSave →
 // createEngine → subscribe input → rAF loop repainting the full scene, and
 // report the first painted frame over IPC exactly once (drives smoke).
+// Persistence wiring (SPEC F22, T16): progress saves on every kill and
+// level-up, debounced 500ms after damage, on window blur, and immediately
+// after a Reset Progress request from main.
 
 import { createEngine, parseSave } from '../core/index.js';
-import { createGame } from './game.js';
+import { createGame, createSaveScheduler } from './game.js';
 import { setupFallbackInput } from './input.js';
 
 async function boot(): Promise<void> {
@@ -22,8 +25,16 @@ async function boot(): Promise<void> {
   const engine = createEngine(parseSave(await window.desmon.loadState()));
   const game = createGame(engine);
 
+  // WHEN to save is the scheduler's policy (game.ts, unit-tested there);
+  // WHAT a save is stays right here: the engine snapshot over the bridge.
+  const saves = createSaveScheduler({
+    save: () => {
+      void window.desmon.saveState(game.toSave());
+    },
+  });
+
   window.desmon.onInput((event) => {
-    game.attack(event.source);
+    saves.onEvents(game.attack(event.source));
   });
 
   // Window-focused fallback input (SPEC F14): keydown/mousedown listeners
@@ -33,8 +44,20 @@ async function boot(): Promise<void> {
     target: window,
     bridge: window.desmon,
     onAttack: (source) => {
-      game.attack(source);
+      saves.onEvents(game.attack(source));
     },
+  });
+
+  // Losing focus is the last reliable moment before a quit — flush progress.
+  window.addEventListener('blur', () => {
+    saves.flush();
+  });
+
+  // Tray "Reset Progress" (menu arrives in T17; the handler works today):
+  // fresh default engine, then persist the reset state immediately.
+  window.desmon.onReset(() => {
+    game.reset();
+    saves.flush();
   });
 
   let reportedFirstFrame = false;
