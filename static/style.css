@@ -5,11 +5,20 @@ body {
   background: transparent;
   overflow: hidden;
   user-select: none;
+  /* Drag regions swallow mousedown — fallback input needs clicks, so only
+     the 24-px top strip below is draggable. */
+  -webkit-app-region: no-drag;
 }
 
 .drag-handle {
   height: 24px;
   -webkit-app-region: drag;
+}
+
+.drag-handle:hover {
+  /* Subtle grip hint so the only draggable strip is discoverable. */
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
 }
 
 canvas {
