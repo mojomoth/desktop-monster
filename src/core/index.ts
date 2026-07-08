@@ -23,6 +23,26 @@ export {
 export { createEngine } from './engine.js';
 export type { Engine } from './engine.js';
 
+export {
+  createHeroAnim,
+  createMonsterAnim,
+  HERO_ATTACK_MS,
+  heroInput,
+  MONSTER_DYING_MS,
+  MONSTER_HIT_MS,
+  MONSTER_SPAWNING_MS,
+  monsterHit,
+  monsterKilled,
+  tickHero,
+  tickMonster,
+} from './fsm.js';
+export type {
+  HeroAnim,
+  HeroAnimState,
+  MonsterAnim,
+  MonsterAnimState,
+} from './fsm.js';
+
 export { createFallbackGate, SimulatedInputDriver } from './input.js';
 export type {
   FallbackGate,
