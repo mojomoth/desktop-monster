@@ -1,0 +1,7 @@
+{"task":"T19","result":"DONE","gates":"pass","commit":"f4c0c3b","remaining":1,"sentinel":false,"note":"T19 done: unsigned arm64 dmg+.app + README + 11 pin tests; needed @noble/hashes@1.8.0 override for app-builder-lib on Node 20.12.2; AC passed twice incl. fresh npm ci tree"}
+
+Iteration 19 summary:
+- Builder completed T19 (DONE): produced an unsigned arm64 DMG and .app, updated README, and added 11 pin tests.
+- Required a @noble/hashes@1.8.0 override for app-builder-lib compatibility on Node 20.12.2.
+- Builder reports gates pass; acceptance criteria verified twice, including on a fresh `npm ci` dependency tree.
+- Commit: f4c0c3b. Remaining open tasks reported by builder: 1. Sentinel: false.
