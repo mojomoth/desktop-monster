@@ -21,6 +21,19 @@ import {
   tintPalette,
 } from '../src/renderer/sprites/palette.js';
 import { heroAttack, heroIdle, heroSlash } from '../src/renderer/sprites/hero.js';
+import { monsterSprites } from '../src/renderer/sprites/monsters.js';
+import { ITEM_SPRITE_IDS, itemSprites } from '../src/renderer/sprites/items.js';
+import {
+  drawText,
+  FONT_ADVANCE,
+  FONT_H,
+  FONT_W,
+  fontSprite,
+  GLYPH_CHARS,
+  glyphIndex,
+  textWidth,
+} from '../src/renderer/sprites/font.js';
+import { COIN_ITEM, SPECIES_IDS, TRINKET_TABLE } from '../src/core/index.js';
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/;
 
@@ -148,6 +161,113 @@ describe('drawSprite', () => {
     expect(() => drawSprite(ctx, tiny, 99, 0, 0)).not.toThrow();
     expect(() => drawSprite(ctx, tiny, -1, 0, 0)).not.toThrow();
     expect(calls).toEqual([]);
+  });
+});
+
+describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
+  it('every core species has idle x2 and hit x1 sprites registered under monster.<id>.<pose>', () => {
+    const registered = allSprites();
+    expect(SPECIES_IDS).toHaveLength(5);
+    for (const id of SPECIES_IDS) {
+      const art = monsterSprites[id];
+      expect(art.idle.frames, `${id} idle`).toHaveLength(2);
+      expect(art.hit.frames, `${id} hit`).toHaveLength(1);
+      expect(registered.get(`monster.${id}.idle`), `monster.${id}.idle`).toBe(art.idle);
+      expect(registered.get(`monster.${id}.hit`), `monster.${id}.hit`).toBe(art.hit);
+    }
+  });
+
+  it('monster sprites stay small (about 12x10) and fit the 160x110 scene', () => {
+    for (const id of SPECIES_IDS) {
+      for (const sprite of [monsterSprites[id].idle, monsterSprites[id].hit]) {
+        expect(sprite.w, `${id} width`).toBeLessThanOrEqual(14);
+        expect(sprite.h, `${id} height`).toBeLessThanOrEqual(12);
+        expect(sprite.w, `${id} width`).toBeGreaterThanOrEqual(6);
+        expect(sprite.h, `${id} height`).toBeGreaterThanOrEqual(6);
+      }
+    }
+  });
+});
+
+describe('item art (SPEC F19 part 2)', () => {
+  it('there is an item sprite for the coin and for every trinket in the loot table', () => {
+    const byId: Partial<Record<string, Sprite>> = itemSprites;
+    expect(byId[COIN_ITEM.id], COIN_ITEM.id).toBeDefined();
+    for (const { item } of TRINKET_TABLE) {
+      expect(byId[item.id], item.id).toBeDefined();
+    }
+    // 1 coin + 5 trinkets, nothing else.
+    expect(ITEM_SPRITE_IDS).toHaveLength(1 + TRINKET_TABLE.length);
+  });
+
+  it('every item sprite has exactly one frame and is registered under item.<id>', () => {
+    const registered = allSprites();
+    for (const id of ITEM_SPRITE_IDS) {
+      expect(itemSprites[id].frames, id).toHaveLength(1);
+      expect(registered.get(`item.${id}`), `item.${id}`).toBe(itemSprites[id]);
+    }
+  });
+});
+
+describe('pixel font (SPEC F19 part 2)', () => {
+  it('the 3x5 font covers all digits and every character of "LV" and "LEVEL UP!"', () => {
+    expect(FONT_W).toBe(3);
+    expect(FONT_H).toBe(5);
+    expect(fontSprite.w).toBe(FONT_W);
+    expect(fontSprite.h).toBe(FONT_H);
+    expect(fontSprite.frames).toHaveLength(GLYPH_CHARS.length);
+    expect(allSprites().get('font.glyphs')).toBe(fontSprite);
+
+    const needed = new Set([...'0123456789', ...'LV', ...'LEVELUP!']);
+    for (const ch of needed) {
+      const frame = glyphIndex(ch);
+      expect(frame, `glyph '${ch}'`).toBeGreaterThanOrEqual(0);
+      expect(fontSprite.frames[frame], `glyph '${ch}' frame`).toBeDefined();
+    }
+  });
+
+  it('glyphIndex matches letters case-insensitively and is -1 for spaces and unknown chars', () => {
+    expect(glyphIndex('l')).toBe(glyphIndex('L'));
+    expect(glyphIndex('L')).toBeGreaterThanOrEqual(0);
+    expect(glyphIndex(' ')).toBe(-1);
+    expect(glyphIndex('?')).toBe(-1);
+  });
+
+  it('drawText advances one cell per character, skipping spaces without painting them', () => {
+    const { ctx, calls } = makeCtx();
+    drawText(ctx, 'L 1', 5, 7);
+    expect(calls.length).toBeGreaterThan(0);
+    for (const call of calls) {
+      expect(call.y).toBeGreaterThanOrEqual(7);
+      expect(call.y).toBeLessThan(7 + FONT_H);
+      const inL = call.x >= 5 && call.x < 5 + FONT_W;
+      const inOne = call.x >= 5 + 2 * FONT_ADVANCE && call.x < 5 + 2 * FONT_ADVANCE + FONT_W;
+      expect(inL || inOne, `x=${call.x} must fall in the L or 1 cell, never the space`).toBe(true);
+    }
+    expect(calls.some((c) => c.x >= 5 + 2 * FONT_ADVANCE)).toBe(true);
+  });
+
+  it('drawText paints white by default and the color option tints every pixel', () => {
+    const white = makeCtx();
+    drawText(white.ctx, '8', 0, 0);
+    expect(white.calls.length).toBeGreaterThan(0);
+    for (const call of white.calls) {
+      expect(call.fillStyle).toBe(COLORS.white);
+    }
+
+    const tinted = makeCtx();
+    drawText(tinted.ctx, '8', 0, 0, { color: COLORS.yellow });
+    expect(tinted.calls.length).toBe(white.calls.length);
+    for (const call of tinted.calls) {
+      expect(call.fillStyle).toBe(COLORS.yellow);
+    }
+  });
+
+  it('textWidth counts cells minus the trailing spacing', () => {
+    expect(textWidth('')).toBe(0);
+    expect(textWidth('7')).toBe(FONT_W);
+    expect(textWidth('LV')).toBe(2 * FONT_ADVANCE - 1);
+    expect(textWidth('LEVEL UP!')).toBe(9 * FONT_ADVANCE - 1);
   });
 });
 
