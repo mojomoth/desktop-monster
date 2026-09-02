@@ -1,0 +1,13 @@
+{"task":"T23","result":"DONE","gates":"pass","commit":"833274c74f7c8c1b3e0e0b4bcbd80b1e2f0f60ec","note":"Added src/core/bignum.ts (suffix bijective base-26, format per Assumption 20 truncation rule, ratio clamped via *10000n/den, bigField), the named barrel line in src/core/index.ts, and tests/bignum.test.ts (7 tests, AC titles verbatim, full value table 999..10^2109, negatives/non-finite, ratio clamp, bigField accept/reject incl. bigint and '007'). format normalizes number input through BigInt(Math.floor(n)) after the finite check so >=1e21 doubles cannot leak exponent notation; negative bigint also -> '0'. Gates green (310 tests, lint, typecheck); AC exit=0. No dead ends — first attempt green.","children":[]}
+
+Implementation summary:
+
+- **`src/core/bignum.ts`** (new) — `suffix(g)`, `format(n: bigint | number)`, `ratio(num, den)`, `bigField(raw)`, pure, no electron/DOM/node imports.
+- **`src/core/index.ts`** — added `export { bigField, format, ratio, suffix } from './bignum.js';` to the named export lists.
+- **`tests/bignum.test.ts`** (new) — 7 tests, the five AC titles verbatim plus verbatim-value / negative-input coverage.
+
+Gate output: `Test Files 20 passed (20), Tests 310 passed (310)`; `eslint . --max-warnings 0` exit 0; all three `tsc` projects exit 0. The AC line ran literally and returned `AC exit=0`.
+
+One deliberate generalization beyond the literal spec text, noted in the session record: `format` converts number input with `BigInt(Math.floor(n))` after the finite check rather than calling `.toString()` on the double directly, so values ≥ 1e21 (which `Number#toString` renders as `1e+21`) still format correctly; the same single comparison maps negative bigints to `'0'` as well. Every value in the task's table matches exactly.
+
+Commits in lane `lane/T23`: `156e60a` (feat) and `833274c` (docs, session-record sha line only). Tree is clean.
