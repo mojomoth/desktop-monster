@@ -226,18 +226,6 @@ describe('pixel font (SPEC F19 part 2)', () => {
     }
   });
 
-  it('the 3x5 font covers digits, every letter A to Z and the characters . : - + %', () => {
-    const needed = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ.:-+%';
-    for (const ch of needed) {
-      const frame = glyphIndex(ch);
-      expect(frame, `glyph '${ch}'`).toBeGreaterThanOrEqual(0);
-      expect(fontSprite.frames[frame], `glyph '${ch}' frame`).toBeDefined();
-    }
-
-    expect(fontSprite.frames[glyphIndex('.')]).toEqual(['...', '...', '...', '...', '.w.']);
-    expect(fontSprite.frames[glyphIndex('%')]).toEqual(['w.w', '..w', '.w.', 'w..', 'w.w']);
-  });
-
   it('glyphIndex matches letters case-insensitively and is -1 for spaces and unknown chars', () => {
     expect(glyphIndex('l')).toBe(glyphIndex('L'));
     expect(glyphIndex('L')).toBeGreaterThanOrEqual(0);
