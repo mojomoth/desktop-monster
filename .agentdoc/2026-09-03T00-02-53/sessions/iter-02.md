@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T23 — Core bignum: A–Z suffix format, ratio, bigField
 - result: DONE
-- commit: 742e6e09ea15792473ee4629d16a1753431e03ca
+- commit: 156e60a97986af22fc9a7a247ea43ebc8c4ea593 (implementation + this record; a follow-up docs commit only fixes this line)
 - graphify affected used: none (pure new module, no callers yet)
 
 ## What I did
