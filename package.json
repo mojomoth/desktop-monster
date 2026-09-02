@@ -13,6 +13,7 @@
     "test": "vitest run",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json",
+    "start:server": "node dist/electron/server/index.js",
     "package": "npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac"
   },
   "dependencies": {
@@ -39,7 +40,7 @@
     "productName": "DesMon",
     "npmRebuild": false,
     "directories": { "output": "release" },
-    "files": ["dist/**/*", "static/**/*"],
+    "files": ["dist/**/*", "static/**/*", "!dist/electron/server/**"],
     "asarUnpack": ["**/*.node"],
     "mac": {
       "target": [{ "target": "dmg", "arch": ["arm64"] }],
