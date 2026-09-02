@@ -13,3 +13,4 @@
 | 12 | claude | T22 | CRASHED | skipped | skipped | none | continue |
 | 13 | claude | T23 | CRASHED | skipped | skipped | none | continue |
 | 14 | claude | T22 | CRASHED | skipped | skipped | none | escalate-crash |
+| 15 | claude | T23 | CRASHED | skipped | skipped | none | escalate-crash |
