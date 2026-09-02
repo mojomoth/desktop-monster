@@ -14,3 +14,4 @@
 | 13 | claude | T23 | CRASHED | skipped | skipped | none | continue |
 | 14 | claude | T22 | CRASHED | skipped | skipped | none | escalate-crash |
 | 15 | claude | T23 | CRASHED | skipped | skipped | none | escalate-crash |
+| 10 | codex | T31 | MERGE_RED | fail | skipped | 8e0c968 | continue |

@@ -53,3 +53,6 @@ TASK=T23 ITER=13 WORKER=claude RESULT=CRASHED MERGE=skipped GATES=skipped SMOKE=
 TASK=T22 ITER=14 WORKER=claude RESULT=CRASHED MERGE=skipped GATES=skipped SMOKE=skipped COMMIT=none DECISION=escalate-crash
 01:03:26 collect iter 15: T23 (claude) rc=1 result=CRASHED worker-gates=
 01:03:26 committed lane leftovers for T23
+TASK=T23 ITER=15 WORKER=claude RESULT=CRASHED MERGE=skipped GATES=skipped SMOKE=skipped COMMIT=none DECISION=escalate-crash
+01:04:58 collect iter 10: T31 (codex) rc=0 result=DONE worker-gates=pass
+01:04:58 committed lane leftovers for T31
