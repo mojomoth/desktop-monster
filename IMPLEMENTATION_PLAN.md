@@ -189,7 +189,7 @@
 - Notes (iter 05, claude): MERGE_RED: merge reverted (gates=fail smoke=skipped); Added src/server/http.ts (ApiRequest/ApiResponse/ApiHandler, BODY_LIMIT 65536, clientIp from first x-forwarded-for entry, createRequestListener answering GET /healthz itself, 413+destroy/400/null body, application/json) and src/server/index.ts (404 stub, PORT 10000, 0.0.0.0, one boot line); tsconfig.main.json include += src/server; start:server; build.files += !dist/electron/server/**; .node-version 20.12.2; tests/server/http.test.ts (9 tests, PassThrough, no sockets); SMOKE userData isolation before requestSingleInstanceLock + window.test.ts pin (it( 9->10). Gates + AC verbatim exit 0; npm ru
 
 
-### [ ] T23 — Core bignum: A–Z suffix format, ratio, bigField
+### [~] T23 — Core bignum: A–Z suffix format, ratio, bigField
 - AC: `npx vitest run tests/bignum.test.ts && grep -q "export function format" src/core/bignum.ts && grep -q "formats 1000 as 1.00A, 12345 as 12.3A, 123456 as 123A and 1000000 as 1.00B" tests/bignum.test.ts && grep -q "suffix 1/26/27/702/703 is A/Z/AA/ZZ/AAA" tests/bignum.test.ts && grep -q "format truncates and never rounds: 999999 is 999A" tests/bignum.test.ts && grep -q "ratio divides bigints into a clamped number" tests/bignum.test.ts && grep -q "bigField accepts finite numbers and digit strings and rejects everything else" tests/bignum.test.ts` → exit 0
 - Deps: none
 - Worker: claude
