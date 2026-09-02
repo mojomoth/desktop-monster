@@ -2,8 +2,6 @@
 
 export const CORE_VERSION = '0.1.0';
 
-export { bigField, format, ratio, suffix } from './bignum.js';
-
 export type {
   GameEvent,
   GameState,
