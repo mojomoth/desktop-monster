@@ -34,3 +34,6 @@ TASK=T23 ITER=09 WORKER=claude RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=sk
 01:01:30 dispatch iter 11: T23 (claude) → /Users/jeongyounglee/work/repo/desktop-monster/.worktrees/T23
 01:02:46 collect iter 08: T22 (claude) rc=1 result=CRASHED worker-gates=
 01:02:46 committed lane leftovers for T22
+TASK=T22 ITER=08 WORKER=claude RESULT=CRASHED MERGE=skipped GATES=skipped SMOKE=skipped COMMIT=none DECISION=continue
+01:02:48 collect iter 11: T23 (claude) rc=1 result=CRASHED worker-gates=
+01:02:48 committed lane leftovers for T23
