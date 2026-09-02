@@ -55,6 +55,15 @@ describe('accessory lifecycle (F16, src/main/index.ts)', () => {
     expect(indexTs).toContain('requestSingleInstanceLock');
   });
 
+  it('isolates a SMOKE run in a fresh temp userData dir before taking the lock', () => {
+    // Assumption 40: the lock is scoped by userData, so the redirect must
+    // happen before requestSingleInstanceLock() or parallel smokes collide.
+    const tempUserData = indexTs.indexOf('desmon-smoke-');
+    const lock = indexTs.indexOf('app.requestSingleInstanceLock()');
+    expect(tempUserData).toBeGreaterThan(-1);
+    expect(lock).toBeGreaterThan(tempUserData);
+  });
+
   it('hides the dock before creating the overlay window', () => {
     const dockHide = indexTs.indexOf('app.dock?.hide()');
     const createWindow = indexTs.indexOf('createOverlayWindow()');
