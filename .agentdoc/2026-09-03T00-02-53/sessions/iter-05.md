@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T22 — Server scaffold: node:http adapter, healthz, start:server, .node-version, SMOKE userData isolation
 - result: DONE
-- commit: 8c0881f9717b2dda5170cf2c06f53f710ce59eb9
+- commit: 52b07b429e4267806c7e9e5ffe86cf239f9e8c6c (the feat commit; this line landed in the follow-up docs commit)
 - graphify affected used: none (all touched symbols are new; src/main/index.ts read directly)
 
 ## What I did
