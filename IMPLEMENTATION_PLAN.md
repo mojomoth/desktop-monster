@@ -257,7 +257,7 @@
 - Notes: SPEC F35 (Assumption 24; GAME_DESIGN_V2 §4). `COMPANION_ATTACK_MS = 1000`; `tick(dt)` accumulates `volleyAcc` and fires `⌊dt/1000⌋` volleys (remainder kept; the renderer clamps dt to 100 anyway); per volley, each of `activeCompanions(companions)` (recomputed per volley) in order deals `companionPower(c) * (feverActive ? FEVER_MULT : 1n)` — never crits — → events `companionAttack { companionId, speciesId, damage }`, `monsterHit`, then the shared kill chain. Refactor the damage/kill chain into ONE `applyDamage(damage, events)` used by `attack()` and the volley: kills chain into the next monster inside the same volley and roll loot/capture exactly like hero kills (rng draws only on kills). No companions → no events, no rng draws. `GameEvent` gains `companionAttack`. Test titles verbatim in the AC; engine ≥ 26 `it(`. Keep every earlier engine title (F06/F07/F08/F11/F31/F33/F34) green.
 
 
-### [ ] T31 — Pixel font: full A–Z plus . : - + % glyphs
+### [~] T31 — Pixel font: full A–Z plus . : - + % glyphs
 - AC: `npx vitest run tests/sprites.test.ts && grep -q "the 3x5 font covers digits, every letter A to Z and the characters . : - + %" tests/sprites.test.ts && grep -qF "GLYPH_CHARS = '0123456789LVEUP!ABCDFGHIJKMNOQRSTWXYZ.:-+%'" src/renderer/sprites/font.ts && node -e "const m=require('fs').readFileSync('tests/sprites.test.ts','utf8').match(/^\s*it\(/gm)??[];process.exit(m.length>=25?0:1)"` → exit 0
 - Deps: none
 - Worker: codex
