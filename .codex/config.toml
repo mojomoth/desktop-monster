@@ -1,0 +1,35 @@
+# Project-level Codex config written for re_gent (rgt) observability hooks.
+# Equivalent to what `rgt init --agent codex` writes (it needs a TTY, so this
+# file is committed by hand). Codex trusts project config only for trusted
+# roots — see .harness/<CURRENT>/reference/TOOLING.md §3/§7.
+
+[features]
+hooks = true
+
+[[hooks.SessionStart]]
+matcher = ""
+
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = "rgt codex-hook"
+
+[[hooks.UserPromptSubmit]]
+matcher = ""
+
+[[hooks.UserPromptSubmit.hooks]]
+type = "command"
+command = "rgt codex-hook"
+
+[[hooks.PostToolUse]]
+matcher = ""
+
+[[hooks.PostToolUse.hooks]]
+type = "command"
+command = "rgt codex-hook"
+
+[[hooks.Stop]]
+matcher = ""
+
+[[hooks.Stop.hooks]]
+type = "command"
+command = "rgt codex-hook"
