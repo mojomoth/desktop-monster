@@ -8,3 +8,4 @@
 | 07 | claude | T23 | MERGE_RED | fail | skipped | c214884 | continue |
 | 03 | codex | T31 | MERGE_RED | fail | skipped | e9cbb1d | continue |
 | 09 | claude | T23 | MERGE_RED | fail | skipped | 1b40a8f | continue |
+| 08 | claude | T22 | CRASHED | skipped | skipped | none | continue |
