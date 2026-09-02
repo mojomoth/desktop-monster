@@ -6,3 +6,4 @@
 | 06 | claude | T23 | MERGE_RED | fail | skipped | f1ce855 | continue |
 | 05 | claude | T22 | MERGE_RED | fail | skipped | 8530e69 | continue |
 | 07 | claude | T23 | MERGE_RED | fail | skipped | c214884 | continue |
+| 03 | codex | T31 | MERGE_RED | fail | skipped | e9cbb1d | continue |
