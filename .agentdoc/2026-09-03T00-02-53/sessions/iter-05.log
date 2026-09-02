@@ -1,0 +1,19 @@
+{"task":"T22","result":"DONE","gates":"pass","commit":"9d95f52a15d407dc0a3236ddc2dcdaa88fe72562","note":"Added src/server/http.ts (ApiRequest/ApiResponse/ApiHandler, BODY_LIMIT 65536, clientIp from first x-forwarded-for entry, createRequestListener answering GET /healthz itself, 413+destroy/400/null body, application/json) and src/server/index.ts (404 stub, PORT 10000, 0.0.0.0, one boot line); tsconfig.main.json include += src/server; start:server; build.files += !dist/electron/server/**; .node-version 20.12.2; tests/server/http.test.ts (9 tests, PassThrough, no sockets); SMOKE userData isolation before requestSingleInstanceLock + window.test.ts pin (it( 9->10). Gates + AC verbatim exit 0; npm run smoke prints SMOKE_OK. Gate-forced fix outside Files: the lane node_modules symlink targets a non-existent dir (iter-01's dead end) — re-ran npm ci inside the worktree (untracked/gitignored). Staged explicit paths, not -A, because the graphify-out symlink escapes .gitignore.","children":[]}
+
+**T22 complete.** Two commits on `lane/T22`:
+
+- `52b07b4` — feature: `src/server/http.ts` + `src/server/index.ts`, `tsconfig.main.json` include, `start:server`, `build.files` exclusion, `.node-version`, `tests/server/http.test.ts`, SMOKE `userData` isolation in `src/main/index.ts`, `tests/window.test.ts` pin.
+- `9d95f52` — session record sha fixup.
+
+Verification actually run:
+
+| Check | Result |
+|---|---|
+| `npm test && npm run lint && npm run typecheck` | exit 0 — 313 tests, 20 files |
+| T22 `AC:` verbatim (incl. `npm run build` + loopback `127.0.0.1:47831/healthz`) | `AC_EXIT=0`, body `{"ok":true,"sha":"dev"}` |
+| `npm run smoke` (extra, changed boot path) | `SMOKE_OK` |
+
+Two things worth flagging:
+
+1. **Environment**: the lane's `node_modules` symlink points at `/Users/jeongyounglee/work/repo/desktop-monster/node_modules`, which does not exist — no gate can run through it, and it is the dead end iter 01 recorded. I fixed it inside the lane only (`rm node_modules && npm ci`, untracked and gitignored once it is a real directory), rather than writing into the off-limits main checkout. **Other lanes (T23, T31) and the orchestrator's own merge-time gate run will hit the same broken symlink.**
+2. **Deliberate omission**: the adapter has no 500 path. SERVER_ARCHITECTURE §3 assigns `500 internal` to `createApp` and states `handle()` never throws, so the catch belongs to T39, not here.
