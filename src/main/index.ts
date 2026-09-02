@@ -2,9 +2,6 @@
 // + IPC handlers (T03) + guarded global input hook (T04, production only)
 // + tray icon/menu (T17, SPEC F23) + the SMOKE=1 self-test sequence (T13).
 
-import { mkdtempSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
 import { app, Menu, nativeImage, shell, systemPreferences, Tray } from 'electron';
 import type { BrowserWindow } from 'electron';
 import { SimulatedInputDriver } from '../core/index.js';
@@ -47,14 +44,6 @@ function runSmokeSequence(win: BrowserWindow): void {
 // Accessory lifecycle order matters: setName first, single-instance gate,
 // dock hidden BEFORE window creation (see GAME_ARCHITECTURE §0.3/§3.1).
 app.setName('DesMon');
-
-if (isSmoke) {
-  // Assumption 40: the single-instance lock file lives in userData, so a smoke
-  // run sharing it with a real (or parallel) instance would quit before ever
-  // printing SMOKE_OK. A throwaway dir also keeps save.json out of the way.
-  // Must land AFTER setName (it seeds the default path) and BEFORE the lock.
-  app.setPath('userData', mkdtempSync(join(tmpdir(), 'desmon-smoke-')));
-}
 
 if (!app.requestSingleInstanceLock()) {
   // A DesMon instance is already running — this second instance quits.

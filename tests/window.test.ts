@@ -55,15 +55,6 @@ describe('accessory lifecycle (F16, src/main/index.ts)', () => {
     expect(indexTs).toContain('requestSingleInstanceLock');
   });
 
-  it('gives SMOKE runs a throwaway userData dir before the single-instance lock', () => {
-    // Assumption 40 / F43: the lock file lives in userData — taking it with the
-    // shared default would make a parallel smoke run quit silently, no SMOKE_OK.
-    const smokeDir = indexTs.indexOf('desmon-smoke-');
-    const lock = indexTs.indexOf('requestSingleInstanceLock()');
-    expect(smokeDir).toBeGreaterThan(-1);
-    expect(lock).toBeGreaterThan(smokeDir);
-  });
-
   it('hides the dock before creating the overlay window', () => {
     const dockHide = indexTs.indexOf('app.dock?.hide()');
     const createWindow = indexTs.indexOf('createOverlayWindow()');
