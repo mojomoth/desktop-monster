@@ -28,3 +28,5 @@ TASK=T23 ITER=07 WORKER=claude RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=sk
 00:58:22 collect iter 03: T31 (codex) rc=0 result=DONE worker-gates=pass
 00:58:22 committed lane leftovers for T31
 TASK=T31 ITER=03 WORKER=codex RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=skipped COMMIT=e9cbb1d DECISION=continue
+00:58:24 dispatch iter 10: T31 (codex) → /Users/jeongyounglee/work/repo/desktop-monster/.worktrees/T31
+01:01:26 collect iter 09: T23 (claude) rc=0 result=DONE worker-gates=pass

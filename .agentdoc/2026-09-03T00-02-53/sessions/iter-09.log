@@ -1,0 +1,15 @@
+{"task":"T23","result":"DONE","gates":"pass","commit":"123b944e7821a79dfbe699dc1922f7615d414e7c","note":"Implemented src/core/bignum.ts (suffix bijective base-26, format per Assumption 20 truncation, ratio clamped, bigField), the named barrel line, and tests/bignum.test.ts (7 tests, AC titles verbatim, full value table 999..10^2109). Gates green: 310 tests, lint, typecheck; AC exit=0. ROOT-CAUSED the 4x MERGE_RED: .gitignore's trailing-slash patterns match directories only, so the dispatched node_modules/graphify-out SYMLINKS were never ignored and got committed. Dropped the slashes (gate-forced, outside Files). WARNING: main's node_modules is GONE - orchestrator must run npm ci on main once or gates keep failing there.","children":[]}
+
+The code for T23 was correct in iterations 02/04/06/07 — every one of them was reverted for a reason that had nothing to do with the module. So I diagnosed the merge failure first.
+
+**What was actually happening:** `.agentdoc/.../iter-07.gates.log` shows the post-merge gates on main dying with `sh: vitest: command not found`. `.gitignore` used `node_modules/` and `graphify-out/` — trailing-slash patterns match *directories only*, and dispatch symlinks both into each lane. Git saw untracked symlinks, `git add -A` committed them (`create mode 120000` in every revert log), and merging replaced main's real `node_modules` with a self-referential symlink that npm then destroyed.
+
+Iters 04/06/07 tried to dodge this by committing explicit paths. That is not a fix — it leaves the trap armed for the next lane, and both 06 and 07 still shipped `graphify-out` anyway. I removed the trailing slashes instead; `git check-ignore -v` now reports both as ignored and the harness-mandated `git add -A` is safe. This is outside my `Files:` list, which the lane rules allow only when a gate forces it — it did, four times.
+
+**The task itself:**
+- `src/core/bignum.ts:7` `suffix` — bijective base-26 loop; verified 1/26/27/52/53/702/703 → A/Z/AA/AZ/BA/ZZ/AAA.
+- `src/core/bignum.ts:20` `format` — Assumption 20 rule, truncating. Number input goes through `BigInt(Math.floor(n))` after the finite/negative check so a double ≥ 1e21 can't leak `'1e+21'`. Negative bigint also returns `'0'`: the spec names only negative *numbers*, but the digit rule would emit garbage for `-1000`.
+- `ratio` clamps both ends; `bigField` rejects bigint as a non-JSON value.
+- `tests/bignum.test.ts` — 7 tests with the five AC titles verbatim, the value table hand-checked to `10n**2109n`, plus truncation counter-examples (`1999` → `1.99A`, not `2.00A`).
+
+**One thing I could not fix from here:** main's `node_modules` directory no longer exists. `iterate.sh:163` only symlinks lanes to it and never installs on main, so the post-merge gates will keep failing with `vitest: command not found` no matter what this lane commits. Main is off limits under the lane rules, so I ran `npm ci` inside the worktree only and left main alone — the orchestrator needs to run `npm ci` there once. This is recorded in the session record's dead-ends section as well.
