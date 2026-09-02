@@ -10,3 +10,4 @@ TASK=T23 ITER=02 WORKER=claude RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=sk
 TASK=T22 ITER=01 WORKER=claude RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=skipped COMMIT=bdb7df9 DECISION=continue
 00:52:17 collect iter 04: T23 (claude) rc=0 result=DONE worker-gates=pass
 00:52:17 committed lane leftovers for T23
+TASK=T23 ITER=04 WORKER=claude RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=skipped COMMIT=038f096 DECISION=continue
