@@ -1,0 +1,15 @@
+{"task":"T23","result":"DONE","gates":"pass","commit":"87580728a4319fb98db7617e4589ad07c9f873df","note":"Root-caused iter-02's MERGE_RED: its `git add -A` committed the node_modules/graphify-out SYMLINKS, because .gitignore uses trailing-slash patterns that match directories only. Merging replaced main's real node_modules with a self-referential symlink, so npm died with the 'stdin' error. Code was never at fault. Restored the implementation from the reachable pre-revert commit 156e60a, re-verified the full value table, ran npm ci in the lane (its symlink was dangling), and committed EXPLICIT PATHS, not -A. Gates green: 310 tests, lint, typecheck; AC exit=0.","children":[]}
+
+The task is complete, but the interesting part was why it failed last time.
+
+**The iter-02 revert was not a code defect.** `.gitignore` lists `node_modules/` and `graphify-out/` with trailing slashes, which match directories only. The lane's entries are *symlinks* — files, as far as git is concerned — so they were never ignored, and iter-02's prescribed `git add -A` swept them into the commit. Merging that into `main` replaced the real `node_modules` directory with a symlink pointing at itself, which is what produced `npm ERR! Cannot read properties of undefined (reading 'stdin')` in the merge gates and triggered the revert.
+
+That directly affected this iteration: the lane's `node_modules` symlink was dangling because its target had been destroyed, so no gate could run at all. I ran `npm ci` inside the worktree — which both fixes it and makes the path a real directory that the existing gitignore pattern does match. The main checkout was not touched.
+
+**Two deliberate deviations, both gate-forced:**
+- Committed explicit paths instead of `git add -A`, since `-A` reproduces the exact failure that caused the revert.
+- `format` funnels number input through `BigInt(Math.floor(n))` after the finite check rather than calling `.toString()` on the double as the spec text literally says — otherwise values ≥ 1e21 leak exponent notation (`1e+21`). Every entry in the task's value table matches exactly; the same comparison maps negative bigints to `'0'`.
+
+**Verified:** 310 tests / 20 files pass, `eslint --max-warnings 0` clean, all three tsc projects clean, and the AC line executed literally returns 0. The commit contains no symlink entries.
+
+**One thing outside this task's scope that the orchestrator should know:** `main`'s `node_modules` is still missing — I could not repair it without working outside my worktree. It needs an `npm ci` before the next merge gates run there. The durable fix for the underlying trap is dropping the trailing slashes in `.gitignore` (`node_modules`, `graphify-out`) so symlinks are ignored too; I left that alone as it belongs to no dispatched task, and recorded both points in the session record.
