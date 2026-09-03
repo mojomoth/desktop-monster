@@ -4,9 +4,18 @@
 // core/collection.ts's applyCollection, so a button is only ever offered when
 // the action would succeed.
 
-import { COMPANION_MAX_LEVEL, companionPower, format, REBIRTH_MIN_INDEX } from '../core/index.js';
-import type { SaveFile } from '../core/index.js';
-import type { LeaderboardResult, NetResult, PvpResult } from '../shared/api.js';
+import {
+  COMPANION_MAX_LEVEL,
+  companionPower,
+  effectivePower,
+  format,
+  PARTY_SIZE,
+  partyOrder,
+  REBIRTH_MIN_INDEX,
+  typeOf,
+} from '../core/index.js';
+import type { Companion, MonsterType, SaveFile } from '../core/index.js';
+import type { LeaderboardResult, MatchResult, NetResult, PvpResult, Theft } from '../shared/api.js';
 
 /** One roster card, ready to paint. */
 export interface RosterRow {
@@ -125,19 +134,137 @@ export function pvpResultText(result: NetResult<PvpResult>): string {
   const { win, opponent, stolen, lost } = result.value;
   if (win) {
     return stolen
-      ? `Victory over ${opponent.name} — you stole ${companionName(stolen)}!`
-      : `Victory over ${opponent.name} — nothing left to steal.`;
+      ? `Victory over ${opponent.name} — stole ${companionName(stolen)}!`
+      : `Victory over ${opponent.name}.`;
   }
+  // v3 steals are attacker-only, so `lost` is always null — the named leg is
+  // still here for the v2-shaped response the server may answer with.
   return lost
     ? `Defeat by ${opponent.name} — ${companionName(lost)} was stolen from you.`
-    : `Defeat by ${opponent.name} — nothing was lost.`;
+    : `Defeat by ${opponent.name}.`;
+}
+
+// ---------------------------------------------------------------- SPEC F75
+// Battle tab v3: opponent preview, manual party editor, theft inbox. Still
+// pure — the binder (index.ts) only paints what these return.
+
+/** A `.card.mini` — the opponent's party, my party slots and the pick buttons. */
+export interface MiniRow {
+  id: string;
+  /** Art key for the card's canvas. */
+  speciesId: string;
+  /** Star count — also the palette tier of the card art. */
+  stars: number;
+  /** '.name' text: 'Dragon Lv 7'. */
+  name: string;
+  /** '.stars' text: '★×2'. */
+  starText: string;
+  /** The type badge's class: 'type type-fire'. */
+  typeClass: string;
+  /** The type badge's letter. */
+  typeBadge: string;
 }
 
 /**
- * The single `Battle!` button: a fighter is required, and the server's PvP
- * cooldown is waited out client-side.
- *
- * @param cooldownUntil seconds still on that cooldown (0 = ready to battle).
+ * Badge letters. ponytail: mirrors the private TYPE_INITIALS of
+ * renderer/sprites/party.ts (view.ts imports nothing but core) — wind and
+ * water share an initial, so water takes 'A' for aqua.
  */
-export const battleEnabled = (save: SaveFile, cooldownUntil: number): boolean =>
-  save.companions.length > 0 && cooldownUntil <= 0;
+const TYPE_BADGE: Record<MonsterType, string> = {
+  fire: 'F',
+  wind: 'W',
+  earth: 'E',
+  water: 'A',
+  dark: 'D',
+};
+
+/** Any companion — mine or an opponent's — as a compact card. */
+export function miniRow(c: Companion): MiniRow {
+  const type = typeOf(c.speciesId);
+  return {
+    id: c.id,
+    speciesId: c.speciesId,
+    stars: c.stars,
+    name: companionName(c),
+    starText: `★×${String(c.stars)}`,
+    typeClass: `type type-${type}`,
+    typeBadge: TYPE_BADGE[type],
+  };
+}
+
+/** The previewed opponent's party in `partyOrder`; no match or a bot → none. */
+export function opponentRows(match: MatchResult | null): MiniRow[] {
+  return match === null ? [] : partyOrder(match.opponent.party).map(miniRow);
+}
+
+/** Who strikes first: `partyOrder` is biggest (back) first, so front is last. */
+const frontOf = (party: readonly Companion[]): Companion | undefined => {
+  const ordered = partyOrder(party);
+  return ordered[ordered.length - 1];
+};
+
+/** The live `#preview` line: my party's power against the opponent's front. */
+export function partyPreview(
+  myParty: readonly Companion[],
+  opponentParty: readonly Companion[],
+): string {
+  const front = frontOf(opponentParty);
+  const total = myParty.reduce((sum, c) => {
+    const power = companionPower(c);
+    return (
+      sum +
+      (front === undefined ? power : effectivePower(power, typeOf(c.speciesId), typeOf(front.speciesId)))
+    );
+  }, 0n);
+  return `Σ vs opponent: ${format(total)}`;
+}
+
+/** Add or drop `id` from the picked party; a full party refuses new picks. */
+export function togglePick(ids: readonly string[], id: string): string[] {
+  if (ids.includes(id)) return ids.filter((x) => x !== id);
+  return ids.length >= PARTY_SIZE ? [...ids] : [...ids, id];
+}
+
+/** One `#thefts` row; `id` is what the `Reclaim` button sends back. */
+export interface TheftRow {
+  id: string;
+  text: string;
+}
+
+const HOUR_MS = 3_600_000;
+
+/** The theft inbox — `now` is injected so the rows stay deterministic. */
+export function theftRows(thefts: readonly Theft[], now: number): TheftRow[] {
+  return thefts.map((t) => {
+    const left = Math.max(0, t.reclaimUntil - now);
+    const hours = Math.floor(left / HOUR_MS);
+    const minutes = Math.floor((left % HOUR_MS) / 60_000);
+    return {
+      id: t.id,
+      text: `${t.thiefName} stole ${companionName(t.companion)} · ${String(hours)}h ${String(minutes)}m left`,
+    };
+  });
+}
+
+/** What the `Battle!` button needs to know (F75). */
+export interface BattleState {
+  /** The previewed match — null before `Find opponent`, or once it expired. */
+  match: MatchResult | null;
+  /** The ids currently picked for my party. */
+  party: readonly string[];
+  /** Seconds still on the PvP cooldown (0 = ready to battle). */
+  cooldownUntil: number;
+}
+
+/**
+ * `Battle!` is offered only with a live match, a party and no cooldown.
+ *
+ * ponytail: the v2 call form `(save, cooldownUntil)` is still accepted while
+ * src/menu/index.ts is the one-button v2 binder — T71 rewrites it and this leg
+ * goes with it.
+ */
+export function battleEnabled(state: BattleState | SaveFile, cooldownUntil = 0): boolean {
+  return 'companions' in state
+    ? state.companions.length > 0 && cooldownUntil <= 0
+    : state.match !== null && state.party.length > 0 && state.cooldownUntil <= 0;
+}

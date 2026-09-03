@@ -9,8 +9,10 @@ import type { CollectionAction, SaveFile } from '../src/core/index.js';
 import type {
   IdentityPayload,
   LeaderboardResult,
+  MatchResult,
   NetResult,
   PvpResult,
+  Theft,
 } from '../src/shared/api.js';
 import { monsterSprites, paletteForTier } from '../src/renderer/sprites/index.js';
 import type { SpriteCanvas } from '../src/renderer/sprites/index.js';
@@ -22,8 +24,12 @@ import {
   consumeTargets,
   fuseCandidates,
   leaderboardRows,
+  opponentRows,
+  partyPreview,
   pvpResultText,
   rosterRows,
+  theftRows,
+  togglePick,
 } from '../src/menu/view.js';
 
 /** Recording stand-in for a DOM element; a real element satisfies the same shape. */
@@ -164,6 +170,31 @@ const WON: PvpResult = {
   removed: [],
 };
 const LOST: PvpResult = { ...WON, seed: 8, win: false, stolen: null, lost: LOST_ONE };
+
+// Opponent party: golem is size 3 (back), slime size 1 (front) — so the FRONT
+// member's type is water, whatever order the server sent the party in.
+const OPP_GOLEM = { id: 'o2', speciesId: 'golem', bossIndex: 55, level: 2, stars: 1 };
+const OPP_PARTY = [
+  { id: 'o1', speciesId: 'slime', bossIndex: 15, level: 4, stars: 1 },
+  OPP_GOLEM,
+];
+const MATCH: MatchResult = {
+  matchId: 'm1',
+  seed: 3,
+  bot: false,
+  opponent: { name: 'Bo', bestIndex: 40, rebirths: 0, party: OPP_PARTY },
+  expiresAt: 120_000,
+};
+const NOW = 1_000_000;
+const THEFT: Theft = {
+  id: 't1',
+  companion: LOST_ONE,
+  transferredId: 's9',
+  thiefId: 'p2',
+  thiefName: 'Ada',
+  at: NOW - 3_600_000,
+  reclaimUntil: NOW + 2 * 3_600_000 + 30 * 60_000,
+};
 
 function makeBridge(net: Partial<NetState> = {}): FakeBridge {
   const actions: CollectionAction[] = [];
@@ -420,11 +451,10 @@ describe('menu ranking and battle', () => {
 
   it('pvp result text names the stolen or lost companion and the cooldown', () => {
     expect(pvpResultText({ ok: true, value: WON })).toBe(
-      'Victory over Bo — you stole Dragon Lv 10!',
+      'Victory over Bo — stole Dragon Lv 10!',
     );
-    expect(pvpResultText({ ok: true, value: { ...WON, stolen: null } })).toBe(
-      'Victory over Bo — nothing left to steal.',
-    );
+    expect(pvpResultText({ ok: true, value: { ...WON, stolen: null } })).toBe('Victory over Bo.');
+    expect(pvpResultText({ ok: true, value: { ...LOST, lost: null } })).toBe('Defeat by Bo.');
     expect(pvpResultText({ ok: true, value: LOST })).toBe(
       'Defeat by Bo — Slime Lv 4 was stolen from you.',
     );
@@ -474,7 +504,7 @@ describe('menu ranking and battle', () => {
       { type: 'removeCompanions', ids: ['c3'] },
       { type: 'pvpResult', won: true, stolen: STOLEN, lostId: null },
     ]);
-    expect(win.doc.el('result').textContent).toBe('Victory over Bo — you stole Dragon Lv 10!');
+    expect(win.doc.el('result').textContent).toBe('Victory over Bo — stole Dragon Lv 10!');
 
     const loss = mounted(saveWith(COMPANIONS), { pvp: { ok: true, value: LOST } });
     loss.doc.el('battle-go').click();
@@ -493,5 +523,68 @@ describe('menu ranking and battle', () => {
     await flush();
     expect(fake.calls).toEqual(['getIdentity', 'setName:abcdefghijklmnop']);
     expect(doc.el('name').value).toBe('abcdefghijklmnop');
+  });
+});
+
+describe('battle tab view (v3, F75)', () => {
+  it('opponent rows render the previewed party in party order with type badges', () => {
+    expect(opponentRows(null)).toEqual([]);
+
+    const rows = opponentRows(MATCH);
+    // partyOrder is size desc: the golem stands at the back, the slime in front.
+    expect(rows.map((r) => r.id)).toEqual(['o2', 'o1']);
+    expect(rows.map((r) => r.name)).toEqual(['Golem Lv 2', 'Slime Lv 4']);
+    expect(rows.map((r) => r.typeClass)).toEqual(['type type-earth', 'type type-water']);
+    expect(rows.map((r) => r.typeBadge)).toEqual(['E', 'A']);
+    expect(rows[1]).toMatchObject({ speciesId: 'slime', stars: 1, starText: '★×1' });
+
+    // A bot opponent has no party at all.
+    const bot = { ...MATCH, bot: true, opponent: { ...MATCH.opponent, party: [] } };
+    expect(opponentRows(bot)).toEqual([]);
+  });
+
+  it('party preview sums effective power against the opponent front member type', () => {
+    const mine = [COMPANIONS[0], COMPANIONS[1]].map((c) => c!);
+    // slime 32 (water vs water = normal) + dragon 623920 (fire vs water = halved).
+    expect(partyPreview(mine, OPP_PARTY)).toBe('Σ vs opponent: 311A');
+    // The front member is picked by size, not by the order the party arrived in.
+    expect(partyPreview(mine, [...OPP_PARTY].reverse())).toBe('Σ vs opponent: 311A');
+    // Against the earth golem alone the dragon is super effective instead.
+    expect(partyPreview(mine, [OPP_GOLEM])).toBe('Σ vs opponent: 1.24B');
+    // No opponent yet → the raw sum, 32 + 623920.
+    expect(partyPreview(mine, [])).toBe('Σ vs opponent: 623A');
+    expect(partyPreview([], OPP_PARTY)).toBe('Σ vs opponent: 0');
+  });
+
+  it('togglePick adds and removes ids and never exceeds 5', () => {
+    expect(togglePick([], 'c1')).toEqual(['c1']);
+    expect(togglePick(['c1', 'c2'], 'c3')).toEqual(['c1', 'c2', 'c3']);
+    expect(togglePick(['c1', 'c2'], 'c1')).toEqual(['c2']);
+
+    const full = ['a', 'b', 'c', 'd', 'e'];
+    expect(togglePick(full, 'f')).toEqual(full);
+    // A full party still gives a slot back when a member is un-picked.
+    expect(togglePick(togglePick(full, 'c'), 'f')).toEqual(['a', 'b', 'd', 'e', 'f']);
+  });
+
+  it('theft rows render the thief, the companion and the time left from the injected now', () => {
+    expect(theftRows([THEFT], NOW)).toEqual([
+      { id: 't1', text: 'Ada stole Slime Lv 4 · 2h 30m left' },
+    ]);
+    expect(theftRows([THEFT], NOW + 2 * 3_600_000)[0]?.text).toBe(
+      'Ada stole Slime Lv 4 · 0h 30m left',
+    );
+    // Past the window the row reads zero rather than going negative.
+    expect(theftRows([THEFT], THEFT.reclaimUntil + 60_000)[0]?.text).toBe(
+      'Ada stole Slime Lv 4 · 0h 0m left',
+    );
+    expect(theftRows([], NOW)).toEqual([]);
+  });
+
+  it('battle button is enabled only with a live match, a non-empty party and no cooldown', () => {
+    expect(battleEnabled({ match: MATCH, party: ['c1'], cooldownUntil: 0 })).toBe(true);
+    expect(battleEnabled({ match: null, party: ['c1'], cooldownUntil: 0 })).toBe(false);
+    expect(battleEnabled({ match: MATCH, party: [], cooldownUntil: 0 })).toBe(false);
+    expect(battleEnabled({ match: MATCH, party: ['c1'], cooldownUntil: 3 })).toBe(false);
   });
 });

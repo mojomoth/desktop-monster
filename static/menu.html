@@ -18,11 +18,29 @@
         <label class="name" for="name">Name</label>
         <input id="name" type="text" maxlength="16" autocomplete="off" spellcheck="false" />
       </div>
+      <button class="btn" id="find" type="button">Find opponent</button>
+      <div id="opponent"><span class="name">No opponent yet</span></div>
+      <div id="party">
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
+      </div>
+      <div class="panel" id="picks"></div>
+      <div class="row">
+        <button class="btn" id="auto" type="button">Auto</button>
+        <button class="btn" id="save-party" type="button">Save party</button>
+      </div>
+      <p id="preview">Σ vs opponent: 0</p>
       <button class="btn" id="battle-go" type="button">Battle!</button>
+      <div id="thefts"></div>
     </div>
     <div class="footer">
       <button class="btn" id="rebirth" type="button" disabled>Rebirth</button>
     </div>
+    <!-- #result is shared: the roster tab writes its consume prompt here too, so
+         it stays outside the panels instead of moving into the Battle tab. -->
     <p class="result" id="result"></p>
     <script type="module" src="../dist/web/menu/index.js"></script>
   </body>
