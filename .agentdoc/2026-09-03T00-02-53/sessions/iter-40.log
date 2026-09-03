@@ -1,0 +1,17 @@
+{"task":"T44","result":"DONE","gates":"pass","commit":"a547805","note":"Bootstrap created both resources: SERVER_URL=https://desmon-server.onrender.com, SRV_ID=srv-dacd4l15efls73e0fbig, DB_ID=dpg-dacd4k2jnfac73c43llg-a, DB_CREATED=2026-09-03T01:50:08Z, DB_EXPIRES=2026-10-03. Pinned SERVER_URL, filled AGENTS.md §Server, added README 'Server / Leaderboard & PvP' (+free-tier caveats), src/server/probe.ts (reuses createNetClient; no 'pvp('), tests/deploy.test.ts (7). Gates green, pushed 9708404 (fast-forward), deploy dep-dacd70uq1p3s73fo6ba0 live, healthz sha=9708404, probe rank 1. DEPLOYED_SHA=970840437a14f8b0c86008fee097ecf34e29c153. Dead end: live AC 404'd twice — new free service's edge routing flaps ~5 min after go-live; poll /healthz, don't redeploy (curl --retry ignores 404).","children":[]}
+
+**What landed**
+
+- `src/shared/serverUrl.ts` — `SERVER_URL = 'https://desmon-server.onrender.com'`
+- `AGENTS.md:37-42` — `SERVER_URL=`, `RENDER_SERVICE_ID=`, `RENDER_POSTGRES_ID=`, `DB_CREATED=`, `DB_EXPIRES=`, `DEPLOYED_SHA=`
+- `README.md:96` — new "Server / Leaderboard & PvP" + "Free-tier caveats" sections only; the v1 strings `tests/packaging.test.ts` pins are untouched
+- `src/server/probe.ts` — register `probe-<4hex>` → upload the empty snapshot → `leaderboard(token, 10)` → assert `me.rank ≥ 1`. Reuses `createNetClient`/`toSnapshot`; the CLI entry is behind `require.main === module` so tests can import it. Contains no literal `pvp(`.
+- `tests/deploy.test.ts` — 7 tests: `runProbe` happy path plus both rank failures against a fake `NetClient` whose battle method throws if called, `probeName`, the source guard, and the deployment facts in the source and docs.
+
+**Verification run in this iteration**
+
+- Gates: `npm test && npm run lint && npm run typecheck` → exit 0 (30 files, 466 tests)
+- AC hermetic (`DESMON_SKIP_NET=1`) → exit 0; AC live → exit 0, `{"ok":true,"sha":"970840437a…"}` and `{"playerId":"4a6bba20-…","rank":1}`
+- Deploy rule for T51 already holds: the deployed sha is an ancestor of HEAD and no commit after it touches a build-filter path (the fixup only touched `AGENTS.md` and the session record).
+
+Two things worth flagging for later lanes: the service's first auto-deploy at creation time (commit `e4bbbe4`, before my push) failed with `Missing script: "start:server"` and shows as `update_failed` in `render deploys list` — superseded by the live deploy, no action needed. And the free Postgres expires **2026-10-03**, so the leaderboard data has a 30-day life.
