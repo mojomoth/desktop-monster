@@ -73,7 +73,8 @@ const PVP: PvpResponse = {
   bot: true,
   seed: 7,
   win: true,
-  opponent: { name: 'Training Dummy', bestIndex: 12, rebirths: 0, companions: [] },
+  opponent: { name: 'Training Dummy', bestIndex: 12, rebirths: 0, party: [] },
+  blows: [],
   stolen: null,
   lost: null,
 };
@@ -113,7 +114,7 @@ function fakeClient(
       calls.push('upload');
       tokens.push(token);
       uploads.push(snapshot);
-      return Promise.resolve(opts.upload?.(uploaded++) ?? ok({ rank: 1, removed: [] }));
+      return Promise.resolve(opts.upload?.(uploaded++) ?? ok({ rank: 1, removed: [], thefts: [] }));
     },
     leaderboard(token, n) {
       calls.push(`leaderboard:${n}`);
@@ -239,6 +240,7 @@ describe('toSnapshot', () => {
       bestIndex: 12,
       rebirths: 2,
       companions: [companion('c1'), companion('c2')],
+      party: [],
     });
   });
 });
@@ -291,7 +293,7 @@ describe('createNetSession', () => {
   });
 
   it('pvp uploads the latest snapshot before posting', async () => {
-    const client = fakeClient({ upload: (n) => ok({ rank: 4, removed: n === 0 ? [] : ['c1'] }) });
+    const client = fakeClient({ upload: (n) => ok({ rank: 4, removed: n === 0 ? [] : ['c1'], thefts: [] }) });
     const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
 
     session.onSave(save({ companions: [companion('c1')] }));

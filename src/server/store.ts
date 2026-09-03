@@ -2,7 +2,7 @@
 // both backends: MemoryStore here (tests + DB-less runs), PgStore later. Every
 // method is async so the two stay interchangeable.
 
-import type { Snapshot } from '../shared/api.js';
+import type { Snapshot, Theft } from '../shared/api.js';
 
 export interface ScoreKey {
   bestIndex: number;
@@ -15,6 +15,8 @@ export interface PlayerRow {
   snapshot: Snapshot | null;
   stolenIds: string[];
   lastPvpAt: number | null;
+  /** Pending + recently expired steals against this player (last THEFTS_MAX). */
+  thefts: Theft[];
 }
 
 export interface Store {
@@ -25,6 +27,7 @@ export interface Store {
   putSnapshot(id: string, snapshot: Snapshot): Promise<void>;
   setStolenIds(id: string, ids: string[]): Promise<void>;
   setLastPvpAt(id: string, at: number): Promise<void>;
+  setThefts(id: string, thefts: Theft[]): Promise<void>;
   /** 1 + count of players with a snapshot scoring strictly above `key`. */
   rank(key: ScoreKey): Promise<number>;
   /** Score order, then oldest first. Players without a snapshot are invisible. */
@@ -46,12 +49,13 @@ interface MemoryRow extends PlayerRow {
 type Scored = MemoryRow & { snapshot: Snapshot };
 
 /** The token hash never leaves the store. */
-const view = ({ id, name, snapshot, stolenIds, lastPvpAt }: MemoryRow): PlayerRow => ({
+const view = ({ id, name, snapshot, stolenIds, lastPvpAt, thefts }: MemoryRow): PlayerRow => ({
   id,
   name,
   snapshot,
   stolenIds,
   lastPvpAt,
+  thefts,
 });
 
 export class MemoryStore implements Store {
@@ -65,6 +69,7 @@ export class MemoryStore implements Store {
       snapshot: null,
       stolenIds: [],
       lastPvpAt: null,
+      thefts: [],
       tokenHash: p.tokenHash,
       seq: this.seq++,
     });
@@ -99,6 +104,13 @@ export class MemoryStore implements Store {
     const row = this.rows.get(id);
     if (row) {
       row.lastPvpAt = at;
+    }
+  }
+
+  async setThefts(id: string, thefts: Theft[]): Promise<void> {
+    const row = this.rows.get(id);
+    if (row) {
+      row.thefts = thefts;
     }
   }
 

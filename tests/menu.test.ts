@@ -150,7 +150,7 @@ const TOP = [
   { rank: 2, name: 'Bo', bestIndex: 40, rebirths: 0 },
 ];
 const ME = { rank: 12, name: 'Knight-ab12', bestIndex: 7, rebirths: 0 };
-const OPPONENT = { name: 'Bo', bestIndex: 40, rebirths: 0, companions: [] };
+const OPPONENT = { name: 'Bo', bestIndex: 40, rebirths: 0, party: [] };
 const STOLEN = { id: 's7', speciesId: 'dragon', bossIndex: 79, level: 10, stars: 1 };
 const LOST_ONE = { id: 'c1', speciesId: 'slime', bossIndex: 15, level: 4, stars: 1 };
 const WON: PvpResult = {
@@ -158,6 +158,7 @@ const WON: PvpResult = {
   seed: 7,
   win: true,
   opponent: OPPONENT,
+  blows: [],
   stolen: STOLEN,
   lost: null,
   removed: [],

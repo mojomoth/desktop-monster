@@ -47,6 +47,25 @@ describe('PgStore DDL is idempotent and int8-free (F46, §4)', () => {
     expect(pgStore.match(/CREATE TABLE/g)).toHaveLength(1);
   });
 
+  it('thefts column is added idempotently', () => {
+    // Additive and shared with the still-running v2 service: the column is only
+    // ever ADDed, never dropped or renamed (SERVER_ARCHITECTURE_V3 §4).
+    expect(pgStore).toContain(
+      "ALTER TABLE players ADD COLUMN IF NOT EXISTS thefts jsonb NOT NULL DEFAULT '[]'",
+    );
+    expect(pgStore).not.toContain('DROP COLUMN');
+    expect(pgStore).not.toContain('RENAME');
+    // The row mapper tolerates the v2 rows that predate the column.
+    expect(pgStore).toContain("Array.isArray(r['thefts'])");
+  });
+
+  it('no matches table exists in the DDL', () => {
+    // v3 keeps pending matches in app.ts module memory (§0/§4), never in Postgres.
+    expect(pgStore).not.toMatch(/CREATE TABLE IF NOT EXISTS matches/i);
+    expect(pgStore).not.toMatch(/\bmatches\b/);
+    expect(pgStore.match(/ALTER TABLE/g)).toHaveLength(1);
+  });
+
   it('avoids int8: timestamps are double precision and counts are cast to int', () => {
     expect(pgStore).toContain('last_pvp_at double precision');
     expect(pgStore).toContain('count(*)::int');
@@ -84,6 +103,13 @@ describe('PgStore queries match §4 (F46)', () => {
     expect(pgStore).toContain(
       'UPDATE players SET snapshot = $2::jsonb, best_index = $3, rebirths = $4, nickname = $5, updated_at = now() WHERE id = $1',
     );
+  });
+
+  it('setThefts updates the thefts column of one row', () => {
+    expect(pgStore).toContain('UPDATE players SET thefts = $2::jsonb WHERE id = $1');
+    expect(pgStore).toContain('async setThefts(');
+    // jsonb goes over the wire as a string, like stolen_ids.
+    expect(pgStore).toContain('JSON.stringify(thefts)');
   });
 
   it('implements the 9-method Store interface', () => {
