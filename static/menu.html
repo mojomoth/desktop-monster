@@ -6,6 +6,22 @@
     <link rel="stylesheet" href="menu.css" />
   </head>
   <body>
-    <h1>Collection &amp; Battle</h1>
+    <div class="tabs">
+      <button class="tab active" id="tab-roster" type="button">Roster</button>
+      <button class="tab" id="tab-ranking" type="button">Ranking</button>
+      <button class="tab" id="tab-battle" type="button">Battle</button>
+    </div>
+    <div class="panel" id="roster"></div>
+    <div class="panel" id="ranking" hidden>
+      <div class="row">The leaderboard arrives with the Ranking tab.</div>
+    </div>
+    <div class="panel" id="battle" hidden>
+      <div class="row">PvP arrives with the Battle tab.</div>
+    </div>
+    <div class="footer">
+      <button class="btn" id="rebirth" type="button" disabled>Rebirth</button>
+    </div>
+    <p class="result" id="result"></p>
+    <script type="module" src="../dist/web/menu/index.js"></script>
   </body>
 </html>
