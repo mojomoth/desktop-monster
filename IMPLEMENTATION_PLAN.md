@@ -291,7 +291,7 @@
 - Notes (iter 20, codex): DONE: Added exact data-driven effect presets, core-species hit mappings with distinct primary colors, and deterministic seeded spawning over the existing 200-slot particle pool. Added 5 Vitest cases covering preset values, species coverage, formula/determinism, direction, caller-supplied projectile color, and pool cap. Full gates passed (325 tests); literal AC passed (19 tests).
 
 
-### [ ] T33 — Boss and companion art helpers: scale-3 boss with crown, raised HP bar, companion slots
+### [~] T33 — Boss and companion art helpers: scale-3 boss with crown, raised HP bar, companion slots
 - AC: `npx vitest run tests/sprites.test.ts && grep -q "BOSS_SCALE = 3" src/renderer/sprites/boss.ts && grep -q "BOSS_HP_BAR_Y = 54" src/renderer/sprites/boss.ts && grep -q "COMPANION_X = 2" src/renderer/sprites/companion.ts && grep -q "drawBoss paints the species art at scale 3 with the crown centred above it" tests/sprites.test.ts && grep -q "drawCompanion paints the species idle frame flipped and tinted by stars at its slot" tests/sprites.test.ts && grep -q "companionSlot stacks three slots upward from the ground left of the hero" tests/sprites.test.ts && node -e "const m=require('fs').readFileSync('tests/sprites.test.ts','utf8').match(/^\s*it\(/gm)??[];process.exit(m.length>=27?0:1)"` → exit 0
 - Deps: T26, T27
 - Worker: codex
