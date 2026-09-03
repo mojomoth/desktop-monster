@@ -6,6 +6,7 @@
 
 import { COMPANION_MAX_LEVEL, companionPower, format, REBIRTH_MIN_INDEX } from '../core/index.js';
 import type { SaveFile } from '../core/index.js';
+import type { LeaderboardResult, NetResult, PvpResult } from '../shared/api.js';
 
 /** One roster card, ready to paint. */
 export interface RosterRow {
@@ -28,6 +29,10 @@ export interface RosterRow {
 const displayName = (speciesId: string): string =>
   speciesId.charAt(0).toUpperCase() + speciesId.slice(1);
 
+/** 'Dragon Lv 7' — a card title, and the way pvpResultText names a companion. */
+const companionName = (c: { speciesId: string; level: number }): string =>
+  `${displayName(c.speciesId)} Lv ${String(c.level)}`;
+
 /** Numeric part of a 'cN' id — the tie-breaker (same rule as activeCompanions). */
 const idNum = (id: string): number => Number(id.replace(/\D/g, '') || 0);
 
@@ -44,7 +49,7 @@ export function rosterRows(save: SaveFile): RosterRow[] {
       id: c.id,
       speciesId: c.speciesId,
       stars: c.stars,
-      name: `${displayName(c.speciesId)} Lv ${String(c.level)}`,
+      name: companionName(c),
       starText: `★×${String(c.stars)}`,
       power: format(companionPower(c)),
       maxLevel: c.level >= COMPANION_MAX_LEVEL,
@@ -76,3 +81,63 @@ export function consumeTargets(save: SaveFile, foodId: string): string[] {
   if (!cs.some((c) => c.id === foodId)) return [];
   return cs.filter((c) => c.id !== foodId).map((c) => c.id);
 }
+
+// ---------------------------------------------------------------- SPEC F55
+// Ranking + Battle. Both take a NetResult straight from the bridge: the page
+// never inspects `ok` itself, so every failure — including the offline
+// identity, which never touches the network — reads the same.
+
+/** One leaderboard line, ready to paint. */
+export interface RankRow {
+  /** '.rank' text: '#1' (empty on a failure row). */
+  rank: string;
+  /** '.name' text: the player's nickname, or 'Offline' / 'Cooldown'. */
+  name: string;
+  /** '.power' text: 'Monster 79' — the deepest monster reached. */
+  deepest: string;
+  /** '.stars' text: '♻×2'. */
+  rebirths: string;
+}
+
+/** The server's top, plus my own line when the top does not already hold it. */
+export function leaderboardRows(result: NetResult<LeaderboardResult>): RankRow[] {
+  if (!result.ok) {
+    const name = result.error === 'cooldown' ? 'Cooldown' : 'Offline';
+    return [{ rank: '', name, deepest: '', rebirths: '' }];
+  }
+  const { top, me } = result.value;
+  const rows = me && !top.some((r) => r.rank === me.rank) ? [...top, me] : top;
+  return rows.map((r) => ({
+    rank: `#${String(r.rank)}`,
+    name: r.name,
+    deepest: `Monster ${String(r.bestIndex)}`,
+    rebirths: `♻×${String(r.rebirths)}`,
+  }));
+}
+
+/** The Battle tab's verdict line: who was stolen or lost, or how long to wait. */
+export function pvpResultText(result: NetResult<PvpResult>): string {
+  if (!result.ok) {
+    return result.error === 'cooldown'
+      ? `Cooldown — next battle in ${String(result.retryAfterSec ?? 0)}s.`
+      : 'Offline — no battle right now.';
+  }
+  const { win, opponent, stolen, lost } = result.value;
+  if (win) {
+    return stolen
+      ? `Victory over ${opponent.name} — you stole ${companionName(stolen)}!`
+      : `Victory over ${opponent.name} — nothing left to steal.`;
+  }
+  return lost
+    ? `Defeat by ${opponent.name} — ${companionName(lost)} was stolen from you.`
+    : `Defeat by ${opponent.name} — nothing was lost.`;
+}
+
+/**
+ * The single `Battle!` button: a fighter is required, and the server's PvP
+ * cooldown is waited out client-side.
+ *
+ * @param cooldownUntil seconds still on that cooldown (0 = ready to battle).
+ */
+export const battleEnabled = (save: SaveFile, cooldownUntil: number): boolean =>
+  save.companions.length > 0 && cooldownUntil <= 0;

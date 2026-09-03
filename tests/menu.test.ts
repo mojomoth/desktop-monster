@@ -1,16 +1,30 @@
-// T48 — Collection & Battle menu page (SPEC F54; GAME_DESIGN_V2 §9).
+// T48/T49 — Collection & Battle menu page (SPEC F54/F55; GAME_DESIGN_V2 §9).
 // view.ts is pure data, index.ts is DOM-free by injection: these tests drive
 // mountMenu with a recording fake document and a fake preload bridge, exactly
 // as the real `document` and `window.desmon` drive it in the menu window.
 
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_SAVE, parseSave } from '../src/core/index.js';
 import type { CollectionAction, SaveFile } from '../src/core/index.js';
+import type {
+  IdentityPayload,
+  LeaderboardResult,
+  NetResult,
+  PvpResult,
+} from '../src/shared/api.js';
 import { monsterSprites, paletteForTier } from '../src/renderer/sprites/index.js';
 import type { SpriteCanvas } from '../src/renderer/sprites/index.js';
 import { mountMenu } from '../src/menu/index.js';
 import type { MenuBridge, MenuDocument, MenuElement } from '../src/menu/index.js';
-import { canRebirth, consumeTargets, fuseCandidates, rosterRows } from '../src/menu/view.js';
+import {
+  battleEnabled,
+  canRebirth,
+  consumeTargets,
+  fuseCandidates,
+  leaderboardRows,
+  pvpResultText,
+  rosterRows,
+} from '../src/menu/view.js';
 
 /** Recording stand-in for a DOM element; a real element satisfies the same shape. */
 class FakeEl {
@@ -18,12 +32,14 @@ class FakeEl {
   textContent: string | null = null;
   hidden = false;
   disabled = false;
+  value = '';
   width = 0;
   height = 0;
   children: FakeEl[] = [];
   /** Every color drawSprite painted into this canvas. */
   readonly fills: string[] = [];
   private readonly listeners: Array<() => void> = [];
+  private readonly changed: Array<() => void> = [];
 
   constructor(readonly tag: string) {}
 
@@ -37,8 +53,8 @@ class FakeEl {
     this.children = children.map((child) => child as FakeEl);
   }
 
-  addEventListener(_type: 'click', listener: () => void): void {
-    this.listeners.push(listener);
+  addEventListener(type: 'click' | 'change', listener: () => void): void {
+    (type === 'change' ? this.changed : this.listeners).push(listener);
   }
 
   getContext(): SpriteCanvas {
@@ -54,6 +70,14 @@ class FakeEl {
   /** Fire the click listeners — a disabled button never has any. */
   click(): void {
     for (const listener of [...this.listeners]) {
+      listener();
+    }
+  }
+
+  /** Type `text` into the field and fire its change listeners. */
+  type(text: string): void {
+    this.value = text;
+    for (const listener of [...this.changed]) {
       listener();
     }
   }
@@ -77,6 +101,8 @@ class FakeDoc implements MenuDocument {
       'battle',
       'rebirth',
       'result',
+      'name',
+      'battle-go',
     ])) {
       this.byId.set(`#${id}`, new FakeEl('div'));
     }
@@ -99,20 +125,54 @@ class FakeDoc implements MenuDocument {
   }
 }
 
+/** What main would answer; every test may override one leg of it. */
+interface NetState {
+  identity: IdentityPayload;
+  leaderboard: NetResult<LeaderboardResult>;
+  pvp: NetResult<PvpResult>;
+}
+
 interface FakeBridge {
   bridge: MenuBridge;
   actions: CollectionAction[];
+  /** Every bridge call that would have reached main, in order. */
+  calls: string[];
   readyCount(): number;
   /** Deliver one desmon:state-changed payload. */
   emit(save: unknown): void;
 }
 
-function makeBridge(): FakeBridge {
+const ONLINE: IdentityPayload = { name: 'Knight-ab12', playerId: 'p1', online: true };
+const OFFLINE: IdentityPayload = { name: 'Knight-ab12', playerId: null, online: false };
+
+const TOP = [
+  { rank: 1, name: 'Ada', bestIndex: 79, rebirths: 2 },
+  { rank: 2, name: 'Bo', bestIndex: 40, rebirths: 0 },
+];
+const ME = { rank: 12, name: 'Knight-ab12', bestIndex: 7, rebirths: 0 };
+const OPPONENT = { name: 'Bo', bestIndex: 40, rebirths: 0, companions: [] };
+const STOLEN = { id: 's7', speciesId: 'dragon', bossIndex: 79, level: 10, stars: 1 };
+const LOST_ONE = { id: 'c1', speciesId: 'slime', bossIndex: 15, level: 4, stars: 1 };
+const WON: PvpResult = {
+  bot: false,
+  seed: 7,
+  win: true,
+  opponent: OPPONENT,
+  stolen: STOLEN,
+  lost: null,
+  removed: [],
+};
+const LOST: PvpResult = { ...WON, seed: 8, win: false, stolen: null, lost: LOST_ONE };
+
+function makeBridge(net: Partial<NetState> = {}): FakeBridge {
   const actions: CollectionAction[] = [];
+  const calls: string[] = [];
   let ready = 0;
   let listener: ((save: unknown) => void) | null = null;
+  let identity = net.identity ?? ONLINE;
   return {
     actions,
+    calls,
     readyCount: () => ready,
     emit(save): void {
       listener?.(save);
@@ -131,9 +191,41 @@ function makeBridge(): FakeBridge {
         actions.push(a);
         return Promise.resolve();
       },
+      getIdentity(): Promise<IdentityPayload> {
+        calls.push('getIdentity');
+        return Promise.resolve(identity);
+      },
+      setName(name): Promise<IdentityPayload> {
+        // Main validates and answers with the identity it kept; the fake
+        // simply echoes, so the field shows what the page actually sent.
+        calls.push(`setName:${name}`);
+        identity = { ...identity, name };
+        return Promise.resolve(identity);
+      },
+      getLeaderboard(): Promise<NetResult<LeaderboardResult>> {
+        calls.push('getLeaderboard');
+        return Promise.resolve(
+          net.leaderboard ?? { ok: true, value: { top: TOP, me: ME, removed: [] } },
+        );
+      },
+      pvp(): Promise<NetResult<PvpResult>> {
+        calls.push('pvp');
+        return Promise.resolve(net.pvp ?? { ok: true, value: WON });
+      },
     },
   };
 }
+
+/** Let the page's promise chains (identity → network → render) settle. */
+const flush = async (): Promise<void> => {
+  for (let i = 0; i < 8; i++) {
+    await Promise.resolve();
+  }
+};
+
+/** The text of every `.className` element inside the panel, in tree order. */
+const texts = (el: FakeEl, className: string): (string | null)[] =>
+  el.find(className).map((child) => child.textContent);
 
 // Powers: c2 = 623920, c3 = 4356, c1 = 32 (companionPower, exact bigint).
 // c1 and c3 are the only same-species + same-stars pair.
@@ -147,9 +239,12 @@ const saveWith = (companions: unknown, monsterIndex = 0): SaveFile =>
   parseSave({ ...DEFAULT_SAVE, companions, monsterIndex });
 
 /** Mount a fresh page already showing `save`. */
-function mounted(save: SaveFile = saveWith(COMPANIONS)): { doc: FakeDoc; fake: FakeBridge } {
+function mounted(
+  save: SaveFile = saveWith(COMPANIONS),
+  net: Partial<NetState> = {},
+): { doc: FakeDoc; fake: FakeBridge } {
   const doc = new FakeDoc();
-  const fake = makeBridge();
+  const fake = makeBridge(net);
   mountMenu(doc, fake.bridge);
   fake.emit(save);
   return { doc, fake };
@@ -272,5 +367,130 @@ describe('menu page', () => {
     expect(doc.el('roster').hidden).toBe(true);
     expect(doc.el('tab-battle').className).toBe('tab active');
     expect(doc.el('tab-roster').className).toBe('tab');
+  });
+});
+
+describe('menu ranking and battle', () => {
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('leaderboard rows render rank, name, deepest monster and rebirths', async () => {
+    expect(leaderboardRows({ ok: true, value: { top: TOP, me: ME, removed: [] } })).toEqual([
+      { rank: '#1', name: 'Ada', deepest: 'Monster 79', rebirths: '♻×2' },
+      { rank: '#2', name: 'Bo', deepest: 'Monster 40', rebirths: '♻×0' },
+      { rank: '#12', name: 'Knight-ab12', deepest: 'Monster 7', rebirths: '♻×0' },
+    ]);
+    // My own line is not repeated when the top already carries it.
+    expect(
+      leaderboardRows({ ok: true, value: { top: TOP, me: TOP[0] ?? null, removed: [] } }),
+    ).toHaveLength(2);
+
+    // Opening the tab loads them, and forwards what the server took first.
+    const { doc, fake } = mounted(saveWith(COMPANIONS), {
+      leaderboard: { ok: true, value: { top: TOP, me: ME, removed: ['c1'] } },
+    });
+    doc.el('tab-ranking').click();
+    await flush();
+    expect(fake.calls).toEqual(['getIdentity', 'getLeaderboard']);
+    expect(texts(doc.el('ranking'), 'rank')).toEqual(['#1', '#2', '#12']);
+    expect(texts(doc.el('ranking'), 'name')).toEqual(['Ada', 'Bo', 'Knight-ab12']);
+    expect(texts(doc.el('ranking'), 'power')).toEqual(['Monster 79', 'Monster 40', 'Monster 7']);
+    expect(texts(doc.el('ranking'), 'stars')).toEqual(['♻×2', '♻×0', '♻×0']);
+    expect(fake.actions).toEqual([{ type: 'removeCompanions', ids: ['c1'] }]);
+  });
+
+  it('offline or failed results render an Offline row', async () => {
+    expect(leaderboardRows({ ok: false, error: 'offline' })[0]?.name).toBe('Offline');
+    expect(leaderboardRows({ ok: false, error: 'server', status: 500 })[0]?.name).toBe('Offline');
+    expect(leaderboardRows({ ok: false, error: 'cooldown', retryAfterSec: 30 })[0]?.name).toBe(
+      'Cooldown',
+    );
+
+    // An offline identity answers both tabs without touching the network.
+    const { doc, fake } = mounted(saveWith(COMPANIONS), { identity: OFFLINE });
+    doc.el('tab-ranking').click();
+    doc.el('battle-go').click();
+    await flush();
+    expect(fake.calls).toEqual(['getIdentity']);
+    expect(texts(doc.el('ranking'), 'name')).toEqual(['Offline']);
+    expect(doc.el('result').textContent).toBe('Offline — no battle right now.');
+  });
+
+  it('pvp result text names the stolen or lost companion and the cooldown', () => {
+    expect(pvpResultText({ ok: true, value: WON })).toBe(
+      'Victory over Bo — you stole Dragon Lv 10!',
+    );
+    expect(pvpResultText({ ok: true, value: { ...WON, stolen: null } })).toBe(
+      'Victory over Bo — nothing left to steal.',
+    );
+    expect(pvpResultText({ ok: true, value: LOST })).toBe(
+      'Defeat by Bo — Slime Lv 4 was stolen from you.',
+    );
+    expect(pvpResultText({ ok: false, error: 'cooldown', retryAfterSec: 42 })).toBe(
+      'Cooldown — next battle in 42s.',
+    );
+    expect(pvpResultText({ ok: false, error: 'network' })).toBe('Offline — no battle right now.');
+  });
+
+  it('battle button is disabled with no companions or during cooldown', async () => {
+    vi.useFakeTimers();
+    expect(battleEnabled(saveWith([]), 0)).toBe(false);
+    expect(battleEnabled(saveWith(COMPANIONS), 2)).toBe(false);
+    expect(battleEnabled(saveWith(COMPANIONS), 0)).toBe(true);
+
+    const { doc, fake } = mounted(saveWith([]), {
+      pvp: { ok: false, error: 'cooldown', retryAfterSec: 2 },
+    });
+    const go = doc.el('battle-go');
+    expect(go.disabled).toBe(true);
+    go.click();
+    await flush();
+    expect(fake.calls).toEqual(['getIdentity']);
+
+    fake.emit(saveWith(COMPANIONS));
+    expect(go.disabled).toBe(false);
+    go.click();
+    await flush();
+    expect(doc.el('result').textContent).toBe('Cooldown — next battle in 2s.');
+    expect([go.textContent, go.disabled]).toEqual(['Battle! (2s)', true]);
+
+    vi.advanceTimersByTime(1000);
+    expect([go.textContent, go.disabled]).toEqual(['Battle! (1s)', true]);
+    vi.advanceTimersByTime(1000);
+    expect([go.textContent, go.disabled]).toEqual(['Battle!', false]);
+    expect(fake.calls).toEqual(['getIdentity', 'pvp']);
+  });
+
+  it('a successful pvp is forwarded to the game as a pvpResult action', async () => {
+    const win = mounted(saveWith(COMPANIONS), {
+      pvp: { ok: true, value: { ...WON, removed: ['c3'] } },
+    });
+    win.doc.el('battle-go').click();
+    await flush();
+    // removeCompanions goes FIRST — the server already took c3 away.
+    expect(win.fake.actions).toEqual([
+      { type: 'removeCompanions', ids: ['c3'] },
+      { type: 'pvpResult', won: true, stolen: STOLEN, lostId: null },
+    ]);
+    expect(win.doc.el('result').textContent).toBe('Victory over Bo — you stole Dragon Lv 10!');
+
+    const loss = mounted(saveWith(COMPANIONS), { pvp: { ok: true, value: LOST } });
+    loss.doc.el('battle-go').click();
+    await flush();
+    expect(loss.fake.actions).toEqual([
+      { type: 'pvpResult', won: false, stolen: null, lostId: 'c1' },
+    ]);
+  });
+
+  it('the name field shows the identity and setName caps it at 16 characters', async () => {
+    const { doc, fake } = mounted();
+    await flush();
+    expect(doc.el('name').value).toBe('Knight-ab12');
+
+    doc.el('name').type('abcdefghijklmnopqrstuvwxyz');
+    await flush();
+    expect(fake.calls).toEqual(['getIdentity', 'setName:abcdefghijklmnop']);
+    expect(doc.el('name').value).toBe('abcdefghijklmnop');
   });
 });
