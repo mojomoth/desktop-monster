@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T71 — Menu binder v3: find opponent, party editor (auto/save), Battle! with match + party, replay forwarding, thefts inbox + reclaim, roster badges/PvP marks
 - result: DONE
-- commit: 120bc8667e3d1da1ba151011d283d87063dd1cd5
+- commit: 29336be615660a2efbc21680a00558857d13a56f (work commit; this line fixed up by the next commit)
 - graphify affected used: none (task block + AGENTS.md + the four cited files were enough)
 
 ## What I did
