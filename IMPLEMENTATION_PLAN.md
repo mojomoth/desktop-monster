@@ -300,7 +300,7 @@
 - Notes: SPEC F41 (GAME_DESIGN_V2 §5, §9). Deps follow the graphics-after-core rule (fever from T29; `pvpResolved`/`rebirth` events from T28) and land after T25's hud.ts/renderer.test.ts edits. hud.ts: `Banner` gains `text: string`; `showBanner(banner, text = LEVEL_UP_TEXT)` (currently `showBanner(banner)` at hud.ts:296 — the DEFAULT is mandatory because the existing caller game.ts is outside the codex file set and must not change); `drawBanner` renders `banner.text`; `FEVER_TEXT = 'FEVER!'`, `VICTORY_TEXT = 'VICTORY!'`, `DEFEAT_TEXT = 'DEFEAT'` (VICTORY needs the A–Z glyphs of T31 only at draw time — spaces and unknown chars still occupy a cell). aura.ts: `drawFeverAura(ctx, sprite, frame, x, y, scale, timeMs)` = `drawSprite` at (±1, 0), (0, ±1) offsets with `tint: shiftHue(COLORS.red, Math.floor(timeMs / 4) % 360)`; the caller draws the real sprite after. Barrel export. EXTEND, never rewrite, the existing level-up banner tests (titles unchanged); add "banner text is configurable: FEVER! and LEVEL UP! both render" (renderer ≥ 52) and "drawFeverAura paints four hue-shifted copies under the sprite and cycles with time" (sprites ≥ 25). Scene hook-up is T37/T47 (claude). Codex: vitest/grep only, no dependencies.
 
 
-### [ ] T35 — Menu window pixel theme: DB16 CSS, pixelated species canvases
+### [~] T35 — Menu window pixel theme: DB16 CSS, pixelated species canvases
 - AC: `test -e static/menu.css && grep -q "image-rendering: pixelated" static/menu.css && grep -q "#140c1c" static/menu.css && grep -q "canvas.species" static/menu.css && grep -q "\.card" static/menu.css && grep -q "\.tab" static/menu.css && grep -q "\.btn" static/menu.css && ! grep -q "url(" static/menu.css && npx vitest run tests/sprites.test.ts` → exit 0
 - Deps: none
 - Worker: codex
