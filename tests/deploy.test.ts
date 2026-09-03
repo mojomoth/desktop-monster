@@ -21,7 +21,7 @@ import { probeName, runProbe } from '../src/server/probe.js';
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
 
-/** A NetClient recording what the probe sent; `pvp` fails the test if called. */
+/** A NetClient recording what the probe sent; every mutating v3 call fails the test. */
 function fakeClient(me: LeaderboardResponse['me']): NetClient & { uploads: Snapshot[] } {
   const uploads: Snapshot[] = [];
   return {
@@ -36,6 +36,15 @@ function fakeClient(me: LeaderboardResponse['me']): NetClient & { uploads: Snaps
       Promise.resolve({ ok: true, value: { top: [], me } }),
     pvp: () => {
       throw new Error('the probe must never battle another player');
+    },
+    match: () => {
+      throw new Error('the probe must never battle another player');
+    },
+    thefts: () => {
+      throw new Error('the probe must never read another player\'s thefts');
+    },
+    reclaim: () => {
+      throw new Error('the probe must never move another player\'s companions');
     },
   };
 }

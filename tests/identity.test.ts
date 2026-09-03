@@ -38,6 +38,7 @@ describe('readIdentity', () => {
       name: 'Knight-3f9a',
       playerId: null,
       token: null,
+      notifiedTheftIds: [],
     });
   });
 
@@ -48,20 +49,52 @@ describe('readIdentity', () => {
         name: 'Knight-3f9a',
         playerId: null,
         token: null,
+        notifiedTheftIds: [],
       });
       uuidCount = 0;
     }
   });
 
   it('keeps a stored name but drops an invalid one', () => {
-    writeIdentity(dir, { name: 'not a nickname!', playerId: 'p1', token: 't1' });
-    expect(readIdentity(dir, nextUUID)).toEqual({ name: 'Knight-3f9a', playerId: 'p1', token: 't1' });
+    writeIdentity(dir, { name: 'not a nickname!', playerId: 'p1', token: 't1', notifiedTheftIds: [] });
+    expect(readIdentity(dir, nextUUID)).toEqual({
+      name: 'Knight-3f9a',
+      playerId: 'p1',
+      token: 't1',
+      notifiedTheftIds: [],
+    });
+  });
+
+  it('notifiedTheftIds defaults to an empty list and survives a round trip', () => {
+    const base = { name: 'Sir_Bongo-9', playerId: 'p1', token: 't1' };
+    // Written by an older (v2) client: the field is simply absent.
+    writeFileSync(identityFilePath(dir), JSON.stringify(base), 'utf8');
+    expect(readIdentity(dir, nextUUID).notifiedTheftIds).toEqual([]);
+
+    // Anything that is not a list of strings degrades to [] / drops the junk.
+    for (const [stored, expected] of [
+      ['not a list', []],
+      [{}, []],
+      [[1, 'th1', null, 'th2'], ['th1', 'th2']],
+    ] as [unknown, string[]][]) {
+      writeFileSync(identityFilePath(dir), JSON.stringify({ ...base, notifiedTheftIds: stored }), 'utf8');
+      expect(readIdentity(dir, nextUUID).notifiedTheftIds).toEqual(expected);
+    }
+
+    const identity = { ...base, notifiedTheftIds: ['th1', 'th2'] };
+    expect(writeIdentity(dir, identity)).toBe(true);
+    expect(readIdentity(dir, nextUUID)).toEqual(identity);
   });
 });
 
 describe('writeIdentity', () => {
   it('round-trips playerId and token through identity.json', () => {
-    const identity = { name: 'Sir_Bongo-9', playerId: 'p-123', token: 'deadbeefdeadbeefdeadbeefdeadbeef' };
+    const identity = {
+      name: 'Sir_Bongo-9',
+      playerId: 'p-123',
+      token: 'deadbeefdeadbeefdeadbeefdeadbeef',
+      notifiedTheftIds: [],
+    };
     expect(writeIdentity(dir, identity)).toBe(true);
     expect(readdirSync(dir)).toEqual([IDENTITY_FILE_NAME]);
     expect(readIdentity(dir, nextUUID)).toEqual(identity);
@@ -70,7 +103,9 @@ describe('writeIdentity', () => {
   it('returns false instead of throwing on an unwritable destination', () => {
     const blocker = join(dir, 'blocker');
     writeFileSync(blocker, 'a plain file where a directory is needed', 'utf8');
-    expect(writeIdentity(blocker, { name: 'Knight-0000', playerId: null, token: null })).toBe(false);
+    expect(
+      writeIdentity(blocker, { name: 'Knight-0000', playerId: null, token: null, notifiedTheftIds: [] }),
+    ).toBe(false);
   });
 });
 
