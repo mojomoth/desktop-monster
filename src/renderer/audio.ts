@@ -1,6 +1,6 @@
-// SPEC F24 (Assumption 13, T18): the game's ENTIRE soundscape — exactly three
+// SPEC F24 (Assumption 13, T18) + F36: the game's ENTIRE soundscape — four
 // square-wave blips synthesized with WebAudio OscillatorNode + gain envelope:
-// attack tick, kill arpeggio, level-up fanfare. No audio asset files, no
+// attack tick, kill arpeggio, level-up fanfare, fever start. No audio files, no
 // mute/volume UI (Non-Goal).
 //
 // The AudioContext is created LAZILY on the first blip — game.ts only calls
@@ -77,10 +77,18 @@ export const LEVEL_UP_FANFARE_NOTES: readonly BlipNote[] = [
   { freq: 1046.5, at: 0.27, duration: 0.28, peak: 0.11 },
 ];
 
+/** Fever start (SPEC F36): a fast ascending 4-note square sweep. */
+export const FEVER_NOTES: readonly BlipNote[] = [
+  { freq: 392, at: 0, duration: 0.07, peak: 0.1 },
+  { freq: 587.33, at: 0.05, duration: 0.07, peak: 0.1 },
+  { freq: 783.99, at: 0.1, duration: 0.07, peak: 0.1 },
+  { freq: 1174.66, at: 0.15, duration: 0.2, peak: 0.1 },
+];
+
 /** Exponential ramps cannot reach 0 — this is "silent" for our peaks. */
 export const GAIN_FLOOR = 0.001;
 
-/** The three blips game.ts triggers off engine events. */
+/** The four blips game.ts triggers off engine events. */
 export interface GameAudio {
   /** Square tick on every input (`attack` event). */
   attackTick(): void;
@@ -88,6 +96,8 @@ export interface GameAudio {
   killArpeggio(): void;
   /** Four-note fanfare on `levelUp`. */
   levelUpFanfare(): void;
+  /** Ascending sweep on `feverStart`. */
+  feverStart(): void;
 }
 
 export interface GameAudioOptions {
@@ -185,6 +195,9 @@ export function createGameAudio(options: GameAudioOptions = {}): GameAudio {
     },
     levelUpFanfare: (): void => {
       play(LEVEL_UP_FANFARE_NOTES);
+    },
+    feverStart: (): void => {
+      play(FEVER_NOTES);
     },
   };
 }

@@ -76,7 +76,9 @@ async function boot(): Promise<void> {
   const frame = (now: number): void => {
     const dt = Math.min(now - last, 100); // dt clamp: throttle/wake safety
     last = now;
-    game.update(dt);
+    // The engine clock lives in the rAF loop: companion volleys and fever
+    // transitions come back as events and persist like any other progress.
+    saves.onEvents(game.update(dt));
     game.draw(ctx);
     if (!reportedFirstFrame) {
       reportedFirstFrame = true;

@@ -6,11 +6,12 @@
 // a counting GameAudio fake against seeded engines.
 
 import { describe, expect, it } from 'vitest';
-import { createEngine, mulberry32 } from '../src/core/index.js';
+import { createEngine, FEVER_INPUTS, mulberry32 } from '../src/core/index.js';
 import type { SaveFileV1 } from '../src/core/index.js';
 import {
   ATTACK_TICK_NOTES,
   createGameAudio,
+  FEVER_NOTES,
   GAIN_FLOOR,
   KILL_ARPEGGIO_NOTES,
   LEVEL_UP_FANFARE_NOTES,
@@ -194,6 +195,13 @@ describe('createGameAudio (SPEC F24)', () => {
     expectAscendingSquares(ctx, LEVEL_UP_FANFARE_NOTES);
   });
 
+  it('feverStart plays the fourth blip', () => {
+    const { audio, ctx } = makeAudio();
+    audio.feverStart();
+    expectAscendingSquares(ctx, FEVER_NOTES);
+    expect(FEVER_NOTES).toHaveLength(4);
+  });
+
   it('resumes a suspended context on input (autoplay policy)', () => {
     const { audio, ctx } = makeAudio();
     ctx.state = 'suspended';
@@ -215,6 +223,7 @@ describe('createGameAudio (SPEC F24)', () => {
       audio.attackTick();
       audio.killArpeggio();
       audio.levelUpFanfare();
+      audio.feverStart();
     }).not.toThrow();
     expect(calls).toBe(1); // latched off — not retried per keypress
   });
@@ -256,6 +265,7 @@ describe('createGameAudio (SPEC F24)', () => {
       audio.attackTick();
       audio.killArpeggio();
       audio.levelUpFanfare();
+      audio.feverStart();
     }).not.toThrow();
   });
 
@@ -267,6 +277,7 @@ describe('createGameAudio (SPEC F24)', () => {
       audio.attackTick();
       audio.killArpeggio();
       audio.levelUpFanfare();
+      audio.feverStart();
     }).not.toThrow();
   });
 });
@@ -285,8 +296,11 @@ describe('game audio triggers (game.ts, SPEC F24)', () => {
     monsterHp: 1,
   };
 
-  const makeSpy = (): { audio: GameAudio; counts: Record<'tick' | 'arpeggio' | 'fanfare', number> } => {
-    const counts = { tick: 0, arpeggio: 0, fanfare: 0 };
+  const makeSpy = (): {
+    audio: GameAudio;
+    counts: Record<'tick' | 'arpeggio' | 'fanfare' | 'fever', number>;
+  } => {
+    const counts = { tick: 0, arpeggio: 0, fanfare: 0, fever: 0 };
     return {
       audio: {
         attackTick: () => {
@@ -298,6 +312,9 @@ describe('game audio triggers (game.ts, SPEC F24)', () => {
         levelUpFanfare: () => {
           counts.fanfare += 1;
         },
+        feverStart: () => {
+          counts.fever += 1;
+        },
       },
       counts,
     };
@@ -308,7 +325,7 @@ describe('game audio triggers (game.ts, SPEC F24)', () => {
     // Monster 0 has 10 HP; level-1 damage is 1 (2 on crit) — never a kill.
     const game = createGame(createEngine(null, mulberry32(42)), audio);
     game.attack('keyboard');
-    expect(counts).toEqual({ tick: 1, arpeggio: 0, fanfare: 0 });
+    expect(counts).toEqual({ tick: 1, arpeggio: 0, fanfare: 0, fever: 0 });
   });
 
   it('a killing blow plays the tick and the kill arpeggio', () => {
@@ -316,7 +333,7 @@ describe('game audio triggers (game.ts, SPEC F24)', () => {
     const game = createGame(createEngine(killSave, mulberry32(7)), audio);
     const events = game.attack('keyboard');
     expect(events.some((e) => e.type === 'monsterKilled')).toBe(true);
-    expect(counts).toEqual({ tick: 1, arpeggio: 1, fanfare: 0 });
+    expect(counts).toEqual({ tick: 1, arpeggio: 1, fanfare: 0, fever: 0 });
   });
 
   it('a level-up kill also plays the fanfare', () => {
@@ -325,7 +342,7 @@ describe('game audio triggers (game.ts, SPEC F24)', () => {
     const game = createGame(createEngine({ ...killSave, xp: 15 }, mulberry32(7)), audio);
     const events = game.attack('keyboard');
     expect(events.some((e) => e.type === 'levelUp')).toBe(true);
-    expect(counts).toEqual({ tick: 1, arpeggio: 1, fanfare: 1 });
+    expect(counts).toEqual({ tick: 1, arpeggio: 1, fanfare: 1, fever: 0 });
   });
 
   it('every input ticks: spamming N attacks plays N ticks', () => {
@@ -335,5 +352,15 @@ describe('game audio triggers (game.ts, SPEC F24)', () => {
       game.attack(i % 2 === 0 ? 'keyboard' : 'mouse');
     }
     expect(counts.tick).toBe(5);
+    expect(counts.fever).toBe(0);
+  });
+
+  it('lighting fever plays the fever blip exactly once', () => {
+    const { audio, counts } = makeSpy();
+    const game = createGame(createEngine(null, mulberry32(42)), audio);
+    for (let i = 0; i < FEVER_INPUTS; i++) {
+      game.attack('keyboard');
+    }
+    expect(counts.fever).toBe(1);
   });
 });

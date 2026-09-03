@@ -9,7 +9,10 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
+  activeCompanions,
   createEngine,
+  FEVER_INPUTS,
+  format,
   HERO_ATTACK_MS,
   MONSTER_DYING_MS,
   MONSTER_HIT_MS,
@@ -20,11 +23,13 @@ import {
   xpToNext,
 } from '../src/core/index.js';
 import { DEFAULT_SAVE } from '../src/core/index.js';
-import type { GameEvent, GameState, SaveFileV1 } from '../src/core/index.js';
+import type { Companion, GameEvent, GameState, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
+import { COMPANION_ATTACK_MS } from '../src/core/engine.js';
 import {
   ATTACK_FRAME_MS,
   createGame,
   createSaveScheduler,
+  FEVER_SPARKLE_MS,
   GROUND_Y,
   HERO_X,
   HERO_Y,
@@ -62,7 +67,20 @@ import {
   tickFloats,
 } from '../src/renderer/hud.js';
 import { DROP_ARC_MS, DROP_FLY_MS, SPARKLE_COUNT } from '../src/renderer/anim.js';
-import { COLORS, heroIdle } from '../src/renderer/sprites/index.js';
+import { EFFECTS } from '../src/renderer/effects.js';
+import {
+  BOSS_HP_BAR_Y,
+  BOSS_SCALE,
+  COLORS,
+  companionSlot,
+  drawSprite,
+  heroIdle,
+  itemSprites,
+  monsterSprites,
+  paletteForTier,
+  shiftHue,
+} from '../src/renderer/sprites/index.js';
+import type { SpeciesId } from '../src/core/index.js';
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
 
@@ -765,6 +783,384 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     const after = makeCtx();
     game.draw(after.ctx);
     expect(bannerPixels(after.calls)).toEqual([]);
+  });
+});
+
+describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
+  const rectKey = (c: RectCall): string =>
+    `${String(c.x)},${String(c.y)},${String(c.w)},${String(c.h)},${c.fillStyle}`;
+  const keys = (calls: RectCall[]): string[] => calls.map(rectKey).sort();
+
+  const v2: SaveFileV2 = {
+    version: 2,
+    level: 1,
+    xp: 0,
+    killCount: 0,
+    coins: 0,
+    items: {},
+    monsterIndex: 0,
+    monsterHp: String(monsterMaxHp(0)),
+    companions: [],
+    nextCompanionId: 1,
+    souls: 0,
+    rebirths: 0,
+    bestIndex: 0,
+  };
+  // Every captured boss comes from index 7 — power 1 unless it is starred.
+  const companion = (id: string, speciesId: SpeciesId, stars = 0): Companion => ({
+    id,
+    speciesId,
+    bossIndex: 7,
+    level: 1,
+    stars,
+  });
+  /** The boss box: 12x10 art at BOSS_SCALE with its feet on the ground. */
+  const BOSS_CENTRE = {
+    x: MONSTER_X + (12 * BOSS_SCALE) / 2,
+    y: GROUND_Y - (10 * BOSS_SCALE) / 2,
+  };
+
+  it('update() ticks the engine and returns companion events to the save scheduler', () => {
+    const game = createGame(
+      createEngine({ ...v2, monsterHp: '1', companions: [companion('c1', 'slime')] }, mulberry32(3)),
+    );
+    expect(game.update(COMPANION_ATTACK_MS - 1)).toEqual([]); // below one volley
+    const events = game.update(1);
+    expect(events.filter((e) => e.type === 'companionAttack')).toHaveLength(1);
+    expect(events.some((e) => e.type === 'monsterKilled')).toBe(true);
+
+    // The volley reaches the save scheduler exactly like an attack batch does.
+    let saved = 0;
+    const scheduler = createSaveScheduler({
+      save: () => {
+        saved += 1;
+      },
+      setTimer: () => 0,
+      clearTimer: () => undefined,
+    });
+    scheduler.onEvents(events);
+    expect(saved).toBe(1);
+    // ...and a companion kill runs the same presentation as a hero kill.
+    expect(game.getMonsterAnim().state).toBe('dying');
+  });
+
+  it('damage floats use the letter-suffix format', () => {
+    // Level 5000 deals 5000 damage a hit: the float reads '5.00A', not '5000'.
+    const game = createGame(createEngine({ ...v2, level: 5000 }, mulberry32(42)));
+    const hit = game.attack('keyboard')[0];
+    if (hit?.type !== 'attack') {
+      throw new Error('expected an attack event');
+    }
+    expect(format(hit.damage)).not.toBe(String(hit.damage));
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const floatRegion = (cs: RectCall[]): RectCall[] =>
+      cs.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 100);
+    const rendered = (text: string): string[] => {
+      const pool = createFloatPool();
+      spawnFloat(pool, MONSTER_X + (12 * SPRITE_SCALE) / 2, HP_BAR.y - 6, text, hit.crit);
+      const ref = makeCtx();
+      drawFloats(ref.ctx, pool);
+      return keys(ref.calls);
+    };
+    expect(keys(floatRegion(calls))).toEqual(rendered(format(hit.damage)));
+    expect(keys(floatRegion(calls))).not.toEqual(rendered(String(hit.damage)));
+  });
+
+  it('a monster hit spawns the species hit effect', () => {
+    const game = createGame(createEngine(v2, mulberry32(42)));
+    const preset = EFFECTS.hit.slime;
+    // The burst starts on the monster's centre, so every particle sits there.
+    const burst = (cs: RectCall[]): RectCall[] =>
+      cs.filter(
+        (c) =>
+          c.w === preset.size &&
+          c.x === MONSTER_X + (12 * SPRITE_SCALE) / 2 &&
+          c.y === GROUND_Y - (10 * SPRITE_SCALE) / 2 &&
+          (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
+      );
+
+    const before = makeCtx();
+    game.draw(before.ctx);
+    expect(burst(before.calls)).toEqual([]);
+
+    game.attack('keyboard');
+    const after = makeCtx();
+    game.draw(after.ctx);
+    expect(burst(after.calls)).toHaveLength(preset.count);
+  });
+
+  it('a boss draws at scale 3 with a crown and its hp bar raised', () => {
+    // Monster index 7 is the first boss (5x hp). No floatRegion here: the
+    // boss's own top rows fall inside it.
+    const game = createGame(
+      createEngine(
+        { ...v2, monsterIndex: 7, monsterHp: String(monsterMaxHp(7) * 5n), bestIndex: 7 },
+        mulberry32(5),
+      ),
+    );
+    expect(game.getState().monster.boss).toBe(true);
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+
+    // Reference built from primitives: tier-tinted species art at 3x with its
+    // feet on the ground, plus the crown centred above the head.
+    const idle = monsterSprites[game.getState().monster.speciesId as SpeciesId].idle;
+    const top = GROUND_Y - idle.h * BOSS_SCALE;
+    const crown = itemSprites.crown;
+    const crownX = MONSTER_X + Math.floor((idle.w * BOSS_SCALE - crown.w) / 2);
+    const ref = makeCtx();
+    drawSprite(
+      ref.ctx,
+      { ...idle, palette: paletteForTier(idle.palette, game.getState().monster.tier) },
+      0,
+      MONSTER_X,
+      top,
+      { scale: BOSS_SCALE },
+    );
+    drawSprite(ref.ctx, crown, 0, crownX, top - crown.h);
+
+    // The boss band starts at the crown and ends at the ground; the hp bar
+    // (raised to BOSS_HP_BAR_Y) sits above it, so nothing else lands here.
+    const bossBand = (cs: RectCall[]): RectCall[] =>
+      cs.filter((c) => c.x >= MONSTER_X && c.y >= top - crown.h && c.y < GROUND_Y);
+    expect(ref.calls.length).toBeGreaterThan(0);
+    expect(keys(bossBand(calls))).toEqual(keys(ref.calls));
+    expect(bossBand(calls).some((c) => c.w === BOSS_SCALE)).toBe(true);
+    expect(bossBand(calls).filter((c) => c.w === SPRITE_SCALE)).toEqual([]);
+
+    // The hp bar is raised out of the taller sprite's way.
+    const barFrame = (y: number): boolean =>
+      calls.some((c) => c.y === y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel);
+    expect(barFrame(BOSS_HP_BAR_Y)).toBe(true);
+    expect(barFrame(HP_BAR.y)).toBe(false);
+  });
+
+  it('a boss spawn fires the shockwave effect', () => {
+    // Killing monster 6 spawns the boss at index 7.
+    const game = createGame(
+      createEngine({ ...v2, monsterIndex: 6, monsterHp: '1', bestIndex: 6 }, mulberry32(5)),
+    );
+    const spawned = game.attack('keyboard').find((e) => e.type === 'monsterSpawned');
+    if (spawned?.type !== 'monsterSpawned') {
+      throw new Error('expected a monsterSpawned event');
+    }
+    expect(spawned.monster.boss).toBe(true);
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const preset = EFFECTS.bossShockwave;
+    // The ring starts on the boss's centre; the dead monster's scatter is 2x
+    // and only ever lands on even rows, so it cannot pollute this.
+    const ring = calls.filter(
+      (c) => c.w === preset.size && c.x === BOSS_CENTRE.x && c.y === BOSS_CENTRE.y,
+    );
+    expect(ring).toHaveLength(preset.count);
+    expect(new Set(ring.map((c) => c.fillStyle))).toEqual(new Set(preset.colors));
+  });
+
+  it('active companions draw in a column left of the hero, flipped to face right, star-tinted', () => {
+    const roster = [
+      companion('c1', 'ghost', 2),
+      companion('c2', 'golem', 1),
+      companion('c3', 'dragon'),
+    ];
+    const game = createGame(
+      createEngine({ ...v2, companions: roster, nextCompanionId: 4 }, mulberry32(5)),
+    );
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+
+    const active = activeCompanions(game.getState().companions);
+    expect(active.map((c) => c.id)).toEqual(['c1', 'c2', 'c3']); // strongest first
+    for (let k = 0; k < active.length; k++) {
+      const c = active[k];
+      if (c === undefined) {
+        throw new Error('missing companion');
+      }
+      const slot = companionSlot(k, GROUND_Y);
+      const idle = monsterSprites[c.speciesId as SpeciesId].idle;
+      const box = (cs: RectCall[]): RectCall[] =>
+        cs.filter(
+          (r) =>
+            r.w === 1 &&
+            r.x >= slot.x &&
+            r.x < slot.x + idle.w &&
+            r.y >= slot.y &&
+            r.y < slot.y + idle.h,
+        );
+      const tinted = { ...idle, palette: paletteForTier(idle.palette, c.stars) };
+
+      const flipped = makeCtx();
+      drawSprite(flipped.ctx, tinted, 0, slot.x, slot.y, { flipX: true });
+      expect(keys(box(calls))).toEqual(keys(flipped.calls));
+
+      // Facing right really is a mirror, and the stars really do tint.
+      const plain = makeCtx();
+      drawSprite(plain.ctx, tinted, 0, slot.x, slot.y);
+      expect(keys(box(calls))).not.toEqual(keys(plain.calls));
+      if (c.stars > 0) {
+        const untinted = makeCtx();
+        drawSprite(untinted.ctx, idle, 0, slot.x, slot.y, { flipX: true });
+        expect(keys(box(calls))).not.toEqual(keys(untinted.calls));
+      }
+      // The column stands clear of the hero.
+      expect(slot.x + idle.w).toBeLessThanOrEqual(HERO_X);
+    }
+  });
+
+  it('a companion volley spawns one projectile per companion toward the monster', () => {
+    const roster = [companion('c1', 'ghost'), companion('c2', 'dragon')];
+    const game = createGame(
+      createEngine({ ...v2, companions: roster, nextCompanionId: 3 }, mulberry32(5)),
+    );
+    const events = game.update(COMPANION_ATTACK_MS);
+    expect(events.filter((e) => e.type === 'companionAttack')).toHaveLength(2);
+    expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
+
+    const preset = EFFECTS.companionProjectile;
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const active = activeCompanions(game.getState().companions);
+    for (let k = 0; k < active.length; k++) {
+      const c = active[k];
+      if (c === undefined) {
+        throw new Error('missing companion');
+      }
+      const slot = companionSlot(k, GROUND_Y);
+      // One shot per companion, from its slot, in its own hit colour.
+      expect(
+        calls.filter(
+          (r) =>
+            r.w === preset.size &&
+            r.x === slot.x &&
+            r.y === slot.y &&
+            r.fillStyle === EFFECTS.hit[c.speciesId as SpeciesId].colors[0],
+        ),
+      ).toHaveLength(1);
+    }
+
+    // 100 ms later the shots have travelled right, toward the monster.
+    game.update(100);
+    const later = makeCtx();
+    game.draw(later.ctx);
+    const slot0 = companionSlot(0, GROUND_Y);
+    const flown = later.calls.filter(
+      (r) => r.w === preset.size && r.y === slot0.y && r.x === slot0.x + preset.speed / 10,
+    );
+    expect(flown).toHaveLength(1);
+    expect(slot0.x + preset.speed / 10).toBeLessThan(MONSTER_X);
+  });
+
+  it('a capture shows the sparkle effect and the new companion appears', () => {
+    // Index 15 is a slime boss (its hit art shares no colour with the
+    // sparkle); seed 2 makes the capture roll succeed.
+    const game = createGame(
+      createEngine({ ...v2, monsterIndex: 15, monsterHp: '1', bestIndex: 15 }, mulberry32(2)),
+    );
+    expect(game.attack('keyboard').some((e) => e.type === 'bossCaptured')).toBe(true);
+    expect(game.getState().companions).toHaveLength(1);
+
+    const preset = EFFECTS.captureSparkle;
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const sparkles = (x: number, y: number): RectCall[] =>
+      calls.filter(
+        (c) =>
+          c.w === preset.size &&
+          c.x === x &&
+          c.y === y &&
+          (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
+      );
+    const slot = companionSlot(0, GROUND_Y);
+    expect(sparkles(BOSS_CENTRE.x, BOSS_CENTRE.y)).toHaveLength(preset.count);
+    expect(sparkles(slot.x, slot.y)).toHaveLength(preset.count);
+
+    // Once the sparkles burn out the captured boss stands in the first slot.
+    game.update(MONSTER_DYING_MS + MONSTER_SPAWNING_MS);
+    const after = makeCtx();
+    game.draw(after.ctx);
+    expect(
+      after.calls.some(
+        (c) =>
+          c.w === 1 && c.x >= slot.x && c.x < slot.x + 12 && c.y >= slot.y && c.y < slot.y + 10,
+      ),
+    ).toBe(true);
+  });
+
+  it('fever draws a hue-cycling aura behind the hero and a FEVER banner', () => {
+    // Monster 100 has millions of HP — 20 inputs light fever without a kill.
+    const game = createGame(
+      createEngine(
+        {
+          ...v2,
+          monsterIndex: 100,
+          monsterHp: String(monsterMaxHp(100)),
+          bestIndex: 100,
+        },
+        mulberry32(5),
+      ),
+    );
+    let events: GameEvent[] = [];
+    for (let i = 0; i < FEVER_INPUTS; i++) {
+      events = game.attack('keyboard');
+    }
+    expect(events.some((e) => e.type === 'feverStart')).toBe(true);
+    expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
+    expect(game.getState().fever.active).toBe(true);
+
+    const lit = makeCtx();
+    game.draw(lit.ctx);
+    // The aura is the hero sprite offset 1px, in one hue-shifted red.
+    // The hero's own pixels land on even x from HERO_X; the aura's ±1 copies
+    // are the only 2x cells on odd columns.
+    const aura = (cs: RectCall[]): RectCall[] =>
+      cs.filter(
+        (c) =>
+          c.w === SPRITE_SCALE &&
+          c.x % 2 === 1 &&
+          c.x >= HERO_X - 1 &&
+          c.x < HERO_X + heroIdle.w * SPRITE_SCALE,
+      );
+    expect(aura(lit.calls).length).toBeGreaterThan(0);
+    expect(new Set(aura(lit.calls).map((c) => c.fillStyle))).toEqual(
+      new Set([shiftHue(COLORS.red, 0)]),
+    );
+
+    // FEVER!, not LEVEL UP!, flashes above the scene.
+    const bannerBox = (cs: RectCall[]): RectCall[] =>
+      cs.filter(
+        (c) =>
+          c.w === BANNER_SCALE &&
+          c.h === BANNER_SCALE &&
+          c.y >= BANNER_Y &&
+          c.y < BANNER_Y + 5 * BANNER_SCALE,
+      );
+    const banner = createBanner();
+    showBanner(banner, FEVER_TEXT);
+    const feverRef = makeCtx();
+    drawBanner(feverRef.ctx, banner, VIEW_W);
+    showBanner(banner, LEVEL_UP_TEXT);
+    const levelRef = makeCtx();
+    drawBanner(levelRef.ctx, banner, VIEW_W);
+    expect(keys(bannerBox(lit.calls))).toEqual(keys(feverRef.calls));
+    expect(keys(bannerBox(lit.calls))).not.toEqual(keys(levelRef.calls));
+
+    // The aura cycles hue with time and sheds sparkles every 100 ms.
+    game.update(4 * FEVER_SPARKLE_MS);
+    const later = makeCtx();
+    game.draw(later.ctx);
+    expect(aura(later.calls)[0]?.fillStyle).not.toBe(aura(lit.calls)[0]?.fillStyle);
+    expect(
+      later.calls.filter(
+        (c) =>
+          c.w === EFFECTS.feverAura.size &&
+          c.x === HERO_X + (heroIdle.w * SPRITE_SCALE) / 2 &&
+          c.y === HERO_Y + (heroIdle.h * SPRITE_SCALE) / 2,
+      ),
+    ).toHaveLength(EFFECTS.feverAura.count);
   });
 });
 
