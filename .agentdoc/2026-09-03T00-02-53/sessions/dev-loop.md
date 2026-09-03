@@ -15,3 +15,9 @@
 | 14 | claude | T22 | CRASHED | skipped | skipped | none | escalate-crash |
 | 15 | claude | T23 | CRASHED | skipped | skipped | none | escalate-crash |
 | 10 | codex | T31 | MERGE_RED | fail | skipped | 8e0c968 | continue |
+
+outcome (run 1): exit 3 (crash escalation), iterations 15, lanes 3, nested_claude 1
+- Root cause A (MERGE_RED ×9, every worker's own gates were green): `.gitignore` used `node_modules/` / `graphify-out/` (trailing slash = directories only), so lane commits (`git add -A` by workers and by the orchestrator's "lane leftovers" step) tracked the lane's node_modules/graphify-out SYMLINKS; merging them into main replaced main's real node_modules with a self-referencing symlink (npm error "Cannot read properties of undefined (reading 'stdin')"), and the merge revert then deleted it entirely ("sh: vitest: command not found"). Fix: commit b09df3d drops the trailing slashes (proven in a temp worktree: symlinks now ignored); `npm ci` restored main's node_modules (303 tests pass).
+- Root cause B (CRASHED ×6 → exit 3): `claude -p` returned HTTP 429 "You've hit your session limit · resets 3:50am (Asia/Seoul)" within ~1 s (iters 08, 11–15). Re-probed at 10:03 KST: PROBE_OK.
+- Kept branches lane/T22-red-01, -red-05, lane/T23-red-02/04/06/07/09, lane/T31-red-03/10 hold the (green-in-lane) work; crash branches lane/T22-crash-08/12/14, lane/T23-crash-11/13/15 are empty 429 runs.
+- Resuming as run 2 (HARNESS §5): MAX_ITER=65 (50 + the 15 iterations lost to A/B), LANES=3, loop stdin redirected from /dev/null.
