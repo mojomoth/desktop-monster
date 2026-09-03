@@ -219,7 +219,7 @@
 - Notes (iter 19, claude): DONE: save.ts: Companion, SaveFileV2, SaveFile alias, v2 DEFAULT_SAVE, upgradeSave(V1|V2), parseSave→v2 (bigField monsterHp with '0'→'1', companion validation, first-wins dupes, cap 30, nextCompanionId raised above ids), serializeSave upgrades first. engine createEngine/toSave take/emit V1|V2, still number-based inside. Barrel + renderer toSave(): SaveFile. Tests: save 9→11 it(, engine/renderer counts unchanged; renderer stateFixture now from a fresh engine. Forced extra file: src/core/types.ts (GameState's new fields live there, typecheck requires it). Dead ends: Object.freeze<Companion>([]) cast (
 
 
-### [ ] T25 — BigInt cutover: exact-rational monsterMaxHp, hp/damage bigint end to end
+### [~] T25 — BigInt cutover: exact-rational monsterMaxHp, hp/damage bigint end to end
 - AC: `npx vitest run tests/formulas.test.ts tests/engine.test.ts tests/renderer.test.ts tests/save.test.ts tests/audio.test.ts && grep -q "115n" src/core/formulas.ts && grep -q "maxHp: bigint" src/core/types.ts && grep -q "monsterMaxHp is exactly 10/20/40/163 at index 0/5/10/20" tests/formulas.test.ts && grep -q "monsterMaxHp is exact for huge indices: index 5000 has 305 digits" tests/formulas.test.ts && grep -q "drawHpBar takes bigint hp and maxHp" tests/renderer.test.ts && test "$(grep -c '^\s*it(' tests/engine.test.ts)" -ge 16 && test "$(grep -c '^\s*it(' tests/formulas.test.ts)" -ge 11 && test "$(grep -c '^\s*it(' tests/renderer.test.ts)" -ge 52` → exit 0
 - Deps: T24
 - Worker: claude
