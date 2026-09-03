@@ -24,6 +24,17 @@ import { heroAttack, heroIdle, heroSlash } from '../src/renderer/sprites/hero.js
 import { monsterSprites } from '../src/renderer/sprites/monsters.js';
 import { ITEM_SPRITE_IDS, itemSprites } from '../src/renderer/sprites/items.js';
 import {
+  BOSS_HP_BAR_Y,
+  BOSS_SCALE,
+  drawBoss,
+} from '../src/renderer/sprites/boss.js';
+import {
+  companionSlot,
+  COMPANION_SLOT_GAP,
+  COMPANION_X,
+  drawCompanion,
+} from '../src/renderer/sprites/companion.js';
+import {
   drawText,
   FONT_ADVANCE,
   FONT_H,
@@ -206,6 +217,56 @@ describe('item art (SPEC F19 part 2)', () => {
       expect(itemSprites[id].frames, id).toHaveLength(1);
       expect(registered.get(`item.${id}`), `item.${id}`).toBe(itemSprites[id]);
     }
+  });
+});
+
+describe('boss and companion art helpers (SPEC F40)', () => {
+  it('drawBoss paints the species art at scale 3 with the crown centred above it', () => {
+    const { ctx, calls } = makeCtx();
+    const species = monsterSprites.slime;
+    drawBoss(ctx, species, 'idle', 0, 118, 92, 1);
+
+    expect(BOSS_SCALE).toBe(3);
+    expect(BOSS_HP_BAR_Y).toBe(54);
+    const body = calls.filter((call) => call.w === BOSS_SCALE && call.h === BOSS_SCALE);
+    expect(body).toHaveLength(species.idle.frames[0]?.join('').replaceAll('.', '').length ?? 0);
+    expect(body[0]).toEqual({
+      x: 130,
+      y: 68,
+      w: 3,
+      h: 3,
+      fillStyle: paletteForTier(species.idle.palette, 1).g,
+    });
+    expect(calls.find((call) => call.y === 56)).toEqual({
+      x: 132,
+      y: 56,
+      w: 1,
+      h: 1,
+      fillStyle: COLORS.yellow,
+    });
+  });
+
+  it('drawCompanion paints the species idle frame flipped and tinted by stars at its slot', () => {
+    const { ctx, calls } = makeCtx();
+    drawCompanion(ctx, 'dragon', 0, 1, 1, 92);
+
+    expect(calls[0]).toEqual({
+      x: 6,
+      y: 68,
+      w: 1,
+      h: 1,
+      fillStyle: paletteForTier(monsterSprites.dragon.idle.palette, 1).r,
+    });
+  });
+
+  it('companionSlot stacks three slots upward from the ground left of the hero', () => {
+    expect(COMPANION_X).toBe(2);
+    expect(COMPANION_SLOT_GAP).toBe(14);
+    expect([0, 1, 2].map((k) => companionSlot(k, 92))).toEqual([
+      { x: 2, y: 82 },
+      { x: 2, y: 68 },
+      { x: 2, y: 54 },
+    ]);
   });
 });
 
