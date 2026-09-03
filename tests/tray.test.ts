@@ -8,7 +8,8 @@
 // - the menu template and the rebuild-on-mode-change behavior run against
 //   fake Tray/Menu factories;
 // - the live Electron wiring in src/main/index.ts is pinned as source text
-//   (same approach as the window/smoke source-contract tests).
+//   (same approach as the window/smoke source-contract tests), and so is
+//   src/main/menuWindow.ts (T46/F52), which the tray item is the only opener of.
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -17,6 +18,7 @@ import { describe, expect, it } from 'vitest';
 import type { InputModePayload } from '../src/shared/ipc.js';
 import {
   buildTrayMenuTemplate,
+  COLLECTION_LABEL,
   getActiveTray,
   INPUT_FALLBACK_LABEL,
   INPUT_GLOBAL_LABEL,
@@ -82,7 +84,12 @@ function chunkOfType(png: Buffer, type: string): ParsedChunk {
 }
 
 function noopActions(): TrayMenuActions {
-  return { openAccessibilitySettings: () => {}, resetProgress: () => {}, quit: () => {} };
+  return {
+    openAccessibilitySettings: () => {},
+    openCollection: () => {},
+    resetProgress: () => {},
+    quit: () => {},
+  };
 }
 
 describe('tray icon pixel matrix (F23: sprites-as-code, no asset file)', () => {
@@ -155,12 +162,13 @@ describe('pure-code PNG encoder (trayIcon.ts)', () => {
 });
 
 describe('tray menu template (F23)', () => {
-  it('lists title, status, separator, Reset Progress, Quit — in that order', () => {
+  it('tray menu lists title, status, separator, Collection & Battle, Reset Progress, Quit in that order', () => {
     const template = buildTrayMenuTemplate(GLOBAL_MODE, noopActions());
     expect(template.map((item) => item.label ?? item.type)).toEqual([
       TRAY_TITLE,
       INPUT_GLOBAL_LABEL,
       'separator',
+      COLLECTION_LABEL,
       RESET_LABEL,
       QUIT_LABEL,
     ]);
@@ -192,16 +200,22 @@ describe('tray menu template (F23)', () => {
     expect(opened).toBe(1);
   });
 
-  it('Reset Progress and Quit invoke their actions', () => {
+  it('Collection & Battle, Reset Progress and Quit invoke their actions', () => {
     const calls: string[] = [];
     const template = buildTrayMenuTemplate(GLOBAL_MODE, {
       openAccessibilitySettings: () => calls.push('grant'),
+      openCollection: () => calls.push('collection'),
       resetProgress: () => calls.push('reset'),
       quit: () => calls.push('quit'),
     });
+    template.find((item) => item.label === COLLECTION_LABEL)?.click?.();
     template.find((item) => item.label === RESET_LABEL)?.click?.();
     template.find((item) => item.label === QUIT_LABEL)?.click?.();
-    expect(calls).toEqual(['reset', 'quit']);
+    expect(calls).toEqual(['collection', 'reset', 'quit']);
+  });
+
+  it('spells the collection label with the ellipsis character (F23/F52)', () => {
+    expect(COLLECTION_LABEL).toBe('Collection & Battle\u2026');
   });
 });
 
@@ -280,5 +294,65 @@ describe('tray wiring (source contract, src/main/index.ts)', () => {
     const refresh = indexTs.indexOf('tray.refresh(payload)');
     expect(send).toBeGreaterThan(-1);
     expect(refresh).toBeGreaterThan(send);
+  });
+});
+
+describe('menu window (F52, src/main/menuWindow.ts)', () => {
+  // menuWindow.ts value-imports electron and cannot load under vitest, so its
+  // options and call order are pinned as source text; runtime behaviour is
+  // Manual M6 (open from the tray, second click focuses the same window).
+  const menuWindowTs = readFileSync(join(process.cwd(), 'src/main/menuWindow.ts'), 'utf8');
+  const windowTs = readFileSync(join(process.cwd(), 'src/main/window.ts'), 'utf8');
+
+  it.each([
+    'width: 380',
+    'height: 520',
+    'useContentSize: true',
+    'frame: true',
+    'resizable: false',
+    'minimizable: false',
+    'maximizable: false',
+    'fullscreenable: false',
+    'alwaysOnTop: true',
+    'show: false',
+    "title: 'DesMon — Collection & Battle'",
+    'contextIsolation: true',
+    'nodeIntegration: false',
+    'sandbox: true',
+    "loadFile('static/menu.html')",
+  ])('declares %s', (literal) => {
+    expect(menuWindowTs).toContain(literal);
+  });
+
+  it('uses the same preload path as the overlay window', () => {
+    const preload = "preload: path.join(__dirname, '../preload/index.js')";
+    expect(menuWindowTs).toContain(preload);
+    expect(windowTs).toContain(preload);
+  });
+
+  it('shows on ready-to-show and only then steals focus (accessory app)', () => {
+    const ready = menuWindowTs.indexOf("once('ready-to-show'");
+    const show = menuWindowTs.indexOf('win.show()');
+    const focus = menuWindowTs.indexOf('app.focus({ steal: true })', show);
+    expect(ready).toBeGreaterThan(-1);
+    expect(show).toBeGreaterThan(ready);
+    expect(focus).toBeGreaterThan(show);
+  });
+
+  it('keeps a single window: focuses the existing one and drops it on close', () => {
+    expect(menuWindowTs).toContain('menuWindow.focus()');
+    expect(menuWindowTs).toMatch(/on\('closed',[^}]*menuWindow = null/s);
+  });
+});
+
+describe('menu window wiring (source contract, src/main/index.ts)', () => {
+  const indexTs = readFileSync(join(process.cwd(), 'src/main/index.ts'), 'utf8');
+
+  it('opens the menu window from the tray action only (never under SMOKE)', () => {
+    expect(indexTs).toContain('openCollection: () => {');
+    expect(indexTs).toContain('showMenuWindow()');
+    // No other opener: the SMOKE sequence stays gated on the first frame.
+    expect(indexTs.match(/showMenuWindow\(\)/g)).toHaveLength(1);
+    expect(indexTs).toContain('registerIpcHandlers()');
   });
 });
