@@ -12,10 +12,18 @@ import {
 
 describe('progression formulas (SPEC F04, Assumption 3 — frozen)', () => {
   it('monsterMaxHp is exactly 10/20/40/163 at index 0/5/10/20', () => {
-    expect(monsterMaxHp(0)).toBe(10);
-    expect(monsterMaxHp(5)).toBe(20);
-    expect(monsterMaxHp(10)).toBe(40);
-    expect(monsterMaxHp(20)).toBe(163);
+    expect(monsterMaxHp(0)).toBe(10n);
+    expect(monsterMaxHp(5)).toBe(20n);
+    expect(monsterMaxHp(10)).toBe(40n);
+    expect(monsterMaxHp(20)).toBe(163n);
+  });
+
+  it('monsterMaxHp is exact for huge indices: index 5000 has 305 digits', () => {
+    // The exact rational 10*(115/100)^i keeps growing where the v1 double
+    // saturated at Infinity (SPEC F30) — and stays byte-for-byte exact.
+    expect(monsterMaxHp(5000).toString()).toHaveLength(305);
+    expect(monsterMaxHp(5000)).toBe((10n * 115n ** 5000n) / 100n ** 5000n);
+    expect(monsterMaxHp(5000)).toBeGreaterThan(monsterMaxHp(4999));
   });
 
   it('xpToNext is exactly 20/28/39/54 at level 1/2/3/4', () => {
@@ -40,7 +48,7 @@ describe('progression formulas (SPEC F04, Assumption 3 — frozen)', () => {
     const indices = Array.from({ length: 50 }, (_, k) => k); // 0..49
 
     assertPositiveIntsStrictlyIncreasing(levels.map(damageForLevel));
-    assertPositiveIntsStrictlyIncreasing(indices.map(monsterMaxHp));
+    assertPositiveIntsStrictlyIncreasing(indices.map((i) => Number(monsterMaxHp(i))));
     assertPositiveIntsStrictlyIncreasing(indices.map(xpReward));
     assertPositiveIntsStrictlyIncreasing(levels.slice(0, 30).map(xpToNext));
   });

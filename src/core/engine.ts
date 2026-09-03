@@ -32,7 +32,7 @@ function randomSeed(): number {
 /**
  * Save shapes are assumed well-formed here — tolerant parsing of untrusted
  * JSON is save.ts's parseSave(). The engine still clamps the resumed
- * monsterHp into [1, maxHp] so a stale save can never spawn an already-dead
+ * monsterHp into [1n, maxHp] so a stale save can never spawn an already-dead
  * or over-healed monster.
  */
 function initialState(save?: SaveFileV2 | null): GameState {
@@ -61,10 +61,9 @@ function initialState(save?: SaveFileV2 | null): GameState {
     coins: save.coins,
     items: { ...save.items },
     monster,
-    // Resume exactly, clamped into [1, maxHp] so a stale save can never
-    // spawn an already-dead or over-healed monster. ponytail: still number
-    // maths inside the engine — T25 flips hp/damage to bigint end to end.
-    monsterHp: Math.min(monster.maxHp, Math.max(1, Math.floor(Number(save.monsterHp)))),
+    // Resume exactly, clamped into [1n, maxHp] so a stale save can never
+    // spawn an already-dead or over-healed monster.
+    monsterHp: clampHp(BigInt(save.monsterHp), monster.maxHp),
     companions: save.companions.map((c) => ({ ...c })),
     nextCompanionId: save.nextCompanionId,
     souls: save.souls,
@@ -72,6 +71,9 @@ function initialState(save?: SaveFileV2 | null): GameState {
     bestIndex: save.bestIndex,
   };
 }
+
+/** Clamp a resumed hp into [1n, maxHp]. */
+const clampHp = (hp: bigint, maxHp: bigint): bigint => (hp < 1n ? 1n : hp > maxHp ? maxHp : hp);
 
 /**
  * Create the game reducer. Every attack(source) call rolls a crit (one rng
@@ -93,17 +95,17 @@ export function createEngine(
       const events: GameEvent[] = [];
 
       const crit = rng.next() < CRIT_CHANCE;
-      const damage = damageForLevel(state.level) * (crit ? CRIT_MULT : 1);
+      const damage = BigInt(damageForLevel(state.level)) * (crit ? BigInt(CRIT_MULT) : 1n);
       events.push({ type: 'attack', damage, crit, source });
 
-      state.monsterHp = Math.max(0, state.monsterHp - damage);
+      state.monsterHp = state.monsterHp > damage ? state.monsterHp - damage : 0n;
       events.push({
         type: 'monsterHit',
         hpAfter: state.monsterHp,
         maxHp: state.monster.maxHp,
       });
 
-      if (state.monsterHp === 0) {
+      if (state.monsterHp === 0n) {
         const killed = state.monster;
         state.killCount += 1;
         const xpGained = xpReward(killed.index);

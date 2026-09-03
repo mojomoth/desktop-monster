@@ -6,7 +6,7 @@
 // DOM-free on purpose — everything draws through SpriteCanvas so the tests
 // run under vitest's node environment (same pattern as sprites/sprite.ts).
 
-import { xpToNext } from '../core/index.js';
+import { ratio, xpToNext } from '../core/index.js';
 import type { GameState } from '../core/index.js';
 import {
   COLORS,
@@ -62,10 +62,10 @@ export function drawHpBar(
   y: number,
   w: number,
   h: number,
-  hp: number,
-  maxHp: number,
+  hp: bigint,
+  maxHp: bigint,
 ): void {
-  drawMeter(ctx, x, y, w, h, maxHp > 0 ? hp / maxHp : 0, COLORS.red);
+  drawMeter(ctx, x, y, w, h, ratio(hp, maxHp), COLORS.red);
 }
 
 /**

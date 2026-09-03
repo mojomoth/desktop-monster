@@ -10,9 +10,15 @@ export const CRIT_CHANCE = 0.1;
 /** Crit damage multiplier. */
 export const CRIT_MULT = 2;
 
-/** Monster max HP by 0-based global index: 10, 11, 13 … 40 @10 … 163 @20. */
-export const monsterMaxHp = (index: number): number =>
-  Math.floor(10 * Math.pow(1.15, index));
+/**
+ * Monster max HP by 0-based global index: 10, 11, 13 … 40 @10 … 163 @20.
+ * Exact rational 10*(115/100)^i in bigint (SPEC F30) — equal to the old
+ * double for every i < 199, and unbounded beyond it.
+ */
+export const monsterMaxHp = (index: number): bigint => {
+  const i = BigInt(Math.max(0, Math.floor(index)));
+  return (10n * 115n ** i) / 100n ** i;
+};
 
 /** XP granted for killing the monster at `index`. */
 export const xpReward = (index: number): number => 5 + 3 * index;
