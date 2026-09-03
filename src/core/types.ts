@@ -2,6 +2,7 @@
 // Shapes follow GAME_ARCHITECTURE §2 exactly.
 
 import type { Companion } from './save.js';
+import type { MonsterType } from './types-chart.js';
 
 export type InputSource = 'keyboard' | 'mouse';
 
@@ -17,6 +18,8 @@ export interface MonsterDef {
   tier: number;
   /** Every 8th monster (index 7, 15, 23 …) — 5x hp/xp/coins. */
   boss: boolean;
+  /** Elemental type of the species (bosses keep it) — SPECIES_TYPE. */
+  type: MonsterType;
 }
 
 export interface ItemDef {
