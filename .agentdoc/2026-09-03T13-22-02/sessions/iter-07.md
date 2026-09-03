@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T67 — Net client + session v3: match, pvp(matchId, party), thefts, reclaim, toSnapshot party, identity notifiedTheftIds
 - result: DONE
-- commit: 06c928defa705d6f72b9527a78ab881bffeb9980
+- commit: f83d20c1e286d2b749a2ff3f3c4cabaed5cfd874 (work commit; this record fix rides on top)
 - graphify affected used: none (callers found with grep: probe.ts, ipc.ts, deploy.test.ts)
 
 ## What I did
