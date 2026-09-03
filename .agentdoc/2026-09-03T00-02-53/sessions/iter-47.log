@@ -1,0 +1,9 @@
+{"task":"T52","result":"DONE","gates":"pass","commit":"8aba91b","note":"Verified the existing T01/T19 build config satisfies F26 (identity null, npmRebuild/notarize/hardenedRuntime false, win+nsis, CSC_IDENTITY_AUTO_DISCOVERY=false, files keeps dist/**/* + static/**/* and adds !dist/electron/server/**) — no gap, so package.json/package-lock.json untouched. npm run package -> DesMon-0.2.0-arm64.dmg (110MB) + mac-arm64/DesMon.app, first run downloaded electron + dmgbuild, no hdiutil flake, no retry. Packaged SMOKE=1 binary printed SMOKE_OK; find for node_modules/pg and asar listPackage (136 entries) show 0 pg and 0 dist/electron/server entries. F56 git-side check green vs DEPLOYED_SHA=7a81b34. README: +1 line packaged self-test note. Gates 501 tests/lint/typecheck pass before and after; full AC run literally -> exit 0. No dead ends.","children":[]}
+
+Details:
+
+- **F26 config check** passed unmodified — the only diffs since v1 are T22's `!dist/electron/server/**` and T50's version, exactly as the Notes predicted. `overrides.app-builder-lib["@noble/hashes"] = "1.8.0"` is still in place.
+- **F25**: `npm run package` (electron-builder 26.15.3, electron 39.8.10, Node 20.12.2) produced `release/DesMon-0.2.0-arm64.dmg` and `release/mac-arm64/DesMon.app`.
+- **F58**: no DesMon instance was running; the packaged binary with `SMOKE=1` wrote exactly `SMOKE_OK` to `/tmp/desmon-pkg-smoke.log` — no menu window, no Accessibility prompt. `pg` and `dist/electron/server/**` are absent both on disk in the `.app` and inside `app.asar`.
+- **Gates**: `npm test && npm run lint && npm run typecheck` → 31 files / 501 tests, exit 0 (run again after the README edit).
+- Commits `d0574f8` (work) and `8aba91b` (session-record sha fixup); tree clean, no build-filter path touched, so the F56 ancestry check still exits 0 at HEAD.
