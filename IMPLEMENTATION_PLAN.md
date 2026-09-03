@@ -302,7 +302,7 @@
 - Notes (iter 30, codex): DONE: Added scale-3 tier-tinted boss rendering with centred crown and raised HP-bar constant; added flipped, star-tinted companion rendering and three stacked slots; exported helpers and added recording-canvas tests. Full gates passed: 374 tests, lint, typecheck. Literal T33 AC passed with 28 sprite tests. One test typing issue was fixed before the successful rerun.
 
 
-### [ ] T34 — Banner text parameter, VICTORY/DEFEAT/FEVER texts, hue-cycling fever aura
+### [~] T34 — Banner text parameter, VICTORY/DEFEAT/FEVER texts, hue-cycling fever aura
 - AC: `npx vitest run tests/renderer.test.ts tests/sprites.test.ts && grep -q "FEVER_TEXT = 'FEVER!'" src/renderer/hud.ts && grep -q "VICTORY_TEXT" src/renderer/hud.ts && grep -q "DEFEAT_TEXT" src/renderer/hud.ts && grep -q "export function drawFeverAura" src/renderer/sprites/aura.ts && grep -q "banner text is configurable: FEVER! and LEVEL UP! both render" tests/renderer.test.ts && grep -q "drawFeverAura paints four hue-shifted copies under the sprite and cycles with time" tests/sprites.test.ts && node -e "const m=require('fs').readFileSync('tests/renderer.test.ts','utf8').match(/^\s*it\(/gm)??[];process.exit(m.length>=52?0:1)" && node -e "const m=require('fs').readFileSync('tests/sprites.test.ts','utf8').match(/^\s*it\(/gm)??[];process.exit(m.length>=25?0:1)"` → exit 0
 - Deps: T28, T29
 - Worker: codex
