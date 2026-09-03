@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T51 — Deploy re-verify: redeploy HEAD, healthz sha ancestry, build-filter paths untouched
 - result: DONE
-- commit: cda10f0d2b2fc6b135cf04c1bab96d08b4c97429
+- commit: a1bdfde (the AGENTS.md DEPLOYED_SHA commit; this line fixed up by the follow-up commit)
 - graphify affected used: none (deploy/config task; no source symbol changed)
 
 ## What I did
