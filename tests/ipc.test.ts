@@ -18,7 +18,7 @@ const mainIpcTs = read('src/main/ipc.ts');
 const mainIndexTs = read('src/main/index.ts');
 
 describe('shared IPC channels (src/shared/ipc.ts)', () => {
-  it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame and move-window', () => {
+  it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-window and the net channels', () => {
     expect(IPC).toEqual({
       INPUT: 'desmon:input',
       INPUT_MODE: 'desmon:input-mode',
@@ -29,6 +29,10 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       OPEN_ACCESSIBILITY_SETTINGS: 'desmon:open-accessibility-settings',
       FIRST_FRAME: 'desmon:first-frame',
       MOVE_WINDOW: 'desmon:move-window',
+      GET_IDENTITY: 'desmon:get-identity',
+      SET_NAME: 'desmon:set-name',
+      LEADERBOARD: 'desmon:leaderboard',
+      PVP: 'desmon:pvp',
     });
   });
 
@@ -56,6 +60,10 @@ describe('preload bridge (src/preload/index.ts)', () => {
     'openAccessibilitySettings',
     'reportFirstFrame',
     'moveWindowBy',
+    'getIdentity',
+    'setName',
+    'getLeaderboard',
+    'pvp',
   ])('exposes %s on the bridge', (method) => {
     expect(preloadTs).toContain(`${method}:`);
   });
@@ -79,7 +87,16 @@ describe('preload bridge (src/preload/index.ts)', () => {
 });
 
 describe('main IPC handlers (src/main/ipc.ts)', () => {
-  it.each(['GET_INPUT_MODE', 'LOAD_STATE', 'SAVE_STATE', 'OPEN_ACCESSIBILITY_SETTINGS'])(
+  it.each([
+    'GET_INPUT_MODE',
+    'LOAD_STATE',
+    'SAVE_STATE',
+    'OPEN_ACCESSIBILITY_SETTINGS',
+    'GET_IDENTITY',
+    'SET_NAME',
+    'LEADERBOARD',
+    'PVP',
+  ])(
     'registers an invoke handler for IPC.%s',
     (name) => {
       expect(mainIpcTs).toContain(`ipcMain.handle(IPC.${name}`);
@@ -115,6 +132,34 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(mainIpcTs).toContain(
       'x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility',
     );
+  });
+
+  it('builds ONE net session, pinned offline under SMOKE (T43)', () => {
+    // SMOKE must reach SMOKE_OK with zero fetch calls: baseUrl '' makes the
+    // client short-circuit to `offline` before it ever touches the network.
+    expect(mainIpcTs).toContain(
+      "const baseUrl = process.env.SMOKE ? '' : (process.env.DESMON_SERVER_URL ?? SERVER_URL);",
+    );
+    expect(mainIpcTs.match(/createNetSession\(/g)).toHaveLength(1);
+    expect(mainIpcTs).toContain("online: baseUrl !== ''");
+  });
+
+  it('parses the untrusted renderer save before handing it to the net session', () => {
+    const saveHandler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.handle(IPC.SAVE_STATE'));
+    expect(saveHandler.indexOf('writeSaveFile')).toBeLessThan(saveHandler.indexOf('session.onSave'));
+    expect(saveHandler).toContain('session.onSave(parseSave(data))');
+  });
+
+  it('validates the net payload shapes at the IPC trust boundary', () => {
+    expect(mainIpcTs).toContain('Number.isFinite(n)');
+    expect(mainIpcTs).toContain('LEADERBOARD_DEFAULT');
+  });
+
+  it('never pushes roster changes at the game window (removed is the menu\'s job, T49)', () => {
+    for (const channel of ['IPC.LEADERBOARD', 'IPC.PVP', 'IPC.GET_IDENTITY', 'IPC.SET_NAME']) {
+      expect(mainIpcTs).toContain(`ipcMain.handle(${channel}`);
+    }
+    expect(mainIpcTs).not.toContain('webContents.send');
   });
 
   it('is registered at startup by src/main/index.ts', () => {

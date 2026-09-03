@@ -4,6 +4,12 @@
 // payload types; tests/renderer.test.ts pins this file's method list against
 // the preload source so the two can never drift.
 
+import type {
+  IdentityPayload,
+  LeaderboardResult,
+  NetResult,
+  PvpResult,
+} from '../shared/api.js';
 import type { InputModePayload, InputPayload, SaveStatePayload } from '../shared/ipc.js';
 
 declare global {
@@ -18,6 +24,10 @@ declare global {
       openAccessibilitySettings(): Promise<void>;
       reportFirstFrame(): void;
       moveWindowBy(dx: number, dy: number): void;
+      getIdentity(): Promise<IdentityPayload>;
+      setName(name: string): Promise<IdentityPayload>;
+      getLeaderboard(n?: number): Promise<NetResult<LeaderboardResult>>;
+      pvp(): Promise<NetResult<PvpResult>>;
     };
   }
 }
