@@ -2,6 +2,7 @@
 // forever in fixed order, tier = Math.floor(index / 5) for renderer tint.
 
 import { monsterMaxHp } from './formulas.js';
+import type { MonsterType } from './types-chart.js';
 import type { MonsterDef } from './types.js';
 
 /** Fixed species cycle order (SPEC Assumption 4). Never reorder. */
@@ -20,6 +21,34 @@ export const isBoss = (index: number): boolean =>
 export const BOSS_HP_MULT = 5n;
 export const BOSS_XP_MULT = 5;
 export const BOSS_COIN_MULT = 5;
+
+/** Elemental type per species (GAME_DESIGN_V3 §1) — visible in HUD/menu badges. */
+export const SPECIES_TYPE: Record<SpeciesId, MonsterType> = {
+  slime: 'water',
+  bat: 'wind',
+  ghost: 'dark',
+  golem: 'earth',
+  dragon: 'fire',
+};
+
+/** Draw size per species — hidden: it only drives sprite scale and z-order. */
+export const SPECIES_SIZE: Record<SpeciesId, 1 | 2 | 3> = {
+  slime: 1,
+  bat: 1,
+  ghost: 2,
+  golem: 3,
+  dragon: 3,
+};
+
+/** Type of any runtime species id; unknown → slime's 'water'. Never throws. */
+export function typeOf(speciesId: string): MonsterType {
+  return SPECIES_TYPE[speciesId as SpeciesId] ?? 'water';
+}
+
+/** Size of any runtime species id; unknown → 1. Never throws. */
+export function sizeOf(speciesId: string): 1 | 2 | 3 {
+  return SPECIES_SIZE[speciesId as SpeciesId] ?? 1;
+}
 
 const SPECIES_DISPLAY_NAMES: Record<SpeciesId, string> = {
   slime: 'Slime',
@@ -48,5 +77,6 @@ export function monsterForIndex(index: number): MonsterDef {
     maxHp: monsterMaxHp(i) * (boss ? BOSS_HP_MULT : 1n),
     tier,
     boss,
+    type: SPECIES_TYPE[speciesId],
   };
 }

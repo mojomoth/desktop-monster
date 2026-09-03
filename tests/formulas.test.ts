@@ -7,7 +7,12 @@ import {
   isBoss,
   monsterForIndex,
   monsterMaxHp,
+  sizeOf,
   SPECIES_IDS,
+  SPECIES_SIZE,
+  SPECIES_TYPE,
+  TYPE_ORDER,
+  typeOf,
   xpReward,
   xpToNext,
 } from '../src/core/index.js';
@@ -128,6 +133,31 @@ describe('monster catalog (SPEC F05, Assumption 4)', () => {
     expect(monsterForIndex(5).name).toBe('Slime Lv.2');
     expect(monsterForIndex(10).name).toBe('Slime Lv.3');
     expect(monsterForIndex(14).name).toBe('Dragon Lv.3');
+  });
+
+  it('each species has a fixed type and a hidden size', () => {
+    expect(SPECIES_TYPE).toEqual({
+      slime: 'water',
+      bat: 'wind',
+      ghost: 'dark',
+      golem: 'earth',
+      dragon: 'fire',
+    });
+    expect(SPECIES_SIZE).toEqual({ slime: 1, bat: 1, ghost: 2, golem: 3, dragon: 3 });
+    // Every species covered, one distinct type each, size within 1..3.
+    expect(new Set(SPECIES_IDS.map(typeOf)).size).toBe(5);
+    for (const id of SPECIES_IDS) {
+      expect(TYPE_ORDER).toContain(typeOf(id));
+      expect([1, 2, 3]).toContain(sizeOf(id));
+    }
+    // The catalog carries the species type; bosses keep it.
+    expect(monsterForIndex(0).type).toBe('water');
+    expect(monsterForIndex(4).type).toBe('fire');
+    expect(monsterForIndex(7).type).toBe(typeOf('ghost'));
+    expect(monsterForIndex(15).type).toBe('water');
+    // Unknown species never throw — slime's defaults.
+    expect(typeOf('wyrm')).toBe('water');
+    expect(sizeOf('wyrm')).toBe(1);
   });
 
   it('non-integer or negative indices are clamped to a valid catalog entry', () => {

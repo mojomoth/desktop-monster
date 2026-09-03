@@ -26,6 +26,8 @@ export * from './collection.js';
 
 export * from './fever.js';
 
+export * from './types-chart.js';
+
 export { createEngine } from './engine.js';
 export type { Engine } from './engine.js';
 
@@ -62,7 +64,16 @@ export type {
 export { DEFAULT_SAVE, parseSave, serializeSave, upgradeSave } from './save.js';
 export type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
 
-export { BOSS_EVERY, isBoss, monsterForIndex, SPECIES_IDS } from './monsters.js';
+export {
+  BOSS_EVERY,
+  isBoss,
+  monsterForIndex,
+  sizeOf,
+  SPECIES_IDS,
+  SPECIES_SIZE,
+  SPECIES_TYPE,
+  typeOf,
+} from './monsters.js';
 export type { SpeciesId } from './monsters.js';
 
 export { mulberry32 } from './rng.js';
