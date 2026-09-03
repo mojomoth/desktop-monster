@@ -1,0 +1,14 @@
+{"task":"T72","result":"DONE","gates":"pass","commit":"e680ae9c0b3ef2f4d3f2b2ad6f1cbb4ce2fdb2b9","note":"Bumped only the two top-level version fields to 0.3.0 (package.json + lock root/packages[''], no npm install); TRAY_TITLE='DesMon v0.3.0' (menu order untouched). README v3: types/5-cycle chart (x2 super, /2 weak, hidden size), party of 5 replacing '3 strongest', new PvP section (Find opponent -> preview -> party editor/Auto/Save -> Battle! -> overlay replay <=12s, 15% attacker-only steal, native notification, 24 h reclaim inbox), overlay 480x300, menu window 380x520 -> 420x640, desmon-server-v3 + V2_SERVER_URL, DesMon-0.3.0-arm64.dmg; every v1/v2 literal kept. packaging.test 14->16 it( (version pin 0.3.0 + v3 README/server literals); tray.test unchanged at 22 (title pin is package.json-derived, so no duplicate literal). SPEC.md untouched: M15-M20 complete, no gap.","children":[]}
+
+작업 완료했습니다 (lane/T72).
+
+**변경 파일**
+- `package.json` / `package-lock.json` — 최상위 `version` 두 개만 `0.3.0` (root + `packages[""]`), `npm install` 없이 직접 편집
+- `src/main/tray.ts:9` — `TRAY_TITLE = 'DesMon v0.3.0'` (메뉴 순서는 그대로)
+- `README.md` — v3 섹션: 타입 차트(5-cycle, ×2/÷2, 히든 사이즈), 파티 5인(볼리마다 상성 보정 파워로 재선정), 새 `## PvP: party, battle, replay, steal & reclaim` 섹션(Find opponent → 프리뷰 → 파티 에디터/Auto/Save → Battle! → 오버레이 리플레이 ≤12초, 15 % 공격자 전용 스틸, 네이티브 알림, 24시간 회수), 오버레이 480×300, 컬렉션 창 380×520 → 420×640 정정, `desmon-server-v3` + `V2_SERVER_URL`, `DesMon-0.3.0-arm64.dmg`. v1/v2 리터럴(`self-reported`, `DESMON_SERVER_URL`, `npm run start:server`, free-tier 문구 등)은 전부 유지 — `tests/deploy.test.ts` 기대치 그대로 통과
+- `tests/packaging.test.ts` — 버전 핀 `0.2.0` → `0.3.0`, v3 README/서버 리터럴 테스트 2개 추가 (14 → 16 `it(`)
+- `SPEC.md` — 손대지 않음. M15–M20이 이미 완비(파티 그룹, 타입 뱃지 auto-change, 프리뷰/리플레이, 스틸+알림, 만료 회수, 480×300 필드)라 채울 갭이 없었습니다
+
+**검증** — `npm test` 589 passed / `npm run lint` / `npm run typecheck` 모두 exit 0, AC 명령 그대로 실행해 `AC EXIT=0`, `npm run smoke` → `SMOKE_OK` (package.json·src/main 변경이라 실행). 트리 clean.
+
+`tests/tray.test.ts`는 건드리지 않았습니다 — 제목 핀이 `DesMon v${pkg.version}` 파생이고 packaging 테스트가 `pkg.version === '0.3.0'`을 고정하므로 값이 이미 강제됩니다(중복 리터럴 회피, ≥22 유지).
