@@ -1,6 +1,8 @@
 // Core domain types — pure TypeScript, zero imports of electron/DOM/node.
 // Shapes follow GAME_ARCHITECTURE §2 exactly.
 
+import type { Companion } from './save.js';
+
 export type InputSource = 'keyboard' | 'mouse';
 
 export interface MonsterDef {
@@ -37,6 +39,13 @@ export interface GameState {
   items: Record<string, number>;
   monster: MonsterDef;
   monsterHp: number;
+  /** Captured bosses (SaveFileV2); gameplay lands in T27/T28. */
+  companions: Companion[];
+  nextCompanionId: number;
+  souls: number;
+  rebirths: number;
+  /** Deepest monsterIndex ever reached. */
+  bestIndex: number;
 }
 
 export type GameEvent =

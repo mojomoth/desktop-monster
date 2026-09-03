@@ -6,30 +6,44 @@ import {
   mulberry32,
   parseSave,
   serializeSave,
+  upgradeSave,
 } from '../src/core/index.js';
-import type { SaveFileV1 } from '../src/core/index.js';
+import type { Companion, SaveFile, SaveFileV1 } from '../src/core/index.js';
 
-const richSave: SaveFileV1 = {
-  version: 1,
+const richSave: SaveFile = {
+  version: 2,
   level: 7,
   xp: 13,
   killCount: 42,
   coins: 99,
   items: { sword_shard: 3, crown: 1, bone: 2 },
   monsterIndex: 21,
-  monsterHp: 77,
+  monsterHp: '77',
+  companions: [
+    { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 3, stars: 1 },
+    { id: 'c2', speciesId: 'dragon', bossIndex: 15, level: 10, stars: 0 },
+  ],
+  nextCompanionId: 3,
+  souls: 5,
+  rebirths: 2,
+  bestIndex: 40,
 };
 
 describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
-  it('DEFAULT_SAVE is a fresh-game v1 save', () => {
-    expect(DEFAULT_SAVE.version).toBe(1);
+  it('DEFAULT_SAVE is a fresh-game v2 save', () => {
+    expect(DEFAULT_SAVE.version).toBe(2);
     expect(DEFAULT_SAVE.level).toBe(1);
     expect(DEFAULT_SAVE.xp).toBe(0);
     expect(DEFAULT_SAVE.killCount).toBe(0);
     expect(DEFAULT_SAVE.coins).toBe(0);
     expect(DEFAULT_SAVE.items).toEqual({});
     expect(DEFAULT_SAVE.monsterIndex).toBe(0);
-    expect(DEFAULT_SAVE.monsterHp).toBe(monsterMaxHp(0));
+    expect(DEFAULT_SAVE.monsterHp).toBe(String(monsterMaxHp(0)));
+    expect(DEFAULT_SAVE.companions).toEqual([]);
+    expect(DEFAULT_SAVE.nextCompanionId).toBe(1);
+    expect(DEFAULT_SAVE.souls).toBe(0);
+    expect(DEFAULT_SAVE.rebirths).toBe(0);
+    expect(DEFAULT_SAVE.bestIndex).toBe(0);
   });
 
   it('serialize then parse round-trips losslessly', () => {
@@ -46,8 +60,8 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
   });
 
   it('serializeSave is stable: items insertion order never changes the bytes', () => {
-    const a: SaveFileV1 = { ...richSave, items: { crown: 1, bone: 2, sword_shard: 3 } };
-    const b: SaveFileV1 = { ...richSave, items: { sword_shard: 3, bone: 2, crown: 1 } };
+    const a: SaveFile = { ...richSave, items: { crown: 1, bone: 2, sword_shard: 3 } };
+    const b: SaveFile = { ...richSave, items: { sword_shard: 3, bone: 2, crown: 1 } };
     expect(serializeSave(a)).toBe(serializeSave(b));
     expect(serializeSave(a)).toBe(serializeSave(parseSave(serializeSave(a))));
   });
@@ -82,7 +96,8 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       monsterHp: Number.NaN,
     });
     expect(mixed).toEqual({
-      version: 1,
+      ...DEFAULT_SAVE,
+      version: 2,
       level: DEFAULT_SAVE.level,
       xp: 7,
       killCount: DEFAULT_SAVE.killCount, // missing
@@ -109,7 +124,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     for (const raw of horrors) {
       expect(() => parseSave(raw)).not.toThrow();
       const parsed = parseSave(raw);
-      expect(parsed.version).toBe(1);
+      expect(parsed.version).toBe(2);
       expect(Number.isInteger(parsed.level)).toBe(true);
     }
   });
@@ -128,7 +143,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     expect(parsed.killCount).toBe(2);
     expect(parsed.coins).toBe(0);
     expect(parsed.monsterIndex).toBe(0);
-    expect(parsed.monsterHp).toBe(1); // range vs maxHp is the engine's clamp
+    expect(parsed.monsterHp).toBe('1'); // range vs maxHp is the engine's clamp
   });
 
   it('items keep only entries with finite counts that floor to at least 1', () => {
@@ -163,5 +178,72 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     expect(s.level).toBe(1);
     expect(s.monster.index).toBe(0);
     expect(s.monsterHp).toBe(monsterMaxHp(0));
+  });
+
+  it('migrates a v1 save: numeric monsterHp becomes a digit string and companions default to empty', () => {
+    const v1: SaveFileV1 = {
+      version: 1,
+      level: 7,
+      xp: 13,
+      killCount: 42,
+      coins: 99,
+      items: { bone: 2 },
+      monsterIndex: 21,
+      monsterHp: 77.9,
+    };
+    expect(upgradeSave(v1)).toEqual({
+      version: 2,
+      level: 7,
+      xp: 13,
+      killCount: 42,
+      coins: 99,
+      items: { bone: 2 },
+      monsterIndex: 21,
+      monsterHp: '77',
+      companions: [],
+      nextCompanionId: 1,
+      souls: 0,
+      rebirths: 0,
+      bestIndex: 21, // v1 never tracked depth: the current monster is the best
+    });
+    // A dead-on-arrival v1 hp still resumes at 1, and v2 passes straight through.
+    expect(upgradeSave({ ...v1, monsterHp: 0 }).monsterHp).toBe('1');
+    expect(upgradeSave(richSave)).toEqual(richSave);
+    // Both shapes serialize to the same v2 bytes, and parse back to v2.
+    expect(serializeSave(v1)).toBe(serializeSave(upgradeSave(v1)));
+    expect(parseSave(serializeSave(v1))).toEqual(upgradeSave(v1));
+  });
+
+  it('invalid companion entries are dropped, valid ones kept, roster capped at 30', () => {
+    const good: Companion = { id: 'c4', speciesId: 'bat', bossIndex: 15, level: 2, stars: 1 };
+    const parsed = parseSave({
+      companions: [
+        good,
+        { id: '', speciesId: 'bat', bossIndex: 0, level: 1, stars: 0 }, // empty id
+        { id: 'c5', speciesId: 'wyrm', bossIndex: 0, level: 1, stars: 0 }, // unknown species
+        { id: 'c6', speciesId: 'bat', bossIndex: -1, level: 1, stars: 0 }, // bossIndex < 0
+        { id: 'c7', speciesId: 'bat', bossIndex: 1.5, level: 1, stars: 0 }, // not an integer
+        { id: 'c8', speciesId: 'bat', bossIndex: 0, level: 11, stars: 0 }, // level > 10
+        { id: 'c9', speciesId: 'bat', bossIndex: 0, level: 0, stars: 0 }, // level < 1
+        { id: 'c10', speciesId: 'bat', bossIndex: 0, level: 1, stars: -1 }, // stars < 0
+        { id: 'c11', speciesId: 'bat', bossIndex: 0, level: 1 }, // missing stars
+        { ...good, level: 9 }, // duplicate id → first wins
+        'nope',
+        null,
+        42,
+      ],
+    });
+    expect(parsed.companions).toEqual([good]);
+    // nextCompanionId is raised above every id on the roster.
+    expect(parsed.nextCompanionId).toBe(5);
+    expect(parseSave({ companions: 'nope' }).companions).toEqual([]);
+
+    const many = Array.from({ length: 42 }, (_, i) => ({ ...good, id: `c${i + 1}` }));
+    const capped = parseSave({ companions: many, nextCompanionId: 99 });
+    expect(capped.companions).toHaveLength(30);
+    expect(capped.companions[29]?.id).toBe('c30');
+    expect(capped.nextCompanionId).toBe(99); // an explicit higher value wins
+    expect(parseSave({ companions: many }).nextCompanionId).toBe(31); // 1 + max kept id
+    expect(parseSave(serializeSave(capped))).toEqual(capped);
   });
 });
