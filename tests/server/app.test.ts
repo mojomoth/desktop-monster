@@ -9,14 +9,17 @@ import { BOT_NAME, createApp, matches, RATE_LIMIT } from '../../src/server/app.j
 import { MemoryStore } from '../../src/server/store.js';
 import type { Store } from '../../src/server/store.js';
 import type { ApiRequest, ApiResponse } from '../../src/server/http.js';
-import { MATCH_TTL_MS } from '../../src/shared/api.js';
+import { MATCH_TTL_MS, RECLAIM_WINDOW_MS } from '../../src/shared/api.js';
 import type {
   Companion,
   LeaderboardResponse,
   MatchResponse,
+  ReclaimResponse,
   RegisterResponse,
   Snapshot,
   SnapshotResponse,
+  Theft,
+  TheftsResponse,
 } from '../../src/shared/api.js';
 
 /** The counter clock every setup() starts at. */
@@ -49,6 +52,18 @@ const comp = (id: string, over: Partial<Companion> = {}): Companion => ({
   bossIndex: 8,
   level: 1,
   stars: 0,
+  ...over,
+});
+
+/** A theft record as /v1/pvp writes it, planted straight into the victim's row. */
+const stolen = (id: string, over: Partial<Theft> = {}): Theft => ({
+  id,
+  companion: comp('c1'),
+  transferredId: `s${id.slice(1)}`,
+  thiefId: 'thief',
+  thiefName: 'thief',
+  at: T0,
+  reclaimUntil: T0 + RECLAIM_WINDOW_MS,
   ...over,
 });
 
@@ -425,6 +440,144 @@ describe('createApp', () => {
     expect(await stored()).toEqual([]);
     expect((await put({ party: 'c1' })).status).toBe(200);
     expect(await stored()).toEqual([]);
+  });
+
+  it('thefts lists only pending records and prunes expired ones', async () => {
+    const { store, call } = setup();
+    const me = await join(call, 'victim');
+    await store.setThefts(me.playerId, [
+      stolen('t1', { reclaimUntil: T0 - 1 }),
+      stolen('t2', { reclaimUntil: T0 }),
+      stolen('t3'),
+    ]);
+    const res = await call({ method: 'GET', path: '/v1/thefts', auth: me.token });
+    expect(res.status).toBe(200);
+    // The deadline itself is still pending; one millisecond past it is not.
+    expect(body<TheftsResponse>(res).thefts.map((t) => t.id)).toEqual(['t2', 't3']);
+    // Pruned from the row, not just from the answer.
+    expect((await store.getById(me.playerId))?.thefts.map((t) => t.id)).toEqual(['t2', 't3']);
+
+    expect((await call({ method: 'GET', path: '/v1/thefts' })).status).toBe(401);
+  });
+
+  it('reclaim returns the companion under an r id and removes it from the thief', async () => {
+    const { store, call } = setup();
+    const victim = await join(call, 'victim');
+    const thief = await join(call, 'thief');
+    const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+    const take = (theftId: unknown, auth?: string): Promise<ApiResponse> =>
+      call({ method: 'POST', path: '/v1/reclaim', body: { theftId }, ...(auth === undefined ? {} : { auth }) });
+
+    await put(victim.token, snap('victim', 5, 0, [comp('c2')]));
+    await put(thief.token, snap('thief', 9, 0, [comp('s7'), comp('d1')], ['s7', 'd1']));
+    await store.setThefts(victim.playerId, [stolen('t7', { thiefId: thief.playerId })]);
+
+    const res = await take('t7', victim.token);
+    expect(res.status).toBe(200);
+    expect(body<ReclaimResponse>(res).companion).toEqual(comp('r7'));
+    expect((await store.getById(victim.playerId))?.snapshot?.companions).toEqual([
+      comp('c2'),
+      comp('r7'),
+    ]);
+    const robbed = await store.getById(thief.playerId);
+    expect(robbed?.snapshot?.companions).toEqual([comp('d1')]);
+    expect(robbed?.snapshot?.party).toEqual(['d1']);
+    expect(robbed?.stolenIds).toEqual(['s7']);
+    expect((await store.getById(victim.playerId))?.thefts).toEqual([]);
+
+    // The record is spent; an unknown or absent id is not mine either.
+    expect((await take('t7', victim.token)).status).toBe(404);
+    expect((await take(undefined, victim.token)).status).toBe(404);
+    expect((await take('t7')).status).toBe(401);
+
+    // A full roster still answers 200 — the client's addCompanion rule drops it.
+    const full = Array.from({ length: 30 }, (_, i) => comp(`f${i}`));
+    await put(victim.token, snap('victim', 5, 0, full));
+    await put(thief.token, snap('thief', 9, 0, [comp('s8')]));
+    await store.setThefts(victim.playerId, [stolen('t8', { thiefId: thief.playerId })]);
+    const capped = await take('t8', victim.token);
+    expect(capped.status).toBe(200);
+    expect(body<ReclaimResponse>(capped).companion.id).toBe('r8');
+    expect((await store.getById(victim.playerId))?.snapshot?.companions).toEqual(full);
+    expect((await store.getById(thief.playerId))?.snapshot?.companions).toEqual([]);
+  });
+
+  it('reclaim after the window returns 410 expired and drops the record', async () => {
+    const { store, call, advance } = setup();
+    const victim = await join(call, 'victim');
+    const thief = await join(call, 'thief');
+    const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+    const take = (theftId: string): Promise<ApiResponse> =>
+      call({ method: 'POST', path: '/v1/reclaim', auth: victim.token, body: { theftId } });
+
+    await put(victim.token, snap('victim', 5, 0));
+    await put(thief.token, snap('thief', 9, 0, [comp('s9'), comp('sa')]));
+    await store.setThefts(victim.playerId, [
+      stolen('t9', { thiefId: thief.playerId }),
+      stolen('ta', { thiefId: thief.playerId }),
+    ]);
+
+    // Exactly at reclaimUntil the window is still open.
+    advance(RECLAIM_WINDOW_MS);
+    expect((await take('t9')).status).toBe(200);
+
+    advance(1);
+    const late = await take('ta');
+    expect(late.status).toBe(410);
+    expect(late.body).toEqual({ error: 'expired' });
+    expect((await store.getById(victim.playerId))?.thefts).toEqual([]);
+    // Nothing moved: the thief keeps it and gains no stolenIds entry for it.
+    const robbed = await store.getById(thief.playerId);
+    expect(robbed?.snapshot?.companions).toEqual([comp('sa')]);
+    expect(robbed?.stolenIds).toEqual(['s9']);
+  });
+
+  it('reclaim when the thief no longer holds the companion returns 409 gone', async () => {
+    const { store, call } = setup();
+    const victim = await join(call, 'victim');
+    const thief = await join(call, 'thief');
+    const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+    const take = (theftId: string): Promise<ApiResponse> =>
+      call({ method: 'POST', path: '/v1/reclaim', auth: victim.token, body: { theftId } });
+
+    await put(victim.token, snap('victim', 5, 0));
+    // The thief consumed s1 long ago; tc's thief row never existed at all.
+    await put(thief.token, snap('thief', 9, 0, [comp('d1')]));
+    await store.setThefts(victim.playerId, [
+      stolen('tb', { transferredId: 's1', thiefId: thief.playerId }),
+      stolen('tc', { thiefId: 'nobody' }),
+    ]);
+
+    const consumed = await take('tb');
+    expect(consumed.status).toBe(409);
+    expect(consumed.body).toEqual({ error: 'gone' });
+    expect((await store.getById(victim.playerId))?.thefts.map((t) => t.id)).toEqual(['tc']);
+
+    const vanished = await take('tc');
+    expect(vanished.status).toBe(409);
+    expect((await store.getById(victim.playerId))?.thefts).toEqual([]);
+    // Neither dead record hands out a companion.
+    expect((await store.getById(victim.playerId))?.snapshot?.companions).toEqual([]);
+  });
+
+  it('snapshot upload answers with the pending thefts', async () => {
+    const { store, call, advance } = setup();
+    const me = await join(call, 'victim');
+    const put = (): Promise<SnapshotResponse> =>
+      call({ method: 'PUT', path: '/v1/snapshot', auth: me.token, body: snap('victim', 4, 0) }).then(
+        (res) => body<SnapshotResponse>(res),
+      );
+    expect(await put()).toEqual({ rank: 1, removed: [], thefts: [] });
+
+    const soon = stolen('t1', { reclaimUntil: T0 + 10 });
+    await store.setThefts(me.playerId, [soon, stolen('t2')]);
+    expect((await put()).thefts).toEqual([soon, stolen('t2')]);
+
+    advance(11);
+    expect((await put()).thefts).toEqual([stolen('t2')]);
   });
 });
 

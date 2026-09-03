@@ -24,7 +24,10 @@ import type {
   LeaderboardRow,
   PvpOpponent,
   PvpResponse,
+  ReclaimResponse,
   Snapshot,
+  Theft,
+  TheftsResponse,
 } from '../shared/api.js';
 import type { ApiHandler, ApiRequest, ApiResponse } from './http.js';
 import { compareScore } from './store.js';
@@ -150,6 +153,9 @@ const prune = (at: number): void => {
 
 export function createApp(deps: AppDeps): { handle: ApiHandler } {
   const { store } = deps;
+  /** The theft records still inside their reclaim window. */
+  const pending = (row: PlayerRow): Theft[] =>
+    row.thefts.filter((t) => t.reclaimUntil >= deps.now());
   const windows = new Map<string, { start: number; count: number }>();
 
   /** Fixed window per token hash (else per ip). Returns retryAfterSec when over. */
@@ -207,7 +213,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       companions: snapshot.companions.filter((c) => !removed.includes(c.id)),
     };
     await store.putSnapshot(me.id, kept);
-    return { status: 200, body: { rank: await store.rank(kept), removed } };
+    return { status: 200, body: { rank: await store.rank(kept), removed, thefts: pending(me) } };
   };
 
   const row = (s: Snapshot, rank: number): LeaderboardRow => ({
@@ -388,6 +394,67 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     };
   };
 
+  /** T61 — the victim's inbox; reading it also drops what can no longer be taken back. */
+  const thefts = async (req: ApiRequest): Promise<ApiResponse> => {
+    const me = await caller(req);
+    if (!me) {
+      return error(401, 'unauthorized');
+    }
+    const open = pending(me);
+    if (open.length !== me.thefts.length) {
+      await store.setThefts(me.id, open);
+    }
+    return { status: 200, body: { thefts: open } satisfies TheftsResponse };
+  };
+
+  /**
+   * T61 — take a stolen companion back (SPEC F70, SERVER_ARCHITECTURE_V3 §3).
+   * Only from MY own row, only while the window is open, and only while the
+   * thief still holds it; every dead record is pruned on the way out.
+   */
+  const reclaim = async (req: ApiRequest): Promise<ApiResponse> => {
+    const me = await caller(req);
+    if (!me) {
+      return error(401, 'unauthorized');
+    }
+    const theftId = record(req.body)?.['theftId'];
+    const theft = me.thefts.find((t) => t.id === theftId);
+    if (!theft) {
+      return error(404, 'not_found');
+    }
+    const rest = me.thefts.filter((t) => t !== theft);
+    if (deps.now() > theft.reclaimUntil) {
+      await store.setThefts(me.id, rest);
+      return error(410, 'expired');
+    }
+    const thief = await store.getById(theft.thiefId);
+    const held = thief?.snapshot ?? null;
+    if (!thief || !held || !held.companions.some((c) => c.id === theft.transferredId)) {
+      await store.setThefts(me.id, rest);
+      return error(409, 'gone');
+    }
+    const companion = { ...theft.companion, id: `r${theft.id.slice(1)}` };
+    // Same four unguarded writes as the steal in /v1/pvp — see its ponytail note.
+    await store.setStolenIds(
+      thief.id,
+      [...thief.stolenIds, theft.transferredId].slice(-STOLEN_IDS_MAX),
+    );
+    await store.putSnapshot(thief.id, {
+      ...held,
+      companions: held.companions.filter((c) => c.id !== theft.transferredId),
+      party: held.party.filter((id) => id !== theft.transferredId),
+    });
+    // A full roster still answers 200: the client's addCompanion rule drops it.
+    if (me.snapshot && me.snapshot.companions.length < ROSTER_CAP) {
+      await store.putSnapshot(me.id, {
+        ...me.snapshot,
+        companions: [...me.snapshot.companions, companion],
+      });
+    }
+    await store.setThefts(me.id, rest);
+    return { status: 200, body: { companion } satisfies ReclaimResponse };
+  };
+
   const route = async (req: ApiRequest): Promise<ApiResponse> => {
     if (req.method === 'POST' && req.path === '/v1/players') {
       return register(req);
@@ -403,6 +470,12 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     }
     if (req.method === 'POST' && req.path === '/v1/pvp') {
       return pvp(req);
+    }
+    if (req.method === 'GET' && req.path === '/v1/thefts') {
+      return thefts(req);
+    }
+    if (req.method === 'POST' && req.path === '/v1/reclaim') {
+      return reclaim(req);
     }
     return error(404, 'not_found');
   };
