@@ -7,3 +7,4 @@
 | 05 | codex | T62 | DONE | pass | pass | be00a3c | continue |
 | 08 | codex | T64 | DONE | pass | pass | cfa8991 | continue |
 | 06 | claude | T57 | DONE | pass | skipped | bf19f7a | continue |
+| 07 | claude | T67 | DONE | pass | pass | 88c71e2 | continue |

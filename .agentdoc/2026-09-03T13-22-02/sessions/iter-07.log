@@ -1,0 +1,20 @@
+{"task":"T67","result":"DONE","gates":"pass","commit":"891eccc7ec4d0a26e1f2b9c7cd25f0b9d0ee43f9","note":"net.ts: NetClient += match(token)/pvp(token,body)/thefts(token)/reclaim(token,theftId); call() maps 410→'expired', 409→'gone' (with status). SnapshotSource.pvpParty optional (probe.ts, T73, passes a party-less literal and must keep compiling) → toSnapshot party = pvpParty ?? []. Session += match() (upload iff dirty), pvp(matchId,party) (always uploads), thefts(), reclaim(); rosterKey gains pvpParty. Identity += notifiedTheftIds (tolerant read, survives 401 re-register). Tests 10→16 / 7→8. Gate-forced outside Files: ipc.ts PVP handler narrows {matchId,party}; deploy.test.ts NetClient literal gained the 4 throwing stubs. Dead end: asserting the onSave/match upload race — made the first background upload fail instead.","children":[]}
+
+T67 완료했습니다.
+
+**구현**
+- `src/main/net.ts` — `NetClient`에 `match(token)`(POST `/v1/pvp/match`), `pvp(token, body: PvpRequest)`, `thefts(token)`(GET `/v1/thefts`), `reclaim(token, theftId)` 추가. 공통 `call()`의 에러 매핑에 `410 → 'expired'`, `409 → 'gone'`(둘 다 `status` 포함) 추가, 나머지는 v2 그대로(offline, `AbortSignal.timeout`, 절대 throw 안 함).
+- `toSnapshot`이 `save.pvpParty`를 `party`로 복사. `SnapshotSource.pvpParty`는 **optional** — `src/server/probe.ts`(T73 소유, 편집 금지)가 party 없는 리터럴을 넘기므로 필수로 만들면 컴파일이 깨집니다.
+- `createNetSession` += `match()`(dirty일 때만 선업로드), `pvp(matchId, party)`(항상 선업로드), `thefts()`, `reclaim(theftId)`; `rosterKey`에 `pvpParty`가 들어가 파티 편집만으로도 백그라운드 업로드가 트리거됩니다.
+- `src/main/identity.ts` — `notifiedTheftIds: string[]` (기본 `[]`, 배열 아니면 `[]`·문자열 아닌 원소는 버림, 원자적 쓰기 유지). net.ts의 자격증명 저장이 `{ ...identity }` 스프레드로 바뀌어 401 재등록 후에도 알림 로그가 살아남습니다.
+
+**게이트 외 강제 수정 2건** (그대로 두면 typecheck 실패)
+- `src/main/ipc.ts` — `IPC.PVP` 핸들러가 신뢰 경계에서 `{matchId, party}`를 검증한 뒤 `session.pvp`에 전달(불량 payload → `{ok:false,error:'network'}`). 채널 전체 확장은 T68 몫.
+- `tests/deploy.test.ts` — `NetClient` 리터럴에 새 메서드 4개 추가(기존 `pvp`처럼 호출 시 throw: probe는 배틀/절도/회수를 하면 안 됨).
+
+**검증**
+- `npm test && npm run lint && npm run typecheck` → exit 0 (522 tests)
+- T67 AC 전체 → exit 0 (`tests/net.test.ts` 16 `it(`, `tests/identity.test.ts` 8 `it(`)
+- `npm run smoke` → `SMOKE_OK`
+
+**막다른 길** (세션 레코드에 기재): `onSave` 직후 flush 없이 `match()`의 dirty 업로드를 검증하려 했더니 fire-and-forget 업로드와 경합해 업로드가 2회 기록됨 → 첫 백그라운드 업로드를 실패시켜 결정적으로 만들었습니다.
