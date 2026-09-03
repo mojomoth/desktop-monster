@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T74 — Deploy re-verify v3: healthz sha ancestor of v3 HEAD, build-filter paths untouched, redeploy if stale
 - result: DONE
-- commit: 5cc6464
+- commit: ae2b2b4 (work commit; this follow-up only records the sha)
 - graphify affected used: none (deploy/config task; the single file is AGENTS.md)
 
 ## What I did
