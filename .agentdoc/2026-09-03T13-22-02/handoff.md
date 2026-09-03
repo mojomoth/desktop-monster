@@ -116,25 +116,32 @@ added 467 packages, and audited 468 packages in 5s
  Test Files  34 passed (34)
       Tests  589 passed (589)
 > eslint . --max-warnings 0          (clean)
-> tsc --noEmit -p ...                (clean)
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json   (clean)
 EXIT=0
 $ npm run smoke                       → SMOKE_OK, rc=0            (sessions/stage3-smoke.log)
 $ env -u DATABASE_URL PORT=65503 node dist/electron/server/index.js & curl -fsS http://127.0.0.1:65503/healthz
 {"ok":true,"sha":"dev"}
 $ npm run package                     → rc=0 (attempt 2; attempt 1 = transient electron-builder `read ECONNRESET`, sessions/stage3-package.attempt1-econnreset.log)
 $ SMOKE=1 release/mac-arm64/DesMon.app/Contents/MacOS/DesMon → SMOKE_OK, rc=0  (sessions/stage3-packaged-smoke.log)
-plan ACs T54–T76: 23/23 rc=0   (sessions/stage3-plan-ac.log)
+plan ACs T54–T76: 23/23 rc=0   (rc table: sessions/stage3-eval.md Step 3; command tails: sessions/stage3-plan-ac.log)
 SPEC ACs F01–F80 + 17 API rows + Deployment: 98/98 rc=0   (sessions/stage3-spec-sweep.log)
+$ npm test && npm run lint && npm run typecheck   (orchestrator re-run at HEAD 7a92fa3, sessions/stage3-orchestrator-gates.log)
+ Test Files  34 passed (34)
+      Tests  589 passed (589)
+EXIT=0
 ```
+
+Independent re-verification (orchestrator, `sessions/stage3-eval.log`): 7 read-only adversarial verifiers (handoff/artifacts, SPEC sweep F01–F27 / F28–F58 / F59–F80 + API, plan ACs T54–T76, deploy rule, test integrity + deps + worker rule) and a completeness critic re-executed every non-mutating check — 152 checks, 0 failures, 0 blocking discrepancies; the text corrections they found are applied in this file.
 
 ## Deployment
 
 - service: `desmon-server-v3` id `srv-dacmju6k1f9s73csi2v0` (Render free web service, branch `v3`) · url: https://desmon-server-v3.onrender.com (v2 service `desmon-server` stays at https://desmon-server.onrender.com, untouched)
 - `curl -fsS $SERVER_URL/healthz` → `{"ok":true,"sha":"3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2"}` (22 s incl. cold start; `sessions/stage3-deploy.log`)
-- deployed sha: 3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2 · ancestor of the integration branch HEAD (v3): yes (`git merge-base --is-ancestor` rc=0) · filter-path commits after it: none (`git log 3aa900a..HEAD -- src/server src/core src/shared package.json package-lock.json tsconfig.main.json .node-version` empty; the 16 later commits are docs/plan/agentdoc) · AGENTS.md `DEPLOYED_SHA` matches
+- deployed sha: 3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2 · ancestor of the integration branch HEAD (v3): yes (`git merge-base --is-ancestor` rc=0) · filter-path commits after it: none (`git log 3aa900a..HEAD -- src/server src/core src/shared package.json package-lock.json tsconfig.main.json .node-version` empty; every later commit — 17 at validation time, plus the orchestrator's stage-3 commits — touches only `.agentdoc/`, `IMPLEMENTATION_PLAN.md`, `AGENTS.md` (DEPLOYED_SHA bump) and one test-title fix in `tests/save.test.ts`, none inside the Render build filter) · AGENTS.md `DEPLOYED_SHA` matches
 - probe: `node dist/electron/server/probe.js https://desmon-server-v3.onrender.com` → `{"playerId":"4c54f0a2-0ccc-4197-a7ab-21fdfa4fd22f","rank":5}` (register → upload → leaderboard; `sessions/stage3-probe.log`)
 - postgres: `desmon-db` id `dpg-dacd4k2jnfac73c43llg-a` (shared with the v2 service) created 2026-09-03T01:50:08Z · expires 2026-10-03 · 29 days left — no warning (not within 7 days)
 - verified with network: yes (stage3-deploy.log + stage3-probe.log); no redeploy needed, no push made by the validator
+- orchestrator re-check at HEAD 7a92fa3: `curl -fsS --retry 5 --retry-delay 30 --max-time 90 $SERVER_URL/healthz` → `{"ok":true,"sha":"3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2"}` · `git merge-base --is-ancestor` rc=0 · filter-path log empty → deploy landed; the session's single `git push origin v3` follows the stage-3 commit
 - meta.json `server_url` = AGENTS.md `SERVER_URL` (cross-check OK)
 
 ## Observability
@@ -150,17 +157,17 @@ SPEC ACs F01–F80 + 17 API rows + Deployment: 98/98 rc=0   (sessions/stage3-spe
 ### Review — `git diff eddeb22..HEAD -- src tests` (PONYTAIL.md §2 format; recorded, not applied)
 
 - `src/menu/view.ts:L260-264: delete: battleEnabled() still accepts the v2 `(save, cooldownUntil)` form ("T71 rewrites it and this leg goes with it" — T71 is done, src has no v2 caller left; only tests/menu.test.ts:520-522 use it). Drop the `'companions' in state` branch and the union parameter; re-point those 3 asserts at the BattleState form. -4 lines.`
-- `src/shared/api.ts:L64 + src/menu/view.ts:L141-150 + src/menu/index.ts:L465: delete: `PvpResponse.lost` is never set by the v3 server (attacker-only steals) and the menu's "Defeat … was stolen from you" leg can never render. Remove the field, the `lost ?` ternary and `lostId: null`; PvpResultAction.lostId stays (core). -8 lines.`
-- `src/core/collection.ts:L153-155: yagni: autoParty(cs) is a one-line wrapper around activeCompanions(cs). Kept only because SPEC F61's AC greps for `export function autoParty`; otherwise `export const autoParty = activeCompanions` (1 line). -2 lines.`
-- `src/core/collection.ts:L239: yagni: `attackerRosterSize = attacker.length` default exists "so the v2 3-arg call still compiles"; src has one caller (app.ts, 4 args). Make it required; the 3-arg tests in tests/collection.test.ts pass `attacker.length` explicitly. -0 lines net, one fewer silent default at a rule boundary.`
+- `src/shared/api.ts:L58 + src/menu/view.ts:L141-150 + src/menu/index.ts:L475: delete: `PvpResponse.lost` is never set by the v3 server (attacker-only steals) and the menu's "Defeat … was stolen from you" leg can never render. Remove the field, the `lost ?` ternary and `lostId: null`; PvpResultAction.lostId stays (core). -8 lines.`
+- `src/core/collection.ts:L64-66: yagni: autoParty(cs) is a one-line wrapper around activeCompanions(cs). Kept only because SPEC F61's AC greps for `export function autoParty`; otherwise `export const autoParty = activeCompanions` (1 line). -2 lines.`
+- `src/core/collection.ts:L290: yagni: `attackerRosterSize = attacker.length` default exists "so the v2 3-arg call still compiles"; src has one caller (app.ts, 4 args). Make it required; the 3-arg tests in tests/collection.test.ts pass `attacker.length` explicitly. -0 lines net, one fewer silent default at a rule boundary.`
 - `src/renderer/sprites/boss.ts:L23-24: shrink: `Object.entries(monsterSprites).find(([, art]) => art === species)?.[0]` reverse-looks-up the species id from its art. Both callers know the id (game.ts has `state.monster.speciesId`); pass `scale` (or the id) in, drop the scan. -2 lines.`
 - `src/renderer/game.ts:L223-238: shrink: opponentSlotOf() re-derives drawParty's originX mirror (`originX - (slot.x - PARTY_X) - w*scale`). Give partySlots() an `originX?` option and let drawParty and opponentSlotOf both call it. -6 lines.`
 - `src/menu/view.ts:L173-179 + src/renderer/sprites/party.ts:L21-27: shrink: TYPE_BADGE and TYPE_INITIALS are the same 5-entry table in two files (view.ts may only import core). Export `TYPE_INITIAL` from src/core/types-chart.ts and import it in both. -6 lines.`
 - `src/main/index.ts:L80 + src/menu/view.ts:L39: shrink: two hand-rolled `charAt(0).toUpperCase() + slice(1)` species capitalisers next to core's private SPECIES_DISPLAY_NAMES. Export `speciesName()` from src/core/monsters.ts; both call it. -2 lines.`
 - `src/renderer/sprites/companion.ts:L7-21 + sprites/index.ts:L32: delete: drawCompanion() (the v2 column draw) has no src caller after T65 — only tests/sprites.test.ts:271 paints it. Delete the file, the re-export and re-title that test onto drawParty (it-count stays ≥). -21 lines.`
 - `src/core/index.ts:L3: delete: `CORE_VERSION = '0.1.0'` is exported and read by nobody (src or tests). -1 line.`
-- `src/server/app.ts:L136-138: stdlib: `.filter((id, i, all) => all.indexOf(id) === i)` dedupe. `[...new Set(ids)]` (same length, O(n)). -0 lines.`
-- tests: the v3 test files build their fixtures locally (`fakeTimers()`, `memoryIdentity()`, `makeCtx()`, `join()` are each defined once per file, 3–5 uses) — no cross-file duplication worth a shared helper yet; the `it(` counts are AC-pinned. Nothing to cut.
+- `src/server/app.ts:L140: stdlib: `.filter((id, i, all) => all.indexOf(id) === i)` dedupe. `[...new Set(ids)]` (same length, O(n)). -0 lines.`
+- `tests/*.test.ts: lean: per-file fixtures (fakeTimers, memoryIdentity, makeCtx, join) are each defined once and used 3–5 times; no cross-file duplication worth a shared helper yet; the it( counts are AC-pinned. Lean already. -0 lines.`
 
 `net: -52 lines possible.`
 
@@ -170,10 +177,10 @@ SPEC ACs F01–F80 + 17 API rows + Deployment: 98/98 rc=0   (sessions/stage3-spe
 - `delete: drawCompanion() v2 column draw with no src caller (see review). [src/renderer/sprites/companion.ts] -21 lines.`
 - `yagni: Companion / MonsterType / WireBlow / BattleReplay are re-declared in src/shared/api.ts and src/core/types.ts because "shared must never import core". A `import type` is erased at build and creates no runtime edge — one home for the four shapes. Architecture rule, so record only. [src/shared/api.ts, src/core/types.ts] -18 lines.`
 - `delete: PvpResponse.lost + the menu's lost leg (see review). [src/shared/api.ts, src/menu/view.ts, src/menu/index.ts] -8 lines.`
-- `shrink: PARTY_SIZE (core/collection.ts), PARTY_CAP (core/save.ts) and PARTY_SIZE_MAX (shared/api.ts) are three names for 5; ROSTER_CAP already has the same three-way copy. save.ts can import collection's constant today (it already imports monsters.ts); shared keeps its own per the rule. [src/core/save.ts] -2 lines.`
 - `shrink: opponentSlotOf() duplicates drawParty's mirror math (see review). [src/renderer/game.ts] -6 lines.`
 - `shrink: TYPE_BADGE/TYPE_INITIALS duplicate table (see review). [src/menu/view.ts, src/renderer/sprites/party.ts] -6 lines.`
 - `delete: battleEnabled() v2 leg (see review). [src/menu/view.ts] -4 lines.`
+- `shrink: PARTY_SIZE (core/collection.ts), PARTY_CAP (core/save.ts) and PARTY_SIZE_MAX (shared/api.ts) are three names for 5; ROSTER_CAP already has the same three-way copy. save.ts can import collection's constant today (it already imports monsters.ts); shared keeps its own per the rule. [src/core/save.ts] -2 lines.`
 - `shrink: two species capitalisers (see review). [src/main/index.ts, src/menu/view.ts] -2 lines.`
 - `delete: CORE_VERSION (see review). [src/core/index.ts] -1 line.`
 - dependencies: runtime deps are none; devDependencies = electron, electron-builder, vite, vitest, typescript, eslint (+typescript-eslint), uiohook-napi, pg. Each is used by a frozen command or a SPEC feature; `pg` is pre-approved and hand-typed (`src/server/pg.d.ts`). No dep to cut.
@@ -184,7 +191,7 @@ SPEC ACs F01–F80 + 17 API rows + Deployment: 98/98 rc=0   (sessions/stage3-spe
 
 ## Test integrity
 
-none — every `tests/*.test.ts` present at BASE eddeb22 has an equal or higher `it(` count at HEAD (31 files; e.g. collection 14→21, engine 26→30, menu 13→23, net 10→16, renderer 68→79, server/app 10→18, server/pvp 9→14, server/pgStore 19→22, window 10→13; all others unchanged); 3 new files (tests/thefts.test.ts, tests/typeChart.test.ts). `rgt blame` not required.
+none — every `tests/*.test.ts` present at BASE eddeb22 has an equal or higher `it(` count at HEAD (31 files, 0 decreases; 16 increased: collection 14→21, effects 5→6, engine 26→30, formulas 12→13, identity 7→8, ipc 21→24, menu 13→23, net 10→16, packaging 14→16, renderer 68→79, save 11→13, server/app 10→18, server/pgStore 19→22, server/pvp 9→14, sprites 29→31, window 10→13; the other 15 unchanged); 3 new files (tests/battle.test.ts, tests/thefts.test.ts, tests/typeChart.test.ts). `rgt blame` not required. Re-counted by the orchestrator's stage-3 verifiers: same result.
 
 ## Manual steps remaining
 
@@ -207,6 +214,6 @@ none — every `tests/*.test.ts` present at BASE eddeb22 has an equal or higher 
 ## Audit trail
 
 - prompts: .agentdoc/2026-09-03T13-22-02/prompts/ (010 spec clarifier, 020 planner, per-iteration builder/gfx prompts, 900-validator-packer.md)
-- sessions: .agentdoc/2026-09-03T13-22-02/sessions/ (dev-loop.md = one row per collect; stage3-eval.md = this validation; stage3-*.log = its evidence)
+- sessions: .agentdoc/2026-09-03T13-22-02/sessions/ (dev-loop.md = one row per collect; stage3-eval.md = this validation; stage3-*.log = its evidence; stage3-eval.log = the validator's final message; stage3-orchestrator-gates.log = the orchestrator's gates re-run)
 - plan snapshots: .agentdoc/2026-09-03T13-22-02/plans/
 - lanes: .agentdoc/2026-09-03T13-22-02/lanes/ · graph: .agentdoc/2026-09-03T13-22-02/graph/

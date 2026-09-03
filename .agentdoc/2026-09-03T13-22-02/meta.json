@@ -12,7 +12,23 @@
   "server_url": "https://desmon-server-v3.onrender.com",
   "db_expires": "2026-10-03",
   "started": "2026-09-03T13:22:03+0900",
-  "ended": "",
-  "stages": [],
-  "outcome": ""
+  "ended": "2026-09-03T17:54:27Z",
+  "stages": [
+    {
+      "stage": "desmon-1-plan",
+      "result": "ok",
+      "note": "SPEC amended F59–F80 (+assumptions 42–53, Server/API v3 rows, Deployment v3); plan T54–T76 appended (20 claude / 3 codex); commit eddeb22; NESTED_CLAUDE=1"
+    },
+    {
+      "stage": "desmon-2-dev",
+      "result": "exit 0",
+      "note": "one run, iters 01–23 converged: 22 DONE + 1 NOTHING_TO_DO (T75); 0 CRASHED/BLOCKED/SPLIT/CONFLICT/MERGE_RED; T73/T74 deployed desmon-server-v3 (branch v3) at 3aa900a"
+    },
+    {
+      "stage": "desmon-3-eval",
+      "result": "CONVERGED",
+      "note": "cold gates 34 files / 589 tests, plan ACs 23/23, SPEC sweep 98/98, smoke + packaged smoke OK, package 0.3.0 dmg + .app, healthz sha 3aa900a landed (ancestor, build-filter empty), rgt/graph exports, test integrity none, deps none; 7 adversarial verifiers + critic: 152 checks, 0 blocking; orchestrator re-checks passed (gates exit 0, healthz re-curl)"
+    }
+  ],
+  "outcome": "COMPLETE"
 }
