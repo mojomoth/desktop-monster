@@ -62,7 +62,7 @@ export type {
 } from './input.js';
 
 export { DEFAULT_SAVE, parseSave, serializeSave, upgradeSave } from './save.js';
-export type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
+export type { Companion, SaveFile, SaveFileV1, SaveFileV2, SaveFileV3 } from './save.js';
 
 export {
   BOSS_EVERY,

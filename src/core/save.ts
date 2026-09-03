@@ -2,7 +2,7 @@
 // TypeScript, zero imports of electron/DOM/node. The app must never fail to
 // boot because of a bad save: parseSave() NEVER throws — junk, missing and
 // wrong-typed fields fall back per-field to DEFAULT_SAVE values. Disk always
-// holds v2; v1 files are migrated on the way in (upgradeSave).
+// holds v3; older files are migrated on the way in (upgradeSave).
 
 import { bigField } from './bignum.js';
 import { monsterMaxHp } from './formulas.js';
@@ -10,6 +10,9 @@ import { SPECIES_IDS } from './monsters.js';
 
 /** Roster cap (GAME_DESIGN_V2 §2/§3); collection.ts owns the gameplay copy. */
 const ROSTER_CAP = 30;
+
+/** PvP party cap (GAME_DESIGN_V3 §3/§4); collection.ts owns the gameplay copy. */
+const PARTY_CAP = 5;
 
 /** A captured boss (GAME_DESIGN_V2 §2). Ids are minted from nextCompanionId. */
 export interface Companion {
@@ -65,12 +68,22 @@ export interface SaveFileV2 {
   bestIndex: number;
 }
 
+/**
+ * Persisted save-file schema, version 3: v2 plus the manually picked PvP-only
+ * party (GAME_DESIGN_V3 §3). Empty = the auto party is used.
+ */
+export interface SaveFileV3 extends Omit<SaveFileV2, 'version'> {
+  version: 3;
+  /** Companion ids, at most PARTY_CAP, all present in `companions`. */
+  pvpParty: string[];
+}
+
 /** The current schema. */
-export type SaveFile = SaveFileV2;
+export type SaveFile = SaveFileV3;
 
 /** Fresh-game values; also the per-field fallback for junk input. */
-export const DEFAULT_SAVE: Readonly<SaveFileV2> = Object.freeze({
-  version: 2 as const,
+export const DEFAULT_SAVE: Readonly<SaveFileV3> = Object.freeze({
+  version: 3 as const,
   level: 1,
   xp: 0,
   killCount: 0,
@@ -83,13 +96,18 @@ export const DEFAULT_SAVE: Readonly<SaveFileV2> = Object.freeze({
   souls: 0,
   rebirths: 0,
   bestIndex: 0,
+  pvpParty: Object.freeze([] as string[]) as string[],
 });
 
-/** Migrate a well-formed save to v2. v1 had no roster, souls or best depth. */
-export function upgradeSave(save: SaveFileV1 | SaveFileV2): SaveFileV2 {
-  if (save.version === 2) return save;
+/**
+ * Migrate a well-formed save to v3. v1 had no roster, souls or best depth;
+ * v2 had no PvP party.
+ */
+export function upgradeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): SaveFileV3 {
+  if (save.version === 3) return save;
+  if (save.version === 2) return { ...save, version: 3, pvpParty: [] };
   return {
-    version: 2,
+    version: 3,
     level: save.level,
     xp: save.xp,
     killCount: save.killCount,
@@ -102,40 +120,42 @@ export function upgradeSave(save: SaveFileV1 | SaveFileV2): SaveFileV2 {
     souls: 0,
     rebirths: 0,
     bestIndex: save.monsterIndex,
+    pvpParty: [],
   };
 }
 
 /**
  * Stable JSON: fixed top-level key order, items keys sorted, companions in
  * array order with fixed key order. Serializing the same logical save always
- * yields byte-identical text. v1 input is upgraded first.
+ * yields byte-identical text. Older input is upgraded first.
  */
-export function serializeSave(save: SaveFileV1 | SaveFileV2): string {
-  const v2 = upgradeSave(save);
+export function serializeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): string {
+  const v3 = upgradeSave(save);
   const items: Record<string, number> = {};
-  for (const id of Object.keys(v2.items).sort()) {
-    items[id] = v2.items[id] ?? 0;
+  for (const id of Object.keys(v3.items).sort()) {
+    items[id] = v3.items[id] ?? 0;
   }
   return JSON.stringify({
-    version: 2,
-    level: v2.level,
-    xp: v2.xp,
-    killCount: v2.killCount,
-    coins: v2.coins,
+    version: 3,
+    level: v3.level,
+    xp: v3.xp,
+    killCount: v3.killCount,
+    coins: v3.coins,
     items,
-    monsterIndex: v2.monsterIndex,
-    monsterHp: v2.monsterHp,
-    companions: v2.companions.map((c) => ({
+    monsterIndex: v3.monsterIndex,
+    monsterHp: v3.monsterHp,
+    companions: v3.companions.map((c) => ({
       id: c.id,
       speciesId: c.speciesId,
       bossIndex: c.bossIndex,
       level: c.level,
       stars: c.stars,
     })),
-    nextCompanionId: v2.nextCompanionId,
-    souls: v2.souls,
-    rebirths: v2.rebirths,
-    bestIndex: v2.bestIndex,
+    nextCompanionId: v3.nextCompanionId,
+    souls: v3.souls,
+    rebirths: v3.rebirths,
+    bestIndex: v3.bestIndex,
+    pvpParty: v3.pvpParty,
   });
 }
 
@@ -191,14 +211,25 @@ function companionsField(value: unknown): Companion[] {
 }
 
 /**
+ * Keep only ids that are really on the parsed roster (a party pointing at a
+ * consumed companion would resurrect it), deduped first-wins, PARTY_CAP kept.
+ */
+function pvpPartyField(value: unknown, companions: Companion[]): string[] {
+  if (!Array.isArray(value)) return [];
+  const ids = new Set(companions.map((c) => c.id));
+  return [...new Set(value.filter((id): id is string => typeof id === 'string' && ids.has(id)))]
+    .slice(0, PARTY_CAP);
+}
+
+/**
  * Tolerant parse of untrusted save data (SPEC F10/F29). Accepts anything —
  * pre-parsed JSON values (what main's load-state hands over) or raw JSON
  * text — and NEVER throws. Every invalid field independently falls back to
  * its DEFAULT_SAVE value; the input `version` is ignored (the shape decides)
- * and the output is always v2. Range clamping beyond that (e.g. monsterHp vs
+ * and the output is always v3. Range clamping beyond that (e.g. monsterHp vs
  * the monster's maxHp) is the engine's job. Always returns fresh objects.
  */
-export function parseSave(raw: unknown): SaveFileV2 {
+export function parseSave(raw: unknown): SaveFileV3 {
   let value: unknown = raw;
   if (typeof value === 'string') {
     try {
@@ -218,7 +249,7 @@ export function parseSave(raw: unknown): SaveFileV2 {
     nextCompanionId = Math.max(nextCompanionId, Number(c.id.replace(/\D/g, '') || 0) + 1);
   }
   return {
-    version: 2,
+    version: 3,
     level: intField(record['level'], DEFAULT_SAVE.level, 1),
     xp: intField(record['xp'], DEFAULT_SAVE.xp, 0),
     killCount: intField(record['killCount'], DEFAULT_SAVE.killCount, 0),
@@ -231,5 +262,6 @@ export function parseSave(raw: unknown): SaveFileV2 {
     souls: intField(record['souls'], DEFAULT_SAVE.souls, 0),
     rebirths: intField(record['rebirths'], DEFAULT_SAVE.rebirths, 0),
     bestIndex: intField(record['bestIndex'], DEFAULT_SAVE.bestIndex, 0),
+    pvpParty: pvpPartyField(record['pvpParty'], companions),
   };
 }

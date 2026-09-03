@@ -46,6 +46,8 @@ export interface GameState {
   monsterHp: bigint;
   /** Captured bosses (SaveFileV2). */
   companions: Companion[];
+  /** Manually picked PvP-only party: companion ids (GAME_DESIGN_V3 §3). */
+  pvpParty: string[];
   nextCompanionId: number;
   souls: number;
   rebirths: number;

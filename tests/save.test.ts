@@ -8,10 +8,10 @@ import {
   serializeSave,
   upgradeSave,
 } from '../src/core/index.js';
-import type { Companion, SaveFile, SaveFileV1 } from '../src/core/index.js';
+import type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
 
 const richSave: SaveFile = {
-  version: 2,
+  version: 3,
   level: 7,
   xp: 13,
   killCount: 42,
@@ -27,11 +27,12 @@ const richSave: SaveFile = {
   souls: 5,
   rebirths: 2,
   bestIndex: 40,
+  pvpParty: ['c2'],
 };
 
 describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
-  it('DEFAULT_SAVE is a fresh-game v2 save', () => {
-    expect(DEFAULT_SAVE.version).toBe(2);
+  it('DEFAULT_SAVE is a fresh-game v3 save', () => {
+    expect(DEFAULT_SAVE.version).toBe(3);
     expect(DEFAULT_SAVE.level).toBe(1);
     expect(DEFAULT_SAVE.xp).toBe(0);
     expect(DEFAULT_SAVE.killCount).toBe(0);
@@ -44,6 +45,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     expect(DEFAULT_SAVE.souls).toBe(0);
     expect(DEFAULT_SAVE.rebirths).toBe(0);
     expect(DEFAULT_SAVE.bestIndex).toBe(0);
+    expect(DEFAULT_SAVE.pvpParty).toEqual([]);
   });
 
   it('serialize then parse round-trips losslessly', () => {
@@ -97,7 +99,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     });
     expect(mixed).toEqual({
       ...DEFAULT_SAVE,
-      version: 2,
+      version: 3,
       level: DEFAULT_SAVE.level,
       xp: 7,
       killCount: DEFAULT_SAVE.killCount, // missing
@@ -124,7 +126,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     for (const raw of horrors) {
       expect(() => parseSave(raw)).not.toThrow();
       const parsed = parseSave(raw);
-      expect(parsed.version).toBe(2);
+      expect(parsed.version).toBe(3);
       expect(Number.isInteger(parsed.level)).toBe(true);
     }
   });
@@ -192,7 +194,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       monsterHp: 77.9,
     };
     expect(upgradeSave(v1)).toEqual({
-      version: 2,
+      version: 3,
       level: 7,
       xp: 13,
       killCount: 42,
@@ -205,13 +207,42 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       souls: 0,
       rebirths: 0,
       bestIndex: 21, // v1 never tracked depth: the current monster is the best
+      pvpParty: [],
     });
-    // A dead-on-arrival v1 hp still resumes at 1, and v2 passes straight through.
+    // A dead-on-arrival v1 hp still resumes at 1, and v3 passes straight through.
     expect(upgradeSave({ ...v1, monsterHp: 0 }).monsterHp).toBe('1');
     expect(upgradeSave(richSave)).toEqual(richSave);
-    // Both shapes serialize to the same v2 bytes, and parse back to v2.
+    // Both shapes serialize to the same v3 bytes, and parse back to v3.
     expect(serializeSave(v1)).toBe(serializeSave(upgradeSave(v1)));
     expect(parseSave(serializeSave(v1))).toEqual(upgradeSave(v1));
+  });
+
+  it('migrates a v2 save: pvpParty defaults to empty', () => {
+    // The v2 shape has no party at all — the field is the v3 addition.
+    const { pvpParty, ...v2 } = { ...richSave, version: 2 as const };
+    expect(pvpParty).toEqual(['c2']);
+    const migrated: SaveFileV2 = v2;
+    expect(upgradeSave(migrated)).toEqual({ ...richSave, pvpParty: [] });
+    // v2 bytes on disk come back as a v3 save with an empty party.
+    expect(parseSave(serializeSave(migrated))).toEqual({ ...richSave, pvpParty: [] });
+  });
+
+  it('pvpParty keeps only ids present in the roster, deduped and capped at 5', () => {
+    const companions: Companion[] = Array.from({ length: 8 }, (_, i) => ({
+      id: `c${i + 1}`,
+      speciesId: 'bat',
+      bossIndex: 7,
+      level: 1,
+      stars: 0,
+    }));
+    const parsed = parseSave({
+      companions,
+      pvpParty: ['c1', 'c1', 'c99', 7, null, 'c2', 'c3', 'c4', 'c5', 'c6'],
+    });
+    expect(parsed.pvpParty).toEqual(['c1', 'c2', 'c3', 'c4', 'c5']);
+    expect(parseSave({ companions, pvpParty: 'c1' }).pvpParty).toEqual([]);
+    expect(parseSave({ pvpParty: ['c1'] }).pvpParty).toEqual([]); // nothing on the roster
+    expect(parseSave(serializeSave(parsed))).toEqual(parsed);
   });
 
   it('invalid companion entries are dropped, valid ones kept, roster capped at 30', () => {

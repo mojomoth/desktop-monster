@@ -23,7 +23,7 @@ import { BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import type { Rng } from './rng.js';
 import { upgradeSave } from './save.js';
-import type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
+import type { Companion, SaveFile, SaveFileV1, SaveFileV2, SaveFileV3 } from './save.js';
 import type { GameEvent, GameState, InputSource } from './types.js';
 
 /** Chance that a boss kill captures the boss as a companion (Assumption 23). */
@@ -64,7 +64,7 @@ const COLD_FEVER = { active: false, remainingMs: 0 };
  * monsterHp into [1n, maxHp] so a stale save can never spawn an already-dead
  * or over-healed monster.
  */
-function initialState(save?: SaveFileV2 | null): GameState {
+function initialState(save?: SaveFileV3 | null): GameState {
   if (!save) {
     const monster = monsterForIndex(0);
     return {
@@ -80,6 +80,7 @@ function initialState(save?: SaveFileV2 | null): GameState {
       souls: 0,
       rebirths: 0,
       bestIndex: 0,
+      pvpParty: [],
       fever: COLD_FEVER,
     };
   }
@@ -99,6 +100,7 @@ function initialState(save?: SaveFileV2 | null): GameState {
     souls: save.souls,
     rebirths: save.rebirths,
     bestIndex: Math.max(save.bestIndex, monster.index),
+    pvpParty: [...save.pvpParty],
     fever: COLD_FEVER,
   };
 }
@@ -117,7 +119,7 @@ const clampHp = (hp: bigint, maxHp: bigint): bigint => (hp < 1n ? 1n : hp > maxH
  * monsterSpawned.
  */
 export function createEngine(
-  save?: SaveFileV1 | SaveFileV2 | null,
+  save?: SaveFileV1 | SaveFileV2 | SaveFileV3 | null,
   rng: Rng = mulberry32(randomSeed()),
 ): Engine {
   const state = initialState(save ? upgradeSave(save) : null);
@@ -259,12 +261,13 @@ export function createEngine(
         monster: { ...state.monster },
         items: { ...state.items },
         companions: state.companions.map((c) => ({ ...c })),
+        pvpParty: [...state.pvpParty],
       };
     },
 
     toSave(): SaveFile {
       return {
-        version: 2,
+        version: 3,
         level: state.level,
         xp: state.xp,
         killCount: state.killCount,
@@ -277,6 +280,7 @@ export function createEngine(
         souls: state.souls,
         rebirths: state.rebirths,
         bestIndex: state.bestIndex,
+        pvpParty: [...state.pvpParty],
       };
     },
   };

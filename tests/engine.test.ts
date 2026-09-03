@@ -13,10 +13,18 @@ import {
   mulberry32,
   parseSave,
   serializeSave,
+  upgradeSave,
   xpReward,
   xpToNext,
 } from '../src/core/index.js';
-import type { Companion, GameEvent, Rng, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
+import type {
+  Companion,
+  GameEvent,
+  Rng,
+  SaveFileV1,
+  SaveFileV2,
+  SaveFileV3,
+} from '../src/core/index.js';
 import { CAPTURE_CHANCE, COMPANION_ATTACK_MS } from '../src/core/engine.js';
 
 /** Rng stub returning a scripted sequence (repeats its last value). */
@@ -277,7 +285,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     // part of the save, so the resumed engine still matches exactly.
     a.tick(FEVER_MS);
     const save = a.toSave();
-    expect(save.version).toBe(2);
+    expect(save.version).toBe(3);
     expect(save.monsterIndex).toBe(a.getState().monster.index);
     expect(save.monsterHp).toBe(String(a.getState().monsterHp));
     const b = createEngine(save, mulberry32(1));
@@ -459,7 +467,22 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.apply({ type: 'fuse', aId: 'c1', bId: 'c2' })).toEqual([]);
     expect(engine.apply({ type: 'rebirth' })).toEqual([]); // index 10 is below 40
     expect(engine.getState()).toEqual(before);
-    expect(engine.toSave()).toEqual(makeSaveV2({ monsterIndex: 10 }));
+    expect(engine.toSave()).toEqual(upgradeSave(makeSaveV2({ monsterIndex: 10 })));
+  });
+
+  it('toSave writes version 3 and the pvpParty', () => {
+    const pet: Companion = { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 1, stars: 0 };
+    const save: SaveFileV3 = {
+      ...makeSaveV2({ companions: [pet], nextCompanionId: 2 }),
+      version: 3,
+      pvpParty: ['c1'],
+    };
+    const engine = createEngine(save, calmRng());
+    expect(engine.getState().pvpParty).toEqual(['c1']);
+    expect(engine.toSave().version).toBe(3);
+    expect(engine.toSave().pvpParty).toEqual(['c1']);
+    // A v2 save resumes with no party and still writes v3.
+    expect(createEngine(makeSaveV2(), calmRng()).toSave().pvpParty).toEqual([]);
   });
   it('tick fires one volley per 1000ms from the 3 strongest companions and kills chain into the next monster', () => {
     // Powers 4/3/2/1 (bossIndex 7 → base 1): c4 is benched every volley.
