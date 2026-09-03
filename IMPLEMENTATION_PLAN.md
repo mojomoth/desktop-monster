@@ -256,7 +256,7 @@
 - Notes (iter 29, claude): DONE: types.ts: GameEvent gains bossCaptured/rebirth/pvpResolved (structurally identical to T27's local CollectionEvent, so collection.ts needed no edit). engine.ts: CAPTURE_CHANCE=0.35, one post-loot capture draw always consumed on boss kills (skipped at ROSTER_CAP=30), ids from nextCompanionId, damage *BigInt(1+souls), bestIndex=max on spawn+resume, apply(a: CollectionAction) via applyCollection ({error}->[], Object.assign keeps fever). Tests 17->23 it(, AC titles verbatim; 10000 seeded boss kills capture ~35% (band 32-38). Dead ends avoided: no Engine move to types.ts, no ROSTER_CAP re-export (ba
 
 
-### [ ] T29 — Fever core: pure tracker on the engine clock, tick(dt), ×3 damage
+### [~] T29 — Fever core: pure tracker on the engine clock, tick(dt), ×3 damage
 - AC: `npx vitest run tests/fever.test.ts tests/engine.test.ts && grep -q "FEVER_INPUTS = 20" src/core/fever.ts && grep -q "FEVER_MULT = 3n" src/core/fever.ts && grep -q "tick(dtMs: number)" src/core/engine.ts && grep -q "20 inputs within 3000ms start fever, 19 do not" tests/fever.test.ts && grep -q "fever lasts 5000ms, triples damage, then cools down for 10000ms" tests/fever.test.ts && grep -q "fever never persists: toSave has no fever field" tests/fever.test.ts && grep -q "engine time advances only through tick" tests/fever.test.ts && ! grep -rq "Date.now(" src/core` → exit 0
 - Deps: T25
 - Worker: claude
