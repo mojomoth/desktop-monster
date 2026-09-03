@@ -12,18 +12,25 @@
 // v3 (SPEC F64): the field is 240x150 at SPRITE_SCALE 1, monsters draw at
 // their hidden species size, the field monster carries a type badge, and the
 // party is re-read from state every frame so the type match-up re-picks it.
+// v3 (SPEC F66): playReplay() takes over the field for the PvP battle scene —
+// the opponent's party mirrored on the right, one blow per BLOW_MS off the
+// same update(dt) clock, the field monster hidden and its events' presentation
+// suppressed until the scene hands the field back.
 // DOM-free on purpose — draws through GameCanvas (SpriteCanvas + clearRect)
 // so tests run under vitest's node environment.
 
 import {
   activeCompanions,
   createEngine,
+  effectiveness,
   format,
   partyOrder,
   sizeOf,
   SPECIES_IDS,
+  typeOf,
 } from '../core/index.js';
 import type {
+  BattleReplay,
   CollectionAction,
   Companion,
   Engine,
@@ -33,6 +40,7 @@ import type {
   MonsterDef,
   SaveFile,
   SpeciesId,
+  WireBlow,
 } from '../core/index.js';
 import {
   createHeroAnim,
@@ -53,6 +61,7 @@ import {
   drawFeverAura,
   drawParty,
   drawSprite,
+  drawText,
   drawTypeBadge,
   heroAttack,
   heroIdle,
@@ -60,13 +69,16 @@ import {
   itemSprites,
   monsterSprites,
   paletteForTier,
+  PARTY_X,
   partySlots,
+  textWidth,
   TRANSPARENT,
 } from './sprites/index.js';
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
 import { createGameAudio } from './audio.js';
 import type { GameAudio } from './audio.js';
-import { EFFECTS, spawnEffect } from './effects.js';
+import { EFFECTS, hitColorOf, spawnEffect } from './effects.js';
+import type { EffectPreset } from './effects.js';
 import {
   createDropPool,
   createParticlePool,
@@ -135,6 +147,36 @@ export const SWORD_TIP_Y = HERO_Y + 2 + (heroSlash.h * SPRITE_SCALE) / 2;
 /** One fever aura sparkle burst per this many ms while fever burns (F36). */
 export const FEVER_SPARKLE_MS = 100;
 
+// --- PvP battle scene (SPEC F66, GAME_DESIGN_V3 §6) ---------------------
+/** A whole replay aims to fit in this much presentation time. */
+export const REPLAY_MS = 12_000;
+/** BLOW_MS = clamp(REPLAY_MS / blows, BLOW_MS_MIN, BLOW_MS_MAX). */
+export const BLOW_MS_MIN = 250;
+export const BLOW_MS_MAX = 600;
+/** Beat between the last blow and the VICTORY!/DEFEAT banner. */
+export const REPLAY_END_MS = 600;
+/** Right edge the mirrored opponent group and its name hang from. */
+export const OPPONENT_ORIGIN_X = VIEW_W - 8;
+/** Baseline of the opponent's name, clear of its tallest member. */
+export const OPPONENT_NAME_Y = 84;
+/** How far a blow's damage float sits above the target's centre. */
+export const BLOW_FLOAT_LIFT = 6;
+
+/** Per-blow pacing of a replay of `blows` blows, ms (§6). */
+export function blowMs(blows: number): number {
+  return Math.min(BLOW_MS_MAX, Math.max(BLOW_MS_MIN, REPLAY_MS / blows));
+}
+
+/** Wire damage is a decimal string — a corrupt one must never throw mid-frame. */
+function wireDamage(damage: string): bigint {
+  return /^\d+$/.test(damage) ? BigInt(damage) : 0n;
+}
+
+/** A single shot in the actor species' hit colour (no new preset, §6). */
+function projectileOf(speciesId: string): EffectPreset {
+  return { ...EFFECTS.companionProjectile, colors: [hitColorOf(speciesId)] };
+}
+
 /**
  * The minimal canvas surface the scene needs — a real 2D context satisfies
  * it structurally, and tests use a recording fake.
@@ -174,6 +216,41 @@ function partySlotOf(
   id: string,
 ): { x: number; y: number; scale: number } | null {
   return partySlots(party, GROUND_Y)[party.findIndex((c) => c.id === id)] ?? null;
+}
+
+/**
+ * Where a member of the mirrored opponent group stands: drawParty's own
+ * originX rule (x measured leftwards from the origin), so the slots the blows
+ * shoot at stay glued to the art.
+ */
+function opponentSlotOf(
+  party: readonly Companion[],
+  id: string,
+): { x: number; y: number; scale: number } | null {
+  const index = party.findIndex((c) => c.id === id);
+  const slot = partySlots(party, GROUND_Y)[index];
+  const member = party[index];
+  if (slot === undefined || member === undefined) {
+    return null;
+  }
+  const art = speciesSpritesFor(member.speciesId).idle;
+  return { ...slot, x: OPPONENT_ORIGIN_X - (slot.x - PARTY_X) - art.w * slot.scale };
+}
+
+/** The battle scene in flight; null whenever the field owns the canvas. */
+interface BattleScene {
+  name: string;
+  /** My side ('A') and theirs ('D'), back → front; a KO leaves its group. */
+  mine: Companion[];
+  theirs: Companion[];
+  blows: readonly WireBlow[];
+  blowMs: number;
+  /** Index of the next blow to play. */
+  next: number;
+  ageMs: number;
+  endsAt: number;
+  /** The pvpResolved presentation this scene owes the field (F53). */
+  after: (() => void) | null;
 }
 
 /** Centre of a drawn party member — where its shots and sparkles start. */
@@ -286,6 +363,13 @@ export interface Game {
    * back so the caller can persist them; a rejected action returns [].
    */
   apply(a: CollectionAction): GameEvent[];
+  /**
+   * Take the field for a PvP battle scene (SPEC F66): the opponent's party
+   * stands mirrored on the right under its name, one blow per BLOW_MS off
+   * `update(dt)`, the field monster hidden and every field event's
+   * presentation suppressed until the scene hands the field back.
+   */
+  playReplay(replay: BattleReplay): void;
   /** Repaint the full VIEW_W×VIEW_H scene. */
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
@@ -333,6 +417,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
   // companion the engine has already dropped, and only this snapshot still
   // knows its species art and its column slot.
   let rosterBefore: readonly Companion[] = [];
+  // The PvP battle scene, or null while the field owns the canvas (F66).
+  let scene: BattleScene | null = null;
 
   /** Drop every in-flight presentation system (Reset Progress and rebirth). */
   const clearPresentation = (): void => {
@@ -356,6 +442,117 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
     target = engine.getState().monster;
     hitCount = 0;
     feverSparkleAgeMs = 0;
+    scene = null;
+  };
+
+  /**
+   * The PvP verdict's presentation — banner, steal pop-in, loss scatter —
+   * as a closure, so a battle scene can hold it back until it ends (F53).
+   * `before` is the roster the action landed on: only it still knows the art
+   * and slot of a companion the engine has already dropped.
+   */
+  const pvpPresentation =
+    (event: Extract<GameEvent, { type: 'pvpResolved' }>, before: readonly Companion[]) =>
+    (): void => {
+      showBanner(banner, event.won ? VICTORY_TEXT : DEFEAT_TEXT);
+      const state = engine.getState();
+      if (event.stolen !== null) {
+        // The prize pops in at the party slot it will fight from.
+        const slot = partySlotOf(fieldParty(state), event.stolen.id);
+        if (slot !== null) {
+          const at = slotCentre(slot, event.stolen.speciesId);
+          spawnEffect(particles, EFFECTS.captureSparkle, at.x, at.y, 1);
+        }
+      }
+      const lostId = event.lostId;
+      if (lostId !== null) {
+        // It is already off the roster: scatter the art it was drawn with,
+        // where it stood. A benched loss was never on screen.
+        const party = partyOrder(activeCompanions(before, state.monster.type));
+        const lost = party.find((c) => c.id === lostId);
+        const slot = partySlotOf(party, lostId);
+        if (lost !== undefined && slot !== null) {
+          const art = speciesSpritesFor(lost.speciesId).idle;
+          spawnSpriteScatter(particles, art, 0, slot.x, slot.y - art.h * slot.scale, slot.scale);
+        }
+      }
+    };
+
+  /**
+   * One blow of the replay: a shot from the actor's slot, then the target's
+   * own hit effect and a damage float coloured by the match-up; a `ko`
+   * scatters the target and takes it out of its group (§6). A blow naming
+   * someone who is not on the field draws nothing.
+   */
+  const playBlow = (s: BattleScene, blow: WireBlow): void => {
+    const mineActs = blow.side === 'A';
+    const actor = (mineActs ? s.mine : s.theirs).find((c) => c.id === blow.actorId);
+    const targets = mineActs ? s.theirs : s.mine;
+    const target = targets.find((c) => c.id === blow.targetId);
+    const actorSlot = mineActs
+      ? partySlotOf(s.mine, blow.actorId)
+      : opponentSlotOf(s.theirs, blow.actorId);
+    const targetSlot = mineActs
+      ? opponentSlotOf(s.theirs, blow.targetId)
+      : partySlotOf(s.mine, blow.targetId);
+    if (actor === undefined || target === undefined || actorSlot === null || targetSlot === null) {
+      return;
+    }
+    audio.attackTick();
+    const from = slotCentre(actorSlot, actor.speciesId);
+    const at = slotCentre(targetSlot, target.speciesId);
+    spawnEffect(particles, projectileOf(actor.speciesId), from.x, from.y, mineActs ? 1 : -1);
+    spawnEffect(particles, EFFECTS.hit[speciesKey(target.speciesId)], at.x, at.y, 1, hitCount++);
+    spawnFloat(
+      floats,
+      at.x,
+      at.y - BLOW_FLOAT_LIFT,
+      format(wireDamage(blow.damage)),
+      false,
+      floatColor(effectiveness(typeOf(actor.speciesId), typeOf(target.speciesId))),
+    );
+    if (!blow.ko) {
+      return;
+    }
+    audio.killArpeggio();
+    const art = speciesSpritesFor(target.speciesId).idle;
+    spawnSpriteScatter(
+      particles,
+      art,
+      0,
+      targetSlot.x,
+      targetSlot.y - art.h * targetSlot.scale,
+      targetSlot.scale,
+    );
+    targets.splice(targets.indexOf(target), 1);
+  };
+
+  /** Run the scene's clock: due blows, then the verdict + the field back. */
+  const advanceScene = (dt: number): void => {
+    const s = scene;
+    if (s === null) {
+      return;
+    }
+    s.ageMs += dt;
+    while (s.next < s.blows.length && s.ageMs >= s.next * s.blowMs) {
+      const blow = s.blows[s.next++];
+      if (blow !== undefined) {
+        playBlow(s, blow);
+      }
+    }
+    if (s.ageMs < s.endsAt) {
+      return;
+    }
+    // The field comes back FIRST, so the verdict's own presentation lands on
+    // it instead of being suppressed as a scene event.
+    scene = null;
+    if (s.after !== null) {
+      s.after();
+      return;
+    }
+    // Played on its own: the side still standing won, exactly as the server
+    // decided it (core simulateBattle).
+    showBanner(banner, s.mine.length > 0 && s.theirs.length === 0 ? VICTORY_TEXT : DEFEAT_TEXT);
   };
 
   /**
@@ -367,6 +564,17 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
     // Floats sit 6px above the ACTIVE hp bar — the boss bar is raised (§3).
     const floatY = (): number => (target.boss ? BOSS_HP_BAR_Y : HP_BAR.y) - 6;
     for (const event of events) {
+      if (scene !== null) {
+        // The engine keeps running under the battle scene: field events land
+        // on the state, only their presentation is suppressed (§6). Which
+        // monster is the target is bookkeeping, not presentation.
+        if (event.type === 'monsterSpawned') {
+          target = event.monster;
+        }
+        if (event.type !== 'pvpResolved') {
+          continue;
+        }
+      }
       switch (event.type) {
         case 'attack':
           audio.attackTick();
@@ -485,34 +693,12 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           );
           break;
         case 'pvpResolved': {
-          showBanner(banner, event.won ? VICTORY_TEXT : DEFEAT_TEXT);
-          const state = engine.getState();
-          if (event.stolen !== null) {
-            // The prize pops in at the party slot it will fight from.
-            const slot = partySlotOf(fieldParty(state), event.stolen.id);
-            if (slot !== null) {
-              const at = slotCentre(slot, event.stolen.speciesId);
-              spawnEffect(particles, EFFECTS.captureSparkle, at.x, at.y, 1);
-            }
-          }
-          const lostId = event.lostId;
-          if (lostId !== null) {
-            // It is already off the roster: scatter the art it was drawn
-            // with, where it stood. A benched loss was never on screen.
-            const before = partyOrder(activeCompanions(rosterBefore, state.monster.type));
-            const lost = before.find((c) => c.id === lostId);
-            const slot = partySlotOf(before, lostId);
-            if (lost !== undefined && slot !== null) {
-              const art = speciesSpritesFor(lost.speciesId).idle;
-              spawnSpriteScatter(
-                particles,
-                art,
-                0,
-                slot.x,
-                slot.y - art.h * slot.scale,
-                slot.scale,
-              );
-            }
+          const show = pvpPresentation(event, rosterBefore);
+          // A replay opened the scene first: the verdict waits for it (F53).
+          if (scene === null) {
+            show();
+          } else {
+            scene.after = show;
           }
           break;
         }
@@ -533,6 +719,26 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           break;
       }
     }
+  };
+
+  /** SPEC F66 — see the Game interface. */
+  const playReplay = (replay: BattleReplay): void => {
+    // ponytail: my group is exactly the roster members the replay names —
+    // the party that was sent need not be the saved pvpParty.
+    const fought = new Set(replay.blows.map((b) => (b.side === 'A' ? b.actorId : b.targetId)));
+    const perBlow = blowMs(replay.blows.length);
+    scene = {
+      name: replay.opponentName,
+      mine: partyOrder(engine.getState().companions.filter((c) => fought.has(c.id))),
+      theirs: partyOrder(replay.opponentParty),
+      blows: replay.blows,
+      blowMs: perBlow,
+      next: 0,
+      ageMs: 0,
+      endsAt: Math.max(0, replay.blows.length - 1) * perBlow + REPLAY_END_MS,
+      after: null,
+    };
+    showBanner(banner, `VS ${replay.opponentName}`);
   };
 
   return {
@@ -580,15 +786,23 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       } else {
         feverSparkleAgeMs = 0;
       }
+      advanceScene(dt);
       return events;
     },
 
     apply(a: CollectionAction): GameEvent[] {
       rosterBefore = engine.getState().companions;
+      if (a.type === 'pvpResult' && a.replay !== undefined) {
+        // The scene opens BEFORE the verdict lands, so the banner and the
+        // pop-in/scatter wait until it ends (F53).
+        playReplay(a.replay);
+      }
       const events = engine.apply(a);
       handleEvents(events);
       return events;
     },
+
+    playReplay,
 
     draw(ctx: GameCanvas): void {
       ctx.clearRect(0, 0, VIEW_W, VIEW_H);
@@ -614,17 +828,22 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
 
       // The party stands as one overlapping group left of the hero, back to
       // front (§6). Every species shares the 2-frame bob, so one frame index
-      // drives the whole group.
-      drawParty(
-        ctx,
-        fieldParty(state),
-        Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length,
-        GROUND_Y,
-      );
+      // drives the whole group. A battle scene shows the party that fought.
+      const partyFrame =
+        Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length;
+      drawParty(ctx, scene === null ? fieldParty(state) : scene.mine, partyFrame, GROUND_Y);
 
       const species = speciesSpritesFor(state.monster.speciesId);
       const scale = monsterScale(state.monster);
-      if (monsterAnim.state === 'dying') {
+      if (scene !== null) {
+        // The battle scene owns the field: the opponent's party stands
+        // mirrored on the right under its name, no field monster (§6).
+        drawParty(ctx, scene.theirs, partyFrame, GROUND_Y, {
+          flipX: false,
+          originX: VIEW_W - 8,
+        });
+        drawText(ctx, scene.name, OPPONENT_ORIGIN_X - textWidth(scene.name), OPPONENT_NAME_Y);
+      } else if (monsterAnim.state === 'dying') {
         // The sprite is mid-scatter — its pixels live in the particle pool.
       } else if (monsterAnim.state === 'spawning') {
         // Bottom-up pop-in: the next monster grows out of the ground.
@@ -675,8 +894,9 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       }
       drawParticles(ctx, particles);
 
-      if (monsterAnim.state !== 'dying') {
-        // No HP bar over the scatter — it pops back with the next monster.
+      if (scene === null && monsterAnim.state !== 'dying') {
+        // No HP bar over the scatter — it pops back with the next monster,
+        // and the battle scene hides it with the monster itself (§6).
         const barY = state.monster.boss ? BOSS_HP_BAR_Y : HP_BAR.y;
         const barX = Math.round(MONSTER_X + (species.idle.w * scale) / 2 - HP_BAR.w / 2);
         drawHpBar(ctx, barX, barY, HP_BAR.w, HP_BAR.h, state.monsterHp, state.monster.maxHp);

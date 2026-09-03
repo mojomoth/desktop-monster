@@ -27,10 +27,22 @@ import {
   xpToNext,
 } from '../src/core/index.js';
 import { DEFAULT_SAVE } from '../src/core/index.js';
-import type { Companion, GameEvent, GameState, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
+import type {
+  BattleReplay,
+  Companion,
+  GameEvent,
+  GameState,
+  SaveFileV1,
+  SaveFileV2,
+  WireBlow,
+} from '../src/core/index.js';
 import { COMPANION_ATTACK_MS } from '../src/core/engine.js';
 import {
   ATTACK_FRAME_MS,
+  BLOW_FLOAT_LIFT,
+  BLOW_MS_MAX,
+  BLOW_MS_MIN,
+  blowMs,
   createGame,
   createSaveScheduler,
   FEVER_SPARKLE_MS,
@@ -40,6 +52,9 @@ import {
   HP_BAR,
   IDLE_FRAME_MS,
   MONSTER_X,
+  OPPONENT_NAME_Y,
+  OPPONENT_ORIGIN_X,
+  REPLAY_MS,
   SAVE_DEBOUNCE_MS,
   SPRITE_SCALE,
   TYPE_BADGE_GAP,
@@ -79,16 +94,18 @@ import {
   DROP_ARC_MS,
   DROP_FLY_MS,
   drawParticles,
+  SCATTER_LIFE_MS,
   SPARKLE_COUNT,
   spawnSpriteScatter,
 } from '../src/renderer/anim.js';
-import { EFFECTS } from '../src/renderer/effects.js';
+import { EFFECTS, hitColorOf } from '../src/renderer/effects.js';
 import {
   BOSS_HP_BAR_Y,
   COLORS,
   drawFeverAura,
   drawParty,
   drawSprite,
+  drawText,
   drawTypeBadge,
   heroAttack,
   heroIdle,
@@ -98,6 +115,7 @@ import {
   paletteForTier,
   partySlots,
   shiftHue,
+  textWidth,
   TYPE_COLORS,
 } from '../src/renderer/sprites/index.js';
 import type { Sprite } from '../src/renderer/sprites/index.js';
@@ -167,6 +185,15 @@ const companion = (id: string, speciesId: SpeciesId, stars = 0): Companion => ({
   level: 1,
   stars,
 });
+
+/** The pixels drawBanner paints for `text` at age 0 — its signature. */
+const bannerKeys = (text: string): string[] => {
+  const banner = createBanner();
+  showBanner(banner, text);
+  const { ctx, calls } = makeCtx();
+  drawBanner(ctx, banner, VIEW_W);
+  return calls.map(rectKey);
+};
 
 describe('drawMeter / drawHpBar (boxed bars)', () => {
   it('paints a steel frame with a void interior', () => {
@@ -1442,15 +1469,6 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
 });
 
 describe('collection actions in the game window (T47, SPEC F53)', () => {
-  /** The pixels drawBanner paints for `text` at age 0 — its signature. */
-  const bannerKeys = (text: string): string[] => {
-    const banner = createBanner();
-    showBanner(banner, text);
-    const { ctx, calls } = makeCtx();
-    drawBanner(ctx, banner, VIEW_W);
-    return calls.map(rectKey);
-  };
-
   it('apply() forwards collection actions to the engine and reports its events', () => {
     const game = createGame(
       createEngine(
@@ -1875,5 +1893,287 @@ describe('window.desmon declaration stays in sync with the preload bridge', () =
     for (const method of methods) {
       expect(globalDts).toContain(`${method ?? ''}(`);
     }
+  });
+});
+
+describe('battle scene replay (T66, SPEC F66)', () => {
+  const blow = (
+    side: 'A' | 'D',
+    actorId: string,
+    targetId: string,
+    damage: string,
+    ko = false,
+  ): WireBlow => ({ side, actorId, targetId, damage, ko });
+
+  /** Art box of every species sprite (12x10 cells, scaled by size). */
+  const ART_W = 12;
+  const ART_H = 10;
+
+  /** Where the mirrored opponent group's member `r` is drawn (drawParty's rule). */
+  const theirSlot = (party: readonly Companion[], r: number): { x: number; y: number; scale: number } => {
+    const slot = partySlots(party, GROUND_Y)[r];
+    const member = party[r];
+    if (slot === undefined || member === undefined) {
+      throw new Error('missing opponent slot');
+    }
+    return { ...slot, x: OPPONENT_ORIGIN_X - (slot.x - 8) - ART_W * slot.scale };
+  };
+
+  const centreOf = (slot: { x: number; y: number; scale: number }): { x: number; y: number } => ({
+    x: slot.x + (ART_W * slot.scale) / 2,
+    y: slot.y - (ART_H * slot.scale) / 2,
+  });
+
+  /** The steel frame of the field monster's HP bar — the field's signature. */
+  const hpFrameKey = (): string =>
+    rectKey({
+      x: Math.round(MONSTER_X + (ART_W * sizeOf('slime')) / 2 - HP_BAR.w / 2),
+      y: HP_BAR.y,
+      w: HP_BAR.w,
+      h: HP_BAR.h,
+      fillStyle: COLORS.steel,
+    });
+
+  const drawn = (game: ReturnType<typeof createGame>): Set<string> => {
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    return new Set(calls.map(rectKey));
+  };
+
+  it('playReplay draws the opponent party mirrored on the right with its name', () => {
+    const game = createGame(createEngine({ ...v2 }, mulberry32(11)));
+    const replay: BattleReplay = {
+      opponentName: 'RIVAL',
+      opponentParty: [companion('o1', 'golem'), companion('o2', 'bat')],
+      blows: [],
+    };
+    game.playReplay(replay);
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const painted = new Set(calls.map(rectKey));
+
+    // Exactly what drawParty paints for the mirrored group, plus the name in
+    // the 3x5 font hanging off the same right edge.
+    const ref = makeCtx();
+    const theirs = partyOrder(replay.opponentParty);
+    drawParty(ref.ctx, theirs, 0, GROUND_Y, { flipX: false, originX: OPPONENT_ORIGIN_X });
+    drawText(ref.ctx, 'RIVAL', OPPONENT_ORIGIN_X - textWidth('RIVAL'), OPPONENT_NAME_Y);
+    expect(ref.calls.length).toBeGreaterThan(0);
+    expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+    // They stand on the right half — mirrored, not where my own party stands.
+    expect(theirSlot(theirs, 0).x).toBeGreaterThan(VIEW_W / 2);
+    // …and the VS banner opened the scene.
+    expect(bannerKeys('VS RIVAL').every((k) => painted.has(k))).toBe(true);
+  });
+
+  it('each blow spawns a projectile then a float at the target', () => {
+    const game = createGame(
+      createEngine(
+        { ...v2, companions: [companion('c1', 'dragon')], nextCompanionId: 2 },
+        mulberry32(12),
+      ),
+    );
+    const theirs = [companion('o1', 'bat')];
+    game.playReplay({ opponentName: 'FOE', opponentParty: theirs, blows: [blow('A', 'c1', 'o1', '1234')] });
+
+    // Nothing has fired yet — the scene runs off the presentation clock.
+    expect(drawn(game).size).toBeGreaterThan(0);
+    game.update(16);
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const painted = new Set(calls.map(rectKey));
+
+    // One shot from my member's slot centre, in the dragon's hit colour.
+    const from = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
+    expect(
+      calls.filter(
+        (c) =>
+          c.w === EFFECTS.companionProjectile.size &&
+          c.x === from.x &&
+          c.y === from.y &&
+          c.fillStyle === hitColorOf('dragon'),
+      ),
+    ).toHaveLength(1);
+
+    // …and the damage float at the target, coloured by the match-up: a fire
+    // dragon is super effective against a wind bat.
+    const at = centreOf(theirSlot(partyOrder(theirs), 0));
+    expect(floatColor(effectiveness(typeOf('dragon'), typeOf('bat')))).toBe(COLORS.yellow);
+    const pool = createFloatPool();
+    spawnFloat(pool, at.x, at.y - BLOW_FLOAT_LIFT, format(1234n), false, COLORS.yellow);
+    const ref = makeCtx();
+    drawFloats(ref.ctx, pool);
+    expect(ref.calls.length).toBeGreaterThan(0);
+    expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+  });
+
+  it('a ko scatters the target and removes it from the opponent group', () => {
+    const game = createGame(
+      createEngine(
+        { ...v2, companions: [companion('c1', 'dragon')], nextCompanionId: 2 },
+        mulberry32(13),
+      ),
+    );
+    const back = companion('o1', 'golem');
+    const front = companion('o2', 'bat');
+    game.playReplay({
+      opponentName: 'FOE',
+      opponentParty: [back, front],
+      blows: [
+        blow('A', 'c1', 'o2', '9', true),
+        blow('D', 'o1', 'c1', '9'),
+        blow('A', 'c1', 'o1', '9'),
+      ],
+    });
+    game.update(16);
+
+    // The bat's art is now a pixel scatter at the slot it stood in.
+    const both = partyOrder([back, front]);
+    const koSlot = theirSlot(both, both.indexOf(front));
+    const reference = createParticlePool();
+    spawnSpriteScatter(
+      reference,
+      monsterSprites.bat.idle,
+      0,
+      koSlot.x,
+      koSlot.y - ART_H * koSlot.scale,
+      koSlot.scale,
+    );
+    const scatter = makeCtx();
+    drawParticles(scatter.ctx, reference);
+    expect(scatter.calls.length).toBeGreaterThan(0);
+    const during = drawn(game);
+    expect(scatter.calls.every((c) => during.has(rectKey(c)))).toBe(true);
+
+    // Once the scatter is gone (and before the next blow is due) the group is
+    // re-laid-out around the survivor alone.
+    game.update(SCATTER_LIFE_MS + 20);
+    const painted = drawn(game);
+    const frame = Math.floor((16 + SCATTER_LIFE_MS + 20) / IDLE_FRAME_MS) % 2;
+    const survivor = makeCtx();
+    drawParty(survivor.ctx, [back], frame, GROUND_Y, { flipX: false, originX: OPPONENT_ORIGIN_X });
+    expect(survivor.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+    const pair = makeCtx();
+    drawParty(pair.ctx, both, frame, GROUND_Y, { flipX: false, originX: OPPONENT_ORIGIN_X });
+    expect(pair.calls.every((c) => painted.has(rectKey(c)))).toBe(false);
+  });
+
+  it('the field monster is hidden while a replay plays and returns afterwards', () => {
+    const game = createGame(createEngine({ ...v2, nextCompanionId: 4 }, mulberry32(14)));
+    const field = drawn(game);
+    expect(field.has(hpFrameKey())).toBe(true);
+
+    // The action carries the replay: the scene runs first, the verdict waits.
+    expect(
+      game.apply({
+        type: 'pvpResult',
+        won: true,
+        stolen: companion('theirs', 'slime'),
+        lostId: null,
+        replay: {
+          opponentName: 'RIVAL',
+          opponentParty: [companion('o1', 'ghost')],
+          blows: [blow('D', 'o1', 'c1', '5')],
+        },
+      }),
+    ).toHaveLength(1);
+    // The roster change itself lands immediately (the engine never waits).
+    expect(game.getState().companions.map((c) => c.id)).toEqual(['c4']);
+
+    game.update(16);
+    const during = drawn(game);
+    const base = monsterSprites.slime.idle;
+    const monsterRef = makeCtx();
+    drawSprite(monsterRef.ctx, base, 0, MONSTER_X, GROUND_Y - base.h, { scale: sizeOf('slime') });
+    expect(monsterRef.calls.every((c) => during.has(rectKey(c)))).toBe(false);
+    expect(during.has(hpFrameKey())).toBe(false);
+    expect(bannerKeys('VS RIVAL').every((k) => during.has(k))).toBe(true);
+    expect(bannerKeys(VICTORY_TEXT).every((k) => during.has(k))).toBe(false);
+
+    // 600 ms after the last blow the field is back — and only then does the
+    // verdict play: VICTORY! plus the prize popping in at its party slot.
+    game.update(600);
+    const after = drawn(game);
+    expect(after.has(hpFrameKey())).toBe(true);
+    expect(bannerKeys(VICTORY_TEXT).every((k) => after.has(k))).toBe(true);
+    const state = game.getState();
+    const slot = partySlots(
+      partyOrder(activeCompanions(state.companions, state.monster.type)),
+      GROUND_Y,
+    )[0];
+    if (slot === undefined) {
+      throw new Error('the prize is not in the party');
+    }
+    const sparkle = EFFECTS.captureSparkle;
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    expect(
+      calls.filter(
+        (c) =>
+          c.w === sparkle.size &&
+          c.x === slot.x + (ART_W * slot.scale) / 2 &&
+          c.y === slot.y - (ART_H * slot.scale) / 2 &&
+          (c.fillStyle === sparkle.colors[0] || c.fillStyle === sparkle.colors[1]),
+      ),
+    ).toHaveLength(sparkle.count);
+  });
+
+  it('replay pacing clamps to 12 s', () => {
+    expect(blowMs(1)).toBe(BLOW_MS_MAX);
+    expect(blowMs(REPLAY_MS / BLOW_MS_MAX)).toBe(BLOW_MS_MAX);
+    expect(blowMs(24)).toBe(500);
+    expect(blowMs(100)).toBe(BLOW_MS_MIN);
+
+    // 20 blows at 600 ms each: the scene owns the field for exactly 12 s.
+    const game = createGame(
+      createEngine(
+        { ...v2, companions: [companion('c1', 'slime')], nextCompanionId: 2 },
+        mulberry32(15),
+      ),
+    );
+    const blows = Array.from({ length: 20 }, (_, i) =>
+      blow(i % 2 === 0 ? 'A' : 'D', i % 2 === 0 ? 'c1' : 'o1', i % 2 === 0 ? 'o1' : 'c1', '7'),
+    );
+    game.playReplay({ opponentName: 'RIVAL', opponentParty: [companion('o1', 'ghost')], blows });
+    game.update(REPLAY_MS - 1);
+    expect(drawn(game).has(hpFrameKey())).toBe(false);
+    game.update(1);
+    expect(drawn(game).has(hpFrameKey())).toBe(true);
+  });
+
+  it('field presentation is suppressed while a replay plays', () => {
+    const game = createGame(createEngine({ ...v2 }, mulberry32(17)));
+    game.playReplay({ opponentName: 'FOE', opponentParty: [companion('o1', 'ghost')], blows: [] });
+
+    const before = game.getState().monsterHp;
+    const events = game.attack('keyboard');
+    const hit = events[0];
+    if (hit?.type !== 'attack') {
+      throw new Error('expected an attack event');
+    }
+    // The input still reached the engine…
+    expect(game.getState().monsterHp).toBeLessThan(before);
+    expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
+
+    // …but nothing of the field's presentation painted: no damage float.
+    const floatRef = (damage: bigint, crit: boolean): RectCall[] => {
+      const pool = createFloatPool();
+      spawnFloat(pool, MONSTER_X + (ART_W * sizeOf('slime')) / 2, HP_BAR.y - 6, format(damage), crit);
+      const ref = makeCtx();
+      drawFloats(ref.ctx, pool);
+      return ref.calls;
+    };
+    const during = drawn(game);
+    expect(floatRef(hit.damage, hit.crit).some((c) => during.has(rectKey(c)))).toBe(false);
+
+    // Once the field is back the very same attack paints again.
+    game.update(600);
+    const back = game.attack('keyboard')[0];
+    if (back?.type !== 'attack') {
+      throw new Error('expected an attack event');
+    }
+    const painted = drawn(game);
+    expect(floatRef(back.damage, back.crit).every((c) => painted.has(rectKey(c)))).toBe(true);
   });
 });
