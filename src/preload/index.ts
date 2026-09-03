@@ -11,8 +11,11 @@ import type { IpcRendererEvent } from 'electron';
 import type {
   IdentityPayload,
   LeaderboardResult,
+  MatchResult,
   NetResult,
   PvpResult,
+  ReclaimResult,
+  TheftsResult,
 } from '../shared/api.js';
 import type {
   InputModePayload,
@@ -65,8 +68,14 @@ const desmon = {
     ipcRenderer.invoke('desmon:set-name', { name }) as Promise<IdentityPayload>,
   getLeaderboard: (n?: number): Promise<NetResult<LeaderboardResult>> =>
     ipcRenderer.invoke('desmon:leaderboard', { n }) as Promise<NetResult<LeaderboardResult>>,
-  pvp: (): Promise<NetResult<PvpResult>> =>
-    ipcRenderer.invoke('desmon:pvp') as Promise<NetResult<PvpResult>>,
+  pvpMatch: (): Promise<NetResult<MatchResult>> =>
+    ipcRenderer.invoke('desmon:pvp-match') as Promise<NetResult<MatchResult>>,
+  pvp: (matchId: string, party: string[]): Promise<NetResult<PvpResult>> =>
+    ipcRenderer.invoke('desmon:pvp', { matchId, party }) as Promise<NetResult<PvpResult>>,
+  thefts: (): Promise<NetResult<TheftsResult>> =>
+    ipcRenderer.invoke('desmon:thefts') as Promise<NetResult<TheftsResult>>,
+  reclaim: (theftId: string): Promise<NetResult<ReclaimResult>> =>
+    ipcRenderer.invoke('desmon:reclaim', { theftId }) as Promise<NetResult<ReclaimResult>>,
   onAction: (cb: (a: MenuActionPayload) => void): (() => void) =>
     subscribe('desmon:action', (payload) => {
       cb(payload);

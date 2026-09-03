@@ -30,8 +30,14 @@ export const IPC = {
   SET_NAME: 'desmon:set-name',
   /** renderer → main (invoke): top-N leaderboard rows plus this player's row. */
   LEADERBOARD: 'desmon:leaderboard',
+  /** renderer → main (invoke): step 1 of a battle — the opponent preview (F73). */
+  PVP_MATCH: 'desmon:pvp-match',
   /** renderer → main (invoke): resolve one asynchronous PvP battle. */
   PVP: 'desmon:pvp',
+  /** renderer → main (invoke): what PvP took from me, still reclaimable (F73). */
+  THEFTS: 'desmon:thefts',
+  /** renderer → main (invoke): take one stolen companion back (F73). */
+  RECLAIM: 'desmon:reclaim',
   /** main → game window (send): a validated collection action to apply (F51). */
   ACTION: 'desmon:action',
   /** menu → main (invoke): a collection action, relayed as ACTION (F51). */
@@ -71,6 +77,17 @@ export type SaveStatePayload = unknown;
 /** Payload of `desmon:set-name`. Anything not matching NICK_RE is dropped by main. */
 export interface SetNamePayload {
   name: string;
+}
+
+/** Payload of `desmon:pvp` (F73): the match from step 1 plus my chosen party. */
+export interface PvpPayload {
+  matchId: string;
+  party: string[];
+}
+
+/** Payload of `desmon:reclaim`: which theft to take back. */
+export interface ReclaimPayload {
+  theftId: string;
 }
 
 /** Payload of `desmon:leaderboard`: how many rows; absent/invalid = the default. */

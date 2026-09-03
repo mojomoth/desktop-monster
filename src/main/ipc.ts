@@ -9,9 +9,11 @@ import { LEADERBOARD_DEFAULT, LEADERBOARD_MAX } from '../shared/api.js';
 import type {
   IdentityPayload,
   LeaderboardResult,
+  MatchResult,
   NetResult,
-  PvpRequest,
   PvpResult,
+  ReclaimResult,
+  TheftsResult,
 } from '../shared/api.js';
 import { IPC } from '../shared/ipc.js';
 import type {
@@ -19,6 +21,8 @@ import type {
   IpcChannel,
   LeaderboardQueryPayload,
   MoveWindowPayload,
+  PvpPayload,
+  ReclaimPayload,
   SetNamePayload,
 } from '../shared/ipc.js';
 import { SERVER_URL } from '../shared/serverUrl.js';
@@ -41,6 +45,43 @@ function sendToOthers(sender: WebContents, channel: IpcChannel, payload: unknown
       win.webContents.send(channel, payload);
     }
   }
+}
+
+/**
+ * Broadcast to EVERY window (SPEC F73). Main originates exactly one action
+ * this way — the `addCompanion` after a reclaim (T69, Assumption 49), which no
+ * window's save knows about yet.
+ */
+export function sendToAll(channel: IpcChannel, payload: unknown): void {
+  for (const win of BrowserWindow.getAllWindows()) {
+    win.webContents.send(channel, payload);
+  }
+}
+
+/**
+ * A `pvpResult.replay` (BattleReplay) as the menu hands it over: opponent name,
+ * its party and the blow list. ponytail: the companions are only shape-checked
+ * as an array — the battle scene just draws them, and a bad replay is dropped
+ * (the verdict still applies), so it costs an animation, never the roster.
+ */
+function isReplay(v: unknown): boolean {
+  const r = (v ?? {}) as Record<string, unknown>;
+  const blows = r['blows'];
+  return (
+    typeof r['opponentName'] === 'string' &&
+    Array.isArray(r['opponentParty']) &&
+    Array.isArray(blows) &&
+    blows.every((b) => {
+      const blow = (b ?? {}) as Record<string, unknown>;
+      return (
+        (blow['side'] === 'A' || blow['side'] === 'D') &&
+        typeof blow['actorId'] === 'string' &&
+        typeof blow['targetId'] === 'string' &&
+        typeof blow['damage'] === 'string' &&
+        typeof blow['ko'] === 'boolean'
+      );
+    })
+  );
 }
 
 /**
@@ -73,8 +114,14 @@ function narrowAction(payload: unknown): CollectionAction | null {
       case 'addCompanion':
         return obj('companion');
       case 'removeCompanions':
+      case 'setPvpParty':
         return strs('ids');
       case 'pvpResult':
+        // The replay is optional and only animated: a malformed one is DROPPED
+        // and the verdict still applies (F73).
+        if (!isReplay(a['replay'])) {
+          delete a['replay'];
+        }
         return (
           typeof a['won'] === 'boolean' &&
           (a['stolen'] === null || obj('stolen')) &&
@@ -147,12 +194,24 @@ export function registerIpcHandlers(options: IpcOptions = {}): void {
     return session.leaderboard(count);
   });
 
-  // v3 (T67): the battle needs the match from step 1 and my chosen party. The
-  // payload is untrusted; a malformed one is refused, never forwarded.
+  // v3 (T67) step 1: the opponent preview the player picks a party against.
+  ipcMain.handle(IPC.PVP_MATCH, (): Promise<NetResult<MatchResult>> => session.match());
+
+  // v3 (T67) step 2: the battle needs the match from step 1 and my chosen
+  // party. The payload is untrusted; a malformed one is refused, never sent.
   ipcMain.handle(IPC.PVP, (_event, p: unknown): Promise<NetResult<PvpResult>> => {
-    const { matchId, party } = (p as Partial<PvpRequest> | null | undefined) ?? {};
+    const { matchId, party } = (p as Partial<PvpPayload> | null | undefined) ?? {};
     return typeof matchId === 'string' && Array.isArray(party) && party.every((id) => typeof id === 'string')
       ? session.pvp(matchId, party)
+      : Promise.resolve({ ok: false, error: 'network' });
+  });
+
+  ipcMain.handle(IPC.THEFTS, (): Promise<NetResult<TheftsResult>> => session.thefts());
+
+  ipcMain.handle(IPC.RECLAIM, (_event, p: unknown): Promise<NetResult<ReclaimResult>> => {
+    const { theftId } = (p as Partial<ReclaimPayload> | null | undefined) ?? {};
+    return typeof theftId === 'string'
+      ? session.reclaim(theftId)
       : Promise.resolve({ ok: false, error: 'network' });
   });
 

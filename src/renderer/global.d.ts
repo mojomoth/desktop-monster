@@ -7,8 +7,11 @@
 import type {
   IdentityPayload,
   LeaderboardResult,
+  MatchResult,
   NetResult,
   PvpResult,
+  ReclaimResult,
+  TheftsResult,
 } from '../shared/api.js';
 import type {
   InputModePayload,
@@ -32,7 +35,10 @@ declare global {
       getIdentity(): Promise<IdentityPayload>;
       setName(name: string): Promise<IdentityPayload>;
       getLeaderboard(n?: number): Promise<NetResult<LeaderboardResult>>;
-      pvp(): Promise<NetResult<PvpResult>>;
+      pvpMatch(): Promise<NetResult<MatchResult>>;
+      pvp(matchId: string, party: string[]): Promise<NetResult<PvpResult>>;
+      thefts(): Promise<NetResult<TheftsResult>>;
+      reclaim(theftId: string): Promise<NetResult<ReclaimResult>>;
       onAction(cb: (a: MenuActionPayload) => void): () => void;
       sendAction(a: MenuActionPayload): Promise<void>;
       onStateChanged(cb: (s: SaveStatePayload) => void): () => void;
