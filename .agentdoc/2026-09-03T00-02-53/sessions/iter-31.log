@@ -1,0 +1,7 @@
+{"task":"T36","result":"DONE","gates":"pass","commit":"cc12832c1f1cb42fa4a90d2669c0d04585a8ef4f","note":"Added resolvePvp to src/core/collection.ts per SPEC F37/Assumption 34: powers = sum of companionPower over full rosters, p = total===0n ? 0.5 : ratio(attackerPower,total), draw 1 win roll, draw 2 victim index always consumed (null on empty loser), moved=null when the winner holds ROSTER_CAP. Reused existing ratio/Rng, no barrel edit, no bot/cooldown logic. 4 tests with the AC's verbatim titles incl. 10000-trial 1:3 stats (win rate 0.22-0.28) and a counting Rng proving exactly 2 draws. Dead end: first full-roster test assumed the full roster loses when it wins the roll — corrected. Gates + AC green.","children":[]}
+
+Implementation notes:
+
+- `src/core/collection.ts:resolvePvp` — sums `companionPower` over both full rosters, picks the winner with one draw against `ratio(attackerPower, total)` (0.5 when both rosters are empty), always consumes the second draw for the victim index, and nulls `moved` when the winner's roster is already at `ROSTER_CAP`. Marked the "no bot/cooldown here" ceiling with a `ponytail:` comment.
+- `tests/collection.test.ts` — 4 new cases (14 total in the file, 375 repo-wide), using a `seq(...)` stub Rng for the deterministic cases and a `counting(...)` wrapper for the draw count.
+- Gates: `npm test && npm run lint && npm run typecheck` all exit 0; the task's AC line exits 0.
