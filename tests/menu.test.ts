@@ -7,12 +7,16 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DEFAULT_SAVE, parseSave } from '../src/core/index.js';
 import type { CollectionAction, SaveFile } from '../src/core/index.js';
 import type {
+  Companion,
   IdentityPayload,
   LeaderboardResult,
   MatchResult,
   NetResult,
   PvpResult,
+  ReclaimResult,
   Theft,
+  TheftsResult,
+  WireBlow,
 } from '../src/shared/api.js';
 import { monsterSprites, paletteForTier } from '../src/renderer/sprites/index.js';
 import type { SpriteCanvas } from '../src/renderer/sprites/index.js';
@@ -109,6 +113,14 @@ class FakeDoc implements MenuDocument {
       'result',
       'name',
       'battle-go',
+      'find',
+      'opponent',
+      'party',
+      'picks',
+      'auto',
+      'save-party',
+      'preview',
+      'thefts',
     ])) {
       this.byId.set(`#${id}`, new FakeEl('div'));
     }
@@ -135,7 +147,10 @@ class FakeDoc implements MenuDocument {
 interface NetState {
   identity: IdentityPayload;
   leaderboard: NetResult<LeaderboardResult>;
+  match: NetResult<MatchResult>;
   pvp: NetResult<PvpResult>;
+  thefts: NetResult<TheftsResult>;
+  reclaim: NetResult<ReclaimResult>;
 }
 
 interface FakeBridge {
@@ -185,6 +200,20 @@ const MATCH: MatchResult = {
   opponent: { name: 'Bo', bestIndex: 40, rebirths: 0, party: OPP_PARTY },
   expiresAt: 120_000,
 };
+// The deterministic replay the server hands back with a v3 verdict (F66).
+const BLOWS: WireBlow[] = [
+  { side: 'A', actorId: 'c2', targetId: 'o1', damage: '623920', ko: true },
+  { side: 'D', actorId: 'o2', targetId: 'c2', damage: '12', ko: false },
+];
+/** A win against the previewed MATCH opponent, with its replay and a steal. */
+const REPLAY_WON: PvpResult = {
+  ...WON,
+  opponent: MATCH.opponent,
+  blows: BLOWS,
+  removed: ['c3'],
+};
+/** What `reclaim` hands back — the server already re-id'd it. */
+const RECLAIMED: Companion = { id: 'r5', speciesId: 'slime', bossIndex: 15, level: 4, stars: 1 };
 const NOW = 1_000_000;
 const THEFT: Theft = {
   id: 't1',
@@ -240,9 +269,22 @@ function makeBridge(net: Partial<NetState> = {}): FakeBridge {
           net.leaderboard ?? { ok: true, value: { top: TOP, me: ME, removed: [] } },
         );
       },
-      pvp(): Promise<NetResult<PvpResult>> {
-        calls.push('pvp');
+      pvpMatch(): Promise<NetResult<MatchResult>> {
+        calls.push('pvpMatch');
+        return Promise.resolve(net.match ?? { ok: true, value: MATCH });
+      },
+      pvp(matchId, party): Promise<NetResult<PvpResult>> {
+        // The match id and the picked party are what step 2 must carry.
+        calls.push(`pvp:${matchId}:${party.join(',')}`);
         return Promise.resolve(net.pvp ?? { ok: true, value: WON });
+      },
+      thefts(): Promise<NetResult<TheftsResult>> {
+        calls.push('thefts');
+        return Promise.resolve(net.thefts ?? { ok: true, value: { thefts: [] } });
+      },
+      reclaim(theftId): Promise<NetResult<ReclaimResult>> {
+        calls.push(`reclaim:${theftId}`);
+        return Promise.resolve(net.reclaim ?? { ok: true, value: { companion: RECLAIMED } });
       },
     },
   };
@@ -289,6 +331,13 @@ function button(doc: FakeDoc, card: number, n: number): FakeEl {
   return el;
 }
 
+/** The `n`-th `.btn` (or `.pick`) inside a panel, re-queried after a render. */
+function child(el: FakeEl, className: string, n: number): FakeEl {
+  const found = el.find(className)[n];
+  if (!found) throw new Error(`no .${className} ${String(n)}`);
+  return found;
+}
+
 describe('menu view-model', () => {
   it('rosterRows lists companions with power in letter-suffix format sorted by power', () => {
     const rows = rosterRows(saveWith(COMPANIONS));
@@ -323,7 +372,8 @@ describe('menu page', () => {
 
   it('menu page paints each companion card with the species sprite', () => {
     const { doc } = mounted();
-    const canvases = doc.created.filter((el) => el.tag === 'canvas');
+    // Roster cards only — the Battle tab paints the same art in its minis.
+    const canvases = doc.el('roster').find('species');
     expect(canvases).toHaveLength(3);
     for (const canvas of canvases) {
       expect(canvas.className).toBe('species');
@@ -439,10 +489,11 @@ describe('menu ranking and battle', () => {
       'Cooldown',
     );
 
-    // An offline identity answers both tabs without touching the network.
+    // An offline identity answers both tabs without touching the network —
+    // Battle answers on `Find opponent`, the step that would call the server.
     const { doc, fake } = mounted(saveWith(COMPANIONS), { identity: OFFLINE });
     doc.el('tab-ranking').click();
-    doc.el('battle-go').click();
+    doc.el('find').click();
     await flush();
     expect(fake.calls).toEqual(['getIdentity']);
     expect(texts(doc.el('ranking'), 'name')).toEqual(['Offline']);
@@ -479,7 +530,11 @@ describe('menu ranking and battle', () => {
     await flush();
     expect(fake.calls).toEqual(['getIdentity']);
 
+    // With companions but no match found yet the button is still dead (F75).
     fake.emit(saveWith(COMPANIONS));
+    expect(go.disabled).toBe(true);
+    doc.el('find').click();
+    await flush();
     expect(go.disabled).toBe(false);
     go.click();
     await flush();
@@ -490,28 +545,162 @@ describe('menu ranking and battle', () => {
     expect([go.textContent, go.disabled]).toEqual(['Battle! (1s)', true]);
     vi.advanceTimersByTime(1000);
     expect([go.textContent, go.disabled]).toEqual(['Battle!', false]);
-    expect(fake.calls).toEqual(['getIdentity', 'pvp']);
+    expect(fake.calls).toEqual(['getIdentity', 'pvpMatch', 'pvp:m1:c2,c3,c1']);
   });
 
   it('a successful pvp is forwarded to the game as a pvpResult action', async () => {
     const win = mounted(saveWith(COMPANIONS), {
       pvp: { ok: true, value: { ...WON, removed: ['c3'] } },
     });
+    win.doc.el('find').click();
+    await flush();
     win.doc.el('battle-go').click();
     await flush();
     // removeCompanions goes FIRST — the server already took c3 away.
     expect(win.fake.actions).toEqual([
       { type: 'removeCompanions', ids: ['c3'] },
-      { type: 'pvpResult', won: true, stolen: STOLEN, lostId: null },
+      {
+        type: 'pvpResult',
+        won: true,
+        stolen: STOLEN,
+        lostId: null,
+        replay: { opponentName: 'Bo', opponentParty: [], blows: [] },
+      },
     ]);
     expect(win.doc.el('result').textContent).toBe('Victory over Bo — stole Dragon Lv 10!');
 
     const loss = mounted(saveWith(COMPANIONS), { pvp: { ok: true, value: LOST } });
+    loss.doc.el('find').click();
+    await flush();
     loss.doc.el('battle-go').click();
     await flush();
+    // v3 steals are attacker-only: a defeat never reports a lost companion.
     expect(loss.fake.actions).toEqual([
-      { type: 'pvpResult', won: false, stolen: null, lostId: 'c1' },
+      {
+        type: 'pvpResult',
+        won: false,
+        stolen: null,
+        lostId: null,
+        replay: { opponentName: 'Bo', opponentParty: [], blows: [] },
+      },
     ]);
+  });
+
+  it('a successful battle forwards removeCompanions then pvpResult with the replay to the game', async () => {
+    const { doc, fake } = mounted(saveWith(COMPANIONS), {
+      pvp: { ok: true, value: REPLAY_WON },
+      thefts: { ok: true, value: { thefts: [] } },
+    });
+    doc.el('find').click();
+    await flush();
+    // Step 1 previews the opponent and its party, biggest member first.
+    expect(texts(doc.el('opponent'), 'name')).toEqual(['Bo', 'Golem Lv 2', 'Slime Lv 4']);
+    // …and the preview line re-reads against that opponent's front member.
+    expect(doc.el('preview').textContent).toBe('Σ vs opponent: 316A');
+
+    doc.el('battle-go').click();
+    await flush();
+    // Step 2 carries the match id and the picked party…
+    expect(fake.calls).toEqual(['getIdentity', 'pvpMatch', 'pvp:m1:c2,c3,c1', 'thefts']);
+    // …and the game hears the roster loss BEFORE the verdict it animates.
+    expect(fake.actions).toEqual([
+      { type: 'removeCompanions', ids: ['c3'] },
+      {
+        type: 'pvpResult',
+        won: true,
+        stolen: STOLEN,
+        lostId: null,
+        replay: { opponentName: 'Bo', opponentParty: OPP_PARTY, blows: BLOWS },
+      },
+    ]);
+    expect(doc.el('result').textContent).toBe('Victory over Bo — stole Dragon Lv 10!');
+    // The match is spent: the panel asks for a new opponent.
+    expect(texts(doc.el('opponent'), 'name')).toEqual(['No opponent yet']);
+    expect(doc.el('battle-go').disabled).toBe(true);
+  });
+
+  it('an expired match clears the opponent panel', async () => {
+    const { doc, fake } = mounted(saveWith(COMPANIONS), { pvp: { ok: false, error: 'expired' } });
+    doc.el('find').click();
+    await flush();
+    expect(texts(doc.el('opponent'), 'name')).toEqual(['Bo', 'Golem Lv 2', 'Slime Lv 4']);
+
+    doc.el('battle-go').click();
+    await flush();
+    expect(texts(doc.el('opponent'), 'name')).toEqual(['Opponent expired — find again']);
+    expect(doc.el('battle-go').disabled).toBe(true);
+    // Nothing happened to the roster, so the game hears nothing.
+    expect(fake.actions).toEqual([]);
+  });
+
+  it('a successful reclaim forwards addCompanion to the game and refreshes the inbox', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(NOW);
+    const { doc, fake } = mounted(saveWith(COMPANIONS), {
+      thefts: { ok: true, value: { thefts: [THEFT] } },
+    });
+    // The inbox loads when the Battle tab opens.
+    doc.el('tab-battle').click();
+    await flush();
+    expect(texts(doc.el('thefts'), 'name')).toEqual(['Ada stole Slime Lv 4 · 2h 30m left']);
+
+    child(doc.el('thefts'), 'btn', 0).click();
+    await flush();
+    expect(fake.actions).toEqual([{ type: 'addCompanion', companion: RECLAIMED }]);
+    expect(fake.calls).toEqual(['getIdentity', 'thefts', 'reclaim:t1', 'thefts']);
+
+    // A window that closed drops the row and says why; nothing is forwarded.
+    const late = mounted(saveWith(COMPANIONS), {
+      thefts: { ok: true, value: { thefts: [THEFT] } },
+      reclaim: { ok: false, error: 'expired' },
+    });
+    late.doc.el('tab-battle').click();
+    await flush();
+    child(late.doc.el('thefts'), 'btn', 0).click();
+    await flush();
+    expect(late.doc.el('thefts').find('row')).toHaveLength(0);
+    expect(late.doc.el('result').textContent).toBe('Too late — the reclaim window closed.');
+    expect(late.fake.actions).toEqual([]);
+  });
+
+  it('roster cards show a type badge and a PvP mark for party members', () => {
+    const save = parseSave({ ...DEFAULT_SAVE, companions: COMPANIONS, pvpParty: ['c1'] });
+    const { doc } = mounted(save);
+    const cards = doc.el('roster').find('card');
+    // Cards are power-sorted: dragon (fire), slime, slime (both water).
+    expect(cards.map((c) => c.find('type')[0]?.className)).toEqual([
+      'type type-fire',
+      'type type-water',
+      'type type-water',
+    ]);
+    expect(cards.map((c) => c.find('type')[0]?.textContent)).toEqual(['F', 'A', 'A']);
+    // Only the saved party member is marked, and c1 is the last card.
+    expect(cards.map((c) => c.find('pvp-mark').length)).toEqual([0, 0, 1]);
+    expect(doc.el('roster').find('pvp-mark')[0]?.textContent).toBe('★ PvP');
+  });
+
+  it('the party editor picks, auto-fills and saves the pvp party', () => {
+    const { doc, fake } = mounted();
+    // No saved party yet, so the five slots start on the auto party.
+    expect(doc.el('party').find('slot')).toHaveLength(5);
+    expect(texts(doc.el('party'), 'name')).toEqual(['Dragon Lv 10', 'Slime Lv 2', 'Slime Lv 4']);
+    // No opponent loaded yet, so the preview is the raw sum of the picks.
+    expect(doc.el('preview').textContent).toBe('Σ vs opponent: 628A');
+    expect(doc.el('picks').find('pick').map((p) => p.className)).toEqual([
+      'card mini pick selected',
+      'card mini pick selected',
+      'card mini pick selected',
+    ]);
+
+    // Un-picking a card drops it from the slots and from what Save sends.
+    child(doc.el('picks'), 'pick', 0).click();
+    expect(texts(doc.el('party'), 'name')).toEqual(['Dragon Lv 10', 'Slime Lv 2']);
+    expect(child(doc.el('picks'), 'pick', 0).className).toBe('card mini pick');
+    doc.el('save-party').click();
+    expect(fake.actions).toEqual([{ type: 'setPvpParty', ids: ['c2', 'c3'] }]);
+
+    doc.el('auto').click();
+    expect(texts(doc.el('party'), 'name')).toEqual(['Dragon Lv 10', 'Slime Lv 2', 'Slime Lv 4']);
   });
 
   it('the name field shows the identity and setName caps it at 16 characters', async () => {
