@@ -1,0 +1,19 @@
+
+> desmon@0.3.0 package
+> npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac
+
+
+> desmon@0.3.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+  • electron-builder  version=26.15.3 os=25.2.0
+  • loaded configuration  file=package.json ("build" field)
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=darwin arch=arm64 electron=39.8.10 appOutDir=release/mac-arm64
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64
+  • searching for node modules  pm=npm searchDir=/Users/jeongyounglee/work/repo/desktop-monster
+  • default Electron icon is used  reason=application icon is not set
+  • skipped macOS code signing  reason=identity explicitly is set to null
+  • building        target=DMG arch=arm64 file=release/DesMon-0.3.0-arm64.dmg
+  • building block map  blockMapFile=release/DesMon-0.3.0-arm64.dmg.blockmap

@@ -1,0 +1,694 @@
+# stage-3 SPEC sweep (validator, 2026-09-03T17:35:39Z) — one generated bash script per row, body = AC verbatim
+spec-F01 rc=0 15s
+spec-F02 rc=0 2s
+spec-F03 rc=0 0s
+spec-F04 rc=0 4s
+spec-F05 rc=0 1s
+spec-F06 rc=0 3s
+spec-F07 rc=0 3s
+spec-F08 rc=0 1s
+spec-F09 rc=0 2s
+spec-F10 rc=0 2s
+spec-F11 rc=0 1s
+spec-F12 rc=0 2s
+spec-F13 rc=0 0s
+spec-F14 rc=0 1s
+spec-F15 rc=0 1s
+spec-F16 rc=0 0s
+spec-F17 rc=0 0s
+spec-F18 rc=0 6s
+spec-F19 rc=0 3s
+spec-F20 rc=0 3s
+spec-F21 rc=0 4s
+spec-F22 rc=0 1s
+spec-F23 rc=0 0s
+spec-F24 rc=0 0s
+spec-F25 rc=0 19s
+spec-F26 rc=0 0s
+spec-F27 rc=0 0s
+spec-F28 rc=0 1s
+spec-F29 rc=0 2s
+spec-F30 rc=0 1s
+spec-F31 rc=0 1s
+spec-F32 rc=0 1s
+spec-F33 rc=0 1s
+spec-F34 rc=0 1s
+spec-F35 rc=0 2s
+spec-F36 rc=0 5s
+spec-F37 rc=0 1s
+spec-F38 rc=0 1s
+spec-F39 rc=0 1s
+spec-F40 rc=0 1s
+spec-F41 rc=0 2s
+spec-F42 rc=0 1s
+spec-F43 rc=0 11s
+spec-F44 rc=0 24s
+spec-F45 rc=0 2s
+spec-F46 rc=0 10s
+spec-F47 rc=0 1s
+spec-F48 rc=0 1s
+spec-F49 rc=0 8s
+spec-F50 rc=0 3s
+spec-F51 rc=0 2s
+spec-F52 rc=0 6s
+spec-F53 rc=0 6s
+spec-F54 rc=0 2s
+spec-F55 rc=0 1s
+spec-F56 rc=0 1s
+spec-F57 rc=0 1s
+spec-F58 rc=0 24s
+spec-F59 rc=0 1s
+spec-F60 rc=0 2s
+spec-F61 rc=0 1s
+spec-F62 rc=0 2s
+spec-F63 rc=0 1s
+spec-F64 rc=0 5s
+spec-F65 rc=0 2s
+spec-F66 rc=0 5s
+spec-F67 rc=0 0s
+spec-F68 rc=0 2s
+spec-F69 rc=0 1s
+spec-F70 rc=0 1s
+spec-F71 rc=0 1s
+spec-F72 rc=0 2s
+spec-F73 rc=0 2s
+spec-F74 rc=0 5s
+spec-F75 rc=0 2s
+spec-F76 rc=0 1s
+spec-F77 rc=0 2s
+spec-F78 rc=0 0s
+spec-F79 rc=0 23s
+spec-F80 rc=0 17s
+api-01 rc=0 1s
+api-02 rc=0 0s
+api-03 rc=0 4s
+api-04 rc=0 1s
+api-05 rc=0 2s
+api-06 rc=0 8s
+api-07 rc=0 0s
+api-08 rc=0 1s
+api-09 rc=0 1s
+api-10 rc=0 1s
+api-11 rc=0 1s
+api-12 rc=0 1s
+api-13 rc=0 1s
+api-14 rc=0 1s
+api-15 rc=0 1s
+api-16 rc=0 1s
+api-17 rc=0 1s
+deploy-skipnet rc=0 0s
+===== spec-F01 =====
+
+> desmon@0.3.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.3.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+===== spec-F02 =====
+
+> desmon@0.3.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+===== spec-F03 =====
+===== spec-F04 =====
+
+ ✓ tests/formulas.test.ts (13 tests) 14ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  02:30:30
+   Duration  402ms (transform 78ms, setup 0ms, collect 92ms, tests 14ms, environment 0ms, prepare 53ms)
+
+===== spec-F05 =====
+      Tests  1 passed | 12 skipped (13)
+===== spec-F06 =====
+      Tests  1 passed | 29 skipped (30)
+      Tests  1 passed | 29 skipped (30)
+===== spec-F07 =====
+      Tests  1 passed | 29 skipped (30)
+      Tests  1 passed | 29 skipped (30)
+      Tests  1 passed | 29 skipped (30)
+===== spec-F08 =====
+      Tests  1 passed | 29 skipped (30)
+===== spec-F09 =====
+      Tests  1 passed | 10 skipped (11)
+      Tests  1 passed | 10 skipped (11)
+===== spec-F10 =====
+      Tests  1 passed | 12 skipped (13)
+      Tests  1 passed | 12 skipped (13)
+===== spec-F11 =====
+      Tests  1 passed | 29 skipped (30)
+===== spec-F12 =====
+ ✓ tests/input.test.ts (9 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  02:30:44
+   Duration  352ms (transform 75ms, setup 0ms, collect 88ms, tests 5ms, environment 0ms, prepare 38ms)
+
+      Tests  1 passed | 8 skipped (9)
+===== spec-F13 =====
+===== spec-F14 =====
+      Tests  1 passed | 8 skipped (9)
+===== spec-F15 =====
+
+ ✓ tests/drag.test.ts (7 tests) 2ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  02:30:47
+   Duration  328ms (transform 54ms, setup 0ms, collect 40ms, tests 2ms, environment 0ms, prepare 67ms)
+
+===== spec-F16 =====
+===== spec-F17 =====
+===== spec-F18 =====
+===== spec-F19 =====
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  02:30:55
+   Duration  626ms (transform 164ms, setup 0ms, collect 194ms, tests 28ms, environment 0ms, prepare 100ms)
+
+      Tests  1 passed | 30 skipped (31)
+      Tests  1 passed | 30 skipped (31)
+===== spec-F20 =====
+      Tests  1 passed | 11 skipped (12)
+      Tests  1 passed | 11 skipped (12)
+      Tests  1 passed | 11 skipped (12)
+===== spec-F21 =====
+===== spec-F22 =====
+
+ ✓ tests/save.test.ts (13 tests) 9ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  02:31:05
+   Duration  364ms (transform 84ms, setup 0ms, collect 92ms, tests 9ms, environment 0ms, prepare 59ms)
+
+===== spec-F23 =====
+===== spec-F24 =====
+===== spec-F25 =====
+  • packaging       platform=darwin arch=arm64 electron=39.8.10 appOutDir=release/mac-arm64
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64
+  • searching for node modules  pm=npm searchDir=/Users/jeongyounglee/work/repo/desktop-monster
+  • default Electron icon is used  reason=application icon is not set
+  • skipped macOS code signing  reason=identity explicitly is set to null
+  • building        target=DMG arch=arm64 file=release/DesMon-0.3.0-arm64.dmg
+  • building block map  blockMapFile=release/DesMon-0.3.0-arm64.dmg.blockmap
+===== spec-F26 =====
+===== spec-F27 =====
+===== spec-F28 =====
+
+ ✓ tests/bignum.test.ts (7 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  02:31:25
+   Duration  308ms (transform 81ms, setup 0ms, collect 85ms, tests 3ms, environment 0ms, prepare 55ms)
+
+===== spec-F29 =====
+ ✓ tests/audio.test.ts (15 tests) 12ms
+ ✓ tests/renderer.test.ts (91 tests) 60ms
+
+ Test Files  5 passed (5)
+      Tests  159 passed (159)
+   Start at  02:31:26
+   Duration  550ms (transform 353ms, setup 0ms, collect 882ms, tests 161ms, environment 0ms, prepare 278ms)
+
+===== spec-F30 =====
+ ✓ tests/audio.test.ts (15 tests) 11ms
+ ✓ tests/renderer.test.ts (91 tests) 65ms
+
+ Test Files  5 passed (5)
+      Tests  162 passed (162)
+   Start at  02:31:27
+   Duration  501ms (transform 312ms, setup 0ms, collect 817ms, tests 153ms, environment 0ms, prepare 274ms)
+
+===== spec-F31 =====
+ ✓ tests/engine.test.ts (30 tests) 57ms
+ ✓ tests/loot.test.ts (11 tests) 228ms
+
+ Test Files  3 passed (3)
+      Tests  54 passed (54)
+   Start at  02:31:28
+   Duration  594ms (transform 154ms, setup 0ms, collect 361ms, tests 299ms, environment 0ms, prepare 196ms)
+
+===== spec-F32 =====
+
+ ✓ tests/collection.test.ts (21 tests) 132ms
+
+ Test Files  1 passed (1)
+      Tests  21 passed (21)
+   Start at  02:31:29
+   Duration  639ms (transform 104ms, setup 0ms, collect 115ms, tests 132ms, environment 0ms, prepare 50ms)
+
+===== spec-F33 =====
+ ✓ tests/engine.test.ts (30 tests) 55ms
+ ✓ tests/collection.test.ts (21 tests) 136ms
+
+ Test Files  2 passed (2)
+      Tests  51 passed (51)
+   Start at  02:31:31
+   Duration  551ms (transform 158ms, setup 0ms, collect 256ms, tests 192ms, environment 0ms, prepare 128ms)
+
+===== spec-F34 =====
+ ✓ tests/fever.test.ts (4 tests) 8ms
+ ✓ tests/engine.test.ts (30 tests) 52ms
+
+ Test Files  2 passed (2)
+      Tests  34 passed (34)
+   Start at  02:31:32
+   Duration  414ms (transform 124ms, setup 0ms, collect 207ms, tests 60ms, environment 0ms, prepare 100ms)
+
+===== spec-F35 =====
+
+ ✓ tests/engine.test.ts (30 tests) 53ms
+
+ Test Files  1 passed (1)
+      Tests  30 passed (30)
+   Start at  02:31:33
+   Duration  461ms (transform 130ms, setup 0ms, collect 150ms, tests 53ms, environment 0ms, prepare 61ms)
+
+===== spec-F36 =====
+ ✓ tests/audio.test.ts (15 tests) 12ms
+ ✓ tests/renderer.test.ts (91 tests) 72ms
+
+ Test Files  3 passed (3)
+      Tests  112 passed (112)
+   Start at  02:31:34
+   Duration  510ms (transform 230ms, setup 0ms, collect 542ms, tests 89ms, environment 0ms, prepare 159ms)
+
+===== spec-F37 =====
+ ✓ tests/battle.test.ts (4 tests) 4ms
+ ✓ tests/collection.test.ts (21 tests) 142ms
+
+ Test Files  2 passed (2)
+      Tests  25 passed (25)
+   Start at  02:31:39
+   Duration  695ms (transform 195ms, setup 0ms, collect 328ms, tests 146ms, environment 0ms, prepare 214ms)
+
+===== spec-F38 =====
+
+ ✓ tests/sprites.test.ts (31 tests) 15ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  02:31:41
+   Duration  475ms (transform 124ms, setup 0ms, collect 148ms, tests 15ms, environment 1ms, prepare 59ms)
+
+===== spec-F39 =====
+ ✓ tests/anim.test.ts (14 tests) 7ms
+ ✓ tests/effects.test.ts (6 tests) 5ms
+
+ Test Files  2 passed (2)
+      Tests  20 passed (20)
+   Start at  02:31:42
+   Duration  390ms (transform 155ms, setup 0ms, collect 259ms, tests 13ms, environment 0ms, prepare 127ms)
+
+===== spec-F40 =====
+
+ ✓ tests/sprites.test.ts (31 tests) 17ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  02:31:43
+   Duration  452ms (transform 118ms, setup 0ms, collect 149ms, tests 17ms, environment 0ms, prepare 56ms)
+
+===== spec-F41 =====
+ ✓ tests/sprites.test.ts (31 tests) 24ms
+ ✓ tests/renderer.test.ts (91 tests) 65ms
+
+ Test Files  2 passed (2)
+      Tests  122 passed (122)
+   Start at  02:31:44
+   Duration  542ms (transform 246ms, setup 0ms, collect 416ms, tests 89ms, environment 0ms, prepare 117ms)
+
+===== spec-F42 =====
+
+ ✓ tests/sprites.test.ts (31 tests) 17ms
+
+ Test Files  1 passed (1)
+      Tests  31 passed (31)
+   Start at  02:31:45
+   Duration  431ms (transform 131ms, setup 0ms, collect 167ms, tests 17ms, environment 0ms, prepare 64ms)
+
+===== spec-F43 =====
+   Duration  1.15s (transform 248ms, setup 0ms, collect 352ms, tests 53ms, environment 0ms, prepare 465ms)
+
+
+> desmon@0.3.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+[desmon-server] DATABASE_URL unset — using MemoryStore (data is lost on restart)
+[desmon-server] listening on :47831 store=memory sha=dev
+===== spec-F44 =====
+      Tests  18 passed (18)
+   Start at  02:31:58
+   Duration  3.20s (transform 1.38s, setup 0ms, collect 1.89s, tests 108ms, environment 0ms, prepare 329ms)
+
+
+> desmon@0.3.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+===== spec-F45 =====
+
+ ✓ tests/server/pvp.test.ts (14 tests) 22ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  02:32:22
+   Duration  724ms (transform 225ms, setup 0ms, collect 262ms, tests 22ms, environment 0ms, prepare 117ms)
+
+===== spec-F46 =====
+
+> desmon@0.3.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+
+> desmon@0.3.0 lint
+> eslint . --max-warnings 0
+
+===== spec-F47 =====
+
+ ✓ tests/identity.test.ts (8 tests) 20ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  02:32:33
+   Duration  495ms (transform 117ms, setup 0ms, collect 99ms, tests 20ms, environment 0ms, prepare 87ms)
+
+===== spec-F48 =====
+
+ ✓ tests/net.test.ts (16 tests) 39ms
+
+ Test Files  1 passed (1)
+      Tests  16 passed (16)
+   Start at  02:32:35
+   Duration  612ms (transform 104ms, setup 0ms, collect 100ms, tests 39ms, environment 0ms, prepare 84ms)
+
+===== spec-F49 =====
+ ✓ tests/ipc.test.ts (56 tests) 15ms
+ ✓ tests/renderer.test.ts (91 tests) 87ms
+
+ Test Files  2 passed (2)
+      Tests  147 passed (147)
+   Start at  02:32:36
+   Duration  1.10s (transform 487ms, setup 0ms, collect 764ms, tests 103ms, environment 0ms, prepare 238ms)
+
+===== spec-F50 =====
+
+> desmon@0.3.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+===== spec-F51 =====
+ ✓ tests/ipc.test.ts (56 tests) 13ms
+ ✓ tests/renderer.test.ts (91 tests) 72ms
+
+ Test Files  2 passed (2)
+      Tests  147 passed (147)
+   Start at  02:32:47
+   Duration  876ms (transform 464ms, setup 0ms, collect 545ms, tests 85ms, environment 0ms, prepare 186ms)
+
+===== spec-F52 =====
+ ✓ tests/ipc.test.ts (56 tests) 9ms
+ ✓ tests/tray.test.ts (37 tests) 15ms
+
+ Test Files  3 passed (3)
+      Tests  122 passed (122)
+   Start at  02:32:48
+   Duration  615ms (transform 224ms, setup 0ms, collect 290ms, tests 32ms, environment 0ms, prepare 444ms)
+
+===== spec-F53 =====
+
+ ✓ tests/renderer.test.ts (91 tests) 79ms
+
+ Test Files  1 passed (1)
+      Tests  91 passed (91)
+   Start at  02:32:55
+   Duration  969ms (transform 373ms, setup 0ms, collect 465ms, tests 79ms, environment 0ms, prepare 128ms)
+
+===== spec-F54 =====
+
+ ✓ tests/menu.test.ts (23 tests) 43ms
+
+ Test Files  1 passed (1)
+      Tests  23 passed (23)
+   Start at  02:33:01
+   Duration  852ms (transform 300ms, setup 0ms, collect 413ms, tests 43ms, environment 0ms, prepare 147ms)
+
+===== spec-F55 =====
+
+ ✓ tests/menu.test.ts (23 tests) 30ms
+
+ Test Files  1 passed (1)
+      Tests  23 passed (23)
+   Start at  02:33:02
+   Duration  727ms (transform 242ms, setup 0ms, collect 313ms, tests 30ms, environment 0ms, prepare 106ms)
+
+===== spec-F56 =====
+===== spec-F57 =====
+ ✓ tests/packaging.test.ts (16 tests) 14ms
+ ✓ tests/tray.test.ts (37 tests) 16ms
+
+ Test Files  2 passed (2)
+      Tests  53 passed (53)
+   Start at  02:33:04
+   Duration  547ms (transform 161ms, setup 0ms, collect 217ms, tests 30ms, environment 1ms, prepare 190ms)
+
+===== spec-F58 =====
+  • packaging       platform=darwin arch=arm64 electron=39.8.10 appOutDir=release/mac-arm64
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64
+  • searching for node modules  pm=npm searchDir=/Users/jeongyounglee/work/repo/desktop-monster
+  • default Electron icon is used  reason=application icon is not set
+  • skipped macOS code signing  reason=identity explicitly is set to null
+  • building        target=DMG arch=arm64 file=release/DesMon-0.3.0-arm64.dmg
+  • building block map  blockMapFile=release/DesMon-0.3.0-arm64.dmg.blockmap
+===== spec-F59 =====
+ ✓ tests/typeChart.test.ts (4 tests) 7ms
+ ✓ tests/formulas.test.ts (13 tests) 21ms
+
+ Test Files  2 passed (2)
+      Tests  17 passed (17)
+   Start at  02:33:29
+   Duration  537ms (transform 198ms, setup 0ms, collect 361ms, tests 29ms, environment 0ms, prepare 178ms)
+
+===== spec-F60 =====
+ ✓ tests/engine.test.ts (30 tests) 73ms
+ ✓ tests/renderer.test.ts (91 tests) 114ms
+
+ Test Files  4 passed (4)
+      Tests  144 passed (144)
+   Start at  02:33:31
+   Duration  917ms (transform 674ms, setup 0ms, collect 1.06s, tests 213ms, environment 0ms, prepare 446ms)
+
+===== spec-F61 =====
+
+ ✓ tests/collection.test.ts (21 tests) 131ms
+
+ Test Files  1 passed (1)
+      Tests  21 passed (21)
+   Start at  02:33:32
+   Duration  698ms (transform 152ms, setup 0ms, collect 183ms, tests 131ms, environment 0ms, prepare 60ms)
+
+===== spec-F62 =====
+ ✓ tests/battle.test.ts (4 tests) 8ms
+ ✓ tests/collection.test.ts (21 tests) 156ms
+
+ Test Files  2 passed (2)
+      Tests  25 passed (25)
+   Start at  02:33:34
+   Duration  757ms (transform 207ms, setup 0ms, collect 348ms, tests 164ms, environment 0ms, prepare 299ms)
+
+===== spec-F63 =====
+ ✓ tests/engine.test.ts (30 tests) 71ms
+ ✓ tests/collection.test.ts (21 tests) 158ms
+
+ Test Files  3 passed (3)
+      Tests  55 passed (55)
+   Start at  02:33:35
+   Duration  719ms (transform 293ms, setup 0ms, collect 598ms, tests 239ms, environment 0ms, prepare 250ms)
+
+===== spec-F64 =====
+ ✓ tests/sprites.test.ts (31 tests) 16ms
+ ✓ tests/renderer.test.ts (91 tests) 57ms
+
+ Test Files  4 passed (4)
+      Tests  158 passed (158)
+   Start at  02:33:37
+   Duration  538ms (transform 346ms, setup 0ms, collect 550ms, tests 82ms, environment 0ms, prepare 254ms)
+
+===== spec-F65 =====
+ ✓ tests/sprites.test.ts (31 tests) 20ms
+ ✓ tests/renderer.test.ts (91 tests) 77ms
+
+ Test Files  2 passed (2)
+      Tests  122 passed (122)
+   Start at  02:33:42
+   Duration  660ms (transform 365ms, setup 0ms, collect 525ms, tests 97ms, environment 0ms, prepare 148ms)
+
+===== spec-F66 =====
+
+ ✓ tests/renderer.test.ts (91 tests) 65ms
+
+ Test Files  1 passed (1)
+      Tests  91 passed (91)
+   Start at  02:33:43
+   Duration  755ms (transform 269ms, setup 0ms, collect 340ms, tests 65ms, environment 0ms, prepare 123ms)
+
+===== spec-F67 =====
+===== spec-F68 =====
+ ✓ tests/server/pvp.test.ts (14 tests) 16ms
+ ✓ tests/server/app.test.ts (18 tests) 19ms
+
+ Test Files  2 passed (2)
+      Tests  32 passed (32)
+   Start at  02:33:49
+   Duration  638ms (transform 254ms, setup 0ms, collect 467ms, tests 35ms, environment 0ms, prepare 159ms)
+
+===== spec-F69 =====
+
+ ✓ tests/server/pvp.test.ts (14 tests) 22ms
+
+ Test Files  1 passed (1)
+      Tests  14 passed (14)
+   Start at  02:33:50
+   Duration  608ms (transform 196ms, setup 0ms, collect 222ms, tests 22ms, environment 0ms, prepare 120ms)
+
+===== spec-F70 =====
+
+ ✓ tests/server/app.test.ts (18 tests) 20ms
+
+ Test Files  1 passed (1)
+      Tests  18 passed (18)
+   Start at  02:33:51
+   Duration  550ms (transform 156ms, setup 0ms, collect 184ms, tests 20ms, environment 0ms, prepare 110ms)
+
+===== spec-F71 =====
+
+ ✓ tests/server/pgStore.test.ts (22 tests) 6ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  02:33:53
+   Duration  410ms (transform 64ms, setup 0ms, collect 51ms, tests 6ms, environment 0ms, prepare 76ms)
+
+===== spec-F72 =====
+ ✓ tests/identity.test.ts (8 tests) 18ms
+ ✓ tests/net.test.ts (16 tests) 42ms
+
+ Test Files  2 passed (2)
+      Tests  24 passed (24)
+   Start at  02:33:54
+   Duration  533ms (transform 192ms, setup 0ms, collect 198ms, tests 60ms, environment 0ms, prepare 163ms)
+
+===== spec-F73 =====
+ ✓ tests/ipc.test.ts (56 tests) 12ms
+ ✓ tests/renderer.test.ts (91 tests) 96ms
+
+ Test Files  2 passed (2)
+      Tests  147 passed (147)
+   Start at  02:33:56
+   Duration  986ms (transform 381ms, setup 0ms, collect 615ms, tests 107ms, environment 0ms, prepare 151ms)
+
+===== spec-F74 =====
+ ✓ tests/thefts.test.ts (5 tests) 8ms
+ ✓ tests/ipc.test.ts (56 tests) 13ms
+
+ Test Files  3 passed (3)
+      Tests  90 passed (90)
+   Start at  02:33:57
+   Duration  471ms (transform 200ms, setup 0ms, collect 264ms, tests 31ms, environment 0ms, prepare 274ms)
+
+===== spec-F75 =====
+ ✓ tests/tray.test.ts (37 tests) 38ms
+ ✓ tests/menu.test.ts (23 tests) 33ms
+
+ Test Files  3 passed (3)
+      Tests  89 passed (89)
+   Start at  02:34:02
+   Duration  882ms (transform 536ms, setup 0ms, collect 813ms, tests 80ms, environment 3ms, prepare 346ms)
+
+===== spec-F76 =====
+ ✓ tests/packaging.test.ts (16 tests) 11ms
+ ✓ tests/tray.test.ts (37 tests) 19ms
+
+ Test Files  2 passed (2)
+      Tests  53 passed (53)
+   Start at  02:34:04
+   Duration  496ms (transform 194ms, setup 0ms, collect 200ms, tests 30ms, environment 0ms, prepare 244ms)
+
+===== spec-F77 =====
+
+> desmon@0.3.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+===== spec-F78 =====
+===== spec-F79 =====
+  • packaging       platform=darwin arch=arm64 electron=39.8.10 appOutDir=release/mac-arm64
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64
+  • searching for node modules  pm=npm searchDir=/Users/jeongyounglee/work/repo/desktop-monster
+  • default Electron icon is used  reason=application icon is not set
+  • skipped macOS code signing  reason=identity explicitly is set to null
+  • building        target=DMG arch=arm64 file=release/DesMon-0.3.0-arm64.dmg
+  • building block map  blockMapFile=release/DesMon-0.3.0-arm64.dmg.blockmap
+===== spec-F80 =====
+
+> desmon@0.3.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.3.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+===== api-01 =====
+      Tests  1 passed | 8 skipped (9)
+===== api-02 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-03 =====
+      Tests  1 passed | 17 skipped (18)
+      Tests  1 passed | 17 skipped (18)
+      Tests  1 passed | 17 skipped (18)
+      Tests  1 passed | 17 skipped (18)
+===== api-04 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-05 =====
+      Tests  1 passed | 17 skipped (18)
+      Tests  1 passed | 17 skipped (18)
+===== api-06 =====
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+      Tests  1 passed | 13 skipped (14)
+===== api-07 =====
+      Tests  1 passed | 13 skipped (14)
+===== api-08 =====
+      Tests  1 passed | 13 skipped (14)
+===== api-09 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-10 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-11 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-12 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-13 =====
+      Tests  1 passed | 13 skipped (14)
+===== api-14 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-15 =====
+      Tests  1 passed | 8 skipped (9)
+      Tests  1 passed | 8 skipped (9)
+===== api-16 =====
+      Tests  1 passed | 17 skipped (18)
+===== api-17 =====
+      Tests  1 passed | 17 skipped (18)
+===== deploy-skipnet =====

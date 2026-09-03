@@ -1,0 +1,23 @@
+
+> desmon@0.3.0 package
+> npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac
+
+
+> desmon@0.3.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+  • electron-builder  version=26.15.3 os=25.2.0
+  • loaded configuration  file=package.json ("build" field)
+  • skipped dependencies rebuild  reason=npmRebuild is set to false
+  • packaging       platform=darwin arch=arm64 electron=39.8.10 appOutDir=release/mac-arm64
+  ⨯ read ECONNRESET  failedTask=build stackTrace=RequestError: read ECONNRESET
+    at ClientRequest.<anonymous> (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/got/dist/source/core/index.js:970:111)
+    at Object.onceWrapper (node:events:633:26)
+    at ClientRequest.emit (node:events:530:35)
+    at ClientRequest.origin.emit (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/@szmarczak/http-timer/dist/source/index.js:43:20)
+    at TLSSocket.socketErrorListener (node:_http_client:500:9)
+    at TLSSocket.emit (node:events:518:28)
+    at emitErrorNT (node:internal/streams/destroy:169:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)
+    at TLSWrap.onStreamRead (node:internal/stream_base_commons:217:20)
