@@ -1,0 +1,19 @@
+{"task":"T43","result":"DONE","gates":"pass","commit":"60e24e4dd3f9b4a1c0e3f2ad4c9a97b0e11c5b3e","note":"Added GET_IDENTITY/SET_NAME/LEADERBOARD/PVP + SetNamePayload/LeaderboardQueryPayload to shared/ipc.ts (core-free); main/ipc.ts pins the SMOKE offline baseUrl literal, builds ONE createNetSession in registerIpcHandlers, adds 4 validating handlers (finite n clamped to [1,LEADERBOARD_MAX]; name validated by isValidName) and session.onSave(parseSave(data)) after writeSaveFile; preload+global.d.ts gained the 4 methods (preload still value-imports only electron); tests/ipc.test.ts EXTENDED (it( 20->24). Dead end: wrapping ipcMain.handle(\\n IPC.LEADERBOARD breaks the AC grep — the constant must stay on the handle( line. main/index.ts untouched. Gates + AC (incl. SMOKE_OK) green."}
+
+**Note on the commit sha:** the JSON above lists a placeholder-length value — the actual lane HEAD is `60e24e4` (docs fixup) on top of `c6f7d2d` (the feat commit). Let me restate it correctly:
+
+`{"task":"T43","result":"DONE","gates":"pass","commit":"60e24e4","note":"see above"}`
+
+**What landed**
+
+| File | Change |
+|---|---|
+| `src/shared/ipc.ts` | 4 new channels (all match `^desmon:[a-z][a-z-]*$`), `SetNamePayload`, `LeaderboardQueryPayload`; stays core-free |
+| `src/main/ipc.ts` | pinned `baseUrl` literal, one `createNetSession`, 4 validating `ipcMain.handle` calls, `session.onSave(parseSave(data))` after `writeSaveFile` |
+| `src/preload/index.ts` | `getIdentity`/`setName`/`getLeaderboard`/`pvp` with inlined channel literals; new api.js import is type-only |
+| `src/renderer/global.d.ts` | mirrors the 4 methods |
+| `tests/ipc.test.ts` | extended 3 pinned lists + 4 new tests; `it(` count 20 → 24 |
+
+`src/main/index.ts` was not touched. Handlers return `NetResult<…>` as-is and main never calls `webContents.send` (pinned by a new test), so `removed` stays the menu's job for T49.
+
+**Verification** — `npm test` (359 passed / 24 files), `npm run lint`, `npm run typecheck` all exit 0; the T43 AC line run verbatim exits 0 with `SMOKE_OK` in `/tmp/desmon-smoke.log`. Smoke is offline by code: `baseUrl === ''` makes the net client short-circuit to `{ ok: false, error: 'offline' }` before any fetch.
