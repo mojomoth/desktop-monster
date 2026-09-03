@@ -44,7 +44,7 @@ RENDER_SERVICE_ID=srv-dacmju6k1f9s73csi2v0
 RENDER_POSTGRES_ID=dpg-dacd4k2jnfac73c43llg-a
 DB_CREATED=2026-09-03T01:50:08.492032Z
 DB_EXPIRES=2026-10-03
-DEPLOYED_SHA=23cf0cf8ab233332433e7345fa5bc4a2a3b3c75e
+DEPLOYED_SHA=3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2
 - v3: the live service is `desmon-server-v3`, built from branch `v3`; it shares the `desmon-db`
   Postgres (hence the unchanged `RENDER_POSTGRES_ID=`/`DB_CREATED=`/`DB_EXPIRES=`) with the v2
   service `desmon-server` (built from `main`), kept at `V2_SERVER_URL=` for reference only.
