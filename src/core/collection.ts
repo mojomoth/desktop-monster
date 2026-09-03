@@ -11,7 +11,7 @@ import type { MonsterType } from './types-chart.js';
 import type { Blow } from './battle.js';
 import type { Companion } from './save.js';
 import type { Rng } from './rng.js';
-import type { GameState } from './types.js';
+import type { GameState, PvpResultAction } from './types.js';
 
 /** A companion never levels past this (consume/reincarnate both cap here). */
 export const COMPANION_MAX_LEVEL = 10;
@@ -106,7 +106,7 @@ export type CollectionAction =
   | { type: 'addCompanion'; companion: Companion }
   | { type: 'removeCompanions'; ids: string[] }
   | { type: 'setPvpParty'; ids: string[] }
-  | { type: 'pvpResult'; won: boolean; stolen: Companion | null; lostId: string | null };
+  | PvpResultAction;
 
 export type CollectionResult =
   | { state: GameState; events: CollectionEvent[] }

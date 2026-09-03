@@ -18,6 +18,7 @@ import {
   xpToNext,
 } from '../src/core/index.js';
 import type {
+  BattleReplay,
   Companion,
   GameEvent,
   Rng,
@@ -520,17 +521,20 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       type: 'companionAttack',
       companionId: 'c2',
       speciesId: 'bat',
-      damage: 3n,
+      damage: 6n, // wind 3 x2 into water
+      effectiveness: 'super',
     });
-    // The rest keep swinging inside the SAME volley, at the next monster.
+    // The rest keep swinging inside the SAME volley, at the next monster —
+    // a wind bat, so they are re-typed against it (F63).
     expect(events[5]).toEqual({
       type: 'companionAttack',
       companionId: 'c1',
       speciesId: 'slime',
-      damage: 4n,
+      damage: 2n, // water 4 /2 into wind
+      effectiveness: 'weak',
     });
-    expect(events[6]).toEqual({ type: 'monsterHit', hpAfter: 7n, maxHp: monsterMaxHp(1) });
-    expect(events[8]).toEqual({ type: 'monsterHit', hpAfter: 6n, maxHp: monsterMaxHp(1) });
+    expect(events[6]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: monsterMaxHp(1) });
+    expect(events[8]).toEqual({ type: 'monsterHit', hpAfter: 8n, maxHp: monsterMaxHp(1) });
     expect(events[10]).toEqual({ type: 'monsterHit', hpAfter: 4n, maxHp: monsterMaxHp(1) });
     const s = engine.getState();
     expect(s.monster.index).toBe(1);
@@ -542,6 +546,82 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(8);
     const carried = engine.tick(500);
     expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(4);
+  });
+
+  it('volley damage is type-adjusted and companionAttack carries effectiveness', () => {
+    // Monster 60 is a water slime with ~43k hp: nothing dies, so every swing
+    // is measured against the same defender.
+    const roster: Companion[] = [
+      { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 3, stars: 0 }, // wind: super
+      { id: 'c2', speciesId: 'slime', bossIndex: 7, level: 5, stars: 0 }, // water: normal
+      { id: 'c3', speciesId: 'ghost', bossIndex: 7, level: 8, stars: 0 }, // dark: weak
+    ];
+    const engine = createEngine(
+      makeSaveV2({ monsterIndex: 60, companions: roster, nextCompanionId: 4 }),
+      calmRng(),
+    );
+    const volley = engine.tick(COMPANION_ATTACK_MS).filter((e) => e.type === 'companionAttack');
+    // Effective power decides the order: 3x2=6 > 5 > 8/2=4.
+    expect(volley).toEqual([
+      { type: 'companionAttack', companionId: 'c1', speciesId: 'bat', damage: 6n, effectiveness: 'super' },
+      { type: 'companionAttack', companionId: 'c2', speciesId: 'slime', damage: 5n, effectiveness: 'normal' },
+      { type: 'companionAttack', companionId: 'c3', speciesId: 'ghost', damage: 4n, effectiveness: 'weak' },
+    ]);
+    expect(engine.getState().monsterHp).toBe(monsterMaxHp(60) - 15n);
+  });
+
+  it('the field party changes when a monster of another type spawns', () => {
+    // Six companions, five slots: the two the type chart drops differ per enemy.
+    const roster: Companion[] = [
+      { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 10, stars: 0 }, // water
+      { id: 'c2', speciesId: 'bat', bossIndex: 7, level: 6, stars: 0 }, // wind
+      { id: 'c3', speciesId: 'golem', bossIndex: 7, level: 6, stars: 0 }, // earth
+      { id: 'c4', speciesId: 'ghost', bossIndex: 7, level: 8, stars: 0 }, // dark
+      { id: 'c5', speciesId: 'dragon', bossIndex: 7, level: 7, stars: 0 }, // fire
+      { id: 'c6', speciesId: 'slime', bossIndex: 7, level: 9, stars: 0 }, // water
+    ];
+    // Monster 60 is a water slime on its last hit point; 61 is a wind bat.
+    const engine = createEngine(
+      makeSaveV2({ monsterIndex: 60, monsterHp: '1', companions: roster, nextCompanionId: 7 }),
+      calmRng(),
+    );
+    const attackers = (events: GameEvent[]): string[] =>
+      events.flatMap((e) => (e.type === 'companionAttack' ? [e.companionId] : []));
+
+    const first = engine.tick(COMPANION_ATTACK_MS);
+    // vs water: 12, 12, 10, 9, 4 — the fire dragon (3) is benched.
+    expect(attackers(first)).toEqual(['c2', 'c3', 'c1', 'c6', 'c4']);
+    expect(types(first)).toContain('monsterSpawned');
+    expect(engine.getState().monster.type).toBe('wind');
+
+    // Same roster, next volley, new enemy type: the party is re-picked.
+    const second = engine.tick(COMPANION_ATTACK_MS);
+    // vs wind: 16, 14, 6, 5, 4 — now the earth golem (3) sits out.
+    expect(attackers(second)).toEqual(['c4', 'c5', 'c2', 'c1', 'c6']);
+  });
+
+  it('pvpResult with a replay is applied exactly like one without', () => {
+    const pet: Companion = { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 1, stars: 0 };
+    const stolen: Companion = { id: 'x9', speciesId: 'dragon', bossIndex: 15, level: 2, stars: 1 };
+    const replay: BattleReplay = {
+      opponentName: 'Bo',
+      opponentParty: [stolen],
+      blows: [{ side: 'A', actorId: 'c1', targetId: 'x9', damage: '12', ko: true }],
+    };
+    const save = makeSaveV2({ companions: [pet], nextCompanionId: 2 });
+    const plain = createEngine(save, calmRng());
+    const withReplay = createEngine(save, calmRng());
+
+    const events = plain.apply({ type: 'pvpResult', won: true, stolen, lostId: null });
+    expect(events).toEqual(
+      withReplay.apply({ type: 'pvpResult', won: true, stolen, lostId: null, replay }),
+    );
+    // The engine never forwards or stores it — same roster, same save.
+    expect(events).toEqual([
+      { type: 'pvpResolved', won: true, stolen: { ...stolen, id: 'c2' }, lostId: null },
+    ]);
+    expect(withReplay.getState()).toEqual(plain.getState());
+    expect(withReplay.toSave()).toEqual(plain.toSave());
   });
 
   it('tick with no companions emits nothing and never spends rng draws', () => {
@@ -573,7 +653,9 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       type: 'companionAttack',
       companionId: 'c1',
       speciesId: 'slime',
+      // Monster 60 is a water slime too: normal, so only fever scales it.
       damage: companionPower(pet) * 3n,
+      effectiveness: 'normal',
     });
     expect(counted.draws()).toBe(heroDraws); // companions never roll a crit
 
@@ -587,6 +669,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       companionId: 'c1',
       speciesId: 'slime',
       damage: companionPower(pet),
+      effectiveness: 'normal',
     });
     expect(counted.draws()).toBe(heroDraws);
   });
