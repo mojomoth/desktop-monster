@@ -24,8 +24,8 @@ export function showMenuWindow(): BrowserWindow {
   }
 
   const win = new BrowserWindow({
-    width: 380,
-    height: 520,
+    width: 420,
+    height: 640,
     useContentSize: true,
     frame: true,
     resizable: false,
