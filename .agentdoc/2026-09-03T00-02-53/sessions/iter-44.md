@@ -5,7 +5,7 @@
 - lane: .worktrees/T49 (branch lane/T49)
 - harness version: v2
 - task: T49 — Menu Ranking + Battle tabs: leaderboard, name, PvP with removeCompanions + pvpResult actions
-- commit: 98a9159ae6c2ce1a336563fe2479b4aa24cbec2e
+- commit: 150294009d14904da4d451594f530bcce692d18f
 - graphify affected used: none (SPEC F55 + the task Notes name every symbol; read src/menu/*, src/shared/api.ts, src/preload/index.ts directly)
 
 ## What I did
