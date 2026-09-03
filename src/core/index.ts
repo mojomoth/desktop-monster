@@ -5,12 +5,15 @@ export const CORE_VERSION = '0.1.0';
 export { bigField, format, ratio, suffix } from './bignum.js';
 
 export type {
+  BattleReplay,
   GameEvent,
   GameState,
   InputSource,
   ItemDef,
   ItemDrop,
   MonsterDef,
+  PvpResultAction,
+  WireBlow,
 } from './types.js';
 
 export {

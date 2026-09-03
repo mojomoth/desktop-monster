@@ -19,8 +19,9 @@ import {
   xpToNext,
 } from './formulas.js';
 import { rollLoot } from './loot.js';
-import { BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex } from './monsters.js';
+import { BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex, typeOf } from './monsters.js';
 import { mulberry32 } from './rng.js';
+import { effectiveness, effectivePower } from './types-chart.js';
 import type { Rng } from './rng.js';
 import { upgradeSave } from './save.js';
 import type { Companion, SaveFile, SaveFileV1, SaveFileV2, SaveFileV3 } from './save.js';
@@ -232,12 +233,17 @@ export function createEngine(
         // Recomputed per volley: a capture, a fuse or the next monster's type
         // between volleys changes who fights. Companions never crit.
         for (const c of activeCompanions(state.companions, state.monster.type)) {
-          const damage = companionPower(c) * mult;
+          // Against the monster standing there NOW: a chained kill inside this
+          // volley re-types the remaining swings (F63).
+          const attacker = typeOf(c.speciesId);
+          const defender = state.monster.type;
+          const damage = effectivePower(companionPower(c), attacker, defender) * mult;
           events.push({
             type: 'companionAttack',
             companionId: c.id,
             speciesId: c.speciesId,
             damage,
+            effectiveness: effectiveness(attacker, defender),
           });
           applyDamage(damage, events);
         }

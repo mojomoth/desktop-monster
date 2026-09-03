@@ -2,7 +2,7 @@
 // Shapes follow GAME_ARCHITECTURE §2 exactly.
 
 import type { Companion } from './save.js';
-import type { MonsterType } from './types-chart.js';
+import type { Effectiveness, MonsterType } from './types-chart.js';
 
 export type InputSource = 'keyboard' | 'mouse';
 
@@ -59,7 +59,13 @@ export interface GameState {
 
 export type GameEvent =
   | { type: 'attack'; damage: bigint; crit: boolean; source: InputSource }
-  | { type: 'companionAttack'; companionId: string; speciesId: string; damage: bigint }
+  | {
+      type: 'companionAttack';
+      companionId: string;
+      speciesId: string;
+      damage: bigint;
+      effectiveness: Effectiveness;
+    }
   | { type: 'monsterHit'; hpAfter: bigint; maxHp: bigint }
   | { type: 'monsterKilled'; monster: MonsterDef; xpGained: number }
   | { type: 'itemDropped'; drops: ItemDrop[] }
@@ -70,3 +76,35 @@ export type GameEvent =
   | { type: 'monsterSpawned'; monster: MonsterDef }
   | { type: 'rebirth'; souls: number }
   | { type: 'pvpResolved'; won: boolean; stolen: Companion | null; lostId: string | null };
+
+/**
+ * One blow of a PvP replay; `damage` is a decimal string (bigint on the wire).
+ * ponytail: a structural copy of src/shared/api.ts — core imports nothing but
+ * core, and the two shapes are checked against each other by the server tests.
+ */
+export interface WireBlow {
+  side: 'A' | 'D';
+  actorId: string;
+  targetId: string;
+  damage: string;
+  ko: boolean;
+}
+
+export interface BattleReplay {
+  opponentName: string;
+  opponentParty: Companion[];
+  blows: WireBlow[];
+}
+
+/**
+ * The PvP verdict handed to `applyCollection` (CollectionAction member). Lives
+ * here so `replay` can name BattleReplay: the engine IGNORES it — it only
+ * rides along to the renderer, which plays it (F63/F66).
+ */
+export interface PvpResultAction {
+  type: 'pvpResult';
+  won: boolean;
+  stolen: Companion | null;
+  lostId: string | null;
+  replay?: BattleReplay;
+}
