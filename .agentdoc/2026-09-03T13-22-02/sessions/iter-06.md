@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T57 — Party selection: PARTY_SIZE, activeCompanions(cs, enemyType), autoParty, pvpParty, partyOrder, setPvpParty action
 - result: DONE
-- commit: 32e9505fcb70579724e6e8fce501991f61583378
+- commit: 688f3a684afe14ac4101063f46491572f97565c5
 - graphify affected used: none (grep over `ACTIVE_SLOTS`/`activeCompanions`/`CollectionAction` was enough — 5 call sites)
 
 ## What I did
