@@ -21,3 +21,4 @@ outcome (run 1): exit 3 (crash escalation), iterations 15, lanes 3, nested_claud
 - Root cause B (CRASHED ×6 → exit 3): `claude -p` returned HTTP 429 "You've hit your session limit · resets 3:50am (Asia/Seoul)" within ~1 s (iters 08, 11–15). Re-probed at 10:03 KST: PROBE_OK.
 - Kept branches lane/T22-red-01, -red-05, lane/T23-red-02/04/06/07/09, lane/T31-red-03/10 hold the (green-in-lane) work; crash branches lane/T22-crash-08/12/14, lane/T23-crash-11/13/15 are empty 429 runs.
 - Resuming as run 2 (HARNESS §5): MAX_ITER=65 (50 + the 15 iterations lost to A/B), LANES=3, loop stdin redirected from /dev/null.
+| 17 | claude | T23 | DONE | pass | skipped | 1d56b21 | continue |
