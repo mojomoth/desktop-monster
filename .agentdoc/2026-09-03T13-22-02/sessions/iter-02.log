@@ -1,0 +1,13 @@
+{"task":"T55","result":"DONE","gates":"pass","commit":"f23ad57","note":"New pure src/core/types-chart.ts (MonsterType, TYPE_ORDER, Effectiveness, SUPER/WEAK_DIV=2n, beats/effectiveness/effectivePower — chart derived from the 5-cycle, no table). monsters.ts: SPECIES_TYPE, SPECIES_SIZE, typeOf (unknown→water), sizeOf (unknown→1); monsterForIndex fills MonsterDef.type (bosses keep it); catalog/BOSS_EVERY/formulas untouched. types.ts MonsterDef.type; barrel re-exports all. New tests/typeChart.test.ts (4 it) + formulas.test.ts 12→13 it. No dead ends: gates 506/506 + lint + typecheck and the AC line green first run. Work commit 8c3dc54, sha fixup f23ad57."}
+
+작업 완료했습니다.
+
+**구현 (`8c3dc54`)**
+- `src/core/types-chart.ts` (신규, 순수): `MonsterType`, `TYPE_ORDER`(fire→wind→earth→water→dark), `Effectiveness`, `SUPER = 2n`, `WEAK_DIV = 2n`, `beats`, `effectiveness`(동일 타입 → normal), `effectivePower`(super ×2 / weak ÷2 하한 1n / normal 그대로). 5×5 표는 사이클에서 파생 — 룩업 테이블 없음.
+- `src/core/monsters.ts`: `SPECIES_TYPE`, `SPECIES_SIZE`(숨김), `typeOf`(미지 종 → `'water'`), `sizeOf`(→ 1). `monsterForIndex`가 `type`을 채우고 보스도 종 타입 유지. 카탈로그 순서·`BOSS_EVERY`·HP/XP/코인 공식 무변경.
+- `src/core/types.ts`: `MonsterDef.type: MonsterType`. 배럴에서 전부 재수출 (`sizeOf`/`MonsterType`/`Effectiveness` 포함).
+- 테스트: `tests/typeChart.test.ts` 신규 4개 `it(`(사이클 규칙 양방향, 25칸 전부 핀 + 10/10/5 집계, 반대칭, `effectivePower` 하한·10^40 정확성), `tests/formulas.test.ts` 12 → 13.
+
+**게이트**: `npm test` 506/506 통과, `lint`, `typecheck` 통과. AC 명령 그대로 실행 → exit 0.
+
+세션 기록은 `.agentdoc/2026-09-03T13-22-02/sessions/iter-02.md`이며, 작업 커밋 sha를 정확히 남기려고 `f23ad57` docs 커밋 하나를 덧붙였습니다. 트리는 clean입니다.
