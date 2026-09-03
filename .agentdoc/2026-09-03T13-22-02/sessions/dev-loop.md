@@ -22,3 +22,4 @@
 | 20 | claude | T72 | DONE | pass | pass | d93a75b | continue |
 | 21 | claude | T74 | DONE | pass | skipped | 36881ce | continue |
 | 22 | claude | T75 | NOTHING_TO_DO | pass | skipped | a52f4b8 | continue |
+| 23 | claude | T76 | DONE | pass | skipped | c15dafa | continue |

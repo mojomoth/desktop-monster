@@ -1,0 +1,11 @@
+{"task":"T76","result":"DONE","gates":"pass","commit":"2cdd464","note":"Literal SPEC sweep v3: generated a case-per-row runner (scratchpad, not committed) from SPEC.md and executed 98 ACs verbatim from the repo root — F01–F80, the 17 ## Server / API rows (Notes said 18; the table has 17 data rows), and ## Deployment WITH network (DESMON_SKIP_NET unset): /healthz sha 3aa900a = DEPLOYED_SHA, ancestor of HEAD, no build-filter-path commit after it, probe rank 5. 97/98 passed first pass. One gap: F29 — tests/save.test.ts had renamed the pinned title 'DEFAULT_SAVE is a fresh-game v2 save' to '…v3 save', a rename not in Assumption 53's list and contrary to F60; restored verbatim (1 line, it( count unchanged at 13). No source/config/README touched, no build-filter path, so no SPLIT. Cold npm ci ran with the node_modules symlink moved aside and restored after. Gates green (589 tests) and T76 AC exit 0.","children":[]}
+
+**한글 요약**
+
+- **결과**: T76 완료, 게이트 green, 커밋 `2cdd464` (수정 커밋 `ae39a04`).
+- **스윕**: SPEC.md를 파싱해 행별 AC 스크립트를 생성(커밋 안 함), 저장소 루트에서 98건을 문자 그대로 실행 — F01–F80(80) + `## Server / API` 17행 + `## Deployment` 1건.
+  - `## Server / API` 표는 데이터 행이 **17개**입니다(태스크 Notes의 "18"은 추정치이며 AC 조건은 아님).
+  - Deployment는 **네트워크 사용**으로 실행(`DESMON_SKIP_NET` 미설정): `/healthz` → `{"ok":true,"sha":"3aa900a…"}`, AGENTS.md의 `DEPLOYED_SHA`와 일치, HEAD의 조상이며 빌드 필터 경로 커밋 없음, probe 등록/리더보드 조회 성공(rank 5).
+  - F25/F58/F79는 레인 안에서 `npm run package`를 각각 실행 — dmg + .app 생성, 패키지 바이너리가 `SMOKE_OK` 출력, .app 내부에 `pg`/`dist/electron/server` 없음.
+- **발견된 갭 1건 (F29)**: `tests/save.test.ts`의 고정 제목 `DEFAULT_SAVE is a fresh-game v2 save`가 `…v3 save`로 개명되어 있었습니다. Assumption 53의 허용 개명 목록에 없고 F60도 "v2 제목 유지"를 명시하므로 무단 개명입니다. 제목만 원복(어서션·`it(` 개수 13 그대로) → F29/F60/F10 모두 exit 0.
+- **부작용 없음**: src/config/README 무변경, 빌드 필터 경로 미접촉 → SPLIT 불필요. cold `npm ci`는 공용 설치를 건드리지 않도록 심링크를 잠시 옮겼다가 복구했고, 복구 후 게이트를 한 번 더 통과시켰습니다(589 테스트).
