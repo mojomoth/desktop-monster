@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T28 — Engine: boss capture roll, apply(action), bestIndex, souls damage
 - result: DONE
-- commit: f8775ecf818339cde8bf869e26c29cdde9b8b53f
+- commit: 8713447cc84a1e8580c457cdfc14a2fa961de575 (work) + this docs follow-up
 - graphify affected used: none (task block + SPEC F33 + GAME_DESIGN_V2 §3/§7 named every file; read engine.ts/types.ts/collection.ts directly)
 
 ## What I did
