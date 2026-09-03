@@ -5,7 +5,7 @@
 // and every count is cast `count(*)::int`.
 
 import { Pool } from 'pg';
-import type { Snapshot } from '../shared/api.js';
+import type { Snapshot, Theft } from '../shared/api.js';
 import type { PlayerRow, ScoreKey, Store } from './store.js';
 
 const DDL = `
@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS players (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS players_score_idx ON players (best_index DESC, rebirths DESC);
+ALTER TABLE players ADD COLUMN IF NOT EXISTS thefts jsonb NOT NULL DEFAULT '[]';
 `;
 
 /** jsonb columns arrive parsed and `double precision` arrives as a number. */
@@ -30,6 +31,8 @@ const toRow = (r: Record<string, unknown>): PlayerRow => ({
   snapshot: r['snapshot'] as Snapshot | null,
   stolenIds: r['stolen_ids'] as string[],
   lastPvpAt: r['last_pvp_at'] as number | null,
+  // Tolerant: the column is shared with the v2 service, which never writes it.
+  thefts: Array.isArray(r['thefts']) ? (r['thefts'] as Theft[]) : [],
 });
 
 export class PgStore implements Store {
@@ -79,6 +82,13 @@ export class PgStore implements Store {
 
   async setLastPvpAt(id: string, at: number): Promise<void> {
     await this.pool.query('UPDATE players SET last_pvp_at = $2 WHERE id = $1', [id, at]);
+  }
+
+  async setThefts(id: string, thefts: Theft[]): Promise<void> {
+    await this.pool.query('UPDATE players SET thefts = $2::jsonb WHERE id = $1', [
+      id,
+      JSON.stringify(thefts),
+    ]);
   }
 
   async rank(key: ScoreKey): Promise<number> {

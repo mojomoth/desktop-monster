@@ -46,7 +46,14 @@ export interface NetSession {
 
 /** The wire snapshot for `save` under `name`. */
 export function toSnapshot(name: string, save: SnapshotSource): Snapshot {
-  return { name, bestIndex: save.bestIndex, rebirths: save.rebirths, companions: save.companions };
+  // ponytail: `party` stays empty until T67 reads `save.pvpParty` (T56 adds it).
+  return {
+    name,
+    bestIndex: save.bestIndex,
+    rebirths: save.rebirths,
+    companions: save.companions,
+    party: [],
+  };
 }
 
 /** JSON body of `res`, or undefined when it is missing/unparsable (never throws). */

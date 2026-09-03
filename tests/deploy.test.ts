@@ -30,7 +30,7 @@ function fakeClient(me: LeaderboardResponse['me']): NetClient & { uploads: Snaps
       Promise.resolve({ ok: true, value: { playerId: `p-${name}`, token: `t-${name}` } }),
     upload: (_token: string, snapshot: Snapshot): Promise<NetResult<SnapshotResponse>> => {
       uploads.push(snapshot);
-      return Promise.resolve({ ok: true, value: { rank: 7, removed: [] } });
+      return Promise.resolve({ ok: true, value: { rank: 7, removed: [], thefts: [] } });
     },
     leaderboard: (): Promise<NetResult<LeaderboardResponse>> =>
       Promise.resolve({ ok: true, value: { top: [], me } }),
@@ -49,7 +49,7 @@ describe('deploy probe (F50)', () => {
       rank: 3,
     });
     expect(client.uploads).toEqual([
-      { name: 'probe-ab12', bestIndex: 0, rebirths: 0, companions: [] },
+      { name: 'probe-ab12', bestIndex: 0, rebirths: 0, companions: [], party: [] },
     ]);
   });
 

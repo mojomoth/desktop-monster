@@ -5,7 +5,7 @@
 // injected (deps), so tests are deterministic and this file has no wall clock.
 
 import { createHash } from 'node:crypto';
-import { mulberry32, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
+import { companionPower, mulberry32, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
 import {
   COMPANION_ID_RE,
   INT_MAX,
@@ -13,7 +13,9 @@ import {
   LEADERBOARD_MAX,
   LEVEL_MAX,
   LEVEL_MIN,
+  MATCH_TTL_MS,
   NICK_RE,
+  PARTY_SIZE_MAX,
 } from '../shared/api.js';
 import type { Companion, LeaderboardRow, PvpOpponent, Snapshot } from '../shared/api.js';
 import type { ApiHandler, ApiRequest, ApiResponse } from './http.js';
@@ -39,6 +41,26 @@ export const PVP_COOLDOWN_MS = 60_000;
 export const STOLEN_IDS_MAX = 32;
 /** The opponent everyone gets while they are alone on the leaderboard. */
 export const BOT_NAME = 'Training Dummy';
+
+/** A match the player has previewed but not yet fought (SERVER_ARCHITECTURE_V3 §3). */
+export interface PendingMatch {
+  matchId: string;
+  playerId: string;
+  /** null = the bot. */
+  opponentId: string | null;
+  seed: number;
+  /** Exactly the party the player was shown — the battle is fought against it. */
+  opponentParty: Companion[];
+  createdAt: number;
+}
+
+/**
+ * Pending matches, keyed by match id (exported so the tests can watch the TTL).
+ * ponytail: module memory, because one free instance is the whole deployment —
+ * a restart or a second instance loses them and the client just asks again. A
+ * `matches` table is the multi-instance upgrade.
+ */
+export const matches = new Map<string, PendingMatch>();
 
 /** Above this the fixed-window map is swept of expired keys. */
 const RATE_KEYS_MAX = 10_000;
@@ -100,7 +122,38 @@ export function parseSnapshot(raw: unknown): Snapshot | null {
     ids.add(id);
     roster.push({ id, speciesId, bossIndex, level, stars });
   }
-  return { name, bestIndex, rebirths, companions: roster };
+  // The party is advisory presentation state: bad ids are DROPPED (a v2 client
+  // sends none at all), never a reason to reject the whole upload.
+  const party = (Array.isArray(s['party']) ? (s['party'] as unknown[]) : [])
+    .filter((id): id is string => typeof id === 'string' && COMPANION_ID_RE.test(id) && ids.has(id))
+    .filter((id, i, all) => all.indexOf(id) === i)
+    .slice(0, PARTY_SIZE_MAX);
+  return { name, bestIndex, rebirths, companions: roster, party };
+}
+
+/** Numeric part of a companion id — the power tie-breaker (as in core). */
+const idNum = (id: string): number => Number(id.replace(/\D/g, '') || 0);
+
+/**
+ * The PvP party a snapshot fights with: its stored ids resolved in order, else
+ * the PARTY_SIZE_MAX strongest by raw power (ties → lower id).
+ * ponytail: a local stand-in for core's `pvpParty`/`autoParty`, which T57 adds;
+ * T60 deletes this helper and calls those.
+ */
+function partyOf(s: Snapshot): Companion[] {
+  const picked = s.party
+    .map((id) => s.companions.find((c) => c.id === id))
+    .filter((c): c is Companion => c !== undefined);
+  if (picked.length > 0) {
+    return picked;
+  }
+  return [...s.companions]
+    .sort((a, b) => {
+      const pa = companionPower(a);
+      const pb = companionPower(b);
+      return pa === pb ? idNum(a.id) - idNum(b.id) : pb > pa ? 1 : -1;
+    })
+    .slice(0, PARTY_SIZE_MAX);
 }
 
 export function createApp(deps: AppDeps): { handle: ApiHandler } {
@@ -224,11 +277,13 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     const down = await store.neighbor(me.id, mine, 'down');
     const foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
     const theirs = foe?.snapshot ?? null;
-    const opponent: PvpOpponent = theirs ?? {
-      name: BOT_NAME,
-      bestIndex: mine.bestIndex,
-      rebirths: mine.rebirths,
-      companions: [],
+    // ponytail: still the v2 wire shape (full roster, no replay) — T60 swaps
+    // this endpoint over to the match flow and the PvpOpponent party shape.
+    const opponent = {
+      name: theirs?.name ?? BOT_NAME,
+      bestIndex: theirs?.bestIndex ?? mine.bestIndex,
+      rebirths: theirs?.rebirths ?? mine.rebirths,
+      companions: theirs?.companions ?? [],
     };
     const verdict = resolvePvp(mine.companions, opponent.companions, mulberry32(seed));
     const win = verdict.attackerWon;
@@ -270,6 +325,54 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     };
   };
 
+  /**
+   * T54 — step 1 of a battle (SPEC F68, SERVER_ARCHITECTURE_V3 §3): the same
+   * neighbour pick as `/v1/pvp`, but it only shows the opponent's party and
+   * parks the seed under a match id. No cooldown, no store writes.
+   */
+  const match = async (req: ApiRequest): Promise<ApiResponse> => {
+    const me = await caller(req);
+    if (!me) {
+      return error(401, 'unauthorized');
+    }
+    const mine = me.snapshot;
+    if (!mine) {
+      return error(400, 'no_snapshot');
+    }
+    const at = deps.now();
+    for (const [id, pending] of matches) {
+      if (at - pending.createdAt > MATCH_TTL_MS) {
+        matches.delete(id);
+      }
+    }
+    const seed = deps.randomSeed() >>> 0;
+    const up = await store.neighbor(me.id, mine, 'up');
+    const down = await store.neighbor(me.id, mine, 'down');
+    const foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    const theirs = foe?.snapshot ?? null;
+    const opponent: PvpOpponent = theirs
+      ? {
+          name: theirs.name,
+          bestIndex: theirs.bestIndex,
+          rebirths: theirs.rebirths,
+          party: partyOf(theirs),
+        }
+      : { name: BOT_NAME, bestIndex: mine.bestIndex, rebirths: mine.rebirths, party: [] };
+    const matchId = deps.randomBytesHex(8);
+    matches.set(matchId, {
+      matchId,
+      playerId: me.id,
+      opponentId: foe?.id ?? null,
+      seed,
+      opponentParty: opponent.party,
+      createdAt: at,
+    });
+    return {
+      status: 200,
+      body: { matchId, seed, bot: theirs === null, opponent, expiresAt: at + MATCH_TTL_MS },
+    };
+  };
+
   const route = async (req: ApiRequest): Promise<ApiResponse> => {
     if (req.method === 'POST' && req.path === '/v1/players') {
       return register(req);
@@ -279,6 +382,9 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     }
     if (req.method === 'GET' && req.path === '/v1/leaderboard') {
       return leaderboard(req);
+    }
+    if (req.method === 'POST' && req.path === '/v1/pvp/match') {
+      return match(req);
     }
     if (req.method === 'POST' && req.path === '/v1/pvp') {
       return pvp(req);

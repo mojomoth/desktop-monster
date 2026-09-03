@@ -5,17 +5,22 @@
 
 import { describe, expect, it } from 'vitest';
 import { mulberry32 } from '../../src/core/index.js';
-import { createApp, RATE_LIMIT } from '../../src/server/app.js';
+import { BOT_NAME, createApp, matches, RATE_LIMIT } from '../../src/server/app.js';
 import { MemoryStore } from '../../src/server/store.js';
 import type { Store } from '../../src/server/store.js';
 import type { ApiRequest, ApiResponse } from '../../src/server/http.js';
+import { MATCH_TTL_MS } from '../../src/shared/api.js';
 import type {
   Companion,
   LeaderboardResponse,
+  MatchResponse,
   RegisterResponse,
   Snapshot,
   SnapshotResponse,
 } from '../../src/shared/api.js';
+
+/** The counter clock every setup() starts at. */
+const T0 = 1_700_000_000_000;
 
 type Call = Partial<ApiRequest> & { method: string; path: string };
 
@@ -23,7 +28,7 @@ function setup(store: Store = new MemoryStore(), seed = 7) {
   const rng = mulberry32(seed);
   const draw = (): string => Math.floor(rng.next() * 0xffffffff).toString(16);
   let ids = 0;
-  let clock = 1_700_000_000_000;
+  let clock = T0;
   const app = createApp({
     store,
     now: () => clock,
@@ -52,7 +57,8 @@ const snap = (
   bestIndex: number,
   rebirths: number,
   companions: Companion[] = [],
-): Snapshot => ({ name, bestIndex, rebirths, companions });
+  party: string[] = [],
+): Snapshot => ({ name, bestIndex, rebirths, companions, party });
 
 async function join(
   call: (req: Call) => Promise<ApiResponse>,
@@ -290,6 +296,7 @@ describe('createApp', () => {
       putSnapshot: boom,
       setStolenIds: boom,
       setLastPvpAt: boom,
+      setThefts: boom,
       rank: boom,
       top: boom,
       neighbor: boom,
@@ -299,6 +306,125 @@ describe('createApp', () => {
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: 'internal' });
     expect((await down.call({ method: 'GET', path: '/v1/leaderboard' })).status).toBe(500);
+  });
+
+  it('pvp match picks the rank neighbour and returns its party with a match id', async () => {
+    const { store, call } = setup();
+    const me = await join(call, 'seeker');
+    const rival = await join(call, 'rival');
+    const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+    const roster = [1, 2, 3, 4, 5, 6].map((n) => comp(`d${n}`, { level: n }));
+    await put(me.token, snap('seeker', 5, 0, [comp('c1')]));
+    await put(rival.token, snap('rival', 9, 0, roster));
+
+    const ask = (auth?: string): Promise<ApiResponse> =>
+      call({ method: 'POST', path: '/v1/pvp/match', ...(auth === undefined ? {} : { auth }) });
+    const auto = body<MatchResponse>(await ask(me.token));
+    expect(auto.bot).toBe(false);
+    expect(auto.matchId).toMatch(/^[0-9a-f]{16}$/);
+    expect(auto.expiresAt).toBe(T0 + MATCH_TTL_MS);
+    // No stored party → the PARTY_SIZE_MAX strongest by raw power, strongest first.
+    expect(auto.opponent).toEqual({
+      name: 'rival',
+      bestIndex: 9,
+      rebirths: 0,
+      party: [6, 5, 4, 3, 2].map((n) => comp(`d${n}`, { level: n })),
+    });
+    expect(matches.get(auto.matchId)).toEqual({
+      matchId: auto.matchId,
+      playerId: me.playerId,
+      opponentId: rival.playerId,
+      seed: auto.seed,
+      opponentParty: auto.opponent.party,
+      createdAt: T0,
+    });
+    // A preview writes nothing: no cooldown is burned by looking.
+    expect((await store.getById(me.playerId))?.lastPvpAt).toBeNull();
+
+    // A stored party beats the automatic pick and keeps its own order.
+    await put(rival.token, snap('rival', 9, 0, roster, ['d2', 'd5']));
+    const picked = body<MatchResponse>(await ask(me.token));
+    expect(picked.opponent.party).toEqual([comp('d2', { level: 2 }), comp('d5', { level: 5 })]);
+    expect(picked.matchId).not.toBe(auto.matchId);
+
+    // Alone on the leaderboard: the bot, with no party and no opponent row.
+    const lonely = setup(new MemoryStore(), 99);
+    const solo = await join(lonely.call, 'solo');
+    await lonely.call({ method: 'PUT', path: '/v1/snapshot', auth: solo.token, body: snap('solo', 3, 0) });
+    const bot = body<MatchResponse>(
+      await lonely.call({ method: 'POST', path: '/v1/pvp/match', auth: solo.token }),
+    );
+    expect(bot.bot).toBe(true);
+    expect(bot.opponent).toEqual({ name: BOT_NAME, bestIndex: 3, rebirths: 0, party: [] });
+    expect(matches.get(bot.matchId)?.opponentId).toBeNull();
+
+    // The trust boundary is the same as /v1/pvp's, minus the cooldown.
+    expect((await ask()).status).toBe(401);
+    const newbie = await join(call, 'newbie');
+    const denied = await ask(newbie.token);
+    expect(denied.status).toBe(400);
+    expect(denied.body).toEqual({ error: 'no_snapshot' });
+  });
+
+  it('a match expires after MATCH_TTL_MS', async () => {
+    const { call, advance } = setup(new MemoryStore(), 21);
+    const me = await join(call, 'patient');
+    await call({ method: 'PUT', path: '/v1/snapshot', auth: me.token, body: snap('patient', 2, 0) });
+    const ask = async (): Promise<MatchResponse> =>
+      body<MatchResponse>(await call({ method: 'POST', path: '/v1/pvp/match', auth: me.token }));
+
+    const first = await ask();
+    expect(matches.has(first.matchId)).toBe(true);
+
+    // Exactly at the TTL it is still pending…
+    advance(MATCH_TTL_MS);
+    const edge = await ask();
+    expect(matches.has(first.matchId)).toBe(true);
+
+    // …one millisecond past it, the next call prunes it and nothing else.
+    advance(1);
+    const last = await ask();
+    expect(matches.has(first.matchId)).toBe(false);
+    expect(matches.has(edge.matchId)).toBe(true);
+    expect(matches.has(last.matchId)).toBe(true);
+    expect(last.expiresAt).toBe(first.expiresAt + MATCH_TTL_MS + 1);
+  });
+
+  it('upload keeps a valid party and drops party ids missing from the roster', async () => {
+    const { store, call } = setup();
+    const me = await join(call, 'picky');
+    const roster = [comp('c1'), comp('c2'), comp('c3')];
+    const put = (over: Record<string, unknown>): Promise<ApiResponse> =>
+      call({
+        method: 'PUT',
+        path: '/v1/snapshot',
+        auth: me.token,
+        body: { name: 'picky', bestIndex: 4, rebirths: 0, companions: roster, ...over },
+      });
+    const stored = async (): Promise<string[] | undefined> =>
+      (await store.getById(me.playerId))?.snapshot?.party;
+
+    expect((await put({ party: ['c3', 'c1'] })).status).toBe(200);
+    expect(await stored()).toEqual(['c3', 'c1']);
+
+    // Unknown ids, duplicates, non-strings and ids failing COMPANION_ID_RE are
+    // dropped one by one — a bad party never rejects the upload.
+    expect((await put({ party: ['c9', 'c2', 'c2', 7, 'C-1!', 'c1'] })).status).toBe(200);
+    expect(await stored()).toEqual(['c2', 'c1']);
+
+    // Over PARTY_SIZE_MAX: the first five survive.
+    const six = [...roster, comp('c4'), comp('c5'), comp('c6')];
+    expect(
+      (await put({ companions: six, party: ['c6', 'c5', 'c4', 'c3', 'c2', 'c1'] })).status,
+    ).toBe(200);
+    expect(await stored()).toEqual(['c6', 'c5', 'c4', 'c3', 'c2']);
+
+    // A v2 client sends no party at all; a non-array one is ignored the same way.
+    expect((await put({})).status).toBe(200);
+    expect(await stored()).toEqual([]);
+    expect((await put({ party: 'c1' })).status).toBe(200);
+    expect(await stored()).toEqual([]);
   });
 });
 
@@ -337,8 +463,11 @@ describe('MemoryStore', () => {
       snapshot: null,
       stolenIds: [],
       lastPvpAt: null,
+      thefts: [],
     });
     await store.setLastPvpAt('e', 1234);
     expect((await store.getById('e'))?.lastPvpAt).toBe(1234);
+    await store.setThefts('e', []);
+    expect((await store.getById('e'))?.thefts).toEqual([]);
   });
 });
