@@ -273,7 +273,7 @@ describe('createApp', () => {
       { method: 'GET', path: '/' },
       { method: 'POST', path: '/v1/snapshot' },
       { method: 'GET', path: '/v1/players' },
-      { method: 'POST', path: '/v1/pvp' }, // T40 adds it; until then it is unknown.
+      { method: 'GET', path: '/v1/pvp' }, // POST is a route since T40; GET is not.
     ]) {
       const res = await call(req);
       expect(res.status).toBe(404);
