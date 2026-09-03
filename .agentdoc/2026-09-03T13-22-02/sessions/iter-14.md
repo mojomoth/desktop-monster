@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T68 — IPC v3: PVP_MATCH/THEFTS/RECLAIM channels, PVP payload, narrowAction setPvpParty + replay, preload, global.d.ts, sendToAll
 - result: DONE
-- commit: 821f12b6b79d2f3db26025b43cc8245127152d8c
+- commit: 18656ea050675a3f8f38dbcd0ce3e9ca6a06920a (work commit; this line recorded by the follow-up docs commit)
 - graphify affected used: none (the five task files + src/core/collection.ts, src/core/types.ts, src/main/net.ts, src/shared/api.ts were read directly — the touched surface is exactly the task's Files)
 
 ## What I did
