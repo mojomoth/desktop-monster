@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T37 — Renderer wiring v2: engine tick in update(), A–Z floats, effects, boss/companion/fever presentation, fever blip
 - result: DONE
-- commit: 23f8ae5
+- commit: 2d4a38f (work) + this session-record fixup
 - graphify affected used: none (read game.ts/index.ts/audio.ts/effects.ts/sprites barrel directly — all five task files plus their helpers fit in one read)
 
 ## What I did
