@@ -1,0 +1,10 @@
+
+> desmon@0.2.0 smoke
+> npm run build && SMOKE=1 electron .
+
+
+> desmon@0.2.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+SMOKE_OK
+[83066:0903/205811.945967:ERROR:third_party/blink/renderer/modules/media/audio/mojo_audio_output_ipc.cc:186] MojoAudioOutputIPC failed to acquire factory
