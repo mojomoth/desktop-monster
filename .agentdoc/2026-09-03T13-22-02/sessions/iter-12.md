@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T60 — Server POST /v1/pvp v3: match + party validation, core resolvePvp, steal + theft record, blows on the wire
 - result: DONE
-- commit: ea618edd9aedd04867c9027729402ae525bba5cc
+- commit: ed519b6edf5e54a797583eaf7a7127fcfcdcaf95 (this record's sha follows in the fixup commit)
 - graphify affected used: none (read src/server/app.ts, src/core/collection.ts, src/core/battle.ts, src/shared/api.ts directly — all named by the task)
 
 ## What I did
