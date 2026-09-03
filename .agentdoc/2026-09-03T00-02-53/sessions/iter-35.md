@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T46 — Menu window + tray item "Collection & Battle…"
 - result: DONE
-- commit: 09aa81fb7b1487a3645e5c4e39d30a9af7a8146a
+- commit: ee4f1102377bdb4251cab7e99dc83f15830b09fd (this record was added in the same commit; sha recorded post-amend)
 - graphify affected used: none (task block named every file; read tray.ts/window.ts/index.ts directly)
 
 ## What I did
