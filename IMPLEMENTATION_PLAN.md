@@ -209,7 +209,7 @@
 - Notes (iter 17, claude): DONE: Restored src/core/bignum.ts from reachable 156e60a after hand-re-deriving every F28 rule (suffix bijective base-26, format g=floor((d-1)/3) truncation never rounding, ratio clamped via *10000n/den, bigField), added the named barrel line, restored tests/bignum.test.ts (7 tests, 4 AC titles verbatim, full value table 999..10^2109). Gates green: 310 tests, lint, typecheck; AC exit=0. Dead ends: the 4 prior MERGE_REDs were `git add -A` committing the node_modules/graphify-out symlinks (.gitignore fixed in iter 09; committed 4 explicit paths, no symlinks in tree). Iters 11/13/15 'CRASHED' were API 
 
 
-### [ ] T24 — SaveFileV2 schema, v1 migration, serializeSave/createEngine accept V1 or V2
+### [~] T24 — SaveFileV2 schema, v1 migration, serializeSave/createEngine accept V1 or V2
 - AC: `npx vitest run tests/save.test.ts tests/engine.test.ts tests/renderer.test.ts tests/audio.test.ts tests/persistence.test.ts && grep -q "version: 2" src/core/save.ts && grep -q "export function upgradeSave" src/core/save.ts && grep -q "DEFAULT_SAVE is a fresh-game v2 save" tests/save.test.ts && grep -q "serialize then parse round-trips losslessly" tests/save.test.ts && grep -q "junk, missing and wrong-typed fields yield DEFAULT_SAVE values" tests/save.test.ts && grep -q "migrates a v1 save: numeric monsterHp becomes a digit string and companions default to empty" tests/save.test.ts && grep -q "invalid companion entries are dropped, valid ones kept, roster capped at 30" tests/save.test.ts && test "$(grep -c '^\s*it(' tests/save.test.ts)" -ge 11 && test "$(grep -c '^\s*it(' tests/engine.test.ts)" -ge 16 && test "$(grep -c '^\s*it(' tests/renderer.test.ts)" -ge 51` → exit 0
 - Deps: T23
 - Worker: claude
