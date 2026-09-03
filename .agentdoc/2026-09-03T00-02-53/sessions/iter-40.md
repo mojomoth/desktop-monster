@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T44 — Render deploy: bootstrap, SERVER_URL, push, deploys create --wait, healthz + probe, README
 - result: DONE
-- commit: <feat sha> (+ DEPLOYED_SHA fixup)
+- commit: 9708404 (+ DEPLOYED_SHA fixup)
 - graphify affected used: none (task Files were explicit; read src/main/net.ts, src/main/identity.ts, src/shared/api.ts directly)
 
 ## What I did
@@ -55,10 +55,22 @@ Test Files  30 passed (30)
 GATES_EXIT=0
 
 AC (hermetic, DESMON_SKIP_NET=1): AC_HERMETIC_EXIT=0
-AC (live, no DESMON_SKIP_NET): <filled after the deploy>
+AC (live, no DESMON_SKIP_NET): AC_LIVE_EXIT=0
+healthz: {"ok":true,"sha":"970840437a14f8b0c86008fee097ecf34e29c153"}
+probe:   {"playerId":"52c5ffb9-1134-4ac3-96e3-3cadd52136e8","rank":1}
 ```
 
 ## Attempts & dead ends (what future iterations must NOT retry)
+
+- The live AC failed twice with `curl: (56) ... 404` right after `render deploys create --wait`
+  reported the deploy live: a brand-new free service's edge routing flaps between the new
+  instance and `x-render-routing: no-server` for ~5 min. Nothing was wrong with the build
+  (`render logs` showed `listening on :10000 store=pg sha=9708404…`). Do NOT redeploy or
+  re-run the bootstrap for this — poll `/healthz` until it returns 200 several times in a
+  row, then run the AC. `curl --retry` does not help: it never retries a 404.
+- The service's FIRST auto-deploy (at creation, commit e4bbbe4, before the push) failed with
+  `npm error Missing script: "start:server"` and shows as `update_failed` in
+  `render deploys list`. It is superseded by the pushed deploy and needs no action.
 
 - Exporting `runProbe` from a plain top-level script would have run the CLI on import and
   set `process.exitCode = 1` inside vitest. Guarded the entry point with
