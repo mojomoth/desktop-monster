@@ -1,0 +1,10 @@
+HEAD is `df2237d303767406fbbef9fbcabd104017cf3a15` (the JSON's `commit` value should read that; I had written a placeholder-length string from memory).
+
+**What landed**
+
+- `src/core/collection.ts` — `COMPANION_MAX_LEVEL = 10`, `ACTIVE_SLOTS = 3`, `ROSTER_CAP = 30`, `REBIRTH_MIN_INDEX = 40`; `companionPower` as the bigint `max(1n, monsterMaxHp(bossIndex)/20n) * level * 2n**stars`; `activeCompanions` top-3 by power desc with the lower-numeric-id tiebreak; the exact `CollectionAction` union from GAME_DESIGN_V2 §6; and `applyCollection(state, action)` returning `{ state, events } | { error }`, total and never mutating its input (state, `items`, `monster` and every companion come out as fresh objects).
+- The two events (`rebirth`, `pvpResolved`) are declared locally as `CollectionEvent` because T28 has not landed — `types.ts` is untouched, so T28 can fold them into `GameEvent` without a conflict here.
+- `src/core/index.ts` gained exactly one line: `export * from './collection.js';` — T36's `resolvePvp` will need no barrel edit.
+- `tests/collection.test.ts` — the 9 AC titles verbatim plus one no-mutation / unknown-action check. Fixtures build `GameState` through `createEngine(save).getState()`, so T29 adding `fever` to `GameState` won't force an edit in this file.
+
+**Verification** — `npm test && npm run lint && npm run typecheck` passed (359 tests, 25 files, zero lint warnings, clean tsc across all three projects), and the AC line ran literally to exit 0. One thing worth knowing for whoever re-runs the AC: this shell's `grep` is a ugrep shim that treats the mid-pattern `^` in `times 2^stars` as an anchor, so the AC reports exit 1 there; under `/usr/bin/grep` it exits 0. The test title is correct as written.
