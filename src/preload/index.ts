@@ -8,6 +8,12 @@
 
 import { contextBridge, ipcRenderer } from 'electron';
 import type { IpcRendererEvent } from 'electron';
+import type {
+  IdentityPayload,
+  LeaderboardResult,
+  NetResult,
+  PvpResult,
+} from '../shared/api.js';
 import type { InputModePayload, InputPayload, SaveStatePayload } from '../shared/ipc.js';
 
 /** `ipcRenderer.on` wrapper that hands back an unsubscribe function. */
@@ -48,6 +54,14 @@ const desmon = {
   moveWindowBy: (dx: number, dy: number): void => {
     ipcRenderer.send('desmon:move-window', { dx, dy });
   },
+  getIdentity: (): Promise<IdentityPayload> =>
+    ipcRenderer.invoke('desmon:get-identity') as Promise<IdentityPayload>,
+  setName: (name: string): Promise<IdentityPayload> =>
+    ipcRenderer.invoke('desmon:set-name', { name }) as Promise<IdentityPayload>,
+  getLeaderboard: (n?: number): Promise<NetResult<LeaderboardResult>> =>
+    ipcRenderer.invoke('desmon:leaderboard', { n }) as Promise<NetResult<LeaderboardResult>>,
+  pvp: (): Promise<NetResult<PvpResult>> =>
+    ipcRenderer.invoke('desmon:pvp') as Promise<NetResult<PvpResult>>,
 };
 
 /** Shape of `window.desmon`; the renderer's global.d.ts imports this (T13). */

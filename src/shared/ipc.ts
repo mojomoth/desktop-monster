@@ -24,6 +24,14 @@ export const IPC = {
   FIRST_FRAME: 'desmon:first-frame',
   /** renderer → main (send): whole-window drag — move the overlay by a cursor delta. */
   MOVE_WINDOW: 'desmon:move-window',
+  /** renderer → main (invoke): name/playerId/online of this installation (F49). */
+  GET_IDENTITY: 'desmon:get-identity',
+  /** renderer → main (invoke): rename the player; junk names are ignored. */
+  SET_NAME: 'desmon:set-name',
+  /** renderer → main (invoke): top-N leaderboard rows plus this player's row. */
+  LEADERBOARD: 'desmon:leaderboard',
+  /** renderer → main (invoke): resolve one asynchronous PvP battle. */
+  PVP: 'desmon:pvp',
 } as const;
 
 export type IpcChannel = (typeof IPC)[keyof typeof IPC];
@@ -51,6 +59,16 @@ export interface InputModePayload {
  * concrete SaveFileV1 schema lands in T08 and this alias tightens then.
  */
 export type SaveStatePayload = unknown;
+
+/** Payload of `desmon:set-name`. Anything not matching NICK_RE is dropped by main. */
+export interface SetNamePayload {
+  name: string;
+}
+
+/** Payload of `desmon:leaderboard`: how many rows; absent/invalid = the default. */
+export interface LeaderboardQueryPayload {
+  n?: number;
+}
 
 /** Payload of `desmon:move-window`: cursor delta (DIPs) since the last event. */
 export interface MoveWindowPayload {
