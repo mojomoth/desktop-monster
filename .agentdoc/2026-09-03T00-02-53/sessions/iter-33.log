@@ -1,0 +1,14 @@
+{"task":"T45","result":"DONE","gates":"pass","commit":"18f78ca9a2f30cbd6a5b0ed7e5d3bd0a5f5f6d61","note":"shared/ipc.ts: ACTION/MENU_ACTION/STATE_CHANGED/MENU_READY + MenuActionPayload (core-free). main/ipc.ts: sendToOthers() over getAllWindows() skipping the sender; narrowAction() validates the whole CollectionAction union (type-imported from core/collection.js), unknown->null never thrown; SAVE_STATE write -> const parsed = parseSave(data) -> session.onSave(parsed) -> relay STATE_CHANGED; MENU_ACTION -> relay ACTION; MENU_READY answers the sender. Preload+global.d.ts gained onAction/sendAction/onStateChanged/reportMenuReady. main/index.ts untouched. tests it( 16->21, 47 tests. Dead end: T43's `not.toContain('webContents.send')` is incompatible with F51 — re-aimed (not weakened) to exactly one send, inside sendToOthers, one IPC.ACTION call site.","children":[]}
+
+Gates: `npm test` 388 passed / 25 files, `npm run lint` clean (`--max-warnings 0`), `npm run typecheck` clean across all three projects. The T45 AC line executed verbatim → exit 0.
+
+Two commits in `lane/T45`:
+- `70ce805` — the relay implementation + tests
+- `18f78ca` — `.agentdoc/2026-09-03T00-02-53/sessions/iter-33.md`
+
+Two pre-existing assertions in `tests/ipc.test.ts` had to be re-aimed rather than kept literally, both in `src/main/ipc.ts`'s T43 coverage:
+
+- `expect(mainIpcTs).not.toContain('webContents.send')` is unsatisfiable once F51's relay exists. It now pins the actual invariant it was protecting — exactly one `webContents.send(` in the file, located inside `sendToOthers` (which excludes the sender), and exactly one `IPC.ACTION` call site, so main still never originates an action.
+- `session.onSave(parseSave(data))` became `const parsed = parseSave(data); session.onSave(parsed)` so the relay reuses the parse instead of parsing the untrusted payload twice; the test pins both literals plus the `writeSaveFile` → `onSave` order. F49's AC only greps `parseSave` in that file, so it still passes.
+
+`narrowAction` and `sendToOthers` are covered by source-contract tests, matching the existing convention for main-process modules (`src/main/ipc.ts` value-imports `electron`, which vitest cannot load — see `tests/window.test.ts`) and the task's Notes; runtime coverage falls to `npm run smoke` and the T46+ menu work.
