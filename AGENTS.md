@@ -40,19 +40,19 @@ bump (see HARNESS.md §Versioning).
 
 SERVER_URL=https://desmon-server-v3.onrender.com
 V2_SERVER_URL=https://desmon-server.onrender.com
-RENDER_SERVICE_ID=srv-dacmijqfngtc73e0sql0
+RENDER_SERVICE_ID=srv-dacmju6k1f9s73csi2v0
 RENDER_POSTGRES_ID=dpg-dacd4k2jnfac73c43llg-a
 DB_CREATED=2026-09-03T01:50:08.492032Z
 DB_EXPIRES=2026-10-03
-DEPLOYED_SHA=pending
+DEPLOYED_SHA=23cf0cf8ab233332433e7345fa5bc4a2a3b3c75e
 - v3: the live service is `desmon-server-v3`, built from branch `v3`; it shares the `desmon-db`
   Postgres (hence the unchanged `RENDER_POSTGRES_ID=`/`DB_CREATED=`/`DB_EXPIRES=`) with the v2
   service `desmon-server` (built from `main`), kept at `V2_SERVER_URL=` for reference only.
 - Provisioning (idempotent by name, run only by the loop's deploy task):
   `DESMON_SRV_NAME=desmon-server-v3 DESMON_BRANCH=v3 bash .harness/v3/loop/render-bootstrap.sh`.
-  Render rejects a branch it cannot see with HTTP 400, so the branch must exist on the remote
-  first; on the very first run (`v3` unpushed) the service was created from `main` and retargeted
-  with `render services update <srv-id> --branch v3 --confirm` right after the push.
+  Render rejects a branch it cannot see with HTTP 400, so `git push origin HEAD:v3` must land
+  BEFORE the bootstrap (`render services update --branch` returns 500 and cannot repair a service
+  created from the wrong branch — delete it and re-run the bootstrap instead).
 - Deploy = `git push origin HEAD:v3` + `render deploys create <srv-id> --wait --confirm` (webhooks
   not guaranteed). Verify with `curl $SERVER_URL/healthz` and `node dist/electron/server/probe.js
   $SERVER_URL` (register → upload → leaderboard; the probe never plays PvP and never reclaims).
