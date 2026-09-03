@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T66 — Battle scene: Game.playReplay, mirrored opponent group, blow pacing, KO scatter, banners, field hidden + presentation suppressed
 - result: DONE
-- commit: <filled in by the commit that carries this file>
+- commit: bb425c8c2420aeefb14859290c9da837e33f49ac
 - graphify affected used: none (the task's two files plus the helpers they already import — drawParty/partySlots, hitColorOf, spawnSpriteScatter, floatColor — were enough)
 
 ## What I did
