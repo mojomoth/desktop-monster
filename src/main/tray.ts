@@ -6,7 +6,7 @@
 import type { InputModePayload } from '../shared/ipc.js';
 
 /** First (disabled) menu row; tests pin the version against package.json. */
-export const TRAY_TITLE = 'DesMon v0.1.0';
+export const TRAY_TITLE = 'DesMon v0.2.0';
 export const TRAY_TOOLTIP = 'DesMon';
 export const INPUT_GLOBAL_LABEL = 'Input: Global';
 export const INPUT_FALLBACK_LABEL = 'Input: Window-only (grant Accessibility…)';

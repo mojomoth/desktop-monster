@@ -100,4 +100,35 @@ describe('README operator docs (F27)', () => {
     expect(readme).toContain(`release/DesMon-${pkg.version}-arm64.dmg`);
     expect(readme).toContain('release/mac-arm64/DesMon.app');
   });
+
+  it('documents the v2 gameplay: bosses, capture, companions, fever, rebirth, A-Z numbers', () => {
+    for (const topic of ['boss', 'companion', 'fever', 'rebirth', 'volley', 'souls']) {
+      expect(readme.toLowerCase()).toContain(topic);
+    }
+    expect(readme).toContain('Collection & Battle');
+    expect(readme).toContain('A\u2013Z notation');
+  });
+
+  it('documents the server: leaderboard, PvP, the URL override, offline and Render caveats', () => {
+    expect(readme.toLowerCase()).toContain('leaderboard');
+    expect(readme).toContain('PvP');
+    expect(readme).toContain('SERVER_URL');
+    expect(readme).toContain('DESMON_SERVER_URL');
+    expect(readme).toContain('npm run start:server');
+    expect(readme).toContain('sleeps after 15 minutes idle');
+    expect(readme).toContain('expires 30 days after it was created');
+    expect(readme).toContain('self-reported');
+  });
+});
+
+describe('version bump (F57)', () => {
+  it('keeps package-lock.json in lockstep with the package.json version', () => {
+    const lock = JSON.parse(read('package-lock.json')) as {
+      version: string;
+      packages: Record<string, { version?: string }>;
+    };
+    expect(pkg.version).toBe('0.2.0');
+    expect(lock.version).toBe(pkg.version);
+    expect(lock.packages['']?.version).toBe(pkg.version);
+  });
 });

@@ -3,8 +3,11 @@
 A BongoCat-style desktop companion battle game: a small transparent,
 always-on-top pixel-art overlay where every keystroke or mouse click makes a
 tiny knight attack a monster. Monsters have HP bars, drop coins and trinkets
-on death, and feed the hero's XP/level progression. Electron + TypeScript;
-all art and sound are generated in code (no binary assets).
+on death, and feed the hero's XP/level progression. Bosses can be captured as
+companions that fight alongside you, mashing lights up fever mode, and a
+global leaderboard and asynchronous PvP let you steal companions from other
+players. Electron + TypeScript; all art and sound are generated in code
+(no binary assets).
 
 ## Requirements
 
@@ -32,7 +35,59 @@ Useful scripts:
 
 The overlay is frameless and transparent: drag it by the invisible 24-pixel
 strip along its top edge. A slime icon in the menu bar tray hosts the menu
-(input-mode status, Reset Progress, Quit).
+(input-mode status, Collection & Battle…, Reset Progress, Quit).
+
+## Gameplay
+
+- **Attacks.** Every keystroke or mouse click is one hero hit for
+  `level × (crit ? 2 : 1) × (fever ? 3 : 1) × (1 + souls)` damage; crits are
+  10 % and show as larger yellow numbers. Kills give XP, coins and a 25 %
+  chance of a trinket, then the next (tougher) monster pops in.
+- **Bosses.** Every 8th monster (indices 7, 15, 23, …) is a **boss**: 5× HP,
+  5× XP and 5× coins, a ` BOSS` name suffix, drawn 3× the normal size with a
+  crown and a shockwave on spawn.
+- **Capture & companions.** Killing a boss captures it as a **companion**
+  with a 35 % chance (sparkle effect). Companions live in a roster of up to
+  30 and stand in a column left of the hero. The 3 strongest fire one
+  projectile each per second — a **volley** that damages, kills and loots
+  entirely without input, so the game keeps progressing while you type in
+  another app. Companion power is
+  `max(1, ⌊bossMaxHp/20⌋) × level × 2^stars`.
+- **Fever.** Landing 20 inputs within 3 seconds starts **fever mode**: a
+  hue-cycling aura around the hero, a `FEVER!` banner, an ascending blip, and
+  ×3 damage for both hero and companions for 5 seconds, followed by a
+  10-second cooldown before it can trigger again.
+- **Companion lifecycle.** In the Collection window a companion can be
+  **consumed** (feed another companion to raise its level, max 10),
+  **fused** (two of the same species and star count → one with +1 star),
+  **reincarnated** (a level-10 companion → level 1 with +1 star) or
+  **sacrificed** (deleted for `1 + stars` souls).
+- **Rebirth.** From monster index 40 you may **rebirth**: the run resets to
+  level 1 / monster 0 but you gain `⌊index/8⌋` **souls**, and companions,
+  coins, trinkets, kills and your deepest index are kept. Souls multiply all
+  damage by `(1 + souls)` and turn the hero's slash gold. It is the only
+  prestige mechanic — progression is otherwise endless, with no win state.
+- **A–Z numbers.** Damage and companion power are unbounded integers rendered
+  in truncating A–Z notation: values under 1000 print verbatim, above that
+  three significant digits plus a letter group (`1.00A` = 10³, `12.3A`,
+  `123A`, `1.00B` = 10⁶, … `Z` = 10⁷⁸, then `AA`, `AAA`). Coin and kill
+  counters stay plain digits.
+
+## Collection & Battle window
+
+The tray item **`Collection & Battle…`** opens a small framed window
+(380×520) with three tabs:
+
+- **Roster** — one card per companion with its species art, level, stars and
+  power in A–Z notation, the Consume / Fuse / Reincarnate / Sacrifice
+  buttons, and Rebirth (enabled from monster index 40). Changes apply to the
+  running game and are saved immediately.
+- **Ranking** — the global leaderboard (see below), with your row
+  highlighted, plus the editable nickname field.
+- **Battle** — one-click asynchronous PvP against another player.
+
+The tray item is the only way to open it, and it is never opened during
+`npm run smoke`.
 
 ## Accessibility permission (global input)
 
@@ -64,7 +119,7 @@ npm run package
 
 This produces, under `release/`:
 
-- `release/DesMon-0.1.0-arm64.dmg`
+- `release/DesMon-0.2.0-arm64.dmg`
 - `release/mac-arm64/DesMon.app`
 
 The build is intentionally **unsigned and un-notarized**
@@ -121,9 +176,10 @@ the Collection window simply shows the board as unavailable.
   `npm run start:server` listens on `PORT` (default `10000`) and serves
   `GET /healthz` plus the `/v1` API. Without `DATABASE_URL` it uses an
   in-memory store, so everything is lost on restart.
-- **`DESMON_SERVER_URL`** overrides the built-in URL
-  (`src/shared/serverUrl.ts`) for any launch; setting it to the empty string
-  forces offline mode.
+- **Server URL.** The built-in `SERVER_URL` constant
+  (`src/shared/serverUrl.ts`) points at the deployed Render service.
+  **`DESMON_SERVER_URL`** overrides it for any launch; setting it to the
+  empty string forces offline mode, and `SMOKE=1` forces offline in code.
 
 ### Free-tier caveats
 
