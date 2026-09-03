@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T43 — Net IPC: get-identity/set-name/leaderboard/pvp handlers, preload, global.d.ts, SMOKE offline pin
 - result: DONE
-- commit: 671b1505176a22920529c86795934da57ffdfbc9
+- commit: c6f7d2d9206c78df1bf6218ff44aec6560d26382 (the T43 code+test commit; this record line was corrected in the immediate follow-up docs commit)
 - graphify affected used: none (task Notes named every symbol; read src/main/net.ts, src/main/identity.ts, src/shared/api.ts directly)
 
 ## What I did
