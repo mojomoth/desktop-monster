@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T69 — Theft watcher (main): createTheftWatcher with injected timers, native Notification, reclaim → addCompanion via sendToAll
 - result: DONE
-- commit: 776e8c37177dcfc2a6e5d7804d8debf89a0e0076
+- commit: 7321a22350709e26eac7dec8ad0765d0b633550e (work) + this docs fixup
 - graphify affected used: `graphify query "species display name for a companion speciesId"`
 
 ## What I did
