@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T72 — Version 0.3.0, tray title, README v3, SPEC M15–M20 gaps, packaging test literal
 - result: DONE
-- commit: 14f8c75f267a5d12f2fbae26038305ba8a4fcd66 (amended → see `git log -1`)
+- commit: b057037a24f0632deecbca948448b8d57e32a752 (work commit; this line recorded in the follow-up commit, T71 pattern)
 - graphify affected used: none (task is version/docs literals; sources read directly:
   src/main/tray.ts, tests/tray.test.ts, tests/packaging.test.ts, tests/deploy.test.ts,
   src/main/window.ts, src/main/menuWindow.ts, src/core/collection.ts, src/shared/api.ts)
