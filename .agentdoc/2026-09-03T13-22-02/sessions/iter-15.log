@@ -1,0 +1,13 @@
+{"task":"T61","result":"DONE","gates":"pass","commit":"82d25bf85de8a02db12d97b4e1fecfb11e492b96","note":"src/server/app.ts: pending(row) helper (reclaimUntil >= now()), GET /v1/thefts (answers pending, lazily setThefts-prunes expired), POST /v1/reclaim (404 not_found → 410 expired → 409 gone, all pruned; else thief stolenIds += transferredId, thief roster+party without it, {...companion, id:'r'+id.slice(1)} added to my roster only below ROSTER_CAP, record removed), and thefts on the PUT /v1/snapshot response. tests/server/app.test.ts: stolen() theft factory + the 5 AC titles verbatim, 13→18 it(); records planted via store.setThefts, no PvP fixture, injected clock only. No dead ends — gates and AC green first run. Session record: iter-15.md (sha recorded in follow-up commit 8c35c85).","children":[]}
+
+T61 완료했습니다.
+
+**구현 (`src/server/app.ts`)**
+- `pending(row)` — `reclaimUntil >= now()` 인 도난 기록만 추림
+- `GET /v1/thefts` — pending 만 응답하고, 만료된 항목이 있으면 `setThefts` 로 행에서도 정리
+- `POST /v1/reclaim { theftId }` — SERVER_ARCHITECTURE_V3 §3 순서 그대로: 내 행에 없으면 404 `not_found` → `now() > reclaimUntil` 이면 410 `expired`(prune) → 도둑 행/스냅샷이 없거나 로스터에 `transferredId` 가 없으면 409 `gone`(prune) → 성공 시 도둑 `stolenIds += transferredId`, 도둑 로스터·파티에서 제거, `{ ...theft.companion, id: 'r' + theft.id.slice(1) }` 를 내 로스터에 `ROSTER_CAP` 미만일 때만 추가(가득 차도 200), 기록 삭제
+- `PUT /v1/snapshot` 응답에 `thefts`(pending) 추가 — `SnapshotResponse` 에 이미 선언돼 있던 필드
+
+**테스트 (`tests/server/app.test.ts`)** — `stolen(id, over)` 팩토리로 도난 기록을 victim 행에 직접 심어 PvP 픽스처 없이 결정적으로 검증. AC 제목 5개 그대로 추가해 `it(` 13 → 18. 경계도 함께 고정: `reclaimUntil` 당일은 아직 유효(1 ms 초과부터 410), 로스터 30개면 200이되 증가 없음, 소진/미지/누락 `theftId` 는 404, `gone` 두 형태 모두 prune 후 아무것도 반환하지 않음, 업로드의 `thefts` 는 시계가 가면 줄어듦.
+
+**게이트**: `npm test` 555 passed (33 files) / `lint` / `typecheck` 모두 통과, AC 라인 그대로 실행해 exit 0.
