@@ -429,7 +429,7 @@
 - Notes (iter 42, claude): DONE: game.ts: apply(a: CollectionAction) snapshots the roster, calls engine.apply and routes events through the shared handleEvents; new cases pvpResolved (VICTORY/DEFEAT banner, captureSparkle pop-in at the stolen slot, spawnSpriteScatter of the lost companion's idle art at its former slot) and rebirth (clearPresentation + createMonsterAnim pop-in at monster 0). Extracted clearPresentation() from reset() and companionSlotOf() (bossCaptured reuses it). index.ts: window.desmon.onAction -> saves.onEvents(game.apply(a)); saves.flush(); T16/T37 literals untouched. Tests 62 -> 68 it(. Gates + AC (incl. 
 
 
-### [ ] T48 — Menu roster UI: view-model + DOM wiring for consume/fuse/reincarnate/sacrifice/rebirth
+### [~] T48 — Menu roster UI: view-model + DOM wiring for consume/fuse/reincarnate/sacrifice/rebirth
 - AC: `npx vitest run tests/menu.test.ts && grep -q "src/menu" tsconfig.renderer.json && grep -q "reportMenuReady" src/menu/index.ts && grep -q "onStateChanged" src/menu/index.ts && grep -q "sendAction" src/menu/index.ts && grep -q "drawSprite" src/menu/index.ts && grep -q "menu.css" static/menu.html && grep -q "dist/web/menu/index.js" static/menu.html && grep -q "rosterRows lists companions with power in letter-suffix format sorted by power" tests/menu.test.ts && grep -q "fuse candidates are pairs of the same species and stars" tests/menu.test.ts && grep -q "rebirth button is enabled only from monster index 40" tests/menu.test.ts && grep -q "menu page paints each companion card with the species sprite" tests/menu.test.ts && grep -q "menu page reports ready and renders every state-changed save" tests/menu.test.ts && ! grep -rq "from 'electron'" src/menu` → exit 0
 - Deps: T46, T47
 - Worker: claude
