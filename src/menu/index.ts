@@ -12,8 +12,17 @@ import { DEFAULT_SAVE, parseSave, SPECIES_IDS } from '../core/index.js';
 import type { CollectionAction, SaveFile, SpeciesId } from '../core/index.js';
 import { drawSprite, monsterSprites, paletteForTier } from '../renderer/sprites/index.js';
 import type { SpriteCanvas } from '../renderer/sprites/index.js';
-import { canRebirth, consumeTargets, fuseCandidates, rosterRows } from './view.js';
-import type { RosterRow } from './view.js';
+import type { IdentityPayload, LeaderboardResult, NetResult, PvpResult } from '../shared/api.js';
+import {
+  battleEnabled,
+  canRebirth,
+  consumeTargets,
+  fuseCandidates,
+  leaderboardRows,
+  pvpResultText,
+  rosterRows,
+} from './view.js';
+import type { RankRow, RosterRow } from './view.js';
 
 /** The element surface this page touches — a real DOM element satisfies it. */
 export interface MenuElement {
@@ -21,11 +30,13 @@ export interface MenuElement {
   textContent: string | null;
   hidden: boolean;
   disabled?: boolean;
+  /** The name field's text; absent on everything else. */
+  value?: string;
   width?: number;
   height?: number;
   append(...children: unknown[]): void;
   replaceChildren(...children: unknown[]): void;
-  addEventListener(type: 'click', listener: () => void): void;
+  addEventListener(type: 'click' | 'change', listener: () => void): void;
   getContext?(id: '2d'): SpriteCanvas | null;
 }
 
@@ -35,11 +46,15 @@ export interface MenuDocument {
   querySelector(selectors: string): MenuElement | null;
 }
 
-/** The slice of window.desmon the roster needs (T49 adds the net methods). */
+/** The slice of window.desmon this page needs (src/renderer/global.d.ts). */
 export interface MenuBridge {
   reportMenuReady(): void;
   onStateChanged(cb: (save: unknown) => void): () => void;
   sendAction(a: CollectionAction): Promise<void>;
+  getIdentity(): Promise<IdentityPayload>;
+  setName(name: string): Promise<IdentityPayload>;
+  getLeaderboard(n?: number): Promise<NetResult<LeaderboardResult>>;
+  pvp(): Promise<NetResult<PvpResult>>;
 }
 
 /** Tab ids — each is both the tab button (`#tab-<id>`) and its panel (`#<id>`). */
@@ -47,6 +62,9 @@ const PANELS = ['roster', 'ranking', 'battle'] as const;
 
 /** Card art: the 12x10 species idle frame at 2x fills the 24x20 canvas. */
 const CARD_SCALE = 2;
+
+/** NICK_RE's ceiling — the name field also carries it as `maxlength`. */
+const NAME_MAX = 16;
 
 /** A half-finished two-companion action, waiting for its partner card. */
 interface Pending {
@@ -64,18 +82,31 @@ function speciesKey(speciesId: string): SpeciesId {
  * Bind the Collection & Battle page: boot reports the menu ready, every
  * `desmon:state-changed` re-renders the roster, and the card buttons send
  * consume/fuse/reincarnate/sacrifice/rebirth back through the bridge.
- * Ranking and Battle stay the placeholders of static/menu.html until T49.
+ * Ranking loads on tab open, Battle names the player and fights; both take the
+ * identity's `online` flag as their offline answer, so a server-less build
+ * never calls the network. Roster changes the server made (`removed`, the
+ * stolen/lost companion) reach the game ONLY from here, as actions.
  */
 export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   const roster = doc.querySelector('#roster');
   const rebirthBtn = doc.querySelector('#rebirth');
   const result = doc.querySelector('#result');
+  const ranking = doc.querySelector('#ranking');
+  const nameField = doc.querySelector('#name');
+  const battleBtn = doc.querySelector('#battle-go');
   // The page ships its own markup (static/menu.html); without it there is
   // nothing to bind and nothing to report ready for.
-  if (!roster || !rebirthBtn || !result) return;
+  if (!roster || !rebirthBtn || !result || !ranking || !nameField || !battleBtn) return;
 
   let save: SaveFile = DEFAULT_SAVE;
   let pending: Pending | null = null;
+  let rank: NetResult<LeaderboardResult> | null = null;
+  /** Seconds left on the PvP cooldown; `ticker` runs while it counts down. */
+  let cooldown = 0;
+  let ticker: unknown = null;
+  // One identity call per page: its `name` fills the field and its `online`
+  // decides whether a tab may touch the network at all.
+  const identity = api.getIdentity();
 
   const tabs = PANELS.map((id) => ({
     id,
@@ -88,6 +119,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
         if (other.tab) other.tab.className = other.id === t.id ? 'tab active' : 'tab';
         if (other.panel) other.panel.hidden = other.id !== t.id;
       }
+      if (t.id === 'ranking') openRanking();
     });
   }
 
@@ -197,6 +229,15 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
     return el;
   };
 
+  const rankRow = (r: RankRow): MenuElement => {
+    const el = doc.createElement('div');
+    el.className = 'row';
+    // ponytail: the leaderboard borrows the card's styled columns — `.power`
+    // is the right-aligned number, `.stars` the small badge — instead of new CSS.
+    el.append(span('rank', r.rank), span('name', r.name), span('power', r.deepest), span('stars', r.rebirths));
+    return el;
+  };
+
   const render = (): void => {
     const rows = rosterRows(save);
     roster.replaceChildren(
@@ -205,10 +246,103 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
         : rows.map(card)),
     );
     rebirthBtn.disabled = !canRebirth(save);
+    ranking.replaceChildren(...(rank === null ? [] : leaderboardRows(rank).map(rankRow)));
+    battleBtn.textContent = cooldown > 0 ? `Battle! (${String(cooldown)}s)` : 'Battle!';
+    battleBtn.disabled = !battleEnabled(save, cooldown);
+  };
+
+  /** Fire-and-forget bridge call: a rejected invoke must not break the page. */
+  const settle = <T>(p: Promise<T>, use: (value: T) => void): void => {
+    void p.then(use, () => undefined);
+  };
+
+  /** Run `fn` only when the server is reachable; otherwise answer `offline`. */
+  const online = (fn: () => void, offline: () => void): void => {
+    settle(identity, (id) => {
+      if (id.online) fn();
+      else offline();
+    });
+  };
+
+  /** The server stripped these companions from my roster — tell the game. */
+  const forwardRemoved = (removed: string[]): void => {
+    if (removed.length > 0) void api.sendAction({ type: 'removeCompanions', ids: removed });
+  };
+
+  /** Client countdown from the server's retryAfterSec; 0 re-arms the button. */
+  const startCooldown = (sec: number): void => {
+    cooldown = Math.max(0, Math.ceil(sec));
+    if (cooldown === 0 || ticker !== null) return;
+    ticker = setInterval(() => {
+      cooldown -= 1;
+      if (cooldown <= 0) {
+        clearInterval(ticker);
+        ticker = null;
+      }
+      render();
+    }, 1000);
+  };
+
+  const openRanking = (): void => {
+    const show = (r: NetResult<LeaderboardResult>): void => {
+      if (r.ok) forwardRemoved(r.value.removed);
+      rank = r;
+      render();
+    };
+    online(
+      () => {
+        settle(api.getLeaderboard(), show);
+      },
+      () => {
+        show({ ok: false, error: 'offline' });
+      },
+    );
+  };
+
+  const battle = (): void => {
+    const show = (r: NetResult<PvpResult>): void => {
+      if (r.ok) {
+        forwardRemoved(r.value.removed);
+        void api.sendAction({
+          type: 'pvpResult',
+          won: r.value.win,
+          stolen: r.value.stolen,
+          lostId: r.value.lost?.id ?? null,
+        });
+      } else if (r.error === 'cooldown') {
+        startCooldown(r.retryAfterSec ?? 0);
+      }
+      result.textContent = pvpResultText(r);
+      render();
+    };
+    online(
+      () => {
+        settle(api.pvp(), show);
+      },
+      () => {
+        show({ ok: false, error: 'offline' });
+      },
+    );
   };
 
   rebirthBtn.addEventListener('click', () => {
     if (canRebirth(save)) send({ type: 'rebirth' });
+  });
+
+  battleBtn.addEventListener('click', () => {
+    if (battleEnabled(save, cooldown)) battle();
+  });
+
+  // The field is the only writer of the name; main validates and answers with
+  // the identity it kept, so the field always shows what the server will see.
+  nameField.addEventListener('change', () => {
+    settle(api.setName((nameField.value ?? '').slice(0, NAME_MAX)), (id) => {
+      nameField.value = id.name;
+    });
+  });
+
+  settle(identity, (id) => {
+    nameField.value = id.name;
   });
 
   api.onStateChanged((raw) => {
@@ -232,6 +366,9 @@ function isPair(x: string, y: string, a: string, b: string): boolean {
 // importable from vitest's node environment.
 declare const document: MenuDocument;
 declare const window: { desmon: MenuBridge };
+// Declared locally too: the DOM and node lib types disagree on the handle.
+declare const setInterval: (cb: () => void, ms: number) => unknown;
+declare const clearInterval: (handle: unknown) => void;
 
 if (typeof document !== 'undefined') {
   mountMenu(document, window.desmon);

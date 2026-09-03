@@ -12,11 +12,13 @@
       <button class="tab" id="tab-battle" type="button">Battle</button>
     </div>
     <div class="panel" id="roster"></div>
-    <div class="panel" id="ranking" hidden>
-      <div class="row">The leaderboard arrives with the Ranking tab.</div>
-    </div>
+    <div class="panel" id="ranking" hidden></div>
     <div class="panel" id="battle" hidden>
-      <div class="row">PvP arrives with the Battle tab.</div>
+      <div class="row">
+        <label class="name" for="name">Name</label>
+        <input id="name" type="text" maxlength="16" autocomplete="off" spellcheck="false" />
+      </div>
+      <button class="btn" id="battle-go" type="button">Battle!</button>
     </div>
     <div class="footer">
       <button class="btn" id="rebirth" type="button" disabled>Rebirth</button>
