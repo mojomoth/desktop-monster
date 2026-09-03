@@ -5,7 +5,7 @@
 - lane: .worktrees/T48 (branch lane/T48)
 - harness version: v2
 - task: T48 — Menu roster UI: view-model + DOM wiring for consume/fuse/reincarnate/sacrifice/rebirth
-- commit: a97502fd54711b182047043322348544a6c3b7a4
+- commit: 6eb4a82f0a39053975e0d19b3315388ae59ad06c
 - graphify affected used: none (read src/core/collection.ts, src/core/save.ts,
   src/renderer/input.ts, src/renderer/sprites/*, static/menu.css directly)
 
