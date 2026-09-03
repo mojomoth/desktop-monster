@@ -1,0 +1,58 @@
+
+> desmon@0.2.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/identity.test.ts (8 tests) 71ms
+ ✓ tests/net.test.ts (16 tests) 182ms
+ ✓ tests/engine.test.ts (30 tests) 495ms
+ ✓ tests/collection.test.ts (21 tests) 721ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp steal rate over 10000 seeded wins is within 13 to 17 percent  587ms
+ ✓ tests/server/pvp.test.ts (14 tests) 69ms
+ ✓ tests/server/app.test.ts (18 tests) 95ms
+ ✓ tests/loot.test.ts (11 tests) 1052ms
+   ✓ mulberry32 deterministic RNG (SPEC F06, Assumption 15) > outputs stay in [0, 1) and are roughly uniform over 10000 draws  615ms
+ ✓ tests/fever.test.ts (4 tests) 78ms
+ ✓ tests/tray.test.ts (37 tests) 88ms
+ ✓ tests/anim.test.ts (14 tests) 133ms
+ ✓ tests/sprites.test.ts (31 tests) 166ms
+ ✓ tests/menu.test.ts (23 tests) 258ms
+ ✓ tests/typeChart.test.ts (4 tests) 92ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 73ms
+ ✓ tests/renderer.test.ts (91 tests) 328ms
+ ✓ tests/packaging.test.ts (14 tests) 126ms
+ ✓ tests/globalInput.test.ts (19 tests) 108ms
+ ✓ tests/formulas.test.ts (13 tests) 103ms
+ ✓ tests/persistence.test.ts (10 tests) 104ms
+ ✓ tests/audio.test.ts (15 tests) 176ms
+ ✓ tests/save.test.ts (13 tests) 34ms
+ ✓ tests/window.test.ts (29 tests) 59ms
+ ✓ tests/effects.test.ts (6 tests) 90ms
+ ✓ tests/thefts.test.ts (5 tests) 24ms
+ ✓ tests/ipc.test.ts (56 tests) 112ms
+ ✓ tests/server/http.test.ts (9 tests) 25ms
+ ✓ tests/input.test.ts (9 tests) 21ms
+ ✓ tests/fsm.test.ts (12 tests) 31ms
+ ✓ tests/drag.test.ts (7 tests) 21ms
+ ✓ tests/rendererInput.test.ts (7 tests) 29ms
+ ✓ tests/bignum.test.ts (7 tests) 25ms
+ ✓ tests/deploy.test.ts (7 tests) 50ms
+ ✓ tests/scaffold.test.ts (1 test) 26ms
+ ✓ tests/battle.test.ts (4 tests) 54ms
+
+ Test Files  34 passed (34)
+      Tests  587 passed (587)
+   Start at  22:03:29
+   Duration  8.49s (transform 13.11s, setup 0ms, collect 43.06s, tests 5.12s, environment 11ms, prepare 10.78s)
+
+
+> desmon@0.2.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.2.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+

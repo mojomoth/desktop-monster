@@ -1,0 +1,11 @@
+{"task":"T71","result":"DONE","gates":"pass","commit":"33d58e8ee1a1b56d4f7e0e2b5f2fa5b6f0a2d3ce","note":"Binder v3 in src/menu/index.ts: #find→pvpMatch()→#opponent panel (opponentRows, bot line), 5-slot party editor with .card.mini.pick/.selected via togglePick, #auto=autoParty, #save-party→setPvpParty, live #preview=partyPreview; local pvp() (F55 literal) sends matchId+picks, success→removeCompanions then pvpResult{won,stolen,lostId:null,replay{opponentName,opponentParty,blows}}, match cleared, inbox refreshed; cooldown countdown kept; expired→'Opponent expired — find again'; #thefts+Reclaim→addCompanion, expired/gone drop the row. Roster type badge + ★ PvP. tests 18→23. Dead ends: sprite test counted ALL canvases (now 9) → scoped to #roster; offline test clicked #battle-go which is dead without a match → clicks #find. view.ts untouched (not in Files), so battleEnabled keeps its v2 leg."}
+
+**주요 내용 (한글 요약)**
+
+- **파일**: `src/menu/index.ts` (재작성), `tests/menu.test.ts` (18 → 23 tests), 세션 기록 `iter-19.md`
+- **커밋**: `29336be` (작업) + `33d58e8` (세션 기록 sha 보정) — lane/T71, 트리 clean
+- **게이트**: `npm test` 587 passed / `npm run lint` / `npm run typecheck` 모두 통과, T71 AC 명령 `EXIT=0` (menu/tray/window 89 tests + 모든 grep + `it(` 23 ≥ 22)
+
+구현한 흐름: `#find` → `pvpMatch()` 로 상대 미리보기 → 파티 편집(픽 토글 최대 5, Auto/Save) → `Battle!` 은 매치·파티·쿨다운 조건을 모두 만족할 때만 활성 → `pvp(matchId, ids)` 성공 시 `removeCompanions` 먼저, 그다음 리플레이가 실린 `pvpResult` 를 게임 창으로 전달, 매치 소진 후 도난 인박스 갱신. `expired` 는 상대 패널을 "Opponent expired — find again" 으로 비우고, 인박스의 `Reclaim` 은 `addCompanion` 전달 후 재조회(`expired`/`gone` 은 사유와 함께 행 제거). 로스터 카드에는 타입 배지와 저장된 파티 멤버의 `★ PvP` 표시가 붙습니다.
+
+막다른 길 두 가지를 기록에 남겼습니다: 스프라이트 테스트가 문서 전체 canvas를 세고 있어 파티 슬롯/픽 카드 때문에 9개가 되어 `#roster` 범위로 좁혔고, 오프라인 테스트는 2단계 흐름에서 비활성인 `#battle-go` 대신 실제로 네트워크를 건드리는 `#find` 를 누르도록 바꿨습니다(제목은 그대로).

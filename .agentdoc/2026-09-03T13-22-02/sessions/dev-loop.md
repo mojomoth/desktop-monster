@@ -18,3 +18,4 @@
 | 13 | claude | T65 | DONE | pass | pass | 19cff0f | continue |
 | 18 | claude | T69 | DONE | pass | pass | a340ef9 | continue |
 | 17 | claude | T66 | DONE | pass | pass | 2aad487 | continue |
+| 19 | claude | T71 | DONE | pass | skipped | a9c9d1d | continue |
