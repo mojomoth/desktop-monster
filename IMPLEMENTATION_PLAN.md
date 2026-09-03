@@ -247,7 +247,7 @@
 - Notes (iter 28, claude): DONE: Iter 27 had already produced a green implementation at unmerged commit 080dc97 (it crashed before printing status JSON, so the lane was reverted). Ponytail rung 2: recovered collection.ts + collection.test.ts from it and re-added the single barrel line to index.ts by hand (index.ts moved on since, so checking it out would have clobbered T43's changes). Reviewed the code against the Notes; types.ts untouched, events local as CollectionEvent for T28. Gates: 371 tests / 25 files pass, lint 0 warnings, typecheck clean. AC exits 0. Dead end: this shell's grep is a ugrep shim that reads the mid-patt
 
 
-### [ ] T28 — Engine: boss capture roll, apply(action), bestIndex, souls damage
+### [~] T28 — Engine: boss capture roll, apply(action), bestIndex, souls damage
 - AC: `npx vitest run tests/engine.test.ts tests/collection.test.ts && grep -q "CAPTURE_CHANCE = 0.35" src/core/engine.ts && grep -q "apply(a: CollectionAction)" src/core/engine.ts && grep -q "a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent" tests/engine.test.ts && grep -q "non-boss kills consume exactly the v1 rng draws" tests/engine.test.ts && grep -q "a capture into a full roster of 30 is skipped but still spends the draw" tests/engine.test.ts && grep -q "apply(rebirth) emits rebirth and multiplies hero damage by 1 plus souls" tests/engine.test.ts && grep -q "apply with an invalid action emits nothing and leaves state untouched" tests/engine.test.ts && grep -q "bestIndex tracks the deepest monster index ever spawned" tests/engine.test.ts && test "$(grep -c '^\s*it(' tests/engine.test.ts)" -ge 23` → exit 0
 - Deps: T26, T27
 - Worker: claude
