@@ -10,12 +10,19 @@ import type {
   IdentityPayload,
   LeaderboardResponse,
   LeaderboardResult,
+  MatchResponse,
+  MatchResult,
   NetResult,
+  PvpRequest,
   PvpResponse,
   PvpResult,
+  ReclaimResponse,
+  ReclaimResult,
   RegisterResponse,
   Snapshot,
   SnapshotResponse,
+  TheftsResponse,
+  TheftsResult,
 } from '../shared/api.js';
 import { isValidName, readIdentity, writeIdentity, type Identity } from './identity.js';
 
@@ -26,7 +33,10 @@ export interface NetClient {
   register(name: string): Promise<NetResult<RegisterResponse>>;
   upload(token: string, snapshot: Snapshot): Promise<NetResult<SnapshotResponse>>;
   leaderboard(token: string | null, n: number): Promise<NetResult<LeaderboardResponse>>;
-  pvp(token: string): Promise<NetResult<PvpResponse>>;
+  match(token: string): Promise<NetResult<MatchResponse>>;
+  pvp(token: string, body: PvpRequest): Promise<NetResult<PvpResponse>>;
+  thefts(token: string): Promise<NetResult<TheftsResponse>>;
+  reclaim(token: string, theftId: string): Promise<NetResult<ReclaimResponse>>;
 }
 
 /** Structural view of the parts of a save the server ranks. SaveFileV2 is assignable. */
@@ -34,6 +44,8 @@ export interface SnapshotSource {
   bestIndex: number;
   rebirths: number;
   companions: Companion[];
+  /** ponytail: optional because src/server/probe.ts snapshots a party-less player. */
+  pvpParty?: string[];
 }
 
 export interface NetSession {
@@ -41,18 +53,20 @@ export interface NetSession {
   setName(name: unknown): IdentityPayload;
   onSave(save: SnapshotSource): void;
   leaderboard(n: number): Promise<NetResult<LeaderboardResult>>;
-  pvp(): Promise<NetResult<PvpResult>>;
+  match(): Promise<NetResult<MatchResult>>;
+  pvp(matchId: string, party: string[]): Promise<NetResult<PvpResult>>;
+  thefts(): Promise<NetResult<TheftsResult>>;
+  reclaim(theftId: string): Promise<NetResult<ReclaimResult>>;
 }
 
 /** The wire snapshot for `save` under `name`. */
 export function toSnapshot(name: string, save: SnapshotSource): Snapshot {
-  // ponytail: `party` stays empty until T67 reads `save.pvpParty` (T56 adds it).
   return {
     name,
     bestIndex: save.bestIndex,
     rebirths: save.rebirths,
     companions: save.companions,
-    party: [],
+    party: save.pvpParty ?? [],
   };
 }
 
@@ -98,6 +112,10 @@ export function createNetClient(o: {
       return { ok: false, error: 'network' };
     }
     if (res.status === 401) return { ok: false, error: 'unauthorized' };
+    // v3: a dead match / a closed reclaim window, and a companion the thief no
+    // longer holds — both are normal outcomes the menu explains, not failures.
+    if (res.status === 410) return { ok: false, error: 'expired', status: 410 };
+    if (res.status === 409) return { ok: false, error: 'gone', status: 409 };
     const parsed = await readJson(res);
     if (res.ok && parsed !== undefined) return { ok: true, value: parsed as T };
     const error = (typeof parsed === 'object' && parsed !== null ? parsed : {}) as ApiError;
@@ -111,7 +129,10 @@ export function createNetClient(o: {
     register: (name) => call<RegisterResponse>('POST', '/v1/players', null, { nickname: name }),
     upload: (token, snapshot) => call<SnapshotResponse>('PUT', '/v1/snapshot', token, snapshot),
     leaderboard: (token, n) => call<LeaderboardResponse>('GET', `/v1/leaderboard?n=${n}`, token),
-    pvp: (token) => call<PvpResponse>('POST', '/v1/pvp', token, {}),
+    match: (token) => call<MatchResponse>('POST', '/v1/pvp/match', token, {}),
+    pvp: (token, body) => call<PvpResponse>('POST', '/v1/pvp', token, body),
+    thefts: (token) => call<TheftsResponse>('GET', '/v1/thefts', token),
+    reclaim: (token, theftId) => call<ReclaimResponse>('POST', '/v1/reclaim', token, { theftId }),
   };
 }
 
@@ -135,7 +156,7 @@ export function createNetSession(deps: {
 
   /** bestIndex is deliberately absent: kills at the frontier must not spam PUTs. */
   const rosterKey = (save: SnapshotSource): string =>
-    JSON.stringify([identity.name, save.rebirths, save.companions]);
+    JSON.stringify([identity.name, save.rebirths, save.companions, save.pvpParty ?? []]);
 
   const payload = (): IdentityPayload => ({ name: identity.name, playerId: identity.playerId, online });
 
@@ -148,7 +169,7 @@ export function createNetSession(deps: {
     if (identity.token !== null) return { ok: true, value: identity.token };
     const res = await client.register(identity.name);
     if (!res.ok) return res;
-    store({ name: identity.name, playerId: res.value.playerId, token: res.value.token });
+    store({ ...identity, playerId: res.value.playerId, token: res.value.token });
     return { ok: true, value: res.value.token };
   }
 
@@ -159,7 +180,7 @@ export function createNetSession(deps: {
     const res = await send(first.value);
     if (res.ok || res.error !== 'unauthorized' || reRegistered) return res;
     reRegistered = true;
-    store({ name: identity.name, playerId: null, token: null });
+    store({ ...identity, playerId: null, token: null });
     const second = await ensureRegistered();
     if (!second.ok) return second;
     return send(second.value);
@@ -199,10 +220,17 @@ export function createNetSession(deps: {
       const res = await withToken((token) => client.leaderboard(token, n));
       return res.ok ? { ok: true, value: { ...res.value, removed } } : res;
     },
-    async pvp() {
+    async match() {
+      // Upload first when dirty: the opponent picker must see my current party.
+      await uploadIfDirty();
+      return withToken((token) => client.match(token));
+    },
+    async pvp(matchId, party) {
       const removed = removedOf(await upload());
-      const res = await withToken((token) => client.pvp(token));
+      const res = await withToken((token) => client.pvp(token, { matchId, party }));
       return res.ok ? { ok: true, value: { ...res.value, removed } } : res;
     },
+    thefts: () => withToken((token) => client.thefts(token)),
+    reclaim: (theftId) => withToken((token) => client.reclaim(token, theftId)),
   };
 }

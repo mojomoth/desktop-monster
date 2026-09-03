@@ -14,6 +14,8 @@ export interface Identity {
   name: string;
   playerId: string | null;
   token: string | null;
+  /** Theft ids already shown as a native notification (SERVER_ARCHITECTURE_V3 §5). */
+  notifiedTheftIds: string[];
 }
 
 /** Absolute path of identity.json inside the given userData directory. */
@@ -33,8 +35,8 @@ export function isValidName(name: unknown): name is string {
 
 /**
  * Read identity.json. Missing, unreadable, corrupt or wrongly shaped content
- * yields a fresh `{ name: 'Knight-xxxx', playerId: null, token: null }`.
- * Never throws.
+ * yields a fresh `{ name: 'Knight-xxxx', playerId: null, token: null,
+ * notifiedTheftIds: [] }`. Never throws.
  */
 export function readIdentity(dir: string, randomUUID: () => string): Identity {
   let raw: unknown = null;
@@ -48,6 +50,9 @@ export function readIdentity(dir: string, randomUUID: () => string): Identity {
     name: isValidName(o.name) ? o.name : defaultName(randomUUID),
     playerId: typeof o.playerId === 'string' ? o.playerId : null,
     token: typeof o.token === 'string' ? o.token : null,
+    notifiedTheftIds: Array.isArray(o.notifiedTheftIds)
+      ? o.notifiedTheftIds.filter((id): id is string => typeof id === 'string')
+      : [],
   };
 }
 

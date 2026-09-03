@@ -10,6 +10,7 @@ import type {
   IdentityPayload,
   LeaderboardResult,
   NetResult,
+  PvpRequest,
   PvpResult,
 } from '../shared/api.js';
 import { IPC } from '../shared/ipc.js';
@@ -146,7 +147,14 @@ export function registerIpcHandlers(options: IpcOptions = {}): void {
     return session.leaderboard(count);
   });
 
-  ipcMain.handle(IPC.PVP, (): Promise<NetResult<PvpResult>> => session.pvp());
+  // v3 (T67): the battle needs the match from step 1 and my chosen party. The
+  // payload is untrusted; a malformed one is refused, never forwarded.
+  ipcMain.handle(IPC.PVP, (_event, p: unknown): Promise<NetResult<PvpResult>> => {
+    const { matchId, party } = (p as Partial<PvpRequest> | null | undefined) ?? {};
+    return typeof matchId === 'string' && Array.isArray(party) && party.every((id) => typeof id === 'string')
+      ? session.pvp(matchId, party)
+      : Promise.resolve({ ok: false, error: 'network' });
+  });
 
   ipcMain.handle(IPC.OPEN_ACCESSIBILITY_SETTINGS, async (): Promise<void> => {
     await shell.openExternal(ACCESSIBILITY_SETTINGS_URL);

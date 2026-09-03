@@ -11,11 +11,16 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import type {
   Companion,
   LeaderboardResponse,
+  MatchResponse,
   NetResult,
+  PvpRequest,
   PvpResponse,
+  ReclaimResponse,
   RegisterResponse,
   Snapshot,
   SnapshotResponse,
+  Theft,
+  TheftsResponse,
 } from '../src/shared/api.js';
 import { readIdentity, writeIdentity } from '../src/main/identity.js';
 import {
@@ -69,6 +74,24 @@ const save = (over: Partial<SnapshotSource> = {}): SnapshotSource => ({
   ...over,
 });
 
+const MATCH: MatchResponse = {
+  matchId: 'm1',
+  seed: 7,
+  bot: false,
+  opponent: { name: 'Rival', bestIndex: 20, rebirths: 1, party: [companion('o1')] },
+  expiresAt: 120_000,
+};
+
+const THEFT: Theft = {
+  id: 'th1',
+  companion: companion('c1'),
+  transferredId: 's1',
+  thiefId: 'p9',
+  thiefName: 'Rival',
+  at: 1000,
+  reclaimUntil: 87_400,
+};
+
 const PVP: PvpResponse = {
   bot: true,
   seed: 7,
@@ -80,9 +103,10 @@ const PVP: PvpResponse = {
 };
 
 interface FakeClient extends NetClient {
-  /** Every call in order: 'register:<name>' | 'upload' | 'leaderboard:<n>' | 'pvp'. */
+  /** Every call in order: 'register:<name>' | 'upload' | 'leaderboard:<n>' | 'match' | 'pvp' | 'thefts' | 'reclaim:<id>'. */
   calls: string[];
   uploads: Snapshot[];
+  pvps: PvpRequest[];
   /** Bearer token passed to each bearer call, in order. */
   tokens: (string | null)[];
 }
@@ -92,11 +116,13 @@ function fakeClient(
     register?: () => NetResult<RegisterResponse>;
     upload?: (n: number) => NetResult<SnapshotResponse>;
     leaderboard?: (n: number) => NetResult<LeaderboardResponse>;
+    match?: () => NetResult<MatchResponse>;
     pvp?: () => NetResult<PvpResponse>;
   } = {},
 ): FakeClient {
   const calls: string[] = [];
   const uploads: Snapshot[] = [];
+  const pvps: PvpRequest[] = [];
   const tokens: (string | null)[] = [];
   let registers = 0;
   let uploaded = 0;
@@ -104,6 +130,7 @@ function fakeClient(
   return {
     calls,
     uploads,
+    pvps,
     tokens,
     register(name) {
       calls.push(`register:${name}`);
@@ -121,10 +148,26 @@ function fakeClient(
       tokens.push(token);
       return Promise.resolve(opts.leaderboard?.(listed++) ?? ok({ top: [], me: null }));
     },
-    pvp(token) {
+    match(token) {
+      calls.push('match');
+      tokens.push(token);
+      return Promise.resolve(opts.match?.() ?? ok(MATCH));
+    },
+    pvp(token, body) {
       calls.push('pvp');
       tokens.push(token);
+      pvps.push(body);
       return Promise.resolve(opts.pvp?.() ?? ok(PVP));
+    },
+    thefts(token) {
+      calls.push('thefts');
+      tokens.push(token);
+      return Promise.resolve(ok({ thefts: [THEFT] }));
+    },
+    reclaim(token, theftId) {
+      calls.push(`reclaim:${theftId}`);
+      tokens.push(token);
+      return Promise.resolve(ok({ companion: companion('r1') }));
     },
   };
 }
@@ -155,7 +198,10 @@ describe('createNetClient', () => {
       client.register('Knight-0000'),
       client.upload('tok', toSnapshot('Knight-0000', save())),
       client.leaderboard(null, 10),
-      client.pvp('tok'),
+      client.match('tok'),
+      client.pvp('tok', { matchId: 'm1', party: [] }),
+      client.thefts('tok'),
+      client.reclaim('tok', 'th1'),
     ]);
 
     for (const result of results) expect(result).toEqual({ ok: false, error: 'offline' });
@@ -209,10 +255,11 @@ describe('createNetClient', () => {
     );
     const client = createNetClient({ baseUrl: BASE, fetchFn, timeoutMs: 10 });
 
-    expect(await client.pvp('t1')).toEqual({ ok: false, error: 'unauthorized' });
-    expect(await client.pvp('t1')).toEqual({ ok: false, error: 'cooldown', retryAfterSec: 42 });
-    expect(await client.pvp('t1')).toEqual({ ok: false, error: 'network' });
-    expect(await client.pvp('t1')).toEqual({ ok: false, error: 'network' });
+    const body: PvpRequest = { matchId: 'm1', party: [] };
+    expect(await client.pvp('t1', body)).toEqual({ ok: false, error: 'unauthorized' });
+    expect(await client.pvp('t1', body)).toEqual({ ok: false, error: 'cooldown', retryAfterSec: 42 });
+    expect(await client.pvp('t1', body)).toEqual({ ok: false, error: 'network' });
+    expect(await client.pvp('t1', body)).toEqual({ ok: false, error: 'network' });
   });
 
   it('maps any other non-2xx and an unparsable body to server with the status', async () => {
@@ -230,6 +277,72 @@ describe('createNetClient', () => {
     expect(await client.upload('t1', toSnapshot(NAME, save()))).toEqual({ ok: false, error: 'server', status: 502 });
     expect(await client.upload('t1', toSnapshot(NAME, save()))).toEqual({ ok: false, error: 'server', status: 200 });
   });
+
+  it('match calls POST pvp match with the bearer and maps the response', async () => {
+    const { calls, fetchFn } = fakeFetch(json(MATCH), json({ thefts: [THEFT] } satisfies TheftsResponse));
+    const client = createNetClient({ baseUrl: BASE, fetchFn });
+
+    expect(await client.match('t1')).toEqual({ ok: true, value: MATCH });
+    expect(await client.thefts('t1')).toEqual({ ok: true, value: { thefts: [THEFT] } });
+
+    expect(calls[0]).toEqual({
+      url: `${BASE}/v1/pvp/match`,
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: 'Bearer t1' },
+      body: '{}',
+      aborts: true,
+    });
+    expect(calls[1]).toEqual({
+      url: `${BASE}/v1/thefts`,
+      method: 'GET',
+      headers: { 'content-type': 'application/json', authorization: 'Bearer t1' },
+      body: undefined,
+      aborts: true,
+    });
+  });
+
+  it('pvp sends matchId and party and maps 410 to expired', async () => {
+    const { calls, fetchFn } = fakeFetch(json(PVP), json({ error: 'expired' }, 410));
+    const client = createNetClient({ baseUrl: BASE, fetchFn });
+
+    expect(await client.pvp('t1', { matchId: 'm1', party: ['c1', 'c2'] })).toEqual({ ok: true, value: PVP });
+    // The match died of its 120 s TTL between the preview and the Battle! click.
+    expect(await client.pvp('t1', { matchId: 'm1', party: [] })).toEqual({
+      ok: false,
+      error: 'expired',
+      status: 410,
+    });
+
+    expect(calls[0]).toEqual({
+      url: `${BASE}/v1/pvp`,
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: 'Bearer t1' },
+      body: JSON.stringify({ matchId: 'm1', party: ['c1', 'c2'] }),
+      aborts: true,
+    });
+  });
+
+  it('reclaim maps 409 to gone and 410 to expired', async () => {
+    const { calls, fetchFn } = fakeFetch(
+      json({ companion: companion('r1') } satisfies ReclaimResponse),
+      json({ error: 'gone' }, 409),
+      json({ error: 'expired' }, 410),
+    );
+    const client = createNetClient({ baseUrl: BASE, fetchFn });
+
+    expect(await client.reclaim('t1', 'th1')).toEqual({ ok: true, value: { companion: companion('r1') } });
+    // The thief already consumed it; the 24 h window on the other one is over.
+    expect(await client.reclaim('t1', 'th1')).toEqual({ ok: false, error: 'gone', status: 409 });
+    expect(await client.reclaim('t1', 'th2')).toEqual({ ok: false, error: 'expired', status: 410 });
+
+    expect(calls[0]).toEqual({
+      url: `${BASE}/v1/reclaim`,
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: 'Bearer t1' },
+      body: JSON.stringify({ theftId: 'th1' }),
+      aborts: true,
+    });
+  });
 });
 
 describe('toSnapshot', () => {
@@ -242,6 +355,12 @@ describe('toSnapshot', () => {
       companions: [companion('c1'), companion('c2')],
       party: [],
     });
+  });
+
+  it('toSnapshot copies pvpParty into party', () => {
+    expect(toSnapshot('Hero_1', save({ pvpParty: ['c2', 'c1'] })).party).toEqual(['c2', 'c1']);
+    // A party-less source (src/server/probe.ts) still yields an empty party.
+    expect(toSnapshot('Hero_1', { bestIndex: 0, rebirths: 0, companions: [] }).party).toEqual([]);
   });
 });
 
@@ -256,7 +375,7 @@ describe('createNetSession', () => {
     await flush();
     expect(client.calls).toEqual([`register:${NAME}`, 'upload']);
     expect(client.uploads[0]).toEqual(toSnapshot(NAME, save()));
-    expect(readIdentity(dir, uuid)).toEqual({ name: NAME, playerId: 'p1', token: 't1' });
+    expect(readIdentity(dir, uuid)).toEqual({ name: NAME, playerId: 'p1', token: 't1', notifiedTheftIds: [] });
     expect(session.identity()).toEqual({ name: NAME, playerId: 'p1', online: true });
 
     // bestIndex alone never triggers an upload.
@@ -274,7 +393,7 @@ describe('createNetSession', () => {
   });
 
   it('session drops credentials and re-registers once on unauthorized', async () => {
-    writeIdentity(dir, { name: 'Hero_1', playerId: 'old', token: 't0' });
+    writeIdentity(dir, { name: 'Hero_1', playerId: 'old', token: 't0', notifiedTheftIds: ['th1'] });
     // Every leaderboard call is rejected except the second one (the retry).
     const client = fakeClient({
       leaderboard: (n) => (n === 1 ? ok({ top: [], me: null }) : { ok: false, error: 'unauthorized' }),
@@ -285,7 +404,13 @@ describe('createNetSession', () => {
     expect(client.calls).toEqual(['leaderboard:10', 'register:Hero_1', 'leaderboard:10']);
     expect(client.tokens).toEqual(['t0', 't1']);
     // Credentials were cleared and re-written; the nickname survives.
-    expect(readIdentity(dir, uuid)).toEqual({ name: 'Hero_1', playerId: 'p1', token: 't1' });
+    // The notification log survives the credential reset.
+    expect(readIdentity(dir, uuid)).toEqual({
+      name: 'Hero_1',
+      playerId: 'p1',
+      token: 't1',
+      notifiedTheftIds: ['th1'],
+    });
 
     // A second 401 in the same session is returned as-is — no second re-register.
     expect(await session.leaderboard(10)).toEqual({ ok: false, error: 'unauthorized' });
@@ -301,7 +426,7 @@ describe('createNetSession', () => {
     expect(client.calls).toEqual([`register:${NAME}`, 'upload']);
 
     // Nothing changed since that upload, yet pvp always re-uploads first.
-    const result = await session.pvp();
+    const result = await session.pvp('m1', ['c1']);
     expect(client.calls).toEqual([`register:${NAME}`, 'upload', 'upload', 'pvp']);
     expect(client.uploads[1]).toEqual(toSnapshot(NAME, save({ companions: [companion('c1')] })));
     expect(result).toEqual({ ok: true, value: { ...PVP, removed: ['c1'] } });
@@ -344,8 +469,57 @@ describe('createNetSession', () => {
     session.onSave(save({ companions: [companion('c1')] }));
     await flush();
     expect(await session.leaderboard(10)).toEqual({ ok: false, error: 'offline' });
-    expect(await session.pvp()).toEqual({ ok: false, error: 'offline' });
+    expect(await session.match()).toEqual({ ok: false, error: 'offline' });
+    expect(await session.pvp('m1', [])).toEqual({ ok: false, error: 'offline' });
+    expect(await session.thefts()).toEqual({ ok: false, error: 'offline' });
+    expect(await session.reclaim('th1')).toEqual({ ok: false, error: 'offline' });
     expect(calls).toHaveLength(0);
     expect(readIdentity(dir, uuid).token).toBeNull();
+  });
+
+  it('session pvp uploads the snapshot before battling and session match uploads only when dirty', async () => {
+    // The background upload of the party edit fails, so the roster key stays dirty.
+    const client = fakeClient({
+      upload: (n) => (n === 0 ? { ok: false, error: 'network' } : ok({ rank: 1, removed: [], thefts: [] })),
+    });
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    const edited = save({ companions: [companion('c1')], pvpParty: ['c1'] });
+
+    session.onSave(edited);
+    await flush();
+    expect(client.calls).toEqual([`register:${NAME}`, 'upload']);
+
+    // Still dirty → match uploads first: the opponent must see my current party.
+    expect(await session.match()).toEqual(ok(MATCH));
+    expect(client.calls).toEqual([`register:${NAME}`, 'upload', 'upload', 'match']);
+    expect(client.uploads.map((u) => u.party)).toEqual([['c1'], ['c1']]);
+
+    // Clean now → a second match uploads nothing.
+    expect(await session.match()).toEqual(ok(MATCH));
+    expect(client.calls).toEqual([`register:${NAME}`, 'upload', 'upload', 'match', 'match']);
+
+    // pvp ALWAYS re-uploads first, clean or not, and forwards matchId + party.
+    expect(await session.pvp('m1', ['c1'])).toEqual(ok({ ...PVP, removed: [] }));
+    expect(client.calls).toEqual([
+      `register:${NAME}`,
+      'upload',
+      'upload',
+      'match',
+      'match',
+      'upload',
+      'pvp',
+    ]);
+    expect(client.pvps).toEqual([{ matchId: 'm1', party: ['c1'] }]);
+  });
+
+  it('session thefts and reclaim register once and carry the bearer', async () => {
+    const client = fakeClient();
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+
+    expect(await session.thefts()).toEqual(ok({ thefts: [THEFT] }));
+    expect(await session.reclaim('th1')).toEqual(ok({ companion: companion('r1') }));
+    // Neither call changes my roster on the way out, so neither uploads.
+    expect(client.calls).toEqual([`register:${NAME}`, 'thefts', 'reclaim:th1']);
+    expect(client.tokens).toEqual(['t1', 't1']);
   });
 });
