@@ -10,6 +10,7 @@ export const TRAY_TITLE = 'DesMon v0.1.0';
 export const TRAY_TOOLTIP = 'DesMon';
 export const INPUT_GLOBAL_LABEL = 'Input: Global';
 export const INPUT_FALLBACK_LABEL = 'Input: Window-only (grant Accessibility…)';
+export const COLLECTION_LABEL = 'Collection & Battle…';
 export const RESET_LABEL = 'Reset Progress';
 export const QUIT_LABEL = 'Quit';
 
@@ -24,6 +25,8 @@ export interface TrayMenuItem {
 export interface TrayMenuActions {
   /** Fallback status row clicked → Accessibility pane deep link. */
   openAccessibilitySettings: () => void;
+  /** "Collection & Battle…" clicked → open the menu window (SPEC F52). */
+  openCollection: () => void;
   /** "Reset Progress" clicked → send desmon:reset to the renderer. */
   resetProgress: () => void;
   /** "Quit" clicked → app.quit(). */
@@ -47,6 +50,7 @@ export function buildTrayMenuTemplate(
     { label: TRAY_TITLE, enabled: false },
     status,
     { type: 'separator' },
+    { label: COLLECTION_LABEL, click: actions.openCollection },
     { label: RESET_LABEL, click: actions.resetProgress },
     { label: QUIT_LABEL, click: actions.quit },
   ];

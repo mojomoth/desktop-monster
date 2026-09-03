@@ -11,6 +11,7 @@ import { SimulatedInputDriver } from '../core/index.js';
 import { IPC } from '../shared/ipc.js';
 import { getCurrentInputMode, startGlobalInput } from './globalInput.js';
 import { ACCESSIBILITY_SETTINGS_URL, registerIpcHandlers } from './ipc.js';
+import { showMenuWindow } from './menuWindow.js';
 import { setupTray } from './tray.js';
 import { encodeTrayIconPng } from './trayIcon.js';
 import { createOverlayWindow } from './window.js';
@@ -102,6 +103,9 @@ if (!app.requestSingleInstanceLock()) {
       actions: {
         openAccessibilitySettings: () => {
           void shell.openExternal(ACCESSIBILITY_SETTINGS_URL);
+        },
+        openCollection: () => {
+          showMenuWindow(); // SPEC F52: the tray item is the ONLY opener
         },
         resetProgress: () => {
           win.webContents.send(IPC.RESET);
