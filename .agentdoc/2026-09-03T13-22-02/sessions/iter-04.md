@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T56 — SaveFileV3 + pvpParty migration + GameState.pvpParty
 - result: DONE
-- commit: 08aafcade5530ee61fb3bc37b1e24a22725e2e04
+- commit: 426a1fabb0adb8dbaf86c01c7d67462fc38ea6db (work commit; this line added by the follow-up docs commit)
 - graphify affected used: none (grep over `SaveFile*`/`parseSave`/`toSave` call sites was cheaper)
 
 ## What I did
