@@ -3,11 +3,12 @@
 // total and never mutates its input: applyCollection returns fresh objects or
 // an { error }, so the caller can apply it straight onto live engine state.
 
-import { ratio } from './bignum.js';
+import { simulateBattle } from './battle.js';
 import { monsterForIndex, sizeOf, typeOf } from './monsters.js';
 import { monsterMaxHp } from './formulas.js';
 import { effectivePower } from './types-chart.js';
 import type { MonsterType } from './types-chart.js';
+import type { Blow } from './battle.js';
 import type { Companion } from './save.js';
 import type { Rng } from './rng.js';
 import type { GameState } from './types.js';
@@ -268,31 +269,32 @@ export function applyCollection(
   }
 }
 
+/** Chance an attacking win also carries a companion home (GAME_DESIGN_V3 §5). */
+export const STEAL_CHANCE = 0.15;
+
 /**
- * Resolve one asynchronous PvP exchange (Assumption 34; GAME_DESIGN_V2 §6).
- * Shared byte-for-byte with the server, which calls it with `mulberry32(seed)`
- * and moves `moved` between the stored rosters — so exactly 2 draws happen per
- * call and the victim draw is consumed even when nobody can be stolen.
- * ponytail: no bot or cooldown rules here, those are the server's.
+ * Resolve one asynchronous PvP exchange (SPEC F37; GAME_DESIGN_V3 §5). The
+ * verdict and the blow list come from the seedless `simulateBattle`; the rng
+ * only decides the loot. Shared byte-for-byte with the server, which calls it
+ * with `mulberry32(seed)` and moves `moved` between the stored rosters — so
+ * exactly 2 draws happen per call, the victim draw included even when nobody
+ * can be stolen, and the client can replay the same match from the seed.
+ * Only the attacker ever steals: a losing attacker keeps its whole roster.
+ * ponytail: `attackerRosterSize` defaults to the party size so the v2 3-arg
+ * call still compiles; T60 passes the real roster length.
  */
 export function resolvePvp(
   attacker: readonly Companion[],
   defender: readonly Companion[],
   rng: Rng,
-): { attackerWon: boolean; moved: Companion | null; attackerPower: bigint; defenderPower: bigint } {
-  const sum = (cs: readonly Companion[]): bigint =>
-    cs.reduce((total, c) => total + companionPower(c), 0n);
-  const attackerPower = sum(attacker);
-  const defenderPower = sum(defender);
-  const total = attackerPower + defenderPower;
-  const attackerWon = rng.next() < (total === 0n ? 0.5 : ratio(attackerPower, total));
-  const loser = attackerWon ? defender : attacker;
-  const victim = loser[Math.floor(rng.next() * loser.length)] ?? null;
-  const winner = attackerWon ? attacker : defender;
+  attackerRosterSize = attacker.length,
+): { attackerWon: boolean; moved: Companion | null; blows: Blow[] } {
+  const { attackerWon, blows } = simulateBattle(attacker, defender);
+  const stealRoll = rng.next() < STEAL_CHANCE;
+  const victim = defender[Math.floor(rng.next() * defender.length)] ?? null;
   return {
     attackerWon,
-    moved: winner.length >= ROSTER_CAP ? null : victim,
-    attackerPower,
-    defenderPower,
+    moved: attackerWon && stealRoll && attackerRosterSize < ROSTER_CAP ? victim : null,
+    blows,
   };
 }
