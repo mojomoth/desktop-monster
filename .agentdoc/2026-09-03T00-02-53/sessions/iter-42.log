@@ -1,0 +1,10 @@
+{"task":"T47","result":"DONE","gates":"pass","commit":"dfda628608312b504dff17b9e2f02fa94a42ba8e","note":"game.ts: apply(a: CollectionAction) snapshots the roster, calls engine.apply and routes events through the shared handleEvents; new cases pvpResolved (VICTORY/DEFEAT banner, captureSparkle pop-in at the stolen slot, spawnSpriteScatter of the lost companion's idle art at its former slot) and rebirth (clearPresentation + createMonsterAnim pop-in at monster 0). Extracted clearPresentation() from reset() and companionSlotOf() (bossCaptured reuses it). index.ts: window.desmon.onAction -> saves.onEvents(game.apply(a)); saves.flush(); T16/T37 literals untouched. Tests 62 -> 68 it(. Gates + AC (incl. SMOKE_OK) green.","children":[]}
+
+Notes on the two non-obvious points:
+
+- **`lostId` needs a pre-apply snapshot.** The engine has already dropped the companion by the time `pvpResolved` surfaces, so its species art and column slot are only knowable from a roster snapshot taken inside `apply()` before `engine.apply(a)`.
+- **`rebirth` cannot reuse `reset()`** — `reset()` swaps in a fresh `createEngine()` and would discard the rebirth's souls/rebirths. Only the presentation clear is shared, which is why it became `clearPresentation()`.
+- **`removeCompanions` needed no code**: the engine emits no events for it, so nothing in flight is touched. That's pinned by a test that diffs the entire scene outside the companion column before/after.
+- `MenuActionPayload` is deliberately `unknown` in `src/shared/ipc.ts` (the sandboxed preload may not import core), so `index.ts` casts at the callback boundary; `main/ipc.ts` `narrowAction` is the actual trust check and is unchanged.
+
+Two commits on `lane/T47`: `dfda628` (work) and `e759176` (session record sha). Tree clean.
