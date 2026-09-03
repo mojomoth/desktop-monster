@@ -3,9 +3,11 @@
 // report the first painted frame over IPC exactly once (drives smoke).
 // Persistence wiring (SPEC F22, T16): progress saves on every kill and
 // level-up, debounced 500ms after damage, on window blur, and immediately
-// after a Reset Progress request from main.
+// after a Reset Progress request from main, and after every applied
+// collection action (F53).
 
 import { createEngine, parseSave } from '../core/index.js';
+import type { CollectionAction } from '../core/index.js';
 import { setupWindowDrag } from './drag.js';
 import { createGame, createSaveScheduler } from './game.js';
 import { setupFallbackInput } from './input.js';
@@ -61,6 +63,16 @@ async function boot(): Promise<void> {
 
   // Losing focus is the last reliable moment before a quit — flush progress.
   window.addEventListener('blur', () => {
+    saves.flush();
+  });
+
+  // Collection & Battle actions (SPEC F53): the game window owns the state,
+  // so the menu's requests are applied HERE and persisted immediately — the
+  // flush's SAVE_STATE is what main relays back as STATE_CHANGED.
+  window.desmon.onAction((payload) => {
+    // Trust boundary: main already narrowed the menu payload (narrowAction).
+    const a = payload as CollectionAction;
+    saves.onEvents(game.apply(a));
     saves.flush();
   });
 
