@@ -31,7 +31,7 @@ const richSave: SaveFile = {
 };
 
 describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
-  it('DEFAULT_SAVE is a fresh-game v3 save', () => {
+  it('DEFAULT_SAVE is a fresh-game v2 save', () => {
     expect(DEFAULT_SAVE.version).toBe(3);
     expect(DEFAULT_SAVE.level).toBe(1);
     expect(DEFAULT_SAVE.xp).toBe(0);
