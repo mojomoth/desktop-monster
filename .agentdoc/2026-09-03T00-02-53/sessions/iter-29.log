@@ -1,0 +1,8 @@
+{"task":"T28","result":"DONE","gates":"pass","commit":"91a57f6236e5b3e17facd7cf1f5f3ce59bf051c1","note":"types.ts: GameEvent gains bossCaptured/rebirth/pvpResolved (structurally identical to T27's local CollectionEvent, so collection.ts needed no edit). engine.ts: CAPTURE_CHANCE=0.35, one post-loot capture draw always consumed on boss kills (skipped at ROSTER_CAP=30), ids from nextCompanionId, damage *BigInt(1+souls), bestIndex=max on spawn+resume, apply(a: CollectionAction) via applyCollection ({error}->[], Object.assign keeps fever). Tests 17->23 it(, AC titles verbatim; 10000 seeded boss kills capture ~35% (band 32-38). Dead ends avoided: no Engine move to types.ts, no ROSTER_CAP re-export (barrel duplicate), barrel untouched (T29 owns it)."}
+
+Gates: `npm test` 377 passed / 25 files, `npm run lint` clean, `npm run typecheck` clean. The T28 AC line ran literally (zsh and `bash -c`) and exited 0.
+
+Implementation summary:
+- `src/core/types.ts:47` — `GameEvent` gains `bossCaptured { companion }` (ordered after `itemDropped`), `rebirth { souls }`, `pvpResolved { won, stolen, lostId }`.
+- `src/core/engine.ts:23` — `CAPTURE_CHANCE = 0.35`; `Engine.apply(a: CollectionAction): GameEvent[]`; boss kills spend exactly one extra draw after the loot roll (capture voided but the draw still spent at a full roster); hero damage `* BigInt(1 + souls)`; `bestIndex = max(bestIndex, index)` on spawn and at resume.
+- `tests/engine.test.ts` — 6 new tests (23 total) with the AC's verbatim titles, including a draw-count test proving non-boss kills still consume exactly the v1 sequence.
