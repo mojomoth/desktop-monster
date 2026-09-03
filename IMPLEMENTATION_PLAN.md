@@ -420,7 +420,7 @@
 - Notes (iter 35, claude): DONE: New src/main/menuWindow.ts: singleton showMenuWindow() — focuses the live window (+app.focus({steal:true})) or creates the 380x520 framed non-resizable alwaysOnTop BrowserWindow with the overlay's webPreferences (same preload, sandbox:true), loadFile('static/menu.html'), ready-to-show -> show() -> app.focus, reference dropped on 'closed'. tray.ts: COLLECTION_LABEL 'Collection & Battle…' + openCollection between separator and RESET_LABEL. index.ts: openCollection -> showMenuWindow() in the existing setupTray actions (only opener; never under SMOKE); pinned literals/order untouched. static/menu.
 
 
-### [ ] T47 — Game window applies actions + flushes save; VICTORY/DEFEAT/rebirth presentation
+### [~] T47 — Game window applies actions + flushes save; VICTORY/DEFEAT/rebirth presentation
 - AC: `npx vitest run tests/renderer.test.ts && grep -q "onAction" src/renderer/index.ts && grep -q "apply(a: CollectionAction)" src/renderer/game.ts && grep -q "apply() forwards collection actions to the engine and reports its events" tests/renderer.test.ts && grep -q "apply(removeCompanions) never touches in-flight presentation" tests/renderer.test.ts && grep -q "a won pvp shows the VICTORY banner and pops the stolen companion in" tests/renderer.test.ts && grep -q "a lost pvp shows the DEFEAT banner and scatters the lost companion" tests/renderer.test.ts && grep -q "a rebirth flushes presentation and restarts at monster 0" tests/renderer.test.ts && test "$(grep -c '^\s*it(' tests/renderer.test.ts)" -ge 64 && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
 - Deps: T22, T37, T45
 - Worker: claude
