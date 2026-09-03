@@ -8,3 +8,4 @@
 | 08 | codex | T64 | DONE | pass | pass | cfa8991 | continue |
 | 06 | claude | T57 | DONE | pass | skipped | bf19f7a | continue |
 | 07 | claude | T67 | DONE | pass | pass | 88c71e2 | continue |
+| 09 | claude | T58 | DONE | pass | skipped | 76719b5 | continue |

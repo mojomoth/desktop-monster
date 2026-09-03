@@ -1,0 +1,17 @@
+{"task":"T58","result":"DONE","gates":"pass","commit":"1dc04be0abd02959b228731d9338e52d3d7cec46","note":"New pure src/core/battle.ts (Blow/Battle, BATTLE_HP_MULT=5n, BATTLE_MAX_BLOWS=200, simulateBattle; no 'rng' substring); verdict is one expression a.length>0 && d.length===0, so empty/cap cases need no early returns. collection.ts: STEAL_CHANCE=0.15, resolvePvp v3 = simulateBattle + exactly 2 draws, 4th param attackerRosterSize=attacker.length so app.ts's v2 3-arg call still compiles. Barrel exports battle.js. tests/battle.test.ts (4 new), collection 18→21, pvp.test.ts loss test retitled/re-fixtured + 3 seeds re-picked (4→7, 8→35, 123456789→123456801) because the old seeds fail the 15% roll. app.ts untouched. Gates + AC green.","children":[]}
+
+T58 완료했습니다.
+
+**구현**
+- `src/core/battle.ts` (신규, 순수·시드 없음): `Blow`/`Battle`, `BATTLE_HP_MULT = 5n`, `BATTLE_MAX_BLOWS = 200`, `simulateBattle`. 양쪽 파티를 `partyOrder(...).reverse()` (front = 가장 작은 쪽)로 세우고, hp = `companionPower × 5n`, A/D 교대 타격, `damage = effectivePower(companionPower(actor), typeOf(actor), typeOf(target))`, `hp ≤ 0n`이면 KO 후 다음 멤버가 전진. 승패는 `a.length > 0 && d.length === 0` 한 줄 — 빈 공격자(false), 빈 수비자(true), 200블로우 상한(false)이 조기 return 없이 전부 맞습니다. 파일에 `rng` 문자열 없음(AC 핀).
+- `src/core/collection.ts`: `STEAL_CHANCE = 0.15` 추가, `resolvePvp`는 `simulateBattle`에서 판정/블로우를 받고 rng는 무조건 2회만 뽑습니다(도둑질 롤 → 희생자 인덱스). 시그니처는 `resolvePvp(attacker, defender, rng, attackerRosterSize = attacker.length)` — Notes대로 `src/server/app.ts`의 v2 3인자 호출이 T60까지 그대로 컴파일되고 "가득 찬 로스터는 못 훔친다" 동작도 유지됩니다. 아무도 읽지 않던 `attackerPower`/`defenderPower`(및 `ratio` import)는 삭제했습니다.
+- `src/core/index.ts`: 배럴에 `battle.js` 추가.
+
+**테스트**
+- `tests/battle.test.ts` 신규 4개(AC 제목 그대로).
+- `tests/collection.test.ts` 18 → 21개: v2 확률 테스트 리타이틀, 핀된 3개 유지, 도둑질 롤·패배 공격자·10 000회 시드 승리 13~17 % 통계 테스트 추가.
+- `tests/server/pvp.test.ts`: 패배 테스트를 "losing the match moves nothing…"으로 리타이틀하고 아무것도 이동하지 않음을 검증. 추가로 v2 시드 3개가 새 15 % 롤을 통과하지 못해 재픽스처했습니다(4→7, 8→35 — 이 경우 롤은 통과하고 로스터 상한이 막는 것을 검증, 123 456 789→123 456 801). `src/server/app.ts`는 손대지 않았습니다.
+
+**게이트**: `npm test` 530 passed (33 files), `npm run lint`, `npm run typecheck` 모두 통과. T58의 `AC:` 라인도 그대로 실행해 exit 0 확인했습니다. `npm run smoke`는 `src/main`·`src/preload`·`src/renderer`·`static`·`package.json`을 건드리지 않아 생략했습니다(charter 규정).
+
+한 가지 남겨둔 판단: `battle.ts` ↔ `collection.ts`는 의도된 ESM 순환 import입니다(battle이 `companionPower`/`partyOrder`를, collection이 `simulateBattle`을 필요로 함). 모듈 평가 시점에 서로를 호출하지 않아 안전하며, AC가 `resolvePvp`/`STEAL_CHANCE`를 collection.ts에 고정하고 있어 이 편이 가장 짧은 diff입니다 — 세션 기록에 "고치지 말 것"으로 남겼습니다.
