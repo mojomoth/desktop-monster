@@ -5,10 +5,14 @@
 // the death pixel-scatter (dying) and the bottom-up spawn pop-in. Item drops
 // arc + bounce then fly to the coin counter; level-ups flash the "LEVEL UP!"
 // banner with hero sparkles (Manual M3).
+// v2 (SPEC F36): update() also drives the engine clock, so companion volleys
+// and fever come back as events through the SAME router as attack()'s —
+// A-Z damage floats, per-species hit effects, crowned 3x bosses, the
+// companion column and the fever aura/banner/blip all hang off that router.
 // DOM-free on purpose — draws through GameCanvas (SpriteCanvas + clearRect)
 // so tests run under vitest's node environment.
 
-import { createEngine } from '../core/index.js';
+import { activeCompanions, createEngine, format, SPECIES_IDS } from '../core/index.js';
 import type {
   Engine,
   GameEvent,
@@ -16,6 +20,7 @@ import type {
   InputSource,
   MonsterDef,
   SaveFile,
+  SpeciesId,
 } from '../core/index.js';
 import {
   createHeroAnim,
@@ -30,7 +35,13 @@ import {
 } from '../core/fsm.js';
 import type { HeroAnim, MonsterAnim } from '../core/fsm.js';
 import {
+  BOSS_HP_BAR_Y,
+  BOSS_SCALE,
   COLORS,
+  companionSlot,
+  drawBoss,
+  drawCompanion,
+  drawFeverAura,
   drawSprite,
   heroAttack,
   heroIdle,
@@ -43,6 +54,7 @@ import {
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
 import { createGameAudio } from './audio.js';
 import type { GameAudio } from './audio.js';
+import { EFFECTS, spawnEffect } from './effects.js';
 import {
   createDropPool,
   createParticlePool,
@@ -64,6 +76,7 @@ import {
   drawFloats,
   drawHpBar,
   drawLevelHud,
+  FEVER_TEXT,
   showBanner,
   spawnFloat,
   tickBanner,
@@ -99,6 +112,11 @@ export const DROP_TARGET_X = VIEW_W - 12;
 export const DROP_TARGET_Y = 8;
 /** Sparkle burst size when a collected drop pops the counter. */
 const COLLECT_SPARKLE_COUNT = 6;
+/** Where the slash arc lands — the origin of the hero slash effect (F36). */
+export const SWORD_TIP_X = HERO_X + heroAttack.w * SPRITE_SCALE;
+export const SWORD_TIP_Y = HERO_Y + 2 + (heroSlash.h * SPRITE_SCALE) / 2;
+/** One fever aura sparkle burst per this many ms while fever burns (F36). */
+export const FEVER_SPARKLE_MS = 100;
 
 /**
  * The minimal canvas surface the scene needs — a real 2D context satisfies
@@ -110,11 +128,30 @@ export type GameCanvas = SpriteCanvas & Pick<CanvasRenderingContext2D, 'clearRec
 // the render loop never re-tints palettes frame after frame.
 const tintedIdleCache = new Map<string, Sprite>();
 
+/**
+ * Art/effect key for a runtime species id (MonsterDef.speciesId and
+ * Companion.speciesId are plain strings); unknown ids fall back to slime.
+ */
+function speciesKey(speciesId: string): SpeciesId {
+  const ids: readonly string[] = SPECIES_IDS;
+  return ids.includes(speciesId) ? (speciesId as SpeciesId) : SPECIES_IDS[0];
+}
+
 /** Species art for a runtime species id (unknown ids fall back to slime). */
 function speciesSpritesFor(speciesId: string): SpeciesSprites {
-  // MonsterDef.speciesId is a plain string — widen the record to index it.
-  const bySpecies: Partial<Record<string, SpeciesSprites>> = monsterSprites;
-  return bySpecies[speciesId] ?? monsterSprites.slime;
+  return monsterSprites[speciesKey(speciesId)];
+}
+
+/** Art scale of the monster on screen: bosses are drawn 3x (F36, §3). */
+function monsterScale(monster: MonsterDef): number {
+  return monster.boss ? BOSS_SCALE : SPRITE_SCALE;
+}
+
+/** Centre of the monster's drawn art — where its hit effects burst. */
+function monsterCentre(monster: MonsterDef): { x: number; y: number } {
+  const scale = monsterScale(monster);
+  const art = speciesSpritesFor(monster.speciesId).idle;
+  return { x: MONSTER_X + (art.w * scale) / 2, y: GROUND_Y - (art.h * scale) / 2 };
 }
 
 function tintedIdleSprite(monster: MonsterDef): Sprite {
@@ -193,8 +230,12 @@ export interface Game {
    * feeds on them).
    */
   attack(source: InputSource): GameEvent[];
-  /** Advance presentation time by dtMs (non-finite/negative counts as 0). */
-  update(dtMs: number): void;
+  /**
+   * Advance presentation time AND the engine clock by dtMs (non-finite/
+   * negative counts as 0). Returns the events the tick produced — companion
+   * volleys and fever transitions — so the save scheduler sees them too.
+   */
+  update(dtMs: number): GameEvent[];
   /** Repaint the full VIEW_W×VIEW_H scene. */
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
@@ -231,81 +272,160 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
   const banner = createBanner();
   // ms since the last drop arrived at the counter; Infinity = never popped.
   let coinPopAgeMs = Number.POSITIVE_INFINITY;
+  // The monster the current event batch is landing on — hero attacks and
+  // companion volleys share it, and a kill hands it to the next monster.
+  let target = engine.getState().monster;
+  // Hit counter: the effect seed, so consecutive hits fan out differently.
+  let hitCount = 0;
+  // ms since the last fever aura sparkle burst.
+  let feverSparkleAgeMs = 0;
+
+  /**
+   * The ONE presentation router: `attack()` and `update()` both feed their
+   * engine events through it, so a companion kill looks exactly like a hero
+   * kill. An empty batch does nothing.
+   */
+  const handleEvents = (events: readonly GameEvent[]): void => {
+    // Floats sit 6px above the ACTIVE hp bar — the boss bar is raised (§3).
+    const floatY = (): number => (target.boss ? BOSS_HP_BAR_Y : HP_BAR.y) - 6;
+    for (const event of events) {
+      switch (event.type) {
+        case 'attack':
+          audio.attackTick();
+          spawnFloat(
+            floats,
+            monsterCentre(target).x,
+            floatY(),
+            format(event.damage),
+            event.crit,
+          );
+          spawnEffect(
+            particles,
+            engine.getState().souls > 0 ? EFFECTS.heroSlashSouls : EFFECTS.heroSlash,
+            SWORD_TIP_X,
+            SWORD_TIP_Y,
+            1,
+          );
+          break;
+        case 'companionAttack': {
+          // ponytail: companion damage reuses the white damage float —
+          // FloatingNumber has no colour field and hud.ts is a codex file.
+          spawnFloat(floats, monsterCentre(target).x, floatY(), format(event.damage), false);
+          const active = activeCompanions(engine.getState().companions);
+          const k = Math.max(
+            0,
+            active.findIndex((c) => c.id === event.companionId),
+          );
+          const slot = companionSlot(k, GROUND_Y);
+          spawnEffect(
+            particles,
+            {
+              ...EFFECTS.companionProjectile,
+              // The volley reads as "that companion's magic" (§4).
+              colors: EFFECTS.hit[speciesKey(event.speciesId)].colors,
+            },
+            slot.x,
+            slot.y,
+            1,
+          );
+          break;
+        }
+        case 'monsterHit':
+          monsterAnim = monsterHit(monsterAnim);
+          spawnEffect(
+            particles,
+            EFFECTS.hit[speciesKey(target.speciesId)],
+            monsterCentre(target).x,
+            monsterCentre(target).y,
+            1,
+            hitCount++,
+          );
+          break;
+        case 'monsterKilled': {
+          // Decompose the (tier-tinted) sprite into gravity particles; the
+          // FSM rides DYING for the same 500ms the scatter lives.
+          audio.killArpeggio();
+          const sprite = tintedIdleSprite(event.monster);
+          const scale = monsterScale(event.monster);
+          spawnSpriteScatter(
+            particles,
+            sprite,
+            0,
+            MONSTER_X,
+            GROUND_Y - sprite.h * scale,
+            scale,
+          );
+          monsterAnim = monsterKilled(monsterAnim);
+          break;
+        }
+        case 'bossCaptured': {
+          // Sparkle where the boss stood, then where it joins the column.
+          const centre = monsterCentre(target);
+          spawnEffect(particles, EFFECTS.captureSparkle, centre.x, centre.y, 1);
+          const k = activeCompanions(engine.getState().companions).findIndex(
+            (c) => c.id === event.companion.id,
+          );
+          if (k >= 0) {
+            const slot = companionSlot(k, GROUND_Y);
+            spawnEffect(particles, EFFECTS.captureSparkle, slot.x, slot.y, 1);
+          }
+          break;
+        }
+        case 'feverStart':
+          audio.feverStart();
+          showBanner(banner, FEVER_TEXT);
+          break;
+        case 'itemDropped': {
+          let slot = 0;
+          for (const drop of event.drops) {
+            spawnDrop(drops, {
+              itemId: drop.item.id,
+              // Launch at the monster's left edge — the drop bursts out of
+              // the dying monster toward the gap without ever overlapping
+              // the scatter pixels.
+              startX: MONSTER_X - 6,
+              startY: GROUND_Y - 12,
+              landX: DROP_LAND_X - slot * DROP_STAGGER_PX,
+              landY: GROUND_Y - itemSpriteFor(drop.item.id).h,
+              targetX: DROP_TARGET_X,
+              targetY: DROP_TARGET_Y,
+            });
+            slot++;
+          }
+          break;
+        }
+        case 'levelUp':
+          audio.levelUpFanfare();
+          showBanner(banner);
+          spawnSparkles(
+            particles,
+            HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
+            HERO_Y + 4 * SPRITE_SCALE,
+          );
+          break;
+        case 'monsterSpawned':
+          // The FSM stays deferred on purpose: its DYING → SPAWNING
+          // transition brings the new monster in after the scatter ends.
+          target = event.monster;
+          if (event.monster.boss) {
+            const centre = monsterCentre(event.monster);
+            spawnEffect(particles, EFFECTS.bossShockwave, centre.x, centre.y, 1);
+          }
+          break;
+      }
+    }
+  };
 
   return {
     attack(source: InputSource): GameEvent[] {
       // Any input (re)starts the 180ms attack — BongoCat spam feel (F20).
       heroAnim = heroInput();
       const events = engine.attack(source);
-      for (const event of events) {
-        switch (event.type) {
-          case 'attack':
-            audio.attackTick();
-            spawnFloat(
-              floats,
-              MONSTER_X + (12 * SPRITE_SCALE) / 2, // centered over the 12px-wide species art
-              HP_BAR.y - 6,
-              String(event.damage),
-              event.crit,
-            );
-            break;
-          case 'monsterHit':
-            monsterAnim = monsterHit(monsterAnim);
-            break;
-          case 'monsterKilled': {
-            // Decompose the (tier-tinted) sprite into gravity particles; the
-            // FSM rides DYING for the same 500ms the scatter lives.
-            audio.killArpeggio();
-            const sprite = tintedIdleSprite(event.monster);
-            spawnSpriteScatter(
-              particles,
-              sprite,
-              0,
-              MONSTER_X,
-              GROUND_Y - sprite.h * SPRITE_SCALE,
-              SPRITE_SCALE,
-            );
-            monsterAnim = monsterKilled(monsterAnim);
-            break;
-          }
-          case 'itemDropped': {
-            let slot = 0;
-            for (const drop of event.drops) {
-              spawnDrop(drops, {
-                itemId: drop.item.id,
-                // Launch at the monster's left edge — the drop bursts out of
-                // the dying monster toward the gap without ever overlapping
-                // the scatter pixels.
-                startX: MONSTER_X - 6,
-                startY: GROUND_Y - 12,
-                landX: DROP_LAND_X - slot * DROP_STAGGER_PX,
-                landY: GROUND_Y - itemSpriteFor(drop.item.id).h,
-                targetX: DROP_TARGET_X,
-                targetY: DROP_TARGET_Y,
-              });
-              slot++;
-            }
-            break;
-          }
-          case 'levelUp':
-            audio.levelUpFanfare();
-            showBanner(banner);
-            spawnSparkles(
-              particles,
-              HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
-              HERO_Y + 4 * SPRITE_SCALE,
-            );
-            break;
-          case 'monsterSpawned':
-            // Deferred on purpose: the FSM's DYING → SPAWNING transition
-            // brings the new monster in after the scatter finishes.
-            break;
-        }
-      }
+      handleEvents(events);
       return events;
     },
 
-    update(dtMs: number): void {
+    update(dtMs: number): GameEvent[] {
       const dt = Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
       timeMs += dt;
       heroAnim = tickHero(heroAnim, dt);
@@ -322,31 +442,70 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           spawnSparkles(particles, drop.targetX, drop.targetY, COLLECT_SPARKLE_COUNT);
         }
       }
+      // The engine clock moves ONLY here (Assumption 39): companion volleys
+      // and fever transitions come out of the same router as attack()'s.
+      const events = engine.tick(dt);
+      handleEvents(events);
+      feverSparkleAgeMs += dt;
+      if (engine.getState().fever.active) {
+        if (feverSparkleAgeMs >= FEVER_SPARKLE_MS) {
+          feverSparkleAgeMs = 0;
+          spawnEffect(
+            particles,
+            EFFECTS.feverAura,
+            HERO_X + (heroIdle.w * SPRITE_SCALE) / 2,
+            HERO_Y + (heroIdle.h * SPRITE_SCALE) / 2,
+            1,
+          );
+        }
+      } else {
+        feverSparkleAgeMs = 0;
+      }
+      return events;
     },
 
     draw(ctx: GameCanvas): void {
       ctx.clearRect(0, 0, VIEW_W, VIEW_H);
       drawField(ctx);
 
-      if (heroAnim.state === 'attack') {
-        const frame = Math.min(
-          heroAttack.frames.length - 1,
-          Math.floor(heroAnim.t / ATTACK_FRAME_MS),
-        );
-        drawSprite(ctx, heroAttack, frame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
-        if (frame === SLASH_FRAME) {
-          // Slash arc in front of the blade, toward the monster.
-          drawSprite(ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
-            scale: SPRITE_SCALE,
-          });
-        }
-      } else {
-        const heroFrame = Math.floor(timeMs / IDLE_FRAME_MS) % heroIdle.frames.length;
-        drawSprite(ctx, heroIdle, heroFrame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
+      const state = engine.getState();
+      const attacking = heroAnim.state === 'attack';
+      const heroSprite = attacking ? heroAttack : heroIdle;
+      const heroFrame = attacking
+        ? Math.min(heroAttack.frames.length - 1, Math.floor(heroAnim.t / ATTACK_FRAME_MS))
+        : Math.floor(timeMs / IDLE_FRAME_MS) % heroIdle.frames.length;
+      if (state.fever.active) {
+        // Hue-cycling outline UNDER the hero — the real sprite lands on top.
+        drawFeverAura(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, SPRITE_SCALE, timeMs);
+      }
+      drawSprite(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
+      if (attacking && heroFrame === SLASH_FRAME) {
+        // Slash arc in front of the blade, toward the monster.
+        drawSprite(ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
+          scale: SPRITE_SCALE,
+        });
       }
 
-      const state = engine.getState();
+      // Active companions stand in a column left of the hero (§4).
+      const active = activeCompanions(state.companions);
+      for (let k = 0; k < active.length; k++) {
+        const companion = active[k];
+        if (companion === undefined) {
+          continue;
+        }
+        const id = speciesKey(companion.speciesId);
+        drawCompanion(
+          ctx,
+          id,
+          Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites[id].idle.frames.length,
+          k,
+          companion.stars,
+          GROUND_Y,
+        );
+      }
+
       const species = speciesSpritesFor(state.monster.speciesId);
+      const scale = monsterScale(state.monster);
       if (monsterAnim.state === 'dying') {
         // The sprite is mid-scatter — its pixels live in the particle pool.
       } else if (monsterAnim.state === 'spawning') {
@@ -359,9 +518,22 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           sprite,
           0,
           MONSTER_X,
-          GROUND_Y - sprite.h * SPRITE_SCALE,
+          GROUND_Y - sprite.h * scale,
           visibleRows,
-          SPRITE_SCALE,
+          scale,
+        );
+      } else if (state.monster.boss) {
+        // Bosses are three times the size and wear the crown (§3).
+        const hit = monsterAnim.state === 'hit';
+        drawBoss(
+          ctx,
+          species,
+          hit ? 'hit' : 'idle',
+          hit ? 0 : Math.floor(timeMs / IDLE_FRAME_MS) % species.idle.frames.length,
+          MONSTER_X,
+          GROUND_Y,
+          state.monster.tier,
+          { tint: hit ? COLORS.white : undefined },
         );
       } else if (monsterAnim.state === 'hit') {
         // White-flash recoil pose for MONSTER_HIT_MS; the full tint makes
@@ -391,8 +563,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         // No HP bar over the scatter — it pops back with the next monster.
         drawHpBar(
           ctx,
-          Math.round(MONSTER_X + (species.idle.w * SPRITE_SCALE) / 2 - HP_BAR.w / 2),
-          HP_BAR.y,
+          Math.round(MONSTER_X + (species.idle.w * scale) / 2 - HP_BAR.w / 2),
+          state.monster.boss ? BOSS_HP_BAR_Y : HP_BAR.y,
           HP_BAR.w,
           HP_BAR.h,
           state.monsterHp,
@@ -438,6 +610,9 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       }
       banner.active = false;
       coinPopAgeMs = Number.POSITIVE_INFINITY;
+      target = engine.getState().monster;
+      hitCount = 0;
+      feverSparkleAgeMs = 0;
     },
 
     getHeroAnim: (): HeroAnim => heroAnim,
