@@ -30,3 +30,4 @@ outcome (run 1): exit 3 (crash escalation), iterations 15, lanes 3, nested_claud
 | 22 | claude | T38 | DONE | pass | pass | 55f5c0c | continue |
 | 23 | claude | T25 | DONE | pass | pass | c374914 | continue |
 | 24 | claude | T42 | DONE | pass | pass | 32563cb | continue |
+| 25 | claude | T26 | DONE | pass | skipped | 28876be | continue |

@@ -1,0 +1,5 @@
+{"task":"T26","result":"DONE","gates":"pass","commit":"b5d996eb3af80ca2c877d41c69a797f9ebb59b9d","note":"monsters.ts: BOSS_EVERY=8, isBoss(i)=i>=0&&i%8===7, BOSS_HP_MULT=5n, BOSS_XP_MULT/COIN_MULT=5; monsterForIndex sets boss, maxHp*5n and the ' BOSS' name suffix (species cycle untouched). types.ts: MonsterDef.boss. engine.ts: boss kill xpReward(i)*5 and drops[0].amount*=5 (loot.ts untouched, no new rng draw - the seeded-log test stays green). Barrel exports BOSS_EVERY, isBoss. Tests: formulas 11->12 (new boss test; the maxHp test keeps its title, now *(isBoss?5n:1n)), engine 16->17 (boss kill vs index-6 control). Dead end: built the boss species list by rotating EXPECTED_ORDER - the real order is ghost/slime/golem/bat/dragon (+3 mod 5); written literally.","children":[]}
+
+Gates (`npm test && npm run lint && npm run typecheck`): 339 tests passed across 23 files, eslint clean, all three tsc projects clean. The T26 AC line ran verbatim and exited 0 (3 files / 40 tests, all greps and the ≥12 / ≥17 `it(` counts satisfied).
+
+Two commits in the lane: `b5d996e` (the feature) and `331f976` (session record sha fixup). Tree is clean.
