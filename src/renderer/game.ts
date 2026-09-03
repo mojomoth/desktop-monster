@@ -7,12 +7,22 @@
 // banner with hero sparkles (Manual M3).
 // v2 (SPEC F36): update() also drives the engine clock, so companion volleys
 // and fever come back as events through the SAME router as attack()'s —
-// A-Z damage floats, per-species hit effects, crowned 3x bosses, the
-// companion column and the fever aura/banner/blip all hang off that router.
+// A-Z damage floats, per-species hit effects, crowned bosses, the party group
+// and the fever aura/banner/blip all hang off that router.
+// v3 (SPEC F64): the field is 240x150 at SPRITE_SCALE 1, monsters draw at
+// their hidden species size, the field monster carries a type badge, and the
+// party is re-read from state every frame so the type match-up re-picks it.
 // DOM-free on purpose — draws through GameCanvas (SpriteCanvas + clearRect)
 // so tests run under vitest's node environment.
 
-import { activeCompanions, createEngine, format, SPECIES_IDS } from '../core/index.js';
+import {
+  activeCompanions,
+  createEngine,
+  format,
+  partyOrder,
+  sizeOf,
+  SPECIES_IDS,
+} from '../core/index.js';
 import type {
   CollectionAction,
   Companion,
@@ -38,19 +48,19 @@ import {
 import type { HeroAnim, MonsterAnim } from '../core/fsm.js';
 import {
   BOSS_HP_BAR_Y,
-  BOSS_SCALE,
   COLORS,
-  companionSlot,
   drawBoss,
-  drawCompanion,
   drawFeverAura,
+  drawParty,
   drawSprite,
+  drawTypeBadge,
   heroAttack,
   heroIdle,
   heroSlash,
   itemSprites,
   monsterSprites,
   paletteForTier,
+  partySlots,
   TRANSPARENT,
 } from './sprites/index.js';
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
@@ -80,6 +90,7 @@ import {
   drawHpBar,
   drawLevelHud,
   FEVER_TEXT,
+  floatColor,
   showBanner,
   spawnFloat,
   tickBanner,
@@ -88,19 +99,21 @@ import {
 } from './hud.js';
 
 /** Internal canvas size in game pixels (CSS-scaled 2x, see static/). */
-export const VIEW_W = 160;
-export const VIEW_H = 110;
+export const VIEW_W = 240;
+export const VIEW_H = 150;
 /** Top of the ground strip; entities stand on it. */
-export const GROUND_Y = 92;
-/** Hero/monster art pixel scale (Assumption 17): every art pixel is 2×2. */
-export const SPRITE_SCALE = 2;
+export const GROUND_Y = 132;
+/** Hero art pixel scale (Assumption 17, v3): one art pixel is one game pixel. */
+export const SPRITE_SCALE = 1;
 /** Hero sprite position (left side, feet on the ground). */
-export const HERO_X = 26;
+export const HERO_X = 96;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
-export const MONSTER_X = 118;
+export const MONSTER_X = 176;
 /** Boxed HP bar above the monster (centered over it at draw time). */
-export const HP_BAR = { w: 34, h: 5, y: 64 } as const;
+export const HP_BAR = { w: 40, h: 5, y: 96 } as const;
+/** Gap between the type badge and the left end of the monster's HP bar. */
+export const TYPE_BADGE_GAP = 7;
 /** ms per idle bob frame (GAME_ARCHITECTURE §4: 2-frame bob, 500 ms/frame). */
 export const IDLE_FRAME_MS = 500;
 /** ms per hero attack frame: 3 frames (wind-up/slash/recover) over 180 ms. */
@@ -108,7 +121,7 @@ export const ATTACK_FRAME_MS = HERO_ATTACK_MS / 3;
 /** The attack frame during which the slash-arc overlay shows. */
 export const SLASH_FRAME = 1;
 /** Where item drops land after their arc + bounce (gap left of the monster). */
-export const DROP_LAND_X = 100;
+export const DROP_LAND_X = 150;
 /** Horizontal stagger between simultaneous drops so they never stack. */
 export const DROP_STAGGER_PX = 8;
 /** Drop flight destination: the top-right coin counter (icon position). */
@@ -146,18 +159,35 @@ function speciesSpritesFor(speciesId: string): SpeciesSprites {
   return monsterSprites[speciesKey(speciesId)];
 }
 
-/** Where a companion stands in the active column, or null when it is benched. */
-function companionSlotOf(
-  companions: readonly Companion[],
-  id: string,
-): { x: number; y: number } | null {
-  const k = activeCompanions(companions).findIndex((c) => c.id === id);
-  return k < 0 ? null : companionSlot(k, GROUND_Y);
+/**
+ * The party on the field, back → front: the five companions with the best
+ * type-adjusted power against THIS monster. Never cached — the auto-change
+ * has to be visible the frame after a new monster spawns (§6).
+ */
+function fieldParty(state: GameState): Companion[] {
+  return partyOrder(activeCompanions(state.companions, state.monster.type));
 }
 
-/** Art scale of the monster on screen: bosses are drawn 3x (F36, §3). */
+/** Where a member of `party` stands, or null when it is not on the field. */
+function partySlotOf(
+  party: readonly Companion[],
+  id: string,
+): { x: number; y: number; scale: number } | null {
+  return partySlots(party, GROUND_Y)[party.findIndex((c) => c.id === id)] ?? null;
+}
+
+/** Centre of a drawn party member — where its shots and sparkles start. */
+function slotCentre(
+  slot: { x: number; y: number; scale: number },
+  speciesId: string,
+): { x: number; y: number } {
+  const art = speciesSpritesFor(speciesId).idle;
+  return { x: slot.x + (art.w * slot.scale) / 2, y: slot.y - (art.h * slot.scale) / 2 };
+}
+
+/** Art scale of the monster on screen: its hidden size, +1 for a boss (§6). */
 function monsterScale(monster: MonsterDef): number {
-  return monster.boss ? BOSS_SCALE : SPRITE_SCALE;
+  return sizeOf(monster.speciesId) + (monster.boss ? 1 : 0);
 }
 
 /** Centre of the monster's drawn art — where its hit effects burst. */
@@ -356,26 +386,30 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           );
           break;
         case 'companionAttack': {
-          // ponytail: companion damage reuses the white damage float —
-          // FloatingNumber has no colour field and hud.ts is a codex file.
-          spawnFloat(floats, monsterCentre(target).x, floatY(), format(event.damage), false);
-          const active = activeCompanions(engine.getState().companions);
-          const k = Math.max(
-            0,
-            active.findIndex((c) => c.id === event.companionId),
+          // The float carries the match-up: yellow super, steel weak (§6).
+          spawnFloat(
+            floats,
+            monsterCentre(target).x,
+            floatY(),
+            format(event.damage),
+            false,
+            floatColor(event.effectiveness),
           );
-          const slot = companionSlot(k, GROUND_Y);
-          spawnEffect(
-            particles,
-            {
-              ...EFFECTS.companionProjectile,
-              // The volley reads as "that companion's magic" (§4).
-              colors: EFFECTS.hit[speciesKey(event.speciesId)].colors,
-            },
-            slot.x,
-            slot.y,
-            1,
-          );
+          const slot = partySlotOf(fieldParty(engine.getState()), event.companionId);
+          if (slot !== null) {
+            const from = slotCentre(slot, event.speciesId);
+            spawnEffect(
+              particles,
+              {
+                ...EFFECTS.companionProjectile,
+                // The volley reads as "that companion's magic" (§4).
+                colors: EFFECTS.hit[speciesKey(event.speciesId)].colors,
+              },
+              from.x,
+              from.y,
+              1,
+            );
+          }
           break;
         }
         case 'monsterHit':
@@ -407,12 +441,14 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           break;
         }
         case 'bossCaptured': {
-          // Sparkle where the boss stood, then where it joins the column.
+          // Sparkle where the boss stood, then where it joins the party — a
+          // capture the type match-up benches sparkles at the boss only (§6).
           const centre = monsterCentre(target);
           spawnEffect(particles, EFFECTS.captureSparkle, centre.x, centre.y, 1);
-          const slot = companionSlotOf(engine.getState().companions, event.companion.id);
+          const slot = partySlotOf(fieldParty(engine.getState()), event.companion.id);
           if (slot !== null) {
-            spawnEffect(particles, EFFECTS.captureSparkle, slot.x, slot.y, 1);
+            const at = slotCentre(slot, event.companion.speciesId);
+            spawnEffect(particles, EFFECTS.captureSparkle, at.x, at.y, 1);
           }
           break;
         }
@@ -450,26 +486,31 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           break;
         case 'pvpResolved': {
           showBanner(banner, event.won ? VICTORY_TEXT : DEFEAT_TEXT);
+          const state = engine.getState();
           if (event.stolen !== null) {
-            // The prize pops in at the column slot it will fight from.
-            const slot = companionSlotOf(engine.getState().companions, event.stolen.id);
+            // The prize pops in at the party slot it will fight from.
+            const slot = partySlotOf(fieldParty(state), event.stolen.id);
             if (slot !== null) {
-              spawnEffect(particles, EFFECTS.captureSparkle, slot.x, slot.y, 1);
+              const at = slotCentre(slot, event.stolen.speciesId);
+              spawnEffect(particles, EFFECTS.captureSparkle, at.x, at.y, 1);
             }
           }
           const lostId = event.lostId;
           if (lostId !== null) {
             // It is already off the roster: scatter the art it was drawn
             // with, where it stood. A benched loss was never on screen.
-            const lost = rosterBefore.find((c) => c.id === lostId);
-            const slot = companionSlotOf(rosterBefore, lostId);
+            const before = partyOrder(activeCompanions(rosterBefore, state.monster.type));
+            const lost = before.find((c) => c.id === lostId);
+            const slot = partySlotOf(before, lostId);
             if (lost !== undefined && slot !== null) {
+              const art = speciesSpritesFor(lost.speciesId).idle;
               spawnSpriteScatter(
                 particles,
-                speciesSpritesFor(lost.speciesId).idle,
+                art,
                 0,
                 slot.x,
-                slot.y,
+                slot.y - art.h * slot.scale,
+                slot.scale,
               );
             }
           }
@@ -571,23 +612,15 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         });
       }
 
-      // Active companions stand in a column left of the hero (§4).
-      const active = activeCompanions(state.companions);
-      for (let k = 0; k < active.length; k++) {
-        const companion = active[k];
-        if (companion === undefined) {
-          continue;
-        }
-        const id = speciesKey(companion.speciesId);
-        drawCompanion(
-          ctx,
-          id,
-          Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites[id].idle.frames.length,
-          k,
-          companion.stars,
-          GROUND_Y,
-        );
-      }
+      // The party stands as one overlapping group left of the hero, back to
+      // front (§6). Every species shares the 2-frame bob, so one frame index
+      // drives the whole group.
+      drawParty(
+        ctx,
+        fieldParty(state),
+        Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length,
+        GROUND_Y,
+      );
 
       const species = speciesSpritesFor(state.monster.speciesId);
       const scale = monsterScale(state.monster);
@@ -608,7 +641,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           scale,
         );
       } else if (state.monster.boss) {
-        // Bosses are three times the size and wear the crown (§3).
+        // Bosses draw one size larger than their species and wear the crown.
         const hit = monsterAnim.state === 'hit';
         drawBoss(
           ctx,
@@ -623,16 +656,14 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       } else if (monsterAnim.state === 'hit') {
         // White-flash recoil pose for MONSTER_HIT_MS; the full tint makes
         // the tier tint irrelevant while it lasts.
-        drawSprite(ctx, species.hit, 0, MONSTER_X, GROUND_Y - species.hit.h * SPRITE_SCALE, {
+        drawSprite(ctx, species.hit, 0, MONSTER_X, GROUND_Y - species.hit.h * scale, {
           tint: COLORS.white,
-          scale: SPRITE_SCALE,
+          scale,
         });
       } else {
         const sprite = tintedIdleSprite(state.monster);
         const monsterFrame = Math.floor(timeMs / IDLE_FRAME_MS) % sprite.frames.length;
-        drawSprite(ctx, sprite, monsterFrame, MONSTER_X, GROUND_Y - sprite.h * SPRITE_SCALE, {
-          scale: SPRITE_SCALE,
-        });
+        drawSprite(ctx, sprite, monsterFrame, MONSTER_X, GROUND_Y - sprite.h * scale, { scale });
       }
 
       for (const drop of drops) {
@@ -646,15 +677,11 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
 
       if (monsterAnim.state !== 'dying') {
         // No HP bar over the scatter — it pops back with the next monster.
-        drawHpBar(
-          ctx,
-          Math.round(MONSTER_X + (species.idle.w * scale) / 2 - HP_BAR.w / 2),
-          state.monster.boss ? BOSS_HP_BAR_Y : HP_BAR.y,
-          HP_BAR.w,
-          HP_BAR.h,
-          state.monsterHp,
-          state.monster.maxHp,
-        );
+        const barY = state.monster.boss ? BOSS_HP_BAR_Y : HP_BAR.y;
+        const barX = Math.round(MONSTER_X + (species.idle.w * scale) / 2 - HP_BAR.w / 2);
+        drawHpBar(ctx, barX, barY, HP_BAR.w, HP_BAR.h, state.monsterHp, state.monster.maxHp);
+        // The badge at the bar's left end is the ONLY visible type marker (§6).
+        drawTypeBadge(ctx, state.monster.type, barX - TYPE_BADGE_GAP, barY);
       }
       // LV + XP gauge floats above the hero's head (Assumption 17).
       drawLevelHud(

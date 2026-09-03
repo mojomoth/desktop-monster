@@ -6,7 +6,6 @@ import { paletteForTier } from './palette.js';
 import { drawSprite } from './sprite.js';
 import type { SpriteCanvas } from './sprite.js';
 
-export const BOSS_SCALE = 3; // ponytail: compatibility shim removed by the field task T65.
 export const BOSS_HP_BAR_Y = 78;
 
 /** Draw tier-tinted species art as a crowned boss with its feet on groundY. */

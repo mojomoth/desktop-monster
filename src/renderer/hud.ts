@@ -135,6 +135,8 @@ export interface FloatingNumber {
   text: string;
   crit: boolean;
   ageMs: number;
+  /** Fresh-phase colour override (companion floats, F64); crit rules if unset. */
+  color?: string;
 }
 
 /** Fixed pool size — key-mashing can never grow an unbounded array. */
@@ -175,6 +177,7 @@ export function spawnFloat(
   y: number,
   text: string,
   crit: boolean,
+  color?: string,
 ): void {
   let slot = pool.find((f) => !f.active);
   if (slot === undefined) {
@@ -192,6 +195,7 @@ export function spawnFloat(
   slot.y = y;
   slot.text = text;
   slot.crit = crit;
+  slot.color = color;
   slot.ageMs = 0;
 }
 
@@ -259,13 +263,11 @@ export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
     }
     const scale = f.crit ? CRIT_FLOAT_SCALE : 1;
     const faded = f.ageMs >= FLOAT_LIFE_MS * FLOAT_FADE_RATIO;
-    const color = f.crit
-      ? faded
+    const color = faded
+      ? f.crit
         ? COLORS.orange
-        : COLORS.yellow
-      : faded
-        ? COLORS.steel
-        : COLORS.white;
+        : COLORS.steel
+      : (f.color ?? (f.crit ? COLORS.yellow : COLORS.white));
     const rise = Math.round(FLOAT_RISE_PX * (f.ageMs / FLOAT_LIFE_MS));
     const x = Math.round(f.x - (textWidth(f.text) * scale) / 2);
     drawScaledText(ctx, f.text, x, f.y - rise - (scale - 1) * FONT_H, scale, color);

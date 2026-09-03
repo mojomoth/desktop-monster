@@ -17,10 +17,13 @@ import {
   MONSTER_DYING_MS,
   MONSTER_HIT_MS,
   MONSTER_SPAWNING_MS,
+  effectiveness,
   monsterForIndex,
   monsterMaxHp,
   mulberry32,
+  partyOrder,
   sizeOf,
+  typeOf,
   xpToNext,
 } from '../src/core/index.js';
 import { DEFAULT_SAVE } from '../src/core/index.js';
@@ -39,6 +42,7 @@ import {
   MONSTER_X,
   SAVE_DEBOUNCE_MS,
   SPRITE_SCALE,
+  TYPE_BADGE_GAP,
   VIEW_H,
   VIEW_W,
 } from '../src/renderer/game.js';
@@ -82,14 +86,21 @@ import { EFFECTS } from '../src/renderer/effects.js';
 import {
   BOSS_HP_BAR_Y,
   COLORS,
-  companionSlot,
+  drawFeverAura,
+  drawParty,
   drawSprite,
+  drawTypeBadge,
+  heroAttack,
   heroIdle,
+  heroSlash,
   itemSprites,
   monsterSprites,
   paletteForTier,
+  partySlots,
   shiftHue,
+  TYPE_COLORS,
 } from '../src/renderer/sprites/index.js';
+import type { Sprite } from '../src/renderer/sprites/index.js';
 import type { SpeciesId } from '../src/core/index.js';
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
@@ -601,25 +612,26 @@ describe('combat presentation (core FSMs, T14)', () => {
     const game = createGame(createEngine(null, mulberry32(42)));
     game.attack('keyboard');
 
-    // The overlay paints in the gap between hero and monster; nothing else
-    // draws scaled cells at ground height in that x-range.
-    const slashPixels = (calls: RectCall[]): RectCall[] =>
-      calls.filter(
-        (c) =>
-          c.w === SPRITE_SCALE &&
-          c.x >= HERO_X + 14 * SPRITE_SCALE &&
-          c.x < HERO_X + 19 * SPRITE_SCALE &&
-          c.y >= GROUND_Y - 12 * SPRITE_SCALE,
-      );
+    // The overlay paints in front of the blade — at 1x units the slash effect
+    // particles share its box, so the art itself is the reference (F64).
+    const arc = makeCtx();
+    drawSprite(arc.ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
+      scale: SPRITE_SCALE,
+    });
+    expect(arc.calls.length).toBeGreaterThan(0);
+    const showsArc = (calls: RectCall[]): boolean => {
+      const painted = new Set(calls.map(rectKey));
+      return arc.calls.every((c) => painted.has(rectKey(c)));
+    };
 
     const windUp = makeCtx();
     game.draw(windUp.ctx); // t=0: wind-up frame, no slash yet
-    expect(slashPixels(windUp.calls)).toEqual([]);
+    expect(showsArc(windUp.calls)).toBe(false);
 
     game.update(ATTACK_FRAME_MS); // t=60: the slash frame
     const slash = makeCtx();
     game.draw(slash.ctx);
-    expect(slashPixels(slash.calls).length).toBeGreaterThan(0);
+    expect(showsArc(slash.calls)).toBe(true);
   });
 
   it('flashes the monster white for the hit duration, then returns to color', () => {
@@ -629,9 +641,19 @@ describe('combat presentation (core FSMs, T14)', () => {
 
     const flash = makeCtx();
     game.draw(flash.ctx);
-    const flashPixels = monsterPixels(flash.calls);
-    expect(flashPixels.length).toBeGreaterThan(0);
-    expect(flashPixels.every((c) => c.fillStyle === COLORS.white)).toBe(true);
+    // The hit-effect burst shares the box at 1x units, so the flash is pinned
+    // against the tinted hit pose itself (F64).
+    const scale = sizeOf(game.getState().monster.speciesId);
+    const hitPose = monsterSprites.slime.hit;
+    const ref = makeCtx();
+    drawSprite(ref.ctx, hitPose, 0, MONSTER_X, GROUND_Y - hitPose.h * scale, {
+      tint: COLORS.white,
+      scale,
+    });
+    expect(ref.calls.length).toBeGreaterThan(0);
+    expect(ref.calls.every((c) => c.fillStyle === COLORS.white)).toBe(true);
+    const flashed = new Set(flash.calls.map(rectKey));
+    expect(ref.calls.every((c) => flashed.has(rectKey(c)))).toBe(true);
 
     game.update(MONSTER_HIT_MS);
     expect(game.getMonsterAnim().state).toBe('idle');
@@ -678,6 +700,9 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
 
   // Scaled art pixels inside the monster box, excluding item-drop colors (the
   // coin launches from the monster and is yellow/orange — never in slime art).
+  // The killing blow's hit burst sits on the monster's centre cell, which at
+  // 1x units is the same size as an art pixel (F64) — skip that one cell.
+  const CENTRE = { x: MONSTER_X + 12 / 2, y: GROUND_Y - 10 / 2 };
   const monsterBox = (calls: RectCall[]): string[] =>
     calls
       .filter(
@@ -687,6 +712,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
           c.x < MONSTER_X + 12 * SPRITE_SCALE &&
           c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
           c.y < GROUND_Y &&
+          !(c.x === CENTRE.x && c.y === CENTRE.y) &&
           c.fillStyle !== COLORS.yellow &&
           c.fillStyle !== COLORS.orange,
       )
@@ -833,11 +859,10 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
 describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
   const keys = (calls: RectCall[]): string[] => calls.map(rectKey).sort();
 
-  /** The first boss box: 12x10 art at its species size plus one. */
-  const FIRST_BOSS_DRAW_SCALE = sizeOf(monsterForIndex(7).speciesId) + 1;
-  const BOSS_CENTRE = {
-    x: MONSTER_X + (12 * FIRST_BOSS_DRAW_SCALE) / 2,
-    y: GROUND_Y - (10 * FIRST_BOSS_DRAW_SCALE) / 2,
+  /** Centre of the boss at `index`: 12x10 art at its species size plus one. */
+  const bossCentre = (index: number): { x: number; y: number } => {
+    const scale = sizeOf(monsterForIndex(index).speciesId) + 1;
+    return { x: MONSTER_X + (12 * scale) / 2, y: GROUND_Y - (10 * scale) / 2 };
   };
 
   it('update() ticks the engine and returns companion events to the save scheduler', () => {
@@ -889,15 +914,24 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
   });
 
   it('a monster hit spawns the species hit effect', () => {
-    const game = createGame(createEngine(v2, mulberry32(42)));
-    const preset = EFFECTS.hit.slime;
+    // Monster 3 is a golem: at draw scale 3 its art cells are 3x3, so only the
+    // 1x1 burst particles can land on the centre cell (F64).
+    const game = createGame(
+      createEngine(
+        { ...v2, monsterIndex: 3, monsterHp: String(monsterMaxHp(3)), bestIndex: 3 },
+        mulberry32(42),
+      ),
+    );
+    const scale = sizeOf(game.getState().monster.speciesId);
+    expect(scale).toBe(3);
+    const preset = EFFECTS.hit.golem;
     // The burst starts on the monster's centre, so every particle sits there.
     const burst = (cs: RectCall[]): RectCall[] =>
       cs.filter(
         (c) =>
           c.w === preset.size &&
-          c.x === MONSTER_X + (12 * SPRITE_SCALE) / 2 &&
-          c.y === GROUND_Y - (10 * SPRITE_SCALE) / 2 &&
+          c.x === MONSTER_X + (12 * scale) / 2 &&
+          c.y === GROUND_Y - (10 * scale) / 2 &&
           (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
       );
 
@@ -944,8 +978,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     );
     drawSprite(ref.ctx, crown, 0, crownX, top - crown.h);
 
-    // The boss band starts at the crown and ends at the ground; the hp bar
-    // now crosses that band until T65 expands the field, so select art pixels.
+    // The boss band starts at the crown and ends at the ground; the raised hp
+    // bar and its type badge sit above it on the taller v3 field.
     const bossBand = (cs: RectCall[]): RectCall[] =>
       cs.filter(
         (c) =>
@@ -957,7 +991,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     expect(ref.calls.length).toBeGreaterThan(0);
     expect(keys(bossBand(calls))).toEqual(keys(ref.calls));
     expect(bossBand(calls).some((c) => c.w === scale)).toBe(true);
-    expect(bossBand(calls).filter((c) => c.w === SPRITE_SCALE)).toEqual([]);
+    // Nothing paints at the species' ordinary size: the boss really is bigger.
+    expect(bossBand(calls).filter((c) => c.w === sizeOf(speciesId))).toEqual([]);
 
     // The hp bar is raised out of the taller sprite's way.
     const barFrame = (y: number): boolean =>
@@ -982,14 +1017,15 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const preset = EFFECTS.bossShockwave;
     // The ring starts on the boss's centre; the dead monster's scatter is 2x
     // and only ever lands on even rows, so it cannot pollute this.
+    const centre = bossCentre(7);
     const ring = calls.filter(
-      (c) => c.w === preset.size && c.x === BOSS_CENTRE.x && c.y === BOSS_CENTRE.y,
+      (c) => c.w === preset.size && c.x === centre.x && c.y === centre.y,
     );
     expect(ring).toHaveLength(preset.count);
     expect(new Set(ring.map((c) => c.fillStyle))).toEqual(new Set(preset.colors));
   });
 
-  it('active companions draw in a column left of the hero, flipped to face right, star-tinted', () => {
+  it('active companions draw as an overlapping party group left of the hero, flipped to face right, star-tinted', () => {
     const roster = [
       companion('c1', 'ghost', 2),
       companion('c2', 'golem', 1),
@@ -998,44 +1034,45 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const game = createGame(
       createEngine({ ...v2, companions: roster, nextCompanionId: 4 }, mulberry32(5)),
     );
+    const state = game.getState();
+    const party = partyOrder(activeCompanions(state.companions, state.monster.type));
+    const slots = partySlots(party, GROUND_Y);
+    // Back to front: bigger species stand behind, higher up and further left.
+    expect(slots.map((s) => s.scale)).toEqual(party.map((c) => sizeOf(c.speciesId)));
+    expect(slots.map((s) => s.scale)).toEqual([...slots.map((s) => s.scale)].sort((a, b) => b - a));
+    expect(slots.map((s) => s.x)).toEqual([...slots.map((s) => s.x)].sort((a, b) => a - b));
+    expect(slots.map((s) => s.y)).toEqual([...slots.map((s) => s.y)].sort((a, b) => a - b));
+
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
+    const painted = calls.map(rectKey).join('|');
 
-    const active = activeCompanions(game.getState().companions);
-    expect(active.map((c) => c.id)).toEqual(['c1', 'c2', 'c3']); // strongest first
-    for (let k = 0; k < active.length; k++) {
-      const c = active[k];
-      if (c === undefined) {
-        throw new Error('missing companion');
+    // The whole group paints in one contiguous back-to-front run.
+    const group = makeCtx();
+    drawParty(group.ctx, party, 0, GROUND_Y);
+    expect(group.calls.length).toBeGreaterThan(0);
+    expect(painted).toContain(group.calls.map(rectKey).join('|'));
+
+    for (let r = 0; r < party.length; r++) {
+      const member = party[r];
+      const slot = slots[r];
+      if (member === undefined || slot === undefined) {
+        throw new Error('missing party member');
       }
-      const slot = companionSlot(k, GROUND_Y);
-      const idle = monsterSprites[c.speciesId as SpeciesId].idle;
-      const box = (cs: RectCall[]): RectCall[] =>
-        cs.filter(
-          (r) =>
-            r.w === 1 &&
-            r.x >= slot.x &&
-            r.x < slot.x + idle.w &&
-            r.y >= slot.y &&
-            r.y < slot.y + idle.h,
-        );
-      const tinted = { ...idle, palette: paletteForTier(idle.palette, c.stars) };
-
-      const flipped = makeCtx();
-      drawSprite(flipped.ctx, tinted, 0, slot.x, slot.y, { flipX: true });
-      expect(keys(box(calls))).toEqual(keys(flipped.calls));
-
+      const idle = monsterSprites[member.speciesId as SpeciesId].idle;
+      const top = slot.y - idle.h * slot.scale;
       // Facing right really is a mirror, and the stars really do tint.
       const plain = makeCtx();
-      drawSprite(plain.ctx, tinted, 0, slot.x, slot.y);
-      expect(keys(box(calls))).not.toEqual(keys(plain.calls));
-      if (c.stars > 0) {
+      drawSprite(plain.ctx, idle, 0, slot.x, top, { scale: slot.scale });
+      expect(painted).not.toContain(plain.calls.map(rectKey).join('|'));
+      if (member.stars > 0) {
         const untinted = makeCtx();
-        drawSprite(untinted.ctx, idle, 0, slot.x, slot.y, { flipX: true });
-        expect(keys(box(calls))).not.toEqual(keys(untinted.calls));
+        drawSprite(untinted.ctx, idle, 0, slot.x, top, { flipX: true, scale: slot.scale });
+        expect(painted).not.toContain(untinted.calls.map(rectKey).join('|'));
       }
-      // The column stands clear of the hero.
-      expect(slot.x + idle.w).toBeLessThanOrEqual(HERO_X);
+      // The group stands left of the hero, feet on (or just above) the ground.
+      expect(slot.x).toBeLessThan(HERO_X);
+      expect(slot.y).toBeLessThanOrEqual(GROUND_Y);
     }
   });
 
@@ -1051,21 +1088,26 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const preset = EFFECTS.companionProjectile;
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
-    const active = activeCompanions(game.getState().companions);
-    for (let k = 0; k < active.length; k++) {
-      const c = active[k];
-      if (c === undefined) {
-        throw new Error('missing companion');
+    const state = game.getState();
+    const party = partyOrder(activeCompanions(state.companions, state.monster.type));
+    const centres = partySlots(party, GROUND_Y).map((slot) => ({
+      x: slot.x + (12 * slot.scale) / 2,
+      y: slot.y - (10 * slot.scale) / 2,
+    }));
+    for (let r = 0; r < party.length; r++) {
+      const c = party[r];
+      const centre = centres[r];
+      if (c === undefined || centre === undefined) {
+        throw new Error('missing party member');
       }
-      const slot = companionSlot(k, GROUND_Y);
-      // One shot per companion, from its slot, in its own hit colour.
+      // One shot per companion, from its slot centre, in its own hit colour.
       expect(
         calls.filter(
-          (r) =>
-            r.w === preset.size &&
-            r.x === slot.x &&
-            r.y === slot.y &&
-            r.fillStyle === EFFECTS.hit[c.speciesId as SpeciesId].colors[0],
+          (shot) =>
+            shot.w === preset.size &&
+            shot.x === centre.x &&
+            shot.y === centre.y &&
+            shot.fillStyle === EFFECTS.hit[c.speciesId as SpeciesId].colors[0],
         ),
       ).toHaveLength(1);
     }
@@ -1074,12 +1116,15 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     game.update(100);
     const later = makeCtx();
     game.draw(later.ctx);
-    const slot0 = companionSlot(0, GROUND_Y);
+    const back = centres[0];
+    if (back === undefined) {
+      throw new Error('empty party');
+    }
     const flown = later.calls.filter(
-      (r) => r.w === preset.size && r.y === slot0.y && r.x === slot0.x + preset.speed / 10,
+      (r) => r.w === preset.size && r.y === back.y && r.x === back.x + preset.speed / 10,
     );
     expect(flown).toHaveLength(1);
-    expect(slot0.x + preset.speed / 10).toBeLessThan(MONSTER_X);
+    expect(back.x + preset.speed / 10).toBeLessThan(MONSTER_X);
   });
 
   it('a capture shows the sparkle effect and the new companion appears', () => {
@@ -1102,20 +1147,215 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
           c.y === y &&
           (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
       );
-    const slot = companionSlot(0, GROUND_Y);
-    expect(sparkles(BOSS_CENTRE.x, BOSS_CENTRE.y)).toHaveLength(preset.count);
-    expect(sparkles(slot.x, slot.y)).toHaveLength(preset.count);
+    const state = game.getState();
+    const party = partyOrder(activeCompanions(state.companions, state.monster.type));
+    expect(party.map((c) => c.id)).toEqual(['c1']);
+    const slot = partySlots(party, GROUND_Y)[0];
+    if (slot === undefined) {
+      throw new Error('the captured boss is not in the party');
+    }
+    const centre = { x: slot.x + (12 * slot.scale) / 2, y: slot.y - (10 * slot.scale) / 2 };
+    const boss = bossCentre(15);
+    expect(sparkles(boss.x, boss.y)).toHaveLength(preset.count);
+    expect(sparkles(centre.x, centre.y)).toHaveLength(preset.count);
 
-    // Once the sparkles burn out the captured boss stands in the first slot.
+    // Once the sparkles burn out the captured boss stands in the party.
     game.update(MONSTER_DYING_MS + MONSTER_SPAWNING_MS);
     const after = makeCtx();
     game.draw(after.ctx);
+    const top = slot.y - 10 * slot.scale;
     expect(
       after.calls.some(
         (c) =>
-          c.w === 1 && c.x >= slot.x && c.x < slot.x + 12 && c.y >= slot.y && c.y < slot.y + 10,
+          c.w === slot.scale &&
+          c.x >= slot.x &&
+          c.x < slot.x + 12 * slot.scale &&
+          c.y >= top &&
+          c.y < slot.y,
       ),
     ).toBe(true);
+  });
+
+  it('the field monster shows a type badge at the left end of its hp bar', () => {
+    const game = createGame(createEngine(v2, mulberry32(42)));
+    const monster = game.getState().monster;
+    expect(monster.type).toBe(typeOf(monster.speciesId));
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const painted = new Set(calls.map(rectKey));
+
+    const barX = Math.round(
+      MONSTER_X + (12 * sizeOf(monster.speciesId)) / 2 - HP_BAR.w / 2,
+    );
+    const badge = makeCtx();
+    drawTypeBadge(badge.ctx, monster.type, barX - TYPE_BADGE_GAP, HP_BAR.y);
+    expect(badge.calls[0]).toEqual({
+      x: barX - TYPE_BADGE_GAP,
+      y: HP_BAR.y,
+      w: 5,
+      h: 5,
+      fillStyle: TYPE_COLORS[monster.type],
+    });
+    expect(badge.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+
+    // It really reads the monster's type: another type paints another badge.
+    const other = makeCtx();
+    drawTypeBadge(other.ctx, monster.type === 'fire' ? 'earth' : 'fire', barX - TYPE_BADGE_GAP, HP_BAR.y);
+    expect(other.calls.every((c) => painted.has(rectKey(c)))).toBe(false);
+
+    // No badge over the scatter — it goes with the bar.
+    game.attack('keyboard');
+    game.update(1);
+    expect(game.getMonsterAnim().state).toBe('hit');
+    const dead = createGame(
+      createEngine({ ...v2, monsterHp: '1' }, mulberry32(7)),
+    );
+    dead.attack('keyboard');
+    const dying = makeCtx();
+    dead.draw(dying.ctx);
+    expect(dying.calls.some((c) => c.w === 5 && c.h === 5 && c.y === HP_BAR.y)).toBe(false);
+  });
+
+  it('a normal monster draws at its species size', () => {
+    // Monster 0 is a slime (size 1) and monster 3 a golem (size 3): the same
+    // 12x10 art, two different draw scales, both with their feet on the ground.
+    expect(sizeOf(monsterForIndex(0).speciesId)).toBe(1);
+    expect(sizeOf(monsterForIndex(3).speciesId)).toBe(3);
+
+    for (const index of [0, 3]) {
+      const def = monsterForIndex(index);
+      expect(def.boss).toBe(false);
+      const game = createGame(
+        createEngine(
+          {
+            ...v2,
+            monsterIndex: index,
+            monsterHp: String(monsterMaxHp(index)),
+            bestIndex: index,
+          },
+          mulberry32(1),
+        ),
+      );
+      const { ctx, calls } = makeCtx();
+      game.draw(ctx);
+
+      const scale = sizeOf(def.speciesId);
+      const idle = monsterSprites[def.speciesId as SpeciesId].idle;
+      const ref = makeCtx();
+      drawSprite(
+        ref.ctx,
+        { ...idle, palette: paletteForTier(idle.palette, def.tier) },
+        0,
+        MONSTER_X,
+        GROUND_Y - idle.h * scale,
+        { scale },
+      );
+      expect(ref.calls.length).toBeGreaterThan(0);
+      expect(ref.calls.every((c) => c.w === scale && c.h === scale)).toBe(true);
+      const painted = new Set(calls.map(rectKey));
+      expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+      // …and it fits the field.
+      expect(MONSTER_X + idle.w * scale).toBeLessThanOrEqual(VIEW_W);
+    }
+  });
+
+  it('the field party is re-read from state every frame so a new monster changes it', () => {
+    // Six equally powerful companions: which five fight depends purely on the
+    // type match-up, so the monster the kill spawns re-picks the group.
+    const roster = [
+      companion('c1', 'slime'),
+      companion('c2', 'bat'),
+      companion('c3', 'ghost'),
+      companion('c4', 'golem'),
+      companion('c5', 'dragon'),
+      companion('c6', 'bat'),
+    ];
+    const game = createGame(
+      createEngine(
+        { ...v2, monsterHp: '1', companions: roster, nextCompanionId: 7 },
+        mulberry32(7),
+      ),
+    );
+    const partyFor = (state: GameState): Companion[] =>
+      partyOrder(activeCompanions(state.companions, state.monster.type));
+    const before = partyFor(game.getState());
+
+    expect(game.attack('keyboard').some((e) => e.type === 'monsterKilled')).toBe(true);
+    const elapsed = MONSTER_DYING_MS + MONSTER_SPAWNING_MS;
+    game.update(elapsed);
+    const state = game.getState();
+    expect(state.monster.type).not.toBe('water'); // monster 0 was the water slime
+    const after = partyFor(state);
+    expect(after.map((c) => c.id)).not.toEqual(before.map((c) => c.id));
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const painted = calls.map(rectKey).join('|');
+    const frame = Math.floor(elapsed / IDLE_FRAME_MS) % 2;
+
+    const now = makeCtx();
+    drawParty(now.ctx, after, frame, GROUND_Y);
+    expect(now.calls.length).toBeGreaterThan(0);
+    expect(painted).toContain(now.calls.map(rectKey).join('|'));
+
+    // The party the PREVIOUS monster picked is gone — nothing was cached.
+    const stale = makeCtx();
+    drawParty(stale.ctx, before, frame, GROUND_Y);
+    expect(painted).not.toContain(stale.calls.map(rectKey).join('|'));
+  });
+
+  it('companion floats are coloured by effectiveness', () => {
+    // The field monster is a slime (water): earth beats it, dark loses to it.
+    for (const [speciesId, expected] of [
+      ['golem', 'super'],
+      ['ghost', 'weak'],
+      ['slime', 'normal'],
+    ] as const) {
+      const game = createGame(
+        createEngine(
+          {
+            ...v2,
+            monsterIndex: 20,
+            monsterHp: String(monsterMaxHp(20)),
+            bestIndex: 20,
+            companions: [companion('c1', speciesId)],
+            nextCompanionId: 2,
+          },
+          mulberry32(3),
+        ),
+      );
+      const monster = game.getState().monster;
+      expect(monster.boss).toBe(false);
+      expect(effectiveness(typeOf(speciesId), monster.type)).toBe(expected);
+
+      const volley = game.update(COMPANION_ATTACK_MS).find((e) => e.type === 'companionAttack');
+      if (volley?.type !== 'companionAttack') {
+        throw new Error('expected a companion volley');
+      }
+      expect(volley.effectiveness).toBe(expected);
+
+      const { ctx, calls } = makeCtx();
+      game.draw(ctx);
+
+      const pool = createFloatPool();
+      spawnFloat(
+        pool,
+        MONSTER_X + (12 * sizeOf(monster.speciesId)) / 2,
+        HP_BAR.y - 6,
+        format(volley.damage),
+        false,
+        floatColor(expected),
+      );
+      const ref = makeCtx();
+      drawFloats(ref.ctx, pool);
+      expect(ref.calls.length).toBeGreaterThan(0);
+      expect(ref.calls.every((c) => c.fillStyle === floatColor(expected))).toBe(true);
+      const painted = new Set(calls.map(rectKey));
+      expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+    }
+    // The three verdicts really are three different colours.
+    expect(new Set((['super', 'weak', 'normal'] as const).map(floatColor)).size).toBe(3);
   });
 
   it('fever draws a hue-cycling aura behind the hero and a FEVER banner', () => {
@@ -1141,21 +1381,19 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
 
     const lit = makeCtx();
     game.draw(lit.ctx);
-    // The aura is the hero sprite offset 1px, in one hue-shifted red.
-    // The hero's own pixels land on even x from HERO_X; the aura's ±1 copies
-    // are the only 2x cells on odd columns.
-    const aura = (cs: RectCall[]): RectCall[] =>
-      cs.filter(
-        (c) =>
-          c.w === SPRITE_SCALE &&
-          c.x % 2 === 1 &&
-          c.x >= HERO_X - 1 &&
-          c.x < HERO_X + heroIdle.w * SPRITE_SCALE,
-      );
-    expect(aura(lit.calls).length).toBeGreaterThan(0);
-    expect(new Set(aura(lit.calls).map((c) => c.fillStyle))).toEqual(
-      new Set([shiftHue(COLORS.red, 0)]),
-    );
+    // The aura is the hero sprite offset 1px in one hue-shifted red, painted
+    // UNDER the hero — at 1x units its own draw calls are the reference (F64).
+    const auraRef = (sprite: Sprite, frame: number, timeMs: number): RectCall[] => {
+      const ref = makeCtx();
+      drawFeverAura(ref.ctx, sprite, frame, HERO_X, HERO_Y, SPRITE_SCALE, timeMs);
+      return ref.calls;
+    };
+    // 20 inputs with no tick: the hero is still on attack frame 0 at t=0.
+    const litAura = auraRef(heroAttack, 0, 0);
+    expect(litAura.length).toBeGreaterThan(0);
+    expect(new Set(litAura.map((c) => c.fillStyle))).toEqual(new Set([shiftHue(COLORS.red, 0)]));
+    const litPainted = new Set(lit.calls.map(rectKey));
+    expect(litAura.every((c) => litPainted.has(rectKey(c)))).toBe(true);
 
     // FEVER!, not LEVEL UP!, flashes above the scene.
     const bannerBox = (cs: RectCall[]): RectCall[] =>
@@ -1180,15 +1418,26 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     game.update(4 * FEVER_SPARKLE_MS);
     const later = makeCtx();
     game.draw(later.ctx);
-    expect(aura(later.calls)[0]?.fillStyle).not.toBe(aura(lit.calls)[0]?.fillStyle);
-    expect(
-      later.calls.filter(
+    expect(game.getHeroAnim().state).toBe('idle'); // the attack ran out
+    const laterAura = auraRef(heroIdle, 0, 4 * FEVER_SPARKLE_MS);
+    const laterPainted = new Set(later.calls.map(rectKey));
+    expect(laterAura.every((c) => laterPainted.has(rectKey(c)))).toBe(true);
+    expect(laterAura[0]?.fillStyle).not.toBe(litAura[0]?.fillStyle);
+    // The burst starts on the hero's centre cell, which the aura and the hero
+    // art also paint at 1x units — so count only what they do NOT paint.
+    const atCentre = (cs: RectCall[]): RectCall[] =>
+      cs.filter(
         (c) =>
           c.w === EFFECTS.feverAura.size &&
           c.x === HERO_X + (heroIdle.w * SPRITE_SCALE) / 2 &&
           c.y === HERO_Y + (heroIdle.h * SPRITE_SCALE) / 2,
-      ),
-    ).toHaveLength(EFFECTS.feverAura.count);
+      );
+    const heroOnly = makeCtx();
+    drawFeverAura(heroOnly.ctx, heroIdle, 0, HERO_X, HERO_Y, SPRITE_SCALE, 4 * FEVER_SPARKLE_MS);
+    drawSprite(heroOnly.ctx, heroIdle, 0, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
+    expect(atCentre(later.calls).length - atCentre(heroOnly.calls).length).toBe(
+      EFFECTS.feverAura.count,
+    );
   });
 });
 
@@ -1258,12 +1507,20 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
 
     const after = makeCtx();
     game.draw(after.ctx);
-    // The companion column is the ONLY thing that changed — every float,
+    // The party group is the ONLY thing that changed — every float,
     // particle, drop and banner pixel keeps painting exactly where it was.
-    const slot = companionSlot(0, GROUND_Y);
-    const offColumn = (c: RectCall): boolean =>
-      !(c.x >= slot.x && c.x < slot.x + 12 && c.y >= slot.y && c.y < slot.y + 10);
-    expect(after.calls.filter(offColumn)).toEqual(before.calls.filter(offColumn));
+    const slot = partySlots([companion('c1', 'slime')], GROUND_Y)[0];
+    if (slot === undefined) {
+      throw new Error('missing party slot');
+    }
+    const offParty = (c: RectCall): boolean =>
+      !(
+        c.x >= slot.x &&
+        c.x < slot.x + 12 * slot.scale &&
+        c.y >= slot.y - 10 * slot.scale &&
+        c.y < slot.y
+      );
+    expect(after.calls.filter(offParty)).toEqual(before.calls.filter(offParty));
     expect(after.calls.length).toBeLessThan(before.calls.length);
     expect(game.getMonsterAnim().state).toBe('dying');
   });
@@ -1286,15 +1543,20 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
     expect(bannerKeys(VICTORY_TEXT).every((k) => painted.has(k))).toBe(true);
     expect(bannerKeys(DEFEAT_TEXT).every((k) => painted.has(k))).toBe(false);
 
-    // …and the prize pops in: a capture sparkle at its column slot.
-    const slot = companionSlot(0, GROUND_Y);
+    // …and the prize pops in: a capture sparkle at its party slot.
+    const state = game.getState();
+    const party = partyOrder(activeCompanions(state.companions, state.monster.type));
+    const slot = partySlots(party, GROUND_Y)[0];
+    if (slot === undefined) {
+      throw new Error('the prize is not in the party');
+    }
     const preset = EFFECTS.captureSparkle;
     expect(
       calls.filter(
         (c) =>
           c.w === preset.size &&
-          c.x === slot.x &&
-          c.y === slot.y &&
+          c.x === slot.x + (12 * slot.scale) / 2 &&
+          c.y === slot.y - (10 * slot.scale) / 2 &&
           (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
       ),
     ).toHaveLength(preset.count);
@@ -1318,11 +1580,21 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
     expect(bannerKeys(DEFEAT_TEXT).every((k) => painted.has(k))).toBe(true);
     expect(bannerKeys(VICTORY_TEXT).every((k) => painted.has(k))).toBe(false);
 
-    // Its species idle art is now a pixel scatter at the slot it stood in
+    // Its species idle art is now a pixel scatter at the party slot it held
     // (spawnSpriteScatter draws no RNG, so the reference matches exactly).
-    const slot = companionSlot(0, GROUND_Y);
+    const slot = partySlots([companion('c1', 'golem')], GROUND_Y)[0];
+    if (slot === undefined) {
+      throw new Error('missing party slot');
+    }
     const reference = createParticlePool();
-    spawnSpriteScatter(reference, monsterSprites.golem.idle, 0, slot.x, slot.y);
+    spawnSpriteScatter(
+      reference,
+      monsterSprites.golem.idle,
+      0,
+      slot.x,
+      slot.y - 10 * slot.scale,
+      slot.scale,
+    );
     const ref = makeCtx();
     drawParticles(ref.ctx, reference);
     expect(ref.calls.length).toBeGreaterThan(0);
