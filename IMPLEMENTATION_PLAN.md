@@ -276,7 +276,7 @@
 - Notes (iter 10, codex): MERGE_RED: merge reverted (gates=fail smoke=skipped); Appended 21 missing A–Z glyphs and .:-+% as 26 new 3x5 frames while preserving all existing indices and font dimensions; added full coverage plus period/percent shape assertions. Full gates passed (304 tests, lint, typecheck); literal AC passed with 25 sprite tests. Initial test hit the broken shared node_modules symlink; used the identical-lockfile T22 tree read-only and restored the original target.
 
 
-### [ ] T32 — Effects module: data-driven presets on the particle pool, per-species hit effects
+### [~] T32 — Effects module: data-driven presets on the particle pool, per-species hit effects
 - AC: `npx vitest run tests/effects.test.ts tests/anim.test.ts && grep -q "every species has a distinct hit effect preset" tests/effects.test.ts && grep -q "spawnEffect is deterministic and never draws rng" tests/effects.test.ts && grep -q "spawnEffect respects the 200-slot pool cap" tests/effects.test.ts && grep -q "heroSlashSouls" src/renderer/effects.ts && grep -q "companionProjectile" src/renderer/effects.ts && grep -q "bossShockwave" src/renderer/effects.ts && grep -q "captureSparkle" src/renderer/effects.ts && grep -q "feverAura" src/renderer/effects.ts && ! grep -q "Math.random" src/renderer/effects.ts` → exit 0
 - Deps: none
 - Worker: codex
