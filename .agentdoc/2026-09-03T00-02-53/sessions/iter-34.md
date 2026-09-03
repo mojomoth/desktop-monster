@@ -5,7 +5,7 @@
 - lane: .worktrees/T29 (branch lane/T29)
 - harness version: v2
 - task: T29 — Fever core: pure tracker on the engine clock, tick(dt), ×3 damage
-- commit: b58573e5ff4759318123f0060985ed638aef00a7
+- commit: 96bbcdc4eed120ea7042410200c459e7dce9136d
 - graphify affected used: none (read engine.ts/types.ts/collection.ts directly — the
   task's file set is 4 files I already had to open)
 
