@@ -1,0 +1,17 @@
+{"task":"T73","result":"DONE","gates":"pass","commit":"bcfcefa","note":"Baked SERVER_URL=https://desmon-server-v3.onrender.com into src/shared/serverUrl.ts; rewrote AGENTS.md §Server (v3 URL, V2_SERVER_URL, RENDER_SERVICE_ID=srv-dacmju6k1f9s73csi2v0, shared dpg-dacd4k2jnfac73c43llg-a + DB_EXPIRES=2026-10-03 unchanged, DEPLOYED_SHA=23cf0cf, v3 commands); meta.json server_url/db_expires. One push (git push origin HEAD:v3, created the branch), deploy --wait live, /healthz sha = pushed sha, probe rank 5. probe.ts unchanged (no pvp(/reclaim(). Dead ends: bootstrap before the push → 400 'branch v3 does not exist' (so bootstrap must follow the push); render services update --branch → 500 x4, unusable — recovered by deleting the service and re-running the bootstrap with DESMON_BRANCH=v3."}
+
+T73 완료했습니다. 게이트와 AC 모두 통과(네트워크 부분 포함, `DESMON_SKIP_NET` 미설정)입니다.
+
+**한 일**
+- `src/shared/serverUrl.ts` → `https://desmon-server-v3.onrender.com` (런타임 `DESMON_SERVER_URL` 오버라이드는 그대로)
+- `AGENTS.md §Server` v3로 교체: `SERVER_URL`, `V2_SERVER_URL`(v2 참조용 보존), `RENDER_SERVICE_ID=srv-dacmju6k1f9s73csi2v0`, 공유 Postgres/`DB_CREATED`/`DB_EXPIRES`는 그대로, `DEPLOYED_SHA=23cf0cf…`, v3 부트스트랩·배포·검증 커맨드
+- 커밋 → `git push origin HEAD:v3` 1회 → 부트스트랩 → `render deploys create … --wait --confirm` (status: live)
+- 라이브 검증: `/healthz` → `{"ok":true,"sha":"23cf0cf8…"}` (푸시한 sha와 일치), `node dist/electron/server/probe.js` → `{"playerId":"…","rank":5}`
+- `src/server/probe.ts`는 수정 불필요 — 이미 register → upload → leaderboard만 하고 `pvp(`/`reclaim(` 없음
+- README은 T72 담당이라 손대지 않음 (레인 분리)
+
+**막혔던 지점 두 개** (다음 이터레이션이 반복하면 안 되는 것)
+1. 계획서의 순서(부트스트랩 → 커밋 → 푸시)는 첫 v3 배포에서는 불가능합니다. 원격에 `v3` 브랜치가 없으면 Render가 `400: branch v3 does not exist`로 거부하므로 **푸시가 먼저**여야 합니다.
+2. `main`으로 만들어진 서비스를 `render services update --branch v3`로 고치려 했으나 4회 모두 `500 internal server error` (`--repo` 추가해도 동일). 서비스를 삭제하고 `DESMON_BRANCH=v3`로 부트스트랩을 재실행해 복구했습니다. 서비스는 stateless이고 데이터는 공유 `desmon-db`에 있어 손상 없음. TOOLING §6 제약 목록에 추가할 만합니다.
+
+이 순서 때문에 첫 커밋에는 임시 `RENDER_SERVICE_ID`/`DEPLOYED_SHA=pending`이 들어갔고, 후속 커밋(`bcfcefa`)에서 라이브 값으로 교체했습니다 — AGENTS.md는 build-filter 경로가 아니라서 배포 sha에 영향 없습니다(T44/T51 패턴).

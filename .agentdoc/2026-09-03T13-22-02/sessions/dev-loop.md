@@ -14,3 +14,4 @@
 | 12 | claude | T60 | DONE | pass | skipped | a0079ec | continue |
 | 14 | claude | T68 | DONE | pass | pass | 3dab54f | continue |
 | 15 | claude | T61 | DONE | pass | skipped | d8fee91 | continue |
+| 16 | claude | T73 | DONE | pass | skipped | c090453 | continue |
