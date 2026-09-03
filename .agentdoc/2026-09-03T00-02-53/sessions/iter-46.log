@@ -1,0 +1,10 @@
+{"task":"T51","result":"DONE","gates":"pass","commit":"edc87fd","note":"Live sha was 9708404 (T44 push) while T50's 8525f46 had touched package.json/package-lock.json after it, so the AC failed. Ran gates (501 tests/lint/typecheck green), pushed once (git push origin HEAD:main, fast-forward 9708404..7a81b34), then render deploys create srv-dacd4l15efls73e0fbig --wait --confirm -> dep-dacdvlh5efls73e3fgc0 live at 7a81b34 (~57s). healthz {\"ok\":true,\"sha\":\"7a81b346...\"}, probe rank 1. Recorded DEPLOYED_SHA=7a81b346439d8a6d9fe3fe1d0fadd8cbd40e4f4c in AGENTS.md (no filter path touched). Full AC rerun with network -> exit 0; DESMON_SKIP_NET=1 variant -> exit 0. DB_EXPIRES=2026-10-03, 30 days remaining. No dead ends.","children":[]}
+
+Details:
+
+- **Starting gap**: `/healthz` reported `9708404` (the T44 push, = `origin/main`), but `8525f46` (T50's 0.2.0 bump) touched `package.json`/`package-lock.json` after it — the git-side half of F56 failed, so a redeploy was genuinely required.
+- **Push**: exactly one `git push origin HEAD:main`, a clean fast-forward `9708404..7a81b34`.
+- **Deploy**: `render deploys create srv-dacd4l15efls73e0fbig --wait --confirm` → `dep-dacdvlh5efls73e3fgc0`, status `live`, commit `7a81b346439d8a6d9fe3fe1d0fadd8cbd40e4f4c`, finished 2026-09-03T02:48:47Z.
+- **Verification** (both halves, verbatim AC, after the commits): ancestry ok, build-filter diff empty, `{"ok":true,"sha":"7a81b346…"}`, probe `{"playerId":"27eb9e1f-…","rank":1}` → `AC_EXIT=0`. The `DESMON_SKIP_NET=1` path also exits 0.
+- **Handoff facts**: `DB_EXPIRES=2026-10-03` — **30 days remaining** as of 2026-09-03 (`DB_CREATED=2026-09-03T01:50:08Z`).
+- **Commits** (2, in-lane): `a1bdfde` (AGENTS.md `DEPLOYED_SHA` — the only content change, not a build-filter path) and `edc87fd` (session record sha fixup after an amend invalidated the recorded sha). Gates re-run after the AGENTS.md edit: 501 tests, lint, typecheck all green. Tree clean.
