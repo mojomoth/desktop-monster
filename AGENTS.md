@@ -12,7 +12,11 @@ pixel-art overlay where every keystroke/mouse click makes a knight attack a mons
 companions (auto-attack; consume / fuse / reincarnate / sacrifice / rebirth), fever mode,
 A–Z big-number damage, per-species effects, a Collection & Battle window, and a small Node
 server (`src/server`, on Render) for the leaderboard and asynchronous PvP with companion
-stealing. Electron + TypeScript; all art is sprites-as-code (no binary assets). Built
+stealing. Electron + TypeScript; all art is sprites-as-code (no binary assets). v3 (branch `v3`, harness v3) adds
+elemental types with a 5-cycle chart, hidden sizes, a 5-member overlapping party auto-picked by
+type-adjusted power, two-step PvP (opponent preview, manual party, deterministic battle replay),
+attacker-only steals with a 24 h reclaim + native notification, and a 480×300 field at 1× units
+(`.harness/v3/reference/GAME_DESIGN_V3.md`, `SERVER_ARCHITECTURE_V3.md`). Built
 autonomously by the parallel Ralph loop in `.harness/` — see `.harness/<version>/HARNESS.md`
 (version in `.harness/CURRENT`).
 
@@ -40,6 +44,10 @@ RENDER_POSTGRES_ID=dpg-dacd4k2jnfac73c43llg-a
 DB_CREATED=2026-09-03T01:50:08.492032Z
 DB_EXPIRES=2026-10-03
 DEPLOYED_SHA=7a81b346439d8a6d9fe3fe1d0fadd8cbd40e4f4c
+- v3: the lines above are the v2 service (`desmon-server`, built from `main`). The v3 deploy task
+  provisions `desmon-server-v3` from branch `v3` (`DESMON_SRV_NAME=desmon-server-v3 DESMON_BRANCH=v3
+  .harness/v3/loop/render-bootstrap.sh`, shared `desmon-db`) and REPLACES `SERVER_URL=`,
+  `RENDER_SERVICE_ID=`, `DEPLOYED_SHA=` with the v3 values (keeping `V2_SERVER_URL=` for reference).
 - `GET /healthz` → `200 {"ok":true,"sha":"<RENDER_GIT_COMMIT|dev>"}`, no DB access; everything
   else under `/v1` (SPEC.md §Server / API).
 - Deploy = `git push origin main` + `render deploys create <srv-id> --wait --confirm` (webhooks
@@ -79,7 +87,7 @@ dispatches up to `LANES` tasks in parallel, each in its own git worktree `.workt
 `lane/<id>`), and merges finished lanes into `main` itself. Codex = graphics only (sprites/anim/hud/
 effects/css + their tests) in a sandbox with no network, no Electron, no git; Claude = everything else.
 - Work ONLY inside your worktree; never `git push`, `git checkout main`, `git worktree`, `git merge`, `git rebase`.
-  Exception: a task whose Notes contain `push: yes` runs exactly `git push origin HEAD:main` once, after its
+  Exception: a task whose Notes contain `push: yes` runs exactly one push to the integration branch (`git push origin HEAD:main` in harness v2; `git push origin HEAD:v3` in harness v3), after its
   commit and gates.
 - Never edit `IMPLEMENTATION_PLAN.md` or `SPEC.md` (unless SPEC.md is in the task's Files); report
   through the final status JSON (`task, result, gates, commit, note[, children]`) on the FIRST line
