@@ -265,7 +265,7 @@
 - Notes (iter 34, claude): DONE: New src/core/fever.ts (FEVER_INPUTS=20/WINDOW=3000/MS=5000/COOLDOWN=10000/MULT=3n, readonly Fever, createFever/feverInput/feverTick/feverActive, pure, no clock). Engine owns clockMs advanced only by tick(dtMs: number): GameEvent[] (junk dt->0, feverTick first -> feverEnd); attack() stamps clockMs and pushes feverStart before its own attack event; damage = level x crit x fever x (1+souls) (T28 factor kept). types.ts: GameState.fever {active,remainingMs} + feverStart/feverEnd events; barrel export *. tests/fever.test.ts 4 tests, AC titles verbatim. Gate-forced 3-line fix in tests/engine.test.ts:
 
 
-### [ ] T30 — Engine tick: companion volley every 1000 ms from the 3 strongest
+### [~] T30 — Engine tick: companion volley every 1000 ms from the 3 strongest
 - AC: `npx vitest run tests/engine.test.ts && grep -q "COMPANION_ATTACK_MS = 1000" src/core/engine.ts && grep -q "function applyDamage" src/core/engine.ts && grep -q "tick fires one volley per 1000ms from the 3 strongest companions and kills chain into the next monster" tests/engine.test.ts && grep -q "tick with no companions emits nothing and never spends rng draws" tests/engine.test.ts && grep -q "companion damage is tripled during fever and never crits" tests/engine.test.ts && test "$(grep -c '^\s*it(' tests/engine.test.ts)" -ge 26` → exit 0
 - Deps: T28, T29
 - Worker: claude
