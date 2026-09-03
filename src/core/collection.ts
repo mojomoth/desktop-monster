@@ -3,9 +3,11 @@
 // total and never mutates its input: applyCollection returns fresh objects or
 // an { error }, so the caller can apply it straight onto live engine state.
 
+import { ratio } from './bignum.js';
 import { monsterForIndex } from './monsters.js';
 import { monsterMaxHp } from './formulas.js';
 import type { Companion } from './save.js';
+import type { Rng } from './rng.js';
 import type { GameState } from './types.js';
 
 /** A companion never levels past this (consume/reincarnate both cap here). */
@@ -215,4 +217,33 @@ export function applyCollection(
     default:
       return { error: 'unknown action' };
   }
+}
+
+/**
+ * Resolve one asynchronous PvP exchange (Assumption 34; GAME_DESIGN_V2 §6).
+ * Shared byte-for-byte with the server, which calls it with `mulberry32(seed)`
+ * and moves `moved` between the stored rosters — so exactly 2 draws happen per
+ * call and the victim draw is consumed even when nobody can be stolen.
+ * ponytail: no bot or cooldown rules here, those are the server's.
+ */
+export function resolvePvp(
+  attacker: readonly Companion[],
+  defender: readonly Companion[],
+  rng: Rng,
+): { attackerWon: boolean; moved: Companion | null; attackerPower: bigint; defenderPower: bigint } {
+  const sum = (cs: readonly Companion[]): bigint =>
+    cs.reduce((total, c) => total + companionPower(c), 0n);
+  const attackerPower = sum(attacker);
+  const defenderPower = sum(defender);
+  const total = attackerPower + defenderPower;
+  const attackerWon = rng.next() < (total === 0n ? 0.5 : ratio(attackerPower, total));
+  const loser = attackerWon ? defender : attacker;
+  const victim = loser[Math.floor(rng.next() * loser.length)] ?? null;
+  const winner = attackerWon ? attacker : defender;
+  return {
+    attackerWon,
+    moved: winner.length >= ROSTER_CAP ? null : victim,
+    attackerPower,
+    defenderPower,
+  };
 }

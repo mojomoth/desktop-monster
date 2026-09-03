@@ -9,13 +9,16 @@ import {
   DEFAULT_SAVE,
   monsterForIndex,
   monsterMaxHp,
+  mulberry32,
   REBIRTH_MIN_INDEX,
+  resolvePvp,
   ROSTER_CAP,
 } from '../src/core/index.js';
 import type {
   CollectionAction,
   Companion,
   GameState,
+  Rng,
   SaveFileV2,
 } from '../src/core/index.js';
 
@@ -269,5 +272,94 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(state.companions).not.toBe(base.companions);
     expect(state.companions[0]).not.toBe(base.companions[0]);
     expect(state.companions[0]).toEqual(base.companions[0]);
+  });
+});
+
+/** An Rng that hands out fixed values (then 0) — one draw per value. */
+const seq = (...values: number[]): Rng => {
+  let i = 0;
+  return { next: () => values[i++] ?? 0 };
+};
+
+/** Wraps an Rng and counts how many values the code under test pulled. */
+const counting = (inner: Rng): Rng & { draws: number } => ({
+  draws: 0,
+  next(): number {
+    this.draws += 1;
+    return inner.next();
+  },
+});
+
+/** `n` level-1 companions of bossIndex 7 → power 1 each. */
+const roster = (n: number, prefix = 'a'): Companion[] =>
+  Array.from({ length: n }, (_, i) => comp(`${prefix}${i + 1}`));
+
+describe('resolvePvp (SPEC F37, Assumption 34)', () => {
+  it('resolvePvp wins with probability myPower over total and moves one random companion from the loser to the winner', () => {
+    const attacker = roster(1, 'a');
+    const defender = roster(3, 'd');
+    const rng = mulberry32(1234);
+    let wins = 0;
+
+    for (let i = 0; i < 10000; i += 1) {
+      const r = resolvePvp(attacker, defender, rng);
+      expect(r.attackerPower).toBe(1n);
+      expect(r.defenderPower).toBe(3n);
+      const loser = r.attackerWon ? defender : attacker;
+      expect(loser).toContain(r.moved);
+      if (r.attackerWon) wins += 1;
+    }
+
+    // p = ratio(1n, 4n) = 0.25 (Assumption 15: 10000 trials stay inside ±3 pts).
+    expect(wins / 10000).toBeGreaterThan(0.22);
+    expect(wins / 10000).toBeLessThan(0.28);
+  });
+
+  it('resolvePvp with an empty loser roster steals nothing', () => {
+    // p = ratio(1n, 1n) = 1 and rng.next() < 1 always → the attacker wins.
+    const won = resolvePvp(roster(1, 'a'), [], seq(0.99, 0.99));
+    expect(won).toEqual({ attackerWon: true, moved: null, attackerPower: 1n, defenderPower: 0n });
+
+    // p = ratio(0n, 1n) = 0 → the attacker always loses and has nothing to give.
+    const lost = resolvePvp([], roster(1, 'd'), seq(0, 0));
+    expect(lost).toEqual({ attackerWon: false, moved: null, attackerPower: 0n, defenderPower: 1n });
+
+    // Two empty rosters: p = 0.5, still nobody to move.
+    expect(resolvePvp([], [], seq(0.9, 0.9)).moved).toBeNull();
+  });
+
+  it('resolvePvp never moves into a full roster of 30', () => {
+    const full = roster(ROSTER_CAP, 'a');
+    const defender = roster(1, 'd');
+    expect(resolvePvp(full, defender, seq(0, 0))).toEqual({
+      attackerWon: true,
+      moved: null,
+      attackerPower: BigInt(ROSTER_CAP),
+      defenderPower: 1n,
+    });
+
+    // One slot free → the same draws steal the defender's companion.
+    expect(resolvePvp(full.slice(1), defender, seq(0, 0)).moved).toBe(defender[0]);
+
+    // The full roster is the loser this time (p = ratio(1n, 31n)): it gives one away.
+    expect(resolvePvp(defender, full, seq(0.01, 0)).moved).toBe(full[0]);
+  });
+
+  it('resolvePvp is reproducible from its seed and draws exactly 2 rng values', () => {
+    const attacker = roster(2, 'a');
+    const defender = roster(4, 'd');
+    const run = (): { attackerWon: boolean; moved: Companion | null; draws: number } => {
+      const rng = counting(mulberry32(7));
+      const { attackerWon, moved } = resolvePvp(attacker, defender, rng);
+      return { attackerWon, moved, draws: rng.draws };
+    };
+
+    expect(run()).toEqual(run());
+    expect(run().draws).toBe(2);
+
+    // The victim draw is consumed even when there is nobody to steal.
+    const empty = counting(mulberry32(7));
+    resolvePvp(attacker, [], empty);
+    expect(empty.draws).toBe(2);
   });
 });
