@@ -5,7 +5,7 @@
 // injected (deps), so tests are deterministic and this file has no wall clock.
 
 import { createHash } from 'node:crypto';
-import { ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
+import { mulberry32, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
 import {
   COMPANION_ID_RE,
   INT_MAX,
@@ -15,7 +15,7 @@ import {
   LEVEL_MIN,
   NICK_RE,
 } from '../shared/api.js';
-import type { Companion, LeaderboardRow, Snapshot } from '../shared/api.js';
+import type { Companion, LeaderboardRow, PvpOpponent, Snapshot } from '../shared/api.js';
 import type { ApiHandler, ApiRequest, ApiResponse } from './http.js';
 import { compareScore } from './store.js';
 import type { PlayerRow, Store } from './store.js';
@@ -33,8 +33,12 @@ export interface AppDeps {
 /** Requests per key per window (SERVER_ARCHITECTURE §3). */
 export const RATE_LIMIT = 60;
 export const RATE_WINDOW_MS = 60_000;
+/** Shortest gap between two matches of the same caller (SERVER_ARCHITECTURE §3). */
+export const PVP_COOLDOWN_MS = 60_000;
 /** How many stolen companion ids a player carries until the next upload. */
 export const STOLEN_IDS_MAX = 32;
+/** The opponent everyone gets while they are alone on the leaderboard. */
+export const BOT_NAME = 'Training Dummy';
 
 /** Above this the fixed-window map is swept of expired keys. */
 const RATE_KEYS_MAX = 10_000;
@@ -192,6 +196,80 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     return { status: 200, body: { top, me } };
   };
 
+  /**
+   * T40 — a match against the rank neighbour above or below (SPEC F45,
+   * SERVER_ARCHITECTURE §5). The verdict is core's `resolvePvp` seeded with the
+   * seed we put on the wire, so the client can replay it; the server only owns
+   * the roster bookkeeping. The request body is ignored.
+   */
+  const pvp = async (req: ApiRequest): Promise<ApiResponse> => {
+    const me = await caller(req);
+    if (!me) {
+      return error(401, 'unauthorized');
+    }
+    const at = deps.now();
+    const elapsed = me.lastPvpAt === null ? PVP_COOLDOWN_MS : at - me.lastPvpAt;
+    if (elapsed < PVP_COOLDOWN_MS) {
+      return error(429, 'cooldown', Math.ceil((PVP_COOLDOWN_MS - elapsed) / 1000));
+    }
+    const mine = me.snapshot;
+    if (!mine) {
+      return error(400, 'no_snapshot');
+    }
+    // Bot matches burn the cooldown too — it is what bounds the whole endpoint.
+    await store.setLastPvpAt(me.id, at);
+
+    const seed = deps.randomSeed() >>> 0;
+    const up = await store.neighbor(me.id, mine, 'up');
+    const down = await store.neighbor(me.id, mine, 'down');
+    const foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    const theirs = foe?.snapshot ?? null;
+    const opponent: PvpOpponent = theirs ?? {
+      name: BOT_NAME,
+      bestIndex: mine.bestIndex,
+      rebirths: mine.rebirths,
+      companions: [],
+    };
+    const verdict = resolvePvp(mine.companions, opponent.companions, mulberry32(seed));
+    const win = verdict.attackerWon;
+    // The bot never steals and is never stolen from; powers stay off the wire.
+    const moved = foe && theirs ? verdict.moved : null;
+
+    let stolen: Companion | null = null;
+    if (foe && theirs && moved) {
+      const transferred = { ...moved, id: `s${seed}` };
+      const winner = win ? { row: me, snap: mine } : { row: foe, snap: theirs };
+      const loser = win ? { row: foe, snap: theirs } : { row: me, snap: mine };
+      // ponytail: three writes, no transaction — a concurrent match against the
+      // same loser could double-steal. BEGIN/COMMIT in PgStore is the upgrade;
+      // one free instance plus the per-player cooldown makes it unreachable.
+      await store.setStolenIds(
+        loser.row.id,
+        [...loser.row.stolenIds, moved.id].slice(-STOLEN_IDS_MAX),
+      );
+      await store.putSnapshot(loser.row.id, {
+        ...loser.snap,
+        companions: loser.snap.companions.filter((c) => c.id !== moved.id),
+      });
+      await store.putSnapshot(winner.row.id, {
+        ...winner.snap,
+        companions: [...winner.snap.companions, transferred],
+      });
+      stolen = transferred;
+    }
+    return {
+      status: 200,
+      body: {
+        bot: theirs === null,
+        seed,
+        win,
+        opponent,
+        stolen: win ? stolen : null,
+        lost: win ? null : moved,
+      },
+    };
+  };
+
   const route = async (req: ApiRequest): Promise<ApiResponse> => {
     if (req.method === 'POST' && req.path === '/v1/players') {
       return register(req);
@@ -202,7 +280,9 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     if (req.method === 'GET' && req.path === '/v1/leaderboard') {
       return leaderboard(req);
     }
-    // ponytail: POST /v1/pvp lands here (404) until T40 adds it.
+    if (req.method === 'POST' && req.path === '/v1/pvp') {
+      return pvp(req);
+    }
     return error(404, 'not_found');
   };
 
