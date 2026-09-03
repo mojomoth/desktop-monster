@@ -133,6 +133,8 @@ because it is from an unidentified developer”. To run it:
    (on older macOS: right-click the app → Open → Open).
 2. Launch DesMon again and confirm.
 
+Packaged self-test (no interaction, no Accessibility prompt): `SMOKE=1 release/mac-arm64/DesMon.app/Contents/MacOS/DesMon` prints `SMOKE_OK` and exits.
+
 ## Save file and resetting progress
 
 Progress (level, XP, kills, coins, items, current monster) is saved
