@@ -54,3 +54,6 @@ outcome (run 1): exit 3 (crash escalation), iterations 15, lanes 3, nested_claud
 | 46 | claude | T51 | DONE | pass | skipped | 627dc6b | continue |
 | 47 | claude | T52 | DONE | pass | skipped | 28ef47c | continue |
 | 48 | claude | T53 | DONE | pass | skipped | f6a41b0 | continue |
+
+outcome: exit 0 (converged — no open tasks; gates + smoke green on main, orchestrator-verified), iterations 48 (run 1: 01–15, run 2: 16–48), lanes 3, nested_claude 1
+- run 2: 33 iterations for 32 tasks; 1 CRASHED (T27 iter 27, retried DONE iter 28); 0 BLOCKED / SPLIT / CONFLICT / MERGE_RED. SERVER_URL=https://desmon-server.onrender.com filled by T44.
