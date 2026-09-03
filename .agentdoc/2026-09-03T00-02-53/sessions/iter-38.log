@@ -1,0 +1,9 @@
+{"task":"T30","result":"DONE","gates":"pass","commit":"84ca937197140a340709de981e23c8a5a83f7b33","note":"Added COMPANION_ATTACK_MS=1000; extracted the whole damage+kill chain out of attack() into one inner `function applyDamage(damage, events)` (monsterHit, monsterKilled, loot w/ boss 5x coins, capture draw, level-ups, monsterSpawned) so hero and volley share it byte-identically. tick(dt) runs feverTick first, then accumulates volleyAcc and fires floor(dt/1000) volleys (remainder kept); each volley recomputes activeCompanions and each deals companionPower(c)*(fever?FEVER_MULT:1n), never crits, emitting companionAttack then applyDamage — kills chain into the next monster in the same volley. No companions = no events, no rng draws. GameEvent gained companionAttack. tests/engine.test.ts 23 -> 26 it(. No dead ends. Gates + AC green.","children":[]}
+
+Details:
+
+- `src/core/engine.ts` — `COMPANION_ATTACK_MS = 1000`, new inner `applyDamage(damage, events)` (the single damage path, called by `attack()` and by every companion swing), `tick(dtMs)` extended with the `volleyAcc` volley loop after `feverTick`.
+- `src/core/types.ts` — `GameEvent` gains `{ type: 'companionAttack'; companionId; speciesId; damage }`. The renderer's event `switch` (`src/renderer/game.ts:241`) has no exhaustiveness default, so nothing outside the task's Files needed touching.
+- `tests/engine.test.ts` — the three AC titles verbatim; 26 `it(` total. The fever test deliberately fights monster index 60 (~43k HP) so 20 hero inputs can't kill it and hide a stray loot draw in the "companions never roll a crit" draw-count assertion.
+
+Gates: `npm test` 431 passed (27 files), `npm run lint` clean, `npm run typecheck` clean. The T30 `AC:` line executed literally → exit 0. Every earlier engine title (F06/F07/F08/F11/F31/F33/F34) still passes, including the seeded-log and v1-rng-draw-count tests that pin the refactor's draw order.
