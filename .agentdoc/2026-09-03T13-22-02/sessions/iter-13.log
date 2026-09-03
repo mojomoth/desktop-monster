@@ -1,0 +1,16 @@
+{"task":"T65","result":"DONE","gates":"pass","commit":"e928fe847e7a52b7896e5afdbd69dbe6b183b0cb","note":"Field v3: window 480x300, canvas 240x150@480x300 CSS, game.ts VIEW 240/150, GROUND_Y 132, SPRITE_SCALE 1, HERO_X 96, MONSTER_X 176, HP_BAR{40,5,96}, DROP_LAND_X 150; monster scale = sizeOf (+1 boss) through centre/scatter/pop-in/bar; drawParty(partyOrder(activeCompanions(...,monster.type))) every frame (no cache); drawTypeBadge at the bar's left end; projectiles/sparkles at partySlots centres; floats via floatColor(effectiveness). BOSS_SCALE+companionSlot shims deleted. window.test 10->11 it(, renderer.test 69->73, no it( deleted. Gate-forced extra file: hud.ts optional float colour (drawFloats hardcoded colours; AC unprovable otherwise). Dead ends: 5 helpers keying on c.w===SPRITE_SCALE broke at 1x and were re-anchored on draw references; BOSS_CENTRE had to become bossCentre(index).","children":[]}
+
+작업 요약 (한글):
+
+**구현**
+- `src/main/window.ts` — `WINDOW_W = 480`, `WINDOW_H = 300` (기본 위치 규칙은 그대로)
+- `static/index.html` 캔버스 `240×150`, `static/style.css` `480px × 300px`
+- `src/renderer/game.ts` — GAME_DESIGN_V3 §6 상수표 전부 반영, 몬스터 draw 스케일을 `sizeOf(species)`(보스는 +1)로 변경, HP 바 왼쪽 끝에 타입 배지, 파티는 매 프레임 `drawParty(partyOrder(activeCompanions(...)))`로 재계산(캐시 없음), 동료 공격 플로트는 `floatColor(effectiveness)` 색상
+- T62가 남긴 shim `BOSS_SCALE` / `companionSlot` 삭제 (`drawCompanion`은 v2 좌표를 인라인해 F40 핀 테스트 유지)
+
+**테스트**
+- `tests/window.test.ts` 10 → 11개, `tests/renderer.test.ts` 69 → 73개. `it(` 삭제 없음, 좌표는 값만 갱신.
+
+**범위 밖 1개 파일**: `src/renderer/hud.ts`에 `FloatingNumber.color?` / `spawnFloat`의 선택 인자 8줄 추가. `drawFloats`가 색을 하드코딩하고 있어 "companion floats are coloured by effectiveness"를 game.ts만으로는 증명할 수 없었습니다. 색을 안 주면 기존 동작 그대로입니다.
+
+**게이트**: `npm test` 550 passed / `lint` 0 warning / `typecheck` clean, AC 전체 + `npm run smoke` SMOKE_OK 확인. 커밋 `e928fe8` (+ sha 기록 커밋 `d844ece`), 트리 clean.
