@@ -22,6 +22,8 @@ export {
   xpToNext,
 } from './formulas.js';
 
+export * from './battle.js';
+
 export * from './collection.js';
 
 export * from './fever.js';

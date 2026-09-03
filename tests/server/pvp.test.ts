@@ -124,19 +124,20 @@ describe('POST /v1/pvp', () => {
   });
 
   it('winner gains the stolen companion under a fresh id and the loser stolenIds grows', async () => {
-    const { store, call } = setup([4]);
+    // Seed 7 passes the 15% steal roll (mulberry32(7) → 0.0117).
+    const { store, call } = setup([7]);
     const me = await player(call, 'raider', 1, [titan('c1')]);
     const foe = await player(call, 'victim', 9, [comp('d1', { speciesId: 'bat' })]);
 
     const res = body<PvpResponse>(await fight(call, me.token));
     expect(res.win).toBe(true);
     expect(res.opponent.name).toBe('victim');
-    expect(res.stolen).toEqual({ ...comp('d1', { speciesId: 'bat' }), id: 's4' });
+    expect(res.stolen).toEqual({ ...comp('d1', { speciesId: 'bat' }), id: 's7' });
     expect(res.lost).toBeNull();
 
     expect((await store.getById(me.playerId))?.snapshot?.companions).toEqual([
       titan('c1'),
-      { ...comp('d1', { speciesId: 'bat' }), id: 's4' },
+      { ...comp('d1', { speciesId: 'bat' }), id: 's7' },
     ]);
     const loser = await store.getById(foe.playerId);
     expect(loser?.snapshot?.companions).toEqual([]);
@@ -151,7 +152,8 @@ describe('POST /v1/pvp', () => {
     expect(body<SnapshotResponse>(reupload).removed).toEqual(['d1']);
   });
 
-  it('losing the match moves one of my companions to the opponent and reports it as lost', async () => {
+  it('losing the match moves nothing: the attacker never loses a companion and lost is null', async () => {
+    // The titan one-shots the minnow, so the battle is a loss by construction.
     const { store, call } = setup([6]);
     const me = await player(call, 'minnow', 1, [comp('c1')]);
     const foe = await player(call, 'shark', 9, [titan('d1')]);
@@ -159,19 +161,18 @@ describe('POST /v1/pvp', () => {
     const res = body<PvpResponse>(await fight(call, me.token));
     expect(res.win).toBe(false);
     expect(res.stolen).toBeNull();
-    expect(res.lost).toEqual(comp('c1'));
+    expect(res.lost).toBeNull();
 
+    // Only the attacker can steal (F37): a loss writes nothing but the cooldown.
     const mine = await store.getById(me.playerId);
-    expect(mine?.snapshot?.companions).toEqual([]);
-    expect(mine?.stolenIds).toEqual(['c1']);
-    expect((await store.getById(foe.playerId))?.snapshot?.companions).toEqual([
-      titan('d1'),
-      { ...comp('c1'), id: 's6' },
-    ]);
+    expect(mine?.snapshot?.companions).toEqual([comp('c1')]);
+    expect(mine?.stolenIds).toEqual([]);
+    expect((await store.getById(foe.playerId))?.snapshot?.companions).toEqual([titan('d1')]);
   });
 
   it('winner with a full roster steals nothing', async () => {
-    const { store, call } = setup([8]);
+    // Seed 35 passes the steal roll — the roster cap is what stops the theft.
+    const { store, call } = setup([35]);
     const full = Array.from({ length: ROSTER_CAP }, (_, i) => titan(`c${i}`));
     const me = await player(call, 'hoarder', 1, full);
     const foe = await player(call, 'victim', 9, [comp('d1')]);
@@ -205,7 +206,7 @@ describe('POST /v1/pvp', () => {
   });
 
   it('verdict equals core resolvePvp with mulberry32(seed)', async () => {
-    const seed = 123_456_789;
+    const seed = 123_456_801;
     const { call } = setup([seed]);
     const roster = [comp('c1', { level: 4 }), comp('c2', { bossIndex: 24, stars: 1 })];
     const theirs = [comp('d1', { level: 3 }), comp('d2', { bossIndex: 16 })];

@@ -16,6 +16,8 @@ import {
   REBIRTH_MIN_INDEX,
   resolvePvp,
   ROSTER_CAP,
+  simulateBattle,
+  STEAL_CHANCE,
   TYPE_ORDER,
 } from '../src/core/index.js';
 import type {
@@ -357,55 +359,92 @@ const counting = (inner: Rng): Rng & { draws: number } => ({
 const roster = (n: number, prefix = 'a'): Companion[] =>
   Array.from({ length: n }, (_, i) => comp(`${prefix}${i + 1}`));
 
-describe('resolvePvp (SPEC F37, Assumption 34)', () => {
-  it('resolvePvp wins with probability myPower over total and moves one random companion from the loser to the winner', () => {
+describe('resolvePvp (SPEC F37/F62, Assumption 34)', () => {
+  /** The blow list resolvePvp must hand back untouched. */
+  const replay = (a: readonly Companion[], d: readonly Companion[]): unknown =>
+    simulateBattle(a, d).blows;
+
+  it('resolvePvp wins by the deterministic battle and moves one random defender to the attacker on the steal roll', () => {
+    const attacker = roster(3, 'a');
+    const defender = roster(3, 'd');
+
+    // Evenly matched, but the attacker swings first — so it always wins.
+    const stolen = resolvePvp(attacker, defender, seq(0.1499, 0.5));
+    expect(stolen.attackerWon).toBe(true);
+    expect(stolen.moved).toBe(defender[1]); // floor(0.5 * 3)
+    expect(stolen.blows).toEqual(replay(attacker, defender));
+
+    // Same battle, same victim draw: only the steal roll changed the loot.
+    const empty = resolvePvp(attacker, defender, seq(0.15, 0.5));
+    expect(empty.attackerWon).toBe(true);
+    expect(empty.moved).toBeNull();
+    expect(empty.blows).toEqual(stolen.blows);
+  });
+
+  it('resolvePvp steals only on a win with the 15 percent roll and draws exactly 2 rng values', () => {
+    expect(STEAL_CHANCE).toBe(0.15);
+    const attacker = roster(1, 'a');
+    const outcome = (
+      a: readonly Companion[],
+      d: readonly Companion[],
+      roll: number,
+    ): { moved: Companion | null; won: boolean; draws: number } => {
+      const rng = counting(seq(roll, 0.99));
+      const r = resolvePvp(a, d, rng);
+      return { moved: r.moved, won: r.attackerWon, draws: rng.draws };
+    };
+
+    // A win: the roll alone decides, and 0.15 itself is outside the window.
+    expect(outcome(attacker, roster(1, 'd'), 0.1499)).toEqual({
+      won: true,
+      moved: roster(1, 'd')[0],
+      draws: 2,
+    });
+    expect(outcome(attacker, roster(1, 'd'), 0.15)).toEqual({ won: true, moved: null, draws: 2 });
+    // A loss: the luckiest roll in the world still steals nothing.
+    expect(outcome(attacker, roster(3, 'd'), 0)).toEqual({ won: false, moved: null, draws: 2 });
+  });
+
+  it('a losing attacker never loses a companion', () => {
     const attacker = roster(1, 'a');
     const defender = roster(3, 'd');
-    const rng = mulberry32(1234);
-    let wins = 0;
+    const lost = resolvePvp(attacker, defender, seq(0, 0));
 
-    for (let i = 0; i < 10000; i += 1) {
-      const r = resolvePvp(attacker, defender, rng);
-      expect(r.attackerPower).toBe(1n);
-      expect(r.defenderPower).toBe(3n);
-      const loser = r.attackerWon ? defender : attacker;
-      expect(loser).toContain(r.moved);
-      if (r.attackerWon) wins += 1;
-    }
-
-    // p = ratio(1n, 4n) = 0.25 (Assumption 15: 10000 trials stay inside ±3 pts).
-    expect(wins / 10000).toBeGreaterThan(0.22);
-    expect(wins / 10000).toBeLessThan(0.28);
+    expect(lost.attackerWon).toBe(false);
+    expect(lost.moved).toBeNull();
+    // The defender is passive: nothing of the attacker's is even considered.
+    expect(ids(attacker)).toEqual(['a1']);
+    expect(lost.blows.some((b) => b.side === 'D' && b.ko)).toBe(true);
   });
 
   it('resolvePvp with an empty loser roster steals nothing', () => {
-    // p = ratio(1n, 1n) = 1 and rng.next() < 1 always → the attacker wins.
-    const won = resolvePvp(roster(1, 'a'), [], seq(0.99, 0.99));
-    expect(won).toEqual({ attackerWon: true, moved: null, attackerPower: 1n, defenderPower: 0n });
+    // An empty defender is an instant win — with nobody left to take.
+    const won = resolvePvp(roster(1, 'a'), [], seq(0.01, 0.99));
+    expect(won).toEqual({ attackerWon: true, moved: null, blows: [] });
 
-    // p = ratio(0n, 1n) = 0 → the attacker always loses and has nothing to give.
-    const lost = resolvePvp([], roster(1, 'd'), seq(0, 0));
-    expect(lost).toEqual({ attackerWon: false, moved: null, attackerPower: 0n, defenderPower: 1n });
+    // An empty attacker cannot swing, so it loses and keeps nothing.
+    const lost = resolvePvp([], roster(1, 'd'), seq(0.01, 0.99));
+    expect(lost).toEqual({ attackerWon: false, moved: null, blows: [] });
 
-    // Two empty rosters: p = 0.5, still nobody to move.
-    expect(resolvePvp([], [], seq(0.9, 0.9)).moved).toBeNull();
+    expect(resolvePvp([], [], seq(0.01, 0.99)).moved).toBeNull();
   });
 
   it('resolvePvp never moves into a full roster of 30', () => {
     const full = roster(ROSTER_CAP, 'a');
     const defender = roster(1, 'd');
-    expect(resolvePvp(full, defender, seq(0, 0))).toEqual({
+    expect(resolvePvp(full, defender, seq(0.01, 0))).toEqual({
       attackerWon: true,
       moved: null,
-      attackerPower: BigInt(ROSTER_CAP),
-      defenderPower: 1n,
+      blows: simulateBattle(full, defender).blows,
     });
 
     // One slot free → the same draws steal the defender's companion.
-    expect(resolvePvp(full.slice(1), defender, seq(0, 0)).moved).toBe(defender[0]);
+    expect(resolvePvp(full.slice(1), defender, seq(0.01, 0)).moved).toBe(defender[0]);
 
-    // The full roster is the loser this time (p = ratio(1n, 31n)): it gives one away.
-    expect(resolvePvp(defender, full, seq(0.01, 0)).moved).toBe(full[0]);
+    // The server passes the real roster size, which the party does not know.
+    const party = roster(1, 'a');
+    expect(resolvePvp(party, defender, seq(0.01, 0), ROSTER_CAP).moved).toBeNull();
+    expect(resolvePvp(party, defender, seq(0.01, 0), ROSTER_CAP - 1).moved).toBe(defender[0]);
   });
 
   it('resolvePvp is reproducible from its seed and draws exactly 2 rng values', () => {
@@ -424,5 +463,22 @@ describe('resolvePvp (SPEC F37, Assumption 34)', () => {
     const empty = counting(mulberry32(7));
     resolvePvp(attacker, [], empty);
     expect(empty.draws).toBe(2);
+  });
+
+  it('resolvePvp steal rate over 10000 seeded wins is within 13 to 17 percent', () => {
+    const attacker = roster(3, 'a');
+    const defender = roster(1, 'd');
+    const rng = mulberry32(1234);
+    let steals = 0;
+
+    for (let i = 0; i < 10000; i += 1) {
+      const r = resolvePvp(attacker, defender, rng);
+      expect(r.attackerWon).toBe(true);
+      if (r.moved) steals += 1;
+    }
+
+    // p = STEAL_CHANCE = 0.15; 10000 trials stay well inside +/- 2 points.
+    expect(steals / 10000).toBeGreaterThan(0.13);
+    expect(steals / 10000).toBeLessThan(0.17);
   });
 });
