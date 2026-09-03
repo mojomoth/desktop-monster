@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest';
 import {
   COIN_ITEM,
   coinsForIndex,
+  companionPower,
   createEngine,
   CRIT_MULT,
   damageForLevel,
+  FEVER_INPUTS,
   FEVER_MS,
   monsterForIndex,
   monsterMaxHp,
@@ -15,7 +17,7 @@ import {
   xpToNext,
 } from '../src/core/index.js';
 import type { Companion, GameEvent, Rng, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
-import { CAPTURE_CHANCE } from '../src/core/engine.js';
+import { CAPTURE_CHANCE, COMPANION_ATTACK_MS } from '../src/core/engine.js';
 
 /** Rng stub returning a scripted sequence (repeats its last value). */
 function scriptedRng(values: number[]): Rng {
@@ -458,5 +460,106 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.apply({ type: 'rebirth' })).toEqual([]); // index 10 is below 40
     expect(engine.getState()).toEqual(before);
     expect(engine.toSave()).toEqual(makeSaveV2({ monsterIndex: 10 }));
+  });
+  it('tick fires one volley per 1000ms from the 3 strongest companions and kills chain into the next monster', () => {
+    // Powers 4/3/2/1 (bossIndex 7 → base 1): c4 is benched every volley.
+    const roster: Companion[] = [
+      { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 4, stars: 0 },
+      { id: 'c2', speciesId: 'bat', bossIndex: 7, level: 3, stars: 0 },
+      { id: 'c3', speciesId: 'ghost', bossIndex: 7, level: 2, stars: 0 },
+      { id: 'c4', speciesId: 'golem', bossIndex: 7, level: 1, stars: 0 },
+    ];
+    expect(roster.map(companionPower)).toEqual([4n, 3n, 2n, 1n]);
+    const engine = createEngine(
+      makeSaveV2({ monsterHp: '1', companions: roster, nextCompanionId: 5 }),
+      calmRng(),
+    );
+
+    // Sub-volley time only accumulates.
+    expect(engine.tick(COMPANION_ATTACK_MS - 1)).toEqual([]);
+    const events = engine.tick(1);
+    expect(types(events)).toEqual([
+      'companionAttack',
+      'monsterHit',
+      'monsterKilled',
+      'itemDropped',
+      'monsterSpawned',
+      'companionAttack',
+      'monsterHit',
+      'companionAttack',
+      'monsterHit',
+    ]);
+    expect(events[0]).toEqual({
+      type: 'companionAttack',
+      companionId: 'c1',
+      speciesId: 'slime',
+      damage: 4n,
+    });
+    // c2 and c3 keep swinging inside the SAME volley, at the next monster.
+    expect(events[5]).toEqual({
+      type: 'companionAttack',
+      companionId: 'c2',
+      speciesId: 'bat',
+      damage: 3n,
+    });
+    expect(events[6]).toEqual({ type: 'monsterHit', hpAfter: 8n, maxHp: monsterMaxHp(1) });
+    expect(events[8]).toEqual({ type: 'monsterHit', hpAfter: 6n, maxHp: monsterMaxHp(1) });
+    const s = engine.getState();
+    expect(s.monster.index).toBe(1);
+    expect(s.monsterHp).toBe(6n);
+    expect(s.killCount).toBe(1);
+
+    // ⌊dt/1000⌋ volleys per tick, remainder carried into the next one.
+    const two = engine.tick(2 * COMPANION_ATTACK_MS + 500);
+    expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(6);
+    const carried = engine.tick(500);
+    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(3);
+  });
+
+  it('tick with no companions emits nothing and never spends rng draws', () => {
+    const counted = countingRng([0.0]); // would crit and drop a trinket if drawn
+    const engine = createEngine(makeSaveV2({ monsterHp: '1' }), counted.rng);
+    expect(engine.tick(10 * COMPANION_ATTACK_MS)).toEqual([]);
+    expect(counted.draws()).toBe(0);
+    expect(engine.getState().monsterHp).toBe(1n);
+    expect(engine.getState().killCount).toBe(0);
+  });
+
+  it('companion damage is tripled during fever and never crits', () => {
+    const pet: Companion = { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 5, stars: 0 };
+    // Monster 60 has ~43k hp: 20 hero inputs can never kill it, so no kill
+    // chain hides a stray draw.
+    const counted = countingRng([0.0]); // every hero attack crits — one draw each
+    const engine = createEngine(
+      makeSaveV2({ monsterIndex: 60, companions: [pet], nextCompanionId: 2 }),
+      counted.rng,
+    );
+    for (let i = 0; i < FEVER_INPUTS; i++) {
+      engine.attack('keyboard');
+    }
+    expect(engine.getState().fever.active).toBe(true);
+    const heroDraws = counted.draws();
+
+    const hot = engine.tick(COMPANION_ATTACK_MS);
+    expect(hot[0]).toEqual({
+      type: 'companionAttack',
+      companionId: 'c1',
+      speciesId: 'slime',
+      damage: companionPower(pet) * 3n,
+    });
+    expect(counted.draws()).toBe(heroDraws); // companions never roll a crit
+
+    // Fever expires first inside the tick, so the volleys after it are plain.
+    const cooled = engine.tick(4 * COMPANION_ATTACK_MS);
+    expect(cooled[0]).toEqual({ type: 'feverEnd' });
+    const plain = cooled.filter((e) => e.type === 'companionAttack');
+    expect(plain).toHaveLength(4);
+    expect(plain[0]).toEqual({
+      type: 'companionAttack',
+      companionId: 'c1',
+      speciesId: 'slime',
+      damage: companionPower(pet),
+    });
+    expect(counted.draws()).toBe(heroDraws);
   });
 });

@@ -2,7 +2,7 @@
 // time; animation/timing state lives elsewhere). Pure TypeScript, zero
 // imports of electron/DOM/node. All randomness comes from the injected Rng.
 
-import { applyCollection, ROSTER_CAP } from './collection.js';
+import { activeCompanions, applyCollection, companionPower, ROSTER_CAP } from './collection.js';
 import type { CollectionAction } from './collection.js';
 import {
   createFever,
@@ -28,6 +28,9 @@ import type { GameEvent, GameState, InputSource } from './types.js';
 
 /** Chance that a boss kill captures the boss as a companion (Assumption 23). */
 export const CAPTURE_CHANCE = 0.35;
+
+/** One companion volley per this many engine milliseconds (SPEC F35). */
+export const COMPANION_ATTACK_MS = 1000;
 
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
@@ -125,6 +128,69 @@ export function createEngine(
     active: feverActive(fever, clockMs),
     remainingMs: Math.max(0, fever.activeUntil - clockMs),
   });
+  /** Leftover milliseconds below one companion volley (SPEC F35). */
+  let volleyAcc = 0;
+
+  /**
+   * The one damage path: hero attacks and companion volleys both land here,
+   * so a kill always chains identically — monsterKilled, loot, capture,
+   * level-ups, then the next monster at full HP (SPEC F07/F33/F35).
+   */
+  function applyDamage(damage: bigint, events: GameEvent[]): void {
+    state.monsterHp = state.monsterHp > damage ? state.monsterHp - damage : 0n;
+    events.push({
+      type: 'monsterHit',
+      hpAfter: state.monsterHp,
+      maxHp: state.monster.maxHp,
+    });
+    if (state.monsterHp !== 0n) return;
+
+    const killed = state.monster;
+    state.killCount += 1;
+    const xpGained = xpReward(killed.index) * (killed.boss ? BOSS_XP_MULT : 1);
+    events.push({ type: 'monsterKilled', monster: { ...killed }, xpGained });
+
+    const drops = rollLoot(rng, killed.index);
+    // rollLoot always puts the coin first (loot.ts) — bosses pay 5x coins.
+    const coin = drops[0];
+    if (killed.boss && coin) {
+      coin.amount *= BOSS_COIN_MULT;
+    }
+    for (const drop of drops) {
+      if (drop.item.kind === 'coin') {
+        state.coins += drop.amount;
+      } else {
+        state.items[drop.item.id] = (state.items[drop.item.id] ?? 0) + drop.amount;
+      }
+    }
+    events.push({ type: 'itemDropped', drops });
+
+    // One extra draw per boss kill, ALWAYS consumed (so non-boss seeded
+    // logs stay byte-identical to v1); a full roster voids the capture.
+    if (killed.boss && rng.next() < CAPTURE_CHANCE && state.companions.length < ROSTER_CAP) {
+      const companion: Companion = {
+        id: `c${state.nextCompanionId++}`,
+        speciesId: killed.speciesId,
+        bossIndex: killed.index,
+        level: 1,
+        stars: 0,
+      };
+      state.companions.push(companion);
+      events.push({ type: 'bossCaptured', companion: { ...companion } });
+    }
+
+    state.xp += xpGained;
+    while (state.xp >= xpToNext(state.level)) {
+      state.xp -= xpToNext(state.level);
+      state.level += 1;
+      events.push({ type: 'levelUp', newLevel: state.level });
+    }
+
+    state.monster = monsterForIndex(killed.index + 1);
+    state.monsterHp = state.monster.maxHp;
+    state.bestIndex = Math.max(state.bestIndex, state.monster.index);
+    events.push({ type: 'monsterSpawned', monster: { ...state.monster } });
+  }
 
   return {
     attack(source: InputSource): GameEvent[] {
@@ -143,70 +209,38 @@ export function createEngine(
         (feverActive(fever, clockMs) ? FEVER_MULT : 1n) *
         BigInt(1 + state.souls);
       events.push({ type: 'attack', damage, crit, source });
-
-      state.monsterHp = state.monsterHp > damage ? state.monsterHp - damage : 0n;
-      events.push({
-        type: 'monsterHit',
-        hpAfter: state.monsterHp,
-        maxHp: state.monster.maxHp,
-      });
-
-      if (state.monsterHp === 0n) {
-        const killed = state.monster;
-        state.killCount += 1;
-        const xpGained = xpReward(killed.index) * (killed.boss ? BOSS_XP_MULT : 1);
-        events.push({ type: 'monsterKilled', monster: { ...killed }, xpGained });
-
-        const drops = rollLoot(rng, killed.index);
-        // rollLoot always puts the coin first (loot.ts) — bosses pay 5x coins.
-        const coin = drops[0];
-        if (killed.boss && coin) {
-          coin.amount *= BOSS_COIN_MULT;
-        }
-        for (const drop of drops) {
-          if (drop.item.kind === 'coin') {
-            state.coins += drop.amount;
-          } else {
-            state.items[drop.item.id] = (state.items[drop.item.id] ?? 0) + drop.amount;
-          }
-        }
-        events.push({ type: 'itemDropped', drops });
-
-        // One extra draw per boss kill, ALWAYS consumed (so non-boss seeded
-        // logs stay byte-identical to v1); a full roster voids the capture.
-        if (killed.boss && rng.next() < CAPTURE_CHANCE && state.companions.length < ROSTER_CAP) {
-          const companion: Companion = {
-            id: `c${state.nextCompanionId++}`,
-            speciesId: killed.speciesId,
-            bossIndex: killed.index,
-            level: 1,
-            stars: 0,
-          };
-          state.companions.push(companion);
-          events.push({ type: 'bossCaptured', companion: { ...companion } });
-        }
-
-        state.xp += xpGained;
-        while (state.xp >= xpToNext(state.level)) {
-          state.xp -= xpToNext(state.level);
-          state.level += 1;
-          events.push({ type: 'levelUp', newLevel: state.level });
-        }
-
-        state.monster = monsterForIndex(killed.index + 1);
-        state.monsterHp = state.monster.maxHp;
-        state.bestIndex = Math.max(state.bestIndex, state.monster.index);
-        events.push({ type: 'monsterSpawned', monster: { ...state.monster } });
-      }
+      applyDamage(damage, events);
 
       return events;
     },
 
     tick(dtMs: number): GameEvent[] {
-      clockMs += Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
+      const dt = Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
+      clockMs += dt;
+      const events: GameEvent[] = [];
       const cooled = feverTick(fever, clockMs);
       fever = cooled.fever;
-      return cooled.ended ? [{ type: 'feverEnd' }] : [];
+      if (cooled.ended) events.push({ type: 'feverEnd' });
+
+      // One volley per full COMPANION_ATTACK_MS, remainder carried (SPEC F35).
+      volleyAcc += dt;
+      while (volleyAcc >= COMPANION_ATTACK_MS) {
+        volleyAcc -= COMPANION_ATTACK_MS;
+        const mult = feverActive(fever, clockMs) ? FEVER_MULT : 1n;
+        // Recomputed per volley: a capture or a fuse between volleys changes
+        // who fights. Companions never crit.
+        for (const c of activeCompanions(state.companions)) {
+          const damage = companionPower(c) * mult;
+          events.push({
+            type: 'companionAttack',
+            companionId: c.id,
+            speciesId: c.speciesId,
+            damage,
+          });
+          applyDamage(damage, events);
+        }
+      }
+      return events;
     },
 
     apply(a: CollectionAction): GameEvent[] {
