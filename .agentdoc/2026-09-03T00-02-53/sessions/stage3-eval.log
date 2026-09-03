@@ -1,0 +1,12 @@
+VERDICT: CONVERGED
+
+- Artifacts: `.agentdoc/2026-09-03T00-02-53/handoff.md` (status: COMPLETE, sections Deployment / Observability / Ponytail audit / Test integrity present), `.agentdoc/2026-09-03T00-02-53/sessions/stage3-eval.md`, logs `sessions/stage3-{gates,spotcheck,spec-sweep,smoke-package,deploy}.log`, exports `sessions/stage3.rgt.json`, `sessions/stage3.rgt-sessions.txt`, `graph/final.GRAPH_REPORT.md`; packaged `release/mac-arm64/DesMon.app` + `release/DesMon-0.2.0-arm64.dmg`.
+- Cold gates: `rm -rf node_modules && npm ci && npm test && npm run lint && npm run typecheck` → GATES_RC=0 (31 files / 501 tests). Plan spot-check 15/15 rc=0 (T22 T23 T25 T27 T35 T39 T40 T41 T43 T44 T46 T47 T51 T52 T53; no NOTHING_TO_DO tasks exist). SPEC sweep 69/69 rc=0 (F01–F58 + 10 API rows + Deployment AC incl. probe → rank 1). `npm run smoke` SMOKE_OK; memory-store boot `{"ok":true,"sha":"dev"}`; `npm run package` rc=0; packaged `SMOKE=1` rc=0 SMOKE_OK.
+- Healthz: `{"ok":true,"sha":"7a81b346439d8a6d9fe3fe1d0fadd8cbd40e4f4c"}` from https://desmon-server.onrender.com — ancestor of HEAD: yes (rc=0); filter-path commits after it: none; equals AGENTS.md DEPLOYED_SHA. No redeploy, no push made.
+- db_expires: meta.json is empty/placeholder (orchestrator to finalize); AGENTS.md DB_EXPIRES=2026-10-03 (30 days out, no warning). Postgres dpg-dacd4k2jnfac73c43llg-a, service srv-dacd4l15efls73e0fbig.
+- Test integrity: none (no it-count decrease in any of the 19 BASE test files).
+- Dependency additions since BASE aca9faf: `pg@8.23.0` devDependency only (pre-approved + rung 5 in T41 Notes); no `@types/pg`; `src/server/pg.d.ts` present.
+- Flipped tasks: none; IMPLEMENTATION_PLAN.md untouched.
+- Worker-rule: 7 codex commits checked; 5 clean; run-1 T31 duplicates eba44a1/4076291 carry `node_modules`/`graphify-out` symlink entries (the fixed .gitignore bug, merges reverted, no package.json touched) — recorded in §Observability, verdict unchanged.
+- Ponytail: review net -28 lines possible; audit net -23 lines, -1 dep (vite pin, SPEC F03-blocked); nothing applied.
+- Commit: `2fc892d15614a07f3fb130f54e7904fb1e5b576d` `chore(eval): stage-3 validation and handoff [harness v2]` — tree clean; `git push origin main` deliberately NOT run per orchestrator instruction.

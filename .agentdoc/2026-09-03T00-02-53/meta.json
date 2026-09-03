@@ -8,10 +8,26 @@
   "rgt": "re_gent version dev (commit: unknown)",
   "graphify": "graphify 0.8.40",
   "render_cli": "render v2.26.0",
-  "server_url": "<set by the deploy task>",
-  "db_expires": "",
+  "server_url": "https://desmon-server.onrender.com",
+  "db_expires": "2026-10-03",
   "started": "2026-09-03T00:02:53+09:00",
-  "ended": "",
-  "stages": [],
-  "outcome": ""
+  "ended": "2026-09-03T03:13:14.878Z",
+  "stages": [
+    {
+      "stage": "desmon-1-plan",
+      "result": "ok",
+      "note": "SPEC F28–F58 + Server/API + Deployment; plan T22–T53 (27 claude / 5 codex); NESTED_CLAUDE=1"
+    },
+    {
+      "stage": "desmon-2-dev",
+      "result": "exit 0",
+      "note": "run 1 iters 01–15 exit 3 (env: .gitignore symlink bug + claude -p 429); fixed; run 2 iters 16–48 converged"
+    },
+    {
+      "stage": "desmon-3-eval",
+      "result": "CONVERGED",
+      "note": "cold gates 501 tests, spot-check 15/15, SPEC sweep 69/69, smoke + packaged smoke OK, healthz sha 7a81b34 landed; orchestrator re-checks passed"
+    }
+  ],
+  "outcome": "COMPLETE"
 }
