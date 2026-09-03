@@ -50,7 +50,9 @@ import {
   createBanner,
   createFloatPool,
   CRIT_FLOAT_SCALE,
+  DEFEAT_TEXT,
   FEVER_TEXT,
+  VICTORY_TEXT,
   drawBanner,
   drawCounters,
   drawFloats,
@@ -66,7 +68,14 @@ import {
   tickBanner,
   tickFloats,
 } from '../src/renderer/hud.js';
-import { DROP_ARC_MS, DROP_FLY_MS, SPARKLE_COUNT } from '../src/renderer/anim.js';
+import {
+  createParticlePool,
+  DROP_ARC_MS,
+  DROP_FLY_MS,
+  drawParticles,
+  SPARKLE_COUNT,
+  spawnSpriteScatter,
+} from '../src/renderer/anim.js';
 import { EFFECTS } from '../src/renderer/effects.js';
 import {
   BOSS_HP_BAR_Y,
@@ -118,6 +127,34 @@ function makeCtx(): { ctx: GameCanvas; calls: RectCall[]; clears: ClearCall[] } 
 function stateFixture(overrides: Partial<GameState> = {}): GameState {
   return { ...createEngine(null, mulberry32(1)).getState(), ...overrides };
 }
+
+const rectKey = (c: RectCall): string =>
+  `${String(c.x)},${String(c.y)},${String(c.w)},${String(c.h)},${c.fillStyle}`;
+
+const v2: SaveFileV2 = {
+  version: 2,
+  level: 1,
+  xp: 0,
+  killCount: 0,
+  coins: 0,
+  items: {},
+  monsterIndex: 0,
+  monsterHp: String(monsterMaxHp(0)),
+  companions: [],
+  nextCompanionId: 1,
+  souls: 0,
+  rebirths: 0,
+  bestIndex: 0,
+};
+
+// Every captured boss comes from index 7 — power 1 unless it is starred.
+const companion = (id: string, speciesId: SpeciesId, stars = 0): Companion => ({
+  id,
+  speciesId,
+  bossIndex: 7,
+  level: 1,
+  stars,
+});
 
 describe('drawMeter / drawHpBar (boxed bars)', () => {
   it('paints a steel frame with a void interior', () => {
@@ -787,33 +824,8 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
 });
 
 describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
-  const rectKey = (c: RectCall): string =>
-    `${String(c.x)},${String(c.y)},${String(c.w)},${String(c.h)},${c.fillStyle}`;
   const keys = (calls: RectCall[]): string[] => calls.map(rectKey).sort();
 
-  const v2: SaveFileV2 = {
-    version: 2,
-    level: 1,
-    xp: 0,
-    killCount: 0,
-    coins: 0,
-    items: {},
-    monsterIndex: 0,
-    monsterHp: String(monsterMaxHp(0)),
-    companions: [],
-    nextCompanionId: 1,
-    souls: 0,
-    rebirths: 0,
-    bestIndex: 0,
-  };
-  // Every captured boss comes from index 7 — power 1 unless it is starred.
-  const companion = (id: string, speciesId: SpeciesId, stars = 0): Companion => ({
-    id,
-    speciesId,
-    bossIndex: 7,
-    level: 1,
-    stars,
-  });
   /** The boss box: 12x10 art at BOSS_SCALE with its feet on the ground. */
   const BOSS_CENTRE = {
     x: MONSTER_X + (12 * BOSS_SCALE) / 2,
@@ -1164,6 +1176,173 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
   });
 });
 
+describe('collection actions in the game window (T47, SPEC F53)', () => {
+  /** The pixels drawBanner paints for `text` at age 0 — its signature. */
+  const bannerKeys = (text: string): string[] => {
+    const banner = createBanner();
+    showBanner(banner, text);
+    const { ctx, calls } = makeCtx();
+    drawBanner(ctx, banner, VIEW_W);
+    return calls.map(rectKey);
+  };
+
+  it('apply() forwards collection actions to the engine and reports its events', () => {
+    const game = createGame(
+      createEngine(
+        {
+          ...v2,
+          companions: [companion('c1', 'slime'), companion('c2', 'bat')],
+          nextCompanionId: 3,
+        },
+        mulberry32(3),
+      ),
+    );
+    // The engine rejects an impossible action: no events, nothing changed.
+    expect(game.apply({ type: 'reincarnate', id: 'c1' })).toEqual([]);
+    expect(game.getState().companions).toHaveLength(2);
+
+    // A legal one lands on the wrapped engine…
+    expect(game.apply({ type: 'sacrifice', id: 'c2' })).toEqual([]);
+    expect(game.getState().companions.map((c) => c.id)).toEqual(['c1']);
+    expect(game.getState().souls).toBe(1);
+
+    // …and whatever events it produces come back for the save scheduler.
+    expect(
+      game.apply({
+        type: 'pvpResult',
+        won: true,
+        stolen: companion('theirs', 'ghost'),
+        lostId: null,
+      }),
+    ).toEqual([
+      { type: 'pvpResolved', won: true, stolen: companion('c3', 'ghost'), lostId: null },
+    ]);
+  });
+
+  it('apply(removeCompanions) never touches in-flight presentation', () => {
+    const game = createGame(
+      createEngine(
+        {
+          ...v2,
+          xp: 19, // +5 xp on the kill → level 2, so a banner is up too
+          monsterHp: '1',
+          companions: [companion('c1', 'slime')],
+          nextCompanionId: 2,
+        },
+        mulberry32(7),
+      ),
+    );
+    game.attack('keyboard'); // kill: scatter + drop + float + banner in flight
+    game.update(40);
+    const before = makeCtx();
+    game.draw(before.ctx);
+
+    expect(game.apply({ type: 'removeCompanions', ids: ['c1'] })).toEqual([]);
+    expect(game.getState().companions).toEqual([]);
+
+    const after = makeCtx();
+    game.draw(after.ctx);
+    // The companion column is the ONLY thing that changed — every float,
+    // particle, drop and banner pixel keeps painting exactly where it was.
+    const slot = companionSlot(0, GROUND_Y);
+    const offColumn = (c: RectCall): boolean =>
+      !(c.x >= slot.x && c.x < slot.x + 12 && c.y >= slot.y && c.y < slot.y + 10);
+    expect(after.calls.filter(offColumn)).toEqual(before.calls.filter(offColumn));
+    expect(after.calls.length).toBeLessThan(before.calls.length);
+    expect(game.getMonsterAnim().state).toBe('dying');
+  });
+
+  it('a won pvp shows the VICTORY banner and pops the stolen companion in', () => {
+    const game = createGame(createEngine({ ...v2, nextCompanionId: 4 }, mulberry32(5)));
+    expect(
+      game.apply({
+        type: 'pvpResult',
+        won: true,
+        stolen: companion('theirs', 'slime'),
+        lostId: null,
+      }),
+    ).toHaveLength(1);
+    expect(game.getState().companions.map((c) => c.id)).toEqual(['c4']);
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const painted = new Set(calls.map(rectKey));
+    expect(bannerKeys(VICTORY_TEXT).every((k) => painted.has(k))).toBe(true);
+    expect(bannerKeys(DEFEAT_TEXT).every((k) => painted.has(k))).toBe(false);
+
+    // …and the prize pops in: a capture sparkle at its column slot.
+    const slot = companionSlot(0, GROUND_Y);
+    const preset = EFFECTS.captureSparkle;
+    expect(
+      calls.filter(
+        (c) =>
+          c.w === preset.size &&
+          c.x === slot.x &&
+          c.y === slot.y &&
+          (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
+      ),
+    ).toHaveLength(preset.count);
+  });
+
+  it('a lost pvp shows the DEFEAT banner and scatters the lost companion', () => {
+    const game = createGame(
+      createEngine(
+        { ...v2, companions: [companion('c1', 'golem')], nextCompanionId: 2 },
+        mulberry32(6),
+      ),
+    );
+    expect(
+      game.apply({ type: 'pvpResult', won: false, stolen: null, lostId: 'c1' }),
+    ).toHaveLength(1);
+    expect(game.getState().companions).toEqual([]);
+
+    const { ctx, calls } = makeCtx();
+    game.draw(ctx);
+    const painted = new Set(calls.map(rectKey));
+    expect(bannerKeys(DEFEAT_TEXT).every((k) => painted.has(k))).toBe(true);
+    expect(bannerKeys(VICTORY_TEXT).every((k) => painted.has(k))).toBe(false);
+
+    // Its species idle art is now a pixel scatter at the slot it stood in
+    // (spawnSpriteScatter draws no RNG, so the reference matches exactly).
+    const slot = companionSlot(0, GROUND_Y);
+    const reference = createParticlePool();
+    spawnSpriteScatter(reference, monsterSprites.golem.idle, 0, slot.x, slot.y);
+    const ref = makeCtx();
+    drawParticles(ref.ctx, reference);
+    expect(ref.calls.length).toBeGreaterThan(0);
+    expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+  });
+
+  it('a rebirth flushes presentation and restarts at monster 0', () => {
+    const game = createGame(
+      createEngine(
+        { ...v2, monsterIndex: 40, monsterHp: String(monsterMaxHp(40)), bestIndex: 40 },
+        mulberry32(9),
+      ),
+    );
+    game.attack('keyboard'); // damage float + slash particles in flight
+    game.update(30);
+
+    expect(game.apply({ type: 'rebirth' })).toEqual([{ type: 'rebirth', souls: 5 }]);
+    expect(game.getState().monster.index).toBe(0);
+    expect(game.getState().rebirths).toBe(1);
+    // Monster 0 rises out of the ground, exactly like a kill-born spawn.
+    expect(game.getMonsterAnim().state).toBe('spawning');
+    expect(game.getHeroAnim().state).toBe('idle');
+
+    // Once the pop-in ends nothing of the old run is left: the scene is
+    // pixel-identical to a brand-new game's at the same age.
+    game.update(MONSTER_SPAWNING_MS);
+    const fresh = createGame(createEngine(null, mulberry32(1)));
+    fresh.update(MONSTER_SPAWNING_MS);
+    const a = makeCtx();
+    fresh.draw(a.ctx);
+    const b = makeCtx();
+    game.draw(b.ctx);
+    expect(b.calls).toEqual(a.calls);
+  });
+});
+
 describe('createSaveScheduler (T16 save policy)', () => {
   const attackOnly: GameEvent[] = [
     { type: 'attack', damage: 1n, crit: false, source: 'keyboard' },
@@ -1351,6 +1530,13 @@ describe('renderer boot source contract (src/renderer/index.ts)', () => {
     expect(reset).toBeGreaterThan(-1);
     const flushAfterReset = rendererIndex.indexOf('saves.flush()', reset);
     expect(flushAfterReset).toBeGreaterThan(reset);
+  });
+
+  it('applies menu actions through the engine and flushes the save (F53)', () => {
+    const action = rendererIndex.indexOf('window.desmon.onAction(');
+    expect(action).toBeGreaterThan(-1);
+    expect(rendererIndex).toContain('saves.onEvents(game.apply(a))');
+    expect(rendererIndex.indexOf('saves.flush()', action)).toBeGreaterThan(action);
   });
 
   it('disables image smoothing and clamps dt to 100ms', () => {

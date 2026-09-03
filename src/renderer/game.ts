@@ -14,6 +14,8 @@
 
 import { activeCompanions, createEngine, format, SPECIES_IDS } from '../core/index.js';
 import type {
+  CollectionAction,
+  Companion,
   Engine,
   GameEvent,
   GameState,
@@ -71,6 +73,7 @@ import {
   COUNTER_POP_MS,
   createBanner,
   createFloatPool,
+  DEFEAT_TEXT,
   drawBanner,
   drawCounters,
   drawFloats,
@@ -81,6 +84,7 @@ import {
   spawnFloat,
   tickBanner,
   tickFloats,
+  VICTORY_TEXT,
 } from './hud.js';
 
 /** Internal canvas size in game pixels (CSS-scaled 2x, see static/). */
@@ -140,6 +144,15 @@ function speciesKey(speciesId: string): SpeciesId {
 /** Species art for a runtime species id (unknown ids fall back to slime). */
 function speciesSpritesFor(speciesId: string): SpeciesSprites {
   return monsterSprites[speciesKey(speciesId)];
+}
+
+/** Where a companion stands in the active column, or null when it is benched. */
+function companionSlotOf(
+  companions: readonly Companion[],
+  id: string,
+): { x: number; y: number } | null {
+  const k = activeCompanions(companions).findIndex((c) => c.id === id);
+  return k < 0 ? null : companionSlot(k, GROUND_Y);
 }
 
 /** Art scale of the monster on screen: bosses are drawn 3x (F36, §3). */
@@ -236,6 +249,13 @@ export interface Game {
    * volleys and fever transitions — so the save scheduler sees them too.
    */
   update(dtMs: number): GameEvent[];
+  /**
+   * Apply one Collection & Battle action from the menu window (SPEC F53).
+   * Its engine events run through the SAME presentation router as attack()'s
+   * — VICTORY/DEFEAT banner, steal pop-in, loss scatter, rebirth — and come
+   * back so the caller can persist them; a rejected action returns [].
+   */
+  apply(a: CollectionAction): GameEvent[];
   /** Repaint the full VIEW_W×VIEW_H scene. */
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
@@ -279,6 +299,34 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
   let hitCount = 0;
   // ms since the last fever aura sparkle burst.
   let feverSparkleAgeMs = 0;
+  // The roster as it stood before the running apply(): a lost PvP names a
+  // companion the engine has already dropped, and only this snapshot still
+  // knows its species art and its column slot.
+  let rosterBefore: readonly Companion[] = [];
+
+  /** Drop every in-flight presentation system (Reset Progress and rebirth). */
+  const clearPresentation = (): void => {
+    timeMs = 0;
+    heroAnim = createHeroAnim();
+    // Boot the monster straight into idle: the pop-in is for kill-born
+    // spawns (T15 decision) — rebirth re-arms it right after this call.
+    monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
+    for (const f of floats) {
+      f.active = false;
+    }
+    for (const p of particles) {
+      p.active = false;
+    }
+    for (const d of drops) {
+      d.active = false;
+      d.arrived = false;
+    }
+    banner.active = false;
+    coinPopAgeMs = Number.POSITIVE_INFINITY;
+    target = engine.getState().monster;
+    hitCount = 0;
+    feverSparkleAgeMs = 0;
+  };
 
   /**
    * The ONE presentation router: `attack()` and `update()` both feed their
@@ -362,11 +410,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           // Sparkle where the boss stood, then where it joins the column.
           const centre = monsterCentre(target);
           spawnEffect(particles, EFFECTS.captureSparkle, centre.x, centre.y, 1);
-          const k = activeCompanions(engine.getState().companions).findIndex(
-            (c) => c.id === event.companion.id,
-          );
-          if (k >= 0) {
-            const slot = companionSlot(k, GROUND_Y);
+          const slot = companionSlotOf(engine.getState().companions, event.companion.id);
+          if (slot !== null) {
             spawnEffect(particles, EFFECTS.captureSparkle, slot.x, slot.y, 1);
           }
           break;
@@ -402,6 +447,39 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
             HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
             HERO_Y + 4 * SPRITE_SCALE,
           );
+          break;
+        case 'pvpResolved': {
+          showBanner(banner, event.won ? VICTORY_TEXT : DEFEAT_TEXT);
+          if (event.stolen !== null) {
+            // The prize pops in at the column slot it will fight from.
+            const slot = companionSlotOf(engine.getState().companions, event.stolen.id);
+            if (slot !== null) {
+              spawnEffect(particles, EFFECTS.captureSparkle, slot.x, slot.y, 1);
+            }
+          }
+          const lostId = event.lostId;
+          if (lostId !== null) {
+            // It is already off the roster: scatter the art it was drawn
+            // with, where it stood. A benched loss was never on screen.
+            const lost = rosterBefore.find((c) => c.id === lostId);
+            const slot = companionSlotOf(rosterBefore, lostId);
+            if (lost !== undefined && slot !== null) {
+              spawnSpriteScatter(
+                particles,
+                speciesSpritesFor(lost.speciesId).idle,
+                0,
+                slot.x,
+                slot.y,
+              );
+            }
+          }
+          break;
+        }
+        case 'rebirth':
+          // Everything on screen belonged to the old run; monster 0 then
+          // rises out of the ground exactly like a kill-born spawn.
+          clearPresentation();
+          monsterAnim = createMonsterAnim();
           break;
         case 'monsterSpawned':
           // The FSM stays deferred on purpose: its DYING → SPAWNING
@@ -461,6 +539,13 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       } else {
         feverSparkleAgeMs = 0;
       }
+      return events;
+    },
+
+    apply(a: CollectionAction): GameEvent[] {
+      rosterBefore = engine.getState().companions;
+      const events = engine.apply(a);
+      handleEvents(events);
       return events;
     },
 
@@ -593,26 +678,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
 
     reset(): void {
       engine = createEngine();
-      timeMs = 0;
-      heroAnim = createHeroAnim();
-      // Same idle boot as a fresh createGame — the pop-in stays reserved for
-      // kill-born spawns (T15 decision).
-      monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
-      for (const f of floats) {
-        f.active = false;
-      }
-      for (const p of particles) {
-        p.active = false;
-      }
-      for (const d of drops) {
-        d.active = false;
-        d.arrived = false;
-      }
-      banner.active = false;
-      coinPopAgeMs = Number.POSITIVE_INFINITY;
-      target = engine.getState().monster;
-      hitCount = 0;
-      feverSparkleAgeMs = 0;
+      clearPresentation();
     },
 
     getHeroAnim: (): HeroAnim => heroAnim,
