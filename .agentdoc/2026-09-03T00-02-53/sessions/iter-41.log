@@ -1,0 +1,7 @@
+{"task":"T37","result":"DONE","gates":"pass","commit":"57366d8","note":"Added handleEvents router in game.ts; update(dtMs) now returns engine.tick(dt) events through it; index.ts does saves.onEvents(game.update(dt)). A-Z floats at boss/normal barY-6, hero slash/souls, per-species hit effects (seed=hit counter), bossShockwave, companion projectiles, captureSparkle, scale-3 crowned boss + raised bar + scale-3 scatter, companion column, fever aura/sparkles/banner, audio.feverStart+FEVER_NOTES. renderer 62 it(, audio 15. Dead ends: skull-icon jaw is also 3px wide (boss filter); ghost hit art collides with captureSparkle white (used slime boss 15); hero column 0 is transparent (aura filter uses odd x). Not done: steel companion floats need a colour field in codex-owned hud.ts (outside Files).","children":[]}
+
+Gates: `npm test && npm run lint && npm run typecheck` → exit 0 (472 tests, 29 files). Task AC run verbatim → exit 0, including `npm run smoke` printing `SMOKE_OK`.
+
+Two commits on `lane/T37`: `2d4a38f` (work) and `57366d8` (session record sha fixup). Tree clean.
+
+One deliberate gap worth your attention: the Notes ask for companion damage floats in `COLORS.steel`, but `FloatingNumber`/`drawFloats` have no colour field and `src/renderer/hud.ts` is a codex-owned graphics file outside T37's `Files:`. Companion floats therefore reuse the standard white float, marked with a `ponytail:` comment in `game.ts:307` and documented in the session record — a one-line follow-up once `spawnFloat` gains an optional colour.
