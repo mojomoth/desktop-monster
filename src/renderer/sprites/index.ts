@@ -27,6 +27,15 @@ export type { SpeciesSprites } from './monsters.js';
 export { ITEM_SPRITE_IDS, itemSprites } from './items.js';
 export type { ItemSpriteId } from './items.js';
 
+export { BOSS_HP_BAR_Y, BOSS_SCALE, drawBoss } from './boss.js';
+
+export {
+  companionSlot,
+  COMPANION_SLOT_GAP,
+  COMPANION_X,
+  drawCompanion,
+} from './companion.js';
+
 export {
   drawText,
   FONT_ADVANCE,
