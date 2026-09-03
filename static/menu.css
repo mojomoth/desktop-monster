@@ -1,0 +1,133 @@
+:root {
+  color: #deeed6;
+  background: #140c1c;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 12px;
+  color: #deeed6;
+  background: #140c1c;
+  image-rendering: pixelated;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #8595a1;
+}
+
+.tab {
+  padding: 7px 10px;
+  color: #8595a1;
+  background: #442434;
+  border: 2px solid #8595a1;
+  border-bottom: 0;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: #140c1c;
+  background: #6dc2ca;
+  border-color: #6dc2ca;
+}
+
+.panel {
+  display: grid;
+  gap: 8px;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 4px 8px;
+  align-items: center;
+  padding: 8px;
+  background: #30346d;
+  border: 2px solid #8595a1;
+  box-shadow: 2px 2px 0 #442434;
+}
+
+canvas.species {
+  width: 48px;
+  height: 40px;
+  grid-row: span 3;
+  image-rendering: pixelated;
+}
+
+.name {
+  color: #deeed6;
+  font-weight: 700;
+}
+
+.stars {
+  color: #dad45e;
+  letter-spacing: 1px;
+}
+
+.power {
+  color: #6dc2ca;
+  text-align: right;
+}
+
+.btn {
+  padding: 6px 8px;
+  color: #deeed6;
+  background: #d04648;
+  border: 2px solid #8595a1;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #442434;
+  cursor: pointer;
+}
+
+.btn:active:not(:disabled) {
+  translate: 2px 2px;
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px;
+  border-bottom: 1px solid #8595a1;
+}
+
+.footer {
+  margin-top: 12px;
+  padding-top: 10px;
+  text-align: center;
+  border-top: 2px solid #8595a1;
+}
+
+.result {
+  min-height: 2.5em;
+  padding: 8px;
+  color: #6dc2ca;
+  background: #442434;
+  border-left: 4px solid #d04648;
+}
