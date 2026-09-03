@@ -1,5 +1,5 @@
 // SPEC F19 (part 2) — 3x5 pixel font as code: the digits (damage numbers,
-// counters) plus every letter needed for "LV" and "LEVEL UP!". All glyphs
+// counters) plus A-Z and the punctuation used by the v2 HUD. All glyphs
 // are frames of ONE sprite so the T11 integrity sweep covers each glyph;
 // GLYPH_CHARS maps a character to its frame index. Default color is white —
 // pass drawText's `color` (drawSprite tint under the hood) to recolor, e.g.
@@ -17,7 +17,7 @@ export const FONT_H = 5;
 export const FONT_ADVANCE = FONT_W + 1;
 
 /** Character at index i is drawn with fontSprite frame i. */
-export const GLYPH_CHARS = '0123456789LVEUP!';
+export const GLYPH_CHARS = '0123456789LVEUP!ABCDFGHIJKMNOQRSTWXYZ.:-+%';
 
 /** All glyphs of the pixel font, one frame per GLYPH_CHARS character. */
 export const fontSprite: Sprite = {
@@ -59,6 +59,58 @@ export const fontSprite: Sprite = {
     ['www', 'w.w', 'www', 'w..', 'w..'],
     // !
     ['.w.', '.w.', '.w.', '...', '.w.'],
+    // A
+    ['.w.', 'w.w', 'www', 'w.w', 'w.w'],
+    // B
+    ['ww.', 'w.w', 'ww.', 'w.w', 'ww.'],
+    // C
+    ['.ww', 'w..', 'w..', 'w..', '.ww'],
+    // D
+    ['ww.', 'w.w', 'w.w', 'w.w', 'ww.'],
+    // F
+    ['www', 'w..', 'ww.', 'w..', 'w..'],
+    // G
+    ['.ww', 'w..', 'w.w', 'w.w', '.ww'],
+    // H
+    ['w.w', 'w.w', 'www', 'w.w', 'w.w'],
+    // I
+    ['www', '.w.', '.w.', '.w.', 'www'],
+    // J
+    ['..w', '..w', '..w', 'w.w', '.w.'],
+    // K
+    ['w.w', 'w.w', 'ww.', 'w.w', 'w.w'],
+    // M
+    ['w.w', 'www', 'www', 'w.w', 'w.w'],
+    // N
+    ['w.w', 'www', 'www', 'www', 'w.w'],
+    // O
+    ['.w.', 'w.w', 'w.w', 'w.w', '.w.'],
+    // Q
+    ['.w.', 'w.w', 'w.w', '.ww', '..w'],
+    // R
+    ['ww.', 'w.w', 'ww.', 'w.w', 'w.w'],
+    // S
+    ['.ww', 'w..', '.w.', '..w', 'ww.'],
+    // T
+    ['www', '.w.', '.w.', '.w.', '.w.'],
+    // W
+    ['w.w', 'w.w', 'w.w', 'www', '.w.'],
+    // X
+    ['w.w', 'w.w', '.w.', 'w.w', 'w.w'],
+    // Y
+    ['w.w', 'w.w', '.w.', '.w.', '.w.'],
+    // Z
+    ['www', '..w', '.w.', 'w..', 'www'],
+    // .
+    ['...', '...', '...', '...', '.w.'],
+    // :
+    ['...', '.w.', '...', '.w.', '...'],
+    // -
+    ['...', '...', 'www', '...', '...'],
+    // +
+    ['...', '.w.', 'www', '.w.', '...'],
+    // %
+    ['w.w', '..w', '.w.', 'w..', 'w.w'],
   ],
 };
 
