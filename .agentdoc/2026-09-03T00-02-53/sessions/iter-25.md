@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T26 — Boss cadence in core: every 8th monster, 5× hp/xp/coins
 - result: DONE
-- commit: afee6efa013d69034c631d25f19213181dcb6770
+- commit: b5d996eb3af80ca2c877d41c69a797f9ebb59b9d
 - graphify affected used: none (grepped MonsterDef/monsterForIndex directly — 4 call sites)
 
 ## What I did
