@@ -1,0 +1,8 @@
+{"task":"T29","result":"DONE","gates":"pass","commit":"96bbcdc4eed120ea7042410200c459e7dce9136d","note":"New src/core/fever.ts (FEVER_INPUTS=20/WINDOW=3000/MS=5000/COOLDOWN=10000/MULT=3n, readonly Fever, createFever/feverInput/feverTick/feverActive, pure, no clock). Engine owns clockMs advanced only by tick(dtMs: number): GameEvent[] (junk dt->0, feverTick first -> feverEnd); attack() stamps clockMs and pushes feverStart before its own attack event; damage = level x crit x fever x (1+souls) (T28 factor kept). types.ts: GameState.fever {active,remainingMs} + feverStart/feverEnd events; barrel export *. tests/fever.test.ts 4 tests, AC titles verbatim. Gate-forced 3-line fix in tests/engine.test.ts: 20+ inputs at a frozen clock now really light fever, so the crit-rate test takes the attack event by type and the toSave round-trip ticks FEVER_MS first; no assertion weakened, it( count unchanged (23)."}
+
+Gates: `npm test` 388 passed (26 files), `npm run lint` clean, `npm run typecheck` clean. The T29 AC line ran verbatim → exit 0 (27 tests across `tests/fever.test.ts` + `tests/engine.test.ts`, all greps satisfied, no `Date.now(` in `src/core`).
+
+Notes for the next lanes:
+- `T30` must read fever via `feverActive(fever, clockMs)` inside the engine — `state.fever` is a boot placeholder (`COLD_FEVER`) that only `getState()` recomputes. `tick()` is where the volley hangs, after the `feverTick`/`feverEnd` block.
+- `feverStart`/`feverEnd` carry no payload (T37 needs only the trigger plus `state.fever.active`).
+- Session record: `.agentdoc/2026-09-03T00-02-53/sessions/iter-34.md`; work commit `96bbcdc`, sha-record commit `e396c32`; tree clean.
