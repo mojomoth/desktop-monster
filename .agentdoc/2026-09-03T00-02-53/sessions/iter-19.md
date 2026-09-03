@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T24 — SaveFileV2 schema, v1 migration, serializeSave/createEngine accept V1 or V2
 - result: DONE
-- commit: 60681b7bf0eed66a9e28396c0c9320bc9f953490
+- commit: 35650abe694bce897a41915f68547a60766272f5 (work commit; this line added in the follow-up docs commit)
 - graphify affected used: none (task Notes named every call site; `grep -rn "SaveFileV1"` confirmed them)
 
 ## What I did
