@@ -316,7 +316,7 @@
 - Notes (iter 21, codex): DONE: Added static/menu.css with a self-contained DB16 pixel theme for all fixed menu classes, crisp 48×40 species canvases, active-tab accents, and dimmed disabled buttons. Added the required iter-21 session record. Full gates passed (21 files, 320 tests), and the literal T35 AC passed (24 sprite tests).
 
 
-### [ ] T36 — PvP resolution in core (shared with the server)
+### [~] T36 — PvP resolution in core (shared with the server)
 - AC: `npx vitest run tests/collection.test.ts && grep -q "export function resolvePvp" src/core/collection.ts && grep -q "resolvePvp wins with probability myPower over total and moves one random companion from the loser to the winner" tests/collection.test.ts && grep -q "resolvePvp with an empty loser roster steals nothing" tests/collection.test.ts && grep -q "resolvePvp never moves into a full roster of 30" tests/collection.test.ts && grep -q "resolvePvp is reproducible from its seed and draws exactly 2 rng values" tests/collection.test.ts` → exit 0
 - Deps: T27
 - Worker: claude
