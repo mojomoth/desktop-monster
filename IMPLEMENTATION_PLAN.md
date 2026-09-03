@@ -447,7 +447,7 @@
 - Notes (iter 44, claude): DONE: view.ts: leaderboardRows (rank/name/Monster N/♻×n; ok:false → one Offline|Cooldown row, my line appended when absent from top), pvpResultText (names stolen/lost companion + cooldown secs), battleEnabled(save, cooldownUntil). index.ts: one getIdentity() gates both tabs (online===false → Offline, zero net calls); Ranking open → getLeaderboard(); Battle → name input (setName(slice(0,16)), shows returned name) + one Battle! button → pvp(); success → removeCompanions FIRST, then pvpResult, then text; cooldown → 1s setInterval countdown in the button label. menu.html: ranking rows + name field + #ba
 
 
-### [ ] T50 — Version 0.2.0, tray title, README (fever/boss/companions/rebirth/leaderboard/PvP), SPEC manual appendix M9–M14
+### [~] T50 — Version 0.2.0, tray title, README (fever/boss/companions/rebirth/leaderboard/PvP), SPEC manual appendix M9–M14
 - AC: `node -e "process.exit(require('./package.json').version==='0.2.0'&&require('./package-lock.json').version==='0.2.0'?0:1)" && grep -q "DesMon v0.2.0" src/main/tray.ts && grep -qi leaderboard README.md && grep -qi pvp README.md && grep -qi fever README.md && grep -qi rebirth README.md && grep -qi companion README.md && grep -qi boss README.md && grep -q "DesMon-0.2.0-arm64.dmg" README.md && grep -q "M9" SPEC.md && grep -q "M14" SPEC.md && npx vitest run tests/tray.test.ts tests/packaging.test.ts && test "$(grep -c '^\s*it(' tests/packaging.test.ts)" -ge 11` → exit 0
 - Deps: T35, T44, T49
 - Worker: claude
