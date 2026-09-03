@@ -1,11 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { SPECIES_IDS } from '../src/core/index.js';
 import { createParticlePool, PARTICLE_POOL_SIZE } from '../src/renderer/anim.js';
-import { EFFECTS, spawnEffect } from '../src/renderer/effects.js';
+import { EFFECTS, hitColorOf, spawnEffect } from '../src/renderer/effects.js';
 import type { EffectPreset } from '../src/renderer/effects.js';
 import { COLORS } from '../src/renderer/sprites/index.js';
 
 describe('effect presets (SPEC F39)', () => {
+  it('hitColorOf returns the species hit primary colour', () => {
+    for (const speciesId of SPECIES_IDS) {
+      expect(hitColorOf(speciesId)).toBe(EFFECTS.hit[speciesId].colors[0]);
+    }
+    expect(hitColorOf('unknown')).toBe(COLORS.white);
+  });
+
   it('matches the data table from GAME_DESIGN_V2 section 8', () => {
     expect(EFFECTS).toEqual({
       heroSlash: {

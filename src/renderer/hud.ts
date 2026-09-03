@@ -7,7 +7,7 @@
 // run under vitest's node environment (same pattern as sprites/sprite.ts).
 
 import { ratio, xpToNext } from '../core/index.js';
-import type { GameState } from '../core/index.js';
+import type { Effectiveness, GameState } from '../core/index.js';
 import {
   COLORS,
   drawSprite,
@@ -147,6 +147,14 @@ export const FLOAT_RISE_PX = 8;
 export const FLOAT_FADE_RATIO = 2 / 3;
 /** Pixel scale of crit damage numbers (Manual M2: crits show larger). */
 export const CRIT_FLOAT_SCALE = 2;
+
+export function floatColor(effectiveness: Effectiveness): string {
+  return effectiveness === 'super'
+    ? COLORS.yellow
+    : effectiveness === 'weak'
+      ? COLORS.steel
+      : COLORS.white;
+}
 
 /** Pre-allocate a pool of inactive floating-number slots. */
 export function createFloatPool(size: number = FLOAT_POOL_SIZE): FloatingNumber[] {

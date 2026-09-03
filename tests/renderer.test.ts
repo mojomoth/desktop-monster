@@ -63,6 +63,7 @@ import {
   FLOAT_FADE_RATIO,
   FLOAT_LIFE_MS,
   FLOAT_POOL_SIZE,
+  floatColor,
   LEVEL_UP_TEXT,
   showBanner,
   spawnFloat,
@@ -345,6 +346,12 @@ describe('LEVEL UP! banner (T15)', () => {
 });
 
 describe('floating damage numbers (fixed pool)', () => {
+  it('floatColor maps super to yellow, weak to steel and normal to white', () => {
+    expect(floatColor('super')).toBe(COLORS.yellow);
+    expect(floatColor('weak')).toBe(COLORS.steel);
+    expect(floatColor('normal')).toBe(COLORS.white);
+  });
+
   it('pre-allocates an inactive pool of the fixed size', () => {
     const pool = createFloatPool();
     expect(pool).toHaveLength(FLOAT_POOL_SIZE);
