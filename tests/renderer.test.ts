@@ -15,6 +15,7 @@ import {
   MONSTER_HIT_MS,
   MONSTER_SPAWNING_MS,
   monsterForIndex,
+  monsterMaxHp,
   mulberry32,
   xpToNext,
 } from '../src/core/index.js';
@@ -135,14 +136,23 @@ describe('drawMeter / drawHpBar (boxed bars)', () => {
 
   it('keeps at least 1px of fill while hp is nonzero', () => {
     const { ctx, calls } = makeCtx();
-    drawHpBar(ctx, 0, 0, 34, 5, 1, 1000);
+    drawHpBar(ctx, 0, 0, 34, 5, 1n, 1000n);
     expect(calls.filter((c) => c.fillStyle === COLORS.red)[0]?.w).toBe(1);
   });
 
   it('drawHpBar fills red in proportion to hp/maxHp', () => {
     const { ctx, calls } = makeCtx();
-    drawHpBar(ctx, 0, 0, 34, 5, 5, 10);
+    drawHpBar(ctx, 0, 0, 34, 5, 5n, 10n);
     expect(calls.filter((c) => c.fillStyle === COLORS.red)[0]?.w).toBe(16);
+  });
+
+  it('drawHpBar takes bigint hp and maxHp', () => {
+    // SPEC F30: HP is unbounded, so the bar fills through core's exact
+    // bigint ratio() — no Number() narrowing on the way in.
+    const { ctx, calls } = makeCtx();
+    const huge = monsterMaxHp(400); // ~10^26, far past Number.MAX_SAFE_INTEGER
+    drawHpBar(ctx, 0, 0, 34, 5, huge / 4n, huge);
+    expect(calls.filter((c) => c.fillStyle === COLORS.red)[0]?.w).toBe(8);
   });
 });
 
@@ -742,8 +752,8 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
 
 describe('createSaveScheduler (T16 save policy)', () => {
   const attackOnly: GameEvent[] = [
-    { type: 'attack', damage: 1, crit: false, source: 'keyboard' },
-    { type: 'monsterHit', hpAfter: 9, maxHp: 10 },
+    { type: 'attack', damage: 1n, crit: false, source: 'keyboard' },
+    { type: 'monsterHit', hpAfter: 9n, maxHp: 10n },
   ];
   const killEvents: GameEvent[] = [
     ...attackOnly,

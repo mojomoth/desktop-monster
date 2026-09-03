@@ -33,7 +33,7 @@ function makeSave(overrides: Partial<SaveFileV1> = {}): SaveFileV1 {
     coins: 0,
     items: {},
     monsterIndex,
-    monsterHp: monsterMaxHp(monsterIndex),
+    monsterHp: Number(monsterMaxHp(monsterIndex)),
     ...overrides,
   };
 }
@@ -50,16 +50,16 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(s.items).toEqual({});
     expect(s.monster.index).toBe(0);
     expect(s.monster.speciesId).toBe('slime');
-    expect(s.monsterHp).toBe(10);
+    expect(s.monsterHp).toBe(10n);
   });
 
   it('non-killing attack emits attack then monsterHit', () => {
     const engine = createEngine(null, calmRng());
     const events = engine.attack('keyboard');
     expect(types(events)).toEqual(['attack', 'monsterHit']);
-    expect(events[0]).toEqual({ type: 'attack', damage: 1, crit: false, source: 'keyboard' });
-    expect(events[1]).toEqual({ type: 'monsterHit', hpAfter: 9, maxHp: 10 });
-    expect(engine.getState().monsterHp).toBe(9);
+    expect(events[0]).toEqual({ type: 'attack', damage: 1n, crit: false, source: 'keyboard' });
+    expect(events[1]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: 10n });
+    expect(engine.getState().monsterHp).toBe(9n);
   });
 
   it('killing blow emits attack, monsterHit, monsterKilled, itemDropped, monsterSpawned in order', () => {
@@ -113,7 +113,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(s.level).toBe(2);
     expect(s.xp).toBe(0); // carry-over: 20 - xpToNext(1) === 0
     const next = engine.attack('keyboard');
-    expect(next[0]).toEqual({ type: 'attack', damage: 2, crit: false, source: 'keyboard' });
+    expect(next[0]).toEqual({ type: 'attack', damage: 2n, crit: false, source: 'keyboard' });
     expect(damageForLevel(2)).toBe(2);
   });
 
@@ -149,13 +149,13 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const engine = createEngine(null, scriptedRng([0.05, 0.95]));
     expect(engine.attack('mouse')[0]).toEqual({
       type: 'attack',
-      damage: 1 * CRIT_MULT,
+      damage: 1n * BigInt(CRIT_MULT),
       crit: true,
       source: 'mouse',
     });
     expect(engine.attack('mouse')[0]).toEqual({
       type: 'attack',
-      damage: 1,
+      damage: 1n,
       crit: false,
       source: 'mouse',
     });
@@ -164,7 +164,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
   it('overkill damage clamps hpAfter to 0, never negative', () => {
     const engine = createEngine(makeSave({ level: 5, monsterHp: 3 }), calmRng());
     const events = engine.attack('keyboard');
-    expect(events[1]).toEqual({ type: 'monsterHit', hpAfter: 0, maxHp: 10 });
+    expect(events[1]).toEqual({ type: 'monsterHit', hpAfter: 0n, maxHp: 10n });
     expect(types(events)).toContain('monsterKilled');
   });
 
@@ -234,7 +234,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const s = createEngine(save, calmRng()).getState();
     expect(s.monster.index).toBe(12);
     expect(s.monster.speciesId).toBe('ghost'); // 12 % 5 = 2
-    expect(s.monsterHp).toBe(5);
+    expect(s.monsterHp).toBe(5n);
     expect(s.level).toBe(4);
     expect(s.xp).toBe(11);
     expect(s.killCount).toBe(12);
@@ -248,19 +248,19 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
   it('createEngine(save) resumes exactly and clamps monsterHp into [1, maxHp]', () => {
     const exact = createEngine(makeSave({ monsterIndex: 3, monsterHp: 7 }), calmRng()).getState();
     expect(exact.monster.index).toBe(3);
-    expect(exact.monsterHp).toBe(7);
+    expect(exact.monsterHp).toBe(7n);
     const over = createEngine(makeSave({ monsterHp: 9999 }), calmRng()).getState();
     expect(over.monsterHp).toBe(monsterMaxHp(0));
     const dead = createEngine(makeSave({ monsterHp: 0 }), calmRng()).getState();
-    expect(dead.monsterHp).toBe(1);
+    expect(dead.monsterHp).toBe(1n);
   });
 
   it('getState() returns a defensive copy', () => {
     const engine = createEngine(null, calmRng());
-    const s = engine.getState() as { monsterHp: number; items: Record<string, number> };
-    s.monsterHp = -42;
+    const s = engine.getState() as { monsterHp: bigint; items: Record<string, number> };
+    s.monsterHp = -42n;
     s.items['crown'] = 99;
-    expect(engine.getState().monsterHp).toBe(10);
+    expect(engine.getState().monsterHp).toBe(10n);
     expect(engine.getState().items).toEqual({});
   });
 });

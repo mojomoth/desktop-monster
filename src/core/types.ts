@@ -12,7 +12,7 @@ export interface MonsterDef {
   speciesId: string;
   /** "Slime Lv.3" style display name. */
   name: string;
-  maxHp: number;
+  maxHp: bigint;
   /** Math.floor(index / species count) → renderer tint. */
   tier: number;
 }
@@ -38,7 +38,7 @@ export interface GameState {
   /** Trinket id → count. */
   items: Record<string, number>;
   monster: MonsterDef;
-  monsterHp: number;
+  monsterHp: bigint;
   /** Captured bosses (SaveFileV2); gameplay lands in T27/T28. */
   companions: Companion[];
   nextCompanionId: number;
@@ -49,8 +49,8 @@ export interface GameState {
 }
 
 export type GameEvent =
-  | { type: 'attack'; damage: number; crit: boolean; source: InputSource }
-  | { type: 'monsterHit'; hpAfter: number; maxHp: number }
+  | { type: 'attack'; damage: bigint; crit: boolean; source: InputSource }
+  | { type: 'monsterHit'; hpAfter: bigint; maxHp: bigint }
   | { type: 'monsterKilled'; monster: MonsterDef; xpGained: number }
   | { type: 'itemDropped'; drops: ItemDrop[] }
   | { type: 'levelUp'; newLevel: number }
