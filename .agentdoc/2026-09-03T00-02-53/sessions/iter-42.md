@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T47 — Game window applies actions + flushes save; VICTORY/DEFEAT/rebirth presentation
 - result: DONE
-- commit: 6ed20fd5439042ad8d2378b7aaf64f09c3ce4a7b
+- commit: dfda628608312b504dff17b9e2f02fa94a42ba8e
 - graphify affected used: none (grep over src/ located CollectionAction / pvpResolved / onAction directly)
 
 ## What I did
