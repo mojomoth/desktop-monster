@@ -32,7 +32,10 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       GET_IDENTITY: 'desmon:get-identity',
       SET_NAME: 'desmon:set-name',
       LEADERBOARD: 'desmon:leaderboard',
+      PVP_MATCH: 'desmon:pvp-match',
       PVP: 'desmon:pvp',
+      THEFTS: 'desmon:thefts',
+      RECLAIM: 'desmon:reclaim',
       ACTION: 'desmon:action',
       MENU_ACTION: 'desmon:menu-action',
       STATE_CHANGED: 'desmon:state-changed',
@@ -67,7 +70,10 @@ describe('preload bridge (src/preload/index.ts)', () => {
     'getIdentity',
     'setName',
     'getLeaderboard',
+    'pvpMatch',
     'pvp',
+    'thefts',
+    'reclaim',
     'onAction',
     'sendAction',
     'onStateChanged',
@@ -103,7 +109,10 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     'GET_IDENTITY',
     'SET_NAME',
     'LEADERBOARD',
+    'PVP_MATCH',
     'PVP',
+    'THEFTS',
+    'RECLAIM',
     'MENU_ACTION',
   ])(
     'registers an invoke handler for IPC.%s',
@@ -170,9 +179,14 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
       expect(mainIpcTs).toContain(`ipcMain.handle(${channel}`);
     }
     // `removed`/`stolen`/`lost` reach the game only as MENU actions (T49), so
-    // main's ONE webContents.send lives inside sendToOthers and IPC.ACTION is
-    // produced by exactly one call site: the menu-action relay.
-    expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(1);
+    // main's sends live inside the relay helpers — sendToOthers and, since v3
+    // (F73), sendToAll for the reclaim-originated addCompanion (T69). Both sit
+    // ABOVE the handlers, and IPC.ACTION is still produced by exactly one call
+    // site: the menu-action relay.
+    expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(2);
+    expect(mainIpcTs.lastIndexOf('webContents.send(')).toBeLessThan(
+      mainIpcTs.indexOf('ipcMain.handle'),
+    );
     const relay = mainIpcTs.slice(mainIpcTs.indexOf('function sendToOthers'));
     expect(relay.indexOf('webContents.send(')).toBeLessThan(relay.indexOf('ipcMain.handle'));
     expect(mainIpcTs.match(/IPC\.ACTION/g)).toHaveLength(1);
@@ -188,6 +202,8 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     );
     expect(relay).toContain('BrowserWindow.getAllWindows()');
     expect(relay).toContain('win.webContents.id !== sender.id');
+    // v3 (F73): the broadcast twin T69 sends the reclaimed companion with.
+    expect(relay).toContain('export function sendToAll(channel: IpcChannel, payload: unknown): void');
     // No window registry: src/main/index.ts keeps its bare registration call.
     expect(mainIndexTs).toContain('registerIpcHandlers()');
   });
@@ -227,6 +243,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
       'rebirth',
       'addCompanion',
       'removeCompanions',
+      'setPvpParty',
       'pvpResult',
     ]) {
       expect(narrow).toContain(`case '${type}':`);
@@ -237,6 +254,59 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(narrow).toContain("typeof a[k] === 'string'");
     expect(narrow).toContain("Array.isArray(v) && v.every((id) => typeof id === 'string')");
     expect(mainIpcTs).toContain("import type { CollectionAction } from '../core/collection.js';");
+  });
+
+  it('pvp-match, thefts and reclaim handlers forward to the session and return its NetResult', () => {
+    expect(mainIpcTs).toContain(
+      'ipcMain.handle(IPC.PVP_MATCH, (): Promise<NetResult<MatchResult>> => session.match());',
+    );
+    expect(mainIpcTs).toContain(
+      'ipcMain.handle(IPC.THEFTS, (): Promise<NetResult<TheftsResult>> => session.thefts());',
+    );
+    // A theft id is untrusted: no id, no call — and a refusal, never a throw.
+    const reclaim = mainIpcTs.slice(
+      mainIpcTs.indexOf('ipcMain.handle(IPC.RECLAIM'),
+      mainIpcTs.indexOf('ipcMain.handle(IPC.OPEN_ACCESSIBILITY_SETTINGS'),
+    );
+    expect(reclaim).toContain("typeof theftId === 'string'");
+    expect(reclaim).toContain('session.reclaim(theftId)');
+    expect(reclaim).toContain("Promise.resolve({ ok: false, error: 'network' })");
+    expect(reclaim).not.toContain('throw');
+  });
+
+  it('pvp handler requires a matchId string and a party string array', () => {
+    const handler = mainIpcTs.slice(
+      mainIpcTs.indexOf('ipcMain.handle(IPC.PVP,'),
+      mainIpcTs.indexOf('ipcMain.handle(IPC.THEFTS'),
+    );
+    expect(handler).toContain("typeof matchId === 'string'");
+    expect(handler).toContain("Array.isArray(party) && party.every((id) => typeof id === 'string')");
+    expect(handler).toContain('session.pvp(matchId, party)');
+    // A malformed payload is refused like a dead network — never forwarded.
+    expect(handler).toContain("Promise.resolve({ ok: false, error: 'network' })");
+    expect(handler).not.toContain('throw');
+  });
+
+  it('narrowAction accepts setPvpParty and a validated pvpResult replay and drops malformed replays', () => {
+    const narrow = mainIpcTs.slice(
+      mainIpcTs.indexOf('function isReplay'),
+      mainIpcTs.indexOf('export interface IpcOptions'),
+    );
+    // The party editor's action is an id list, like removeCompanions.
+    expect(narrow).toContain("case 'setPvpParty':");
+    expect(narrow).toContain("strs('ids')");
+    // Every field the battle scene reads off a BattleReplay is checked (F73).
+    expect(narrow).toContain("typeof r['opponentName'] === 'string'");
+    expect(narrow).toContain("Array.isArray(r['opponentParty'])");
+    expect(narrow).toContain("blow['side'] === 'A' || blow['side'] === 'D'");
+    expect(narrow).toContain("typeof blow['actorId'] === 'string'");
+    expect(narrow).toContain("typeof blow['targetId'] === 'string'");
+    expect(narrow).toContain("typeof blow['damage'] === 'string'");
+    expect(narrow).toContain("typeof blow['ko'] === 'boolean'");
+    // A malformed replay is dropped and the verdict still applies.
+    expect(narrow).toContain("if (!isReplay(a['replay'])) {");
+    expect(narrow).toContain("delete a['replay'];");
+    expect(narrow).toContain("typeof a['won'] === 'boolean'");
   });
 
   it('menu-ready answers the sender with the current save', () => {
