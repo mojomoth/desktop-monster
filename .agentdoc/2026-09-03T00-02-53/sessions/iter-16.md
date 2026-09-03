@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T22 — Server scaffold: node:http adapter, healthz, start:server, .node-version, SMOKE userData isolation
 - result: DONE
-- commit: 3704814795a3b35f717ca0f6f1124572f0665488
+- commit: d6ae91a (this record's own sha differs — see the follow-up docs commit)
 - graphify affected used: none (task Files list is complete; src/server is new)
 
 ## What I did
