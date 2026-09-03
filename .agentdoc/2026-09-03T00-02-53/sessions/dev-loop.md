@@ -26,3 +26,4 @@ outcome (run 1): exit 3 (crash escalation), iterations 15, lanes 3, nested_claud
 | 18 | codex | T31 | DONE | pass | pass | b01991e | continue |
 | 21 | codex | T35 | DONE | pass | pass | 6cb7244 | continue |
 | 20 | codex | T32 | DONE | pass | pass | 89f78c7 | continue |
+| 19 | claude | T24 | DONE | pass | pass | 95a6648 | continue |
