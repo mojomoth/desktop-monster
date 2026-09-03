@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T30 — Engine tick: companion volley every 1000 ms from the 3 strongest
 - result: DONE
-- commit: 074bed7998bd7c34767c32aabf275b70cbb85d5f
+- commit: 84ca937197140a340709de981e23c8a5a83f7b33 (work commit; this line fixed up in the follow-up commit)
 - graphify affected used: none (engine.ts/types.ts/collection.ts read directly; small, known surface)
 
 ## What I did
