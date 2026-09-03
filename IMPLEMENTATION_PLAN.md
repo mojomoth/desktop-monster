@@ -474,7 +474,7 @@
 - Notes (iter 47, claude): DONE: Verified the existing T01/T19 build config satisfies F26 (identity null, npmRebuild/notarize/hardenedRuntime false, win+nsis, CSC_IDENTITY_AUTO_DISCOVERY=false, files keeps dist/**/* + static/**/* and adds !dist/electron/server/**) — no gap, so package.json/package-lock.json untouched. npm run package -> DesMon-0.2.0-arm64.dmg (110MB) + mac-arm64/DesMon.app, first run downloaded electron + dmgbuild, no hdiutil flake, no retry. Packaged SMOKE=1 binary printed SMOKE_OK; find for node_modules/pg and asar listPackage (136 entries) show 0 pg and 0 dist/electron/server entries. F56 git-side check gr
 
 
-### [ ] T53 — SPEC criteria sweep (F01–F58, Server / API, Deployment — literal)
+### [~] T53 — SPEC criteria sweep (F01–F58, Server / API, Deployment — literal)
 - AC: `npm test && npm run lint && npm run typecheck && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log && S=$(sed -n 's/^DEPLOYED_SHA=//p' AGENTS.md) && git merge-base --is-ancestor "$S" HEAD && test -z "$(git log "$S"..HEAD -- src/server src/core src/shared package.json package-lock.json tsconfig.main.json .node-version)"` → exit 0
 - Deps: T22, T23, T24, T25, T26, T27, T28, T29, T30, T31, T32, T33, T34, T35, T36, T37, T38, T39, T40, T41, T42, T43, T44, T45, T46, T47, T48, T49, T50, T51, T52
 - Worker: claude
