@@ -1,0 +1,13 @@
+{"task":"T68","result":"DONE","gates":"pass","commit":"2195c4e12dbd8b0b1e9e5a70dcf3ba9ab5c33ac0","note":"shared/ipc.ts: PVP_MATCH/THEFTS/RECLAIM + PvpPayload/ReclaimPayload. main/ipc.ts: three handlers forwarding to the T67 session (reclaim validates theftId, bad payload -> {ok:false,error:'network'}), PVP now casts PvpPayload, narrowAction folds setPvpParty into the strs('ids') case and validates the optional pvpResult.replay via isReplay() (malformed -> deleted, verdict still applies), exported sendToAll. Preload+global.d.ts: pvpMatch/thefts/reclaim/pvp(matchId,party). tests/ipc.test.ts 21->24 it(), pinned lists extended. Dead end: delegating sendToOthers->sendToAll to keep one webContents.send breaks the pinned 'win.webContents.id !== sender.id' assertion; count bumped 1->2 instead. Gates + full AC (incl. smoke SMOKE_OK) green.","children":[]}
+
+작업 완료했습니다.
+
+**구현 내용**
+- `src/shared/ipc.ts` — `PVP_MATCH`/`THEFTS`/`RECLAIM` 채널 3개 + `PvpPayload`, `ReclaimPayload` 추가 (shared는 여전히 core-free).
+- `src/main/ipc.ts` — 세 개의 `ipcMain.handle`이 T67 세션(`session.match/thefts/reclaim`)으로 전달, reclaim 페이로드는 신뢰 경계에서 검증하고 불량이면 예외 대신 `{ ok:false, error:'network' }`. `narrowAction`에 `setPvpParty`(기존 `removeCompanions`와 같은 `strs('ids')` 케이스로 합침)와 `isReplay()` 기반 `pvpResult.replay` 검증(잘못된 replay는 `delete`, 승패 결과는 그대로 적용). T69용 `export function sendToAll`.
+- `src/preload/index.ts` / `src/renderer/global.d.ts` — `pvpMatch()`, `thefts()`, `reclaim(theftId)`, 새 `pvp(matchId, party)` 시그니처. preload는 여전히 `electron`만 value-import.
+- `tests/ipc.test.ts` — 고정 리스트(IPC `toEqual` 테이블, preload `it.each`, `ipcMain.handle` 목록, narrowAction union 목록) 확장 + AC가 지정한 제목 3개 추가 → `it(` 21 → 24개, 삭제·이름변경 없음.
+
+**게이트**: `npm test` 554 passed / `npm run lint` / `npm run typecheck` 모두 통과, AC 라인 전체(`npm run smoke` → `SMOKE_OK` 포함) 통과.
+
+**주의 사항 하나**: v3에서 `sendToAll`이 생기면서 기존 "never originates an action" 테스트의 `webContents.send(` 개수 단언을 1 → 2로 올려야 했습니다. 약화 대신 `lastIndexOf('webContents.send(') < indexOf('ipcMain.handle')`(두 send 모두 릴레이 헬퍼 안에 있음)를 추가하고 `IPC.ACTION` 호출 지점 1개 유지를 그대로 두어 불변식을 오히려 더 좁혔습니다. `src/menu/index.ts`는 자체 `MenuBridge` 인터페이스로 타입을 잡고 있어 `api.pvp()`가 그대로 컴파일되므로 손대지 않았습니다(2단계 흐름은 T71 범위).
