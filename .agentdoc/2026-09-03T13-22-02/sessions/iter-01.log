@@ -1,0 +1,18 @@
+{"task":"T54","result":"DONE","gates":"pass","commit":"534aa3f8fae84e2268636661a88a6854721c5a5e","note":"v3 wire types in api.ts (core-free), PlayerRow.thefts + Store.setThefts (10 methods, Memory+Pg), pgStore ALTER TABLE ADD COLUMN IF NOT EXISTS thefts + setThefts, module-level matches Map + POST /v1/pvp/match (TTL prune, no writes, no cooldown), parseSnapshot party validation (drops bad ids). app.test 10→13 it(, pgStore.test 19→22, titles verbatim. Gate-forced outside Files: net.ts toSnapshot party:[] and party/blows/thefts fixture fields in net/menu/deploy tests. Deviation: PvpResponse.lost kept Companion|null — literal `null` would break menu.test's LOST fixture + 3 assertions.","children":[]}
+
+## 요약 (한글)
+
+**T54 완료** — 게이트/AC 모두 통과, 커밋 `534aa3f`.
+
+**구현**
+- `src/shared/api.ts`: SERVER_ARCHITECTURE_V3 §2의 v3 와이어 타입 추가 — `MonsterType`(core import 없음), `Snapshot.party`, `PvpOpponent.party`, `MatchResponse`, `PvpRequest`, `WireBlow`, `BattleReplay`, `Theft`, `TheftsResponse`, `ReclaimRequest/Response`, `SnapshotResponse.thefts`, 상수 4종, `NetError += 'expired'|'gone'`, 결과 별칭 3종.
+- `src/server/store.ts`: `PlayerRow.thefts`, `Store.setThefts`(10개 메서드), `MemoryStore` 구현.
+- `src/server/pgStore.ts`: 멱등 `ALTER TABLE players ADD COLUMN IF NOT EXISTS thefts jsonb`, 관용적 row mapper, `setThefts`. `matches` 테이블 없음.
+- `src/server/app.ts`: 모듈 레벨 `matches` Map(+ `ponytail:` 주석), `POST /v1/pvp/match`(TTL 프루닝, 스토어 쓰기·쿨다운 없음), `parseSnapshot`의 party 검증(위반 id는 거부가 아니라 **드롭**), 상대 파티 프리뷰 헬퍼(T60이 core `pvpParty`로 교체).
+- `POST /v1/pvp`는 런타임 동작 그대로 유지 (T60이 인수).
+
+**테스트**: app.test 10→13, pgStore.test 19→22 (제목 AC 그대로). 삭제·skip·약화 없음.
+
+**범위 밖 수정(게이트 강제)**: `Snapshot.party`/`SnapshotResponse.thefts`가 필수 필드가 되면서 `src/main/net.ts`의 `toSnapshot`과 `tests/{net,menu,deploy}.test.ts` 픽스처에 `party: []`, `blows: []`, `thefts: []` 추가.
+
+**의도적 편차 1건**: `PvpResponse.lost`를 §2의 리터럴 `null` 대신 `Companion | null`로 유지했습니다. 리터럴로 두면 T71 소유 파일인 `tests/menu.test.ts`의 `LOST` 픽스처와 패배 문구 검증 3건을 약화시켜야 해서입니다 — v3 서버는 이 필드를 어차피 채우지 않으며, api.ts에 `ponytail:` 주석으로 명시했습니다.
