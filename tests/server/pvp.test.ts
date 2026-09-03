@@ -1,17 +1,19 @@
-// T40 — POST /v1/pvp (SPEC F45, SERVER_ARCHITECTURE §3 rules + §5 steps).
-// handle() is called directly with a MemoryStore, a counter clock and a queue
-// of seeds: no sockets, no timers, no DB, no wall clock. The maths itself is
-// core's `resolvePvp` — pinned here against the shared implementation, never
-// re-derived.
+// T40/T60 — POST /v1/pvp (SPEC F45/F69, SERVER_ARCHITECTURE_V3 §3). handle()
+// is called directly with a MemoryStore, a counter clock and a queue of seeds:
+// no sockets, no timers, no DB, no wall clock. Every fight is the two-step v3
+// flow (`/v1/pvp/match` first), and the maths itself is core's `resolvePvp` —
+// pinned here against the shared implementation, never re-derived.
 
 import { describe, expect, it } from 'vitest';
-import { mulberry32, resolvePvp, ROSTER_CAP } from '../../src/core/index.js';
-import { BOT_NAME, createApp, PVP_COOLDOWN_MS } from '../../src/server/app.js';
+import { mulberry32, pvpParty, resolvePvp, ROSTER_CAP, simulateBattle } from '../../src/core/index.js';
+import { BOT_NAME, createApp, matches, PVP_COOLDOWN_MS } from '../../src/server/app.js';
 import { MemoryStore } from '../../src/server/store.js';
 import type { ApiRequest, ApiResponse } from '../../src/server/http.js';
+import { MATCH_TTL_MS, RECLAIM_WINDOW_MS } from '../../src/shared/api.js';
 import type {
   ApiError,
   Companion,
+  MatchResponse,
   PvpResponse,
   RegisterResponse,
   SnapshotResponse,
@@ -19,11 +21,14 @@ import type {
 
 type Call = Partial<ApiRequest> & { method: string; path: string };
 
-/** `seeds` is consumed one per match; the last one repeats. */
+/** The clock every fixture starts on. */
+const T0 = 1_700_000_000_000;
+
+/** `seeds` is consumed one per match preview; the last one repeats. */
 function setup(seeds: number[] = [0]) {
   const store = new MemoryStore();
   let ids = 0;
-  let clock = 1_700_000_000_000;
+  let clock = T0;
   let drawn = 0;
   const app = createApp({
     store,
@@ -56,6 +61,7 @@ async function player(
   name: string,
   bestIndex: number,
   companions: Companion[] = [],
+  party: string[] = [],
 ): Promise<RegisterResponse> {
   const res = await call({ method: 'POST', path: '/v1/players', body: { nickname: name } });
   expect(res.status).toBe(201);
@@ -64,14 +70,27 @@ async function player(
     method: 'PUT',
     path: '/v1/snapshot',
     auth: me.token,
-    body: { name, bestIndex, rebirths: 0, companions },
+    body: { name, bestIndex, rebirths: 0, companions, party },
   });
   expect(put.status).toBe(200);
   return me;
 }
 
-const fight = (call: (req: Call) => Promise<ApiResponse>, auth: string): Promise<ApiResponse> =>
-  call({ method: 'POST', path: '/v1/pvp', auth, body: { ignored: true } });
+const preview = async (
+  call: (req: Call) => Promise<ApiResponse>,
+  auth: string,
+): Promise<MatchResponse> =>
+  body<MatchResponse>(await call({ method: 'POST', path: '/v1/pvp/match', auth }));
+
+/** The whole v3 flow: preview an opponent, then fight it with `party`. */
+async function fight(
+  call: (req: Call) => Promise<ApiResponse>,
+  auth: string,
+  party: string[] = [],
+): Promise<ApiResponse> {
+  const match = await preview(call, auth);
+  return call({ method: 'POST', path: '/v1/pvp', auth, body: { matchId: match.matchId, party } });
+}
 
 describe('POST /v1/pvp', () => {
   it('picks the rank neighbour above or below by seed parity', async () => {
@@ -83,7 +102,7 @@ describe('POST /v1/pvp', () => {
     const even = body<PvpResponse>(await fight(call, mid.token));
     expect(even.seed).toBe(2);
     expect(even.bot).toBe(false);
-    expect(even.opponent).toEqual({ name: 'high', bestIndex: 9, rebirths: 0, companions: [] });
+    expect(even.opponent).toEqual({ name: 'high', bestIndex: 9, rebirths: 0, party: [] });
 
     advance(PVP_COOLDOWN_MS);
     const odd = body<PvpResponse>(await fight(call, mid.token));
@@ -111,7 +130,8 @@ describe('POST /v1/pvp', () => {
       bot: true,
       seed: 11,
       win: true,
-      opponent: { name: BOT_NAME, bestIndex: 7, rebirths: 0, companions: [] },
+      opponent: { name: BOT_NAME, bestIndex: 7, rebirths: 0, party: [] },
+      blows: [],
       stolen: null,
       lost: null,
     });
@@ -119,7 +139,7 @@ describe('POST /v1/pvp', () => {
     const row = await store.getById(me.playerId);
     expect(row?.snapshot?.companions).toEqual([comp('c1')]);
     expect(row?.stolenIds).toEqual([]);
-    expect(row?.lastPvpAt).toBe(1_700_000_000_000);
+    expect(row?.lastPvpAt).toBe(T0);
     expect(BOT_NAME).toBe('Training Dummy');
   });
 
@@ -152,6 +172,35 @@ describe('POST /v1/pvp', () => {
     expect(body<SnapshotResponse>(reupload).removed).toEqual(['d1']);
   });
 
+  it('a steal writes a theft record with a 24 hour reclaim window on the loser', async () => {
+    // Seed 7 steals, and its second draw picks member 0 of the defender party.
+    const { store, call } = setup([7]);
+    const me = await player(call, 'raider', 1, [titan('c1')]);
+    const foe = await player(call, 'victim', 9, [comp('d1'), comp('d2')], ['d1', 'd2']);
+
+    const res = body<PvpResponse>(await fight(call, me.token));
+    expect(res.stolen).toEqual({ ...comp('d1'), id: 's7' });
+
+    const loser = await store.getById(foe.playerId);
+    expect(loser?.thefts).toEqual([
+      {
+        id: 't7',
+        companion: comp('d1'),
+        transferredId: 's7',
+        thiefId: me.playerId,
+        thiefName: 'raider',
+        at: T0,
+        reclaimUntil: T0 + RECLAIM_WINDOW_MS,
+      },
+    ]);
+    expect(RECLAIM_WINDOW_MS).toBe(24 * 60 * 60 * 1000);
+    // The victim loses it from the roster AND from its stored party.
+    expect(loser?.snapshot?.companions).toEqual([comp('d2')]);
+    expect(loser?.snapshot?.party).toEqual(['d2']);
+    // The thief keeps no theft record of its own.
+    expect((await store.getById(me.playerId))?.thefts).toEqual([]);
+  });
+
   it('losing the match moves nothing: the attacker never loses a companion and lost is null', async () => {
     // The titan one-shots the minnow, so the battle is a loss by construction.
     const { store, call } = setup([6]);
@@ -167,7 +216,9 @@ describe('POST /v1/pvp', () => {
     const mine = await store.getById(me.playerId);
     expect(mine?.snapshot?.companions).toEqual([comp('c1')]);
     expect(mine?.stolenIds).toEqual([]);
-    expect((await store.getById(foe.playerId))?.snapshot?.companions).toEqual([titan('d1')]);
+    const loser = await store.getById(foe.playerId);
+    expect(loser?.snapshot?.companions).toEqual([titan('d1')]);
+    expect(loser?.thefts).toEqual([]);
   });
 
   it('winner with a full roster steals nothing', async () => {
@@ -185,6 +236,104 @@ describe('POST /v1/pvp', () => {
     const loser = await store.getById(foe.playerId);
     expect(loser?.snapshot?.companions).toEqual([comp('d1')]);
     expect(loser?.stolenIds).toEqual([]);
+  });
+
+  it('pvp fights the stored opponent party and returns the blow list with decimal damage', async () => {
+    const { call } = setup([9]);
+    const roster = [1, 2, 3, 4, 5, 6].map((n) => comp(`d${n}`, { level: n }));
+    const mine = [comp('c1', { level: 5 })];
+    const me = await player(call, 'brawler', 1, mine);
+    const foe = await player(call, 'wall', 9, roster, ['d1', 'd2']);
+
+    const match = await preview(call, me.token);
+    expect(match.opponent.party).toEqual([comp('d1', { level: 1 }), comp('d2', { level: 2 })]);
+    // The preview is binding: a stronger roster uploaded after it cannot help.
+    await call({
+      method: 'PUT',
+      path: '/v1/snapshot',
+      auth: foe.token,
+      body: { name: 'wall', bestIndex: 9, rebirths: 0, companions: [titan('d9')] },
+    });
+
+    const res = body<PvpResponse>(
+      await call({
+        method: 'POST',
+        path: '/v1/pvp',
+        auth: me.token,
+        body: { matchId: match.matchId, party: ['c1'] },
+      }),
+    );
+    expect(res.opponent.party).toEqual(match.opponent.party);
+    const expected = simulateBattle(mine, match.opponent.party);
+    expect(res.win).toBe(expected.attackerWon);
+    expect(res.blows.length).toBeGreaterThan(0);
+    expect(res.blows).toEqual(expected.blows.map((b) => ({ ...b, damage: String(b.damage) })));
+    expect(res.blows.every((b) => /^\d+$/.test(b.damage))).toBe(true);
+    // The match is spent: the same id cannot be fought twice.
+    expect(matches.has(match.matchId)).toBe(false);
+  });
+
+  it('pvp with an unknown or expired matchId returns 410 match_expired', async () => {
+    const { call, advance } = setup([5]);
+    const me = await player(call, 'me', 5, [comp('c1')]);
+    const other = await player(call, 'other', 9, [comp('d1')]);
+    const send = (auth: string, matchId: string): Promise<ApiResponse> =>
+      call({ method: 'POST', path: '/v1/pvp', auth, body: { matchId, party: [] } });
+
+    const unknown = await send(me.token, 'deadbeef');
+    expect(unknown.status).toBe(410);
+    expect(unknown.body).toEqual({ error: 'match_expired' });
+
+    // A match belongs to whoever asked for it; a foreign caller kills it.
+    const mine = await preview(call, me.token);
+    expect((await send(other.token, mine.matchId)).status).toBe(410);
+    expect(matches.has(mine.matchId)).toBe(false);
+
+    // …and it dies of old age one millisecond past MATCH_TTL_MS.
+    const fresh = await preview(call, me.token);
+    advance(MATCH_TTL_MS + 1);
+    expect((await send(me.token, fresh.matchId)).status).toBe(410);
+    expect(matches.has(fresh.matchId)).toBe(false);
+  });
+
+  it('pvp with a party id outside my roster returns 400 bad_party', async () => {
+    const { store, call } = setup([13]);
+    const me = await player(call, 'picky', 5, [comp('c1'), comp('c2')]);
+    await player(call, 'rival', 9, [comp('d1')]);
+    const match = await preview(call, me.token);
+    const send = (party: string[]): Promise<ApiResponse> =>
+      call({
+        method: 'POST',
+        path: '/v1/pvp',
+        auth: me.token,
+        body: { matchId: match.matchId, party },
+      });
+
+    const alien = await send(['c1', 'zz']);
+    expect(alien.status).toBe(400);
+    expect(alien.body).toEqual({ error: 'bad_party' });
+    expect((await send(['c1', 'c1', 'c2', 'c2', 'c1', 'c2'])).body).toEqual({ error: 'bad_party' });
+
+    // A bad party spends nothing: no cooldown stamp, and the match still lives.
+    expect((await store.getById(me.playerId))?.lastPvpAt).toBeNull();
+    expect(matches.has(match.matchId)).toBe(true);
+    expect((await send(['c2'])).status).toBe(200);
+  });
+
+  it('a v2 body without matchId returns 400 bad_request', async () => {
+    const { store, call } = setup([4]);
+    const me = await player(call, 'legacy', 5, [comp('c1')]);
+    await player(call, 'rival', 9, [comp('d1')]);
+    const post = (payload: unknown): Promise<ApiResponse> =>
+      call({ method: 'POST', path: '/v1/pvp', auth: me.token, body: payload });
+
+    const stale = await post({ ignored: true });
+    expect(stale.status).toBe(400);
+    expect(stale.body).toEqual({ error: 'bad_request' });
+    // A party that is not a list of ids is just as malformed.
+    expect((await post({ matchId: 'x', party: [1] })).body).toEqual({ error: 'bad_request' });
+    expect((await post(null)).body).toEqual({ error: 'bad_request' });
+    expect((await store.getById(me.playerId))?.lastPvpAt).toBeNull();
   });
 
   it('second pvp inside PVP_COOLDOWN_MS returns 429 cooldown with retryAfterSec', async () => {
@@ -213,17 +362,30 @@ describe('POST /v1/pvp', () => {
     const me = await player(call, 'me', 1, roster);
     await player(call, 'them', 9, theirs);
 
-    const expected = resolvePvp(roster, theirs, mulberry32(seed));
+    // The parties are core's too: the automatic pick on both sides.
+    const expected = resolvePvp(
+      pvpParty(roster, []),
+      pvpParty(theirs, []),
+      mulberry32(seed),
+      roster.length,
+    );
     const res = body<PvpResponse>(await fight(call, me.token));
     expect(res.seed).toBe(seed);
     expect(res.win).toBe(expected.attackerWon);
-    const moved = expected.moved;
-    expect(moved).not.toBeNull();
-    expect(expected.attackerWon ? res.stolen : res.lost).toEqual(
-      expected.attackerWon ? { ...moved, id: `s${seed}` } : moved,
-    );
+    expect(res.blows).toEqual(expected.blows.map((b) => ({ ...b, damage: String(b.damage) })));
+    expect(expected.moved).not.toBeNull();
+    expect(res.stolen).toEqual({ ...expected.moved, id: `s${seed}` });
+    expect(res.lost).toBeNull();
     // The powers are presentation-only and never go on the wire.
-    expect(Object.keys(res).sort()).toEqual(['bot', 'lost', 'opponent', 'seed', 'stolen', 'win']);
+    expect(Object.keys(res).sort()).toEqual([
+      'blows',
+      'bot',
+      'lost',
+      'opponent',
+      'seed',
+      'stolen',
+      'win',
+    ]);
   });
 
   it('pvp without an uploaded snapshot returns 400 no_snapshot', async () => {
