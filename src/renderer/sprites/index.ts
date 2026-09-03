@@ -36,6 +36,8 @@ export {
   drawCompanion,
 } from './companion.js';
 
+export { drawFeverAura } from './aura.js';
+
 export {
   drawText,
   FONT_ADVANCE,
