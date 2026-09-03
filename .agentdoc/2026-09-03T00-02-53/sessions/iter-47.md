@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T52 — Unsigned macOS packaging 0.2.0 + packaged SMOKE_OK, no pg or server build inside the .app
 - result: DONE
-- commit: cc803ec
+- commit: d0574f8 (this record's own sha-recording fixup commit follows it)
 - graphify affected used: none (verification-only task; config read straight from package.json)
 
 ## What I did
