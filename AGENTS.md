@@ -38,21 +38,26 @@ bump (see HARNESS.md §Versioning).
 
 ## Server
 
-SERVER_URL=https://desmon-server.onrender.com
-RENDER_SERVICE_ID=srv-dacd4l15efls73e0fbig
+SERVER_URL=https://desmon-server-v3.onrender.com
+V2_SERVER_URL=https://desmon-server.onrender.com
+RENDER_SERVICE_ID=srv-dacmijqfngtc73e0sql0
 RENDER_POSTGRES_ID=dpg-dacd4k2jnfac73c43llg-a
 DB_CREATED=2026-09-03T01:50:08.492032Z
 DB_EXPIRES=2026-10-03
-DEPLOYED_SHA=7a81b346439d8a6d9fe3fe1d0fadd8cbd40e4f4c
-- v3: the lines above are the v2 service (`desmon-server`, built from `main`). The v3 deploy task
-  provisions `desmon-server-v3` from branch `v3` (`DESMON_SRV_NAME=desmon-server-v3 DESMON_BRANCH=v3
-  .harness/v3/loop/render-bootstrap.sh`, shared `desmon-db`) and REPLACES `SERVER_URL=`,
-  `RENDER_SERVICE_ID=`, `DEPLOYED_SHA=` with the v3 values (keeping `V2_SERVER_URL=` for reference).
+DEPLOYED_SHA=pending
+- v3: the live service is `desmon-server-v3`, built from branch `v3`; it shares the `desmon-db`
+  Postgres (hence the unchanged `RENDER_POSTGRES_ID=`/`DB_CREATED=`/`DB_EXPIRES=`) with the v2
+  service `desmon-server` (built from `main`), kept at `V2_SERVER_URL=` for reference only.
+- Provisioning (idempotent by name, run only by the loop's deploy task):
+  `DESMON_SRV_NAME=desmon-server-v3 DESMON_BRANCH=v3 bash .harness/v3/loop/render-bootstrap.sh`.
+  Render rejects a branch it cannot see with HTTP 400, so the branch must exist on the remote
+  first; on the very first run (`v3` unpushed) the service was created from `main` and retargeted
+  with `render services update <srv-id> --branch v3 --confirm` right after the push.
+- Deploy = `git push origin HEAD:v3` + `render deploys create <srv-id> --wait --confirm` (webhooks
+  not guaranteed). Verify with `curl $SERVER_URL/healthz` and `node dist/electron/server/probe.js
+  $SERVER_URL` (register → upload → leaderboard; the probe never plays PvP and never reclaims).
 - `GET /healthz` → `200 {"ok":true,"sha":"<RENDER_GIT_COMMIT|dev>"}`, no DB access; everything
   else under `/v1` (SPEC.md §Server / API).
-- Deploy = `git push origin main` + `render deploys create <srv-id> --wait --confirm` (webhooks
-  not guaranteed). Provisioning = `.harness/<CURRENT>/loop/render-bootstrap.sh` (idempotent),
-  run only by the loop's deploy task, which also fills the placeholder above.
 - Free tier: web service sleeps after 15 min idle (~1 min cold start — the client must tolerate
   it and work offline); Postgres 1 per workspace, 1 GB, EXPIRES 30 days after creation (`db_expires`).
 - The server is authoritative for the PvP verdict and roster moves only; leaderboard stats are
