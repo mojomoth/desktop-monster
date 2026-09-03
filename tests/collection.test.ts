@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
-  ACTIVE_SLOTS,
   activeCompanions,
   applyCollection,
+  autoParty,
   COMPANION_MAX_LEVEL,
   companionPower,
   createEngine,
@@ -10,9 +10,13 @@ import {
   monsterForIndex,
   monsterMaxHp,
   mulberry32,
+  PARTY_SIZE,
+  partyOrder,
+  pvpParty,
   REBIRTH_MIN_INDEX,
   resolvePvp,
   ROSTER_CAP,
+  TYPE_ORDER,
 } from '../src/core/index.js';
 import type {
   CollectionAction,
@@ -37,13 +41,30 @@ function stateWith(save: Partial<SaveFileV2>): GameState {
   return { ...createEngine({ ...DEFAULT_SAVE, ...save }).getState() };
 }
 
+const ids = (cs: readonly Companion[]): string[] => cs.map((c) => c.id);
+
+/**
+ * Seven companions of five types at bossIndex 7 (base power 1), so
+ * companionPower is just the level: 6/4/4/5/10/1/3.
+ * slime=water, bat=wind, ghost=dark, golem=earth, dragon=fire.
+ */
+const TYPED_ROSTER: readonly Companion[] = [
+  comp('c1', { speciesId: 'dragon', level: 6 }),
+  comp('c2', { speciesId: 'bat', level: 4 }),
+  comp('c3', { speciesId: 'golem', level: 4 }),
+  comp('c4', { speciesId: 'slime', level: 5 }),
+  comp('c5', { speciesId: 'ghost', level: 10 }),
+  comp('c6', { speciesId: 'golem', level: 1 }),
+  comp('c7', { speciesId: 'slime', level: 3 }),
+];
+
 /** Unwrap a success; fails loudly when the action returned { error }. */
 function ok(result: ReturnType<typeof applyCollection>) {
   if ('error' in result) throw new Error(`unexpected error: ${result.error}`);
   return result;
 }
 
-describe('companion power and active slots (SPEC F32, Assumption 24)', () => {
+describe('companion power and party selection (SPEC F32/F61, Assumptions 24/44)', () => {
   it('companionPower is floor(monsterMaxHp(bossIndex)/20), at least 1, times level times 2^stars', () => {
     expect(companionPower(comp('c1', { bossIndex: 0 }))).toBe(1n);
     expect(companionPower(comp('c1', { bossIndex: 20 }))).toBe(8n);
@@ -62,20 +83,46 @@ describe('companion power and active slots (SPEC F32, Assumption 24)', () => {
     }
   });
 
-  it('activeCompanions picks the 3 strongest, ties by id', () => {
-    const roster = [
-      comp('c1', { bossIndex: 40 }), // 133 — wins the tie with c2
-      comp('c2', { bossIndex: 40 }), // 133
-      comp('c3', { bossIndex: 60 }), // 2191
-      comp('c4', { bossIndex: 0 }), //     1
-      comp('c5', { bossIndex: 41 }), //  154
-    ];
-    expect(activeCompanions(roster).map((c) => c.id)).toEqual(['c3', 'c5', 'c1']);
-    expect(activeCompanions(roster)).toHaveLength(ACTIVE_SLOTS);
-    // Input order is untouched, and a short roster returns everything it has.
-    expect(roster.map((c) => c.id)).toEqual(['c1', 'c2', 'c3', 'c4', 'c5']);
+  it('activeCompanions picks the 5 highest effective powers against the enemy type', () => {
+    // vs water: c2/c3 double to 8, c4 stays 5, c5 halves to 5, c1 halves to 3.
+    expect(ids(activeCompanions(TYPED_ROSTER, 'water'))).toEqual(['c2', 'c3', 'c5', 'c4', 'c1']);
+    expect(activeCompanions(TYPED_ROSTER, 'water')).toHaveLength(PARTY_SIZE);
+    // Ties walk down the ladder: c2 before c3 on the id, c5 before c4 on raw power.
+    expect(ids(activeCompanions(TYPED_ROSTER))).toEqual(['c5', 'c1', 'c4', 'c2', 'c3']);
+    // Input order untouched; a short roster returns everything it has.
+    expect(ids(TYPED_ROSTER)).toEqual(['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7']);
     expect(activeCompanions([]).length).toBe(0);
-    expect(activeCompanions(roster.slice(0, 2)).map((c) => c.id)).toEqual(['c1', 'c2']);
+    expect(ids(activeCompanions(TYPED_ROSTER.slice(0, 2), 'water'))).toEqual(['c2', 'c1']);
+  });
+
+  it('the party changes when the enemy type changes', () => {
+    expect(ids(activeCompanions(TYPED_ROSTER, 'fire'))).toEqual(['c5', 'c4', 'c1', 'c7', 'c2']);
+    expect(ids(activeCompanions(TYPED_ROSTER, 'wind'))).toEqual(['c5', 'c1', 'c2', 'c4', 'c3']);
+    expect(ids(activeCompanions(TYPED_ROSTER, 'earth'))).toEqual(['c1', 'c2', 'c5', 'c3', 'c4']);
+    expect(ids(activeCompanions(TYPED_ROSTER, 'dark'))).toEqual(['c5', 'c4', 'c3', 'c7', 'c1']);
+    // All five enemy types field a different line-up out of the same roster.
+    const lineups = TYPE_ORDER.map((t) => ids(activeCompanions(TYPED_ROSTER, t)).join());
+    expect(new Set(lineups).size).toBe(TYPE_ORDER.length);
+  });
+
+  it('pvpParty resolves ids in order and falls back to autoParty when empty', () => {
+    expect(ids(autoParty(TYPED_ROSTER))).toEqual(['c5', 'c1', 'c4', 'c2', 'c3']);
+    // The given order wins; unknown and duplicate ids are dropped.
+    expect(ids(pvpParty(TYPED_ROSTER, ['c6', 'zz', 'c1', 'c6']))).toEqual(['c6', 'c1']);
+    expect(ids(pvpParty(TYPED_ROSTER, ids(TYPED_ROSTER)))).toEqual(['c1', 'c2', 'c3', 'c4', 'c5']);
+    // Nothing usable → the auto party; an empty roster stays empty.
+    expect(ids(pvpParty(TYPED_ROSTER, []))).toEqual(ids(autoParty(TYPED_ROSTER)));
+    expect(ids(pvpParty(TYPED_ROSTER, ['nope']))).toEqual(ids(autoParty(TYPED_ROSTER)));
+    expect(pvpParty([], ['c1'])).toEqual([]);
+    expect(ids(TYPED_ROSTER)).toEqual(['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7']);
+  });
+
+  it('partyOrder sorts by size descending keeping party order on ties', () => {
+    // sizes: dragon/golem 3, ghost 2, slime/bat 1 — biggest stands at the back.
+    const party = pvpParty(TYPED_ROSTER, ['c2', 'c1', 'c5', 'c4', 'c3']);
+    expect(ids(partyOrder(party))).toEqual(['c1', 'c3', 'c5', 'c2', 'c4']);
+    expect(ids(party)).toEqual(['c2', 'c1', 'c5', 'c4', 'c3']);
+    expect(partyOrder([])).toEqual([]);
   });
 });
 
@@ -199,6 +246,22 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(events).toEqual([{ type: 'rebirth', souls: 6 }]);
     expect(base.level).toBe(7);
     expect(base.monster.index).toBe(41);
+  });
+
+  it('setPvpParty drops unknown ids and caps at 5', () => {
+    const base = stateWith({ companions: TYPED_ROSTER.map((c) => ({ ...c })), nextCompanionId: 8 });
+    const picked: CollectionAction = {
+      type: 'setPvpParty',
+      ids: ['c3', 'zz', 'c1', 'c3', 'c2', 'c4', 'c5', 'c6'],
+    };
+    const { state, events } = ok(applyCollection(base, picked));
+    expect(state.pvpParty).toEqual(['c3', 'c1', 'c2', 'c4', 'c5']);
+    expect(events).toEqual([]);
+    expect(base.pvpParty).toEqual([]);
+    expect(ids(state.companions)).toEqual(ids(base.companions));
+    // An unknown-only or empty list clears the party — never an error.
+    expect(ok(applyCollection(state, { type: 'setPvpParty', ids: ['nope'] })).state.pvpParty).toEqual([]);
+    expect(ok(applyCollection(state, { type: 'setPvpParty', ids: [] })).state.pvpParty).toEqual([]);
   });
 
   it('addCompanion refuses a full roster of 30 and removeCompanions ignores unknown ids', () => {

@@ -229,9 +229,9 @@ export function createEngine(
       while (volleyAcc >= COMPANION_ATTACK_MS) {
         volleyAcc -= COMPANION_ATTACK_MS;
         const mult = feverActive(fever, clockMs) ? FEVER_MULT : 1n;
-        // Recomputed per volley: a capture or a fuse between volleys changes
-        // who fights. Companions never crit.
-        for (const c of activeCompanions(state.companions)) {
+        // Recomputed per volley: a capture, a fuse or the next monster's type
+        // between volleys changes who fights. Companions never crit.
+        for (const c of activeCompanions(state.companions, state.monster.type)) {
           const damage = companionPower(c) * mult;
           events.push({
             type: 'companionAttack',

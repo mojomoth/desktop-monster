@@ -484,8 +484,9 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     // A v2 save resumes with no party and still writes v3.
     expect(createEngine(makeSaveV2(), calmRng()).toSave().pvpParty).toEqual([]);
   });
-  it('tick fires one volley per 1000ms from the 3 strongest companions and kills chain into the next monster', () => {
-    // Powers 4/3/2/1 (bossIndex 7 → base 1): c4 is benched every volley.
+  it('tick fires one volley per 1000ms from the 5 best-matched companions and kills chain into the next monster', () => {
+    // Powers 4/3/2/1 (bossIndex 7 → base 1); the whole roster fits in a party
+    // of 5, so the enemy type only decides the ORDER they swing in.
     const roster: Companion[] = [
       { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 4, stars: 0 },
       { id: 'c2', speciesId: 'bat', bossIndex: 7, level: 3, stars: 0 },
@@ -500,6 +501,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
 
     // Sub-volley time only accumulates.
     expect(engine.tick(COMPANION_ATTACK_MS - 1)).toEqual([]);
+    // Monster 0 is a water slime: wind c2 (6) > water c1 (4) > earth c4 (2) > dark c3 (1).
     const events = engine.tick(1);
     expect(types(events)).toEqual([
       'companionAttack',
@@ -511,32 +513,35 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       'monsterHit',
       'companionAttack',
       'monsterHit',
+      'companionAttack',
+      'monsterHit',
     ]);
     expect(events[0]).toEqual({
-      type: 'companionAttack',
-      companionId: 'c1',
-      speciesId: 'slime',
-      damage: 4n,
-    });
-    // c2 and c3 keep swinging inside the SAME volley, at the next monster.
-    expect(events[5]).toEqual({
       type: 'companionAttack',
       companionId: 'c2',
       speciesId: 'bat',
       damage: 3n,
     });
-    expect(events[6]).toEqual({ type: 'monsterHit', hpAfter: 8n, maxHp: monsterMaxHp(1) });
+    // The rest keep swinging inside the SAME volley, at the next monster.
+    expect(events[5]).toEqual({
+      type: 'companionAttack',
+      companionId: 'c1',
+      speciesId: 'slime',
+      damage: 4n,
+    });
+    expect(events[6]).toEqual({ type: 'monsterHit', hpAfter: 7n, maxHp: monsterMaxHp(1) });
     expect(events[8]).toEqual({ type: 'monsterHit', hpAfter: 6n, maxHp: monsterMaxHp(1) });
+    expect(events[10]).toEqual({ type: 'monsterHit', hpAfter: 4n, maxHp: monsterMaxHp(1) });
     const s = engine.getState();
     expect(s.monster.index).toBe(1);
-    expect(s.monsterHp).toBe(6n);
+    expect(s.monsterHp).toBe(4n);
     expect(s.killCount).toBe(1);
 
     // ⌊dt/1000⌋ volleys per tick, remainder carried into the next one.
     const two = engine.tick(2 * COMPANION_ATTACK_MS + 500);
-    expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(6);
+    expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(8);
     const carried = engine.tick(500);
-    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(3);
+    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(4);
   });
 
   it('tick with no companions emits nothing and never spends rng draws', () => {

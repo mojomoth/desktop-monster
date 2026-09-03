@@ -4,8 +4,10 @@
 // an { error }, so the caller can apply it straight onto live engine state.
 
 import { ratio } from './bignum.js';
-import { monsterForIndex } from './monsters.js';
+import { monsterForIndex, sizeOf, typeOf } from './monsters.js';
 import { monsterMaxHp } from './formulas.js';
+import { effectivePower } from './types-chart.js';
+import type { MonsterType } from './types-chart.js';
 import type { Companion } from './save.js';
 import type { Rng } from './rng.js';
 import type { GameState } from './types.js';
@@ -13,8 +15,8 @@ import type { GameState } from './types.js';
 /** A companion never levels past this (consume/reincarnate both cap here). */
 export const COMPANION_MAX_LEVEL = 10;
 
-/** How many companions fight alongside the hero. */
-export const ACTIVE_SLOTS = 3;
+/** How many companions fight together — field volley and PvP party (F61). */
+export const PARTY_SIZE = 5;
 
 /** Roster cap (save.ts keeps its own copy for parsing). */
 export const ROSTER_CAP = 30;
@@ -31,16 +33,57 @@ export const companionPower = (c: Companion): bigint => {
 /** Numeric part of a 'cN' id — the tie-breaker (same rule as parseSave). */
 const idNum = (id: string): number => Number(id.replace(/\D/g, '') || 0);
 
-/** The ACTIVE_SLOTS strongest companions, power desc, ties → lower id. */
-export function activeCompanions(cs: readonly Companion[]): Companion[] {
+/** Descending bigint comparator. */
+const desc = (a: bigint, b: bigint): number => (a === b ? 0 : b > a ? 1 : -1);
+
+/**
+ * The PARTY_SIZE best companions against `enemyType` (F61): effective power
+ * desc, ties → higher raw power → lower numeric id. Without a type the raw
+ * power decides, which is what the PvP default `autoParty` wants.
+ */
+export function activeCompanions(
+  cs: readonly Companion[],
+  enemyType?: MonsterType,
+): Companion[] {
+  const effective = (c: Companion): bigint =>
+    enemyType === undefined
+      ? companionPower(c)
+      : effectivePower(companionPower(c), typeOf(c.speciesId), enemyType);
   return [...cs]
-    .sort((a, b) => {
-      const pa = companionPower(a);
-      const pb = companionPower(b);
-      if (pa === pb) return idNum(a.id) - idNum(b.id);
-      return pb > pa ? 1 : -1;
-    })
-    .slice(0, ACTIVE_SLOTS);
+    .sort(
+      (a, b) =>
+        desc(effective(a), effective(b)) ||
+        desc(companionPower(a), companionPower(b)) ||
+        idNum(a.id) - idNum(b.id),
+    )
+    .slice(0, PARTY_SIZE);
+}
+
+/** The PvP default party: the PARTY_SIZE strongest by raw power. */
+export function autoParty(cs: readonly Companion[]): Companion[] {
+  return activeCompanions(cs);
+}
+
+/** `ids` resolved against `cs` in the given order; unknown/duplicate dropped. */
+function resolveIds(cs: readonly Companion[], ids: readonly string[]): Companion[] {
+  const party: Companion[] = [];
+  for (const id of ids) {
+    if (party.length >= PARTY_SIZE) break;
+    const c = cs.find((x) => x.id === id);
+    if (c && !party.includes(c)) party.push(c);
+  }
+  return party;
+}
+
+/** The manual PvP party; an empty result falls back to `autoParty` (F61). */
+export function pvpParty(cs: readonly Companion[], ids: readonly string[]): Companion[] {
+  const party = resolveIds(cs, ids);
+  return party.length > 0 ? party : autoParty(cs);
+}
+
+/** Draw order of a party: biggest first (back row), ties keep party order. */
+export function partyOrder(party: readonly Companion[]): Companion[] {
+  return [...party].sort((a, b) => sizeOf(b.speciesId) - sizeOf(a.speciesId));
 }
 
 /**
@@ -61,6 +104,7 @@ export type CollectionAction =
   | { type: 'rebirth' }
   | { type: 'addCompanion'; companion: Companion }
   | { type: 'removeCompanions'; ids: string[] }
+  | { type: 'setPvpParty'; ids: string[] }
   | { type: 'pvpResult'; won: boolean; stolen: Companion | null; lostId: string | null };
 
 export type CollectionResult =
@@ -196,6 +240,11 @@ export function applyCollection(
     }
     case 'removeCompanions':
       return next(state, reroster(cs, action.ids));
+    case 'setPvpParty':
+      // Never an error and no event: an all-unknown list just empties it.
+      return next(state, reroster(cs, []), {
+        pvpParty: resolveIds(cs, action.ids).map((c) => c.id),
+      });
     case 'pvpResult': {
       const companions = reroster(cs, action.lostId === null ? [] : [action.lostId]);
       // A steal into a full roster is void, never an error (Assumption 23).
