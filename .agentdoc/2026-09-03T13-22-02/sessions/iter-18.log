@@ -1,0 +1,14 @@
+{"task":"T69","result":"DONE","gates":"pass","commit":"7321a22350709e26eac7dec8ad0765d0b633550e","note":"New electron-free src/main/thefts.ts (THEFT_POLL_MS=300_000, NOTIFIED_MAX=32, generic timer handle, timers destructured as every/cancel so the ! grep \"setInterval(\" pin holds, one try/catch → poll never rejects). index.ts non-SMOKE only: Notification.isSupported() gate, DesMon body, click → session.reclaim → sendToAll(IPC.ACTION,{type:'addCompanion'}), stop() on will-quit. Out-of-Files: registerIpcHandlers() now returns its NetSession (3 lines, src/main/ipc.ts) — the alternative, a 2nd createNetSession in index.ts, can double-register on a fresh install. tests/thefts.test.ts 5 it, window.test.ts +2. Gates + full AC + smoke green (first try).","children":[]}
+
+작업 요약 (T69):
+
+**구현**
+- `src/main/thefts.ts` (신규, 플랫폼 패키지·전역 타이머 없음): `THEFT_POLL_MS = 300_000`, `NOTIFIED_MAX = 32`, `createTheftWatcher<H>({ session, notify, setInterval, clearInterval, intervalMs, readIdentity, writeIdentity })` → `start()`/`stop()`/`poll()`. 타이머는 `every`/`cancel`로 이름을 바꿔 구조분해 — AC의 `! grep "setInterval("` 핀을 지키기 위함. 핸들 타입은 타입 파라미터라 Node 타이머와 테스트의 가짜 타이머가 모두 통과합니다.
+- `poll()`: `ok: false` → 아무것도 안 함, `notifiedTheftIds`에 없는 절도만 `notify` 후 마지막 32개로 잘라 기록. 전체를 감싼 `try/catch` 하나로 절대 reject 되지 않습니다.
+- `src/main/index.ts` (non-SMOKE 분기에서만): `Notification.isSupported()`가 false면 워처 자체를 만들지 않음, 클릭 → `session.reclaim` → `sendToAll(IPC.ACTION, { type: 'addCompanion', companion })`, `will-quit`에서 `watcher?.stop()`.
+
+**범위 밖 수정 1건**: `registerIpcHandlers()`가 자신의 `NetSession`을 반환하도록 3줄 추가(`src/main/ipc.ts`). index.ts에서 두 번째 세션을 만드는 대안은 신규 설치 시 이중 등록 위험이 있어 이쪽이 짧고 정확합니다. pinned 테스트가 grep 하는 `registerIpcHandlers()` 리터럴은 그대로 유지됩니다.
+
+**테스트**: `tests/thefts.test.ts` 신규 5개(AC 제목 4개 + 던지는 notifier 방어), `tests/window.test.ts`에 F74 describe 2개 추가.
+
+**게이트**: `npm test` 576 passed / `lint` / `typecheck` 모두 통과, AC 한 줄 전체(grep 14개 + `it(` 카운트 5 + `npm run smoke` → SMOKE_OK, 첫 시도) 통과.
