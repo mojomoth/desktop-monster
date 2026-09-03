@@ -32,6 +32,14 @@ export const IPC = {
   LEADERBOARD: 'desmon:leaderboard',
   /** renderer → main (invoke): resolve one asynchronous PvP battle. */
   PVP: 'desmon:pvp',
+  /** main → game window (send): a validated collection action to apply (F51). */
+  ACTION: 'desmon:action',
+  /** menu → main (invoke): a collection action, relayed as ACTION (F51). */
+  MENU_ACTION: 'desmon:menu-action',
+  /** main → menu (send): the save just written, or the one on disk (F51). */
+  STATE_CHANGED: 'desmon:state-changed',
+  /** menu → main (send): the menu is live — answered with STATE_CHANGED. */
+  MENU_READY: 'desmon:menu-ready',
 } as const;
 
 export type IpcChannel = (typeof IPC)[keyof typeof IPC];
@@ -75,3 +83,10 @@ export interface MoveWindowPayload {
   dx: number;
   dy: number;
 }
+
+/**
+ * Payload of `desmon:menu-action` / `desmon:action`: a core `CollectionAction`.
+ * Opaque here so this module stays import-free from core (the sandboxed
+ * preload may only carry type imports); main narrows it before relaying.
+ */
+export type MenuActionPayload = unknown;
