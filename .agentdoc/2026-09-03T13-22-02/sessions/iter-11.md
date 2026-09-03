@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T59 — Engine: type-adjusted volley, companionAttack.effectiveness, pvpResult.replay passthrough
 - result: DONE
-- commit: 4c203553fc553e1306113c0be3742a89e3909672
+- commit: 34cbe0c7ec21c1192aa797f2d714075f207f0cd2 (the work commit; this record's own fixup commit follows it)
 - graphify affected used: none (grep over src/tests was enough: 3 call sites for `companionAttack`, 1 for `pvpResult` in core)
 
 ## What I did
