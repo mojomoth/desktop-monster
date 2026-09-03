@@ -272,6 +272,9 @@ export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
 
 /** Banner text — every glyph exists in font.ts's GLYPH_CHARS. */
 export const LEVEL_UP_TEXT = 'LEVEL UP!';
+export const FEVER_TEXT = 'FEVER!';
+export const VICTORY_TEXT = 'VICTORY!';
+export const DEFEAT_TEXT = 'DEFEAT';
 /** Banner lifetime, ms. */
 export const BANNER_MS = 1200;
 /** Banner pixel scale. */
@@ -285,17 +288,19 @@ export const BANNER_Y = 20;
 export interface Banner {
   active: boolean;
   ageMs: number;
+  text: string;
 }
 
 /** Fresh, inactive banner state. */
 export function createBanner(): Banner {
-  return { active: false, ageMs: 0 };
+  return { active: false, ageMs: 0, text: LEVEL_UP_TEXT };
 }
 
 /** (Re)start the banner — called on every levelUp event. */
-export function showBanner(banner: Banner): void {
+export function showBanner(banner: Banner, text = LEVEL_UP_TEXT): void {
   banner.active = true;
   banner.ageMs = 0;
+  banner.text = text;
 }
 
 /** Age the banner; it deactivates after BANNER_MS. */
@@ -316,6 +321,6 @@ export function drawBanner(ctx: SpriteCanvas, banner: Banner, viewW: number): vo
   }
   const flashPhase = Math.floor(banner.ageMs / BANNER_FLASH_MS) % 2;
   const color = flashPhase === 0 ? COLORS.yellow : COLORS.white;
-  const x = Math.round((viewW - textWidth(LEVEL_UP_TEXT) * BANNER_SCALE) / 2);
-  drawScaledText(ctx, LEVEL_UP_TEXT, x, BANNER_Y, BANNER_SCALE, color);
+  const x = Math.round((viewW - textWidth(banner.text) * BANNER_SCALE) / 2);
+  drawScaledText(ctx, banner.text, x, BANNER_Y, BANNER_SCALE, color);
 }

@@ -45,6 +45,7 @@ import {
   textWidth,
 } from '../src/renderer/sprites/font.js';
 import { COIN_ITEM, SPECIES_IDS, TRINKET_TABLE } from '../src/core/index.js';
+import { drawFeverAura } from '../src/renderer/sprites/index.js';
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/;
 
@@ -172,6 +173,26 @@ describe('drawSprite', () => {
     expect(() => drawSprite(ctx, tiny, 99, 0, 0)).not.toThrow();
     expect(() => drawSprite(ctx, tiny, -1, 0, 0)).not.toThrow();
     expect(calls).toEqual([]);
+  });
+});
+
+describe('fever aura', () => {
+  it('drawFeverAura paints four hue-shifted copies under the sprite and cycles with time', () => {
+    const sprite: Sprite = { w: 1, h: 1, palette: { r: COLORS.red }, frames: [['r']] };
+    const first = makeCtx();
+    drawFeverAura(first.ctx, sprite, 0, 10, 20, 2, 0);
+    expect(first.calls).toEqual([
+      { x: 9, y: 20, w: 2, h: 2, fillStyle: COLORS.red },
+      { x: 11, y: 20, w: 2, h: 2, fillStyle: COLORS.red },
+      { x: 10, y: 19, w: 2, h: 2, fillStyle: COLORS.red },
+      { x: 10, y: 21, w: 2, h: 2, fillStyle: COLORS.red },
+    ]);
+
+    const cycled = makeCtx();
+    drawFeverAura(cycled.ctx, sprite, 0, 10, 20, 2, 480);
+    expect(cycled.calls).toHaveLength(4);
+    expect(cycled.calls.every((call) => call.fillStyle === shiftHue(COLORS.red, 120))).toBe(true);
+    expect(cycled.calls[0]?.fillStyle).not.toBe(first.calls[0]?.fillStyle);
   });
 });
 

@@ -45,6 +45,7 @@ import {
   createBanner,
   createFloatPool,
   CRIT_FLOAT_SCALE,
+  FEVER_TEXT,
   drawBanner,
   drawCounters,
   drawFloats,
@@ -54,6 +55,7 @@ import {
   FLOAT_FADE_RATIO,
   FLOAT_LIFE_MS,
   FLOAT_POOL_SIZE,
+  LEVEL_UP_TEXT,
   showBanner,
   spawnFloat,
   tickBanner,
@@ -268,6 +270,22 @@ describe('LEVEL UP! banner (T15)', () => {
     drawBanner(flashed.ctx, banner, VIEW_W);
     expect(flashed.calls.length).toBeGreaterThan(0);
     expect(flashed.calls.every((c) => c.fillStyle === COLORS.white)).toBe(true);
+  });
+
+  it('banner text is configurable: FEVER! and LEVEL UP! both render', () => {
+    const banner = createBanner();
+    showBanner(banner, FEVER_TEXT);
+    const fever = makeCtx();
+    drawBanner(fever.ctx, banner, VIEW_W);
+
+    showBanner(banner);
+    const levelUp = makeCtx();
+    drawBanner(levelUp.ctx, banner, VIEW_W);
+
+    expect(fever.calls.length).toBeGreaterThan(0);
+    expect(levelUp.calls.length).toBeGreaterThan(0);
+    expect(fever.calls).not.toEqual(levelUp.calls);
+    expect(banner.text).toBe(LEVEL_UP_TEXT);
   });
 });
 
