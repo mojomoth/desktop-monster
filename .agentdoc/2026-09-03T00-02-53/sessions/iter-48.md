@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T53 — SPEC criteria sweep (F01–F58, Server / API, Deployment — literal)
 - result: DONE
-- commit: <this commit>
+- commit: 82badc4
 - graphify affected used: none (sweep task — no source symbol was changed)
 
 ## What I did
@@ -98,7 +98,7 @@ $ S=$(sed -n 's/^DEPLOYED_SHA=//p' AGENTS.md) && git merge-base --is-ancestor "$
      package-lock.json tsconfig.main.json .node-version)"
  S=7a81b346439d8a6d9fe3fe1d0fadd8cbd40e4f4c   ancestor: yes   filter-path log: empty
 
-T53_AC_EXIT=0
+T53_AC_EXIT=0  (run at HEAD 82badc4; the sha-recording commit below touches only .agentdoc)
 Sweep exit codes: F01..F58 = 0, S01..S10 = 0, DEPLOY = 0 (69/69)
 ```
 
