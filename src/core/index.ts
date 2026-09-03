@@ -22,6 +22,8 @@ export {
   xpToNext,
 } from './formulas.js';
 
+export * from './collection.js';
+
 export { createEngine } from './engine.js';
 export type { Engine } from './engine.js';
 
