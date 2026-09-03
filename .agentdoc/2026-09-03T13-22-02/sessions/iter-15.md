@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T61 — Server GET /v1/thefts + POST /v1/reclaim (410 expired, 409 gone) + thefts in the snapshot response
 - result: DONE
-- commit: f2ebbb4eeaf518389ab0d499143c2cc589bb3a0b
+- commit: 82d25bf85de8a02db12d97b4e1fecfb11e492b96
 - graphify affected used: none (the two files of the task plus store.ts/api.ts were enough)
 
 ## What I did
