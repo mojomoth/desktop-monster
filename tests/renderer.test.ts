@@ -20,6 +20,7 @@ import {
   monsterForIndex,
   monsterMaxHp,
   mulberry32,
+  sizeOf,
   xpToNext,
 } from '../src/core/index.js';
 import { DEFAULT_SAVE } from '../src/core/index.js';
@@ -79,7 +80,6 @@ import {
 import { EFFECTS } from '../src/renderer/effects.js';
 import {
   BOSS_HP_BAR_Y,
-  BOSS_SCALE,
   COLORS,
   companionSlot,
   drawSprite,
@@ -826,10 +826,11 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
 describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
   const keys = (calls: RectCall[]): string[] => calls.map(rectKey).sort();
 
-  /** The boss box: 12x10 art at BOSS_SCALE with its feet on the ground. */
+  /** The first boss box: 12x10 art at its species size plus one. */
+  const FIRST_BOSS_DRAW_SCALE = sizeOf(monsterForIndex(7).speciesId) + 1;
   const BOSS_CENTRE = {
-    x: MONSTER_X + (12 * BOSS_SCALE) / 2,
-    y: GROUND_Y - (10 * BOSS_SCALE) / 2,
+    x: MONSTER_X + (12 * FIRST_BOSS_DRAW_SCALE) / 2,
+    y: GROUND_Y - (10 * FIRST_BOSS_DRAW_SCALE) / 2,
   };
 
   it('update() ticks the engine and returns companion events to the save scheduler', () => {
@@ -903,7 +904,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     expect(burst(after.calls)).toHaveLength(preset.count);
   });
 
-  it('a boss draws at scale 3 with a crown and its hp bar raised', () => {
+  it('a boss draws at species size plus one with a crown and its hp bar raised', () => {
     // Monster index 7 is the first boss (5x hp). No floatRegion here: the
     // boss's own top rows fall inside it.
     const game = createGame(
@@ -917,12 +918,14 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
 
-    // Reference built from primitives: tier-tinted species art at 3x with its
-    // feet on the ground, plus the crown centred above the head.
-    const idle = monsterSprites[game.getState().monster.speciesId as SpeciesId].idle;
-    const top = GROUND_Y - idle.h * BOSS_SCALE;
+    // Reference built from primitives: tier-tinted species art at its hidden
+    // size plus one, with its feet on the ground and crown above the head.
+    const speciesId = game.getState().monster.speciesId as SpeciesId;
+    const idle = monsterSprites[speciesId].idle;
+    const scale = sizeOf(speciesId) + 1;
+    const top = GROUND_Y - idle.h * scale;
     const crown = itemSprites.crown;
-    const crownX = MONSTER_X + Math.floor((idle.w * BOSS_SCALE - crown.w) / 2);
+    const crownX = MONSTER_X + Math.floor((idle.w * scale - crown.w) / 2);
     const ref = makeCtx();
     drawSprite(
       ref.ctx,
@@ -930,17 +933,23 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       0,
       MONSTER_X,
       top,
-      { scale: BOSS_SCALE },
+      { scale },
     );
     drawSprite(ref.ctx, crown, 0, crownX, top - crown.h);
 
     // The boss band starts at the crown and ends at the ground; the hp bar
-    // (raised to BOSS_HP_BAR_Y) sits above it, so nothing else lands here.
+    // now crosses that band until T65 expands the field, so select art pixels.
     const bossBand = (cs: RectCall[]): RectCall[] =>
-      cs.filter((c) => c.x >= MONSTER_X && c.y >= top - crown.h && c.y < GROUND_Y);
+      cs.filter(
+        (c) =>
+          c.x >= MONSTER_X &&
+          c.y >= top - crown.h &&
+          c.y < GROUND_Y &&
+          ((c.w === scale && c.h === scale) || (c.w === 1 && c.h === 1)),
+      );
     expect(ref.calls.length).toBeGreaterThan(0);
     expect(keys(bossBand(calls))).toEqual(keys(ref.calls));
-    expect(bossBand(calls).some((c) => c.w === BOSS_SCALE)).toBe(true);
+    expect(bossBand(calls).some((c) => c.w === scale)).toBe(true);
     expect(bossBand(calls).filter((c) => c.w === SPRITE_SCALE)).toEqual([]);
 
     // The hp bar is raised out of the taller sprite's way.

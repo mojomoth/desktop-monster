@@ -23,17 +23,17 @@ import {
 import { heroAttack, heroIdle, heroSlash } from '../src/renderer/sprites/hero.js';
 import { monsterSprites } from '../src/renderer/sprites/monsters.js';
 import { ITEM_SPRITE_IDS, itemSprites } from '../src/renderer/sprites/items.js';
+import { BOSS_HP_BAR_Y, drawBoss } from '../src/renderer/sprites/boss.js';
+import { drawCompanion } from '../src/renderer/sprites/companion.js';
 import {
-  BOSS_HP_BAR_Y,
-  BOSS_SCALE,
-  drawBoss,
-} from '../src/renderer/sprites/boss.js';
-import {
-  companionSlot,
-  COMPANION_SLOT_GAP,
-  COMPANION_X,
-  drawCompanion,
-} from '../src/renderer/sprites/companion.js';
+  drawParty,
+  drawTypeBadge,
+  PARTY_STEP_X,
+  PARTY_STEP_Y,
+  PARTY_X,
+  partySlots,
+  TYPE_COLORS,
+} from '../src/renderer/sprites/party.js';
 import {
   drawText,
   FONT_ADVANCE,
@@ -44,7 +44,8 @@ import {
   glyphIndex,
   textWidth,
 } from '../src/renderer/sprites/font.js';
-import { COIN_ITEM, SPECIES_IDS, TRINKET_TABLE } from '../src/core/index.js';
+import { COIN_ITEM, sizeOf, SPECIES_IDS, TRINKET_TABLE } from '../src/core/index.js';
+import type { Companion } from '../src/core/index.js';
 import { drawFeverAura } from '../src/renderer/sprites/index.js';
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/;
@@ -242,25 +243,25 @@ describe('item art (SPEC F19 part 2)', () => {
 });
 
 describe('boss and companion art helpers (SPEC F40)', () => {
-  it('drawBoss paints the species art at scale 3 with the crown centred above it', () => {
+  it('drawBoss scales by species size plus one', () => {
     const { ctx, calls } = makeCtx();
     const species = monsterSprites.slime;
     drawBoss(ctx, species, 'idle', 0, 118, 92, 1);
 
-    expect(BOSS_SCALE).toBe(3);
-    expect(BOSS_HP_BAR_Y).toBe(54);
-    const body = calls.filter((call) => call.w === BOSS_SCALE && call.h === BOSS_SCALE);
+    const scale = sizeOf('slime') + 1;
+    expect(BOSS_HP_BAR_Y).toBe(78);
+    const body = calls.filter((call) => call.w === scale && call.h === scale);
     expect(body).toHaveLength(species.idle.frames[0]?.join('').replaceAll('.', '').length ?? 0);
     expect(body[0]).toEqual({
-      x: 130,
-      y: 68,
-      w: 3,
-      h: 3,
+      x: 126,
+      y: 76,
+      w: scale,
+      h: scale,
       fillStyle: paletteForTier(species.idle.palette, 1).g,
     });
-    expect(calls.find((call) => call.y === 56)).toEqual({
-      x: 132,
-      y: 56,
+    expect(calls.find((call) => call.y === 66)).toEqual({
+      x: 126,
+      y: 66,
       w: 1,
       h: 1,
       fillStyle: COLORS.yellow,
@@ -280,14 +281,65 @@ describe('boss and companion art helpers (SPEC F40)', () => {
     });
   });
 
-  it('companionSlot stacks three slots upward from the ground left of the hero', () => {
-    expect(COMPANION_X).toBe(2);
-    expect(COMPANION_SLOT_GAP).toBe(14);
-    expect([0, 1, 2].map((k) => companionSlot(k, 92))).toEqual([
-      { x: 2, y: 82 },
-      { x: 2, y: 68 },
-      { x: 2, y: 54 },
+  it('partySlots stacks back members higher and left of front members with scale by size', () => {
+    expect(PARTY_X).toBe(8);
+    expect(PARTY_STEP_X).toBe(14);
+    expect(PARTY_STEP_Y).toBe(3);
+    expect(partySlots([{ speciesId: 'dragon' }, { speciesId: 'ghost' }, { speciesId: 'bat' }], 92)).toEqual([
+      { x: 8, y: 86, scale: 3 },
+      { x: 22, y: 89, scale: 2 },
+      { x: 36, y: 92, scale: 1 },
     ]);
+  });
+
+  it('drawParty paints back members first so front members overlap them', () => {
+    const party: readonly Companion[] = [
+      { id: 'c1', speciesId: 'dragon', bossIndex: 4, level: 1, stars: 1 },
+      { id: 'c2', speciesId: 'slime', bossIndex: 0, level: 1, stars: 0 },
+    ];
+    const { ctx, calls } = makeCtx();
+    drawParty(ctx, party, 0, 92);
+
+    const back = makeCtx();
+    const dragon = monsterSprites.dragon.idle;
+    drawSprite(
+      back.ctx,
+      { ...dragon, palette: paletteForTier(dragon.palette, 1) },
+      0,
+      8,
+      59,
+      { flipX: true, scale: 3 },
+    );
+    const front = makeCtx();
+    const slime = monsterSprites.slime.idle;
+    drawSprite(front.ctx, slime, 0, 22, 82, { flipX: true, scale: 1 });
+    expect(calls).toEqual([...back.calls, ...front.calls]);
+  });
+
+  it('drawTypeBadge paints a coloured square with the type initial', () => {
+    const expectedColors = {
+      fire: COLORS.red,
+      wind: COLORS.cyan,
+      earth: COLORS.brown,
+      water: COLORS.blue,
+      dark: COLORS.maroon,
+    } as const;
+    expect(TYPE_COLORS).toEqual(expectedColors);
+
+    for (const [type, initial] of [
+      ['fire', 'F'],
+      ['wind', 'W'],
+      ['earth', 'E'],
+      ['water', 'A'],
+      ['dark', 'D'],
+    ] as const) {
+      const { ctx, calls } = makeCtx();
+      drawTypeBadge(ctx, type, 10, 20);
+      expect(calls[0]).toEqual({ x: 10, y: 20, w: 5, h: 5, fillStyle: expectedColors[type] });
+      const glyph = makeCtx();
+      drawText(glyph.ctx, initial, 11, 20);
+      expect(calls.slice(1)).toEqual(glyph.calls);
+    }
   });
 });
 

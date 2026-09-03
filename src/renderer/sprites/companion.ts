@@ -3,12 +3,9 @@ import { paletteForTier } from './palette.js';
 import { drawSprite } from './sprite.js';
 import type { SpriteCanvas } from './sprite.js';
 
-export const COMPANION_X = 2;
-export const COMPANION_SLOT_GAP = 14;
-
-/** Companion slots rise from groundY, with room for each 10px-tall species. */
+/** ponytail: compatibility shim removed by the field task T65. */
 export function companionSlot(k: number, groundY: number): { x: number; y: number } {
-  return { x: COMPANION_X, y: groundY - 10 - COMPANION_SLOT_GAP * k };
+  return { x: 2, y: groundY - 10 - 14 * k };
 }
 
 /** Draw a star-tinted companion facing the monster from its active slot. */

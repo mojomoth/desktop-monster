@@ -1,11 +1,13 @@
+import { sizeOf } from '../../core/index.js';
 import { itemSprites } from './items.js';
+import { monsterSprites } from './monsters.js';
 import type { SpeciesSprites } from './monsters.js';
 import { paletteForTier } from './palette.js';
 import { drawSprite } from './sprite.js';
 import type { SpriteCanvas } from './sprite.js';
 
-export const BOSS_SCALE = 3;
-export const BOSS_HP_BAR_Y = 54;
+export const BOSS_SCALE = 3; // ponytail: compatibility shim removed by the field task T65.
+export const BOSS_HP_BAR_Y = 78;
 
 /** Draw tier-tinted species art as a crowned boss with its feet on groundY. */
 export function drawBoss(
@@ -19,11 +21,13 @@ export function drawBoss(
   opts?: { tint?: string },
 ): void {
   const sprite = species[pose];
-  const y = groundY - sprite.h * BOSS_SCALE;
+  const speciesId = Object.entries(monsterSprites).find(([, art]) => art === species)?.[0] ?? '';
+  const scale = sizeOf(speciesId) + 1;
+  const y = groundY - sprite.h * scale;
   drawSprite(ctx, { ...sprite, palette: paletteForTier(sprite.palette, tier) }, frame, x, y, {
-    scale: BOSS_SCALE,
+    scale,
     tint: opts?.tint,
   });
   const crown = itemSprites.crown;
-  drawSprite(ctx, crown, 0, x + Math.floor((sprite.w * BOSS_SCALE - crown.w) / 2), y - crown.h);
+  drawSprite(ctx, crown, 0, x + Math.floor((sprite.w * scale - crown.w) / 2), y - crown.h);
 }

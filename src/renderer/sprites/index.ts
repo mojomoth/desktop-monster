@@ -29,12 +29,17 @@ export type { ItemSpriteId } from './items.js';
 
 export { BOSS_HP_BAR_Y, BOSS_SCALE, drawBoss } from './boss.js';
 
+export { companionSlot, drawCompanion } from './companion.js';
+
 export {
-  companionSlot,
-  COMPANION_SLOT_GAP,
-  COMPANION_X,
-  drawCompanion,
-} from './companion.js';
+  drawParty,
+  drawTypeBadge,
+  PARTY_STEP_X,
+  PARTY_STEP_Y,
+  PARTY_X,
+  partySlots,
+  TYPE_COLORS,
+} from './party.js';
 
 export { drawFeverAura } from './aura.js';
 
