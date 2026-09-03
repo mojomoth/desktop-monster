@@ -403,7 +403,7 @@
 - Notes (iter 33, claude): DONE: shared/ipc.ts: ACTION/MENU_ACTION/STATE_CHANGED/MENU_READY + MenuActionPayload (core-free). main/ipc.ts: sendToOthers() over getAllWindows() skipping the sender; narrowAction() validates the whole CollectionAction union (type-imported from core/collection.js), unknown->null never thrown; SAVE_STATE write -> const parsed = parseSave(data) -> session.onSave(parsed) -> relay STATE_CHANGED; MENU_ACTION -> relay ACTION; MENU_READY answers the sender. Preload+global.d.ts gained onAction/sendAction/onStateChanged/reportMenuReady. main/index.ts untouched. tests it( 16->21, 47 tests. Dead end: T43's `n
 
 
-### [ ] T46 — Menu window + tray item "Collection & Battle…"
+### [~] T46 — Menu window + tray item "Collection & Battle…"
 - AC: `npx vitest run tests/tray.test.ts tests/window.test.ts tests/ipc.test.ts && grep -q "Collection & Battle" src/main/tray.ts && grep -q "menu.html" src/main/menuWindow.ts && grep -q "app.focus({ steal: true })" src/main/menuWindow.ts && grep -q "width: 380" src/main/menuWindow.ts && grep -q "height: 520" src/main/menuWindow.ts && grep -q "sandbox: true" src/main/menuWindow.ts && grep -q "showMenuWindow" src/main/index.ts && grep -q "registerIpcHandlers()" src/main/index.ts && grep -q "tray menu lists title, status, separator, Collection & Battle, Reset Progress, Quit in that order" tests/tray.test.ts && test -e static/menu.html && test "$(grep -c '^\s*it(' tests/tray.test.ts)" -ge 17 && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
 - Deps: T22, T45
 - Worker: claude
