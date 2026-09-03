@@ -228,7 +228,7 @@
 - Notes (iter 23, claude): DONE: monsterMaxHp -> exact rational (10n*115n**i)/100n**i (bigint, one line); MonsterDef.maxHp, GameState.monsterHp, attack.damage, monsterHit.hpAfter/maxHp -> bigint; engine damage BigInt(damageForLevel)*CRIT_MULT, hp saturates at 0n, resume clamps via new 1-line clampHp (Math.min/max reject bigint); drawHpBar takes bigint and fills via core ratio(). monsters.ts/save.ts/game.ts/loot.ts needed no edit. Tests: values kept, types only; added the 2 required its (formulas 11, renderer 52, engine 16). save/audio passed untouched. No dead ends - green first run.
 
 
-### [ ] T26 — Boss cadence in core: every 8th monster, 5× hp/xp/coins
+### [~] T26 — Boss cadence in core: every 8th monster, 5× hp/xp/coins
 - AC: `npx vitest run tests/formulas.test.ts tests/engine.test.ts tests/loot.test.ts && grep -q "BOSS_EVERY = 8" src/core/monsters.ts && grep -q "boss: boolean" src/core/types.ts && grep -q "every 8th monster (index 7, 15, 23) is a boss with 5x hp and a BOSS name; the species still cycles" tests/formulas.test.ts && grep -q "killing a boss grants 5x xp and 5x coins" tests/engine.test.ts && test "$(grep -c '^\s*it(' tests/formulas.test.ts)" -ge 12 && test "$(grep -c '^\s*it(' tests/engine.test.ts)" -ge 17` → exit 0
 - Deps: T25
 - Worker: claude
