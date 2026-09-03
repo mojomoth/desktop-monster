@@ -129,6 +129,10 @@ export const EFFECTS: {
   },
 };
 
+export function hitColorOf(speciesId: string): string {
+  return EFFECTS.hit[speciesId as SpeciesId]?.colors[0] ?? COLORS.white;
+}
+
 export function spawnEffect(
   pool: Particle[],
   preset: EffectPreset,
