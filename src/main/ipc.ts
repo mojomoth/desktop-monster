@@ -27,7 +27,7 @@ import type {
 } from '../shared/ipc.js';
 import { SERVER_URL } from '../shared/serverUrl.js';
 import { getCurrentInputMode } from './globalInput.js';
-import { createNetClient, createNetSession } from './net.js';
+import { createNetClient, createNetSession, type NetSession } from './net.js';
 import { readSaveFile, writeSaveFile } from './persistence.js';
 
 /** Deep link to the macOS Privacy & Security → Accessibility pane. */
@@ -139,8 +139,12 @@ export interface IpcOptions {
   onFirstFrame?: () => void;
 }
 
-/** Register all renderer→main handlers. Call once, before the window loads. */
-export function registerIpcHandlers(options: IpcOptions = {}): void {
+/**
+ * Register all renderer→main handlers. Call once, before the window loads.
+ * Returns the net session it owns, so the theft watcher (F74) shares it
+ * instead of opening a second identity of its own.
+ */
+export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
   // SPEC F49: smoke runs offline BY CODE — an empty baseUrl makes the net
   // client resolve `{ ok: false, error: 'offline' }` without ever calling
   // fetch, so `npm run smoke` needs no network and no server.
@@ -246,4 +250,6 @@ export function registerIpcHandlers(options: IpcOptions = {}): void {
     const [x = 0, y = 0] = win.getPosition();
     win.setPosition(x + dx, y + dy);
   });
+
+  return session;
 }

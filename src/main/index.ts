@@ -2,16 +2,21 @@
 // + IPC handlers (T03) + guarded global input hook (T04, production only)
 // + tray icon/menu (T17, SPEC F23) + the SMOKE=1 self-test sequence (T13).
 
+import { randomUUID } from 'node:crypto';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { app, Menu, nativeImage, shell, systemPreferences, Tray } from 'electron';
+import { app, Menu, nativeImage, Notification, shell, systemPreferences, Tray } from 'electron';
 import type { BrowserWindow } from 'electron';
+import type { Theft } from '../shared/api.js';
 import { SimulatedInputDriver } from '../core/index.js';
 import { IPC } from '../shared/ipc.js';
 import { getCurrentInputMode, startGlobalInput } from './globalInput.js';
-import { ACCESSIBILITY_SETTINGS_URL, registerIpcHandlers } from './ipc.js';
+import { readIdentity, writeIdentity } from './identity.js';
+import { ACCESSIBILITY_SETTINGS_URL, registerIpcHandlers, sendToAll } from './ipc.js';
 import { showMenuWindow } from './menuWindow.js';
+import type { NetSession } from './net.js';
+import { createTheftWatcher } from './thefts.js';
 import { setupTray } from './tray.js';
 import { encodeTrayIconPng } from './trayIcon.js';
 import { createOverlayWindow } from './window.js';
@@ -45,6 +50,48 @@ function runSmokeSequence(win: BrowserWindow): void {
   }, SMOKE_EXIT_DELAY_MS);
 }
 
+/** Whole hours left in a theft's 24 h reclaim window, never negative. */
+const hoursLeft = (reclaimUntil: number): number =>
+  Math.max(0, Math.ceil((reclaimUntil - Date.now()) / 3_600_000));
+
+/**
+ * SPEC F74: the ONE main-originated action. The server re-ids the companion,
+ * so the game window adds it as-is, flushes the save, and STATE_CHANGED
+ * carries it on to the menu. A failed reclaim is silent — the inbox in the
+ * menu is the place that explains why.
+ */
+function reclaimAndApply(session: NetSession, theftId: string): void {
+  void session.reclaim(theftId).then((res) => {
+    if (res.ok) {
+      sendToAll(IPC.ACTION, { type: 'addCompanion', companion: res.value.companion });
+    }
+  });
+}
+
+/**
+ * Native notification for one theft, click → reclaim. The whole body is
+ * guarded: `Notification` is OS-owned and its failure must cost a toast, not
+ * the app.
+ */
+function makeNotifier(session: NetSession): (t: Theft) => void {
+  return (t) => {
+    try {
+      const species = t.companion.speciesId;
+      const speciesName = species.charAt(0).toUpperCase() + species.slice(1);
+      const n = new Notification({
+        title: 'DesMon',
+        body: `${t.thiefName} stole your ${speciesName} Lv ${String(t.companion.level)}! Click to reclaim (${String(hoursLeft(t.reclaimUntil))}h left).`,
+      });
+      n.on('click', () => {
+        reclaimAndApply(session, t.id);
+      });
+      n.show();
+    } catch {
+      // an unusable notifier is not a reason to take the game down
+    }
+  };
+}
+
 // Accessory lifecycle order matters: setName first, single-instance gate,
 // dock hidden BEFORE window creation (see GAME_ARCHITECTURE §0.3/§3.1).
 app.setName('DesMon');
@@ -75,20 +122,18 @@ if (!app.requestSingleInstanceLock()) {
     let smokeStarted = false;
 
     // Register BEFORE the window loads, so early invokes resolve.
-    if (isSmoke) {
-      registerIpcHandlers({
-        onFirstFrame: () => {
-          // SMOKE_OK may only follow the renderer's first painted frame.
-          if (smokeWin === null || smokeStarted) {
-            return;
-          }
-          smokeStarted = true;
-          runSmokeSequence(smokeWin);
-        },
-      });
-    } else {
-      registerIpcHandlers();
-    }
+    const session = isSmoke
+      ? registerIpcHandlers({
+          onFirstFrame: () => {
+            // SMOKE_OK may only follow the renderer's first painted frame.
+            if (smokeWin === null || smokeStarted) {
+              return;
+            }
+            smokeStarted = true;
+            runSmokeSequence(smokeWin);
+          },
+        })
+      : registerIpcHandlers();
 
     const win = createOverlayWindow();
     smokeWin = win;
@@ -117,6 +162,23 @@ if (!app.requestSingleInstanceLock()) {
     });
 
     if (!isSmoke) {
+      // Theft watcher (SPEC F74): SMOKE never starts it, so a smoke run stays
+      // offline. No notification support → no watcher at all: there would be
+      // nothing to show, so there is nothing to poll for either.
+      const watcher = Notification.isSupported()
+        ? createTheftWatcher({
+            session,
+            notify: makeNotifier(session),
+            setInterval,
+            clearInterval,
+            readIdentity: () => readIdentity(app.getPath('userData'), randomUUID),
+            writeIdentity: (identity) => {
+              writeIdentity(app.getPath('userData'), identity);
+            },
+          })
+        : null;
+      watcher?.start();
+
       // SMOKE=1 bypasses global input ENTIRELY: no Accessibility prompt and
       // no native hook (starting it without the grant crashes the process).
       const globalInput = startGlobalInput({
@@ -132,6 +194,7 @@ if (!app.requestSingleInstanceLock()) {
       });
       app.on('will-quit', () => {
         globalInput.stop(); // uIOhook.stop() + cancel the grant poll
+        watcher?.stop();
       });
     }
   });
