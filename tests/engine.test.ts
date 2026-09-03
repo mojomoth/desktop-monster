@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
+  COIN_ITEM,
+  coinsForIndex,
   createEngine,
   CRIT_MULT,
   damageForLevel,
@@ -179,6 +181,29 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const s = engine.getState();
     expect(s.coins).toBe(1); // coinsForIndex(0)
     expect(s.items).toEqual({ sword_shard: 1 });
+  });
+
+  it('killing a boss grants 5x xp and 5x coins', () => {
+    // Index 7 is the first boss (BOSS_EVERY = 8); index 6 is its plain neighbour.
+    const bossKill = createEngine(makeSave({ monsterIndex: 7, monsterHp: 1 }), calmRng());
+    const events = bossKill.attack('keyboard');
+    const killed = events[2];
+    if (killed?.type !== 'monsterKilled') throw new Error('expected monsterKilled');
+    expect(killed.monster.boss).toBe(true);
+    expect(killed.monster.maxHp).toBe(monsterMaxHp(7) * 5n);
+    expect(killed.xpGained).toBe(xpReward(7) * 5);
+    const dropped = events[3];
+    if (dropped?.type !== 'itemDropped') throw new Error('expected itemDropped');
+    expect(dropped.drops[0]).toEqual({ item: COIN_ITEM, amount: coinsForIndex(7) * 5 });
+    expect(bossKill.getState().coins).toBe(coinsForIndex(7) * 5);
+
+    const plainKill = createEngine(makeSave({ monsterIndex: 6, monsterHp: 1 }), calmRng());
+    const plain = plainKill.attack('keyboard');
+    const plainKilled = plain[2];
+    if (plainKilled?.type !== 'monsterKilled') throw new Error('expected monsterKilled');
+    expect(plainKilled.monster.boss).toBe(false);
+    expect(plainKilled.xpGained).toBe(xpReward(6));
+    expect(plainKill.getState().coins).toBe(coinsForIndex(6));
   });
 
   it('same seed yields an identical event log', () => {

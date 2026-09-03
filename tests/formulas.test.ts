@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import {
+  BOSS_EVERY,
   CRIT_CHANCE,
   CRIT_MULT,
   damageForLevel,
+  isBoss,
   monsterForIndex,
   monsterMaxHp,
   SPECIES_IDS,
@@ -86,8 +88,37 @@ describe('monster catalog (SPEC F05, Assumption 4)', () => {
 
   it('monsterForIndex maxHp always equals monsterMaxHp(index)', () => {
     for (const i of [0, 1, 4, 5, 9, 10, 20, 37]) {
-      expect(monsterForIndex(i).maxHp).toBe(monsterMaxHp(i));
+      expect(monsterForIndex(i).maxHp).toBe(monsterMaxHp(i) * (isBoss(i) ? 5n : 1n));
     }
+  });
+
+  it('every 8th monster (index 7, 15, 23) is a boss with 5x hp and a BOSS name; the species still cycles', () => {
+    expect(BOSS_EVERY).toBe(8);
+    for (const i of [7, 15, 23, 31, 39]) {
+      expect(isBoss(i)).toBe(true);
+      const m = monsterForIndex(i);
+      expect(m.boss).toBe(true);
+      expect(m.maxHp).toBe(monsterMaxHp(i) * 5n);
+    }
+    expect(monsterForIndex(7).name).toBe('Ghost Lv.2 BOSS');
+    expect(monsterForIndex(15).name).toBe('Slime Lv.4 BOSS');
+    expect(monsterForIndex(23).name).toBe('Golem Lv.5 BOSS');
+    // 8 is not a multiple of 5, so every species gets its turn as a boss.
+    expect([7, 15, 23, 31, 39].map((i) => monsterForIndex(i).speciesId)).toEqual([
+      'ghost',
+      'slime',
+      'golem',
+      'bat',
+      'dragon',
+    ]);
+    for (const i of [0, 6, 8, 14, 16]) {
+      expect(isBoss(i)).toBe(false);
+      const m = monsterForIndex(i);
+      expect(m.boss).toBe(false);
+      expect(m.maxHp).toBe(monsterMaxHp(i));
+      expect(m.name).not.toContain('BOSS');
+    }
+    expect(isBoss(-1)).toBe(false);
   });
 
   it('display name is "Slime Lv.3" style, with the Lv number = tier + 1', () => {
