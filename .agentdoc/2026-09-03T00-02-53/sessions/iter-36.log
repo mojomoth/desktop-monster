@@ -1,0 +1,9 @@
+{"task":"T40","result":"DONE","gates":"pass","commit":"94e0c0cefe4c90bcd66a5ec16db55736b2421eec","note":"Added POST /v1/pvp to src/server/app.ts in the exact SERVER_ARCHITECTURE §5 order (auth -> rate limit -> cooldown via lastPvpAt with PVP_COOLDOWN_MS=60_000 and retryAfterSec -> no_snapshot -> setLastPvpAt incl. bots -> seed>>>0 -> neighbour up/down by seed&1 or BOT_NAME 'Training Dummy' -> core resolvePvp(mulberry32(seed)) -> steal bookkeeping with id 's'+seed, original id into stolenIds, both putSnapshot, ponytail BEGIN/COMMIT note). New tests/server/pvp.test.ts: 9 tests, 7 AC titles verbatim + both steal directions, removed-on-next-upload, cooldown boundary. Gate-forced: tests/server/app.test.ts 404 table entry POST /v1/pvp -> GET /v1/pvp (route now exists; it( count unchanged). Date.now( still absent from app.ts. No dead ends; passed first run.","children":[]}
+
+Implementation summary:
+
+- `src/server/app.ts` — `PVP_COOLDOWN_MS = 60_000`, `BOT_NAME = 'Training Dummy'`, and the `pvp` handler wired into `route()`. The verdict is core's `resolvePvp` seeded with `mulberry32(seed)`; no maths is re-implemented and `attackerPower`/`defenderPower` never reach the wire. The three non-transactional store writes carry a `ponytail:` comment naming `BEGIN/COMMIT` as the upgrade.
+- `tests/server/pvp.test.ts` (new, 9 tests) — MemoryStore, counter clock, injected seed queue; no sockets/timers/DB/wall clock.
+- `tests/server/app.test.ts` — one gate-forced line: the 404 table pinned `POST /v1/pvp`, which now answers 401; swapped to `GET /v1/pvp` so the unknown-route coverage and the `it(` count are unchanged.
+
+Gates: `npm test` 413 passed (27 files), `npm run lint` clean, `npm run typecheck` clean. The AC line ran verbatim and exited 0. `npm run smoke` was not run — the task touches only `src/server` and `tests/`.
