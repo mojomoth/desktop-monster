@@ -1,0 +1,21 @@
+{"task":"T75","result":"NOTHING_TO_DO","gates":"pass","commit":"cf20f8e846be130d607ab3b29eb2c3c405544d8e","note":"AC verified literally on a clean tree, exit 0: npm run package produced release/DesMon-0.3.0-arm64.dmg + release/mac-arm64/DesMon.app; the packaged binary with SMOKE=1 printed SMOKE_OK; no node_modules/pg/* and no dist/electron/server/* inside the .app. The T01/T19/T52 electron-builder config satisfies F79/F25/F58 unchanged (identity:null, npmRebuild:false, files excludes !dist/electron/server/**, pg only in devDependencies, version 0.3.0), and T72 already wrote the 0.3.0 README artifact names — so README was left untouched and no source changed. Gates green (589 tests, lint, typecheck). Commit contains only the session record."}
+
+## 요약 (한글)
+
+**결과: NOTHING_TO_DO — 빌드할 것이 없었고, AC는 깨끗한 트리에서 그대로 통과했습니다.**
+
+확인한 내용:
+
+- **electron-builder 설정은 손대지 않아도 F79/F25/F58을 만족** — `version 0.3.0`, `mac.identity: null`, `hardenedRuntime/notarize: false`, `npmRebuild: false`, `files: ["dist/**/*","static/**/*","!dist/electron/server/**"]`, `pg@8.23.0`는 devDependencies (런타임 의존성은 `uiohook-napi` 하나뿐), package 스크립트에 `CSC_IDENTITY_AUTO_DISCOVERY=false`. Notes 지시대로 **검증만 하고 재작성하지 않았습니다.**
+- **README도 이미 0.3.0** — Packaging 섹션에 `release/DesMon-0.3.0-arm64.dmg`, `release/mac-arm64/DesMon.app`, 패키지 SMOKE 라인이 T72에서 작성되어 있어 **README는 그대로 두었습니다** (Files에 있던 유일한 파일).
+- **새 테스트 불필요** — `tests/packaging.test.ts`(identity/npmRebuild/files/dmg 타깃/`pkg.version`과 동기화된 아티팩트 이름)와 `tests/server/pgStore.test.ts:174`("keeps the compiled server out of the packaged .app" → `!dist/electron/server/**`)가 이미 커버합니다. ponytail 2단(이미 존재하면 재사용).
+
+실행 결과:
+
+- 게이트: `npm test && npm run lint && npm run typecheck` → 34 files / **589 tests 통과**, exit 0.
+- AC 라인 그대로 실행 → **exit 0**. `npm run package`는 한 번만 돌렸고 `release/`는 `.gitignore:3`으로 커밋에서 제외됩니다.
+- 패키지 SMOKE 로그: `SMOKE_OK` (뒤따르는 `MojoAudioOutputIPC` 줄은 종료 후 나오는 Chromium 오디오 경고로, AC는 `SMOKE_OK`만 grep합니다).
+
+주의할 점 하나: 실행 중이던 Electron 개발 인스턴스를 **끄지 않았는데도** SMOKE_OK가 나왔습니다. Assumption 40의 임시 `userData`(`src/main/index.ts:99-105`, `setName` 뒤 · `requestSingleInstanceLock` 앞)가 single-instance 락을 격리하기 때문입니다. 다음 이터레이션이 "dev 인스턴스를 먼저 종료" 단계를 다시 시도할 필요는 없습니다.
+
+커밋 `cf20f8e`에는 세션 기록 한 파일만 들어 있고, 트리는 깨끗합니다.
