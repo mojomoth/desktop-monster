@@ -391,7 +391,7 @@
 - Notes (iter 26, claude): DONE: Added GET_IDENTITY/SET_NAME/LEADERBOARD/PVP + SetNamePayload/LeaderboardQueryPayload to shared/ipc.ts (core-free); main/ipc.ts pins the SMOKE offline baseUrl literal, builds ONE createNetSession in registerIpcHandlers, adds 4 validating handlers (finite n clamped to [1,LEADERBOARD_MAX]; name validated by isValidName) and session.onSave(parseSave(data)) after writeSaveFile; preload+global.d.ts gained the 4 methods (preload still value-imports only electron); tests/ipc.test.ts EXTENDED (it( 20->24). Dead end: wrapping ipcMain.handle(\n IPC.LEADERBOARD breaks the AC grep — the constant must stay 
 
 
-### [ ] T44 — Render deploy: bootstrap, SERVER_URL, push, deploys create --wait, healthz + probe, README
+### [~] T44 — Render deploy: bootstrap, SERVER_URL, push, deploys create --wait, healthz + probe, README
 - AC: `grep -q "SERVER_URL = 'https://" src/shared/serverUrl.ts && grep -q '^SERVER_URL=https://' AGENTS.md && grep -q '^RENDER_SERVICE_ID=' AGENTS.md && grep -q '^DB_EXPIRES=' AGENTS.md && grep -q '^DEPLOYED_SHA=' AGENTS.md && grep -q 'start:server' README.md && grep -q 'Leaderboard' README.md && grep -q 'self-reported' README.md && npm run build && test -f dist/electron/server/probe.js && ! grep -q 'pvp(' src/server/probe.ts && ([ -n "$DESMON_SKIP_NET" ] || (URL=$(node -e "process.stdout.write(require('./dist/electron/shared/serverUrl.js').SERVER_URL)") && curl -fsS --retry 5 --retry-delay 30 --max-time 90 -o /tmp/desmon-healthz.json "$URL/healthz" && grep -q '"ok":true' /tmp/desmon-healthz.json && node dist/electron/server/probe.js "$URL"))` → exit 0
 - Deps: T40, T41, T43
 - Worker: claude
