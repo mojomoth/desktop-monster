@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T25 — BigInt cutover: exact-rational monsterMaxHp, hp/damage bigint end to end
 - result: DONE
-- commit: 5af8ce399bfbfa6c021cd19b2d0e7fcc1643a9ea
+- commit: 9bda2422c5aa0aa9bbbff790bb879b0b96444490 (the T25 code+test commit; this record line was corrected in the immediate follow-up commit)
 - graphify affected used: none (grep over `monsterHp|maxHp|damage` located every consumer in one pass — cheaper than a graph query)
 
 ## What I did
