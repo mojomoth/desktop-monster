@@ -5,6 +5,7 @@ import {
   createEngine,
   CRIT_MULT,
   damageForLevel,
+  monsterForIndex,
   monsterMaxHp,
   mulberry32,
   parseSave,
@@ -12,7 +13,8 @@ import {
   xpReward,
   xpToNext,
 } from '../src/core/index.js';
-import type { GameEvent, Rng, SaveFileV1 } from '../src/core/index.js';
+import type { Companion, GameEvent, Rng, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
+import { CAPTURE_CHANCE } from '../src/core/engine.js';
 
 /** Rng stub returning a scripted sequence (repeats its last value). */
 function scriptedRng(values: number[]): Rng {
@@ -37,6 +39,35 @@ function makeSave(overrides: Partial<SaveFileV1> = {}): SaveFileV1 {
     monsterIndex,
     monsterHp: Number(monsterMaxHp(monsterIndex)),
     ...overrides,
+  };
+}
+
+function makeSaveV2(overrides: Partial<SaveFileV2> = {}): SaveFileV2 {
+  const monsterIndex = overrides.monsterIndex ?? 0;
+  return {
+    version: 2,
+    level: 1,
+    xp: 0,
+    killCount: 0,
+    coins: 0,
+    items: {},
+    monsterIndex,
+    monsterHp: String(monsterForIndex(monsterIndex).maxHp),
+    companions: [],
+    nextCompanionId: 1,
+    souls: 0,
+    rebirths: 0,
+    bestIndex: monsterIndex,
+    ...overrides,
+  };
+}
+
+/** Scripted Rng that also reports how many draws it handed out. */
+function countingRng(values: number[]): { rng: Rng; draws: () => number } {
+  let n = 0;
+  return {
+    rng: { next: () => values[Math.min(n++, values.length - 1)] ?? 0 },
+    draws: () => n,
   };
 }
 
@@ -287,5 +318,139 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     s.items['crown'] = 99;
     expect(engine.getState().monsterHp).toBe(10n);
     expect(engine.getState().items).toEqual({});
+  });
+
+  it('a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent', () => {
+    // Index 7 is the first boss. Draws: crit 0.5 (no), loot 0.5 (no trinket),
+    // capture 0.0 < CAPTURE_CHANCE (yes) — the capture draw comes last.
+    const bossSave = makeSave({ monsterIndex: 7, monsterHp: 1 });
+    const engine = createEngine(bossSave, scriptedRng([0.5, 0.5, 0.0]));
+    const events = engine.attack('keyboard');
+    expect(types(events)).toEqual([
+      'attack',
+      'monsterHit',
+      'monsterKilled',
+      'itemDropped',
+      'bossCaptured',
+      'levelUp',
+      'levelUp',
+      'levelUp',
+      'monsterSpawned',
+    ]);
+    const captured = events[4];
+    if (captured?.type !== 'bossCaptured') throw new Error('expected bossCaptured');
+    expect(captured.companion).toEqual({
+      id: 'c1',
+      speciesId: 'ghost', // 7 % 5 = 2
+      bossIndex: 7,
+      level: 1,
+      stars: 0,
+    });
+    const s = engine.getState();
+    expect(s.companions).toEqual([captured.companion]);
+    expect(s.nextCompanionId).toBe(2);
+
+    // 10000 seeded boss kills (fresh engine, one shared rng): 32-38 %.
+    expect(CAPTURE_CHANCE).toBe(0.35);
+    const rng = mulberry32(20260903);
+    let captures = 0;
+    for (let i = 0; i < 10000; i++) {
+      for (const e of createEngine(bossSave, rng).attack('keyboard')) {
+        if (e.type === 'bossCaptured') captures++;
+      }
+    }
+    const rate = captures / 10000;
+    expect(rate).toBeGreaterThanOrEqual(0.32);
+    expect(rate).toBeLessThanOrEqual(0.38);
+  });
+
+  it('non-boss kills consume exactly the v1 rng draws', () => {
+    // v1 sequence: crit, loot (1 draw; 2 when a trinket drops). No capture draw.
+    const boring = countingRng([0.5]);
+    createEngine(makeSave({ monsterHp: 1 }), boring.rng).attack('keyboard');
+    expect(boring.draws()).toBe(2);
+
+    const lucky = countingRng([0.0]); // crit, trinket, weighted pick
+    createEngine(makeSave({ monsterHp: 1 }), lucky.rng).attack('keyboard');
+    expect(lucky.draws()).toBe(3);
+
+    // A boss kill spends exactly one more draw than the same non-boss kill.
+    const boss = countingRng([0.5]);
+    const events = createEngine(makeSave({ monsterIndex: 7, monsterHp: 1 }), boss.rng).attack(
+      'keyboard',
+    );
+    expect(boss.draws()).toBe(3);
+    expect(types(events)).not.toContain('bossCaptured'); // 0.5 >= CAPTURE_CHANCE
+  });
+
+  it('a capture into a full roster of 30 is skipped but still spends the draw', () => {
+    const companions: Companion[] = Array.from({ length: 30 }, (_, i) => ({
+      id: `c${i + 1}`,
+      speciesId: 'slime',
+      bossIndex: 7,
+      level: 1,
+      stars: 0,
+    }));
+    const full = makeSaveV2({
+      monsterIndex: 7,
+      monsterHp: '1',
+      companions,
+      nextCompanionId: 31,
+    });
+    const counted = countingRng([0.5, 0.5, 0.0]); // the capture roll would succeed
+    const engine = createEngine(full, counted.rng);
+    const events = engine.attack('keyboard');
+    expect(types(events)).not.toContain('bossCaptured');
+    expect(counted.draws()).toBe(3); // crit, loot, capture — the draw is spent
+    const s = engine.getState();
+    expect(s.companions).toHaveLength(30);
+    expect(s.nextCompanionId).toBe(31);
+  });
+
+  it('bestIndex tracks the deepest monster index ever spawned', () => {
+    const engine = createEngine(makeSave({ level: 100, monsterHp: 1 }), calmRng());
+    expect(engine.getState().bestIndex).toBe(0);
+    for (let i = 0; i < 5; i++) {
+      engine.attack('keyboard');
+    }
+    expect(engine.getState().monster.index).toBe(5);
+    expect(engine.getState().bestIndex).toBe(5);
+    expect(engine.toSave().bestIndex).toBe(5);
+    // Resume never forgets: at least the resumed index, never lowered.
+    const behind = createEngine(makeSaveV2({ monsterIndex: 12, bestIndex: 3 }), calmRng());
+    expect(behind.getState().bestIndex).toBe(12);
+    const ahead = createEngine(makeSaveV2({ monsterIndex: 12, bestIndex: 99 }), calmRng());
+    expect(ahead.getState().bestIndex).toBe(99);
+  });
+
+  it('apply(rebirth) emits rebirth and multiplies hero damage by 1 plus souls', () => {
+    const engine = createEngine(makeSaveV2({ monsterIndex: 40, level: 7, xp: 3 }), calmRng());
+    expect(engine.apply({ type: 'rebirth' })).toEqual([{ type: 'rebirth', souls: 5 }]); // 40/8
+    const s = engine.getState();
+    expect(s.level).toBe(1);
+    expect(s.xp).toBe(0);
+    expect(s.souls).toBe(5);
+    expect(s.rebirths).toBe(1);
+    expect(s.monster.index).toBe(0);
+    expect(s.monsterHp).toBe(monsterMaxHp(0));
+    expect(s.bestIndex).toBe(40); // rebirth keeps the record
+    // damage = level 1 x (1 + 5 souls)
+    expect(engine.attack('keyboard')[0]).toEqual({
+      type: 'attack',
+      damage: 6n,
+      crit: false,
+      source: 'keyboard',
+    });
+    expect(engine.toSave().souls).toBe(5);
+  });
+
+  it('apply with an invalid action emits nothing and leaves state untouched', () => {
+    const engine = createEngine(makeSaveV2({ monsterIndex: 10 }), calmRng());
+    const before = engine.getState();
+    expect(engine.apply({ type: 'sacrifice', id: 'nope' })).toEqual([]);
+    expect(engine.apply({ type: 'fuse', aId: 'c1', bId: 'c2' })).toEqual([]);
+    expect(engine.apply({ type: 'rebirth' })).toEqual([]); // index 10 is below 40
+    expect(engine.getState()).toEqual(before);
+    expect(engine.toSave()).toEqual(makeSaveV2({ monsterIndex: 10 }));
   });
 });
