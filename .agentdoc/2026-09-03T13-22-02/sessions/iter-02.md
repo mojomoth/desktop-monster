@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T55 — Type chart + species type/size: types-chart.ts, SPECIES_TYPE/SPECIES_SIZE, MonsterDef.type
 - result: DONE
-- commit: 7955eb26a3f7f6c1b6d7514a27aa25744669cf1d
+- commit: 8c3dc54d2534b62dfbb2c84f7e295e652c7591b0 (this record's own sha differs — it is fixed up in the follow-up docs commit)
 - graphify affected used: none (grepped MonsterDef / `tier:` / `speciesId:` directly — only `monsterForIndex` builds a `MonsterDef`, so no literal in tests needed a `type` field)
 
 ## What I did
