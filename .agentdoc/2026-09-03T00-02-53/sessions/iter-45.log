@@ -1,0 +1,12 @@
+{"task":"T50","result":"DONE","gates":"pass","commit":"8525f46ca8819f88653f160f7d30c503d3e6c6a9","note":"Bumped package.json+package-lock.json to 0.2.0 (only the 2 top-level version fields), TRAY_TITLE='DesMon v0.2.0', README gained Gameplay (bosses 8th/5x, 35% capture, companion volley, fever, lifecycle, rebirth+souls, A-Z) and Collection & Battle sections, SERVER_URL/DESMON_SERVER_URL/offline, artifact DesMon-0.2.0-arm64.dmg; all v1 literals kept. packaging.test.ts 11->14 it(. SPEC M9-M14 already complete (M6/M8 already 0.2.0) - no edit. Dead end: global perl on the lock also bumped cross-dirname/yocto-queue; reverted. Re-ran F28-F37/F43-F49: all pass except F43/F46 which fail only on missing node_modules/pg (declared in package.json AND lock; shared node_modules never installed it - cold npm ci fixes; not patched)."}
+
+Gates (`npm test && npm run lint && npm run typecheck`) and the T50 AC both exit 0 in this worktree.
+
+**Changes**
+- `package.json` / `package-lock.json` → `0.2.0` (lock diff is exactly 2 lines; the `cross-dirname`/`yocto-queue` 0.1.0 entries stay untouched)
+- `src/main/tray.ts:9` → `TRAY_TITLE = 'DesMon v0.2.0'`
+- `README.md` — new `## Gameplay` and `## Collection & Battle window` sections, tray-menu line now lists `Collection & Battle…`, intro mentions bosses/fever/leaderboard/PvP, explicit `SERVER_URL` constant alongside the `DESMON_SERVER_URL` override, artifact name `release/DesMon-0.2.0-arm64.dmg`. All v1-pinned literals preserved.
+- `tests/packaging.test.ts` — 11 → 14 `it(`: v2 gameplay docs, server/leaderboard/PvP/offline/Render-caveat docs, and a package-lock-version-lockstep check.
+- `SPEC.md` — no change: M9–M14 are already complete and M6/M8 already carry the 0.2.0 literals.
+
+**Pre-T51 sweep (F28–F37, F43–F49, run literally):** all green including `npm run smoke` → `SMOKE_OK`, except F43 and F46, which fail solely on `test -d node_modules/pg` / `require('pg')`. `pg@8.23.0` is present in both `package.json` devDependencies and `package-lock.json`; the shared `node_modules` symlinked into the lanes simply never had it installed. That's an install-state gap, not a repo gap — a cold `npm ci` (as the Validator does) resolves it, and installing from the lane is forbidden, so I left it alone.
