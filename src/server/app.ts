@@ -5,7 +5,7 @@
 // injected (deps), so tests are deterministic and this file has no wall clock.
 
 import { createHash } from 'node:crypto';
-import { companionPower, mulberry32, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
+import { mulberry32, pvpParty, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
 import {
   COMPANION_ID_RE,
   INT_MAX,
@@ -16,8 +16,16 @@ import {
   MATCH_TTL_MS,
   NICK_RE,
   PARTY_SIZE_MAX,
+  RECLAIM_WINDOW_MS,
+  THEFTS_MAX,
 } from '../shared/api.js';
-import type { Companion, LeaderboardRow, PvpOpponent, Snapshot } from '../shared/api.js';
+import type {
+  Companion,
+  LeaderboardRow,
+  PvpOpponent,
+  PvpResponse,
+  Snapshot,
+} from '../shared/api.js';
 import type { ApiHandler, ApiRequest, ApiResponse } from './http.js';
 import { compareScore } from './store.js';
 import type { PlayerRow, Store } from './store.js';
@@ -131,30 +139,14 @@ export function parseSnapshot(raw: unknown): Snapshot | null {
   return { name, bestIndex, rebirths, companions: roster, party };
 }
 
-/** Numeric part of a companion id — the power tie-breaker (as in core). */
-const idNum = (id: string): number => Number(id.replace(/\D/g, '') || 0);
-
-/**
- * The PvP party a snapshot fights with: its stored ids resolved in order, else
- * the PARTY_SIZE_MAX strongest by raw power (ties → lower id).
- * ponytail: a local stand-in for core's `pvpParty`/`autoParty`, which T57 adds;
- * T60 deletes this helper and calls those.
- */
-function partyOf(s: Snapshot): Companion[] {
-  const picked = s.party
-    .map((id) => s.companions.find((c) => c.id === id))
-    .filter((c): c is Companion => c !== undefined);
-  if (picked.length > 0) {
-    return picked;
+/** Forgets every match nobody fought within `MATCH_TTL_MS`. */
+const prune = (at: number): void => {
+  for (const [id, pending] of matches) {
+    if (at - pending.createdAt > MATCH_TTL_MS) {
+      matches.delete(id);
+    }
   }
-  return [...s.companions]
-    .sort((a, b) => {
-      const pa = companionPower(a);
-      const pb = companionPower(b);
-      return pa === pb ? idNum(a.id) - idNum(b.id) : pb > pa ? 1 : -1;
-    })
-    .slice(0, PARTY_SIZE_MAX);
-}
+};
 
 export function createApp(deps: AppDeps): { handle: ApiHandler } {
   const { store } = deps;
@@ -250,10 +242,11 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
   };
 
   /**
-   * T40 — a match against the rank neighbour above or below (SPEC F45,
-   * SERVER_ARCHITECTURE §5). The verdict is core's `resolvePvp` seeded with the
-   * seed we put on the wire, so the client can replay it; the server only owns
-   * the roster bookkeeping. The request body is ignored.
+   * T60 — step 2 of a battle (SPEC F45/F69, SERVER_ARCHITECTURE_V3 §3): fight
+   * the party the caller picked against the party its match parked, with core's
+   * `resolvePvp` seeded from the match — the server owns the roster bookkeeping
+   * only. Steals are attacker-only; the victim gets a theft record to reclaim
+   * from. A trust boundary: the body and every party id are checked here.
    */
   const pvp = async (req: ApiRequest): Promise<ApiResponse> => {
     const me = await caller(req);
@@ -269,60 +262,86 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     if (!mine) {
       return error(400, 'no_snapshot');
     }
+    const asked = record(req.body);
+    const matchId = asked?.['matchId'];
+    const ids = asked?.['party'];
+    // A v2 body (no matchId) is a stale client, not a stale match.
+    if (
+      typeof matchId !== 'string' ||
+      !Array.isArray(ids) ||
+      !ids.every((id) => typeof id === 'string')
+    ) {
+      return error(400, 'bad_request');
+    }
+    prune(at);
+    const pending = matches.get(matchId);
+    if (!pending || pending.playerId !== me.id) {
+      matches.delete(matchId);
+      return error(410, 'match_expired');
+    }
+    if (ids.length > PARTY_SIZE_MAX || !ids.every((id) => mine.companions.some((c) => c.id === id))) {
+      // The match survives a bad party: the client just picks again.
+      return error(400, 'bad_party');
+    }
+    const party = pvpParty(mine.companions, ids as string[]);
     // Bot matches burn the cooldown too — it is what bounds the whole endpoint.
     await store.setLastPvpAt(me.id, at);
 
-    const seed = deps.randomSeed() >>> 0;
-    const up = await store.neighbor(me.id, mine, 'up');
-    const down = await store.neighbor(me.id, mine, 'down');
-    const foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    const { seed, opponentParty } = pending;
+    const verdict = resolvePvp(party, opponentParty, mulberry32(seed), mine.companions.length);
+    matches.delete(matchId);
+
+    const foe = pending.opponentId === null ? null : await store.getById(pending.opponentId);
     const theirs = foe?.snapshot ?? null;
-    // ponytail: still the v2 wire shape (full roster, no replay) — T60 swaps
-    // this endpoint over to the match flow and the PvpOpponent party shape.
-    const opponent = {
+    const opponent: PvpOpponent = {
       name: theirs?.name ?? BOT_NAME,
       bestIndex: theirs?.bestIndex ?? mine.bestIndex,
       rebirths: theirs?.rebirths ?? mine.rebirths,
-      companions: theirs?.companions ?? [],
+      party: opponentParty,
     };
-    const verdict = resolvePvp(mine.companions, opponent.companions, mulberry32(seed));
-    const win = verdict.attackerWon;
     // The bot never steals and is never stolen from; powers stay off the wire.
     const moved = foe && theirs ? verdict.moved : null;
 
     let stolen: Companion | null = null;
     if (foe && theirs && moved) {
       const transferred = { ...moved, id: `s${seed}` };
-      const winner = win ? { row: me, snap: mine } : { row: foe, snap: theirs };
-      const loser = win ? { row: foe, snap: theirs } : { row: me, snap: mine };
-      // ponytail: three writes, no transaction — a concurrent match against the
+      // ponytail: four writes, no transaction — a concurrent match against the
       // same loser could double-steal. BEGIN/COMMIT in PgStore is the upgrade;
       // one free instance plus the per-player cooldown makes it unreachable.
-      await store.setStolenIds(
-        loser.row.id,
-        [...loser.row.stolenIds, moved.id].slice(-STOLEN_IDS_MAX),
+      await store.setStolenIds(foe.id, [...foe.stolenIds, moved.id].slice(-STOLEN_IDS_MAX));
+      await store.putSnapshot(foe.id, {
+        ...theirs,
+        companions: theirs.companions.filter((c) => c.id !== moved.id),
+        party: theirs.party.filter((id) => id !== moved.id),
+      });
+      await store.putSnapshot(me.id, { ...mine, companions: [...mine.companions, transferred] });
+      await store.setThefts(
+        foe.id,
+        [
+          ...foe.thefts,
+          {
+            id: `t${seed}`,
+            companion: moved,
+            transferredId: transferred.id,
+            thiefId: me.id,
+            thiefName: me.name,
+            at,
+            reclaimUntil: at + RECLAIM_WINDOW_MS,
+          },
+        ].slice(-THEFTS_MAX),
       );
-      await store.putSnapshot(loser.row.id, {
-        ...loser.snap,
-        companions: loser.snap.companions.filter((c) => c.id !== moved.id),
-      });
-      await store.putSnapshot(winner.row.id, {
-        ...winner.snap,
-        companions: [...winner.snap.companions, transferred],
-      });
       stolen = transferred;
     }
-    return {
-      status: 200,
-      body: {
-        bot: theirs === null,
-        seed,
-        win,
-        opponent,
-        stolen: win ? stolen : null,
-        lost: win ? null : moved,
-      },
+    const answer: PvpResponse = {
+      bot: pending.opponentId === null,
+      seed,
+      win: verdict.attackerWon,
+      opponent,
+      blows: verdict.blows.map((b) => ({ ...b, damage: String(b.damage) })),
+      stolen,
+      lost: null,
     };
+    return { status: 200, body: answer };
   };
 
   /**
@@ -340,11 +359,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       return error(400, 'no_snapshot');
     }
     const at = deps.now();
-    for (const [id, pending] of matches) {
-      if (at - pending.createdAt > MATCH_TTL_MS) {
-        matches.delete(id);
-      }
-    }
+    prune(at);
     const seed = deps.randomSeed() >>> 0;
     const up = await store.neighbor(me.id, mine, 'up');
     const down = await store.neighbor(me.id, mine, 'down');
@@ -355,7 +370,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
           name: theirs.name,
           bestIndex: theirs.bestIndex,
           rebirths: theirs.rebirths,
-          party: partyOf(theirs),
+          party: pvpParty(theirs.companions, theirs.party),
         }
       : { name: BOT_NAME, bestIndex: mine.bestIndex, rebirths: mine.rebirths, party: [] };
     const matchId = deps.randomBytesHex(8);
