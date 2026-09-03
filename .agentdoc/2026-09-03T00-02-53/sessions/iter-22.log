@@ -1,0 +1,10 @@
+{"task":"T38","result":"DONE","gates":"pass","commit":"0156513cc3af431f15688929896deac698da9dc4","note":"Added src/shared/api.ts (SERVER_ARCHITECTURE §2 verbatim; own structural Companion, no src/core import), src/shared/serverUrl.ts (SERVER_URL = ''), src/main/identity.ts (persistence.ts pattern: electron-free, dir + randomUUID injected, readIdentity/writeIdentity never throw, isValidName via NICK_RE), tests/identity.test.ts (7 tests, mkdtempSync + counter uuid, AC titles verbatim). src/core/save.ts and src/shared/ipc.ts untouched. Gates green (328 tests, lint, typecheck); AC line executed literally, exit 0. No dead ends. Smoke not run: new modules are not yet imported by any main/renderer path."}
+
+Details:
+
+- `src/shared/api.ts` — all §2 types and constants (`NICK_RE`, `COMPANION_ID_RE`, `LEVEL_MIN/MAX`, `INT_MAX`, `LEADERBOARD_DEFAULT`, `LEADERBOARD_MAX = 50`), declaring its own structural `Companion` so `src/shared` stays core-free.
+- `src/shared/serverUrl.ts` — exactly `export const SERVER_URL = '';` with a comment noting T44 rewrites the value.
+- `src/main/identity.ts` — `IDENTITY_FILE_NAME`, `Identity`, `identityFilePath`, `defaultName`, `isValidName`, `readIdentity` (missing/corrupt/wrong-shaped → fresh `Knight-xxxx` default), `writeIdentity` (tmp + rename, returns boolean).
+- `tests/identity.test.ts` — 7 tests including the four AC-pinned titles, plus stored-name validation, unwritable destination, and `defaultName`/`isValidName` coverage.
+
+Gate output: 22 test files / 328 tests passed, `eslint . --max-warnings 0` clean, all three tsconfig projects typecheck clean, and the task's full AC command exited 0.
