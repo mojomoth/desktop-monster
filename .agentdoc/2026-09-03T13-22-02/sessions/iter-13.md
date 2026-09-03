@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T65 — Field v3 layout: window 480×300, canvas 240×150, SPRITE_SCALE 1, size-scaled monsters, party group + type badge + effectiveness floats
 - result: DONE
-- commit: 43ca46fbf1d1f88a7d063d2bdd1a43b49944b068
+- commit: e928fe847e7a52b7896e5afdbd69dbe6b183b0cb (amended from 43ca46f)
 - graphify affected used: none (task block + SPEC rows named every file; read them directly)
 
 ## What I did
