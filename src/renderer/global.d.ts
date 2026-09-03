@@ -10,7 +10,12 @@ import type {
   NetResult,
   PvpResult,
 } from '../shared/api.js';
-import type { InputModePayload, InputPayload, SaveStatePayload } from '../shared/ipc.js';
+import type {
+  InputModePayload,
+  InputPayload,
+  MenuActionPayload,
+  SaveStatePayload,
+} from '../shared/ipc.js';
 
 declare global {
   interface Window {
@@ -28,6 +33,10 @@ declare global {
       setName(name: string): Promise<IdentityPayload>;
       getLeaderboard(n?: number): Promise<NetResult<LeaderboardResult>>;
       pvp(): Promise<NetResult<PvpResult>>;
+      onAction(cb: (a: MenuActionPayload) => void): () => void;
+      sendAction(a: MenuActionPayload): Promise<void>;
+      onStateChanged(cb: (s: SaveStatePayload) => void): () => void;
+      reportMenuReady(): void;
     };
   }
 }

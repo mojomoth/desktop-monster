@@ -14,7 +14,12 @@ import type {
   NetResult,
   PvpResult,
 } from '../shared/api.js';
-import type { InputModePayload, InputPayload, SaveStatePayload } from '../shared/ipc.js';
+import type {
+  InputModePayload,
+  InputPayload,
+  MenuActionPayload,
+  SaveStatePayload,
+} from '../shared/ipc.js';
 
 /** `ipcRenderer.on` wrapper that hands back an unsubscribe function. */
 function subscribe(channel: string, cb: (payload: unknown) => void): () => void {
@@ -62,6 +67,19 @@ const desmon = {
     ipcRenderer.invoke('desmon:leaderboard', { n }) as Promise<NetResult<LeaderboardResult>>,
   pvp: (): Promise<NetResult<PvpResult>> =>
     ipcRenderer.invoke('desmon:pvp') as Promise<NetResult<PvpResult>>,
+  onAction: (cb: (a: MenuActionPayload) => void): (() => void) =>
+    subscribe('desmon:action', (payload) => {
+      cb(payload);
+    }),
+  sendAction: (a: MenuActionPayload): Promise<void> =>
+    ipcRenderer.invoke('desmon:menu-action', a) as Promise<void>,
+  onStateChanged: (cb: (s: SaveStatePayload) => void): (() => void) =>
+    subscribe('desmon:state-changed', (payload) => {
+      cb(payload);
+    }),
+  reportMenuReady: (): void => {
+    ipcRenderer.send('desmon:menu-ready');
+  },
 };
 
 /** Shape of `window.desmon`; the renderer's global.d.ts imports this (T13). */

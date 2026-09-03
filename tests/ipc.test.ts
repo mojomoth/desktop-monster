@@ -33,6 +33,10 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       SET_NAME: 'desmon:set-name',
       LEADERBOARD: 'desmon:leaderboard',
       PVP: 'desmon:pvp',
+      ACTION: 'desmon:action',
+      MENU_ACTION: 'desmon:menu-action',
+      STATE_CHANGED: 'desmon:state-changed',
+      MENU_READY: 'desmon:menu-ready',
     });
   });
 
@@ -64,6 +68,10 @@ describe('preload bridge (src/preload/index.ts)', () => {
     'setName',
     'getLeaderboard',
     'pvp',
+    'onAction',
+    'sendAction',
+    'onStateChanged',
+    'reportMenuReady',
   ])('exposes %s on the bridge', (method) => {
     expect(preloadTs).toContain(`${method}:`);
   });
@@ -96,6 +104,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     'SET_NAME',
     'LEADERBOARD',
     'PVP',
+    'MENU_ACTION',
   ])(
     'registers an invoke handler for IPC.%s',
     (name) => {
@@ -147,7 +156,8 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
   it('parses the untrusted renderer save before handing it to the net session', () => {
     const saveHandler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.handle(IPC.SAVE_STATE'));
     expect(saveHandler.indexOf('writeSaveFile')).toBeLessThan(saveHandler.indexOf('session.onSave'));
-    expect(saveHandler).toContain('session.onSave(parseSave(data))');
+    expect(saveHandler).toContain('const parsed = parseSave(data);');
+    expect(saveHandler).toContain('session.onSave(parsed)');
   });
 
   it('validates the net payload shapes at the IPC trust boundary', () => {
@@ -155,11 +165,89 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(mainIpcTs).toContain('LEADERBOARD_DEFAULT');
   });
 
-  it('never pushes roster changes at the game window (removed is the menu\'s job, T49)', () => {
+  it('never originates an action — the only send is the sender-excluding relay (T45/T49)', () => {
     for (const channel of ['IPC.LEADERBOARD', 'IPC.PVP', 'IPC.GET_IDENTITY', 'IPC.SET_NAME']) {
       expect(mainIpcTs).toContain(`ipcMain.handle(${channel}`);
     }
-    expect(mainIpcTs).not.toContain('webContents.send');
+    // `removed`/`stolen`/`lost` reach the game only as MENU actions (T49), so
+    // main's ONE webContents.send lives inside sendToOthers and IPC.ACTION is
+    // produced by exactly one call site: the menu-action relay.
+    expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(1);
+    const relay = mainIpcTs.slice(mainIpcTs.indexOf('function sendToOthers'));
+    expect(relay.indexOf('webContents.send(')).toBeLessThan(relay.indexOf('ipcMain.handle'));
+    expect(mainIpcTs.match(/IPC\.ACTION/g)).toHaveLength(1);
+  });
+
+  it('relays over every window except the sender, statelessly (F51)', () => {
+    expect(mainIpcTs).toContain(
+      'function sendToOthers(sender: WebContents, channel: IpcChannel, payload: unknown): void',
+    );
+    const relay = mainIpcTs.slice(
+      mainIpcTs.indexOf('function sendToOthers'),
+      mainIpcTs.indexOf('function narrowAction'),
+    );
+    expect(relay).toContain('BrowserWindow.getAllWindows()');
+    expect(relay).toContain('win.webContents.id !== sender.id');
+    // No window registry: src/main/index.ts keeps its bare registration call.
+    expect(mainIndexTs).toContain('registerIpcHandlers()');
+  });
+
+  it('the save-state handler relays the written save to every other window as state-changed', () => {
+    const saveHandler = mainIpcTs.slice(
+      mainIpcTs.indexOf('ipcMain.handle(IPC.SAVE_STATE'),
+      mainIpcTs.indexOf('ipcMain.handle(IPC.MENU_ACTION'),
+    );
+    expect(saveHandler.indexOf('writeSaveFile')).toBeLessThan(saveHandler.indexOf('sendToOthers'));
+    expect(saveHandler).toContain('sendToOthers(event.sender, IPC.STATE_CHANGED, parsed)');
+  });
+
+  it('menu-action is validated and forwarded to every other window as an action', () => {
+    const handler = mainIpcTs.slice(
+      mainIpcTs.indexOf('ipcMain.handle(IPC.MENU_ACTION'),
+      mainIpcTs.indexOf('ipcMain.handle(IPC.GET_IDENTITY'),
+    );
+    expect(handler).toContain('narrowAction(payload)');
+    expect(handler.indexOf('narrowAction')).toBeLessThan(handler.indexOf('sendToOthers'));
+    expect(handler).toContain('sendToOthers(event.sender, IPC.ACTION, action)');
+    // Unknown/malformed actions are dropped, never forwarded and never thrown.
+    expect(handler).toContain('if (action !== null)');
+    expect(handler).not.toContain('throw');
+  });
+
+  it('narrows the untrusted menu payload against the whole CollectionAction union', () => {
+    const narrow = mainIpcTs.slice(
+      mainIpcTs.indexOf('function narrowAction'),
+      mainIpcTs.indexOf('export interface IpcOptions'),
+    );
+    for (const type of [
+      'consume',
+      'fuse',
+      'reincarnate',
+      'sacrifice',
+      'rebirth',
+      'addCompanion',
+      'removeCompanions',
+      'pvpResult',
+    ]) {
+      expect(narrow).toContain(`case '${type}':`);
+    }
+    // Unknown type → null; ids are strings; id lists are arrays of strings.
+    expect(narrow).toContain('default:');
+    expect(narrow).toContain('return false;');
+    expect(narrow).toContain("typeof a[k] === 'string'");
+    expect(narrow).toContain("Array.isArray(v) && v.every((id) => typeof id === 'string')");
+    expect(mainIpcTs).toContain("import type { CollectionAction } from '../core/collection.js';");
+  });
+
+  it('menu-ready answers the sender with the current save', () => {
+    const handler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.on(IPC.MENU_READY'));
+    expect(handler).toContain(
+      "event.sender.send(IPC.STATE_CHANGED, parseSave(readSaveFile(app.getPath('userData'))))",
+    );
+    // The boot answer goes to the SENDER only — not through the relay.
+    expect(handler.slice(0, handler.indexOf('ipcMain.on(IPC.FIRST_FRAME'))).not.toContain(
+      'sendToOthers',
+    );
   });
 
   it('is registered at startup by src/main/index.ts', () => {
