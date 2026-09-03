@@ -17,3 +17,4 @@
 | 16 | claude | T73 | DONE | pass | skipped | c090453 | continue |
 | 13 | claude | T65 | DONE | pass | pass | 19cff0f | continue |
 | 18 | claude | T69 | DONE | pass | pass | a340ef9 | continue |
+| 17 | claude | T66 | DONE | pass | pass | 2aad487 | continue |

@@ -1,0 +1,14 @@
+{"task":"T66","result":"DONE","gates":"pass","commit":"bb425c8c2420aeefb14859290c9da837e33f49ac","note":"game.ts: playReplay(replay: BattleReplay) opens a BattleScene (VS banner, my group left, opponent mirrored via drawParty originX VIEW_W-8 + name in 3x5 font, field monster/HP bar hidden), update(dt) fires blows at blowMs=clamp(12000/n,250,600), each = projectile in hitColorOf(actor)+target hit effect+float in floatColor(effectiveness)+attack blip, ko = scatter+kill blip+leaves the group, ends (n-1)*BLOW_MS+600. Field events keep hitting the engine, presentation suppressed. apply(pvpResult with replay) plays first and defers the verdict via scene.after (v2 path unchanged). tests 73->79 it(. Dead ends in the session record."}
+
+작업 완료했습니다 (한글 요약):
+
+**구현** — `src/renderer/game.ts`
+- `playReplay(replay: BattleReplay)`: `VS <이름>` 배너로 씬을 열고, 내 파티는 왼쪽 그대로, 상대 파티는 `drawParty(..., { flipX: false, originX: VIEW_W - 8 })`로 오른쪽 미러 배치 + 이름을 3×5 폰트로 위에 표시. 씬 동안 필드 몬스터·HP바·타입 배지는 숨김.
+- 페이싱: `blowMs(n) = clamp(12000/n, 250, 600)` (`REPLAY_MS`/`BLOW_MS_MIN`/`BLOW_MS_MAX`/`REPLAY_END_MS`), `update(dt)`의 프레젠테이션 시계로 진행, 마지막 blow + 600 ms에 `VICTORY!`/`DEFEAT` 후 필드 복귀.
+- blow마다: 액터 슬롯에서 `hitColorOf(액터 종족)` 색의 `companionProjectile`, 타깃 종족 히트 이펙트, `floatColor(effectiveness(...))` 색의 `format(damage)` 플로트, `attack` 블립. `ko`면 `kill` 블립 + `spawnSpriteScatter` + 해당 그룹에서 제거.
+- 억제: 씬 중 필드 이벤트는 엔진에 그대로 적용되지만 프레젠테이션만 차단(`monsterSpawned`의 타깃 갱신 같은 부기는 유지).
+- F53 연동: `apply({ type:'pvpResult', …, replay })`는 `engine.apply` **전에** 씬을 열고, `pvpResolved`의 배너·강탈 팝인·손실 스캐터를 `scene.after`로 미뤄 씬 종료 후 재생. replay가 없으면 기존 v2 경로 그대로(기존 테스트 무수정 통과).
+
+**테스트** — `tests/renderer.test.ts` 73 → 79 `it(`, 지정된 6개 제목 그대로 추가. 뮤테이션 점검으로 실제로 실패를 잡는지 확인했습니다.
+
+**게이트**: `npm test` 575 passed / `npm run lint` / `npm run typecheck` 모두 통과, T66 AC 라인 그대로 실행 시 `AC_EXIT=0` (`SMOKE_OK` 포함). 커밋 2개(작업 + 세션 기록 sha), 트리 clean.
