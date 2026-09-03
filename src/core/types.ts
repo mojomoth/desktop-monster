@@ -54,6 +54,7 @@ export interface GameState {
 
 export type GameEvent =
   | { type: 'attack'; damage: bigint; crit: boolean; source: InputSource }
+  | { type: 'companionAttack'; companionId: string; speciesId: string; damage: bigint }
   | { type: 'monsterHit'; hpAfter: bigint; maxHp: bigint }
   | { type: 'monsterKilled'; monster: MonsterDef; xpGained: number }
   | { type: 'itemDropped'; drops: ItemDrop[] }
