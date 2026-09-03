@@ -59,3 +59,5 @@ TASK=T23 ITER=15 WORKER=claude RESULT=CRASHED MERGE=skipped GATES=skipped SMOKE=
 TASK=T31 ITER=10 WORKER=codex RESULT=MERGE_RED MERGE=merged GATES=fail SMOKE=skipped COMMIT=8e0c968 DECISION=continue
 01:05:01 CRASH ESCALATION
 LOOP_EXIT=3
+=== loop run 2 start 10:03:16
+10:03:16 loop start: lanes=3 max_iter=65 runner=in-session hv=v2
