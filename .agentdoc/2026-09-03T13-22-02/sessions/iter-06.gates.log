@@ -1,0 +1,55 @@
+
+> desmon@0.2.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/persistence.test.ts (10 tests) 12ms
+ ✓ tests/tray.test.ts (37 tests) 15ms
+ ✓ tests/net.test.ts (10 tests) 28ms
+ ✓ tests/formulas.test.ts (13 tests) 13ms
+ ✓ tests/server/app.test.ts (13 tests) 20ms
+ ✓ tests/engine.test.ts (27 tests) 74ms
+ ✓ tests/sprites.test.ts (31 tests) 33ms
+ ✓ tests/menu.test.ts (13 tests) 16ms
+ ✓ tests/globalInput.test.ts (19 tests) 18ms
+ ✓ tests/audio.test.ts (15 tests) 13ms
+ ✓ tests/ipc.test.ts (47 tests) 11ms
+ ✓ tests/renderer.test.ts (81 tests) 97ms
+ ✓ tests/anim.test.ts (14 tests) 55ms
+ ✓ tests/save.test.ts (13 tests) 11ms
+ ✓ tests/loot.test.ts (11 tests) 397ms
+ ✓ tests/identity.test.ts (7 tests) 12ms
+ ✓ tests/fever.test.ts (4 tests) 10ms
+ ✓ tests/server/pvp.test.ts (9 tests) 12ms
+ ✓ tests/effects.test.ts (6 tests) 7ms
+ ✓ tests/server/http.test.ts (9 tests) 7ms
+ ✓ tests/packaging.test.ts (14 tests) 12ms
+ ✓ tests/bignum.test.ts (7 tests) 13ms
+ ✓ tests/typeChart.test.ts (4 tests) 11ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 6ms
+ ✓ tests/window.test.ts (26 tests) 5ms
+ ✓ tests/fsm.test.ts (12 tests) 6ms
+ ✓ tests/deploy.test.ts (7 tests) 4ms
+ ✓ tests/rendererInput.test.ts (7 tests) 3ms
+ ✓ tests/drag.test.ts (7 tests) 3ms
+ ✓ tests/collection.test.ts (18 tests) 818ms
+   ✓ resolvePvp (SPEC F37, Assumption 34) > resolvePvp wins with probability myPower over total and moves one random companion from the loser to the winner  807ms
+ ✓ tests/scaffold.test.ts (1 test) 3ms
+ ✓ tests/input.test.ts (9 tests) 5ms
+
+ Test Files  32 passed (32)
+      Tests  523 passed (523)
+   Start at  21:11:50
+   Duration  1.28s (transform 1.24s, setup 0ms, collect 3.33s, tests 1.75s, environment 3ms, prepare 2.47s)
+
+
+> desmon@0.2.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.2.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+

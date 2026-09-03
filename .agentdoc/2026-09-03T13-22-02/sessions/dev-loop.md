@@ -6,3 +6,4 @@
 | 04 | claude | T56 | DONE | pass | skipped | fc2c26e | continue |
 | 05 | codex | T62 | DONE | pass | pass | be00a3c | continue |
 | 08 | codex | T64 | DONE | pass | pass | cfa8991 | continue |
+| 06 | claude | T57 | DONE | pass | skipped | bf19f7a | continue |

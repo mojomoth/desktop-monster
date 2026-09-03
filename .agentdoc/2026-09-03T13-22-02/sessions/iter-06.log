@@ -1,0 +1,17 @@
+{"task":"T57","result":"DONE","gates":"pass","commit":"688f3a684afe14ac4101063f46491572f97565c5","note":"collection.ts: ACTIVE_SLOTS deleted, PARTY_SIZE=5; activeCompanions(cs, enemyType?) sorts by effectivePower (ties: raw power, then lower id); added autoParty/pvpParty/partyOrder + a private resolveIds shared by pvpParty and the new setPvpParty action (writes state.pvpParty, no error, no event, may be empty). engine.ts volley now reads activeCompanions(state.companions, state.monster.type); damage stays raw (type-adjusted damage + effectiveness are T59). Tests: collection.test.ts 14->18 it()s with the 4 new/retitled titles; engine volley test retitled, its 4-companion roster now fires 4 per volley so the event chain and 6/3 counts became 8/4. Gates + AC exit 0.","children":[]}
+
+T57 완료했습니다.
+
+**구현**
+- `src/core/collection.ts`
+  - `ACTIVE_SLOTS = 3` 삭제 → `PARTY_SIZE = 5`
+  - `activeCompanions(cs, enemyType?)`: `effectivePower(companionPower, typeOf(species), enemyType)` 내림차순, 동점 시 raw power → 낮은 id. `enemyType` 생략 시 raw power (renderer 호출부 5곳이 T65까지 그대로 컴파일됨)
+  - `autoParty(cs)`, `pvpParty(cs, ids)`(순서 유지·미상/중복 제거·5개 캡·비면 autoParty로 폴백), `partyOrder(party)`(`sizeOf` 내림차순, 동점은 파티 순서 유지) 추가
+  - `CollectionAction`에 `setPvpParty` 추가 — `applyCollection`이 `state.pvpParty`에 검증된 ids를 씀 (에러 없음, 이벤트 없음, 빈 값 허용). `pvpParty()`와 액션은 private `resolveIds` 하나를 공유하되, 액션만 폴백을 쓰지 않습니다.
+- `src/core/engine.ts`: 볼리가 `activeCompanions(state.companions, state.monster.type)`를 읽습니다. 데미지 자체의 타입 보정과 `effectiveness` 필드는 T59 범위라 건드리지 않았습니다.
+
+**테스트**
+- `tests/collection.test.ts` 14 → 18 `it()`: 기존 타이틀 리네임 + 신규 4개(타입별 파티 변화, pvpParty 폴백, partyOrder, setPvpParty)
+- `tests/engine.test.ts` 볼리 테스트 리네임. 4인 로스터가 이제 볼리당 4번 발사하므로 이벤트 목록·`hpAfter` 체인·볼리 카운트(6→8, 3→4)를 물 속성 슬라임 기준 순서(c2/c1/c4/c3)로 재계산했습니다.
+
+**게이트**: `npm test` 519 passed (32 files), `npm run lint`, `npm run typecheck` 모두 통과. T57의 `AC:` 라인을 그대로 실행해 exit 0 확인했습니다. 세션 기록은 `.agentdoc/2026-09-03T13-22-02/sessions/iter-06.md`이고, 워킹 트리는 clean입니다.
