@@ -109,6 +109,21 @@ describe('README operator docs (F27)', () => {
     expect(readme).toContain('A\u2013Z notation');
   });
 
+  it('documents the v3 gameplay: type chart, party of 5, replay, steal and reclaim', () => {
+    for (const topic of ['type chart', 'party', 'replay', 'reclaim', 'notification']) {
+      expect(readme.toLowerCase()).toContain(topic);
+    }
+    expect(readme).toContain('Find opponent');
+    expect(readme).toContain('24 hours');
+    expect(readme).toContain('480'); // overlay window width (F72)
+  });
+
+  it('names the v3 server service and keeps the URL override documented', () => {
+    expect(readme).toContain('desmon-server-v3');
+    expect(readme).toContain('V2_SERVER_URL');
+    expect(readme).toContain('DESMON_SERVER_URL');
+  });
+
   it('documents the server: leaderboard, PvP, the URL override, offline and Render caveats', () => {
     expect(readme.toLowerCase()).toContain('leaderboard');
     expect(readme).toContain('PvP');
@@ -121,13 +136,13 @@ describe('README operator docs (F27)', () => {
   });
 });
 
-describe('version bump (F57)', () => {
+describe('version bump (F76; was F57)', () => {
   it('keeps package-lock.json in lockstep with the package.json version', () => {
     const lock = JSON.parse(read('package-lock.json')) as {
       version: string;
       packages: Record<string, { version?: string }>;
     };
-    expect(pkg.version).toBe('0.2.0');
+    expect(pkg.version).toBe('0.3.0');
     expect(lock.version).toBe(pkg.version);
     expect(lock.packages['']?.version).toBe(pkg.version);
   });
