@@ -13,14 +13,15 @@ import { rollLoot } from './loot.js';
 import { monsterForIndex } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import type { Rng } from './rng.js';
-import type { SaveFileV1 } from './save.js';
+import { upgradeSave } from './save.js';
+import type { SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
 import type { GameEvent, GameState, InputSource } from './types.js';
 
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
   attack(source: InputSource): GameEvent[];
   getState(): Readonly<GameState>;
-  toSave(): SaveFileV1;
+  toSave(): SaveFile;
 }
 
 /** Non-deterministic seed for production use; tests ALWAYS inject an Rng. */
@@ -34,7 +35,7 @@ function randomSeed(): number {
  * monsterHp into [1, maxHp] so a stale save can never spawn an already-dead
  * or over-healed monster.
  */
-function initialState(save?: SaveFileV1 | null): GameState {
+function initialState(save?: SaveFileV2 | null): GameState {
   if (!save) {
     const monster = monsterForIndex(0);
     return {
@@ -45,6 +46,11 @@ function initialState(save?: SaveFileV1 | null): GameState {
       items: {},
       monster,
       monsterHp: monster.maxHp,
+      companions: [],
+      nextCompanionId: 1,
+      souls: 0,
+      rebirths: 0,
+      bestIndex: 0,
     };
   }
   const monster = monsterForIndex(save.monsterIndex);
@@ -56,8 +62,14 @@ function initialState(save?: SaveFileV1 | null): GameState {
     items: { ...save.items },
     monster,
     // Resume exactly, clamped into [1, maxHp] so a stale save can never
-    // spawn an already-dead or over-healed monster.
-    monsterHp: Math.min(monster.maxHp, Math.max(1, Math.floor(save.monsterHp))),
+    // spawn an already-dead or over-healed monster. ponytail: still number
+    // maths inside the engine — T25 flips hp/damage to bigint end to end.
+    monsterHp: Math.min(monster.maxHp, Math.max(1, Math.floor(Number(save.monsterHp)))),
+    companions: save.companions.map((c) => ({ ...c })),
+    nextCompanionId: save.nextCompanionId,
+    souls: save.souls,
+    rebirths: save.rebirths,
+    bestIndex: save.bestIndex,
   };
 }
 
@@ -70,8 +82,11 @@ function initialState(save?: SaveFileV1 | null): GameState {
  * Event order on a kill (SPEC F07):
  * attack, monsterHit, monsterKilled, itemDropped[, levelUp...], monsterSpawned.
  */
-export function createEngine(save?: SaveFileV1 | null, rng: Rng = mulberry32(randomSeed())): Engine {
-  const state = initialState(save);
+export function createEngine(
+  save?: SaveFileV1 | SaveFileV2 | null,
+  rng: Rng = mulberry32(randomSeed()),
+): Engine {
+  const state = initialState(save ? upgradeSave(save) : null);
 
   return {
     attack(source: InputSource): GameEvent[] {
@@ -124,19 +139,25 @@ export function createEngine(save?: SaveFileV1 | null, rng: Rng = mulberry32(ran
         ...state,
         monster: { ...state.monster },
         items: { ...state.items },
+        companions: state.companions.map((c) => ({ ...c })),
       };
     },
 
-    toSave(): SaveFileV1 {
+    toSave(): SaveFile {
       return {
-        version: 1,
+        version: 2,
         level: state.level,
         xp: state.xp,
         killCount: state.killCount,
         coins: state.coins,
         items: { ...state.items },
         monsterIndex: state.monster.index,
-        monsterHp: state.monsterHp,
+        monsterHp: String(state.monsterHp),
+        companions: state.companions.map((c) => ({ ...c })),
+        nextCompanionId: state.nextCompanionId,
+        souls: state.souls,
+        rebirths: state.rebirths,
+        bestIndex: state.bestIndex,
       };
     },
   };

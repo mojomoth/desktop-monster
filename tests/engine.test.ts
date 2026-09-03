@@ -213,9 +213,9 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       a.attack(i % 3 === 0 ? 'mouse' : 'keyboard');
     }
     const save = a.toSave();
-    expect(save.version).toBe(1);
+    expect(save.version).toBe(2);
     expect(save.monsterIndex).toBe(a.getState().monster.index);
-    expect(save.monsterHp).toBe(a.getState().monsterHp);
+    expect(save.monsterHp).toBe(String(a.getState().monsterHp));
     const b = createEngine(save, mulberry32(1));
     expect(b.getState()).toEqual(a.getState());
     expect(b.toSave()).toEqual(save);

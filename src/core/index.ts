@@ -55,8 +55,8 @@ export type {
   InputMode,
 } from './input.js';
 
-export { DEFAULT_SAVE, parseSave, serializeSave } from './save.js';
-export type { SaveFileV1 } from './save.js';
+export { DEFAULT_SAVE, parseSave, serializeSave, upgradeSave } from './save.js';
+export type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
 
 export { monsterForIndex, SPECIES_IDS } from './monsters.js';
 export type { SpeciesId } from './monsters.js';

@@ -93,18 +93,9 @@ function makeCtx(): { ctx: GameCanvas; calls: RectCall[]; clears: ClearCall[] } 
   return { ctx, calls, clears };
 }
 
+// A real fresh engine state, so later GameState fields never break fixtures.
 function stateFixture(overrides: Partial<GameState> = {}): GameState {
-  const monster = monsterForIndex(4);
-  return {
-    level: 3,
-    xp: 10,
-    killCount: 12,
-    coins: 34,
-    items: {},
-    monster,
-    monsterHp: monster.maxHp,
-    ...overrides,
-  };
+  return { ...createEngine(null, mulberry32(1)).getState(), ...overrides };
 }
 
 describe('drawMeter / drawHpBar (boxed bars)', () => {

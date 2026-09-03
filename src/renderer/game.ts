@@ -15,7 +15,7 @@ import type {
   GameState,
   InputSource,
   MonsterDef,
-  SaveFileV1,
+  SaveFile,
 } from '../core/index.js';
 import {
   createHeroAnim,
@@ -199,7 +199,7 @@ export interface Game {
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
   /** Snapshot of the current progress for persistence (SPEC F22). */
-  toSave(): SaveFileV1;
+  toSave(): SaveFile;
   /**
    * Reset Progress (SPEC F22): swap in a fresh default engine and clear all
    * in-flight presentation (floats, particles, drops, banner, anims). The
@@ -415,7 +415,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       return engine.getState();
     },
 
-    toSave(): SaveFileV1 {
+    toSave(): SaveFile {
       return engine.toSave();
     },
 
