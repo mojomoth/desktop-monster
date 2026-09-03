@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T45 — Menu IPC contract: action/menu-action/state-changed/menu-ready relay, after-save sync
 - result: DONE
-- commit: 7a00410800f4882a3658db88e5c7b6346e58e48a
+- commit: 70ce805be58d9171994feb93b04e67aa750c0859
 - graphify affected used: none (all five files read directly; CollectionAction read from src/core/collection.ts)
 
 ## What I did
