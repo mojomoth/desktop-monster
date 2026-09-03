@@ -2,6 +2,8 @@
 // time; animation/timing state lives elsewhere). Pure TypeScript, zero
 // imports of electron/DOM/node. All randomness comes from the injected Rng.
 
+import { applyCollection, ROSTER_CAP } from './collection.js';
+import type { CollectionAction } from './collection.js';
 import {
   CRIT_CHANCE,
   CRIT_MULT,
@@ -14,12 +16,17 @@ import { BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import type { Rng } from './rng.js';
 import { upgradeSave } from './save.js';
-import type { SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
+import type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
 import type { GameEvent, GameState, InputSource } from './types.js';
+
+/** Chance that a boss kill captures the boss as a companion (Assumption 23). */
+export const CAPTURE_CHANCE = 0.35;
 
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
   attack(source: InputSource): GameEvent[];
+  /** Run one roster/prestige action on the live state; `{ error }` → no events. */
+  apply(a: CollectionAction): GameEvent[];
   getState(): Readonly<GameState>;
   toSave(): SaveFile;
 }
@@ -68,7 +75,7 @@ function initialState(save?: SaveFileV2 | null): GameState {
     nextCompanionId: save.nextCompanionId,
     souls: save.souls,
     rebirths: save.rebirths,
-    bestIndex: save.bestIndex,
+    bestIndex: Math.max(save.bestIndex, monster.index),
   };
 }
 
@@ -81,8 +88,9 @@ const clampHp = (hp: bigint, maxHp: bigint): bigint => (hp < 1n ? 1n : hp > maxH
  * draws), grants XP, levels up while the threshold is met (carry-over: the
  * threshold is subtracted), and spawns monster index+1 at full HP.
  *
- * Event order on a kill (SPEC F07):
- * attack, monsterHit, monsterKilled, itemDropped[, levelUp...], monsterSpawned.
+ * Event order on a kill (SPEC F07/F33):
+ * attack, monsterHit, monsterKilled, itemDropped[, bossCaptured][, levelUp...],
+ * monsterSpawned.
  */
 export function createEngine(
   save?: SaveFileV1 | SaveFileV2 | null,
@@ -95,7 +103,10 @@ export function createEngine(
       const events: GameEvent[] = [];
 
       const crit = rng.next() < CRIT_CHANCE;
-      const damage = BigInt(damageForLevel(state.level)) * (crit ? BigInt(CRIT_MULT) : 1n);
+      const damage =
+        BigInt(damageForLevel(state.level)) *
+        (crit ? BigInt(CRIT_MULT) : 1n) *
+        BigInt(1 + state.souls);
       events.push({ type: 'attack', damage, crit, source });
 
       state.monsterHp = state.monsterHp > damage ? state.monsterHp - damage : 0n;
@@ -126,6 +137,20 @@ export function createEngine(
         }
         events.push({ type: 'itemDropped', drops });
 
+        // One extra draw per boss kill, ALWAYS consumed (so non-boss seeded
+        // logs stay byte-identical to v1); a full roster voids the capture.
+        if (killed.boss && rng.next() < CAPTURE_CHANCE && state.companions.length < ROSTER_CAP) {
+          const companion: Companion = {
+            id: `c${state.nextCompanionId++}`,
+            speciesId: killed.speciesId,
+            bossIndex: killed.index,
+            level: 1,
+            stars: 0,
+          };
+          state.companions.push(companion);
+          events.push({ type: 'bossCaptured', companion: { ...companion } });
+        }
+
         state.xp += xpGained;
         while (state.xp >= xpToNext(state.level)) {
           state.xp -= xpToNext(state.level);
@@ -135,10 +160,20 @@ export function createEngine(
 
         state.monster = monsterForIndex(killed.index + 1);
         state.monsterHp = state.monster.maxHp;
+        state.bestIndex = Math.max(state.bestIndex, state.monster.index);
         events.push({ type: 'monsterSpawned', monster: { ...state.monster } });
       }
 
       return events;
+    },
+
+    apply(a: CollectionAction): GameEvent[] {
+      const result = applyCollection(state, a);
+      if ('error' in result) return [];
+      // applyCollection is total and copies everything; folding its fresh
+      // state back in keeps engine-owned extras (fever) that it carried over.
+      Object.assign(state, result.state);
+      return result.events;
     },
 
     getState(): Readonly<GameState> {

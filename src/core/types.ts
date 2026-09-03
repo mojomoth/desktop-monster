@@ -41,7 +41,7 @@ export interface GameState {
   items: Record<string, number>;
   monster: MonsterDef;
   monsterHp: bigint;
-  /** Captured bosses (SaveFileV2); gameplay lands in T27/T28. */
+  /** Captured bosses (SaveFileV2). */
   companions: Companion[];
   nextCompanionId: number;
   souls: number;
@@ -55,5 +55,8 @@ export type GameEvent =
   | { type: 'monsterHit'; hpAfter: bigint; maxHp: bigint }
   | { type: 'monsterKilled'; monster: MonsterDef; xpGained: number }
   | { type: 'itemDropped'; drops: ItemDrop[] }
+  | { type: 'bossCaptured'; companion: Companion }
   | { type: 'levelUp'; newLevel: number }
-  | { type: 'monsterSpawned'; monster: MonsterDef };
+  | { type: 'monsterSpawned'; monster: MonsterDef }
+  | { type: 'rebirth'; souls: number }
+  | { type: 'pvpResolved'; won: boolean; stolen: Companion | null; lostId: string | null };
