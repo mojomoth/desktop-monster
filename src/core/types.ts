@@ -15,6 +15,8 @@ export interface MonsterDef {
   maxHp: bigint;
   /** Math.floor(index / species count) → renderer tint. */
   tier: number;
+  /** Every 8th monster (index 7, 15, 23 …) — 5x hp/xp/coins. */
+  boss: boolean;
 }
 
 export interface ItemDef {

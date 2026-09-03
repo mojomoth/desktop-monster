@@ -10,7 +10,7 @@ import {
   xpToNext,
 } from './formulas.js';
 import { rollLoot } from './loot.js';
-import { monsterForIndex } from './monsters.js';
+import { BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import type { Rng } from './rng.js';
 import { upgradeSave } from './save.js';
@@ -108,10 +108,15 @@ export function createEngine(
       if (state.monsterHp === 0n) {
         const killed = state.monster;
         state.killCount += 1;
-        const xpGained = xpReward(killed.index);
+        const xpGained = xpReward(killed.index) * (killed.boss ? BOSS_XP_MULT : 1);
         events.push({ type: 'monsterKilled', monster: { ...killed }, xpGained });
 
         const drops = rollLoot(rng, killed.index);
+        // rollLoot always puts the coin first (loot.ts) — bosses pay 5x coins.
+        const coin = drops[0];
+        if (killed.boss && coin) {
+          coin.amount *= BOSS_COIN_MULT;
+        }
         for (const drop of drops) {
           if (drop.item.kind === 'coin') {
             state.coins += drop.amount;

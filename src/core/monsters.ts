@@ -9,6 +9,18 @@ export const SPECIES_IDS = ['slime', 'bat', 'ghost', 'golem', 'dragon'] as const
 
 export type SpeciesId = (typeof SPECIES_IDS)[number];
 
+/** Boss cadence (SPEC F31): every 8th monster — index 7, 15, 23 … */
+export const BOSS_EVERY = 8;
+
+/** True for the boss slots. 8 is not a multiple of 5, so bosses cycle species. */
+export const isBoss = (index: number): boolean =>
+  index >= 0 && index % BOSS_EVERY === BOSS_EVERY - 1;
+
+/** Boss rewards: 5x hp (bigint, F30), 5x xp and 5x coins (applied by the engine). */
+export const BOSS_HP_MULT = 5n;
+export const BOSS_XP_MULT = 5;
+export const BOSS_COIN_MULT = 5;
+
 const SPECIES_DISPLAY_NAMES: Record<SpeciesId, string> = {
   slime: 'Slime',
   bat: 'Bat',
@@ -21,17 +33,20 @@ const SPECIES_DISPLAY_NAMES: Record<SpeciesId, string> = {
  * The monster at 0-based global index `i`: species cycles in SPECIES_IDS
  * order, tier increments every SPECIES_IDS.length monsters, maxHp comes from
  * monsterMaxHp(i). Display name is "Slime Lv.3" style, where the Lv number is
- * tier + 1 (the n-th visit of that species).
+ * tier + 1 (the n-th visit of that species). Every 8th monster is a boss:
+ * 5x maxHp and a " BOSS" name suffix.
  */
 export function monsterForIndex(index: number): MonsterDef {
   const i = Math.max(0, Math.floor(index));
   const speciesId = SPECIES_IDS[i % SPECIES_IDS.length] ?? SPECIES_IDS[0];
   const tier = Math.floor(i / SPECIES_IDS.length);
+  const boss = isBoss(i);
   return {
     index: i,
     speciesId,
-    name: `${SPECIES_DISPLAY_NAMES[speciesId]} Lv.${tier + 1}`,
-    maxHp: monsterMaxHp(i),
+    name: `${SPECIES_DISPLAY_NAMES[speciesId]} Lv.${tier + 1}${boss ? ' BOSS' : ''}`,
+    maxHp: monsterMaxHp(i) * (boss ? BOSS_HP_MULT : 1n),
     tier,
+    boss,
   };
 }

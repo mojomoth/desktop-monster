@@ -58,7 +58,7 @@ export type {
 export { DEFAULT_SAVE, parseSave, serializeSave, upgradeSave } from './save.js';
 export type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from './save.js';
 
-export { monsterForIndex, SPECIES_IDS } from './monsters.js';
+export { BOSS_EVERY, isBoss, monsterForIndex, SPECIES_IDS } from './monsters.js';
 export type { SpeciesId } from './monsters.js';
 
 export { mulberry32 } from './rng.js';
