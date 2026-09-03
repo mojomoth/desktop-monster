@@ -1,0 +1,9 @@
+
+> desmon@0.1.0 smoke
+> npm run build && SMOKE=1 electron .
+
+
+> desmon@0.1.0 build
+> tsc -p tsconfig.main.json && tsc -p tsconfig.renderer.json
+
+SMOKE_OK
