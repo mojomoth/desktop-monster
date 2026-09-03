@@ -48,6 +48,8 @@ export interface GameState {
   rebirths: number;
   /** Deepest monsterIndex ever reached. */
   bestIndex: number;
+  /** Fever view (SPEC F34) — derived from the engine clock, never persisted. */
+  fever: { active: boolean; remainingMs: number };
 }
 
 export type GameEvent =
@@ -57,6 +59,8 @@ export type GameEvent =
   | { type: 'itemDropped'; drops: ItemDrop[] }
   | { type: 'bossCaptured'; companion: Companion }
   | { type: 'levelUp'; newLevel: number }
+  | { type: 'feverStart' }
+  | { type: 'feverEnd' }
   | { type: 'monsterSpawned'; monster: MonsterDef }
   | { type: 'rebirth'; souls: number }
   | { type: 'pvpResolved'; won: boolean; stolen: Companion | null; lostId: string | null };

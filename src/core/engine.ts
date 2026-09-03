@@ -5,6 +5,13 @@
 import { applyCollection, ROSTER_CAP } from './collection.js';
 import type { CollectionAction } from './collection.js';
 import {
+  createFever,
+  feverActive,
+  feverInput,
+  feverTick,
+  FEVER_MULT,
+} from './fever.js';
+import {
   CRIT_CHANCE,
   CRIT_MULT,
   damageForLevel,
@@ -25,6 +32,11 @@ export const CAPTURE_CHANCE = 0.35;
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
   attack(source: InputSource): GameEvent[];
+  /**
+   * Advance the engine clock by dtMs and emit what the clock produced
+   * (non-finite/negative dt counts as 0). The ONLY way time moves forward.
+   */
+  tick(dtMs: number): GameEvent[];
   /** Run one roster/prestige action on the live state; `{ error }` → no events. */
   apply(a: CollectionAction): GameEvent[];
   getState(): Readonly<GameState>;
@@ -35,6 +47,13 @@ export interface Engine {
 function randomSeed(): number {
   return (Math.random() * 0x100000000) >>> 0;
 }
+
+/**
+ * Every engine boots with fever cold (it is never persisted, SPEC F34).
+ * ponytail: a placeholder — getState() always recomputes it from the clock,
+ * so nothing inside the engine may read `state.fever`.
+ */
+const COLD_FEVER = { active: false, remainingMs: 0 };
 
 /**
  * Save shapes are assumed well-formed here — tolerant parsing of untrusted
@@ -58,6 +77,7 @@ function initialState(save?: SaveFileV2 | null): GameState {
       souls: 0,
       rebirths: 0,
       bestIndex: 0,
+      fever: COLD_FEVER,
     };
   }
   const monster = monsterForIndex(save.monsterIndex);
@@ -76,6 +96,7 @@ function initialState(save?: SaveFileV2 | null): GameState {
     souls: save.souls,
     rebirths: save.rebirths,
     bestIndex: Math.max(save.bestIndex, monster.index),
+    fever: COLD_FEVER,
   };
 }
 
@@ -97,15 +118,29 @@ export function createEngine(
   rng: Rng = mulberry32(randomSeed()),
 ): Engine {
   const state = initialState(save ? upgradeSave(save) : null);
+  /** The engine clock (Assumption 39) — advanced ONLY by tick(dtMs). */
+  let clockMs = 0;
+  let fever = createFever();
+  const feverView = (): GameState['fever'] => ({
+    active: feverActive(fever, clockMs),
+    remainingMs: Math.max(0, fever.activeUntil - clockMs),
+  });
 
   return {
     attack(source: InputSource): GameEvent[] {
       const events: GameEvent[] = [];
 
+      // The input stamps the clock and may light fever BEFORE its own attack
+      // event, so the 20th input already lands at x3 (SPEC F34).
+      const lit = feverInput(fever, clockMs);
+      fever = lit.fever;
+      if (lit.started) events.push({ type: 'feverStart' });
+
       const crit = rng.next() < CRIT_CHANCE;
       const damage =
         BigInt(damageForLevel(state.level)) *
         (crit ? BigInt(CRIT_MULT) : 1n) *
+        (feverActive(fever, clockMs) ? FEVER_MULT : 1n) *
         BigInt(1 + state.souls);
       events.push({ type: 'attack', damage, crit, source });
 
@@ -167,6 +202,13 @@ export function createEngine(
       return events;
     },
 
+    tick(dtMs: number): GameEvent[] {
+      clockMs += Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
+      const cooled = feverTick(fever, clockMs);
+      fever = cooled.fever;
+      return cooled.ended ? [{ type: 'feverEnd' }] : [];
+    },
+
     apply(a: CollectionAction): GameEvent[] {
       const result = applyCollection(state, a);
       if ('error' in result) return [];
@@ -179,6 +221,7 @@ export function createEngine(
     getState(): Readonly<GameState> {
       return {
         ...state,
+        fever: feverView(),
         monster: { ...state.monster },
         items: { ...state.items },
         companions: state.companions.map((c) => ({ ...c })),
