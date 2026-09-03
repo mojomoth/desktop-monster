@@ -93,6 +93,52 @@ the game to a fresh state and saves immediately). Deleting `save.json` while
 the app is closed also works; a missing or corrupt save file never prevents
 the app from starting — it falls back to a fresh game.
 
+## Server / Leaderboard & PvP
+
+DesMon talks to a small Node server (`src/server`, deployed on Render) for the
+global **Leaderboard** and for asynchronous **PvP** battles with companion
+stealing. It is entirely optional: with no server reachable the game plays
+exactly as before — every net call fails fast (5 s timeout, never throws) and
+the Collection window simply shows the board as unavailable.
+
+- **Identity.** On first launch the app picks an automatic nickname
+  `Knight-xxxx` (4 hex characters) and registers lazily, the first time you
+  open the Ranking or Battle tab. The nickname is editable; the auth token
+  lives only in `~/Library/Application Support/DesMon/identity.json` and never
+  enters `save.json`.
+- **What the server decides.** The PvP verdict and the roster moves (stolen /
+  lost companions) are authoritative. Leaderboard stats are **self-reported**:
+  the server accepts the snapshot a client uploads and ranks it
+  (accept-and-rank), so the board is for fun, not for scorekeeping.
+- **Running it locally.**
+
+  ```sh
+  npm run build
+  DATABASE_URL=postgres://…  npm run start:server   # omit DATABASE_URL for an in-memory store
+  DESMON_SERVER_URL=http://localhost:10000 npm start
+  ```
+
+  `npm run start:server` listens on `PORT` (default `10000`) and serves
+  `GET /healthz` plus the `/v1` API. Without `DATABASE_URL` it uses an
+  in-memory store, so everything is lost on restart.
+- **`DESMON_SERVER_URL`** overrides the built-in URL
+  (`src/shared/serverUrl.ts`) for any launch; setting it to the empty string
+  forces offline mode.
+
+### Free-tier caveats
+
+The deployment runs on Render's free tier, which means:
+
+- The web service **sleeps after 15 minutes idle** and takes roughly a minute
+  to cold-start. The first Ranking or Battle click after a long pause will
+  usually report a network error; opening the Collection window warms the
+  service up, and a retry a few seconds later succeeds.
+- The free Postgres instance **expires 30 days after it was created** (see
+  `DB_EXPIRES` in `AGENTS.md`), with a 14-day grace period and no backups.
+  When it is replaced, all identities and leaderboard entries are gone:
+  clients get a 401, re-register automatically under the same nickname and
+  carry on. Local progress in `save.json` is never affected.
+
 ## Windows
 
 `package.json` contains a `win`/`nsis` electron-builder section as

@@ -34,7 +34,12 @@ bump (see HARNESS.md §Versioning).
 
 ## Server
 
-SERVER_URL=<set by the deploy task>
+SERVER_URL=https://desmon-server.onrender.com
+RENDER_SERVICE_ID=srv-dacd4l15efls73e0fbig
+RENDER_POSTGRES_ID=dpg-dacd4k2jnfac73c43llg-a
+DB_CREATED=2026-09-03T01:50:08.492032Z
+DB_EXPIRES=2026-10-03
+DEPLOYED_SHA=970840437a14f8b0c86008fee097ecf34e29c153
 - `GET /healthz` → `200 {"ok":true,"sha":"<RENDER_GIT_COMMIT|dev>"}`, no DB access; everything
   else under `/v1` (SPEC.md §Server / API).
 - Deploy = `git push origin main` + `render deploys create <srv-id> --wait --confirm` (webhooks
