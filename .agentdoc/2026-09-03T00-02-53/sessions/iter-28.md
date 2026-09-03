@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T27 — Collection core: companionPower, activeCompanions, lifecycle actions, roster cap
 - result: DONE
-- commit: <filled below>
+- commit: b9475a7
 - graphify affected used: none (types.ts / save.ts / monsters.ts / formulas.ts read directly — three small files)
 
 ## What I did
