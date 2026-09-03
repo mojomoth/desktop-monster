@@ -1,0 +1,15 @@
+{"task":"T25","result":"DONE","gates":"pass","commit":"bf7289b0","note":"monsterMaxHp -> exact rational (10n*115n**i)/100n**i (bigint, one line); MonsterDef.maxHp, GameState.monsterHp, attack.damage, monsterHit.hpAfter/maxHp -> bigint; engine damage BigInt(damageForLevel)*CRIT_MULT, hp saturates at 0n, resume clamps via new 1-line clampHp (Math.min/max reject bigint); drawHpBar takes bigint and fills via core ratio(). monsters.ts/save.ts/game.ts/loot.ts needed no edit. Tests: values kept, types only; added the 2 required its (formulas 11, renderer 52, engine 16). save/audio passed untouched. No dead ends - green first run.","children":[]}
+
+**What landed** (commits `9bda242` code+tests, `bf7289b` session record):
+
+- `src/core/formulas.ts` — `monsterMaxHp(index): bigint` = `(10n * 115n ** i) / 100n ** i`. Matches the old double exactly at 0/5/10/20 → 10/20/40/163; index 5000 now yields a 305-digit value where the double had saturated to `Infinity`.
+- `src/core/types.ts` — `MonsterDef.maxHp`, `GameState.monsterHp`, `attack.damage`, `monsterHit.hpAfter/maxHp` are `bigint`.
+- `src/core/engine.ts` — damage is `BigInt(damageForLevel(state.level)) * (crit ? BigInt(CRIT_MULT) : 1n)`; the hp subtraction saturates at `0n`; kill test is `=== 0n`; resume is `clampHp(BigInt(save.monsterHp), monster.maxHp)` into `[1n, maxHp]`. `toSave()` already emitted `String(hp)`, so it is unchanged.
+- `src/renderer/hud.ts` — `drawHpBar(ctx, x, y, w, h, hp: bigint, maxHp: bigint)` fills through T23's `ratio()`.
+- `monsters.ts`, `save.ts`, `renderer/game.ts` and `loot.ts` required no edit — they only forward the value or `String(...)` it, exactly as the Notes predicted.
+
+**Tests** — every existing assertion kept its value and changed only its type; no `it(` was deleted, skipped or merged. Two new ones: *"monsterMaxHp is exact for huge indices: index 5000 has 305 digits"* (formulas 10 → 11) and *"drawHpBar takes bigint hp and maxHp"* (renderer 51 → 52), the latter asserting a ~10^26 `maxHp` fills 8 of 32 px at quarter health — a case a double cannot represent. `tests/save.test.ts` and `tests/audio.test.ts` pass untouched.
+
+Two traps recorded in the session record for later bigint work: `Math.min/max/floor` reject bigint (hence `clampHp`), and `Number.isInteger(bigint)` is `false`, so the shared "positive integers and strictly increasing" helper stays number-based with the monsterMaxHp row mapped through `Number` at the call site.
+
+Gates (`npm test && npm run lint && npm run typecheck`) exit 0 — 337 tests across 23 files — and the T25 `AC:` line run verbatim exits 0 (115 tests). Working tree clean.
