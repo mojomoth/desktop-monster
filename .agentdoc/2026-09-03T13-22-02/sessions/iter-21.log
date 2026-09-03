@@ -1,0 +1,14 @@
+{"task":"T74","result":"DONE","gates":"pass","commit":"01576c0","note":"Live sha was stale (23cf0cf; T72's b057037 touched package.json/package-lock.json = build-filter paths), exactly as the Notes predicted. Service desmon-server-v3 already existed on branch v3 so the bootstrap was NOT re-run. Gates green -> one push 'git push origin HEAD:v3' (23cf0cf..3aa900a) -> render deploys create srv-dacmju6k1f9s73csi2v0 --wait --confirm -> live at 3aa900a. healthz {\"ok\":true,\"sha\":\"3aa900a...\"}, sha ancestor of HEAD, filter-path log empty, probe rank 5. DEPLOYED_SHA recorded in AGENTS.md (only file). Dead end: the AC's test \"$D\" '>' ... fails under zsh ('condition expected: >') — run it with bash.","children":[]}
+
+작업 완료했습니다.
+
+**진행 내용**
+- 헤르메틱 절반 먼저 검증: `DEPLOYED_SHA=23cf0cf`는 HEAD의 조상이지만 `git log 23cf0cf..HEAD -- <필터 경로>`가 비어있지 않았습니다 (T72의 `b057037` 버전 0.3.0 범프가 `package.json`/`package-lock.json`을 건드림). 라이브 `/healthz`도 `23cf0cf`로 stale 확인 → 재배포 필요.
+- `render services list`에서 `desmon-server-v3`(`srv-dacmju6k1f9s73csi2v0`)가 이미 브랜치 `v3`로 존재 → bootstrap 재실행 안 함(누락 시에만).
+- 게이트 통과 후 허용된 1회 push: `git push origin HEAD:v3` (`23cf0cf..3aa900a`), 이어서 `render deploys create ... --wait --confirm` → `dep-dacn3cvavr4c73fr6pag`, `status: live`, commit `3aa900a`.
+- 라이브 검증: `/healthz` → `{"ok":true,"sha":"3aa900a5d62f..."}`, 조상 관계 ✔, 필터 경로 로그 공백 ✔, probe → `rank: 5`. `DB_EXPIRES=2026-10-03` 미래 ✔.
+- `AGENTS.md`의 `DEPLOYED_SHA=`만 갱신(빌드 필터 경로 아님 → sha가 다시 stale해지지 않음).
+
+**게이트/AC**: `npm test && npm run lint && npm run typecheck` → exit 0 (34 files / 589 tests), AC 네트워크 포함 실행 → exit 0. 트리 clean, 세션 기록 `iter-21.md` 포함.
+
+**막다른 길 하나**: AC를 zsh에서 그대로 돌리면 `test "$D" '>' ...`가 `condition expected: >`로 죽습니다(zsh `test`에 문자열 `>` 없음). bash로 실행해야 합니다 — 조건 자체는 참입니다.
