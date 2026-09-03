@@ -371,7 +371,7 @@
 - Notes (iter 24, claude): DONE: Added src/main/net.ts (electron-free): NET_TIMEOUT_MS=5000, createNetClient with register/upload/leaderboard/pvp through one call() using AbortSignal.timeout, content-type + optional Bearer; offline before any fetch, thrown fetch->network, 401->unauthorized (checked before parsing so a non-JSON 401 still maps), 429 cooldown->cooldown+retryAfterSec, else server+status; never throws. toSnapshot over structural SnapshotSource; createNetSession derives dirtiness from the roster key (no extra flag), ensureRegistered + re-register-once on 401, onSave/identity background upload, leaderboard uploads i
 
 
-### [ ] T43 — Net IPC: get-identity/set-name/leaderboard/pvp handlers, preload, global.d.ts, SMOKE offline pin
+### [~] T43 — Net IPC: get-identity/set-name/leaderboard/pvp handlers, preload, global.d.ts, SMOKE offline pin
 - AC: `npx vitest run tests/ipc.test.ts tests/renderer.test.ts && grep -q "process.env.SMOKE ? ''" src/main/ipc.ts && grep -q 'ipcMain.handle(IPC.GET_IDENTITY' src/main/ipc.ts && grep -q 'ipcMain.handle(IPC.SET_NAME' src/main/ipc.ts && grep -q 'ipcMain.handle(IPC.LEADERBOARD' src/main/ipc.ts && grep -q 'ipcMain.handle(IPC.PVP' src/main/ipc.ts && grep -q "'desmon:leaderboard'" src/preload/index.ts && grep -q 'parseSave' src/main/ipc.ts && grep -q 'registerIpcHandlers()' src/main/index.ts && npm run smoke > /tmp/desmon-smoke.log 2>&1 && grep -q SMOKE_OK /tmp/desmon-smoke.log` → exit 0
 - Deps: T22, T42, T24
 - Worker: claude
