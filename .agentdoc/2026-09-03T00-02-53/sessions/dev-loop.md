@@ -23,3 +23,4 @@ outcome (run 1): exit 3 (crash escalation), iterations 15, lanes 3, nested_claud
 - Resuming as run 2 (HARNESS §5): MAX_ITER=65 (50 + the 15 iterations lost to A/B), LANES=3, loop stdin redirected from /dev/null.
 | 17 | claude | T23 | DONE | pass | skipped | 1d56b21 | continue |
 | 16 | claude | T22 | DONE | pass | pass | b78c5c1 | continue |
+| 18 | codex | T31 | DONE | pass | pass | b01991e | continue |
