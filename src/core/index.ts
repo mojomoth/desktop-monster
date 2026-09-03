@@ -24,6 +24,8 @@ export {
 
 export * from './collection.js';
 
+export * from './fever.js';
+
 export { createEngine } from './engine.js';
 export type { Engine } from './engine.js';
 

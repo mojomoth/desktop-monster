@@ -5,6 +5,7 @@ import {
   createEngine,
   CRIT_MULT,
   damageForLevel,
+  FEVER_MS,
   monsterForIndex,
   monsterMaxHp,
   mulberry32,
@@ -254,7 +255,9 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const engine = createEngine(null, mulberry32(20260708));
     let crits = 0;
     for (let i = 0; i < 10000; i++) {
-      const attack = engine.attack('keyboard')[0];
+      // 20 rapid inputs light fever (F34), which prepends its own event —
+      // the crit flag still rides on this input's attack event.
+      const attack = engine.attack('keyboard').find((e) => e.type === 'attack');
       if (attack?.type !== 'attack') throw new Error('expected attack');
       if (attack.crit) crits++;
     }
@@ -268,6 +271,9 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     for (let i = 0; i < 137; i++) {
       a.attack(i % 3 === 0 ? 'mouse' : 'keyboard');
     }
+    // Spamming lit fever (F34); it burns out on the engine clock and is never
+    // part of the save, so the resumed engine still matches exactly.
+    a.tick(FEVER_MS);
     const save = a.toSave();
     expect(save.version).toBe(2);
     expect(save.monsterIndex).toBe(a.getState().monster.index);
