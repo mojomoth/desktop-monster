@@ -438,7 +438,7 @@
 - Notes (iter 43, claude): DONE: New src/menu/view.ts (rosterRows power-desc + format, fuseCandidates, canRebirth, consumeTargets) and src/menu/index.ts (mountMenu(doc, api) over minimal structural MenuDocument/MenuElement/MenuBridge, renderer/input.ts injection pattern): boot->reportMenuReady, onStateChanged->parseSave+re-render, card buttons->sendAction consume/fuse/reincarnate/sacrifice, footer rebirth, per-card 24x20 canvas drawn with drawSprite under paletteForTier(idle.palette, stars). static/menu.html tabs+panels+footer+result. tsconfig.renderer include += src/menu (emits dist/web/menu/index.js). tests/menu.test.ts 7 i
 
 
-### [ ] T49 — Menu Ranking + Battle tabs: leaderboard, name, PvP with removeCompanions + pvpResult actions
+### [~] T49 — Menu Ranking + Battle tabs: leaderboard, name, PvP with removeCompanions + pvpResult actions
 - AC: `npx vitest run tests/menu.test.ts && grep -q "getLeaderboard" src/menu/index.ts && grep -q "pvp()" src/menu/index.ts && grep -q "setName" src/menu/index.ts && grep -q "getIdentity" src/menu/index.ts && grep -q "type: 'pvpResult'" src/menu/index.ts && grep -q "type: 'removeCompanions'" src/menu/index.ts && grep -q "leaderboard rows render rank, name, deepest monster and rebirths" tests/menu.test.ts && grep -q "offline or failed results render an Offline row" tests/menu.test.ts && grep -q "pvp result text names the stolen or lost companion and the cooldown" tests/menu.test.ts && grep -q "battle button is disabled with no companions or during cooldown" tests/menu.test.ts && grep -q "a successful pvp is forwarded to the game as a pvpResult action" tests/menu.test.ts` → exit 0
 - Deps: T48
 - Worker: claude
