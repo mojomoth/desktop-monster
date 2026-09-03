@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T76 — SPEC criteria sweep v3 (F01–F80, Server / API, Deployment — literal)
 - result: DONE
-- commit: (this commit)
+- commit: ae39a04
 - graphify affected used: none (sweep task; the single fix was a pinned test title)
 
 ## What I did
