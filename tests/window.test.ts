@@ -118,3 +118,30 @@ describe('default position (Assumption 10, src/main/window.ts)', () => {
     expect(y + 300).toBeLessThanOrEqual(workArea.height); // never over the bar
   });
 });
+
+describe('theft watcher (F74, src/main/index.ts)', () => {
+  it('the watcher is never started under SMOKE', () => {
+    // GAME_DESIGN_V3 §8: a smoke run is offline BY CODE, so the poller must
+    // live entirely inside the non-SMOKE branch — it may never fetch.
+    const guard = indexTs.indexOf('if (!isSmoke) {');
+    const create = indexTs.indexOf('createTheftWatcher({');
+    expect(guard).toBeGreaterThan(-1);
+    expect(create).toBeGreaterThan(guard);
+    expect(indexTs.slice(0, guard)).not.toContain('createTheftWatcher(');
+    expect(indexTs).toContain('watcher?.start()');
+    expect(indexTs).toContain('watcher?.stop()');
+  });
+
+  it('notifies with the F74 body and turns a click into the one main-originated action', () => {
+    expect(indexTs).toContain('Notification.isSupported()');
+    expect(indexTs).toContain("title: 'DesMon'");
+    expect(indexTs).toContain('stole your ${speciesName} Lv ${String(t.companion.level)}!');
+    expect(indexTs).toContain('Click to reclaim (${String(hoursLeft(t.reclaimUntil))}h left).');
+    expect(indexTs).toContain("n.on('click'");
+    expect(indexTs).toContain(
+      "sendToAll(IPC.ACTION, { type: 'addCompanion', companion: res.value.companion })",
+    );
+    // Stopping the poller is part of shutdown, next to the global-input hook.
+    expect(indexTs.indexOf('watcher?.stop()')).toBeGreaterThan(indexTs.indexOf("app.on('will-quit'"));
+  });
+});
