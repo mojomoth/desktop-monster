@@ -1,0 +1,13 @@
+{"task":"T60","result":"DONE","gates":"pass","commit":"a740d8a3","note":"POST /v1/pvp rewritten to v3 (SERVER_ARCHITECTURE_V3 §3 order): cooldown → no_snapshot → body matchId+party (v2 body → 400 bad_request) → match lookup (410 match_expired, deleted) → roster/≤5 check (400 bad_party, no stamp, match kept) → setLastPvpAt → resolvePvp(party, stored opponentParty, mulberry32(seed), roster.length) → blows with String(damage), lost:null. Steal writes transferred 's'+seed, loser roster+party minus id, stolenIds, theft 't'+seed with reclaimUntil=now+RECLAIM_WINDOW_MS via setThefts. T54's local partyOf replaced by core pvpParty; TTL sweep shared as prune(). pvp.test.ts 9→14 it(. Gates + AC green.","children":[]}
+
+T60 완료했습니다.
+
+**구현 (`src/server/app.ts`)**
+- `POST /v1/pvp`를 v3 2단계 흐름으로 재작성 — 핸들러 순서는 SERVER_ARCHITECTURE_V3 §3 그대로: auth → rate limit → 쿨다운 → `no_snapshot` → 바디 검증(`matchId: string` + `party: string[]`, v2 바디는 400 `bad_request`) → 매치 조회(없음/`MATCH_TTL_MS` 초과/남의 것 → 410 `match_expired`, 엔트리 삭제) → 파티 id 검증(로스터 밖이거나 5개 초과 → 400 `bad_party`, 쿨다운 미기록·매치 유지) → `setLastPvpAt` → `resolvePvp(party, match.opponentParty, mulberry32(seed), roster.length)` → 매치 삭제.
+- 응답은 v3 `PvpResponse`: `blows`는 `damage: String(bigint)`, `opponent.party`는 미리보기에 저장된 파티, `lost`는 항상 `null`.
+- 탈취(비봇, `moved !== null`): `s+seed`로 재부여, 패자 로스터·저장 파티에서 제거, `stolenIds`(-32), theft 레코드 `t+seed`(`reclaimUntil = now + RECLAIM_WINDOW_MS`)를 `.slice(-THEFTS_MAX)`로 `setThefts`. 트랜잭션 없는 4번의 쓰기는 `ponytail:` 주석으로 BEGIN/COMMIT을 천장으로 명시했습니다.
+- T54의 임시 `partyOf`/`idNum` 헬퍼 삭제 → `/v1/pvp/match`가 core `pvpParty`를 직접 사용(정렬 규칙 동일해 `app.test.ts`는 무수정). TTL 정리는 두 엔드포인트가 공유하는 `prune(at)`으로 통합.
+
+**테스트 (`tests/server/pvp.test.ts`)** — 9 → 14개. `preview()` + `fight()` 헬퍼로 기존 v2 제목의 호출부를 그대로 유지했고, AC가 요구한 5개 신규 제목(410 match_expired, bad_party, 저장된 상대 파티 + 십진 damage blow 목록, 24시간 theft 레코드, v2 바디 400)을 추가했습니다. blow 테스트는 미리보기 후 상대가 titan을 재업로드해도 결과가 바뀌지 않음을 검증합니다.
+
+**게이트**: `npm test` 547 passed (33 files) / `lint` / `typecheck` 모두 통과, T60 `AC:` bash 실행 결과 exit 0. smoke는 `src/main|preload|renderer|static|package.json`을 건드리지 않아 생략했습니다(charter 규정).

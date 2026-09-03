@@ -11,3 +11,4 @@
 | 09 | claude | T58 | DONE | pass | skipped | 76719b5 | continue |
 | 10 | claude | T70 | DONE | pass | pass | 0a5ba78 | continue |
 | 11 | claude | T59 | DONE | pass | skipped | 1dc7e10 | continue |
+| 12 | claude | T60 | DONE | pass | skipped | a0079ec | continue |
