@@ -6,7 +6,7 @@
 - harness version: v3
 - task: T58 — Battle simulation (battle.ts) + resolvePvp v3 with STEAL_CHANCE in collection.ts
 - result: DONE
-- commit: 9813ae7e9727322a78d341258d0322ca9c91b6f2
+- commit: 1dc04be0abd02959b228731d9338e52d3d7cec46
 - graphify affected used: none (task block + SPEC F37/F62 + GAME_DESIGN_V3 §5 named every file)
 
 ## What I did
