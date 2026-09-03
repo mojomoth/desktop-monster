@@ -6,7 +6,7 @@
 - harness version: v2
 - task: T42 — Main net client + net session: injected fetch, 5000 ms timeout, never throws, 401 re-register
 - result: DONE
-- commit: f5b70c7e5d03e94645e08357991133aeb96710c9
+- commit: cdca5ff7630b20b4c10c0ed0299bb9cef09faf34 (code + tests; this record follows in a docs commit)
 - graphify affected used: none (T38's src/main/identity.ts + src/shared/api.ts read directly; both are small and are the only deps)
 
 ## What I did
