@@ -1,13 +1,12 @@
-import { sizeOf } from '../../core/index.js';
 import type { Companion, MonsterType } from '../../core/index.js';
 import { drawText } from './font.js';
 import { monsterSprites } from './monsters.js';
 import { COLORS, paletteForTier } from './palette.js';
-import { drawSprite } from './sprite.js';
+import { drawSprite, UNIT_SCALE } from './sprite.js';
 import type { SpriteCanvas } from './sprite.js';
 
 export const PARTY_X = 8;
-export const PARTY_STEP_X = 14;
+export const PARTY_STEP_X = 9;
 export const PARTY_STEP_Y = 3;
 
 export const TYPE_COLORS: Record<MonsterType, string> = {
@@ -31,11 +30,17 @@ export function partySlots(
   party: readonly { speciesId: string }[],
   groundY: number,
 ): { x: number; y: number; scale: number }[] {
-  return party.map(({ speciesId }, r) => ({
-    x: PARTY_X + r * PARTY_STEP_X,
-    y: groundY - (party.length - 1 - r) * PARTY_STEP_Y,
-    scale: sizeOf(speciesId),
-  }));
+  // Uniform pixel scale (2026-09-04): size variety is in the native art, so
+  // every member draws at 1× like the hero and the field monster.
+  const slots: { x: number; y: number; scale: number }[] = [];
+  for (let r = 0; r < party.length; r++) {
+    slots.push({
+      x: PARTY_X + r * PARTY_STEP_X,
+      y: groundY - (party.length - 1 - r) * PARTY_STEP_Y,
+      scale: UNIT_SCALE,
+    });
+  }
+  return slots;
 }
 
 /** Paint a back-to-front party, mirrored around originX for an opponent group. */

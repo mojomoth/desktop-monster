@@ -97,25 +97,25 @@ describe('default position (Assumption 10, src/main/window.ts)', () => {
     expect(windowTs).toContain('win.setPosition(spot.x, spot.y)');
   });
 
-  it('the overlay window is 480 by 300 and still sits above the dock margin', () => {
-    // v3 (F64): the field doubled to a 240×150 canvas at 2× CSS.
-    expect(windowTs).toContain('WINDOW_W = 480');
-    expect(windowTs).toContain('WINDOW_H = 300');
-    expect(styleCss).toMatch(/canvas\s*{[^}]*width: 480px;/);
-    expect(styleCss).toMatch(/canvas\s*{[^}]*height: 300px;/);
+  it('the overlay window is 400 by 260 and still sits above the dock margin', () => {
+    // v3 (F64): a 200×130 canvas at 2× CSS (shrunk from 240×150; user change 2026-09-04).
+    expect(windowTs).toContain('WINDOW_W = 400');
+    expect(windowTs).toContain('WINDOW_H = 260');
+    expect(styleCss).toMatch(/canvas\s*{[^}]*width: 400px;/);
+    expect(styleCss).toMatch(/canvas\s*{[^}]*height: 260px;/);
     expect(styleCss).toMatch(/canvas\s*{[^}]*image-rendering: pixelated;/);
-    expect(read('static/index.html')).toContain('width="240" height="150"');
+    expect(read('static/index.html')).toContain('width="200" height="130"');
   });
 
   it('pure-math default: 1920×1080 with a 40px taskbar lands clear of it', () => {
     // Mirror of defaultPosition() — window.ts value-imports electron and
     // cannot load under vitest, so the formula is pinned here numerically.
     const workArea = { x: 0, y: 0, width: 1920, height: 1040 };
-    const x = workArea.x + workArea.width - 480 - 16;
-    const y = workArea.y + workArea.height - 300 - 16;
-    expect(x).toBe(1424);
-    expect(y).toBe(724);
-    expect(y + 300).toBeLessThanOrEqual(workArea.height); // never over the bar
+    const x = workArea.x + workArea.width - 400 - 16;
+    const y = workArea.y + workArea.height - 260 - 16;
+    expect(x).toBe(1504);
+    expect(y).toBe(764);
+    expect(y + 260).toBeLessThanOrEqual(workArea.height); // never over the bar
   });
 });
 

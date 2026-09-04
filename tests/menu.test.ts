@@ -377,7 +377,7 @@ describe('menu page', () => {
     expect(canvases).toHaveLength(3);
     for (const canvas of canvases) {
       expect(canvas.className).toBe('species');
-      expect([canvas.width, canvas.height]).toEqual([24, 20]);
+      expect([canvas.width, canvas.height]).toEqual([30, 24]);
       expect(canvas.fills.length).toBeGreaterThan(0);
     }
     // The strongest card is the dragon, painted with its 1-star tier palette.

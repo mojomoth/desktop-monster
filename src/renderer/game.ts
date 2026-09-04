@@ -25,7 +25,6 @@ import {
   effectiveness,
   format,
   partyOrder,
-  sizeOf,
   SPECIES_IDS,
   typeOf,
 } from '../core/index.js';
@@ -110,26 +109,25 @@ import {
 } from './hud.js';
 
 /** Internal canvas size in game pixels (CSS-scaled 2x, see static/). */
-export const VIEW_W = 240;
-export const VIEW_H = 150;
+export const VIEW_W = 200;
+export const VIEW_H = 130;
 /** Top of the ground strip; entities stand on it. */
-export const GROUND_Y = 132;
+export const GROUND_Y = 112;
 /**
- * Hero art pixel scale (Assumption 17). v3 shipped 1×; a 2026-09-04 user
- * change took it to 3× ("about 2.5× bigger"), then to 2× ("80% of the 3×
- * size"): SPRITE_SCALE is an integer pixel scale (drawSprite fills scale×scale
- * rects), so 0.8·3 = 2.4 rounds to 2 — one hero art pixel is two game pixels,
- * ~67% of the 3× size and the same screen size as v2's hero. Monsters keep
- * their own scale (`sizeOf`, +1 for bosses).
+ * Uniform pixel scale (Assumption 17; user change 2026-09-04). EVERY world
+ * sprite — hero, party, monster, boss — draws at this one integer scale, so a
+ * pixel is the same size across the whole scene. Size differences now come
+ * from each sprite's NATIVE art dimensions (hero 22×20; monsters 16×14 →
+ * 30×24 by species), not from a per-entity scale multiplier.
  */
-export const SPRITE_SCALE = 2;
+export const SPRITE_SCALE = 1;
 /** Hero sprite position (left side, feet on the ground). */
-export const HERO_X = 96;
+export const HERO_X = 78;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
-export const MONSTER_X = 176;
+export const MONSTER_X = 150;
 /** Boxed HP bar above the monster (centered over it at draw time). */
-export const HP_BAR = { w: 40, h: 5, y: 96 } as const;
+export const HP_BAR = { w: 40, h: 5, y: 80 } as const;
 /** Gap between the type badge and the left end of the monster's HP bar. */
 export const TYPE_BADGE_GAP = 7;
 /** ms per idle bob frame (GAME_ARCHITECTURE §4: 2-frame bob, 500 ms/frame). */
@@ -139,7 +137,7 @@ export const ATTACK_FRAME_MS = HERO_ATTACK_MS / 3;
 /** The attack frame during which the slash-arc overlay shows. */
 export const SLASH_FRAME = 1;
 /** Where item drops land after their arc + bounce (gap left of the monster). */
-export const DROP_LAND_X = 150;
+export const DROP_LAND_X = 125;
 /** Horizontal stagger between simultaneous drops so they never stack. */
 export const DROP_STAGGER_PX = 8;
 /** Drop flight destination: the top-right coin counter (icon position). */
@@ -164,7 +162,7 @@ export const REPLAY_END_MS = 600;
 /** Right edge the mirrored opponent group and its name hang from. */
 export const OPPONENT_ORIGIN_X = VIEW_W - 8;
 /** Baseline of the opponent's name, clear of its tallest member. */
-export const OPPONENT_NAME_Y = 84;
+export const OPPONENT_NAME_Y = 72;
 /** How far a blow's damage float sits above the target's centre. */
 export const BLOW_FLOAT_LIFT = 6;
 
@@ -281,14 +279,15 @@ function slotCentre(
   return { x: slot.x + (art.w * slot.scale) / 2, y: slot.y - (art.h * slot.scale) / 2 };
 }
 
-/** Art scale of the monster on screen: its hidden size, +1 for a boss (§6). */
-function monsterScale(monster: MonsterDef): number {
-  return sizeOf(monster.speciesId) + (monster.boss ? 1 : 0);
+/** Uniform draw scale (SPRITE_SCALE): size variety is in the native art now,
+ * so a boss reads as a boss from its crown + aura, not a bigger pixel grid. */
+function monsterScale(): number {
+  return SPRITE_SCALE;
 }
 
 /** Centre of the monster's drawn art — where its hit effects burst. */
 function monsterCentre(monster: MonsterDef): { x: number; y: number } {
-  const scale = monsterScale(monster);
+  const scale = monsterScale();
   const art = speciesSpritesFor(monster.speciesId).idle;
   return { x: MONSTER_X + (art.w * scale) / 2, y: GROUND_Y - (art.h * scale) / 2 };
 }
@@ -652,7 +651,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           // FSM rides DYING for the same 500ms the scatter lives.
           audio.killArpeggio();
           const sprite = tintedIdleSprite(event.monster);
-          const scale = monsterScale(event.monster);
+          const scale = monsterScale();
           spawnSpriteScatter(
             particles,
             sprite,
@@ -852,7 +851,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       drawParty(ctx, scene === null ? fieldParty(state) : scene.mine, partyFrame, GROUND_Y);
 
       const species = speciesSpritesFor(state.monster.speciesId);
-      const scale = monsterScale(state.monster);
+      const scale = monsterScale();
       if (scene !== null) {
         // The battle scene owns the field: the opponent's party stands
         // mirrored on the right under its name, no field monster (§6).

@@ -6,8 +6,8 @@ import { BrowserWindow, screen } from 'electron';
 import * as path from 'node:path';
 
 /** Overlay content size, CSS px (Assumption 10 — fixed, not resizable). */
-export const WINDOW_W = 480;
-export const WINDOW_H = 300;
+export const WINDOW_W = 400;
+export const WINDOW_H = 260;
 /**
  * Gap between the overlay and the work-area edges. The work area already
  * excludes the macOS Dock / Windows taskbar; the margin adds visible air.

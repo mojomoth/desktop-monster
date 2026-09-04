@@ -10,6 +10,14 @@
 /** The transparent character used in frame rows. */
 export const TRANSPARENT = '.';
 
+/**
+ * Uniform world pixel scale (Assumption 17; user change 2026-09-04). Every
+ * world sprite draws at this integer scale so a pixel is one size everywhere;
+ * size variety comes from native art dimensions. game.ts re-exports it as
+ * `SPRITE_SCALE`.
+ */
+export const UNIT_SCALE = 1;
+
 export interface Sprite {
   /** Frame width in game pixels; every row of every frame is exactly this long. */
   w: number;

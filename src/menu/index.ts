@@ -85,8 +85,15 @@ export interface MenuBridge {
 /** Tab ids — each is both the tab button (`#tab-<id>`) and its panel (`#<id>`). */
 const PANELS = ['roster', 'ranking', 'battle'] as const;
 
-/** Card art: the 12x10 species idle frame at 2x fills the 24x20 canvas. */
-const CARD_SCALE = 2;
+/**
+ * Card art: species idle frame at the uniform 1x scale (2026-09-04) on a fixed
+ * buffer sized to the LARGEST species, each smaller species centred + bottom-
+ * aligned. CSS (`canvas.species`) scales the buffer to the on-screen card, so
+ * bigger species read bigger in the menu too.
+ */
+const CARD_SCALE = 1;
+const CARD_W = Math.max(...SPECIES_IDS.map((id) => monsterSprites[id].idle.w));
+const CARD_H = Math.max(...SPECIES_IDS.map((id) => monsterSprites[id].idle.h));
 
 /** NICK_RE's ceiling — the name field also carries it as `maxlength`. */
 const NAME_MAX = 16;
@@ -234,15 +241,16 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   const speciesCanvas = (row: { speciesId: string; stars: number }): MenuElement => {
     const canvas = doc.createElement('canvas');
     canvas.className = 'species';
-    canvas.width = monsterSprites[speciesKey(row.speciesId)].idle.w * CARD_SCALE;
-    canvas.height = monsterSprites[speciesKey(row.speciesId)].idle.h * CARD_SCALE;
+    canvas.width = CARD_W;
+    canvas.height = CARD_H;
     const ctx = canvas.getContext?.('2d');
     if (ctx) {
       const idle = monsterSprites[speciesKey(row.speciesId)].idle;
       // Stars are the card's palette tier, the way monster tiers tint the
       // overlay art (GAME_ARCHITECTURE §4); DrawSpriteOptions has no palette.
       const tinted = { ...idle, palette: paletteForTier(idle.palette, row.stars) };
-      drawSprite(ctx, tinted, 0, 0, 0, { scale: CARD_SCALE });
+      const dx = Math.floor((CARD_W - idle.w) / 2);
+      drawSprite(ctx, tinted, 0, dx, CARD_H - idle.h, { scale: CARD_SCALE });
     }
     return canvas;
   };

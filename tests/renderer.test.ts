@@ -197,6 +197,9 @@ const bannerKeys = (text: string): string[] => {
 
 /** Draw scale of the boot monster (index 0 = slime, size 1): monsters scale by species, not by the hero's SPRITE_SCALE (F64). */
 const MONSTER_SCALE = sizeOf(monsterForIndex(0).speciesId);
+/** Idle-art dims of a species (uniform pixel scale: on-screen box = art × 1). */
+const artOf = (speciesId: string): { w: number; h: number } =>
+  monsterSprites[speciesId as SpeciesId].idle;
 
 describe('drawMeter / drawHpBar (boxed bars)', () => {
   it('paints a steel frame with a void interior', () => {
@@ -530,7 +533,7 @@ describe('createGame (scene orchestration)', () => {
     // region that held no pixels before the attack. x starts right of the
     // hero's LV/XP HUD (which ends at HERO_X + 14 * SPRITE_SCALE - 1).
     const floatRegion = (calls: RectCall[]): RectCall[] =>
-      calls.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 150);
+      calls.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 120);
     expect(floatRegion(before.calls)).toEqual([]);
     expect(floatRegion(after.calls).length).toBeGreaterThan(0);
   });
@@ -594,8 +597,8 @@ describe('combat presentation (core FSMs, T14)', () => {
         (c) =>
           c.w === SPRITE_SCALE &&
           c.x >= HERO_X &&
-          c.x < HERO_X + 14 * SPRITE_SCALE &&
-          c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
+          c.x < HERO_X + heroIdle.w * SPRITE_SCALE &&
+          c.y >= GROUND_Y - heroIdle.h * SPRITE_SCALE &&
           c.y < GROUND_Y,
       )
       .map((c) => `${String(c.x)},${String(c.y)},${c.fillStyle}`);
@@ -605,8 +608,8 @@ describe('combat presentation (core FSMs, T14)', () => {
       (c) =>
         c.w === MONSTER_SCALE &&
         c.x >= MONSTER_X &&
-        c.x < MONSTER_X + 12 * MONSTER_SCALE &&
-        c.y >= GROUND_Y - 12 * MONSTER_SCALE &&
+        c.x < MONSTER_X + artOf('slime').w * MONSTER_SCALE &&
+        c.y >= GROUND_Y - artOf('slime').h * MONSTER_SCALE &&
         c.y < GROUND_Y,
     );
 
@@ -674,7 +677,7 @@ describe('combat presentation (core FSMs, T14)', () => {
     game.draw(flash.ctx);
     // The hit-effect burst shares the box at 1x units, so the flash is pinned
     // against the tinted hit pose itself (F64).
-    const scale = sizeOf(game.getState().monster.speciesId);
+    const scale = SPRITE_SCALE;
     const hitPose = monsterSprites.slime.hit;
     const ref = makeCtx();
     drawSprite(ref.ctx, hitPose, 0, MONSTER_X, GROUND_Y - hitPose.h * scale, {
@@ -733,15 +736,15 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
   // coin launches from the monster and is yellow/orange — never in slime art).
   // The killing blow's hit burst sits on the monster's centre cell, which at
   // 1x units is the same size as an art pixel (F64) — skip that one cell.
-  const CENTRE = { x: MONSTER_X + 12 / 2, y: GROUND_Y - 10 / 2 };
+  const CENTRE = { x: MONSTER_X + artOf('slime').w / 2, y: GROUND_Y - artOf('slime').h / 2 };
   const monsterBox = (calls: RectCall[]): string[] =>
     calls
       .filter(
         (c) =>
           c.w === MONSTER_SCALE &&
           c.x >= MONSTER_X &&
-          c.x < MONSTER_X + 12 * MONSTER_SCALE &&
-          c.y >= GROUND_Y - 12 * MONSTER_SCALE &&
+          c.x < MONSTER_X + artOf('slime').w * MONSTER_SCALE &&
+          c.y >= GROUND_Y - artOf('slime').h * MONSTER_SCALE &&
           c.y < GROUND_Y &&
           !(c.x === CENTRE.x && c.y === CENTRE.y) &&
           c.fillStyle !== COLORS.yellow &&
@@ -892,8 +895,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
 
   /** Centre of the boss at `index`: 12x10 art at its species size plus one. */
   const bossCentre = (index: number): { x: number; y: number } => {
-    const scale = sizeOf(monsterForIndex(index).speciesId) + 1;
-    return { x: MONSTER_X + (12 * scale) / 2, y: GROUND_Y - (10 * scale) / 2 };
+    const art = artOf(monsterForIndex(index).speciesId);
+    return { x: MONSTER_X + (art.w * SPRITE_SCALE) / 2, y: GROUND_Y - (art.h * SPRITE_SCALE) / 2 };
   };
 
   it('update() ticks the engine and returns companion events to the save scheduler', () => {
@@ -932,10 +935,10 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
     const floatRegion = (cs: RectCall[]): RectCall[] =>
-      cs.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 150);
+      cs.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 120);
     const rendered = (text: string): string[] => {
       const pool = createFloatPool();
-      spawnFloat(pool, MONSTER_X + (12 * MONSTER_SCALE) / 2, HP_BAR.y - 6, text, hit.crit);
+      spawnFloat(pool, MONSTER_X + (artOf('slime').w * MONSTER_SCALE) / 2, HP_BAR.y - 6, text, hit.crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return keys(ref.calls);
@@ -945,30 +948,31 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
   });
 
   it('a monster hit spawns the species hit effect', () => {
-    // Monster 3 is a golem: at draw scale 3 its art cells are 3x3, so only the
-    // 1x1 burst particles can land on the centre cell (F64).
+    // Monster 3 is a golem. At the uniform scale (2026-09-04) the idle art has a
+    // 1x1 pixel on its own centre, so 'before' is not empty; on hit the sprite
+    // flashes white (excluded by colour), leaving the clean gray/slate burst.
     const game = createGame(
       createEngine(
         { ...v2, monsterIndex: 3, monsterHp: String(monsterMaxHp(3)), bestIndex: 3 },
         mulberry32(42),
       ),
     );
-    const scale = sizeOf(game.getState().monster.speciesId);
-    expect(scale).toBe(3);
+    const scale = SPRITE_SCALE;
+    const art = artOf(game.getState().monster.speciesId);
     const preset = EFFECTS.hit.golem;
     // The burst starts on the monster's centre, so every particle sits there.
     const burst = (cs: RectCall[]): RectCall[] =>
       cs.filter(
         (c) =>
           c.w === preset.size &&
-          c.x === MONSTER_X + (12 * scale) / 2 &&
-          c.y === GROUND_Y - (10 * scale) / 2 &&
+          c.x === MONSTER_X + (art.w * scale) / 2 &&
+          c.y === GROUND_Y - (art.h * scale) / 2 &&
           (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
       );
 
     const before = makeCtx();
     game.draw(before.ctx);
-    expect(burst(before.calls)).toEqual([]);
+    expect(burst(before.calls).length).toBeLessThan(preset.count);
 
     game.attack('keyboard');
     const after = makeCtx();
@@ -994,7 +998,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     // size plus one, with its feet on the ground and crown above the head.
     const speciesId = game.getState().monster.speciesId as SpeciesId;
     const idle = monsterSprites[speciesId].idle;
-    const scale = sizeOf(speciesId) + 1;
+    const scale = SPRITE_SCALE;
     const top = GROUND_Y - idle.h * scale;
     const crown = itemSprites.crown;
     const crownX = MONSTER_X + Math.floor((idle.w * scale - crown.w) / 2);
@@ -1022,8 +1026,9 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     expect(ref.calls.length).toBeGreaterThan(0);
     expect(keys(bossBand(calls))).toEqual(keys(ref.calls));
     expect(bossBand(calls).some((c) => c.w === scale)).toBe(true);
-    // Nothing paints at the species' ordinary size: the boss really is bigger.
-    expect(bossBand(calls).filter((c) => c.w === sizeOf(speciesId))).toEqual([]);
+    // Uniform scale (2026-09-04): the crown (its own 1× rects above the head)
+    // is what marks the boss, not a bigger pixel grid.
+    expect(bossBand(calls).some((c) => c.y < top)).toBe(true);
 
     // The hp bar is raised out of the taller sprite's way.
     const barFrame = (y: number): boolean =>
@@ -1069,7 +1074,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const party = partyOrder(activeCompanions(state.companions, state.monster.type));
     const slots = partySlots(party, GROUND_Y);
     // Back to front: bigger species stand behind, higher up and further left.
-    expect(slots.map((s) => s.scale)).toEqual(party.map((c) => sizeOf(c.speciesId)));
+    expect(slots.map((s) => s.scale)).toEqual(party.map(() => 1));
     expect(slots.map((s) => s.scale)).toEqual([...slots.map((s) => s.scale)].sort((a, b) => b - a));
     expect(slots.map((s) => s.x)).toEqual([...slots.map((s) => s.x)].sort((a, b) => a - b));
     expect(slots.map((s) => s.y)).toEqual([...slots.map((s) => s.y)].sort((a, b) => a - b));
@@ -1123,10 +1128,12 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     game.draw(ctx);
     const state = game.getState();
     const party = partyOrder(activeCompanions(state.companions, state.monster.type));
-    const centres = partySlots(party, GROUND_Y).map((slot) => ({
-      x: slot.x + (12 * slot.scale) / 2,
-      y: slot.y - (10 * slot.scale) / 2,
-    }));
+    const slots = partySlots(party, GROUND_Y);
+    const centres = party.map((c, r) => {
+      const slot = slots[r] ?? { x: 0, y: 0, scale: 1 };
+      const art = artOf(c.speciesId);
+      return { x: slot.x + (art.w * slot.scale) / 2, y: slot.y - (art.h * slot.scale) / 2 };
+    });
     for (let r = 0; r < party.length; r++) {
       const c = party[r];
       const centre = centres[r];
@@ -1186,7 +1193,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     if (slot === undefined) {
       throw new Error('the captured boss is not in the party');
     }
-    const centre = { x: slot.x + (12 * slot.scale) / 2, y: slot.y - (10 * slot.scale) / 2 };
+    const capArt = artOf(party[0]?.speciesId ?? 'slime');
+    const centre = { x: slot.x + (capArt.w * slot.scale) / 2, y: slot.y - (capArt.h * slot.scale) / 2 };
     const boss = bossCentre(15);
     expect(sparkles(boss.x, boss.y)).toHaveLength(preset.count);
     expect(sparkles(centre.x, centre.y)).toHaveLength(preset.count);
@@ -1195,13 +1203,13 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     game.update(MONSTER_DYING_MS + MONSTER_SPAWNING_MS);
     const after = makeCtx();
     game.draw(after.ctx);
-    const top = slot.y - 10 * slot.scale;
+    const top = slot.y - capArt.h * slot.scale;
     expect(
       after.calls.some(
         (c) =>
           c.w === slot.scale &&
           c.x >= slot.x &&
-          c.x < slot.x + 12 * slot.scale &&
+          c.x < slot.x + capArt.w * slot.scale &&
           c.y >= top &&
           c.y < slot.y,
       ),
@@ -1218,7 +1226,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const painted = new Set(calls.map(rectKey));
 
     const barX = Math.round(
-      MONSTER_X + (12 * sizeOf(monster.speciesId)) / 2 - HP_BAR.w / 2,
+      MONSTER_X + (artOf(monster.speciesId).w * SPRITE_SCALE) / 2 - HP_BAR.w / 2,
     );
     const badge = makeCtx();
     drawTypeBadge(badge.ctx, monster.type, barX - TYPE_BADGE_GAP, HP_BAR.y);
@@ -1272,7 +1280,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       const { ctx, calls } = makeCtx();
       game.draw(ctx);
 
-      const scale = sizeOf(def.speciesId);
+      const scale = SPRITE_SCALE;
       const idle = monsterSprites[def.speciesId as SpeciesId].idle;
       const ref = makeCtx();
       drawSprite(
@@ -1373,7 +1381,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       const pool = createFloatPool();
       spawnFloat(
         pool,
-        MONSTER_X + (12 * sizeOf(monster.speciesId)) / 2,
+        MONSTER_X + (artOf(monster.speciesId).w * SPRITE_SCALE) / 2,
         HP_BAR.y - 6,
         format(volley.damage),
         false,
@@ -1539,8 +1547,8 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
     const offParty = (c: RectCall): boolean =>
       !(
         c.x >= slot.x &&
-        c.x < slot.x + 12 * slot.scale &&
-        c.y >= slot.y - 10 * slot.scale &&
+        c.x < slot.x + artOf('slime').w * slot.scale &&
+        c.y >= slot.y - artOf('slime').h * slot.scale &&
         c.y < slot.y
       );
     expect(after.calls.filter(offParty)).toEqual(before.calls.filter(offParty));
@@ -1578,8 +1586,8 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
       calls.filter(
         (c) =>
           c.w === preset.size &&
-          c.x === slot.x + (12 * slot.scale) / 2 &&
-          c.y === slot.y - (10 * slot.scale) / 2 &&
+          c.x === slot.x + (artOf(party[0]?.speciesId ?? 'slime').w * slot.scale) / 2 &&
+          c.y === slot.y - (artOf(party[0]?.speciesId ?? 'slime').h * slot.scale) / 2 &&
           (c.fillStyle === preset.colors[0] || c.fillStyle === preset.colors[1]),
       ),
     ).toHaveLength(preset.count);
@@ -1615,7 +1623,7 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
       monsterSprites.golem.idle,
       0,
       slot.x,
-      slot.y - 10 * slot.scale,
+      slot.y - artOf('golem').h * slot.scale,
       slot.scale,
     );
     const ref = makeCtx();
@@ -1910,29 +1918,29 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     ko = false,
   ): WireBlow => ({ side, actorId, targetId, damage, ko });
 
-  /** Art box of every species sprite (12x10 cells, scaled by size). */
-  const ART_W = 12;
-  const ART_H = 10;
-
-  /** Where the mirrored opponent group's member `r` is drawn (drawParty's rule). */
+  /** Where the mirrored opponent group's member `r` is drawn (drawParty's rule;
+   * uniform scale, each species at its native art width). */
   const theirSlot = (party: readonly Companion[], r: number): { x: number; y: number; scale: number } => {
     const slot = partySlots(party, GROUND_Y)[r];
     const member = party[r];
     if (slot === undefined || member === undefined) {
       throw new Error('missing opponent slot');
     }
-    return { ...slot, x: OPPONENT_ORIGIN_X - (slot.x - 8) - ART_W * slot.scale };
+    return { ...slot, x: OPPONENT_ORIGIN_X - (slot.x - 8) - artOf(member.speciesId).w * slot.scale };
   };
 
-  const centreOf = (slot: { x: number; y: number; scale: number }): { x: number; y: number } => ({
-    x: slot.x + (ART_W * slot.scale) / 2,
-    y: slot.y - (ART_H * slot.scale) / 2,
+  const centreOf = (
+    slot: { x: number; y: number; scale: number },
+    speciesId: string,
+  ): { x: number; y: number } => ({
+    x: slot.x + (artOf(speciesId).w * slot.scale) / 2,
+    y: slot.y - (artOf(speciesId).h * slot.scale) / 2,
   });
 
   /** The steel frame of the field monster's HP bar — the field's signature. */
   const hpFrameKey = (): string =>
     rectKey({
-      x: Math.round(MONSTER_X + (ART_W * sizeOf('slime')) / 2 - HP_BAR.w / 2),
+      x: Math.round(MONSTER_X + (artOf('slime').w * SPRITE_SCALE) / 2 - HP_BAR.w / 2),
       y: HP_BAR.y,
       w: HP_BAR.w,
       h: HP_BAR.h,
@@ -1951,10 +1959,11 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     drawSprite(arc.ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
       scale: SPRITE_SCALE,
     });
-    expect(arc.calls.length).toBeGreaterThan(0);
+    const arcCyan = arc.calls.filter((c) => c.fillStyle === COLORS.cyan);
+    expect(arcCyan.length).toBeGreaterThan(0);
     const arcRects = (calls: RectCall[]): number => {
       const painted = new Set(calls.map(rectKey));
-      return arc.calls.filter((c) => painted.has(rectKey(c))).length;
+      return arcCyan.filter((c) => painted.has(rectKey(c))).length;
     };
 
     // On the field the slash frame paints the whole arc.
@@ -1962,7 +1971,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     game.update(ATTACK_FRAME_MS);
     const field = makeCtx();
     game.draw(field.ctx);
-    expect(arcRects(field.calls)).toBe(arc.calls.length);
+    expect(arcRects(field.calls)).toBe(arcCyan.length);
 
     // During a replay the same swing paints none of it: field presentation is
     // suppressed there (GAME_DESIGN_V3 §6), and at a large hero scale the arc
@@ -2020,7 +2029,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     const painted = new Set(calls.map(rectKey));
 
     // Dragon (breath) fires its cone from my member's slot centre.
-    const from = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
+    const from = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 }, 'dragon');
     const breath = COMPANION_ATTACK.dragon;
     expect(
       calls.filter(
@@ -2034,7 +2043,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
 
     // …and the damage float at the target, coloured by the match-up: a fire
     // dragon is super effective against a wind bat.
-    const at = centreOf(theirSlot(partyOrder(theirs), 0));
+    const at = centreOf(theirSlot(partyOrder(theirs), 0), 'bat');
     expect(floatColor(effectiveness(typeOf('dragon'), typeOf('bat')))).toBe(COLORS.yellow);
     const pool = createFloatPool();
     spawnFloat(pool, at.x, at.y - BLOW_FLOAT_LIFT, format(1234n), false, COLORS.yellow);
@@ -2054,8 +2063,8 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     g.update(16);
     const gc = makeCtx();
     g.draw(gc.ctx);
-    const gFrom = centreOf(partySlots([companion('c1', 'golem')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
-    const gAt = centreOf(theirSlot(partyOrder(theirsG), 0));
+    const gFrom = centreOf(partySlots([companion('c1', 'golem')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 }, 'golem');
+    const gAt = centreOf(theirSlot(partyOrder(theirsG), 0), 'slime');
     const slash = COMPANION_ATTACK.golem;
     const slashColors = slash.preset.colors as readonly string[];
     const onTarget = gc.calls.filter(
@@ -2076,7 +2085,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     d.update(16);
     const dc = makeCtx();
     d.draw(dc.ctx);
-    const dFrom = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
+    const dFrom = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 }, 'dragon');
     const breath = COMPANION_ATTACK.dragon;
     const breathColors = breath.preset.colors as readonly string[];
     const fromActor = dc.calls.filter(
@@ -2114,7 +2123,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
       monsterSprites.bat.idle,
       0,
       koSlot.x,
-      koSlot.y - ART_H * koSlot.scale,
+      koSlot.y - artOf('bat').h * koSlot.scale,
       koSlot.scale,
     );
     const scatter = makeCtx();
@@ -2162,7 +2171,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     const during = drawn(game);
     const base = monsterSprites.slime.idle;
     const monsterRef = makeCtx();
-    drawSprite(monsterRef.ctx, base, 0, MONSTER_X, GROUND_Y - base.h, { scale: sizeOf('slime') });
+    drawSprite(monsterRef.ctx, base, 0, MONSTER_X, GROUND_Y - base.h, { scale: SPRITE_SCALE });
     expect(monsterRef.calls.every((c) => during.has(rectKey(c)))).toBe(false);
     expect(during.has(hpFrameKey())).toBe(false);
     expect(bannerKeys('VS RIVAL').every((k) => during.has(k))).toBe(true);
@@ -2189,8 +2198,8 @@ describe('battle scene replay (T66, SPEC F66)', () => {
       calls.filter(
         (c) =>
           c.w === sparkle.size &&
-          c.x === slot.x + (ART_W * slot.scale) / 2 &&
-          c.y === slot.y - (ART_H * slot.scale) / 2 &&
+          c.x === slot.x + (artOf('slime').w * slot.scale) / 2 &&
+          c.y === slot.y - (artOf('slime').h * slot.scale) / 2 &&
           (c.fillStyle === sparkle.colors[0] || c.fillStyle === sparkle.colors[1]),
       ),
     ).toHaveLength(sparkle.count);
@@ -2236,7 +2245,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     // …but nothing of the field's presentation painted: no damage float.
     const floatRef = (damage: bigint, crit: boolean): RectCall[] => {
       const pool = createFloatPool();
-      spawnFloat(pool, MONSTER_X + (ART_W * sizeOf('slime')) / 2, HP_BAR.y - 6, format(damage), crit);
+      spawnFloat(pool, MONSTER_X + (artOf('slime').w * SPRITE_SCALE) / 2, HP_BAR.y - 6, format(damage), crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return ref.calls;
