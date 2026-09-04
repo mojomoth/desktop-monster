@@ -34,7 +34,7 @@ Original requirement (user, 2026-09-03, Korean; verbatim copy in
 | GAME_DESIGN_V2 §3 bosses / §4 presentation constants | boss scale = species size + 1; every layout constant changes with the bigger field (§6) |
 | GAME_DESIGN_V2 §9 menu / IPC | Battle tab = opponent panel + party editor + thefts inbox (§7); new channels `desmon:pvp-match`, `desmon:thefts`, `desmon:reclaim`; `desmon:pvp` payload changes; main MAY originate one action (`addCompanion` after a reclaim) |
 | GAME_DESIGN_V2 §12 Non-Goals | "no arena replay" is DROPPED (the replay is a v3 feature); "no matches table" stays (matches are in-memory, §SERVER_V3) |
-| GAME_ARCHITECTURE §3.1 window | overlay `WINDOW_W = 480`, `WINDOW_H = 300`; canvas `240×150` logical at CSS 2× (§6) |
+| GAME_ARCHITECTURE §3.1 window | overlay `WINDOW_W = 400`, `WINDOW_H = 260`; canvas `200×130` logical at CSS 2× (§6; shrunk 2026-09-04) |
 | version | `0.3.0` everywhere the v2 design said `0.2.0` (tray title, dmg/app names, M8, README, packaging test) |
 
 Hard rules unchanged: gates `npm test && npm run lint && npm run typecheck`;
@@ -169,34 +169,35 @@ Statistical pin (tests/collection.test.ts): seeded 10 000 wins → steals in
 
 ## 6. Field, layout, presentation (renderer)
 
-**Canvas / window.** `static/index.html` canvas `240×150`; `static/style.css`
-canvas `480px × 300px` (2× CSS, `image-rendering: pixelated`, drag handle
-unchanged); `src/main/window.ts` `WINDOW_W = 480`, `WINDOW_H = 300` (default
-position rule unchanged: bottom-right of `workArea` minus `EDGE_MARGIN`).
-Units shrink: `SPRITE_SCALE = 1` (hero art at 1×; was 2×) so every unit
-pixel is 2 screen px instead of 4. Amended 2026-09-04 (user request, "hero
-about 2.5× bigger"): `SPRITE_SCALE = 3` for the hero only, then a follow-up
-"80% of that" took it to `SPRITE_SCALE = 2` (0.8·3 = 2.4 rounds to the integer
-pixel scale; 28×24 game px, same screen size as v2's hero); monster units stay 1×.
+**Canvas / window.** `static/index.html` canvas `200×130`; `static/style.css`
+canvas `400px × 260px` (2× CSS, `image-rendering: pixelated`, drag handle
+unchanged); `src/main/window.ts` `WINDOW_W = 400`, `WINDOW_H = 260` (shrunk from
+480×300 on 2026-09-04; default position rule unchanged: bottom-right of
+`workArea` minus `EDGE_MARGIN`).
+Uniform pixel scale (2026-09-04, after user changes 1×→3×→2× for the hero
+alone): `SPRITE_SCALE`/`UNIT_SCALE = 1` for EVERY sprite, so a pixel is one size
+everywhere. Size variety lives in the native art — hero 22×20; monsters 16×14
+(slime/bat), 22×18 (ghost), 28×24 (golem), 30×24 (dragon); a boss is its species
+art at 1× with a crown (no scale bump).
 
 **Constants (`src/renderer/game.ts`)** — values are normative, tests pin them:
 
 | constant | v3 |
 |---|---|
-| `VIEW_W`, `VIEW_H` | 240, 150 |
-| `GROUND_Y` | 132 |
-| `SPRITE_SCALE` | 2 (hero only; 1 in the first cut, 3 then 2 on 2026-09-04) |
-| `HERO_X` | 96 |
-| `MONSTER_X` | 176 |
-| `HP_BAR` | `{ w: 40, h: 5, y: 96 }` |
-| `BOSS_HP_BAR_Y` (boss.ts) | 78 |
-| `DROP_LAND_X`, `DROP_TARGET_X`, `DROP_TARGET_Y` | 150, `VIEW_W - 12`, 8 |
+| `VIEW_W`, `VIEW_H` | 200, 130 |
+| `GROUND_Y` | 112 |
+| `SPRITE_SCALE` / `UNIT_SCALE` | 1 (uniform; 2026-09-04) |
+| `HERO_X` | 78 |
+| `MONSTER_X` | 150 |
+| `HP_BAR` | `{ w: 40, h: 5, y: 80 }` |
+| `BOSS_HP_BAR_Y` (boss.ts) | 72 |
+| `DROP_LAND_X`, `DROP_TARGET_X`, `DROP_TARGET_Y` | 125, `VIEW_W - 12`, 8 |
 | `PARTY_X` (party.ts) | 8 |
-| `PARTY_STEP_X`, `PARTY_STEP_Y` (party.ts) | 14, 3 |
+| `PARTY_STEP_X`, `PARTY_STEP_Y` (party.ts) | 9, 3 |
 
-Monster draw scale = `sizeOf(species)` (normal) / `sizeOf + 1` (boss, replaces
-`BOSS_SCALE = 3`); crown centred above the boss as before; floats spawn at
-`barY − 6` as in v2.
+Monster draw scale = `UNIT_SCALE` (uniform; size variety is in the native art,
+2026-09-04); the boss draws its species art at 1× with a crown centred above
+(no size bump); floats spawn at `barY − 6` as in v2.
 
 **Party group (codex helper `src/renderer/sprites/party.ts`):**
 
@@ -352,8 +353,8 @@ Exact amendments:
 
 | target | amendment |
 |---|---|
-| Summary | add: elemental types with a 5-cycle chart, hidden sizes, a 5-member overlapping party auto-picked by effective power, PvP with opponent preview + manual party + battle replay, low-chance steal with notification + 24 h reclaim, 480×300 overlay |
-| Assumption 17 | overlay is 480×300 (canvas 240×150 at 2×); monster units at 1×, the hero at 2× (2026-09-04), monsters at their size (1–3), bosses size+1 |
+| Summary | add: elemental types with a 5-cycle chart, hidden sizes, a 5-member overlapping party auto-picked by effective power, PvP with opponent preview + manual party + battle replay, low-chance steal with notification + 24 h reclaim, 400×260 overlay at a uniform pixel scale |
+| Assumption 17 | overlay is 400×260 (canvas 200×130 at 2×); uniform 1× scale for all sprites, size variety in the art (2026-09-04); bosses = species art + crown |
 | Assumption 24 | the party is the 5 companions with the highest **effective** power against the field monster's type; volley damage is type-adjusted; ties → raw power → lower id |
 | Assumption 29 | window 420×640; Battle tab has opponent panel, party editor, thefts inbox |
 | Assumption 34 | REPLACE: PvP is asynchronous, two-step (match → battle), resolved by the deterministic core battle simulation on the server; the attacker steals with probability 0.15 on a win; the loser can reclaim within 24 h; replay blows are returned and played by the game window |
@@ -386,7 +387,7 @@ overlapping, big at the back), M16 type badge + auto-change when the monster
 changes, M17 opponent preview + manual party + Battle → replay scene in the
 overlay, M18 steal → notification on the victim's machine → click → companion
 back, M19 expired reclaim (after 24 h: row says expired), M20 bigger field /
-smaller units at 480×300.
+uniform-pixel sprites at 400×260.
 
 ## 13. Suggested decomposition (baseline for the Planner; APPEND after T53)
 
@@ -417,7 +418,7 @@ Chains (disjoint Files; cross-chain Deps only at integration points):
 - T64 — Effects/HUD tweaks for the battle scene: effectiveness float colours (`hud.ts` `floatColor(effectiveness)`), `EFFECTS.koBurst` NOT added (reuse) — only `hud.ts` + `effects.ts` constants needed by §6. Deps: none. Files: `src/renderer/hud.ts`, `src/renderer/effects.ts`, `tests/renderer.test.ts`, `tests/effects.test.ts`.
 
 **Renderer chain (claude)**
-- T65 — Field v3: window 480×300, canvas 240×150, layout constants, `SPRITE_SCALE = 1` (2 since 2026-09-04), monster scale by size, type badge in HUD, party group drawing, effectiveness floats. Deps: T22, T59, T62, T64. Files: `src/main/window.ts`, `static/index.html`, `static/style.css`, `src/renderer/game.ts`, `tests/window.test.ts`, `tests/renderer.test.ts`, `tests/drag.test.ts`. Notes: 7 files by design (a half-resized field cannot pass its pins); every pinned coordinate updated per §6; smoke in AC.
+- T65 — Field v3: window 400×260 (was 480×300), canvas 200×130, layout constants, uniform `SPRITE_SCALE = 1` (2026-09-04), size variety in the art, type badge in HUD, party group drawing, effectiveness floats. Deps: T22, T59, T62, T64. Files: `src/main/window.ts`, `static/index.html`, `static/style.css`, `src/renderer/game.ts`, `tests/window.test.ts`, `tests/renderer.test.ts`, `tests/drag.test.ts`. Notes: 7 files by design (a half-resized field cannot pass its pins); every pinned coordinate updated per §6; smoke in AC.
 - T66 — Battle scene: `Game.playReplay`, opponent group mirrored, pacing, KO scatter, banner, field hidden/restored, presentation suppression. Deps: T65. Files: `src/renderer/game.ts`, `tests/renderer.test.ts`.
 
 **Net / menu chain (claude)**

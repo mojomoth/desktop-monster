@@ -2,7 +2,7 @@
 
 A BongoCat-style desktop companion battle game: a small transparent,
 always-on-top pixel-art overlay where every keystroke or mouse click makes a
-tiny knight attack a monster. Monsters have HP bars, drop coins and trinkets
+knight attack a monster. Monsters have HP bars, drop coins and trinkets
 on death, and feed the hero's XP/level progression. Bosses can be captured as
 companions that fight alongside you, mashing lights up fever mode, and a
 global leaderboard and asynchronous PvP let you steal companions from other
@@ -35,8 +35,8 @@ Useful scripts:
 | `npm run smoke` | build + headless-free self-check launch (prints `SMOKE_OK`) |
 | `npm run package` | unsigned macOS build via electron-builder (see below) |
 
-The overlay is frameless and transparent, **480×300** points in the
-bottom-right corner of the work area (a 240×150 canvas drawn at 2×): drag it
+The overlay is frameless and transparent, **400×260** points in the
+bottom-right corner of the work area (a 200×130 canvas drawn at 2×): drag it
 by the invisible 24-pixel strip along its top edge. A slime icon in the menu
 bar tray hosts the menu (`DesMon v0.3.0`, input-mode status,
 Collection & Battle…, Reset Progress, Quit).
@@ -59,8 +59,8 @@ Collection & Battle…, Reset Progress, Quit).
   written out: it only sets how large a monster is drawn and where a party
   member stands in the overlapping group.
 - **Bosses.** Every 8th monster (indices 7, 15, 23, …) is a **boss**: 5× HP,
-  5× XP and 5× coins, a ` BOSS` name suffix, drawn 3× the normal size with a
-  crown and a shockwave on spawn.
+  5× XP and 5× coins, a ` BOSS` name suffix, drawn with a crown (uniform pixel
+  scale) and a shockwave on spawn.
 - **Capture & companions.** Killing a boss captures it as a **companion**
   with a 35 % chance (sparkle effect). Companions live in a roster of up to
   30. Companion power is `max(1, ⌊bossMaxHp/20⌋) × level × 2^stars`.
