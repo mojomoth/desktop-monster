@@ -129,6 +129,42 @@ export const EFFECTS: {
   },
 };
 
+/**
+ * How a companion delivers its hit (SPEC F35/F63, GAME_DESIGN_V3 §4/§6).
+ * 'slash' is melee — the burst lands ON the target; the ranged styles
+ * ('lob','bolt','breath','spectral') fire FROM the actor toward the target.
+ * The renderer picks the origin from the style; the preset shapes the burst.
+ */
+export type AttackStyle = 'lob' | 'bolt' | 'slash' | 'breath' | 'spectral';
+
+export const COMPANION_ATTACK: Record<SpeciesId, { style: AttackStyle; preset: EffectPreset }> = {
+  // slime (water): a heavy gel lob that arcs under gravity.
+  [SPECIES_IDS[0]]: {
+    style: 'lob',
+    preset: { count: 3, colors: [COLORS.green, COLORS.forest], speed: 120, spread: 0.5, lifeMs: 400, gravity: 200, size: 2 },
+  },
+  // bat (wind): a fast, tight dark bolt.
+  [SPECIES_IDS[1]]: {
+    style: 'bolt',
+    preset: { count: 2, colors: [COLORS.maroon, COLORS.navy], speed: 220, spread: 0.15, lifeMs: 250, gravity: 0, size: 2 },
+  },
+  // ghost (dark): slow spectral orbs that spread in every direction and rise.
+  [SPECIES_IDS[2]]: {
+    style: 'spectral',
+    preset: { count: 5, colors: [COLORS.white, COLORS.steel], speed: 40, spread: Math.PI * 2, lifeMs: 500, gravity: -20, size: 2 },
+  },
+  // golem (earth): a melee slash arc that lands on the target, like the hero.
+  [SPECIES_IDS[3]]: {
+    style: 'slash',
+    preset: { count: 6, colors: [COLORS.gray, COLORS.slate], speed: 70, spread: 1.0, lifeMs: 260, gravity: 0, size: 2 },
+  },
+  // dragon (fire): a fanned breath cone that drifts upward as it fades.
+  [SPECIES_IDS[4]]: {
+    style: 'breath',
+    preset: { count: 7, colors: [COLORS.red, COLORS.orange, COLORS.yellow], speed: 100, spread: 0.7, lifeMs: 300, gravity: -40, size: 2 },
+  },
+};
+
 export function hitColorOf(speciesId: string): string {
   return EFFECTS.hit[speciesId as SpeciesId]?.colors[0] ?? COLORS.white;
 }

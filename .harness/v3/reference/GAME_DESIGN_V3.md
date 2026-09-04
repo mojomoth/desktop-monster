@@ -240,7 +240,7 @@ driven by `update(dt)` on the engine-independent presentation clock:
   sparkle / scatter play after the scene ends.
 - Tests (recording canvas, `tests/renderer.test.ts`): "playReplay draws the
   opponent party mirrored on the right with its name", "each blow spawns a
-  projectile then a float at the target", "a ko scatters the target and removes
+  styled attack then a float at the target", "a ko scatters the target and removes
   it from the opponent group", "the field monster is hidden while a replay
   plays and returns afterwards", "replay pacing clamps to 12 s".
 

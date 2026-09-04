@@ -77,8 +77,7 @@ import {
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
 import { createGameAudio } from './audio.js';
 import type { GameAudio } from './audio.js';
-import { EFFECTS, hitColorOf, spawnEffect } from './effects.js';
-import type { EffectPreset } from './effects.js';
+import { COMPANION_ATTACK, EFFECTS, spawnEffect } from './effects.js';
 import {
   createDropPool,
   createParticlePool,
@@ -180,8 +179,21 @@ function wireDamage(damage: string): bigint {
 }
 
 /** A single shot in the actor species' hit colour (no new preset, §6). */
-function projectileOf(speciesId: string): EffectPreset {
-  return { ...EFFECTS.companionProjectile, colors: [hitColorOf(speciesId)] };
+/**
+ * A companion's attack, styled per species (F35/F63). Melee 'slash' bursts ON
+ * the target; the ranged styles fire FROM the actor toward `dirX`. Shared by
+ * the field volley and the PvP replay so both read the same way (§4/§6).
+ */
+function spawnCompanionAttack(
+  pool: Parameters<typeof spawnEffect>[0],
+  speciesId: string,
+  from: { x: number; y: number },
+  to: { x: number; y: number },
+  dirX: 1 | -1,
+): void {
+  const { style, preset } = COMPANION_ATTACK[speciesKey(speciesId)];
+  const origin = style === 'slash' ? to : from;
+  spawnEffect(pool, preset, origin.x, origin.y, dirX);
 }
 
 /**
@@ -508,7 +520,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
     audio.attackTick();
     const from = slotCentre(actorSlot, actor.speciesId);
     const at = slotCentre(targetSlot, target.speciesId);
-    spawnEffect(particles, projectileOf(actor.speciesId), from.x, from.y, mineActs ? 1 : -1);
+    spawnCompanionAttack(particles, actor.speciesId, from, at, mineActs ? 1 : -1);
     spawnEffect(particles, EFFECTS.hit[speciesKey(target.speciesId)], at.x, at.y, 1, hitCount++);
     spawnFloat(
       floats,
@@ -612,16 +624,13 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
           );
           const slot = partySlotOf(fieldParty(engine.getState()), event.companionId);
           if (slot !== null) {
-            const from = slotCentre(slot, event.speciesId);
-            spawnEffect(
+            // Each companion attacks in its own style (§4): golems slash, slimes
+            // lob, bats bolt, dragons breathe, ghosts throw spectral orbs.
+            spawnCompanionAttack(
               particles,
-              {
-                ...EFFECTS.companionProjectile,
-                // The volley reads as "that companion's magic" (§4).
-                colors: EFFECTS.hit[speciesKey(event.speciesId)].colors,
-              },
-              from.x,
-              from.y,
+              event.speciesId,
+              slotCentre(slot, event.speciesId),
+              monsterCentre(target),
               1,
             );
           }

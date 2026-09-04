@@ -98,7 +98,7 @@ import {
   SPARKLE_COUNT,
   spawnSpriteScatter,
 } from '../src/renderer/anim.js';
-import { EFFECTS, hitColorOf } from '../src/renderer/effects.js';
+import { COMPANION_ATTACK, EFFECTS } from '../src/renderer/effects.js';
 import {
   BOSS_HP_BAR_Y,
   COLORS,
@@ -1107,8 +1107,11 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     }
   });
 
-  it('a companion volley spawns one projectile per companion toward the monster', () => {
-    const roster = [companion('c1', 'ghost'), companion('c2', 'dragon')];
+  it('a companion volley spawns per-species attacks from each slot', () => {
+    // dragon (breath) and bat (bolt) are both ranged: their bursts start at the
+    // firing companion's slot centre (their sprite scales are 3 and 1, so the
+    // scale-2 particles never collide with a sprite pixel at that coordinate).
+    const roster = [companion('c1', 'dragon'), companion('c2', 'bat')];
     const game = createGame(
       createEngine({ ...v2, companions: roster, nextCompanionId: 3 }, mulberry32(5)),
     );
@@ -1116,7 +1119,6 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     expect(events.filter((e) => e.type === 'companionAttack')).toHaveLength(2);
     expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
 
-    const preset = EFFECTS.companionProjectile;
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
     const state = game.getState();
@@ -1131,31 +1133,30 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       if (c === undefined || centre === undefined) {
         throw new Error('missing party member');
       }
-      // One shot per companion, from its slot centre, in its own hit colour.
-      expect(
-        calls.filter(
-          (shot) =>
-            shot.w === preset.size &&
-            shot.x === centre.x &&
-            shot.y === centre.y &&
-            shot.fillStyle === EFFECTS.hit[c.speciesId as SpeciesId].colors[0],
-        ),
-      ).toHaveLength(1);
+      // One burst per companion, `count` particles from its slot centre, each
+      // in a colour from that species' attack style.
+      const style = COMPANION_ATTACK[c.speciesId as SpeciesId];
+      const shots = calls.filter(
+        (shot) =>
+          shot.w === style.preset.size &&
+          shot.x === centre.x &&
+          shot.y === centre.y &&
+          (style.preset.colors as readonly string[]).includes(shot.fillStyle),
+      );
+      expect(shots).toHaveLength(style.preset.count);
     }
 
-    // 100 ms later the shots have travelled right, toward the monster.
+    // 100 ms later the bursts have left their origin (they travel/spread).
     game.update(100);
     const later = makeCtx();
     game.draw(later.ctx);
+    const backC = party[0];
     const back = centres[0];
-    if (back === undefined) {
+    if (backC === undefined || back === undefined) {
       throw new Error('empty party');
     }
-    const flown = later.calls.filter(
-      (r) => r.w === preset.size && r.y === back.y && r.x === back.x + preset.speed / 10,
-    );
-    expect(flown).toHaveLength(1);
-    expect(back.x + preset.speed / 10).toBeLessThan(MONSTER_X);
+    const stillAtOrigin = later.calls.filter((r) => r.w === 2 && r.x === back.x && r.y === back.y);
+    expect(stillAtOrigin.length).toBeLessThan(COMPANION_ATTACK[backC.speciesId as SpeciesId].preset.count);
   });
 
   it('a capture shows the sparkle effect and the new companion appears', () => {
@@ -2001,7 +2002,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     expect(bannerKeys('VS RIVAL').every((k) => painted.has(k))).toBe(true);
   });
 
-  it('each blow spawns a projectile then a float at the target', () => {
+  it('each blow spawns a styled attack then a float at the target', () => {
     const game = createGame(
       createEngine(
         { ...v2, companions: [companion('c1', 'dragon')], nextCompanionId: 2 },
@@ -2018,17 +2019,18 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     game.draw(ctx);
     const painted = new Set(calls.map(rectKey));
 
-    // One shot from my member's slot centre, in the dragon's hit colour.
+    // Dragon (breath) fires its cone from my member's slot centre.
     const from = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
+    const breath = COMPANION_ATTACK.dragon;
     expect(
       calls.filter(
         (c) =>
-          c.w === EFFECTS.companionProjectile.size &&
+          c.w === breath.preset.size &&
           c.x === from.x &&
           c.y === from.y &&
-          c.fillStyle === hitColorOf('dragon'),
+          (breath.preset.colors as readonly string[]).includes(c.fillStyle),
       ),
-    ).toHaveLength(1);
+    ).toHaveLength(breath.preset.count);
 
     // …and the damage float at the target, coloured by the match-up: a fire
     // dragon is super effective against a wind bat.
@@ -2040,6 +2042,47 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     drawFloats(ref.ctx, pool);
     expect(ref.calls.length).toBeGreaterThan(0);
     expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+  });
+
+  it('companion attack styles differ: golem slashes on the target, dragon breathes from the actor', () => {
+    // golem = melee 'slash' → the burst lands ON the target, not at the actor.
+    const g = createGame(
+      createEngine({ ...v2, companions: [companion('c1', 'golem')], nextCompanionId: 2 }, mulberry32(7)),
+    );
+    const theirsG = [companion('o1', 'slime')];
+    g.playReplay({ opponentName: 'FOE', opponentParty: theirsG, blows: [blow('A', 'c1', 'o1', '10')] });
+    g.update(16);
+    const gc = makeCtx();
+    g.draw(gc.ctx);
+    const gFrom = centreOf(partySlots([companion('c1', 'golem')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
+    const gAt = centreOf(theirSlot(partyOrder(theirsG), 0));
+    const slash = COMPANION_ATTACK.golem;
+    const slashColors = slash.preset.colors as readonly string[];
+    const onTarget = gc.calls.filter(
+      (c) => c.w === slash.preset.size && c.x === gAt.x && c.y === gAt.y && slashColors.includes(c.fillStyle),
+    );
+    const atActor = gc.calls.filter(
+      (c) => c.w === slash.preset.size && c.x === gFrom.x && c.y === gFrom.y && slashColors.includes(c.fillStyle),
+    );
+    expect(onTarget).toHaveLength(slash.preset.count);
+    expect(atActor).toHaveLength(0);
+
+    // dragon = 'breath' → the burst starts at the actor, not on the target.
+    const d = createGame(
+      createEngine({ ...v2, companions: [companion('c1', 'dragon')], nextCompanionId: 2 }, mulberry32(8)),
+    );
+    const theirsD = [companion('o1', 'slime')];
+    d.playReplay({ opponentName: 'FOE', opponentParty: theirsD, blows: [blow('A', 'c1', 'o1', '10')] });
+    d.update(16);
+    const dc = makeCtx();
+    d.draw(dc.ctx);
+    const dFrom = centreOf(partySlots([companion('c1', 'dragon')], GROUND_Y)[0] ?? { x: 0, y: 0, scale: 1 });
+    const breath = COMPANION_ATTACK.dragon;
+    const breathColors = breath.preset.colors as readonly string[];
+    const fromActor = dc.calls.filter(
+      (c) => c.w === breath.preset.size && c.x === dFrom.x && c.y === dFrom.y && breathColors.includes(c.fillStyle),
+    );
+    expect(fromActor).toHaveLength(breath.preset.count);
   });
 
   it('a ko scatters the target and removes it from the opponent group', () => {
