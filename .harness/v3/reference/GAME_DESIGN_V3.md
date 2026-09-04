@@ -174,7 +174,9 @@ canvas `480px × 300px` (2× CSS, `image-rendering: pixelated`, drag handle
 unchanged); `src/main/window.ts` `WINDOW_W = 480`, `WINDOW_H = 300` (default
 position rule unchanged: bottom-right of `workArea` minus `EDGE_MARGIN`).
 Units shrink: `SPRITE_SCALE = 1` (hero art at 1×; was 2×) so every unit
-pixel is 2 screen px instead of 4.
+pixel is 2 screen px instead of 4. Amended 2026-09-04 (user request, "hero
+about 2.5× bigger"): `SPRITE_SCALE = 3` for the hero only (42×36 game px,
+rounded up to the integer scale); monster units stay 1×.
 
 **Constants (`src/renderer/game.ts`)** — values are normative, tests pin them:
 
@@ -182,7 +184,7 @@ pixel is 2 screen px instead of 4.
 |---|---|
 | `VIEW_W`, `VIEW_H` | 240, 150 |
 | `GROUND_Y` | 132 |
-| `SPRITE_SCALE` | 1 |
+| `SPRITE_SCALE` | 3 (hero only; 1 until 2026-09-04) |
 | `HERO_X` | 96 |
 | `MONSTER_X` | 176 |
 | `HP_BAR` | `{ w: 40, h: 5, y: 96 }` |
@@ -350,7 +352,7 @@ Exact amendments:
 | target | amendment |
 |---|---|
 | Summary | add: elemental types with a 5-cycle chart, hidden sizes, a 5-member overlapping party auto-picked by effective power, PvP with opponent preview + manual party + battle replay, low-chance steal with notification + 24 h reclaim, 480×300 overlay |
-| Assumption 17 | overlay is 480×300 (canvas 240×150 at 2×); units at 1×, monsters at their size (1–3), bosses size+1 |
+| Assumption 17 | overlay is 480×300 (canvas 240×150 at 2×); monster units at 1×, the hero at 3× (2026-09-04), monsters at their size (1–3), bosses size+1 |
 | Assumption 24 | the party is the 5 companions with the highest **effective** power against the field monster's type; volley damage is type-adjusted; ties → raw power → lower id |
 | Assumption 29 | window 420×640; Battle tab has opponent panel, party editor, thefts inbox |
 | Assumption 34 | REPLACE: PvP is asynchronous, two-step (match → battle), resolved by the deterministic core battle simulation on the server; the attacker steals with probability 0.15 on a win; the loser can reclaim within 24 h; replay blows are returned and played by the game window |
@@ -414,7 +416,7 @@ Chains (disjoint Files; cross-chain Deps only at integration points):
 - T64 — Effects/HUD tweaks for the battle scene: effectiveness float colours (`hud.ts` `floatColor(effectiveness)`), `EFFECTS.koBurst` NOT added (reuse) — only `hud.ts` + `effects.ts` constants needed by §6. Deps: none. Files: `src/renderer/hud.ts`, `src/renderer/effects.ts`, `tests/renderer.test.ts`, `tests/effects.test.ts`.
 
 **Renderer chain (claude)**
-- T65 — Field v3: window 480×300, canvas 240×150, layout constants, `SPRITE_SCALE = 1`, monster scale by size, type badge in HUD, party group drawing, effectiveness floats. Deps: T22, T59, T62, T64. Files: `src/main/window.ts`, `static/index.html`, `static/style.css`, `src/renderer/game.ts`, `tests/window.test.ts`, `tests/renderer.test.ts`, `tests/drag.test.ts`. Notes: 7 files by design (a half-resized field cannot pass its pins); every pinned coordinate updated per §6; smoke in AC.
+- T65 — Field v3: window 480×300, canvas 240×150, layout constants, `SPRITE_SCALE = 1` (3 since 2026-09-04), monster scale by size, type badge in HUD, party group drawing, effectiveness floats. Deps: T22, T59, T62, T64. Files: `src/main/window.ts`, `static/index.html`, `static/style.css`, `src/renderer/game.ts`, `tests/window.test.ts`, `tests/renderer.test.ts`, `tests/drag.test.ts`. Notes: 7 files by design (a half-resized field cannot pass its pins); every pinned coordinate updated per §6; smoke in AC.
 - T66 — Battle scene: `Game.playReplay`, opponent group mirrored, pacing, KO scatter, banner, field hidden/restored, presentation suppression. Deps: T65. Files: `src/renderer/game.ts`, `tests/renderer.test.ts`.
 
 **Net / menu chain (claude)**
@@ -439,6 +441,6 @@ Chains (disjoint Files; cross-chain Deps only at integration points):
 45. PvP is two-step and asynchronous: `match` returns the server-picked opponent (rank neighbour or Training Dummy) with its stored PvP party and a match id valid for 120 s; `battle` sends the match id + my party; the server resolves with the deterministic core battle simulation (alternating front-member blows, hp = power × 5, cap 200 blows) and returns the blow list; the client replays it (≤ 12 s) — no re-computation on the client.
 46. Only the attacker can steal: on a win, a 15 % roll takes one uniformly random member of the defender's PvP party (not into a full roster). The victim gets a theft record (24 h reclaim window), a native notification on the next poll (every 5 min while online, immediately at boot), and can reclaim from the notification click or the Battle tab; after 24 h (or if the thief no longer holds it) the reclaim fails and the record disappears.
 47. Matches are held in server memory (single free instance; a restart expires them: 410 `match_expired` → the client asks for a new match). Thefts live in the `players.thefts` jsonb column (last 8).
-48. The overlay is 480×300 (canvas 240×150 at CSS 2×); units draw at 1× (half the v2 size), monsters at their size, bosses at size + 1; the party group overlaps with the largest member at the back.
+48. The overlay is 480×300 (canvas 240×150 at CSS 2×); monster units draw at 1× (half the v2 size), the hero at 3× (user change 2026-09-04), monsters at their size, bosses at size + 1; the party group overlaps with the largest member at the back.
 49. Main may originate exactly one action type (`addCompanion` after a successful reclaim); every other roster change still flows menu → main → game.
 50. Version 0.3.0; the v3 server is a second Render web service (`desmon-server-v3`) built from branch `v3`, sharing `desmon-db` (additive idempotent DDL); v2 (tag `v2`) stays deployable from `main`.

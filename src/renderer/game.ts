@@ -9,7 +9,7 @@
 // and fever come back as events through the SAME router as attack()'s —
 // A-Z damage floats, per-species hit effects, crowned bosses, the party group
 // and the fever aura/banner/blip all hang off that router.
-// v3 (SPEC F64): the field is 240x150 at SPRITE_SCALE 1, monsters draw at
+// v3 (SPEC F64): the field is 240x150 with the hero at SPRITE_SCALE 3, monsters draw at
 // their hidden species size, the field monster carries a type badge, and the
 // party is re-read from state every frame so the type match-up re-picks it.
 // v3 (SPEC F66): playReplay() takes over the field for the PvP battle scene —
@@ -115,8 +115,13 @@ export const VIEW_W = 240;
 export const VIEW_H = 150;
 /** Top of the ground strip; entities stand on it. */
 export const GROUND_Y = 132;
-/** Hero art pixel scale (Assumption 17, v3): one art pixel is one game pixel. */
-export const SPRITE_SCALE = 1;
+/**
+ * Hero art pixel scale (Assumption 17). v3 shipped 1×; the user asked for a
+ * hero about 2.5× bigger (2026-09-04), rounded up to the integer pixel scale
+ * so art pixels stay crisp: one hero art pixel is three game pixels.
+ * Monsters keep their own scale (`sizeOf`, +1 for bosses).
+ */
+export const SPRITE_SCALE = 3;
 /** Hero sprite position (left side, feet on the ground). */
 export const HERO_X = 96;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
@@ -819,8 +824,10 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         drawFeverAura(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, SPRITE_SCALE, timeMs);
       }
       drawSprite(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
-      if (attacking && heroFrame === SLASH_FRAME) {
-        // Slash arc in front of the blade, toward the monster.
+      if (attacking && heroFrame === SLASH_FRAME && scene === null) {
+        // Slash arc in front of the blade, toward the monster. Not during a
+        // replay: field presentation is suppressed there (§6) and at 3x the
+        // arc would reach a size-3 opponent front member (x 140+).
         drawSprite(ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
           scale: SPRITE_SCALE,
         });

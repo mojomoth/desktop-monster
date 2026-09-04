@@ -195,6 +195,9 @@ const bannerKeys = (text: string): string[] => {
   return calls.map(rectKey);
 };
 
+/** Draw scale of the boot monster (index 0 = slime, size 1): monsters scale by species, not by the hero's SPRITE_SCALE (F64). */
+const MONSTER_SCALE = sizeOf(monsterForIndex(0).speciesId);
+
 describe('drawMeter / drawHpBar (boxed bars)', () => {
   it('paints a steel frame with a void interior', () => {
     const { ctx, calls } = makeCtx();
@@ -492,9 +495,9 @@ describe('createGame (scene orchestration)', () => {
     expect(
       calls.some(
         (c) =>
-          c.w === SPRITE_SCALE &&
+          c.w === MONSTER_SCALE &&
           c.x >= MONSTER_X &&
-          c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+          c.x < MONSTER_X + 12 * MONSTER_SCALE &&
           c.y < GROUND_Y,
       ),
     ).toBe(true);
@@ -524,9 +527,10 @@ describe('createGame (scene orchestration)', () => {
     const after = makeCtx();
     game.draw(after.ctx);
     // The damage number paints between the HP bar and the counters — a
-    // region that held no pixels before the attack.
+    // region that held no pixels before the attack. x starts right of the
+    // hero's LV/XP HUD (which ends at HERO_X + 14 * SPRITE_SCALE - 1).
     const floatRegion = (calls: RectCall[]): RectCall[] =>
-      calls.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 100);
+      calls.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 150);
     expect(floatRegion(before.calls)).toEqual([]);
     expect(floatRegion(after.calls).length).toBeGreaterThan(0);
   });
@@ -572,9 +576,9 @@ describe('createGame (scene orchestration)', () => {
         calls
           .filter(
             (c) =>
-              c.w === SPRITE_SCALE &&
+              c.w === MONSTER_SCALE &&
               c.x >= MONSTER_X &&
-              c.x < MONSTER_X + 12 * SPRITE_SCALE &&
+              c.x < MONSTER_X + 12 * MONSTER_SCALE &&
               c.y < GROUND_Y,
           )
           .map((c) => c.fillStyle),
@@ -599,10 +603,10 @@ describe('combat presentation (core FSMs, T14)', () => {
   const monsterPixels = (calls: RectCall[]): RectCall[] =>
     calls.filter(
       (c) =>
-        c.w === SPRITE_SCALE &&
+        c.w === MONSTER_SCALE &&
         c.x >= MONSTER_X &&
-        c.x < MONSTER_X + 12 * SPRITE_SCALE &&
-        c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
+        c.x < MONSTER_X + 12 * MONSTER_SCALE &&
+        c.y >= GROUND_Y - 12 * MONSTER_SCALE &&
         c.y < GROUND_Y,
     );
 
@@ -734,10 +738,10 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     calls
       .filter(
         (c) =>
-          c.w === SPRITE_SCALE &&
+          c.w === MONSTER_SCALE &&
           c.x >= MONSTER_X &&
-          c.x < MONSTER_X + 12 * SPRITE_SCALE &&
-          c.y >= GROUND_Y - 12 * SPRITE_SCALE &&
+          c.x < MONSTER_X + 12 * MONSTER_SCALE &&
+          c.y >= GROUND_Y - 12 * MONSTER_SCALE &&
           c.y < GROUND_Y &&
           !(c.x === CENTRE.x && c.y === CENTRE.y) &&
           c.fillStyle !== COLORS.yellow &&
@@ -826,10 +830,10 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     const popInPixels = (calls: RectCall[]): RectCall[] =>
       calls.filter(
         (c) =>
-          c.w === SPRITE_SCALE &&
+          c.w === MONSTER_SCALE &&
           c.x >= MONSTER_X &&
-          c.x < MONSTER_X + 12 * SPRITE_SCALE &&
-          c.y >= GROUND_Y - 10 * SPRITE_SCALE &&
+          c.x < MONSTER_X + 12 * MONSTER_SCALE &&
+          c.y >= GROUND_Y - 10 * MONSTER_SCALE &&
           c.y < GROUND_Y,
       );
 
@@ -928,10 +932,10 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
     const floatRegion = (cs: RectCall[]): RectCall[] =>
-      cs.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 100);
+      cs.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 150);
     const rendered = (text: string): string[] => {
       const pool = createFloatPool();
-      spawnFloat(pool, MONSTER_X + (12 * SPRITE_SCALE) / 2, HP_BAR.y - 6, text, hit.crit);
+      spawnFloat(pool, MONSTER_X + (12 * MONSTER_SCALE) / 2, HP_BAR.y - 6, text, hit.crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return keys(ref.calls);
@@ -1939,6 +1943,35 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     game.draw(ctx);
     return new Set(calls.map(rectKey));
   };
+
+  it('hides the hero slash overlay while a replay owns the field', () => {
+    const game = createGame(createEngine({ ...v2 }, mulberry32(11)));
+    const arc = makeCtx();
+    drawSprite(arc.ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
+      scale: SPRITE_SCALE,
+    });
+    expect(arc.calls.length).toBeGreaterThan(0);
+    const arcRects = (calls: RectCall[]): number => {
+      const painted = new Set(calls.map(rectKey));
+      return arc.calls.filter((c) => painted.has(rectKey(c))).length;
+    };
+
+    // On the field the slash frame paints the whole arc.
+    game.attack('keyboard');
+    game.update(ATTACK_FRAME_MS);
+    const field = makeCtx();
+    game.draw(field.ctx);
+    expect(arcRects(field.calls)).toBe(arc.calls.length);
+
+    // During a replay the same swing paints none of it: at 3x the arc
+    // (x 138..152) would land on a size-3 opponent front member (x 140+).
+    game.playReplay({ opponentName: 'FOE', opponentParty: [companion('o1', 'slime')], blows: [] });
+    game.attack('keyboard');
+    game.update(ATTACK_FRAME_MS);
+    const scene = makeCtx();
+    game.draw(scene.ctx);
+    expect(arcRects(scene.calls)).toBe(0);
+  });
 
   it('playReplay draws the opponent party mirrored on the right with its name', () => {
     const game = createGame(createEngine({ ...v2 }, mulberry32(11)));
