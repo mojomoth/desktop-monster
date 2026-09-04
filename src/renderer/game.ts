@@ -9,7 +9,7 @@
 // and fever come back as events through the SAME router as attack()'s —
 // A-Z damage floats, per-species hit effects, crowned bosses, the party group
 // and the fever aura/banner/blip all hang off that router.
-// v3 (SPEC F64): the field is 240x150 with the hero at SPRITE_SCALE 3, monsters draw at
+// v3 (SPEC F64): the field is 240x150 with the hero at SPRITE_SCALE 2, monsters draw at
 // their hidden species size, the field monster carries a type badge, and the
 // party is re-read from state every frame so the type match-up re-picks it.
 // v3 (SPEC F66): playReplay() takes over the field for the PvP battle scene —
@@ -116,12 +116,14 @@ export const VIEW_H = 150;
 /** Top of the ground strip; entities stand on it. */
 export const GROUND_Y = 132;
 /**
- * Hero art pixel scale (Assumption 17). v3 shipped 1×; the user asked for a
- * hero about 2.5× bigger (2026-09-04), rounded up to the integer pixel scale
- * so art pixels stay crisp: one hero art pixel is three game pixels.
- * Monsters keep their own scale (`sizeOf`, +1 for bosses).
+ * Hero art pixel scale (Assumption 17). v3 shipped 1×; a 2026-09-04 user
+ * change took it to 3× ("about 2.5× bigger"), then to 2× ("80% of the 3×
+ * size"): SPRITE_SCALE is an integer pixel scale (drawSprite fills scale×scale
+ * rects), so 0.8·3 = 2.4 rounds to 2 — one hero art pixel is two game pixels,
+ * ~67% of the 3× size and the same screen size as v2's hero. Monsters keep
+ * their own scale (`sizeOf`, +1 for bosses).
  */
-export const SPRITE_SCALE = 3;
+export const SPRITE_SCALE = 2;
 /** Hero sprite position (left side, feet on the ground). */
 export const HERO_X = 96;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;

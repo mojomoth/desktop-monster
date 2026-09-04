@@ -1963,8 +1963,9 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     game.draw(field.ctx);
     expect(arcRects(field.calls)).toBe(arc.calls.length);
 
-    // During a replay the same swing paints none of it: at 3x the arc
-    // (x 138..152) would land on a size-3 opponent front member (x 140+).
+    // During a replay the same swing paints none of it: field presentation is
+    // suppressed there (GAME_DESIGN_V3 §6), and at a large hero scale the arc
+    // would otherwise reach a size-3 opponent's front member.
     game.playReplay({ opponentName: 'FOE', opponentParty: [companion('o1', 'slime')], blows: [] });
     game.attack('keyboard');
     game.update(ATTACK_FRAME_MS);
