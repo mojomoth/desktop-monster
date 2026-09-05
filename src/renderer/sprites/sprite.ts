@@ -16,7 +16,7 @@ export const TRANSPARENT = '.';
  * size variety comes from native art dimensions. game.ts re-exports it as
  * `SPRITE_SCALE`.
  */
-export const UNIT_SCALE = 1;
+export const UNIT_SCALE = 2;
 
 export interface Sprite {
   /** Frame width in game pixels; every row of every frame is exactly this long. */

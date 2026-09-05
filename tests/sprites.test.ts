@@ -9,6 +9,7 @@ import {
   drawSprite,
   registerSprites,
   TRANSPARENT,
+  UNIT_SCALE,
 } from '../src/renderer/sprites/sprite.js';
 import type { Sprite, SpriteCanvas } from '../src/renderer/sprites/sprite.js';
 import {
@@ -212,13 +213,15 @@ describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
 
   it('monster sprites are sized by species tier at the uniform scale', () => {
     // Uniform pixel scale (2026-09-04): size variety lives in the native art,
-    // so bigger species have bigger frames (drawn at 1x like everything else).
+    // so bigger species have bigger frames (drawn at UNIT_SCALE like everything else).
     for (const id of SPECIES_IDS) {
       for (const sprite of [monsterSprites[id].idle, monsterSprites[id].hit]) {
-        expect(sprite.w, `${id} width`).toBeLessThanOrEqual(30);
-        expect(sprite.h, `${id} height`).toBeLessThanOrEqual(24);
-        expect(sprite.w, `${id} width`).toBeGreaterThanOrEqual(16);
-        expect(sprite.h, `${id} height`).toBeGreaterThanOrEqual(14);
+        // 2x uniform scale + redesign (2026-09-04): 13×10 (slime) … 20×17 (dragon)
+        // native pixels, drawn as 2×2 blocks on the 200×130 field.
+        expect(sprite.w, `${id} width`).toBeLessThanOrEqual(20);
+        expect(sprite.h, `${id} height`).toBeLessThanOrEqual(17);
+        expect(sprite.w, `${id} width`).toBeGreaterThanOrEqual(13);
+        expect(sprite.h, `${id} height`).toBeGreaterThanOrEqual(10);
       }
     }
     // size-3 (golem, dragon) > size-2 (ghost) > size-1 (slime, bat).
@@ -254,21 +257,21 @@ describe('boss and companion art helpers (SPEC F40)', () => {
     drawBoss(ctx, species, 'idle', 0, 118, 92, 1);
 
     // Uniform scale (2026-09-04): the boss no longer scales up; the crown marks it.
-    expect(BOSS_HP_BAR_Y).toBe(72);
-    const top = 92 - species.idle.h; // feet on groundY at 1x
-    const body = calls.filter((call) => call.w === 1 && call.h === 1 && call.y >= top);
+    expect(BOSS_HP_BAR_Y).toBe(56);
+    const top = 92 - species.idle.h * UNIT_SCALE; // feet on groundY at the uniform scale
+    const body = calls.filter((call) => call.w === UNIT_SCALE && call.h === UNIT_SCALE && call.y >= top);
     expect(body).toHaveLength(species.idle.frames[0]?.join('').replaceAll('.', '').length ?? 0);
     const tint = paletteForTier(species.idle.palette, 1);
     for (const b of body) {
       expect(b.x).toBeGreaterThanOrEqual(118);
-      expect(b.x).toBeLessThan(118 + species.idle.w);
+      expect(b.x).toBeLessThan(118 + species.idle.w * UNIT_SCALE);
       expect(b.y).toBeLessThan(92);
       expect(Object.values(tint)).toContain(b.fillStyle);
     }
     // Crown centred above the body: its lowest row is exactly crown.h above `top`.
     const crown = calls.filter((call) => call.y < top);
     expect(crown.length).toBeGreaterThan(0);
-    expect(Math.max(...crown.map((c) => c.y))).toBe(top - 1);
+    expect(Math.max(...crown.map((c) => c.y))).toBe(top - UNIT_SCALE);
   });
 
   it('drawCompanion paints the species idle frame flipped and tinted by stars at its slot', () => {
@@ -280,25 +283,25 @@ describe('boss and companion art helpers (SPEC F40)', () => {
     expect(calls).toHaveLength(idle.frames[0]?.join('').replaceAll('.', '').length ?? 0);
     const tint = paletteForTier(idle.palette, 1);
     for (const c of calls) {
-      expect(c.w).toBe(1);
-      expect(c.h).toBe(1);
+      expect(c.w).toBe(UNIT_SCALE);
+      expect(c.h).toBe(UNIT_SCALE);
       expect(c.x).toBeGreaterThanOrEqual(2);
-      expect(c.x).toBeLessThan(2 + idle.w);
+      expect(c.x).toBeLessThan(2 + idle.w * UNIT_SCALE);
       expect(c.y).toBeGreaterThanOrEqual(slotY);
-      expect(c.y).toBeLessThan(slotY + idle.h);
+      expect(c.y).toBeLessThan(slotY + idle.h * UNIT_SCALE);
       expect(Object.values(tint)).toContain(c.fillStyle);
     }
   });
 
   it('partySlots stacks back members higher and left of front members at the uniform scale', () => {
     expect(PARTY_X).toBe(8);
-    expect(PARTY_STEP_X).toBe(9);
+    expect(PARTY_STEP_X).toBe(11);
     expect(PARTY_STEP_Y).toBe(3);
-    // Uniform scale (2026-09-04): every slot is 1x; size variety is in the art.
+    // Uniform scale (2026-09-04): every slot is UNIT_SCALE; size variety is in the art.
     expect(partySlots([{ speciesId: 'dragon' }, { speciesId: 'ghost' }, { speciesId: 'bat' }], 92)).toEqual([
-      { x: 8, y: 86, scale: 1 },
-      { x: 17, y: 89, scale: 1 },
-      { x: 26, y: 92, scale: 1 },
+      { x: 8, y: 86, scale: UNIT_SCALE },
+      { x: 19, y: 89, scale: UNIT_SCALE },
+      { x: 30, y: 92, scale: UNIT_SCALE },
     ]);
   });
 
@@ -317,12 +320,12 @@ describe('boss and companion art helpers (SPEC F40)', () => {
       { ...dragon, palette: paletteForTier(dragon.palette, 1) },
       0,
       8,
-      92 - 3 - dragon.h,
-      { flipX: true, scale: 1 },
+      92 - 3 - dragon.h * UNIT_SCALE,
+      { flipX: true, scale: UNIT_SCALE },
     );
     const front = makeCtx();
     const slime = monsterSprites.slime.idle;
-    drawSprite(front.ctx, slime, 0, 17, 92 - slime.h, { flipX: true, scale: 1 });
+    drawSprite(front.ctx, slime, 0, 19, 92 - slime.h * UNIT_SCALE, { flipX: true, scale: UNIT_SCALE });
     expect(calls).toEqual([...back.calls, ...front.calls]);
   });
 

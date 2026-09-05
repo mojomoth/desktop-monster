@@ -1,6 +1,6 @@
 import { monsterSprites } from './monsters.js';
 import { paletteForTier } from './palette.js';
-import { drawSprite } from './sprite.js';
+import { drawSprite, UNIT_SCALE } from './sprite.js';
 import type { SpriteCanvas } from './sprite.js';
 
 /** Draw a star-tinted companion facing the monster from its active slot. */
@@ -17,5 +17,6 @@ export function drawCompanion(
   const slot = { x: 2, y: groundY - 10 - 14 * k };
   drawSprite(ctx, { ...idle, palette: paletteForTier(idle.palette, stars) }, frame, slot.x, slot.y, {
     flipX: true,
+    scale: UNIT_SCALE,
   });
 }

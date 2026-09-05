@@ -9,8 +9,8 @@
 // and fever come back as events through the SAME router as attack()'s —
 // A-Z damage floats, per-species hit effects, crowned bosses, the party group
 // and the fever aura/banner/blip all hang off that router.
-// v3 (SPEC F64): the field is 240x150 with the hero at SPRITE_SCALE 2, monsters draw at
-// their hidden species size, the field monster carries a type badge, and the
+// v3 (SPEC F64): the field is 200x130 and every sprite draws at the uniform SPRITE_SCALE
+// (2; size variety is in the native art), the field monster carries a type badge, and the
 // party is re-read from state every frame so the type match-up re-picks it.
 // v3 (SPEC F66): playReplay() takes over the field for the PvP battle scene —
 // the opponent's party mirrored on the right, one blow per BLOW_MS off the
@@ -114,20 +114,22 @@ export const VIEW_H = 130;
 /** Top of the ground strip; entities stand on it. */
 export const GROUND_Y = 112;
 /**
- * Uniform pixel scale (Assumption 17; user change 2026-09-04). EVERY world
+ * Uniform pixel scale (Assumption 17; user changes 2026-09-04). EVERY world
  * sprite — hero, party, monster, boss — draws at this one integer scale, so a
- * pixel is the same size across the whole scene. Size differences now come
- * from each sprite's NATIVE art dimensions (hero 22×20; monsters 16×14 →
- * 30×24 by species), not from a per-entity scale multiplier.
+ * pixel is the same size across the whole scene. 2× = chunky retro pixels
+ * (one art pixel = 2 canvas px = 4 screen px). Size differences come from
+ * each sprite's NATIVE art dimensions (hero 20×20; monsters 13×10 → 20×17 by
+ * species; 2026-09-04 redesign), not from a per-entity scale multiplier. Mirrors sprite.ts
+ * UNIT_SCALE (kept literal here for the F64 AC grep).
  */
-export const SPRITE_SCALE = 1;
+export const SPRITE_SCALE = 2;
 /** Hero sprite position (left side, feet on the ground). */
 export const HERO_X = 78;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
 export const MONSTER_X = 150;
-/** Boxed HP bar above the monster (centered over it at draw time). */
-export const HP_BAR = { w: 40, h: 5, y: 80 } as const;
+/** Boxed HP bar above the monster (centered over it at draw time); above the tallest species (dragon 17 rows × 2 = 34 px); its frame row (64) differs from the hero XP bar's (66), which is how the tests tell the two 40-px meters apart. */
+export const HP_BAR = { w: 40, h: 5, y: 64 } as const;
 /** Gap between the type badge and the left end of the monster's HP bar. */
 export const TYPE_BADGE_GAP = 7;
 /** ms per idle bob frame (GAME_ARCHITECTURE §4: 2-frame bob, 500 ms/frame). */
@@ -136,7 +138,7 @@ export const IDLE_FRAME_MS = 500;
 export const ATTACK_FRAME_MS = HERO_ATTACK_MS / 3;
 /** The attack frame during which the slash-arc overlay shows. */
 export const SLASH_FRAME = 1;
-/** Where item drops land after their arc + bounce (gap left of the monster). */
+/** Where item drops land after their arc + bounce (the gap between the hero's box and the monster; later drops stagger to the right). */
 export const DROP_LAND_X = 125;
 /** Horizontal stagger between simultaneous drops so they never stack. */
 export const DROP_STAGGER_PX = 8;
@@ -145,9 +147,16 @@ export const DROP_TARGET_X = VIEW_W - 12;
 export const DROP_TARGET_Y = 8;
 /** Sparkle burst size when a collected drop pops the counter. */
 const COLLECT_SPARKLE_COUNT = 6;
+/**
+ * Top of the slash-arc overlay relative to the hero's top: the arc is centred
+ * on the blade of the slash frame (2026-09-04 redesign: blade at art rows
+ * 9-10, i.e. centre 10; the arc is 10 rows tall → its top sits 5 rows down,
+ * covering rows 5-14), at the uniform scale.
+ */
+export const SLASH_OVERLAY_DY = 5 * SPRITE_SCALE;
 /** Where the slash arc lands — the origin of the hero slash effect (F36). */
 export const SWORD_TIP_X = HERO_X + heroAttack.w * SPRITE_SCALE;
-export const SWORD_TIP_Y = HERO_Y + 2 + (heroSlash.h * SPRITE_SCALE) / 2;
+export const SWORD_TIP_Y = HERO_Y + SLASH_OVERLAY_DY + (heroSlash.h * SPRITE_SCALE) / 2;
 /** One fever aura sparkle burst per this many ms while fever burns (F36). */
 export const FEVER_SPARKLE_MS = 100;
 
@@ -162,7 +171,7 @@ export const REPLAY_END_MS = 600;
 /** Right edge the mirrored opponent group and its name hang from. */
 export const OPPONENT_ORIGIN_X = VIEW_W - 8;
 /** Baseline of the opponent's name, clear of its tallest member. */
-export const OPPONENT_NAME_Y = 72;
+export const OPPONENT_NAME_Y = 58;
 /** How far a blow's damage float sits above the target's centre. */
 export const BLOW_FLOAT_LIFT = 6;
 
@@ -689,7 +698,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
               // the scatter pixels.
               startX: MONSTER_X - 6,
               startY: GROUND_Y - 12,
-              landX: DROP_LAND_X - slot * DROP_STAGGER_PX,
+              landX: DROP_LAND_X + slot * DROP_STAGGER_PX,
               landY: GROUND_Y - itemSpriteFor(drop.item.id).h,
               targetX: DROP_TARGET_X,
               targetY: DROP_TARGET_Y,
@@ -824,6 +833,24 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       drawField(ctx);
 
       const state = engine.getState();
+
+      // Both party groups stand BEHIND the hero (drawn first): the 2x art of
+      // a 5-member group reaches the hero's box, and the protagonist wins the
+      // overlap. Back to front (§6); every species shares the 2-frame bob, so
+      // one frame index drives the whole group. A battle scene shows the
+      // party that fought and the opponent's group mirrored on the right under
+      // its name — the field monster is hidden while it plays (§6).
+      const partyFrame =
+        Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length;
+      drawParty(ctx, scene === null ? fieldParty(state) : scene.mine, partyFrame, GROUND_Y);
+      if (scene !== null) {
+        drawParty(ctx, scene.theirs, partyFrame, GROUND_Y, {
+          flipX: false,
+          originX: VIEW_W - 8,
+        });
+        drawText(ctx, scene.name, OPPONENT_ORIGIN_X - textWidth(scene.name), OPPONENT_NAME_Y);
+      }
+
       const attacking = heroAnim.state === 'attack';
       const heroSprite = attacking ? heroAttack : heroIdle;
       const heroFrame = attacking
@@ -836,30 +863,22 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       drawSprite(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
       if (attacking && heroFrame === SLASH_FRAME && scene === null) {
         // Slash arc in front of the blade, toward the monster. Not during a
-        // replay: field presentation is suppressed there (§6) and at 3x the
-        // arc would reach a size-3 opponent front member (x 140+).
-        drawSprite(ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + 2, {
-          scale: SPRITE_SCALE,
-        });
+        // replay: field presentation is suppressed there (§6).
+        drawSprite(
+          ctx,
+          heroSlash,
+          0,
+          HERO_X + heroAttack.w * SPRITE_SCALE,
+          HERO_Y + SLASH_OVERLAY_DY,
+          { scale: SPRITE_SCALE },
+        );
       }
-
-      // The party stands as one overlapping group left of the hero, back to
-      // front (§6). Every species shares the 2-frame bob, so one frame index
-      // drives the whole group. A battle scene shows the party that fought.
-      const partyFrame =
-        Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length;
-      drawParty(ctx, scene === null ? fieldParty(state) : scene.mine, partyFrame, GROUND_Y);
 
       const species = speciesSpritesFor(state.monster.speciesId);
       const scale = monsterScale();
       if (scene !== null) {
-        // The battle scene owns the field: the opponent's party stands
-        // mirrored on the right under its name, no field monster (§6).
-        drawParty(ctx, scene.theirs, partyFrame, GROUND_Y, {
-          flipX: false,
-          originX: VIEW_W - 8,
-        });
-        drawText(ctx, scene.name, OPPONENT_ORIGIN_X - textWidth(scene.name), OPPONENT_NAME_Y);
+        // The battle scene owns the field: no field monster (§6); the
+        // opponent's group was drawn behind the hero above.
       } else if (monsterAnim.state === 'dying') {
         // The sprite is mid-scatter — its pixels live in the particle pool.
       } else if (monsterAnim.state === 'spawning') {

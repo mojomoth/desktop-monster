@@ -4,7 +4,7 @@ import { paletteForTier } from './palette.js';
 import { drawSprite, UNIT_SCALE } from './sprite.js';
 import type { SpriteCanvas } from './sprite.js';
 
-export const BOSS_HP_BAR_Y = 72;
+export const BOSS_HP_BAR_Y = 56;
 
 /** Draw tier-tinted species art as a crowned boss with its feet on groundY. */
 export function drawBoss(
@@ -27,5 +27,8 @@ export function drawBoss(
     tint: opts?.tint,
   });
   const crown = itemSprites.crown;
-  drawSprite(ctx, crown, 0, x + Math.floor((sprite.w * scale - crown.w) / 2), y - crown.h);
+  // The crown is a world sprite too: same uniform scale as the body it sits on.
+  drawSprite(ctx, crown, 0, x + Math.floor((sprite.w * scale - crown.w * scale) / 2), y - crown.h * scale, {
+    scale,
+  });
 }

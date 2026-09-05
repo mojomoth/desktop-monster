@@ -1,179 +1,184 @@
-// SPEC F19 — hero knight art as code: idle x2 (bob), attack x3
-// (wind-up / slash / recover) and the slash-arc overlay. String-row
-// matrices only; '.' is transparent. Knight faces right (the monster
-// stands on the right side of the scene).
+// SPEC F19 — hero art as code (2026-09-04 full redesign, drawn by Codex CLI from
+// a Dungeon & Fighter-style brief; judged and refined with rendered previews):
+// idle x2 (breathing bob), attack x3 (wind-up / slash / recover) and the
+// slash-arc overlay. String-row matrices only; '.' is transparent. The hero
+// faces RIGHT (the monster stands on the right side of the scene) and draws at
+// the uniform UNIT_SCALE (every art pixel is a 2x2 canvas block).
 
 import { COLORS } from './palette.js';
 import { registerSprites } from './sprite.js';
 import type { Sprite } from './sprite.js';
 
-const HERO_PALETTE: Record<string, string> = {
-  e: COLORS.void, // outline
-  s: COLORS.steel, // armor
-  S: COLORS.slate, // armor shadow
-  k: COLORS.skin, // face
-  r: COLORS.red, // helmet plume
-  g: COLORS.yellow, // sword hilt / crossguard
-  w: COLORS.white, // sword blade
-};
-
-/** Knight at rest: 2-frame idle bob (sword held upright at the side). */
-export const heroIdle: Sprite = {
-  w: 22,
-  h: 20,
-  palette: HERO_PALETTE,
-  frames: [
-    [
-      '.......rrr............',
-      '......rrrr............',
-      '.....eessse...........',
-      '....esssssse........w.',
-      '...essssssse........w.',
-      '...esssssSkke.......w.',
-      '..esssssSSskke......w.',
-      '..esssssssskke......w.',
-      '...eSssssssse.......w.',
-      '....eessssee........w.',
-      '..eesssssssssee.....w.',
-      '.eSssssssssSse......w.',
-      '.eSssssssssSseg....gwg',
-      '.eSSssssssssSse.....g.',
-      '..eSssssssssSe........',
-      '...eSSssssSSe.........',
-      '...eSSs..sSSe.........',
-      '...eSSe..eSSe.........',
-      '...eSSe..eSSe.........',
-      '..eee......eee........',
-    ],
-    [
-      '......................',
-      '.......rrr............',
-      '......rrrr............',
-      '.....eessse...........',
-      '....esssssse........w.',
-      '...essssssse........w.',
-      '...esssssSkke.......w.',
-      '..esssssSSskke......w.',
-      '..esssssssskke......w.',
-      '...eSssssssse.......w.',
-      '....eessssee........w.',
-      '..eesssssssssee.....w.',
-      '.eSssssssssSse......w.',
-      '.eSssssssssSseg....gwg',
-      '.eSSssssssssSse.....g.',
-      '..eSssssssssSe........',
-      '...eSSssssSSe.........',
-      '...eSSe..eSSe.........',
-      '...eSSe..eSSe.........',
-      '..eee......eee........',
-    ],
-  ],
-};
-
-/** Attack: wind-up (sword raised high), slash (thrust right), recover. */
-export const heroAttack: Sprite = {
-  w: 22,
-  h: 20,
-  palette: HERO_PALETTE,
-  frames: [
-    [
-      '....................w.',
-      '...................ww.',
-      '.......rrr.......ww...',
-      '......rrrr......ww....',
-      '.....eessse....ww.....',
-      '....esssssse..ww......',
-      '...esssssSkke.g.......',
-      '..esssssSSskkeg.......',
-      '..esssssssskkeg.......',
-      '...eSsssssssegg.......',
-      '....eessssee.s........',
-      '..eesssssssssee.......',
-      '.eSssssssssSse........',
-      '.eSSssssssssSse.......',
-      '..eSssssssssSe........',
-      '...eSSssssSSe.........',
-      '...eSSs..sSSe.........',
-      '...eSSe..eSSe.........',
-      '...eSSe..eSSe.........',
-      '..eee......eee........',
-    ],
-    [
-      '......................',
-      '........rrr...........',
-      '.......rrrr...........',
-      '......eessse..........',
-      '.....esssssse.........',
-      '....esssssSkke........',
-      '...esssssSSskke.......',
-      '...esssssssskke.......',
-      '....eSssssssske.g.....',
-      '..eesssssssskkegwwwwww',
-      '.eSssssssssSse.g......',
-      '.eSSssssssssSse.......',
-      '..eSssssssssSe........',
-      '...eSSssssSSe.........',
-      '..eSSss..ssSSe........',
-      '..eSSs....sSSe........',
-      '...eSSe..eSSe.........',
-      '...eSSe..eSSe.........',
-      '..eSSe....eSSe........',
-      '.eeee......eeee.......',
-    ],
-    [
-      '.......rrr............',
-      '......rrrr............',
-      '.....eessse...........',
-      '....esssssse..........',
-      '...esssssSkke.........',
-      '..esssssSSskke........',
-      '..esssssssskke........',
-      '...eSssssssse.........',
-      '....eessssee..........',
-      '..eesssssssssee.......',
-      '.eSssssssssSse........',
-      '.eSSssssssssSseg......',
-      '..eSssssssssSegw......',
-      '...eSSssssSSe..gw.....',
-      '...eSSs..sSSe...ww....',
-      '...eSSe..eSSe....ww...',
-      '...eSSe..eSSe.....ww..',
-      '...eSSe..eSSe......w..',
-      '...eSSe..eSSe.........',
-      '..eee......eee........',
-    ],
-  ],
-};
-
-/**
- * Slash-arc overlay for the attack's slash frame: a crescent drawn in
- * front of the hero, over the monster's edge.
+/*
+ * Design plan — "Cinder Vanguard": a confident, right-facing chibi fighter
+ * with a three-point swept flame mane, red headband, open long coat, planted
+ * boots, and a single vertical eye glint. Rows 0–7 hold the oversized head and
+ * hair; 8–14 the shirt, jacket, belt, glove, and hilt; 15–19 the coat tails,
+ * trousers, and grounded boots. The greatsword dominates the action silhouette.
+ * Palette roles: e near-black outer/separation outline; r hair shadow/headband;
+ * o hair base; y hair highlight and crossguard; m jacket base/shadow; b leather
+ * highlight, grip, and boots; s face/hands; w eye glint, shirt, and blade core;
+ * c blade shadow; t trousers and boot shadow.
  */
+
+const HERO_PALETTE: Record<string, string> = {
+  e: COLORS.void,
+  r: COLORS.red,
+  o: COLORS.orange,
+  y: COLORS.yellow,
+  m: COLORS.maroon,
+  b: COLORS.brown,
+  s: COLORS.skin,
+  w: COLORS.white,
+  c: COLORS.steel,
+  t: COLORS.slate,
+};
+
+export const heroIdle: Sprite = {
+  w: 20,
+  h: 20,
+  palette: HERO_PALETTE,
+  frames: [
+    [
+      '.eyeeyoe............',
+      '.eooyoooee..........',
+      'eyoooooooe..........',
+      '.errrrrrrreee.......',
+      '..eoooooswese.......',
+      '...eoorsssese.......',
+      '...eorrsssse........',
+      '....eerssee.........',
+      '.....eemme..........',
+      '....eembmwsbe.......',
+      '...eembmwwmssee.....',
+      '..embmmwwmmseyye....',
+      '..ebmmmmyyme.ewce...',
+      '.ebmmmmmmme..ewce...',
+      'ebmmmmmmmme...ewce..',
+      'ebmmmmeemme...ewce..',
+      'emette..ette...ewce.',
+      'eebbte..ebbte..ewce.',
+      '.ebbte..ebbte...ewce',
+      'eeeeee..eeeeee...ee.',
+    ],
+    [
+      '....................',
+      '.eyeeyoe............',
+      '.eooyoooee..........',
+      'eyoooooooe..........',
+      '.errrrrrrreee.......',
+      '..eoooooswese.......',
+      '...eoorsssese.......',
+      '...eorrsssse........',
+      '....eerssee.........',
+      '.....eemme..........',
+      '....eembmwsbe.......',
+      '...eembmwwmssee.....',
+      '..embmmwwmmseyye....',
+      '..ebmmmmyyme.ewce...',
+      '.ebmmmmmmme..ewce...',
+      'ebmmmmeemme...ewce..',
+      'emette..ette..ewce..',
+      'embbte..ebbte..ewce.',
+      'eebbte..ebbte..ewce.',
+      'eeeeee..eeeeee..ee..',
+    ],
+  ],
+};
+
+export const heroAttack: Sprite = {
+  w: 20,
+  h: 20,
+  palette: HERO_PALETTE,
+  frames: [
+    [
+      '.ee.eyeeyoe.........',
+      '.ewceooyoooee.......',
+      '.eweyoooooooe.......',
+      '..ewerrrrrrrreee....',
+      '..ewceoooooswese....',
+      '...ewceoorsssese....',
+      '...ewceorrsssse.....',
+      '...eyyyeerssee......',
+      '....eeebseeemmee....',
+      '.......eembmmse.....',
+      '......eembmwwmse....',
+      '.....embmmwwmse.....',
+      '.....ebmmmmyye......',
+      '....ebmmmmmme.......',
+      '...ebmmmmmmmme......',
+      '...ebmmmmeemme......',
+      '..emette...ette.....',
+      '..eebbte....ebte....',
+      '..ebbbte.....ebte...',
+      '.eeeeeee......eeeee.',
+    ],
+    [
+      '...eyeeyoe..........',
+      '...eooyoooee........',
+      '..eyoooooooe........',
+      '...errrrrrrreee.....',
+      '....eoooooswese.....',
+      '.....eoorsssese.....',
+      '.....eorrsssse......',
+      '......eerssee.......',
+      '......eemmeeyeeeeee.',
+      '.....eembmbsywwwwwwe',
+      '....eembmwwbsycccce.',
+      '...embmmwwmbsyeeee..',
+      '..ebmmmmyyme........',
+      '.ebmmmmmmme.........',
+      'ebmmmmmmmme.........',
+      'ebmmmmeemme.........',
+      'emette..ette........',
+      'eebbte...ebbte......',
+      '.ebbte...ebbte......',
+      'eeeeee...eeeeee.....',
+    ],
+    [
+      '..eyeeyoe...........',
+      '..eooyoooee.........',
+      '.eyoooooooe.........',
+      '..errrrrrrreee......',
+      '...eoooooswese......',
+      '....eoorsssese......',
+      '....eorrsssse.......',
+      '.....eerssee........',
+      '......eemme.........',
+      '....eembmwsbe.......',
+      '...eembmwwmssee.....',
+      '..embmmwwmmseyye....',
+      '..ebmmmmyyme.ewce...',
+      '.ebmmmmmmme..ewce...',
+      'ebmmmmmmmme...ewce..',
+      'ebmmmmeemme...ewce..',
+      'emette..ette...ewce.',
+      'eebbte...ebbte.ewce.',
+      '.ebbte...ebbte..ewce',
+      'eeeeee...eeeeee..ee.',
+    ],
+  ],
+};
+
 export const heroSlash: Sprite = {
-  w: 8,
-  h: 16,
+  w: 5,
+  h: 10,
   palette: {
-    w: COLORS.white,
     c: COLORS.cyan,
+    w: COLORS.white,
   },
   frames: [
     [
-      '..ww....',
-      '.wccw...',
-      'wcc..w..',
-      'wc....w.',
-      'c......w',
-      'c......w',
-      'c......w',
-      '.c.....w',
-      '.c.....w',
-      '..c....w',
-      '..c...w.',
-      '...c..w.',
-      '...c.w..',
-      '...cww..',
-      '..cww...',
-      '..ww....',
+      'wc...',
+      '.wwc.',
+      '..wwc',
+      '..wwc',
+      '..wwc',
+      '..wwc',
+      '..wwc',
+      '..wwc',
+      '.wwc.',
+      'wc...',
     ],
   ],
 };

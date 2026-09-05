@@ -115,7 +115,7 @@ describe('README operator docs (F27)', () => {
     }
     expect(readme).toContain('Find opponent');
     expect(readme).toContain('24 hours');
-    expect(readme).toContain('480'); // overlay window width (F72)
+    expect(readme).toContain('400'); // overlay window width (F76 / T72; 400×260 since 2026-09-04)
   });
 
   it('names the v3 server service and keeps the URL override documented', () => {
