@@ -15,7 +15,7 @@ server (`src/server`, on Render) for the leaderboard and asynchronous PvP with c
 stealing. Electron + TypeScript; all art is sprites-as-code (no binary assets). v3 (branch `v3`, harness v3) adds
 elemental types with a 5-cycle chart, hidden sizes, a 5-member overlapping party auto-picked by
 type-adjusted power, two-step PvP (opponent preview, manual party, deterministic battle replay),
-attacker-only steals with a 24 h reclaim + native notification, and a 480×300 field at 1× units
+attacker-only steals with a 24 h reclaim + native notification, and a 400×260 field at a uniform 2× pixel scale
 (`.harness/v3/reference/GAME_DESIGN_V3.md`, `SERVER_ARCHITECTURE_V3.md`). Built
 autonomously by the parallel Ralph loop in `.harness/` — see `.harness/<version>/HARNESS.md`
 (version in `.harness/CURRENT`).

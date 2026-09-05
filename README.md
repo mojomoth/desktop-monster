@@ -36,8 +36,11 @@ Useful scripts:
 | `npm run package` | unsigned macOS build via electron-builder (see below) |
 
 The overlay is frameless and transparent, **400×260** points in the
-bottom-right corner of the work area (a 200×130 canvas drawn at 2×): drag it
-by the invisible 24-pixel strip along its top edge. A slime icon in the menu
+bottom-right corner of the work area (a 200×130 canvas drawn at 2×, every
+sprite pixel a chunky 2×2 block — the hero is an original Dungeon & Fighter-style
+swordsman, the five monsters original Pokémon/Digimon-style creatures, all
+drawn as code by the Codex CLI graphics worker): drag it by the invisible
+24-pixel strip along its top edge. A slime icon in the menu
 bar tray hosts the menu (`DesMon v0.3.0`, input-mode status,
 Collection & Battle…, Reset Progress, Quit).
 
@@ -56,8 +59,9 @@ Collection & Battle…, Reset Progress, Quit).
   power (**×2**, "super", yellow damage float); losing to it halves it
   (**÷2**, never below 1, steel float); anything else — including same vs.
   same — is normal. Species also have a hidden **size** (1–3) that is never
-  written out: it only sets how large a monster is drawn and where a party
-  member stands in the overlapping group.
+  written out: it only sets where a party member stands in the overlapping
+  group (bigger species at the back); on-screen size comes from each species'
+  own pixel art.
 - **Bosses.** Every 8th monster (indices 7, 15, 23, …) is a **boss**: 5× HP,
   5× XP and 5× coins, a ` BOSS` name suffix, drawn with a crown (uniform pixel
   scale) and a shockwave on spawn.
