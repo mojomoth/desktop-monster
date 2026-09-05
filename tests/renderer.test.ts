@@ -52,6 +52,7 @@ import {
   HP_BAR,
   IDLE_FRAME_MS,
   MONSTER_X,
+  OPPONENT_HERO_X,
   OPPONENT_NAME_Y,
   OPPONENT_ORIGIN_X,
   REPLAY_MS,
@@ -108,6 +109,7 @@ import {
   drawSprite,
   drawText,
   drawTypeBadge,
+  HERO_RIVAL_PALETTE,
   heroAttack,
   heroIdle,
   heroSlash,
@@ -2018,6 +2020,51 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     expect(theirSlot(theirs, 0).x).toBeGreaterThan(VIEW_W / 2);
     // …and the VS banner opened the scene.
     expect(bannerKeys('VS RIVAL').every((k) => painted.has(k))).toBe(true);
+  });
+
+  it('playReplay draws the opponent hero mirrored beside mine in the rival palette', () => {
+    const game = createGame(createEngine({ ...v2 }, mulberry32(11)));
+    game.playReplay({ opponentName: 'RIVAL', opponentParty: [companion('o1', 'bat')], blows: [] });
+    const painted = drawn(game);
+
+    // The same idle art, flipped to face my hero, in the rival colours, standing
+    // just right of my hero and inside the field.
+    const ref = makeCtx();
+    drawSprite(ref.ctx, { ...heroIdle, palette: HERO_RIVAL_PALETTE }, 0, OPPONENT_HERO_X, HERO_Y, {
+      flipX: true,
+      scale: SPRITE_SCALE,
+    });
+    expect(ref.calls.length).toBeGreaterThan(0);
+    expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+    expect(OPPONENT_HERO_X).toBeGreaterThanOrEqual(HERO_X + heroIdle.w * SPRITE_SCALE);
+    expect(OPPONENT_HERO_X + heroIdle.w * SPRITE_SCALE).toBeLessThanOrEqual(VIEW_W);
+    expect(Object.keys(HERO_RIVAL_PALETTE).sort()).toEqual(Object.keys(heroIdle.palette).sort());
+    expect(HERO_RIVAL_PALETTE).not.toEqual(heroIdle.palette);
+
+    // No scene, no rival: the field never paints those rival-coloured rects.
+    const field = createGame(createEngine({ ...v2 }, mulberry32(11)));
+    const fieldPainted = drawn(field);
+    const rivalOnly = ref.calls.filter((c) => c.fillStyle === HERO_RIVAL_PALETTE.g);
+    expect(rivalOnly.length).toBeGreaterThan(0);
+    expect(rivalOnly.some((c) => fieldPainted.has(rectKey(c)))).toBe(false);
+  });
+
+  it('the opponent hero swings when its side lands a blow', () => {
+    const game = createGame(
+      createEngine({ ...v2, companions: [companion('c1', 'dragon')], nextCompanionId: 2 }, mulberry32(12)),
+    );
+    const theirs = [companion('o1', 'bat')];
+    game.playReplay({ opponentName: 'FOE', opponentParty: theirs, blows: [blow('D', 'o1', 'c1', '7')] });
+    game.update(16); // the first blow is due at t = 0 → the rival's wind-up frame
+    const painted = drawn(game);
+    const windUp = makeCtx();
+    drawSprite(windUp.ctx, { ...heroAttack, palette: HERO_RIVAL_PALETTE }, 0, OPPONENT_HERO_X, HERO_Y, {
+      flipX: true,
+      scale: SPRITE_SCALE,
+    });
+    expect(windUp.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+    // My hero did not swing: it is a defender's blow.
+    expect(game.getHeroAnim().state).toBe('idle');
   });
 
   it('each blow spawns a styled attack then a float at the target', () => {

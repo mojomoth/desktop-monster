@@ -19,7 +19,7 @@ export {
   tintPalette,
 } from './palette.js';
 
-export { heroAttack, heroIdle, heroSlash } from './hero.js';
+export { HERO_RIVAL_PALETTE, heroAttack, heroIdle, heroSlash } from './hero.js';
 
 export { monsterSprites } from './monsters.js';
 export type { SpeciesSprites } from './monsters.js';

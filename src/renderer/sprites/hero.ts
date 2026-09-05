@@ -31,6 +31,17 @@ const HERO_PALETTE: Record<string, string> = {
   y: COLORS.yellow,
 };
 
+/**
+ * The rival's colours for the PvP battle scene (SPEC F66): the same art with a
+ * red tunic and dark hair/boots, so the opponent's hero reads as "them" at a
+ * glance. Same keys as HERO_PALETTE — every frame char stays covered.
+ */
+export const HERO_RIVAL_PALETTE: Record<string, string> = {
+  ...HERO_PALETTE,
+  g: COLORS.red,
+  b: COLORS.maroon,
+};
+
 export const heroIdle: Sprite = {
   w: 14,
   h: 14,

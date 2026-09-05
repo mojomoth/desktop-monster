@@ -62,6 +62,7 @@ import {
   drawSprite,
   drawText,
   drawTypeBadge,
+  HERO_RIVAL_PALETTE,
   heroAttack,
   heroIdle,
   heroSlash,
@@ -172,6 +173,12 @@ export const REPLAY_END_MS = 600;
 export const OPPONENT_ORIGIN_X = VIEW_W - 8;
 /** Baseline of the opponent's name, clear of its tallest member. */
 export const OPPONENT_NAME_Y = 58;
+/**
+ * Left edge of the opponent's hero in the battle scene (user change
+ * 2026-09-06): mirrored (facing left) just right of mine, so the two heroes
+ * square off in the middle with their parties behind them.
+ */
+export const OPPONENT_HERO_X = HERO_X + heroIdle.w * SPRITE_SCALE + 4;
 /** How far a blow's damage float sits above the target's centre. */
 export const BLOW_FLOAT_LIFT = 6;
 
@@ -424,6 +431,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
   let engine = initialEngine;
   let timeMs = 0;
   let heroAnim = createHeroAnim();
+  // The opponent's hero in a battle scene (F66): idles, swings on its side's blows.
+  let rivalAnim = createHeroAnim();
   // Boot straight into idle: the monster on screen at load (fresh or resumed)
   // is already alive — the spawn pop-in is for monsters born from a kill.
   let monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
@@ -451,6 +460,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
   const clearPresentation = (): void => {
     timeMs = 0;
     heroAnim = createHeroAnim();
+    rivalAnim = createHeroAnim();
     // Boot the monster straight into idle: the pop-in is for kill-born
     // spawns (T15 decision) — rebirth re-arms it right after this call.
     monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
@@ -526,6 +536,9 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       return;
     }
     audio.attackTick();
+    // The commanding hero swings with each of its side's blows (user change 2026-09-06).
+    if (mineActs) heroAnim = heroInput();
+    else rivalAnim = heroInput();
     const from = slotCentre(actorSlot, actor.speciesId);
     const at = slotCentre(targetSlot, target.speciesId);
     spawnCompanionAttack(particles, actor.speciesId, from, at, mineActs ? 1 : -1);
@@ -778,6 +791,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       const dt = Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
       timeMs += dt;
       heroAnim = tickHero(heroAnim, dt);
+      rivalAnim = tickHero(rivalAnim, dt);
       monsterAnim = tickMonster(monsterAnim, dt);
       tickFloats(floats, dt);
       tickParticles(particles, dt);
@@ -874,11 +888,29 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         );
       }
 
+      if (scene !== null) {
+        // The opponent's hero: the same art mirrored (facing left) in the
+        // rival palette, in front of its own party, swinging on its blows.
+        const rivalAttacking = rivalAnim.state === 'attack';
+        const rivalSprite = rivalAttacking ? heroAttack : heroIdle;
+        const rivalFrame = rivalAttacking
+          ? Math.min(heroAttack.frames.length - 1, Math.floor(rivalAnim.t / ATTACK_FRAME_MS))
+          : Math.floor(timeMs / IDLE_FRAME_MS) % heroIdle.frames.length;
+        drawSprite(
+          ctx,
+          { ...rivalSprite, palette: HERO_RIVAL_PALETTE },
+          rivalFrame,
+          OPPONENT_HERO_X,
+          HERO_Y,
+          { flipX: true, scale: SPRITE_SCALE },
+        );
+      }
+
       const species = speciesSpritesFor(state.monster.speciesId);
       const scale = monsterScale();
       if (scene !== null) {
         // The battle scene owns the field: no field monster (§6); the
-        // opponent's group was drawn behind the hero above.
+        // opponent's group and hero were drawn above.
       } else if (monsterAnim.state === 'dying') {
         // The sprite is mid-scatter — its pixels live in the particle pool.
       } else if (monsterAnim.state === 'spawning') {
