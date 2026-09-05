@@ -293,14 +293,14 @@ describe('boss and companion art helpers (SPEC F40)', () => {
     }
   });
 
-  it('partySlots stacks back members higher and left of front members at the uniform scale', () => {
+  it('partySlots lines back members up left of front members with every foot on the ground at the uniform scale', () => {
     expect(PARTY_X).toBe(8);
     expect(PARTY_STEP_X).toBe(11);
-    expect(PARTY_STEP_Y).toBe(3);
+    expect(PARTY_STEP_Y).toBe(0);
     // Uniform scale (2026-09-04): every slot is UNIT_SCALE; size variety is in the art.
     expect(partySlots([{ speciesId: 'dragon' }, { speciesId: 'ghost' }, { speciesId: 'bat' }], 92)).toEqual([
-      { x: 8, y: 86, scale: UNIT_SCALE },
-      { x: 19, y: 89, scale: UNIT_SCALE },
+      { x: 8, y: 92, scale: UNIT_SCALE },
+      { x: 19, y: 92, scale: UNIT_SCALE },
       { x: 30, y: 92, scale: UNIT_SCALE },
     ]);
   });
@@ -320,7 +320,7 @@ describe('boss and companion art helpers (SPEC F40)', () => {
       { ...dragon, palette: paletteForTier(dragon.palette, 1) },
       0,
       8,
-      92 - 3 - dragon.h * UNIT_SCALE,
+      92 - dragon.h * UNIT_SCALE,
       { flipX: true, scale: UNIT_SCALE },
     );
     const front = makeCtx();

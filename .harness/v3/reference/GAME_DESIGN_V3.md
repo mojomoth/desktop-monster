@@ -199,7 +199,7 @@ XP-bar row (66).
 | `BOSS_HP_BAR_Y` (boss.ts) | 56 |
 | `DROP_LAND_X`, `DROP_TARGET_X`, `DROP_TARGET_Y` | 125, `VIEW_W - 12`, 8 |
 | `PARTY_X` (party.ts) | 8 |
-| `PARTY_STEP_X`, `PARTY_STEP_Y` (party.ts) | 11, 3 |
+| `PARTY_STEP_X`, `PARTY_STEP_Y` (party.ts) | 11, 0 (feet on the ground; 2026-09-05) |
 
 Monster draw scale = `UNIT_SCALE` = 2 (uniform; size variety is in the native
 art, 2026-09-04); the boss draws its species art at 2× with a crown centred above
@@ -211,7 +211,7 @@ the rival's name clear of a 34-px back member in the replay scene.
 ```ts
 export function partySlots(party: readonly { speciesId: string }[], groundY: number): { x: number; y: number; scale: number }[];
   // input already in partyOrder (back → front, size desc): slot r (0 = back) → scale = UNIT_SCALE (2026-09-04: size variety is in the native art),
-  // x = PARTY_X + r * PARTY_STEP_X, feet y = groundY - (n - 1 - r) * PARTY_STEP_Y  → back members stand higher/left, front ones lower/right, overlapping
+  // x = PARTY_X + r * PARTY_STEP_X, feet y = groundY - (n - 1 - r) * PARTY_STEP_Y  → back members stand further left, front ones further right, overlapping; every foot on the ground line (PARTY_STEP_Y = 0 since 2026-09-05 — the 3-px depth lift read as floating at 2×)
 export function drawParty(ctx, party: readonly Companion[], frame: number, groundY: number, opts?: { flipX?: boolean; originX?: number }): void;
   // draws in slot order (back first) with `paletteForTier(idle.palette, stars)`; flipX true = facing right (left side of the field, default);
   // opts.originX + flipX false = the mirrored opponent group for the battle scene (§6 replay), x measured leftwards from originX

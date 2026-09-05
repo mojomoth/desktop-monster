@@ -1077,7 +1077,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const state = game.getState();
     const party = partyOrder(activeCompanions(state.companions, state.monster.type));
     const slots = partySlots(party, GROUND_Y);
-    // Back to front: bigger species stand behind, higher up and further left.
+    // Back to front: bigger species stand behind and further left; every foot is
+    // on the ground line (PARTY_STEP_Y = 0, 2026-09-05).
     expect(slots.map((s) => s.scale)).toEqual(party.map(() => SPRITE_SCALE));
     expect(slots.map((s) => s.scale)).toEqual([...slots.map((s) => s.scale)].sort((a, b) => b - a));
     expect(slots.map((s) => s.x)).toEqual([...slots.map((s) => s.x)].sort((a, b) => a - b));

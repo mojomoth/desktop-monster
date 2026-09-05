@@ -7,7 +7,8 @@ import type { SpriteCanvas } from './sprite.js';
 
 export const PARTY_X = 8;
 export const PARTY_STEP_X = 11;
-export const PARTY_STEP_Y = 3;
+/** 0 since 2026-09-05 (user change): every member's feet sit on the ground line — the 3-px depth lift read as floating at 2×. */
+export const PARTY_STEP_Y = 0;
 
 export const TYPE_COLORS: Record<MonsterType, string> = {
   fire: COLORS.red,
