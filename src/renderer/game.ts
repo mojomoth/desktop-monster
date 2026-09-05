@@ -118,8 +118,8 @@ export const GROUND_Y = 112;
  * sprite — hero, party, monster, boss — draws at this one integer scale, so a
  * pixel is the same size across the whole scene. 2× = chunky retro pixels
  * (one art pixel = 2 canvas px = 4 screen px). Size differences come from
- * each sprite's NATIVE art dimensions (hero 16×16; monsters 13×10 → 20×17 by
- * species; 2026-09-04/05 redesign), not from a per-entity scale multiplier. Mirrors sprite.ts
+ * each sprite's NATIVE art dimensions (hero 14×14; monsters 13×10 → 20×17 by
+ * species; 2026-09-04..06 redesigns), not from a per-entity scale multiplier. Mirrors sprite.ts
  * UNIT_SCALE (kept literal here for the F64 AC grep).
  */
 export const SPRITE_SCALE = 2;
@@ -128,7 +128,7 @@ export const HERO_X = 78;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
 export const MONSTER_X = 150;
-/** Boxed HP bar above the monster (centered over it at draw time); above the tallest species (dragon 17 rows × 2 = 34 px); its frame row (64) differs from the hero XP bar's (74 for the 16-row hero), which is how the tests tell the two 40-px meters apart. */
+/** Boxed HP bar above the monster (centered over it at draw time); above the tallest species (dragon 17 rows × 2 = 34 px); its frame row (64) differs from the hero XP bar's (78 for the 14-row hero), which is how the tests tell the two 40-px meters apart. */
 export const HP_BAR = { w: 40, h: 5, y: 64 } as const;
 /** Gap between the type badge and the left end of the monster's HP bar. */
 export const TYPE_BADGE_GAP = 7;
@@ -149,9 +149,9 @@ export const DROP_TARGET_Y = 8;
 const COLLECT_SPARKLE_COUNT = 6;
 /**
  * Top of the slash-arc overlay relative to the hero's top: the arc is centred
- * on the blade of the slash frame (2026-09-05 simplified hero: outlined blade
- * at art rows 6-8, centre 7; the arc is 8 rows tall → its top sits 3 rows
- * down, covering rows 3-10), at the uniform scale.
+ * on the blade of the slash frame (2026-09-06 hero: blade at art rows
+ * 6-6, centre 6; the arc is 7 rows tall → its top sits 3 rows
+ * down), at the uniform scale.
  */
 export const SLASH_OVERLAY_DY = 3 * SPRITE_SCALE;
 /** Where the slash arc lands — the origin of the hero slash effect (F36). */

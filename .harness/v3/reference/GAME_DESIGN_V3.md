@@ -177,9 +177,9 @@ unchanged); `src/main/window.ts` `WINDOW_W = 400`, `WINDOW_H = 260` (shrunk from
 Uniform pixel scale (2026-09-04, after user changes 1×→3×→2× for the hero
 alone, then the full art redesign): `SPRITE_SCALE`/`UNIT_SCALE = 2` for EVERY
 sprite, so a pixel is one size everywhere (one art pixel = a 2×2 canvas block =
-4 screen px, chunky). Size variety lives in the native art — hero 16×16 (a
-simplified DNF-style swordsman, 80 % of the first 20×20 redesign, user change
-2026-09-05: idle ×2, attack ×3, 4×8 slash arc); monsters 13×10 (slime),
+4 screen px, chunky). Size variety lives in the native art — hero 14×14 (a
+simple, universal RPG hero drawn by codex-cli; 20×20 DNF-style → 16×16 → 14×14
+via user changes 2026-09-04/05/06: idle ×2, attack ×3, 4×7 slash arc); monsters 13×10 (slime),
 15×10 (bat), 14×13 (ghost), 19×16 (golem), 20×17 (dragon) (Pokémon/Digimon-style
 creatures facing left: idle ×2 + hit ×1); a boss is its species art at 2× with a
 crown (no scale bump). The HP bar sits at y 64 (boss 56), above the tallest

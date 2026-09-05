@@ -37,9 +37,9 @@ Useful scripts:
 
 The overlay is frameless and transparent, **400×260** points in the
 bottom-right corner of the work area (a 200×130 canvas drawn at 2×, every
-sprite pixel a chunky 2×2 block — the hero is an original Dungeon & Fighter-style
-swordsman, the five monsters original Pokémon/Digimon-style creatures, all
-drawn as code by the Codex CLI graphics worker): drag it by the invisible
+sprite pixel a chunky 2×2 block — the hero is a simple, universal little RPG
+hero, the five monsters original Pokémon/Digimon-style creatures, all drawn as
+code by the Codex CLI graphics worker): drag it by the invisible
 24-pixel strip along its top edge. A slime icon in the menu
 bar tray hosts the menu (`DesMon v0.3.0`, input-mode status,
 Collection & Battle…, Reset Progress, Quit).
