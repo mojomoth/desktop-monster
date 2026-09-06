@@ -11,6 +11,13 @@ body {
 }
 
 .drag-handle {
+  /* Overlays the top of the canvas (2026-09-06): the 400x260 window holds the
+     whole 200x130 canvas at 2x, so the handle must not push it down and clip
+     the ground strip + type badges off the bottom. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 24px;
   -webkit-app-region: drag;
 }

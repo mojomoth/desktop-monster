@@ -170,8 +170,9 @@ Statistical pin (tests/collection.test.ts): seeded 10 000 wins → steals in
 ## 6. Field, layout, presentation (renderer)
 
 **Canvas / window.** `static/index.html` canvas `200×130`; `static/style.css`
-canvas `400px × 260px` (2× CSS, `image-rendering: pixelated`, drag handle
-unchanged); `src/main/window.ts` `WINDOW_W = 400`, `WINDOW_H = 260` (shrunk from
+canvas `400px × 260px` (2× CSS, `image-rendering: pixelated`; the 24-px drag handle
+overlays the canvas top since 2026-09-06 so the full 130 rows — ground strip and
+foot badges — fit the 260-px window); `src/main/window.ts` `WINDOW_W = 400`, `WINDOW_H = 260` (shrunk from
 480×300 on 2026-09-04; default position rule unchanged: bottom-right of
 `workArea` minus `EDGE_MARGIN`).
 Uniform pixel scale (2026-09-04, after user changes 1×→3×→2× for the hero
