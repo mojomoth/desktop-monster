@@ -147,8 +147,12 @@ export const FLOAT_LIFE_MS = 600;
 export const FLOAT_RISE_PX = 8;
 /** Age fraction past which a float draws in its dim fade color. */
 export const FLOAT_FADE_RATIO = 2 / 3;
-/** Pixel scale of crit damage numbers (Manual M2: crits show larger). */
-export const CRIT_FLOAT_SCALE = 2;
+/** Pixel scale of normal damage numbers (user change 2026-09-06: readable 2x glyphs with a 1-px outline). */
+export const FLOAT_SCALE = 2;
+/** Pixel scale of crit damage numbers (Manual M2: crits show larger — 3x, yellow, with a '!'). */
+export const CRIT_FLOAT_SCALE = 3;
+/** Crits rise this much further than normal floats (same lifetime, punchier). */
+export const CRIT_RISE_MULT = 1.5;
 
 export function floatColor(effectiveness: Effectiveness): string {
   return effectiveness === 'super'
@@ -261,16 +265,22 @@ export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
     if (!f.active) {
       continue;
     }
-    const scale = f.crit ? CRIT_FLOAT_SCALE : 1;
+    const scale = f.crit ? CRIT_FLOAT_SCALE : FLOAT_SCALE;
+    const text = f.crit ? `${f.text}!` : f.text;
     const faded = f.ageMs >= FLOAT_LIFE_MS * FLOAT_FADE_RATIO;
     const color = faded
       ? f.crit
         ? COLORS.orange
         : COLORS.steel
       : (f.color ?? (f.crit ? COLORS.yellow : COLORS.white));
-    const rise = Math.round(FLOAT_RISE_PX * (f.ageMs / FLOAT_LIFE_MS));
-    const x = Math.round(f.x - (textWidth(f.text) * scale) / 2);
-    drawScaledText(ctx, f.text, x, f.y - rise - (scale - 1) * FONT_H, scale, color);
+    const rise = Math.round(FLOAT_RISE_PX * (f.crit ? CRIT_RISE_MULT : 1) * (f.ageMs / FLOAT_LIFE_MS));
+    const x = Math.round(f.x - (textWidth(text) * scale) / 2);
+    const y = f.y - rise - (scale - 1) * FONT_H;
+    // 1-px void outline (4 offsets) under the glyphs: numbers stay readable over any art.
+    for (const [ox, oy] of [[-1, 0], [1, 0], [0, -1], [0, 1]] as const) {
+      drawScaledText(ctx, text, x + ox, y + oy, scale, COLORS.void);
+    }
+    drawScaledText(ctx, text, x, y, scale, color);
   }
 }
 

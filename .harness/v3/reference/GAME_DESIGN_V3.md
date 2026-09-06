@@ -204,7 +204,7 @@ XP-bar row (66).
 
 Monster draw scale = `UNIT_SCALE` = 2 (uniform; size variety is in the native
 art, 2026-09-04); the boss draws its species art at 2× with a crown centred above
-(no size bump); floats spawn at `barY − 6` as in v2; `OPPONENT_NAME_Y = 58` keeps
+(no size bump); floats spawn at `barY − 6` as in v2 (2026-09-06: drawn 2× with a void outline, crits 3× + `!` + 180 ms camera shake `shakeOffset` + `EFFECTS.critBurst`); `OPPONENT_NAME_Y = 58` keeps
 the rival's name clear of a 34-px back member in the replay scene.
 
 **Party group (codex helper `src/renderer/sprites/party.ts`):**

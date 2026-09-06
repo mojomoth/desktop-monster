@@ -60,6 +60,15 @@ describe('effect presets (SPEC F39)', () => {
         gravity: 0,
         size: 1,
       },
+      critBurst: {
+        count: 12,
+        colors: [COLORS.yellow, COLORS.white, COLORS.orange],
+        speed: 150,
+        spread: Math.PI * 2,
+        lifeMs: 320,
+        gravity: 0,
+        size: 2,
+      },
       companionProjectile: {
         count: 1,
         colors: [],

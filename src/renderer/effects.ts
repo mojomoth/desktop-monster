@@ -22,6 +22,7 @@ export const EFFECTS: {
   feverAura: EffectPreset;
   bossShockwave: EffectPreset;
   captureSparkle: EffectPreset;
+  critBurst: EffectPreset;
   companionProjectile: EffectPreset;
   hit: Record<SpeciesId, EffectPreset>;
 } = {
@@ -69,6 +70,16 @@ export const EFFECTS: {
     lifeMs: 600,
     gravity: 0,
     size: 1,
+  },
+  // A critical hit: a wide ring of hot sparks on top of the species hit burst (user change 2026-09-06).
+  critBurst: {
+    count: 12,
+    colors: [COLORS.yellow, COLORS.white, COLORS.orange],
+    speed: 150,
+    spread: Math.PI * 2,
+    lifeMs: 320,
+    gravity: 0,
+    size: 2,
   },
   // The caller supplies its species hit primary.
   companionProjectile: {

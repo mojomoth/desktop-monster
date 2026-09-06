@@ -57,6 +57,8 @@ import {
   OPPONENT_ORIGIN_X,
   REPLAY_MS,
   SAVE_DEBOUNCE_MS,
+  SHAKE_MS,
+  shakeOffset,
   SLASH_OVERLAY_DY,
   SPRITE_SCALE,
   VIEW_H,
@@ -71,6 +73,7 @@ import {
   createBanner,
   createFloatPool,
   CRIT_FLOAT_SCALE,
+  FLOAT_SCALE,
   DEFEAT_TEXT,
   FEVER_TEXT,
   VICTORY_TEXT,
@@ -109,6 +112,7 @@ import {
   drawPartyBadges,
   drawSprite,
   drawText,
+  FONT_ADVANCE,
   HERO_RIVAL_PALETTE,
   heroAttack,
   heroIdle,
@@ -441,7 +445,11 @@ describe('floating damage numbers (fixed pool)', () => {
     const freshTop = Math.min(...fresh.calls.map((c) => c.y));
     const agedTop = Math.min(...aged.calls.map((c) => c.y));
     expect(agedTop).toBeLessThan(freshTop);
-    expect(fresh.calls.every((c) => c.fillStyle === COLORS.yellow)).toBe(true);
+    // Every glyph pixel is yellow; the rest is the 1-px void outline.
+    const ink = fresh.calls.filter((c) => c.fillStyle !== COLORS.void);
+    expect(ink.length).toBeGreaterThan(0);
+    expect(ink.every((c) => c.fillStyle === COLORS.yellow)).toBe(true);
+    expect(fresh.calls.some((c) => c.fillStyle === COLORS.void)).toBe(true);
   });
 
   it('fades to a dim color in the last third of its life', () => {
@@ -450,17 +458,18 @@ describe('floating damage numbers (fixed pool)', () => {
     tickFloats(pool, FLOAT_LIFE_MS * FLOAT_FADE_RATIO - 100);
     const fresh = makeCtx();
     drawFloats(fresh.ctx, pool);
-    expect(fresh.calls.length).toBeGreaterThan(0);
-    expect(fresh.calls.every((c) => c.fillStyle === COLORS.white)).toBe(true);
+    const ink = (cs: RectCall[]): RectCall[] => cs.filter((c) => c.fillStyle !== COLORS.void);
+    expect(ink(fresh.calls).length).toBeGreaterThan(0);
+    expect(ink(fresh.calls).every((c) => c.fillStyle === COLORS.white)).toBe(true);
 
     tickFloats(pool, 100); // now exactly at the fade boundary
     const faded = makeCtx();
     drawFloats(faded.ctx, pool);
-    expect(faded.calls.length).toBeGreaterThan(0);
-    expect(faded.calls.every((c) => c.fillStyle === COLORS.steel)).toBe(true);
+    expect(ink(faded.calls).length).toBeGreaterThan(0);
+    expect(ink(faded.calls).every((c) => c.fillStyle === COLORS.steel)).toBe(true);
   });
 
-  it('draws crit numbers double-size and normal numbers single-size', () => {
+  it('draws crit numbers triple-size with a bang and normal numbers double-size, both outlined', () => {
     const critPool = createFloatPool();
     spawnFloat(critPool, 100, 60, '9', true);
     const crit = makeCtx();
@@ -475,7 +484,62 @@ describe('floating damage numbers (fixed pool)', () => {
     const normal = makeCtx();
     drawFloats(normal.ctx, normalPool);
     expect(normal.calls.length).toBeGreaterThan(0);
-    expect(normal.calls.every((c) => c.w === 1 && c.h === 1)).toBe(true);
+    expect(normal.calls.every((c) => c.w === FLOAT_SCALE && c.h === FLOAT_SCALE)).toBe(true);
+    expect(CRIT_FLOAT_SCALE).toBeGreaterThan(FLOAT_SCALE);
+    // The crit carries a '!' (one more glyph cell than the bare number)…
+    const cells = (cs: RectCall[], scale: number): number =>
+      new Set(cs.map((c) => Math.floor((c.x - Math.min(...cs.map((r) => r.x))) / (FONT_ADVANCE * scale)))).size;
+    expect(cells(crit.calls, CRIT_FLOAT_SCALE)).toBe(2);
+    expect(cells(normal.calls, FLOAT_SCALE)).toBe(1);
+    // …and both are outlined in void under their ink.
+    expect(crit.calls.some((c) => c.fillStyle === COLORS.void)).toBe(true);
+    expect(normal.calls.some((c) => c.fillStyle === COLORS.void)).toBe(true);
+  });
+
+  it('a critical hit shakes the world for SHAKE_MS and rings the monster with sparks', () => {
+    // A seed whose first blow crits (CRIT_CHANCE is 10 %).
+    let seed = 1;
+    let game = createGame(createEngine(null, mulberry32(seed)), undefined, { screenShake: true });
+    let first = game.attack('keyboard')[0];
+    while (!(first?.type === 'attack' && first.crit) && seed < 500) {
+      seed++;
+      game = createGame(createEngine(null, mulberry32(seed)), undefined, { screenShake: true });
+      first = game.attack('keyboard')[0];
+    }
+    expect(first?.type === 'attack' && first.crit).toBe(true);
+
+    // At t = 0 the whole world is offset by shakeOffset(0): the ground strip moved.
+    const at0 = shakeOffset(0);
+    expect(at0.dx).not.toBe(0);
+    const shaken = makeCtx();
+    game.draw(shaken.ctx);
+    expect(shaken.calls.some((c) => c.x === at0.dx && c.y === GROUND_Y + at0.dy && c.w === VIEW_W)).toBe(true);
+    expect(shaken.calls.some((c) => c.x === 0 && c.y === GROUND_Y && c.w === VIEW_W)).toBe(false);
+    // The counters stay put (readable) while the world shakes.
+    const counters = makeCtx();
+    drawCounters(counters.ctx, game.getState(), VIEW_W);
+    const shakenKeys = new Set(shaken.calls.map(rectKey));
+    expect(counters.calls.every((c) => shakenKeys.has(rectKey(c)))).toBe(true);
+
+    // The crit burst rings the monster centre with hot sparks (on top of the species hit).
+    const preset = EFFECTS.critBurst;
+    const centre = { x: MONSTER_X + at0.dx + (artOf('slime').w * SPRITE_SCALE) / 2, y: GROUND_Y + at0.dy - (artOf('slime').h * SPRITE_SCALE) / 2 };
+    const sparks = shaken.calls.filter(
+      (c) => c.w === preset.size && c.x === centre.x && c.y === centre.y && (preset.colors as readonly string[]).includes(c.fillStyle),
+    );
+    expect(sparks.length).toBeGreaterThanOrEqual(preset.count);
+
+    // The shake decays and stops after SHAKE_MS; a game without the option never shakes.
+    expect(Math.abs(shakeOffset(SHAKE_MS / 2).dx)).toBeLessThan(Math.abs(at0.dx));
+    game.update(SHAKE_MS);
+    const still = makeCtx();
+    game.draw(still.ctx);
+    expect(still.calls.some((c) => c.x === 0 && c.y === GROUND_Y && c.w === VIEW_W)).toBe(true);
+    const plain = createGame(createEngine(null, mulberry32(seed)));
+    plain.attack('keyboard');
+    const unshaken = makeCtx();
+    plain.draw(unshaken.ctx);
+    expect(unshaken.calls.some((c) => c.x === 0 && c.y === GROUND_Y && c.w === VIEW_W)).toBe(true);
   });
 });
 
@@ -1448,7 +1512,10 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       expect(ref.calls.length).toBeGreaterThan(0);
-      expect(ref.calls.every((c) => c.fillStyle === floatColor(expected))).toBe(true);
+      // Ink only — the 1-px void outline under every float is not the verdict colour.
+      const inkCalls = ref.calls.filter((c) => c.fillStyle !== COLORS.void);
+      expect(inkCalls.length).toBeGreaterThan(0);
+      expect(inkCalls.every((c) => c.fillStyle === floatColor(expected))).toBe(true);
       const painted = new Set(calls.map(rectKey));
       expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
     }

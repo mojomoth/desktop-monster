@@ -163,6 +163,41 @@ export const SWORD_TIP_X = HERO_X + heroAttack.w * SPRITE_SCALE;
 export const SWORD_TIP_Y = HERO_Y + SLASH_OVERLAY_DY + (heroSlash.h * SPRITE_SCALE) / 2;
 /** One fever aura sparkle burst per this many ms while fever burns (F36). */
 export const FEVER_SPARKLE_MS = 100;
+/** Camera shake after a critical hit (user change 2026-09-06): duration and peak amplitude in canvas px. */
+export const SHAKE_MS = 180;
+export const SHAKE_PX = 3;
+/**
+ * Deterministic camera offset `ageMs` into a shake: the amplitude decays
+ * linearly to 0 over SHAKE_MS while the sign flips every 30 ms (x) / 60 ms (y).
+ */
+export function shakeOffset(ageMs: number): { dx: number; dy: number } {
+  const amp = Math.ceil(SHAKE_PX * Math.max(0, 1 - ageMs / SHAKE_MS));
+  const phase = Math.floor(ageMs / 30);
+  return { dx: (phase % 2 === 0 ? 1 : -1) * amp, dy: (phase % 4 < 2 ? 1 : -1) * Math.ceil(amp / 2) };
+}
+
+/** Presentation switches (the renderer turns the shake on; tests keep it off for exact rects). */
+export interface GameOptions {
+  screenShake?: boolean;
+}
+
+/** Every draw call shifted by (dx, dy): the whole world moves as one during a shake. */
+function shifted(ctx: GameCanvas, dx: number, dy: number): GameCanvas {
+  return {
+    get fillStyle() {
+      return ctx.fillStyle;
+    },
+    set fillStyle(v) {
+      ctx.fillStyle = v;
+    },
+    fillRect: (x, y, w, h) => {
+      ctx.fillRect(x + dx, y + dy, w, h);
+    },
+    clearRect: (x, y, w, h) => {
+      ctx.clearRect(x, y, w, h);
+    },
+  };
+}
 
 // --- PvP battle scene (SPEC F66, GAME_DESIGN_V3 §6) ---------------------
 /** A whole replay aims to fit in this much presentation time. */
@@ -430,7 +465,11 @@ export interface Game {
  * guarded, so the default is a silent no-op under node/tests and can never
  * break the loop; tests inject a recording fake to pin the triggers.
  */
-export function createGame(initialEngine: Engine, audio: GameAudio = createGameAudio()): Game {
+export function createGame(
+  initialEngine: Engine,
+  audio: GameAudio = createGameAudio(),
+  options: GameOptions = {},
+): Game {
   let engine = initialEngine;
   let timeMs = 0;
   let heroAnim = createHeroAnim();
@@ -452,6 +491,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
   let hitCount = 0;
   // ms since the last fever aura sparkle burst.
   let feverSparkleAgeMs = 0;
+  // ms since the last critical hit started the camera shake; Infinity = still.
+  let shakeAgeMs = Number.POSITIVE_INFINITY;
   // The roster as it stood before the running apply(): a lost PvP names a
   // companion the engine has already dropped, and only this snapshot still
   // knows its species art and its column slot.
@@ -482,6 +523,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
     target = engine.getState().monster;
     hitCount = 0;
     feverSparkleAgeMs = 0;
+    shakeAgeMs = Number.POSITIVE_INFINITY;
     scene = null;
   };
 
@@ -635,6 +677,12 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
             SWORD_TIP_Y,
             1,
           );
+          if (event.crit) {
+            // Critical hit: the camera shakes and hot sparks ring the monster.
+            shakeAgeMs = 0;
+            const centre = monsterCentre(target);
+            spawnEffect(particles, EFFECTS.critBurst, centre.x, centre.y, 1, hitCount);
+          }
           break;
         case 'companionAttack': {
           // The float carries the match-up: yellow super, steel weak (§6).
@@ -801,6 +849,7 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       tickDrops(drops, dt);
       tickBanner(banner, dt);
       coinPopAgeMs += dt;
+      shakeAgeMs += dt;
       for (const drop of drops) {
         if (drop.arrived) {
           drop.arrived = false;
@@ -845,8 +894,12 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
 
     playReplay,
 
-    draw(ctx: GameCanvas): void {
-      ctx.clearRect(0, 0, VIEW_W, VIEW_H);
+    draw(screen: GameCanvas): void {
+      screen.clearRect(0, 0, VIEW_W, VIEW_H);
+      // A critical hit shakes the world (everything but the top-right counters
+      // and the banner) for SHAKE_MS; `ctx` is the shifted view of `screen`.
+      const shake = options.screenShake === true && shakeAgeMs < SHAKE_MS ? shakeOffset(shakeAgeMs) : null;
+      const ctx = shake === null ? screen : shifted(screen, shake.dx, shake.dy);
       drawField(ctx);
 
       const state = engine.getState();
@@ -985,9 +1038,9 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
         HERO_Y - 2,
       );
-      drawCounters(ctx, state, VIEW_W, coinPopAgeMs < COUNTER_POP_MS);
       drawFloats(ctx, floats);
-      drawBanner(ctx, banner, VIEW_W);
+      drawCounters(screen, state, VIEW_W, coinPopAgeMs < COUNTER_POP_MS);
+      drawBanner(screen, banner, VIEW_W);
     },
 
     getState(): Readonly<GameState> {
