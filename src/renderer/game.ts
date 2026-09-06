@@ -124,8 +124,12 @@ export const GROUND_Y = 112;
  * UNIT_SCALE (kept literal here for the F64 AC grep).
  */
 export const SPRITE_SCALE = 2;
-/** Hero sprite position (left side, feet on the ground). */
-export const HERO_X = 78;
+/**
+ * Hero sprite position (left side, feet on the ground). 66 since 2026-09-06
+ * (user change): the hero stands in front of its party on the left third, and
+ * the PvP scene mirrors it exactly across the field centre (OPPONENT_HERO_X).
+ */
+export const HERO_X = 66;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
 export const MONSTER_X = 150;
@@ -175,10 +179,10 @@ export const OPPONENT_ORIGIN_X = VIEW_W - 8;
 export const OPPONENT_NAME_Y = 58;
 /**
  * Left edge of the opponent's hero in the battle scene (user change
- * 2026-09-06): mirrored (facing left) just right of mine, so the two heroes
- * square off in the middle with their parties behind them.
+ * 2026-09-06): the exact mirror of my hero across the field centre, so the two
+ * heroes square off symmetrically with their parties behind them.
  */
-export const OPPONENT_HERO_X = HERO_X + heroIdle.w * SPRITE_SCALE + 4;
+export const OPPONENT_HERO_X = VIEW_W - HERO_X - heroIdle.w * SPRITE_SCALE;
 /** How far a blow's damage float sits above the target's centre. */
 export const BLOW_FLOAT_LIFT = 6;
 

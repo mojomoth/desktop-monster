@@ -193,7 +193,7 @@ XP-bar row (66).
 | `VIEW_W`, `VIEW_H` | 200, 130 |
 | `GROUND_Y` | 112 |
 | `SPRITE_SCALE` / `UNIT_SCALE` | 2 (uniform; 2026-09-04 redesign) |
-| `HERO_X` | 78 |
+| `HERO_X` | 66 (2026-09-06; PvP mirror `OPPONENT_HERO_X` = 106) |
 | `MONSTER_X` | 150 |
 | `HP_BAR` | `{ w: 40, h: 5, y: 64 }` |
 | `BOSS_HP_BAR_Y` (boss.ts) | 56 |
@@ -229,7 +229,7 @@ may not enter the field party — then sparkle at the boss position only).
 `companionAttack` floats coloured by effectiveness (`super` → yellow, `weak` →
 steel, `normal` → white); the hero float rule is unchanged.
 
-**Battle scene (claude, `game.ts`)** — the opponent's HERO also stands in the scene (user change 2026-09-06): the hero art mirrored at `OPPONENT_HERO_X = HERO_X + heroIdle.w * SPRITE_SCALE + 4` in `HERO_RIVAL_PALETTE` (hero.ts: red tunic, maroon hair/boots), drawn after my hero and in front of its own group; it idles with the shared bob and plays the attack animation on every defender blow, as my hero does on every attacker blow. `Game.playReplay(replay: BattleReplay): void`,
+**Battle scene (claude, `game.ts`)** — the opponent's HERO also stands in the scene (user change 2026-09-06): the hero art mirrored at `OPPONENT_HERO_X = VIEW_W - HERO_X - heroIdle.w * SPRITE_SCALE` (the exact mirror of my hero's box across the field centre) in `HERO_RIVAL_PALETTE` (hero.ts: red tunic, maroon hair/boots), drawn after my hero and in front of its own group; it idles with the shared bob and plays the attack animation on every defender blow, as my hero does on every attacker blow. `Game.playReplay(replay: BattleReplay): void`,
 driven by `update(dt)` on the engine-independent presentation clock:
 - Layout: my party group as usual (left, facing right); the field monster and
   its HP bar are hidden for the duration; the opponent's party is drawn

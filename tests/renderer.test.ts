@@ -2038,6 +2038,8 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
     expect(OPPONENT_HERO_X).toBeGreaterThanOrEqual(HERO_X + heroIdle.w * SPRITE_SCALE);
     expect(OPPONENT_HERO_X + heroIdle.w * SPRITE_SCALE).toBeLessThanOrEqual(VIEW_W);
+    // Left-right symmetry: the rival's box is my hero's box mirrored across the centre.
+    expect(OPPONENT_HERO_X).toBe(VIEW_W - HERO_X - heroIdle.w * SPRITE_SCALE);
     expect(Object.keys(HERO_RIVAL_PALETTE).sort()).toEqual(Object.keys(heroIdle.palette).sort());
     expect(HERO_RIVAL_PALETTE).not.toEqual(heroIdle.palette);
 
