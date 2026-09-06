@@ -40,6 +40,26 @@ export const SPECIES_SIZE: Record<SpeciesId, 1 | 2 | 3> = {
   dragon: 3,
 };
 
+/**
+ * Attack timing per species (hidden attribute, user change 2026-09-06): how
+ * many ms into each 1000-ms volley window the swing lands — quick bats strike
+ * first, lumbering golems wind up longest. Damage is unchanged (one swing per
+ * member per window), only WHEN it lands differs, so a party never fires as
+ * one block.
+ */
+export const SPECIES_ATTACK_DELAY_MS: Record<SpeciesId, number> = {
+  slime: 200,
+  bat: 0,
+  ghost: 400,
+  golem: 800,
+  dragon: 600,
+};
+
+/** Attack delay of any runtime species id; unknown → 0. Never throws. */
+export function attackDelayOf(speciesId: string): number {
+  return SPECIES_ATTACK_DELAY_MS[speciesId as SpeciesId] ?? 0;
+}
+
 /** Type of any runtime species id; unknown → slime's 'water'. Never throws. */
 export function typeOf(speciesId: string): MonsterType {
   return SPECIES_TYPE[speciesId as SpeciesId] ?? 'water';

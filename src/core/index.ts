@@ -74,6 +74,8 @@ export {
   isBoss,
   monsterForIndex,
   sizeOf,
+  attackDelayOf,
+  SPECIES_ATTACK_DELAY_MS,
   SPECIES_IDS,
   SPECIES_SIZE,
   SPECIES_TYPE,

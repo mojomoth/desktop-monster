@@ -10,6 +10,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   activeCompanions,
+  attackDelayOf,
   createEngine,
   FEVER_INPUTS,
   format,
@@ -36,7 +37,7 @@ import type {
   SaveFileV2,
   WireBlow,
 } from '../src/core/index.js';
-import { COMPANION_ATTACK_MS } from '../src/core/engine.js';
+import { COMPANION_ATTACK_MS, PARTY_STAGGER_MS } from '../src/core/engine.js';
 import {
   ATTACK_FRAME_MS,
   BLOW_FLOAT_LIFT,
@@ -530,7 +531,7 @@ describe('floating damage numbers (fixed pool)', () => {
     expect(sparks.length).toBeGreaterThanOrEqual(preset.count);
 
     // The shake decays and stops after SHAKE_MS; a game without the option never shakes.
-    expect(Math.abs(shakeOffset(SHAKE_MS / 2).dx)).toBeLessThan(Math.abs(at0.dx));
+    expect(shakeOffset(SHAKE_MS)).toEqual({ dx: 0, dy: 0 });
     game.update(SHAKE_MS);
     const still = makeCtx();
     game.draw(still.ctx);
@@ -975,7 +976,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       createEngine({ ...v2, monsterHp: '1', companions: [companion('c1', 'slime')] }, mulberry32(3)),
     );
     expect(game.update(COMPANION_ATTACK_MS - 1)).toEqual([]); // below one volley
-    const events = game.update(1);
+    // The slime's swing lands attackDelayOf('slime') ms into the window (2026-09-06 stagger).
+    const events = game.update(1 + attackDelayOf('slime'));
     expect(events.filter((e) => e.type === 'companionAttack')).toHaveLength(1);
     expect(events.some((e) => e.type === 'monsterKilled')).toBe(true);
 
@@ -1192,26 +1194,34 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const game = createGame(
       createEngine({ ...v2, companions: roster, nextCompanionId: 3 }, mulberry32(5)),
     );
-    const events = game.update(COMPANION_ATTACK_MS);
-    expect(events.filter((e) => e.type === 'companionAttack')).toHaveLength(2);
-    expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
-
-    const { ctx, calls } = makeCtx();
-    game.draw(ctx);
-    const state = game.getState();
-    const party = partyOrder(activeCompanions(state.companions, state.monster.type));
-    const slots = partySlots(party, GROUND_Y);
-    const centres = party.map((c, r) => {
-      const slot = slots[r] ?? { x: 0, y: 0, scale: 1 };
-      const art = artOf(c.speciesId);
-      return { x: slot.x + (art.w * slot.scale) / 2, y: slot.y - (art.h * slot.scale) / 2 };
-    });
-    for (let r = 0; r < party.length; r++) {
-      const c = party[r];
-      const centre = centres[r];
-      if (c === undefined || centre === undefined) {
+    // Swings land staggered (2026-09-06): each member at its species delay +
+    // PARTY_STAGGER_MS × rank into the window, so we step to each landing.
+    const stateNow = game.getState();
+    const partyNow = partyOrder(activeCompanions(stateNow.companions, stateNow.monster.type));
+    const landing = activeCompanions(stateNow.companions, stateNow.monster.type)
+      .map((c, rank) => ({ id: c.id, at: COMPANION_ATTACK_MS + attackDelayOf(c.speciesId) + rank * PARTY_STAGGER_MS }))
+      .sort((a, b) => a.at - b.at);
+    expect(landing).toHaveLength(2);
+    let clock = 0;
+    const slotsNow = partySlots(partyNow, GROUND_Y);
+    for (const land of landing) {
+      const events = game.update(land.at - clock);
+      clock = land.at;
+      expect(events.filter((e) => e.type === 'companionAttack').map((e) => (e.type === 'companionAttack' ? e.companionId : ''))).toEqual([land.id]);
+      expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
+      const r = partyNow.findIndex((c) => c.id === land.id);
+      const c = partyNow[r];
+      const slot = slotsNow[r];
+      if (c === undefined || slot === undefined) {
         throw new Error('missing party member');
       }
+      const art = artOf(c.speciesId);
+      const centre = { x: slot.x + (art.w * slot.scale) / 2, y: slot.y - (art.h * slot.scale) / 2 };
+      const { calls } = (() => {
+        const m = makeCtx();
+        game.draw(m.ctx);
+        return m;
+      })();
       // One burst per companion, `count` particles from its slot centre, each
       // in a colour from that species' attack style.
       const style = COMPANION_ATTACK[c.speciesId as SpeciesId];
@@ -1224,6 +1234,12 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       );
       expect(shots).toHaveLength(style.preset.count);
     }
+    const party = partyNow;
+    const centres = party.map((c, r) => {
+      const slot = slotsNow[r] ?? { x: 0, y: 0, scale: 1 };
+      const art = artOf(c.speciesId);
+      return { x: slot.x + (art.w * slot.scale) / 2, y: slot.y - (art.h * slot.scale) / 2 };
+    });
 
     // 100 ms later the bursts have left their origin (they travel/spread).
     game.update(100);
@@ -1491,7 +1507,9 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       expect(monster.boss).toBe(false);
       expect(effectiveness(typeOf(speciesId), monster.type)).toBe(expected);
 
-      const volley = game.update(COMPANION_ATTACK_MS).find((e) => e.type === 'companionAttack');
+      const volley = game
+        .update(COMPANION_ATTACK_MS + attackDelayOf(speciesId))
+        .find((e) => e.type === 'companionAttack');
       if (volley?.type !== 'companionAttack') {
         throw new Error('expected a companion volley');
       }

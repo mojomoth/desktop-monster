@@ -123,7 +123,7 @@ an error; no event. `companionPower`, lifecycle actions, `ROSTER_CAP = 30`,
 `REBIRTH_MIN_INDEX = 40` unchanged. The `pvpResult` action gains an optional
 `replay?: BattleReplay` (§5) that `applyCollection` ignores (presentation only).
 
-**Volley (engine):** per volley, `party = activeCompanions(state.companions, state.monster.type)`
+**Volley (engine):** staggered since 2026-09-06 — each 1000-ms window books one swing per member at `windowStart + attackDelayOf(species) + PARTY_STAGGER_MS × rank` (`SPECIES_ATTACK_DELAY_MS`: bat 0, slime 200, ghost 400, dragon 600, golem 800; stagger 70), swings land in time order and read fever at their landing time. Per window, `party = activeCompanions(state.companions, state.monster.type)`
 (recomputed every volley → the field party "auto-changes" when the monster
 changes); `damage = effectivePower(companionPower(c), typeOf(c.speciesId), monster.type) * (fever ? FEVER_MULT : 1n)`.
 `companionAttack` event gains `effectiveness: 'super' | 'normal' | 'weak'`
@@ -184,7 +184,7 @@ via user changes 2026-09-04/05/06: idle ×2, attack ×3, 4×7 slash arc); monste
 15×10 (bat), 14×13 (ghost), 19×16 (golem), 20×17 (dragon) (Pokémon/Digimon-style
 creatures facing left: idle ×2 + hit ×1); a boss is its species art at 2× with a
 crown (no scale bump). The HP bar sits at y 64 (boss 56), above the tallest
-species (17 rows × 2 = 34 px over the ground line at 112) and off the hero's
+species (17 rows × 2 = 34 px over the ground line at 120) and off the hero's
 XP-bar row (66).
 
 **Constants (`src/renderer/game.ts`)** — values are normative, tests pin them:
@@ -192,7 +192,7 @@ XP-bar row (66).
 | constant | v3 |
 |---|---|
 | `VIEW_W`, `VIEW_H` | 200, 130 |
-| `GROUND_Y` | 112 |
+| `GROUND_Y` | 120 (2026-09-06: thin 10-px strip, 2 grass + 8 earth) |
 | `SPRITE_SCALE` / `UNIT_SCALE` | 2 (uniform; 2026-09-04 redesign) |
 | `HERO_X` | 66 (2026-09-06; PvP mirror `OPPONENT_HERO_X` = 106) |
 | `MONSTER_X` | 150 |
@@ -204,7 +204,7 @@ XP-bar row (66).
 
 Monster draw scale = `UNIT_SCALE` = 2 (uniform; size variety is in the native
 art, 2026-09-04); the boss draws its species art at 2× with a crown centred above
-(no size bump); floats spawn at `barY − 6` as in v2 (2026-09-06: drawn 2× with a void outline, crits 3× + `!` + 180 ms camera shake `shakeOffset` + `EFFECTS.critBurst`); `OPPONENT_NAME_Y = 58` keeps
+(no size bump); floats spawn at `barY − 6` as in v2 (2026-09-06: drawn 2× with a void outline, crits 3× + `!` + a light 120 ms / 1-px camera tremor `shakeOffset` + `EFFECTS.critBurst`); `OPPONENT_NAME_Y = 58` keeps
 the rival's name clear of a 34-px back member in the replay scene.
 
 **Party group (codex helper `src/renderer/sprites/party.ts`):**

@@ -113,8 +113,8 @@ import {
 /** Internal canvas size in game pixels (CSS-scaled 2x, see static/). */
 export const VIEW_W = 200;
 export const VIEW_H = 130;
-/** Top of the ground strip; entities stand on it. */
-export const GROUND_Y = 112;
+/** Top of the ground strip; entities stand on it (120 since 2026-09-06: a thin 10-px strip — 2 grass + 8 earth rows — under the feet). */
+export const GROUND_Y = 120;
 /**
  * Uniform pixel scale (Assumption 17; user changes 2026-09-04). EVERY world
  * sprite — hero, party, monster, boss — draws at this one integer scale, so a
@@ -163,9 +163,9 @@ export const SWORD_TIP_X = HERO_X + heroAttack.w * SPRITE_SCALE;
 export const SWORD_TIP_Y = HERO_Y + SLASH_OVERLAY_DY + (heroSlash.h * SPRITE_SCALE) / 2;
 /** One fever aura sparkle burst per this many ms while fever burns (F36). */
 export const FEVER_SPARKLE_MS = 100;
-/** Camera shake after a critical hit (user change 2026-09-06): duration and peak amplitude in canvas px. */
-export const SHAKE_MS = 180;
-export const SHAKE_PX = 3;
+/** Camera shake after a critical hit (user change 2026-09-06, toned down the same day): a very light 1-px, 120 ms tremor. */
+export const SHAKE_MS = 120;
+export const SHAKE_PX = 1;
 /**
  * Deterministic camera offset `ageMs` into a shake: the amplitude decays
  * linearly to 0 over SHAKE_MS while the sign flips every 30 ms (x) / 60 ms (y).
@@ -364,9 +364,9 @@ function tintedIdleSprite(monster: MonsterDef): Sprite {
 /** The field strip: grass line over packed earth, full width. */
 function drawField(ctx: SpriteCanvas): void {
   ctx.fillStyle = COLORS.forest;
-  ctx.fillRect(0, GROUND_Y, VIEW_W, 3);
+  ctx.fillRect(0, GROUND_Y, VIEW_W, 2);
   ctx.fillStyle = COLORS.maroon;
-  ctx.fillRect(0, GROUND_Y + 3, VIEW_W, VIEW_H - GROUND_Y - 3);
+  ctx.fillRect(0, GROUND_Y + 2, VIEW_W, VIEW_H - GROUND_Y - 2);
 }
 
 /** Item art for a runtime item id (unknown ids fall back to the coin). */

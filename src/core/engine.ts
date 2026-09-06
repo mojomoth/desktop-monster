@@ -19,7 +19,7 @@ import {
   xpToNext,
 } from './formulas.js';
 import { rollLoot } from './loot.js';
-import { BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex, typeOf } from './monsters.js';
+import { attackDelayOf, BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex, typeOf } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import { effectiveness, effectivePower } from './types-chart.js';
 import type { Rng } from './rng.js';
@@ -32,6 +32,11 @@ export const CAPTURE_CHANCE = 0.35;
 
 /** One companion volley per this many engine milliseconds (SPEC F35). */
 export const COMPANION_ATTACK_MS = 1000;
+/**
+ * Extra swing delay per party rank (back → front) on top of the species'
+ * attack delay, so even same-species members never land together (2026-09-06).
+ */
+export const PARTY_STAGGER_MS = 70;
 
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
@@ -131,8 +136,10 @@ export function createEngine(
     active: feverActive(fever, clockMs),
     remainingMs: Math.max(0, fever.activeUntil - clockMs),
   });
-  /** Leftover milliseconds below one companion volley (SPEC F35). */
-  let volleyAcc = 0;
+  /** Next volley window start on the engine clock (SPEC F35). */
+  let nextWindowMs = COMPANION_ATTACK_MS;
+  /** Booked swings, in landing order: [at, companionId]. */
+  let pending: { at: number; id: string }[] = [];
 
   /**
    * The one damage path: hero attacks and companion volleys both land here,
@@ -221,32 +228,48 @@ export function createEngine(
       const dt = Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
       clockMs += dt;
       const events: GameEvent[] = [];
+      // Swings landing inside this tick read fever as it stood when the tick began.
+      const feverAtStart = fever;
       const cooled = feverTick(fever, clockMs);
       fever = cooled.fever;
       if (cooled.ended) events.push({ type: 'feverEnd' });
 
-      // One volley per full COMPANION_ATTACK_MS, remainder carried (SPEC F35).
-      volleyAcc += dt;
-      while (volleyAcc >= COMPANION_ATTACK_MS) {
-        volleyAcc -= COMPANION_ATTACK_MS;
-        const mult = feverActive(fever, clockMs) ? FEVER_MULT : 1n;
-        // Recomputed per volley: a capture, a fuse or the next monster's type
-        // between volleys changes who fights. Companions never crit.
-        for (const c of activeCompanions(state.companions, state.monster.type)) {
-          // Against the monster standing there NOW: a chained kill inside this
-          // volley re-types the remaining swings (F63).
-          const attacker = typeOf(c.speciesId);
-          const defender = state.monster.type;
-          const damage = effectivePower(companionPower(c), attacker, defender) * mult;
-          events.push({
-            type: 'companionAttack',
-            companionId: c.id,
-            speciesId: c.speciesId,
-            damage,
-            effectiveness: effectiveness(attacker, defender),
-          });
-          applyDamage(damage, events);
+      // Companion volleys (SPEC F35; staggered since 2026-09-06): every
+      // COMPANION_ATTACK_MS a window opens and books ONE swing per party member
+      // at windowStart + the species' attack delay + PARTY_STAGGER_MS × rank.
+      // Swings land in time order, each typed against the monster standing
+      // there when it lands (F63) and tripled while fever burns at that moment.
+      // The party is re-picked at every window: a capture, a fuse or the next
+      // monster's type between windows changes who fights. Companions never crit.
+      for (;;) {
+        const due = pending[0]?.at ?? Number.POSITIVE_INFINITY;
+        if (nextWindowMs <= clockMs && nextWindowMs <= due) {
+          const windowStart = nextWindowMs;
+          const booked = activeCompanions(state.companions, state.monster.type).map((c, rank) => ({
+            at: windowStart + attackDelayOf(c.speciesId) + rank * PARTY_STAGGER_MS,
+            id: c.id,
+          }));
+          pending = [...pending, ...booked].sort((a, b) => a.at - b.at);
+          nextWindowMs += COMPANION_ATTACK_MS;
+          continue;
         }
+        if (due > clockMs) break;
+        const fire = pending.shift();
+        if (fire === undefined) break;
+        const c = state.companions.find((x) => x.id === fire.id);
+        if (c === undefined) continue; // consumed, fused or stolen since it was booked
+        const mult = feverActive(feverAtStart, fire.at) ? FEVER_MULT : 1n;
+        const attacker = typeOf(c.speciesId);
+        const defender = state.monster.type;
+        const damage = effectivePower(companionPower(c), attacker, defender) * mult;
+        events.push({
+          type: 'companionAttack',
+          companionId: c.id,
+          speciesId: c.speciesId,
+          damage,
+          effectiveness: effectiveness(attacker, defender),
+        });
+        applyDamage(damage, events);
       }
       return events;
     },

@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import {
   COIN_ITEM,
   coinsForIndex,
+  activeCompanions,
+  attackDelayOf,
+  SPECIES_IDS,
   companionPower,
   createEngine,
   CRIT_MULT,
@@ -26,7 +29,7 @@ import type {
   SaveFileV2,
   SaveFileV3,
 } from '../src/core/index.js';
-import { CAPTURE_CHANCE, COMPANION_ATTACK_MS } from '../src/core/engine.js';
+import { CAPTURE_CHANCE, COMPANION_ATTACK_MS, PARTY_STAGGER_MS } from '../src/core/engine.js';
 
 /** Rng stub returning a scripted sequence (repeats its last value). */
 function scriptedRng(values: number[]): Rng {
@@ -502,7 +505,11 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
 
     // Sub-volley time only accumulates.
     expect(engine.tick(COMPANION_ATTACK_MS - 1)).toEqual([]);
-    // Monster 0 is a water slime: wind c2 (6) > water c1 (4) > earth c4 (2) > dark c3 (1).
+    // Window 1000 books ONE swing per member, staggered by species attack delay
+    // + PARTY_STAGGER_MS × rank (2026-09-06). Monster 0 is a water slime: wind
+    // c2 (6) ranks first and, as a bat (delay 0), lands right at 1000 and kills it.
+    const swingers = (events: GameEvent[]): string[] =>
+      events.flatMap((e) => (e.type === 'companionAttack' ? [e.companionId] : []));
     const events = engine.tick(1);
     expect(types(events)).toEqual([
       'companionAttack',
@@ -510,12 +517,6 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       'monsterKilled',
       'itemDropped',
       'monsterSpawned',
-      'companionAttack',
-      'monsterHit',
-      'companionAttack',
-      'monsterHit',
-      'companionAttack',
-      'monsterHit',
     ]);
     expect(events[0]).toEqual({
       type: 'companionAttack',
@@ -524,28 +525,60 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       damage: 6n, // wind 3 x2 into water
       effectiveness: 'super',
     });
-    // The rest keep swinging inside the SAME volley, at the next monster —
-    // a wind bat, so they are re-typed against it (F63).
-    expect(events[5]).toEqual({
+    expect(engine.getState().monster.index).toBe(1);
+
+    // The rest of that window lands over the next second — slime @1270, ghost
+    // @1610, golem @1940 — each re-typed against the wind bat standing there
+    // now (F63); window 2000's own swings start after their delays.
+    const rest = engine.tick(COMPANION_ATTACK_MS);
+    expect(swingers(rest)).toEqual(['c1', 'c3', 'c4']);
+    expect(rest[0]).toEqual({
       type: 'companionAttack',
       companionId: 'c1',
       speciesId: 'slime',
       damage: 2n, // water 4 /2 into wind
       effectiveness: 'weak',
     });
-    expect(events[6]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: monsterMaxHp(1) });
-    expect(events[8]).toEqual({ type: 'monsterHit', hpAfter: 8n, maxHp: monsterMaxHp(1) });
-    expect(events[10]).toEqual({ type: 'monsterHit', hpAfter: 4n, maxHp: monsterMaxHp(1) });
+    expect(rest[1]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: monsterMaxHp(1) });
+    expect(rest[5]).toEqual({ type: 'monsterHit', hpAfter: 4n, maxHp: monsterMaxHp(1) });
     const s = engine.getState();
     expect(s.monster.index).toBe(1);
     expect(s.monsterHp).toBe(4n);
     expect(s.killCount).toBe(1);
 
-    // ⌊dt/1000⌋ volleys per tick, remainder carried into the next one.
+    // Still exactly one swing per member per window: the windows opened by
+    // t = 4500 (2000, 3000, 4000) plus window 5000's first swing account for
+    // 3 × 4 = 12 swings by t = 5000 — 10 land by 4500, the carried 2 by 5000.
     const two = engine.tick(2 * COMPANION_ATTACK_MS + 500);
-    expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(8);
+    expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(10);
     const carried = engine.tick(500);
-    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(4);
+    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(2);
+    for (const id of ['c1', 'c2', 'c3', 'c4']) {
+      expect([...swingers(two), ...swingers(carried)].filter((x) => x === id).length).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it('attack timing is a hidden species attribute: bats strike first, golems last, all inside one window', () => {
+    // SPEC F35 (2026-09-06): one swing per member per 1000-ms window, landing at
+    // the species delay + PARTY_STAGGER_MS × rank — never as one block.
+    expect(attackDelayOf('bat')).toBe(0);
+    expect(attackDelayOf('golem')).toBe(800);
+    expect(attackDelayOf('unknown-species')).toBe(0);
+    const delays = SPECIES_IDS.map((id) => attackDelayOf(id));
+    expect(new Set(delays).size).toBe(SPECIES_IDS.length); // all distinct
+    expect(Math.max(...delays) + 4 * PARTY_STAGGER_MS).toBeLessThan(2 * COMPANION_ATTACK_MS);
+    // Three bats never swing together: ranks spread them PARTY_STAGGER_MS apart.
+    const bats: Companion[] = [1, 2, 3].map((n) => ({ id: `b${String(n)}`, speciesId: 'bat', bossIndex: 7, level: n, stars: 0 }));
+    const engine = createEngine(
+      makeSaveV2({ monsterIndex: 60, companions: bats, nextCompanionId: 4 }),
+      calmRng(),
+    );
+    const at = (dt: number): string[] =>
+      engine.tick(dt).flatMap((e) => (e.type === 'companionAttack' ? [e.companionId] : []));
+    expect(at(COMPANION_ATTACK_MS)).toEqual(['b3']); // strongest bat, rank 0, t = 1000
+    expect(at(PARTY_STAGGER_MS - 1)).toEqual([]);
+    expect(at(1)).toEqual(['b2']); // t = 1070
+    expect(at(PARTY_STAGGER_MS)).toEqual(['b1']); // t = 1140
   });
 
   it('volley damage is type-adjusted and companionAttack carries effectiveness', () => {
@@ -560,8 +593,10 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       makeSaveV2({ monsterIndex: 60, companions: roster, nextCompanionId: 4 }),
       calmRng(),
     );
-    const volley = engine.tick(COMPANION_ATTACK_MS).filter((e) => e.type === 'companionAttack');
-    // Effective power decides the order: 3x2=6 > 5 > 8/2=4.
+    // One window: the bat (rank 0, delay 0) lands at 1000, the slime (rank 1)
+    // at 1270 and the ghost (rank 2) at 1540 — all inside t < 2000.
+    const volley = engine.tick(2 * COMPANION_ATTACK_MS - 1).filter((e) => e.type === 'companionAttack');
+    // Effective power decides the rank (3x2=6 > 5 > 8/2=4) and here the landing order too.
     expect(volley).toEqual([
       { type: 'companionAttack', companionId: 'c1', speciesId: 'bat', damage: 6n, effectiveness: 'super' },
       { type: 'companionAttack', companionId: 'c2', speciesId: 'slime', damage: 5n, effectiveness: 'normal' },
@@ -588,16 +623,26 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const attackers = (events: GameEvent[]): string[] =>
       events.flatMap((e) => (e.type === 'companionAttack' ? [e.companionId] : []));
 
-    const first = engine.tick(COMPANION_ATTACK_MS);
-    // vs water: 12, 12, 10, 9, 4 — the fire dragon (3) is benched.
-    expect(attackers(first)).toEqual(['c2', 'c3', 'c1', 'c6', 'c4']);
+    // Landing order of one window's swings for a party picked against `type`:
+    // species attack delay + PARTY_STAGGER_MS × rank (2026-09-06).
+    const landingOrder = (type: 'water' | 'wind'): string[] =>
+      activeCompanions(roster, type)
+        .map((c, rank) => ({ id: c.id, at: attackDelayOf(c.speciesId) + rank * PARTY_STAGGER_MS }))
+        .sort((a, b) => a.at - b.at)
+        .map((x) => x.id);
+    // Window 1000 vs water: 12, 12, 10, 9, 4 — the fire dragon (3) is benched;
+    // every swing lands before t = 2000.
+    const first = engine.tick(2 * COMPANION_ATTACK_MS - 1);
+    expect([...attackers(first)].sort()).toEqual(['c1', 'c2', 'c3', 'c4', 'c6']);
+    expect(attackers(first)).toEqual(landingOrder('water'));
     expect(types(first)).toContain('monsterSpawned');
     expect(engine.getState().monster.type).toBe('wind');
 
-    // Same roster, next volley, new enemy type: the party is re-picked.
-    const second = engine.tick(COMPANION_ATTACK_MS);
+    // Same roster, next window, new enemy type: the party is re-picked —
     // vs wind: 16, 14, 6, 5, 4 — now the earth golem (3) sits out.
-    expect(attackers(second)).toEqual(['c4', 'c5', 'c2', 'c1', 'c6']);
+    const second = engine.tick(COMPANION_ATTACK_MS);
+    expect([...attackers(second)].sort()).toEqual(['c1', 'c2', 'c4', 'c5', 'c6']);
+    expect(attackers(second)).toEqual(landingOrder('wind'));
   });
 
   it('pvpResult with a replay is applied exactly like one without', () => {
@@ -648,7 +693,8 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.getState().fever.active).toBe(true);
     const heroDraws = counted.draws();
 
-    const hot = engine.tick(COMPANION_ATTACK_MS);
+    // The slime's swing lands attackDelayOf('slime') ms into the first window.
+    const hot = engine.tick(COMPANION_ATTACK_MS + attackDelayOf('slime'));
     expect(hot[0]).toEqual({
       type: 'companionAttack',
       companionId: 'c1',
@@ -659,11 +705,19 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     });
     expect(counted.draws()).toBe(heroDraws); // companions never roll a crit
 
-    // Fever expires first inside the tick, so the volleys after it are plain.
+    // Fever ends at t = 5000 inside this tick (feverEnd comes first); the swings
+    // landing at 2200, 3200 and 4200 still read it as burning, the one at 5200
+    // is plain — the multiplier follows the LANDING time, not the tick's end.
     const cooled = engine.tick(4 * COMPANION_ATTACK_MS);
     expect(cooled[0]).toEqual({ type: 'feverEnd' });
-    const plain = cooled.filter((e) => e.type === 'companionAttack');
-    expect(plain).toHaveLength(4);
+    const swings = cooled.filter((e) => e.type === 'companionAttack');
+    expect(swings).toHaveLength(4);
+    expect(swings.slice(0, 3).map((e) => (e.type === 'companionAttack' ? e.damage : 0n))).toEqual([
+      companionPower(pet) * 3n,
+      companionPower(pet) * 3n,
+      companionPower(pet) * 3n,
+    ]);
+    const plain = swings.slice(3);
     expect(plain[0]).toEqual({
       type: 'companionAttack',
       companionId: 'c1',
