@@ -32,7 +32,9 @@ import {
   PARTY_STEP_X,
   PARTY_STEP_Y,
   PARTY_X,
+  drawPartyBadges,
   partySlots,
+  TYPE_BADGE_DY,
   TYPE_COLORS,
 } from '../src/renderer/sprites/party.js';
 import {
@@ -353,6 +355,39 @@ describe('boss and companion art helpers (SPEC F40)', () => {
       drawText(glyph.ctx, initial, 11, 20);
       expect(calls.slice(1)).toEqual(glyph.calls);
     }
+  });
+
+  it('drawTypeBadge with outline frames the badge in void, and drawPartyBadges centres one under each member', () => {
+    const { ctx, calls } = makeCtx();
+    drawTypeBadge(ctx, 'fire', 10, 20, { outline: true });
+    expect(calls[0]).toEqual({ x: 9, y: 19, w: 7, h: 7, fillStyle: COLORS.void });
+    expect(calls[1]).toEqual({ x: 10, y: 20, w: 5, h: 5, fillStyle: COLORS.red });
+
+    const party: readonly Companion[] = [
+      { id: 'c1', speciesId: 'dragon', bossIndex: 4, level: 1, stars: 0 },
+      { id: 'c2', speciesId: 'slime', bossIndex: 0, level: 1, stars: 0 },
+    ];
+    const badges = makeCtx();
+    drawPartyBadges(badges.ctx, party, 92);
+    const squares = badges.calls.filter((c) => c.w === 5 && c.h === 5);
+    const slots = partySlots(party, 92);
+    expect(squares).toHaveLength(2);
+    expect(squares[0]).toEqual({
+      x: Math.round(8 + (monsterSprites.dragon.idle.w * UNIT_SCALE) / 2) - 2,
+      y: 92 + TYPE_BADGE_DY,
+      w: 5,
+      h: 5,
+      fillStyle: TYPE_COLORS.fire,
+    });
+    expect(squares[1]?.x).toBe(Math.round((slots[1]?.x ?? 0) + (monsterSprites.slime.idle.w * UNIT_SCALE) / 2) - 2);
+    expect(squares[1]?.fillStyle).toBe(TYPE_COLORS.water);
+    // Mirrored for the opponent group: measured leftwards from originX.
+    const mirrored = makeCtx();
+    drawPartyBadges(mirrored.ctx, party, 92, { originX: 192 });
+    const mx = mirrored.calls.filter((c) => c.w === 5).map((c) => c.x);
+    const dragonW = monsterSprites.dragon.idle.w * UNIT_SCALE;
+    expect(mx[0]).toBe(Math.round(192 - dragonW + dragonW / 2) - 2);
+    expect(mx.every((x) => x > 100)).toBe(true);
   });
 });
 

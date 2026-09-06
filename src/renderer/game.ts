@@ -58,10 +58,11 @@ import {
   COLORS,
   drawBoss,
   drawFeverAura,
+  drawFootBadge,
   drawParty,
+  drawPartyBadges,
   drawSprite,
   drawText,
-  drawTypeBadge,
   HERO_RIVAL_PALETTE,
   heroAttack,
   heroIdle,
@@ -135,8 +136,6 @@ export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 export const MONSTER_X = 150;
 /** Boxed HP bar above the monster (centered over it at draw time); above the tallest species (dragon 17 rows × 2 = 34 px); its frame row (64) differs from the hero XP bar's (78 for the 14-row hero), which is how the tests tell the two 40-px meters apart. */
 export const HP_BAR = { w: 40, h: 5, y: 64 } as const;
-/** Gap between the type badge and the left end of the monster's HP bar. */
-export const TYPE_BADGE_GAP = 7;
 /** ms per idle bob frame (GAME_ARCHITECTURE §4: 2-frame bob, 500 ms/frame). */
 export const IDLE_FRAME_MS = 500;
 /** ms per hero attack frame: 3 frames (wind-up/slash/recover) over 180 ms. */
@@ -860,12 +859,16 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
       // its name — the field monster is hidden while it plays (§6).
       const partyFrame =
         Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length;
-      drawParty(ctx, scene === null ? fieldParty(state) : scene.mine, partyFrame, GROUND_Y);
+      const myParty = scene === null ? fieldParty(state) : scene.mine;
+      drawParty(ctx, myParty, partyFrame, GROUND_Y);
+      // Every monster wears its type under its feet (user change 2026-09-06).
+      drawPartyBadges(ctx, myParty, GROUND_Y);
       if (scene !== null) {
         drawParty(ctx, scene.theirs, partyFrame, GROUND_Y, {
           flipX: false,
           originX: VIEW_W - 8,
         });
+        drawPartyBadges(ctx, scene.theirs, GROUND_Y, { originX: VIEW_W - 8 });
         drawText(ctx, scene.name, OPPONENT_ORIGIN_X - textWidth(scene.name), OPPONENT_NAME_Y);
       }
 
@@ -972,8 +975,8 @@ export function createGame(initialEngine: Engine, audio: GameAudio = createGameA
         const barY = state.monster.boss ? BOSS_HP_BAR_Y : HP_BAR.y;
         const barX = Math.round(MONSTER_X + (species.idle.w * scale) / 2 - HP_BAR.w / 2);
         drawHpBar(ctx, barX, barY, HP_BAR.w, HP_BAR.h, state.monsterHp, state.monster.maxHp);
-        // The badge at the bar's left end is the ONLY visible type marker (§6).
-        drawTypeBadge(ctx, state.monster.type, barX - TYPE_BADGE_GAP, barY);
+        // The type badge sits under the monster's feet, like every party member's (§6).
+        drawFootBadge(ctx, state.monster.type, MONSTER_X, species.idle.w * scale, GROUND_Y);
       }
       // LV + XP gauge floats above the hero's head (Assumption 17).
       drawLevelHud(

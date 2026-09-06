@@ -32,12 +32,15 @@ export { BOSS_HP_BAR_Y, drawBoss } from './boss.js';
 export { drawCompanion } from './companion.js';
 
 export {
+  drawFootBadge,
   drawParty,
+  drawPartyBadges,
   drawTypeBadge,
   PARTY_STEP_X,
   PARTY_STEP_Y,
   PARTY_X,
   partySlots,
+  TYPE_BADGE_DY,
   TYPE_COLORS,
 } from './party.js';
 

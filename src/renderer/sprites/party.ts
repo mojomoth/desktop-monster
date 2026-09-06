@@ -1,3 +1,4 @@
+import { typeOf } from '../../core/index.js';
 import type { Companion, MonsterType } from '../../core/index.js';
 import { drawText } from './font.js';
 import { monsterSprites } from './monsters.js';
@@ -72,9 +73,49 @@ export function drawParty(
   }
 }
 
-/** Paint the only visible elemental marker: a colored 5x5 badge and initial. */
-export function drawTypeBadge(ctx: SpriteCanvas, type: MonsterType, x: number, y: number): void {
+/**
+ * Paint the elemental marker: a colored 5x5 badge and initial. `outline` adds
+ * a 1-px void frame (7x7 footprint) so the badge reads on the ground strip.
+ */
+export function drawTypeBadge(
+  ctx: SpriteCanvas,
+  type: MonsterType,
+  x: number,
+  y: number,
+  opts?: { outline?: boolean },
+): void {
+  if (opts?.outline === true) {
+    ctx.fillStyle = COLORS.void;
+    ctx.fillRect(x - 1, y - 1, 7, 7);
+  }
   ctx.fillStyle = TYPE_COLORS[type];
   ctx.fillRect(x, y, 5, 5);
   drawText(ctx, TYPE_INITIALS[type], x + 1, y);
+}
+
+/** Rows below the ground line where a monster's type badge sits (user change 2026-09-06). */
+export const TYPE_BADGE_DY = 3;
+
+/** An outlined type badge centred under a monster whose box starts at `x` (width `w` canvas px). */
+export function drawFootBadge(ctx: SpriteCanvas, type: MonsterType, x: number, w: number, groundY: number): void {
+  drawTypeBadge(ctx, type, Math.round(x + w / 2) - 2, groundY + TYPE_BADGE_DY, { outline: true });
+}
+
+/** One outlined type badge under each party member's feet — same slots and mirroring as drawParty. */
+export function drawPartyBadges(
+  ctx: SpriteCanvas,
+  party: readonly Companion[],
+  groundY: number,
+  opts?: { originX?: number },
+): void {
+  const slots = partySlots(party, groundY);
+  for (let r = 0; r < party.length; r++) {
+    const member = party[r];
+    const slot = slots[r];
+    if (member === undefined || slot === undefined) continue;
+    const idle = (monsterSprites[member.speciesId as keyof typeof monsterSprites] ?? monsterSprites.slime).idle;
+    const w = idle.w * slot.scale;
+    const x = opts?.originX === undefined ? slot.x : opts.originX - (slot.x - PARTY_X) - w;
+    drawFootBadge(ctx, typeOf(member.speciesId), x, w, slot.y);
+  }
 }

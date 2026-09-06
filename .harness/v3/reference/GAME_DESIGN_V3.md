@@ -215,7 +215,7 @@ export function partySlots(party: readonly { speciesId: string }[], groundY: num
 export function drawParty(ctx, party: readonly Companion[], frame: number, groundY: number, opts?: { flipX?: boolean; originX?: number }): void;
   // draws in slot order (back first) with `paletteForTier(idle.palette, stars)`; flipX true = facing right (left side of the field, default);
   // opts.originX + flipX false = the mirrored opponent group for the battle scene (§6 replay), x measured leftwards from originX
-export function drawTypeBadge(ctx, type: MonsterType, x: number, y: number): void; // 5×5 filled square in TYPE_COLORS[type] with a 3×5 initial glyph (F/W/E/A/D) — the ONLY visible type marker
+export function drawTypeBadge(ctx, type: MonsterType, x: number, y: number): void; // 5×5 filled square in TYPE_COLORS[type] with a 3×5 initial glyph (F/W/E/A/D) — the type marker; since 2026-09-06 drawn under every monster's feet (`drawFootBadge(ctx, type, x, w, groundY)` / `drawPartyBadges(ctx, party, groundY, { originX? })`, `TYPE_BADGE_DY = 3`, 1-px void outline) instead of at the HP bar
 export const TYPE_COLORS: Record<MonsterType, string>; // fire COLORS.red, wind COLORS.cyan, earth COLORS.brown (or gray), water COLORS.blue (or navy), dark COLORS.purple (or slate) — existing palette entries only
 ```
 

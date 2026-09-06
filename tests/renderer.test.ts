@@ -59,7 +59,6 @@ import {
   SAVE_DEBOUNCE_MS,
   SLASH_OVERLAY_DY,
   SPRITE_SCALE,
-  TYPE_BADGE_GAP,
   VIEW_H,
   VIEW_W,
 } from '../src/renderer/game.js';
@@ -105,10 +104,11 @@ import {
   BOSS_HP_BAR_Y,
   COLORS,
   drawFeverAura,
+  drawFootBadge,
   drawParty,
+  drawPartyBadges,
   drawSprite,
   drawText,
-  drawTypeBadge,
   HERO_RIVAL_PALETTE,
   heroAttack,
   heroIdle,
@@ -119,6 +119,7 @@ import {
   partySlots,
   shiftHue,
   textWidth,
+  TYPE_BADGE_DY,
   TYPE_COLORS,
 } from '../src/renderer/sprites/index.js';
 import type { Sprite } from '../src/renderer/sprites/index.js';
@@ -1223,7 +1224,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     ).toBe(true);
   });
 
-  it('the field monster shows a type badge at the left end of its hp bar', () => {
+  it('the field monster shows a type badge under its feet', () => {
     const game = createGame(createEngine(v2, mulberry32(42)));
     const monster = game.getState().monster;
     expect(monster.type).toBe(typeOf(monster.speciesId));
@@ -1232,23 +1233,32 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     game.draw(ctx);
     const painted = new Set(calls.map(rectKey));
 
-    const barX = Math.round(
-      MONSTER_X + (artOf(monster.speciesId).w * SPRITE_SCALE) / 2 - HP_BAR.w / 2,
-    );
+    // An outlined 5x5 badge centred under the monster, TYPE_BADGE_DY rows below
+    // the ground line (user change 2026-09-06: the type sits under every monster).
+    const w = artOf(monster.speciesId).w * SPRITE_SCALE;
+    const badgeX = Math.round(MONSTER_X + w / 2) - 2;
     const badge = makeCtx();
-    drawTypeBadge(badge.ctx, monster.type, barX - TYPE_BADGE_GAP, HP_BAR.y);
+    drawFootBadge(badge.ctx, monster.type, MONSTER_X, w, GROUND_Y);
     expect(badge.calls[0]).toEqual({
-      x: barX - TYPE_BADGE_GAP,
-      y: HP_BAR.y,
+      x: badgeX - 1,
+      y: GROUND_Y + TYPE_BADGE_DY - 1,
+      w: 7,
+      h: 7,
+      fillStyle: COLORS.void,
+    });
+    expect(badge.calls[1]).toEqual({
+      x: badgeX,
+      y: GROUND_Y + TYPE_BADGE_DY,
       w: 5,
       h: 5,
       fillStyle: TYPE_COLORS[monster.type],
     });
     expect(badge.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+    expect(GROUND_Y + TYPE_BADGE_DY + 6).toBeLessThanOrEqual(VIEW_H);
 
     // It really reads the monster's type: another type paints another badge.
     const other = makeCtx();
-    drawTypeBadge(other.ctx, monster.type === 'fire' ? 'earth' : 'fire', barX - TYPE_BADGE_GAP, HP_BAR.y);
+    drawFootBadge(other.ctx, monster.type === 'fire' ? 'earth' : 'fire', MONSTER_X, w, GROUND_Y);
     expect(other.calls.every((c) => painted.has(rectKey(c)))).toBe(false);
 
     // No badge over the scatter — it goes with the bar.
@@ -1261,7 +1271,48 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     dead.attack('keyboard');
     const dying = makeCtx();
     dead.draw(dying.ctx);
-    expect(dying.calls.some((c) => c.w === 5 && c.h === 5 && c.y === HP_BAR.y)).toBe(false);
+    expect(
+      dying.calls.some((c) => c.w === 5 && c.h === 5 && c.y === GROUND_Y + TYPE_BADGE_DY && c.x >= MONSTER_X),
+    ).toBe(false);
+  });
+
+  it('party members and the opponent group wear type badges under their feet', () => {
+    const roster = [companion('c1', 'dragon'), companion('c2', 'slime'), companion('c3', 'ghost')];
+    const game = createGame(createEngine({ ...v2, companions: roster, nextCompanionId: 4 }, mulberry32(5)));
+    const state = game.getState();
+    const party = partyOrder(activeCompanions(state.companions, state.monster.type));
+    const paintedBy = (g: ReturnType<typeof createGame>): Set<string> => {
+      const m = makeCtx();
+      g.draw(m.ctx);
+      return new Set(m.calls.map(rectKey));
+    };
+    const field = paintedBy(game);
+    const ref = makeCtx();
+    drawPartyBadges(ref.ctx, party, GROUND_Y);
+    // 3 members → 3 outlined badges (7x7 frame + 5x5 square + glyph pixels each).
+    expect(ref.calls.filter((c) => c.w === 7).length).toBe(3);
+    expect(ref.calls.every((c) => field.has(rectKey(c)))).toBe(true);
+    // Each badge is centred under its member and sits on the ground strip.
+    const slots = partySlots(party, GROUND_Y);
+    ref.calls
+      .filter((c) => c.w === 5)
+      .forEach((c, i) => {
+        const slot = slots[i];
+        const w = artOf(party[i]?.speciesId ?? 'slime').w * SPRITE_SCALE;
+        expect(c.x).toBe(Math.round((slot?.x ?? 0) + w / 2) - 2);
+        expect(c.y).toBe(GROUND_Y + TYPE_BADGE_DY);
+        expect(c.fillStyle).toBe(TYPE_COLORS[typeOf(party[i]?.speciesId ?? 'slime')]);
+      });
+
+    // The battle scene mirrors the opponent's badges under its group too.
+    const theirs = [companion('o1', 'golem'), companion('o2', 'bat')];
+    game.playReplay({ opponentName: 'RIVAL', opponentParty: theirs, blows: [] });
+    const scene = paintedBy(game);
+    const mirrored = makeCtx();
+    drawPartyBadges(mirrored.ctx, partyOrder(theirs), GROUND_Y, { originX: OPPONENT_ORIGIN_X });
+    expect(mirrored.calls.filter((c) => c.w === 7).length).toBe(2);
+    expect(mirrored.calls.every((c) => scene.has(rectKey(c)))).toBe(true);
+    expect(mirrored.calls.every((c) => c.x > VIEW_W / 2)).toBe(true);
   });
 
   it('a normal monster draws at its species size', () => {
@@ -1551,12 +1602,14 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
     if (slot === undefined) {
       throw new Error('missing party slot');
     }
+    // The member's box plus the type badge under its feet are party presentation.
+    const slimeW = artOf('slime').w * slot.scale;
     const offParty = (c: RectCall): boolean =>
       !(
-        c.x >= slot.x &&
-        c.x < slot.x + artOf('slime').w * slot.scale &&
+        c.x >= slot.x - 1 &&
+        c.x < slot.x + slimeW + 1 &&
         c.y >= slot.y - artOf('slime').h * slot.scale &&
-        c.y < slot.y
+        c.y < slot.y + TYPE_BADGE_DY + 6
       );
     expect(after.calls.filter(offParty)).toEqual(before.calls.filter(offParty));
     expect(after.calls.length).toBeLessThan(before.calls.length);
