@@ -19,7 +19,8 @@ import {
   xpToNext,
 } from './formulas.js';
 import { rollLoot } from './loot.js';
-import { attackDelayOf, BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex, typeOf } from './monsters.js';
+import { attackDelayOf, BOSS_COIN_MULT, BOSS_XP_MULT, monsterForIndex, SPECIES_IDS, typeOf } from './monsters.js';
+import type { SpeciesId } from './monsters.js';
 import { mulberry32 } from './rng.js';
 import { effectiveness, effectivePower } from './types-chart.js';
 import type { Rng } from './rng.js';
@@ -70,9 +71,9 @@ const COLD_FEVER = { active: false, remainingMs: 0 };
  * monsterHp into [1n, maxHp] so a stale save can never spawn an already-dead
  * or over-healed monster.
  */
-function initialState(save?: SaveFileV3 | null): GameState {
+function initialState(save: SaveFileV3 | null, rng: Rng): GameState {
   if (!save) {
-    const monster = monsterForIndex(0);
+    const monster = randomMonster(0, rng);
     return {
       level: 1,
       xp: 0,
@@ -90,7 +91,7 @@ function initialState(save?: SaveFileV3 | null): GameState {
       fever: COLD_FEVER,
     };
   }
-  const monster = monsterForIndex(save.monsterIndex);
+  const monster = monsterForIndex(save.monsterIndex, save.monsterSpeciesId);
   return {
     level: save.level,
     xp: save.xp,
@@ -114,6 +115,11 @@ function initialState(save?: SaveFileV3 | null): GameState {
 /** Clamp a resumed hp into [1n, maxHp]. */
 const clampHp = (hp: bigint, maxHp: bigint): bigint => (hp < 1n ? 1n : hp > maxHp ? maxHp : hp);
 
+/** One independent, uniform species draw per spawn, including bosses. */
+function randomMonster(index: number, rng: Rng): GameState['monster'] {
+  return monsterForIndex(index, SPECIES_IDS[Math.floor(rng.next() * SPECIES_IDS.length)] ?? SPECIES_IDS[0]);
+}
+
 /**
  * Create the game reducer. Every attack(source) call rolls a crit (one rng
  * draw), applies damage immediately, and on a kill rolls loot (rollLoot's own
@@ -128,7 +134,7 @@ export function createEngine(
   save?: SaveFileV1 | SaveFileV2 | SaveFileV3 | null,
   rng: Rng = mulberry32(randomSeed()),
 ): Engine {
-  const state = initialState(save ? upgradeSave(save) : null);
+  const state = initialState(save ? upgradeSave(save) : null, rng);
   /** The engine clock (Assumption 39) — advanced ONLY by tick(dtMs). */
   let clockMs = 0;
   let fever = createFever();
@@ -175,8 +181,8 @@ export function createEngine(
     }
     events.push({ type: 'itemDropped', drops });
 
-    // One extra draw per boss kill, ALWAYS consumed (so non-boss seeded
-    // logs stay byte-identical to v1); a full roster voids the capture.
+    // One extra draw per boss kill, ALWAYS consumed; a full roster voids
+    // the capture. The next species is drawn after rewards and capture.
     if (killed.boss && rng.next() < CAPTURE_CHANCE && state.companions.length < ROSTER_CAP) {
       const companion: Companion = {
         id: `c${state.nextCompanionId++}`,
@@ -196,7 +202,7 @@ export function createEngine(
       events.push({ type: 'levelUp', newLevel: state.level });
     }
 
-    state.monster = monsterForIndex(killed.index + 1);
+    state.monster = randomMonster(killed.index + 1, rng);
     state.monsterHp = state.monster.maxHp;
     state.bestIndex = Math.max(state.bestIndex, state.monster.index);
     events.push({ type: 'monsterSpawned', monster: { ...state.monster } });
@@ -280,6 +286,10 @@ export function createEngine(
       // applyCollection is total and copies everything; folding its fresh
       // state back in keeps engine-owned extras (fever) that it carried over.
       Object.assign(state, result.state);
+      if (a.type === 'rebirth') {
+        state.monster = randomMonster(0, rng);
+        state.monsterHp = state.monster.maxHp;
+      }
       return result.events;
     },
 
@@ -303,6 +313,7 @@ export function createEngine(
         coins: state.coins,
         items: { ...state.items },
         monsterIndex: state.monster.index,
+        monsterSpeciesId: state.monster.speciesId as SpeciesId,
         monsterHp: String(state.monsterHp),
         companions: state.companions.map((c) => ({ ...c })),
         nextCompanionId: state.nextCompanionId,

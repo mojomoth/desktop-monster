@@ -1,4 +1,4 @@
-import { typeOf } from '../../core/index.js';
+import { isSpeciesId, typeOf } from '../../core/index.js';
 import type { Companion, MonsterType } from '../../core/index.js';
 import { drawText } from './font.js';
 import { monsterSprites } from './monsters.js';
@@ -10,6 +10,15 @@ export const PARTY_X = 8;
 export const PARTY_STEP_X = 11;
 /** 0 since 2026-09-05 (user change): every member's feet sit on the ground line — the 3-px depth lift read as floating at 2×. */
 export const PARTY_STEP_Y = 0;
+
+/**
+ * Idle art of a runtime species id; anything unknown falls back to the slime.
+ * isSpeciesId, not `?? monsterSprites.slime`: monsterSprites is an object
+ * literal, so ids like 'toString' would resolve to an inherited property.
+ */
+function idleArtOf(speciesId: string) {
+  return monsterSprites[isSpeciesId(speciesId) ? speciesId : 'slime'].idle;
+}
 
 export const TYPE_COLORS: Record<MonsterType, string> = {
   fire: COLORS.red,
@@ -58,7 +67,7 @@ export function drawParty(
     const member = party[r];
     const slot = slots[r];
     if (member === undefined || slot === undefined) continue;
-    const idle = (monsterSprites[member.speciesId as keyof typeof monsterSprites] ?? monsterSprites.slime).idle;
+    const idle = idleArtOf(member.speciesId);
     const x = opts?.originX === undefined
       ? slot.x
       : opts.originX - (slot.x - PARTY_X) - idle.w * slot.scale;
@@ -113,7 +122,7 @@ export function drawPartyBadges(
     const member = party[r];
     const slot = slots[r];
     if (member === undefined || slot === undefined) continue;
-    const idle = (monsterSprites[member.speciesId as keyof typeof monsterSprites] ?? monsterSprites.slime).idle;
+    const idle = idleArtOf(member.speciesId);
     const w = idle.w * slot.scale;
     const x = opts?.originX === undefined ? slot.x : opts.originX - (slot.x - PARTY_X) - w;
     drawFootBadge(ctx, typeOf(member.speciesId), x, w, slot.y);

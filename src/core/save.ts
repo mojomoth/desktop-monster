@@ -6,7 +6,8 @@
 
 import { bigField } from './bignum.js';
 import { monsterMaxHp } from './formulas.js';
-import { SPECIES_IDS } from './monsters.js';
+import { isSpeciesId, SPECIES_IDS } from './monsters.js';
+import type { SpeciesId } from './monsters.js';
 
 /** Roster cap (GAME_DESIGN_V2 §2/§3); collection.ts owns the gameplay copy. */
 const ROSTER_CAP = 30;
@@ -74,6 +75,8 @@ export interface SaveFileV2 {
  */
 export interface SaveFileV3 extends Omit<SaveFileV2, 'version'> {
   version: 3;
+  /** Randomly selected current species; absent in legacy saves. */
+  monsterSpeciesId?: SpeciesId;
   /** Companion ids, at most PARTY_CAP, all present in `companions`. */
   pvpParty: string[];
 }
@@ -143,6 +146,7 @@ export function serializeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): strin
     coins: v3.coins,
     items,
     monsterIndex: v3.monsterIndex,
+    monsterSpeciesId: v3.monsterSpeciesId,
     monsterHp: v3.monsterHp,
     companions: v3.companions.map((c) => ({
       id: c.id,
@@ -243,6 +247,7 @@ export function parseSave(raw: unknown): SaveFileV3 {
       ? (value as Record<string, unknown>)
       : {};
   const companions = companionsField(record['companions']);
+  const species = record['monsterSpeciesId'];
   // Re-minting must never collide with an id already on the roster.
   let nextCompanionId = intField(record['nextCompanionId'], DEFAULT_SAVE.nextCompanionId, 1);
   for (const c of companions) {
@@ -256,6 +261,7 @@ export function parseSave(raw: unknown): SaveFileV3 {
     coins: intField(record['coins'], DEFAULT_SAVE.coins, 0),
     items: itemsField(record['items']),
     monsterIndex: intField(record['monsterIndex'], DEFAULT_SAVE.monsterIndex, 0),
+    ...(typeof species === 'string' && isSpeciesId(species) ? { monsterSpeciesId: species } : {}),
     monsterHp: (bigField(record['monsterHp']) ?? DEFAULT_SAVE.monsterHp).replace(/^0$/, '1'),
     companions,
     nextCompanionId,

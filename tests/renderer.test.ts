@@ -524,7 +524,8 @@ describe('floating damage numbers (fixed pool)', () => {
 
     // The crit burst rings the monster centre with hot sparks (on top of the species hit).
     const preset = EFFECTS.critBurst;
-    const centre = { x: MONSTER_X + at0.dx + (artOf('slime').w * SPRITE_SCALE) / 2, y: GROUND_Y + at0.dy - (artOf('slime').h * SPRITE_SCALE) / 2 };
+    const art = artOf(game.getState().monster.speciesId);
+    const centre = { x: MONSTER_X + at0.dx + (art.w * SPRITE_SCALE) / 2, y: GROUND_Y + at0.dy - (art.h * SPRITE_SCALE) / 2 };
     const sparks = shaken.calls.filter(
       (c) => c.w === preset.size && c.x === centre.x && c.y === centre.y && (preset.colors as readonly string[]).includes(c.fillStyle),
     );
@@ -739,7 +740,7 @@ describe('combat presentation (core FSMs, T14)', () => {
 
   it('flashes the monster white for the hit duration, then returns to color', () => {
     const game = createGame(createEngine(null, mulberry32(42)));
-    game.attack('keyboard'); // slime at 10 hp — never a killing first blow
+    game.attack('keyboard'); // monster at 10 hp — never a killing first blow
     expect(game.getMonsterAnim()).toEqual({ state: 'hit', t: 0 });
 
     const flash = makeCtx();
@@ -747,7 +748,7 @@ describe('combat presentation (core FSMs, T14)', () => {
     // The hit-effect burst shares the box at 1x units, so the flash is pinned
     // against the tinted hit pose itself (F64).
     const scale = SPRITE_SCALE;
-    const hitPose = monsterSprites.slime.hit;
+    const hitPose = monsterSprites[game.getState().monster.speciesId as SpeciesId].hit;
     const ref = makeCtx();
     drawSprite(ref.ctx, hitPose, 0, MONSTER_X, GROUND_Y - hitPose.h * scale, {
       tint: COLORS.white,
@@ -1126,7 +1127,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const preset = EFFECTS.bossShockwave;
     // The ring starts on the boss's centre; the dead monster's scatter is 2x
     // and only ever lands on even rows, so it cannot pollute this.
-    const centre = bossCentre(7);
+    const art = artOf(spawned.monster.speciesId);
+    const centre = { x: MONSTER_X + art.w * SPRITE_SCALE / 2, y: GROUND_Y - art.h * SPRITE_SCALE / 2 };
     const ring = calls.filter(
       (c) => c.w === preset.size && c.x === centre.x && c.y === centre.y,
     );
@@ -1795,9 +1797,9 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
     expect(game.getHeroAnim().state).toBe('idle');
 
     // Once the pop-in ends nothing of the old run is left: the scene is
-    // pixel-identical to a brand-new game's at the same age.
+    // pixel-identical to a freshly loaded game with the same random species.
     game.update(MONSTER_SPAWNING_MS);
-    const fresh = createGame(createEngine(null, mulberry32(1)));
+    const fresh = createGame(createEngine(game.toSave(), mulberry32(1)));
     fresh.update(MONSTER_SPAWNING_MS);
     const a = makeCtx();
     fresh.draw(a.ctx);
@@ -1932,8 +1934,11 @@ describe('game toSave/reset (T16 persistence wiring)', () => {
     expect(game.toSave().killCount).toBe(1);
     expect(game.getMonsterAnim().state).toBe('dying');
 
-    game.reset();
-    expect(game.toSave()).toEqual(DEFAULT_SAVE);
+    game.reset(mulberry32(1));
+    expect(game.toSave()).toEqual({
+      ...DEFAULT_SAVE,
+      monsterSpeciesId: createEngine(null, mulberry32(1)).getState().monster.speciesId,
+    });
     expect(game.getState().level).toBe(1);
     expect(game.getHeroAnim().state).toBe('idle');
     expect(game.getMonsterAnim().state).toBe('idle');
@@ -1943,7 +1948,7 @@ describe('game toSave/reset (T16 persistence wiring)', () => {
     const game = createGame(createEngine(killSave, mulberry32(7)));
     game.attack('keyboard'); // scatter + drops + float + banner all active
     game.update(100); // and mid-flight
-    game.reset();
+    game.reset(mulberry32(1));
 
     // A reset game paints the exact same scene as a brand-new game: no
     // leftover floats, particles, drops, banner, pop flash or bob offset.

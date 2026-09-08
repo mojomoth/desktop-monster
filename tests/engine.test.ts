@@ -5,6 +5,7 @@ import {
   activeCompanions,
   attackDelayOf,
   SPECIES_IDS,
+  typeOf,
   companionPower,
   createEngine,
   CRIT_MULT,
@@ -97,7 +98,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(s.coins).toBe(0);
     expect(s.items).toEqual({});
     expect(s.monster.index).toBe(0);
-    expect(s.monster.speciesId).toBe('slime');
+    expect(s.monster.speciesId).toBe('shroudlamp'); // the 0.5 species draw
     expect(s.monsterHp).toBe(10n);
   });
 
@@ -108,6 +109,67 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(events[0]).toEqual({ type: 'attack', damage: 1n, crit: false, source: 'keyboard' });
     expect(events[1]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: 10n });
     expect(engine.getState().monsterHp).toBe(9n);
+  });
+
+  it('every species can spawn at the same normal or boss index with equal RNG intervals', () => {
+    for (const index of [1, 7, 105]) {
+      SPECIES_IDS.forEach((species, slot) => {
+        // Draw just inside each edge; exact fractions can round into the previous interval.
+        for (const offset of [0.000001, 0.999999]) {
+          const engine = createEngine(
+            makeSave({ monsterIndex: index - 1, monsterHp: 1 }),
+            scriptedRng([0.5, 0.5, (slot + offset) / SPECIES_IDS.length]),
+          );
+          const events = engine.attack('keyboard');
+          const monster = engine.getState().monster;
+          expect(monster).toEqual(monsterForIndex(index, species));
+          expect(monster.type).toBe(typeOf(species));
+          expect(monster.boss).toBe(index === 7);
+          expect(engine.getState().monsterHp).toBe(monster.maxHp);
+          expect(events.at(-1)).toEqual({ type: 'monsterSpawned', monster });
+        }
+      });
+    }
+  });
+
+  it('fresh games draw a species once and allow consecutive repeats', () => {
+    for (const value of [0, 1 - Number.EPSILON]) {
+      const counted = countingRng([value]);
+      const engine = createEngine(null, counted.rng);
+      expect(counted.draws()).toBe(1);
+      const species = value === 0 ? 'slime' : 'cindercoil';
+      expect(engine.getState().monster.speciesId).toBe(species);
+      while (engine.getState().monster.index === 0) engine.attack('keyboard');
+      expect(engine.getState().monster.speciesId).toBe(species);
+    }
+  });
+
+  it('persists a random boss and captures its actual species after restoring', () => {
+    const engine = createEngine(
+      makeSave({ monsterIndex: 6, monsterHp: 1 }),
+      scriptedRng([0.5, 0.5, 1 - Number.EPSILON]),
+    );
+    engine.attack('keyboard');
+    const save = parseSave(serializeSave(engine.toSave()));
+    expect(save.monsterSpeciesId).toBe('cindercoil');
+    const counted = countingRng([0.5, 0.5, 0, 0.5]);
+    const restored = createEngine(save, counted.rng);
+    expect(counted.draws()).toBe(0); // loading must never reroll
+    expect(restored.getState()).toEqual(engine.getState());
+    const wounded = createEngine({ ...save, monsterHp: '1' }, counted.rng);
+    expect(wounded.attack('keyboard')).toContainEqual({
+      type: 'bossCaptured',
+      companion: { id: 'c1', speciesId: 'cindercoil', bossIndex: 7, level: 1, stars: 0 },
+    });
+  });
+
+  it('rebirth draws a new first species and saves it', () => {
+    const counted = countingRng([1 - Number.EPSILON]);
+    const engine = createEngine(makeSaveV2({ monsterIndex: 40 }), counted.rng);
+    engine.apply({ type: 'rebirth' });
+    expect(counted.draws()).toBe(1);
+    expect(engine.getState().monster).toEqual(monsterForIndex(0, 'cindercoil'));
+    expect(engine.toSave().monsterSpeciesId).toBe('cindercoil');
   });
 
   it('killing blow emits attack, monsterHit, monsterKilled, itemDropped, monsterSpawned in order', () => {
@@ -194,7 +256,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
   });
 
   it('a crit multiplies damage by CRIT_MULT and each attack rolls its own draw', () => {
-    const engine = createEngine(null, scriptedRng([0.05, 0.95]));
+    const engine = createEngine(null, scriptedRng([0.5, 0.05, 0.95])); // spawn, then crits
     expect(engine.attack('mouse')[0]).toEqual({
       type: 'attack',
       damage: 1n * BigInt(CRIT_MULT),
@@ -309,7 +371,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     });
     const s = createEngine(save, calmRng()).getState();
     expect(s.monster.index).toBe(12);
-    expect(s.monster.speciesId).toBe('ghost'); // 12 % 5 = 2
+    expect(s.monster.speciesId).toBe('hexweaver'); // catalog slot 12: round 2, dark
     expect(s.monsterHp).toBe(5n);
     expect(s.level).toBe(4);
     expect(s.xp).toBe(11);
@@ -342,7 +404,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
 
   it('a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent', () => {
     // Index 7 is the first boss. Draws: crit 0.5 (no), loot 0.5 (no trinket),
-    // capture 0.0 < CAPTURE_CHANCE (yes) — the capture draw comes last.
+    // capture 0.0 < CAPTURE_CHANCE (yes), then the next species draw.
     const bossSave = makeSave({ monsterIndex: 7, monsterHp: 1 });
     const engine = createEngine(bossSave, scriptedRng([0.5, 0.5, 0.0]));
     const events = engine.attack('keyboard');
@@ -361,7 +423,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     if (captured?.type !== 'bossCaptured') throw new Error('expected bossCaptured');
     expect(captured.companion).toEqual({
       id: 'c1',
-      speciesId: 'ghost', // 7 % 5 = 2
+      speciesId: 'rictus', // catalog slot 7: round 1, dark
       bossIndex: 7,
       level: 1,
       stars: 0,
@@ -384,22 +446,22 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(rate).toBeLessThanOrEqual(0.38);
   });
 
-  it('non-boss kills consume exactly the v1 rng draws', () => {
-    // v1 sequence: crit, loot (1 draw; 2 when a trinket drops). No capture draw.
+  it('kills draw crit, loot, optional capture, then exactly one next species', () => {
+    // Crit, loot (1 draw; 2 when a trinket drops), then species. No capture draw.
     const boring = countingRng([0.5]);
     createEngine(makeSave({ monsterHp: 1 }), boring.rng).attack('keyboard');
-    expect(boring.draws()).toBe(2);
+    expect(boring.draws()).toBe(3);
 
     const lucky = countingRng([0.0]); // crit, trinket, weighted pick
     createEngine(makeSave({ monsterHp: 1 }), lucky.rng).attack('keyboard');
-    expect(lucky.draws()).toBe(3);
+    expect(lucky.draws()).toBe(4);
 
     // A boss kill spends exactly one more draw than the same non-boss kill.
     const boss = countingRng([0.5]);
     const events = createEngine(makeSave({ monsterIndex: 7, monsterHp: 1 }), boss.rng).attack(
       'keyboard',
     );
-    expect(boss.draws()).toBe(3);
+    expect(boss.draws()).toBe(4);
     expect(types(events)).not.toContain('bossCaptured'); // 0.5 >= CAPTURE_CHANCE
   });
 
@@ -421,7 +483,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const engine = createEngine(full, counted.rng);
     const events = engine.attack('keyboard');
     expect(types(events)).not.toContain('bossCaptured');
-    expect(counted.draws()).toBe(3); // crit, loot, capture — the draw is spent
+    expect(counted.draws()).toBe(4); // crit, loot, capture, next species
     const s = engine.getState();
     expect(s.companions).toHaveLength(30);
     expect(s.nextCompanionId).toBe(31);
@@ -471,7 +533,10 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.apply({ type: 'fuse', aId: 'c1', bId: 'c2' })).toEqual([]);
     expect(engine.apply({ type: 'rebirth' })).toEqual([]); // index 10 is below 40
     expect(engine.getState()).toEqual(before);
-    expect(engine.toSave()).toEqual(upgradeSave(makeSaveV2({ monsterIndex: 10 })));
+    expect(engine.toSave()).toEqual({
+      ...upgradeSave(makeSaveV2({ monsterIndex: 10 })),
+      monsterSpeciesId: 'sopwit',
+    });
   });
 
   it('toSave writes version 3 and the pvpParty', () => {
@@ -500,7 +565,9 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(roster.map(companionPower)).toEqual([4n, 3n, 2n, 1n]);
     const engine = createEngine(
       makeSaveV2({ monsterHp: '1', companions: roster, nextCompanionId: 5 }),
-      calmRng(),
+      // Script the enemy types so the swing-timing assertions stay independent of randomness.
+      scriptedRng([0.5, 1.5 / SPECIES_IDS.length, 0.5, 2.5 / SPECIES_IDS.length,
+        0.5, 3.5 / SPECIES_IDS.length, 0.5, 4.5 / SPECIES_IDS.length, 0.5]),
     );
 
     // Sub-volley time only accumulates.
@@ -565,7 +632,22 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(attackDelayOf('golem')).toBe(800);
     expect(attackDelayOf('unknown-species')).toBe(0);
     const delays = SPECIES_IDS.map((id) => attackDelayOf(id));
-    expect(new Set(delays).size).toBe(SPECIES_IDS.length); // all distinct
+    // Every delay sits on the 50-ms grid inside the window (F81).
+    for (const d of delays) {
+      expect(d % 50, String(d)).toBe(0);
+      expect(d, String(d)).toBeGreaterThanOrEqual(0);
+      expect(d, String(d)).toBeLessThanOrEqual(900);
+    }
+    // 105 species cannot all have a DISTINCT delay on that grid — and they do
+    // not need one. Two party members swing together only if their delays
+    // differ by exactly PARTY_STAGGER_MS × (rank gap), and 70 × 1..4 is never a
+    // multiple of 50, so no pair of species can ever collide at any rank.
+    const collides = delays.some((a) =>
+      delays.some((b) => [1, 2, 3, 4].some((gap) => a - b === gap * PARTY_STAGGER_MS)),
+    );
+    expect(collides).toBe(false);
+    // The catalog still spreads across the grid rather than clumping.
+    expect(new Set(delays).size).toBeGreaterThanOrEqual(15);
     expect(Math.max(...delays) + 4 * PARTY_STAGGER_MS).toBeLessThan(2 * COMPANION_ATTACK_MS);
     // Three bats never swing together: ranks spread them PARTY_STAGGER_MS apart.
     const bats: Companion[] = [1, 2, 3].map((n) => ({ id: `b${String(n)}`, speciesId: 'bat', bossIndex: 7, level: n, stars: 0 }));
@@ -615,10 +697,10 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       { id: 'c5', speciesId: 'dragon', bossIndex: 7, level: 7, stars: 0 }, // fire
       { id: 'c6', speciesId: 'slime', bossIndex: 7, level: 9, stars: 0 }, // water
     ];
-    // Monster 60 is a water slime on its last hit point; 61 is a wind bat.
+    // Legacy monster 60 is water on its last hit point; draw a wind bat next.
     const engine = createEngine(
       makeSaveV2({ monsterIndex: 60, monsterHp: '1', companions: roster, nextCompanionId: 7 }),
-      calmRng(),
+      scriptedRng([0.5, 1.5 / SPECIES_IDS.length, 0.5]), // loot, wind bat, later rolls
     );
     const attackers = (events: GameEvent[]): string[] =>
       events.flatMap((e) => (e.type === 'companionAttack' ? [e.companionId] : []));

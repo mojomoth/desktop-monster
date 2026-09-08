@@ -61,6 +61,15 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     expect(parseSave(serializeSave(save))).toEqual(save);
   });
 
+  it('round-trips the selected species and falls back to legacy behavior for invalid ids', () => {
+    const save: SaveFile = { ...richSave, monsterSpeciesId: 'cindercoil' };
+    expect(parseSave(serializeSave(save))).toEqual(save);
+    for (const monsterSpeciesId of [null, 12, {}, [], '', 'unknown', 'toString', '__proto__']) {
+      expect(parseSave({ ...richSave, monsterSpeciesId })).toEqual(richSave);
+    }
+    expect(parseSave(richSave)).toEqual(richSave); // old v3 saves still load unchanged
+  });
+
   it('serializeSave is stable: items insertion order never changes the bytes', () => {
     const a: SaveFile = { ...richSave, items: { crown: 1, bone: 2, sword_shard: 3 } };
     const b: SaveFile = { ...richSave, items: { sword_shard: 3, bone: 2, crown: 1 } };

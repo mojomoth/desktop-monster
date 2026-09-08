@@ -10,11 +10,17 @@ describe('effect presets (SPEC F39)', () => {
     for (const speciesId of SPECIES_IDS) {
       expect(hitColorOf(speciesId)).toBe(EFFECTS.hit[speciesId].colors[0]);
     }
-    expect(hitColorOf('unknown')).toBe(COLORS.white);
+    for (const junk of ['unknown', '', '__proto__', 'toString', 'constructor']) {
+      expect(hitColorOf(junk), junk).toBe(COLORS.white);
+    }
   });
 
   it('matches the data table from GAME_DESIGN_V2 section 8', () => {
-    expect(EFFECTS).toEqual({
+    // `hit` is per-species and grew to 105 entries (F81); it is pinned by the
+    // next test instead, so the shared presets stay an exact-shape comparison.
+    const { hit, ...shared } = EFFECTS;
+    expect(Object.keys(hit)).toEqual([...SPECIES_IDS]);
+    expect(shared).toEqual({
       heroSlash: {
         count: 6,
         colors: [COLORS.cyan, COLORS.white],
@@ -78,52 +84,63 @@ describe('effect presets (SPEC F39)', () => {
         gravity: 0,
         size: 2,
       },
-      hit: {
-        slime: {
-          count: 6,
-          colors: [COLORS.green, COLORS.forest],
-          speed: 50,
-          spread: 1.2,
-          lifeMs: 400,
-          gravity: 260,
-          size: 1,
-        },
-        bat: {
-          count: 4,
-          colors: [COLORS.maroon, COLORS.navy],
-          speed: 90,
-          spread: 0.6,
-          lifeMs: 200,
-          gravity: 0,
-          size: 1,
-        },
-        ghost: {
-          count: 5,
-          colors: [COLORS.white, COLORS.steel],
-          speed: 15,
-          spread: Math.PI * 2,
-          lifeMs: 700,
-          gravity: 0,
-          size: 1,
-        },
-        golem: {
-          count: 6,
-          colors: [COLORS.gray, COLORS.slate],
-          speed: 60,
-          spread: 1,
-          lifeMs: 350,
-          gravity: 400,
-          size: 1,
-        },
-        dragon: {
-          count: 7,
-          colors: [COLORS.red, COLORS.orange, COLORS.yellow],
-          speed: 50,
-          spread: 1,
-          lifeMs: 450,
-          gravity: -120,
-          size: 1,
-        },
+    });
+  });
+
+  it('the five original species keep their hand-tuned hit preset verbatim', () => {
+    // F81: the other 100 species derive their burst from an elemental template,
+    // but these five values are the ones GAME_DESIGN_V2 section 8 pinned.
+    expect({
+      slime: EFFECTS.hit.slime,
+      bat: EFFECTS.hit.bat,
+      ghost: EFFECTS.hit.ghost,
+      golem: EFFECTS.hit.golem,
+      dragon: EFFECTS.hit.dragon,
+    }).toEqual({
+      slime: {
+        count: 6,
+        colors: [COLORS.green, COLORS.forest],
+        speed: 50,
+        spread: 1.2,
+        lifeMs: 400,
+        gravity: 260,
+        size: 1,
+      },
+      bat: {
+        count: 4,
+        colors: [COLORS.maroon, COLORS.navy],
+        speed: 90,
+        spread: 0.6,
+        lifeMs: 200,
+        gravity: 0,
+        size: 1,
+      },
+      ghost: {
+        count: 5,
+        colors: [COLORS.white, COLORS.steel],
+        speed: 15,
+        spread: Math.PI * 2,
+        lifeMs: 700,
+        gravity: 0,
+        size: 1,
+      },
+      golem: {
+        count: 6,
+        colors: [COLORS.gray, COLORS.slate],
+        speed: 60,
+        spread: 1,
+        lifeMs: 350,
+        gravity: 400,
+        size: 1,
+      },
+      dragon: {
+        count: 7,
+        colors: [COLORS.red, COLORS.orange, COLORS.yellow],
+        speed: 50,
+        spread: 1,
+        lifeMs: 450,
+        gravity: -120,
+        size: 1,
       },
     });
   });

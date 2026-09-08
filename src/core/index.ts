@@ -71,7 +71,9 @@ export type { Companion, SaveFile, SaveFileV1, SaveFileV2, SaveFileV3 } from './
 
 export {
   BOSS_EVERY,
+  displayNameOf,
   isBoss,
+  isSpeciesId,
   monsterForIndex,
   sizeOf,
   attackDelayOf,

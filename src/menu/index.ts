@@ -12,6 +12,7 @@
 import {
   autoParty,
   DEFAULT_SAVE,
+  isSpeciesId,
   parseSave,
   PARTY_SIZE,
   pvpParty,
@@ -109,8 +110,7 @@ interface Pending {
 
 /** Species art key for a runtime species id (unknown ids fall back to slime). */
 function speciesKey(speciesId: string): SpeciesId {
-  const ids: readonly string[] = SPECIES_IDS;
-  return ids.includes(speciesId) ? (speciesId as SpeciesId) : SPECIES_IDS[0];
+  return isSpeciesId(speciesId) ? speciesId : SPECIES_IDS[0];
 }
 
 /**

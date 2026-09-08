@@ -25,7 +25,8 @@ async function boot(): Promise<void> {
 
   // parseSave never throws and tolerates null/junk (SPEC F11) — a bad save
   // file must never prevent boot, so no try/catch is needed here.
-  const engine = createEngine(parseSave(await window.desmon.loadState()));
+  const loaded = await window.desmon.loadState();
+  const engine = createEngine(loaded == null ? null : parseSave(loaded));
   const game = createGame(engine, undefined, { screenShake: true });
 
   // WHEN to save is the scheduler's policy (game.ts, unit-tested there);

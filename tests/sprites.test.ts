@@ -47,7 +47,7 @@ import {
   glyphIndex,
   textWidth,
 } from '../src/renderer/sprites/font.js';
-import { COIN_ITEM, SPECIES_IDS, TRINKET_TABLE } from '../src/core/index.js';
+import { COIN_ITEM, sizeOf, SPECIES_IDS, TRINKET_TABLE } from '../src/core/index.js';
 import type { Companion } from '../src/core/index.js';
 import { drawFeverAura } from '../src/renderer/sprites/index.js';
 
@@ -203,7 +203,7 @@ describe('fever aura', () => {
 describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
   it('every core species has idle x2 and hit x1 sprites registered under monster.<id>.<pose>', () => {
     const registered = allSprites();
-    expect(SPECIES_IDS).toHaveLength(5);
+    expect(SPECIES_IDS).toHaveLength(105);
     for (const id of SPECIES_IDS) {
       const art = monsterSprites[id];
       expect(art.idle.frames, `${id} idle`).toHaveLength(2);
@@ -229,6 +229,59 @@ describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
     // size-3 (golem, dragon) > size-2 (ghost) > size-1 (slime, bat).
     expect(monsterSprites.golem.idle.w).toBeGreaterThan(monsterSprites.ghost.idle.w);
     expect(monsterSprites.ghost.idle.w).toBeGreaterThan(monsterSprites.slime.idle.w);
+  });
+
+  it('every species has idle x2 and hit x1 art inside the size band for its hidden size', () => {
+    // F81 / Assumption 17: the hidden size IS the silhouette scale, so the
+    // native frame height alone orders the three size classes.
+    const BAND: Record<1 | 2 | 3, { w: [number, number]; h: [number, number] }> = {
+      1: { w: [13, 15], h: [10, 11] },
+      2: { w: [14, 17], h: [12, 14] },
+      3: { w: [17, 20], h: [15, 17] },
+    };
+    const heights: Record<1 | 2 | 3, number[]> = { 1: [], 2: [], 3: [] };
+    for (const id of SPECIES_IDS) {
+      const size = sizeOf(id);
+      const band = BAND[size];
+      const art = monsterSprites[id];
+      expect(art, id).toBeDefined();
+      expect(art.idle.frames, `${id} idle`).toHaveLength(2);
+      expect(art.hit.frames, `${id} hit`).toHaveLength(1);
+      // The two idle frames must actually differ, or the monster looks frozen.
+      expect(art.idle.frames[0], `${id} idle wobble`).not.toEqual(art.idle.frames[1]);
+      for (const [pose, sprite] of [['idle', art.idle], ['hit', art.hit]] as const) {
+        expect(sprite.w, `${id} ${pose} width (size ${size})`).toBeGreaterThanOrEqual(band.w[0]);
+        expect(sprite.w, `${id} ${pose} width (size ${size})`).toBeLessThanOrEqual(band.w[1]);
+        expect(sprite.h, `${id} ${pose} height (size ${size})`).toBeGreaterThanOrEqual(band.h[0]);
+        expect(sprite.h, `${id} ${pose} height (size ${size})`).toBeLessThanOrEqual(band.h[1]);
+        // Every colour is a DB16 colour, so tier tinting stays in the palette.
+        for (const color of Object.values(sprite.palette)) {
+          expect(Object.values(COLORS), `${id} ${pose} ${color}`).toContain(color);
+        }
+      }
+      heights[size].push(art.idle.h);
+    }
+    // The bands do not overlap: any size-3 is taller than any size-2, and so on.
+    expect(Math.max(...heights[1])).toBeLessThan(Math.min(...heights[2]));
+    expect(Math.max(...heights[2])).toBeLessThan(Math.min(...heights[3]));
+    // 21 species per element, 35 per hidden size (F81).
+    expect(heights[1]).toHaveLength(35);
+    expect(heights[2]).toHaveLength(35);
+    expect(heights[3]).toHaveLength(35);
+  });
+
+  it('no two species share a silhouette: every idle frame 0 is unique', () => {
+    const seen = new Map<string, string>();
+    for (const id of SPECIES_IDS) {
+      // Shape only — palette chars differ per species, so compare the mask.
+      const mask = (monsterSprites[id].idle.frames[0] ?? [])
+        .map((row) => row.replace(/[^.]/g, '#'))
+        .join('/');
+      const prev = seen.get(mask);
+      expect(prev, `${id} has the same silhouette as ${String(prev)}`).toBeUndefined();
+      seen.set(mask, id);
+    }
+    expect(seen.size).toBe(105);
   });
 });
 

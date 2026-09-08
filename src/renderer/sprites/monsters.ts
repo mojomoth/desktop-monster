@@ -1,6 +1,8 @@
-// SPEC F19 (part 2) / Assumption 4 — monster art as code for the 5 species
-// (slime, bat, ghost, golem, dragon): idle x2 (bob/breathe) + hit x1 (recoil
-// pose) each. 2026-09-04 full redesign: drawn by Codex CLI from a Pokémon /
+// SPEC F19 (part 2) / Assumption 4 — monster art as code. This module holds
+// the five ORIGINAL species (slime, bat, ghost, golem, dragon) and merges in
+// the 100 added on 2026-09-08 from ./species/<element>.ts (F81, drawn by the
+// Codex CLI on `gpt-6-astra`); every species is idle x2 (bob/breathe) + hit x1
+// (recoil pose). 2026-09-04 full redesign: drawn by Codex CLI from a Pokémon /
 // Digimon-style brief (original creatures), judged and refined with rendered
 // previews. String-row matrices only; '.' is transparent. Monsters face LEFT
 // (toward the hero on the left side of the scene — Assumption 1), so the
@@ -17,6 +19,11 @@ import type { SpeciesId } from '../../core/index.js';
 import { COLORS } from './palette.js';
 import { registerSprites } from './sprite.js';
 import type { Sprite } from './sprite.js';
+import { darkSprites } from './species/dark.js';
+import { earthSprites } from './species/earth.js';
+import { fireSprites } from './species/fire.js';
+import { waterSprites } from './species/water.js';
+import { windSprites } from './species/wind.js';
 
 /** The art set every species provides. */
 export interface SpeciesSprites {
@@ -459,11 +466,20 @@ const dragonHit: Sprite = {
  * a typo) fails to compile. Renderer lookup: monsterSprites[def.speciesId].
  */
 export const monsterSprites: Record<SpeciesId, SpeciesSprites> = {
+  // Round 0 — the five species DesMon shipped with, drawn above.
   slime: { idle: slimeIdle, hit: slimeHit },
   bat: { idle: batIdle, hit: batHit },
   ghost: { idle: ghostIdle, hit: ghostHit },
   golem: { idle: golemIdle, hit: golemHit },
   dragon: { idle: dragonIdle, hit: dragonHit },
+  // Rounds 1–20 — the 100 species added on 2026-09-08 (F81). TypeScript
+  // checks the spread against Record<SpeciesId, …>, so a species in the
+  // catalog with no art fails to compile.
+  ...waterSprites,
+  ...windSprites,
+  ...darkSprites,
+  ...earthSprites,
+  ...fireSprites,
 };
 
 // Self-register every pose of every species so the integrity sweep in

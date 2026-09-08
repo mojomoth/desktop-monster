@@ -25,6 +25,7 @@ import {
   effectiveness,
   format,
   partyOrder,
+  isSpeciesId,
   SPECIES_IDS,
   typeOf,
 } from '../core/index.js';
@@ -37,6 +38,7 @@ import type {
   GameState,
   InputSource,
   MonsterDef,
+  Rng,
   SaveFile,
   SpeciesId,
   WireBlow,
@@ -263,8 +265,7 @@ const tintedIdleCache = new Map<string, Sprite>();
  * Companion.speciesId are plain strings); unknown ids fall back to slime.
  */
 function speciesKey(speciesId: string): SpeciesId {
-  const ids: readonly string[] = SPECIES_IDS;
-  return ids.includes(speciesId) ? (speciesId as SpeciesId) : SPECIES_IDS[0];
+  return isSpeciesId(speciesId) ? speciesId : SPECIES_IDS[0];
 }
 
 /** Species art for a runtime species id (unknown ids fall back to slime). */
@@ -452,7 +453,7 @@ export interface Game {
    * in-flight presentation (floats, particles, drops, banner, anims). The
    * caller persists the fresh state immediately (renderer boot does).
    */
-  reset(): void;
+  reset(rng?: Rng): void;
   /** Presentation snapshot of the hero animation FSM (tests / T15). */
   getHeroAnim(): HeroAnim;
   /** Presentation snapshot of the monster animation FSM (tests / T15). */
@@ -1051,8 +1052,8 @@ export function createGame(
       return engine.toSave();
     },
 
-    reset(): void {
-      engine = createEngine();
+    reset(rng?: Rng): void {
+      engine = createEngine(null, rng);
       clearPresentation();
     },
 
