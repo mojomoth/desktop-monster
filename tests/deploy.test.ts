@@ -25,6 +25,7 @@ const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'ut
 function fakeClient(me: LeaderboardResponse['me']): NetClient & { uploads: Snapshot[] } {
   const uploads: Snapshot[] = [];
   return {
+    opponents: async () => ({ ok: true, value: { opponents: [] } }),
     uploads,
     register: (name: string): Promise<NetResult<RegisterResponse>> =>
       Promise.resolve({ ok: true, value: { playerId: `p-${name}`, token: `t-${name}` } }),

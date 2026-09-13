@@ -28,6 +28,7 @@ const richSave: SaveFile = {
   rebirths: 2,
   bestIndex: 40,
   pvpParty: ['c2'],
+  releasedCount: 0,
 };
 
 describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
@@ -68,6 +69,17 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       expect(parseSave({ ...richSave, monsterSpeciesId })).toEqual(richSave);
     }
     expect(parseSave(richSave)).toEqual(richSave); // old v3 saves still load unchanged
+  });
+
+  it('releasedCount round-trips and legacy saves without it read as zero', () => {
+    const released: SaveFile = { ...richSave, releasedCount: 7 };
+    expect(parseSave(serializeSave(released)).releasedCount).toBe(7);
+    // A v3 save written before v0.4 has no such key at all.
+    const { releasedCount, ...legacy } = released;
+    expect(releasedCount).toBe(7);
+    expect(parseSave(legacy).releasedCount).toBe(0);
+    expect(parseSave({ ...released, releasedCount: -3 }).releasedCount).toBe(0);
+    expect(parseSave({ ...released, releasedCount: 'many' }).releasedCount).toBe(0);
   });
 
   it('serializeSave is stable: items insertion order never changes the bytes', () => {
@@ -217,6 +229,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       rebirths: 0,
       bestIndex: 21, // v1 never tracked depth: the current monster is the best
       pvpParty: [],
+      releasedCount: 0,
     });
     // A dead-on-arrival v1 hp still resumes at 1, and v3 passes straight through.
     expect(upgradeSave({ ...v1, monsterHp: 0 }).monsterHp).toBe('1');
@@ -263,7 +276,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
         { id: 'c5', speciesId: 'wyrm', bossIndex: 0, level: 1, stars: 0 }, // unknown species
         { id: 'c6', speciesId: 'bat', bossIndex: -1, level: 1, stars: 0 }, // bossIndex < 0
         { id: 'c7', speciesId: 'bat', bossIndex: 1.5, level: 1, stars: 0 }, // not an integer
-        { id: 'c8', speciesId: 'bat', bossIndex: 0, level: 11, stars: 0 }, // level > 10
+        { id: 'c8', speciesId: 'bat', bossIndex: 0, level: Number.MAX_SAFE_INTEGER + 1, stars: 0 }, // unsafe level
         { id: 'c9', speciesId: 'bat', bossIndex: 0, level: 0, stars: 0 }, // level < 1
         { id: 'c10', speciesId: 'bat', bossIndex: 0, level: 1, stars: -1 }, // stars < 0
         { id: 'c11', speciesId: 'bat', bossIndex: 0, level: 1 }, // missing stars

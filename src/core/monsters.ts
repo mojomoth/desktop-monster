@@ -1,18 +1,20 @@
-// Monster catalog: 105 species, 21 per element. The engine picks each spawn
-// uniformly at random; catalog order is retained for legacy save restoration.
-// tier = Math.floor(index / SPECIES_IDS.length) → renderer hue tint.
+// Monster catalog: 105 common species plus 30 condition-gated rares.
+// The original 105-entry cycle preserves legacy save restoration and tier tint.
+// Eligibility and rare chance are handled by the engine.
 //
 // Boss cadence depends on progress, independently of the selected species.
 //
 // The five tables below are GENERATED from the roster (user request 2026-09-08:
 // "at least 100 monster kinds"); the art lives in src/renderer/sprites/species/.
 
-import { monsterMaxHp } from './formulas.js';
+import { RARE_MONSTERS } from './discovery.js';
+import { fieldMonsterMaxHp } from './formulas.js';
+import { PROGRESSION_PARAMETERS as progression } from './progression.js';
 import type { MonsterType } from './types-chart.js';
 import type { MonsterDef } from './types.js';
 
 /** Stable catalog order used by legacy saves. Never reorder. */
-export const SPECIES_IDS = [
+export const COMMON_SPECIES_IDS = [
   'slime', 'bat', 'ghost', 'golem', 'dragon',
   'lumibel', 'kitekin', 'rictus', 'lichenwing', 'brimhide',
   'sopwit', 'nimbling', 'hexweaver', 'sumpfang', 'anvilclaw',
@@ -36,7 +38,12 @@ export const SPECIES_IDS = [
   'kelpwarden', 'velmoth', 'nightlynx', 'terrakin', 'cindercoil',
 ] as const;
 
+export const RARE_SPECIES_IDS = RARE_MONSTERS.map((monster) => monster.id);
+export const SPECIES_IDS = [...COMMON_SPECIES_IDS, ...RARE_SPECIES_IDS] as const;
 export type SpeciesId = (typeof SPECIES_IDS)[number];
+type RareSpeciesId = (typeof RARE_MONSTERS)[number]['id'];
+const rareTable = <T>(value: (monster: (typeof RARE_MONSTERS)[number]) => T): Record<RareSpeciesId, T> =>
+  Object.fromEntries(RARE_MONSTERS.map((monster) => [monster.id, value(monster)])) as Record<RareSpeciesId, T>;
 
 /** Fast membership test for runtime species ids (SPECIES_IDS is 105 long). */
 const SPECIES_ID_SET: ReadonlySet<string> = new Set<string>(SPECIES_IDS);
@@ -54,8 +61,8 @@ export const isBoss = (index: number): boolean =>
   index >= 0 && index % BOSS_EVERY === BOSS_EVERY - 1;
 
 /** Boss rewards: 5x hp (bigint, F30), 5x xp and 5x coins (applied by the engine). */
-export const BOSS_HP_MULT = 5n;
-export const BOSS_XP_MULT = 5;
+export const BOSS_HP_MULT = BigInt(progression.bossHpMultiplier);
+export const BOSS_XP_MULT = progression.bossXpMultiplier;
 export const BOSS_COIN_MULT = 5;
 
 /** Elemental type per species (GAME_DESIGN_V3 §1) — visible in HUD/menu badges. */
@@ -165,6 +172,7 @@ export const SPECIES_TYPE: Record<SpeciesId, MonsterType> = {
   nightlynx: 'dark',
   terrakin: 'earth',
   cindercoil: 'fire',
+  ...rareTable((monster) => monster.type),
 };
 
 /** Draw size per species — hidden: it only drives sprite scale and z-order. */
@@ -274,6 +282,7 @@ export const SPECIES_SIZE: Record<SpeciesId, 1 | 2 | 3> = {
   nightlynx: 2,
   terrakin: 2,
   cindercoil: 3,
+  ...rareTable((monster) => monster.size),
 };
 
 /**
@@ -389,6 +398,7 @@ export const SPECIES_ATTACK_DELAY_MS: Record<SpeciesId, number> = {
   nightlynx: 250,
   terrakin: 400,
   cindercoil: 600,
+  ...rareTable((monster) => monster.attackDelayMs),
 };
 
 /**
@@ -520,6 +530,7 @@ const SPECIES_DISPLAY_NAMES: Record<SpeciesId, string> = {
   nightlynx: 'Nightlynx',
   terrakin: 'Terrakin',
   cindercoil: 'Cindercoil',
+  ...rareTable((monster) => monster.name),
 };
 
 /** Display name of any runtime species id; unknown → the id itself. */
@@ -530,21 +541,21 @@ export function displayNameOf(speciesId: string): string {
 /**
  * Build a monster at a progress index with the selected species. Omitting the
  * species restores the legacy catalog order. Tier increments every
- * SPECIES_IDS.length monsters; maxHp comes from monsterMaxHp(index).
+ * COMMON_SPECIES_IDS.length monsters; maxHp comes from fieldMonsterMaxHp(index).
  * Display name is "Slime Lv.3" style, where the Lv number is tier + 1.
  * Every 8th monster is a boss:
  * 5x maxHp and a " BOSS" name suffix.
  */
 export function monsterForIndex(index: number, species?: SpeciesId): MonsterDef {
   const i = Math.max(0, Math.floor(index));
-  const speciesId = species ?? SPECIES_IDS[i % SPECIES_IDS.length] ?? SPECIES_IDS[0];
-  const tier = Math.floor(i / SPECIES_IDS.length);
+  const speciesId = species ?? COMMON_SPECIES_IDS[i % COMMON_SPECIES_IDS.length] ?? COMMON_SPECIES_IDS[0];
+  const tier = Math.floor(i / COMMON_SPECIES_IDS.length);
   const boss = isBoss(i);
   return {
     index: i,
     speciesId,
     name: `${SPECIES_DISPLAY_NAMES[speciesId]} Lv.${tier + 1}${boss ? ' BOSS' : ''}`,
-    maxHp: monsterMaxHp(i) * (boss ? BOSS_HP_MULT : 1n),
+    maxHp: fieldMonsterMaxHp(i) * (boss ? BOSS_HP_MULT : 1n),
     tier,
     boss,
     type: SPECIES_TYPE[speciesId],

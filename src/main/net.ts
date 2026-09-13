@@ -7,12 +7,14 @@
 import type {
   ApiError,
   Companion,
+  HeroAppearance,
   IdentityPayload,
   LeaderboardResponse,
   LeaderboardResult,
   MatchResponse,
   MatchResult,
   NetResult,
+  OpponentListResult,
   PvpRequest,
   PvpResponse,
   PvpResult,
@@ -24,7 +26,10 @@ import type {
   TheftsResponse,
   TheftsResult,
 } from '../shared/api.js';
-import { isValidName, readIdentity, writeIdentity, type Identity } from './identity.js';
+import { isValidName, parsePvpHistory, readIdentity, recordPvpHistory, writeIdentity, type Identity } from './identity.js';
+import { isHeroRoll } from '../core/hero.js';
+import { SPECIES_IDS } from '../core/monsters.js';
+import { COMPANION_ID_RE, INT_MAX, LEADERBOARD_MAX, LEVEL_MAX, NICK_RE, PARTY_SIZE_MAX, THEFTS_MAX } from '../shared/api.js';
 
 /** Every request is abandoned after this long (Render's free tier cold-starts). */
 export const NET_TIMEOUT_MS = 5000;
@@ -33,7 +38,8 @@ export interface NetClient {
   register(name: string): Promise<NetResult<RegisterResponse>>;
   upload(token: string, snapshot: Snapshot): Promise<NetResult<SnapshotResponse>>;
   leaderboard(token: string | null, n: number): Promise<NetResult<LeaderboardResponse>>;
-  match(token: string): Promise<NetResult<MatchResponse>>;
+  opponents(token: string): Promise<NetResult<OpponentListResult>>;
+  match(token: string, opponentId?: string): Promise<NetResult<MatchResponse>>;
   pvp(token: string, body: PvpRequest): Promise<NetResult<PvpResponse>>;
   thefts(token: string): Promise<NetResult<TheftsResponse>>;
   reclaim(token: string, theftId: string): Promise<NetResult<ReclaimResponse>>;
@@ -46,14 +52,17 @@ export interface SnapshotSource {
   companions: Companion[];
   /** ponytail: optional because src/server/probe.ts snapshots a party-less player. */
   pvpParty?: string[];
+  hero?: { equipped: HeroAppearance };
 }
 
 export interface NetSession {
   identity(): IdentityPayload;
+  pvpHistory(): { wins: number; losses: number };
   setName(name: unknown): IdentityPayload;
   onSave(save: SnapshotSource): void;
   leaderboard(n: number): Promise<NetResult<LeaderboardResult>>;
-  match(): Promise<NetResult<MatchResult>>;
+  opponents(): Promise<NetResult<OpponentListResult>>;
+  match(opponentId?: string): Promise<NetResult<MatchResult>>;
   pvp(matchId: string, party: string[]): Promise<NetResult<PvpResult>>;
   thefts(): Promise<NetResult<TheftsResult>>;
   reclaim(theftId: string): Promise<NetResult<ReclaimResult>>;
@@ -67,6 +76,7 @@ export function toSnapshot(name: string, save: SnapshotSource): Snapshot {
     rebirths: save.rebirths,
     companions: save.companions,
     party: save.pvpParty ?? [],
+    ...(save.hero ? { hero: save.hero.equipped } : {}),
   };
 }
 
@@ -77,6 +87,79 @@ async function readJson(res: Response): Promise<unknown> {
   } catch {
     return undefined;
   }
+}
+
+const object = (v: unknown): Record<string, unknown> | null =>
+  typeof v === 'object' && v !== null && !Array.isArray(v) ? v as Record<string, unknown> : null;
+const integer = (v: unknown, min = 0, max = INT_MAX): boolean =>
+  typeof v === 'number' && Number.isSafeInteger(v) && v >= min && v <= max;
+const playerId = (v: unknown): boolean => typeof v === 'string' && /^[A-Za-z0-9-]{1,64}$/.test(v);
+const companionId = (v: unknown): boolean => typeof v === 'string' && COMPANION_ID_RE.test(v);
+
+/** All companion-bearing replies cross this boundary before reaching saves or sprites. */
+function isCompanion(value: unknown): boolean {
+  const c = object(value);
+  return !!c && companionId(c['id']) &&
+    typeof c['speciesId'] === 'string' && (SPECIES_IDS as readonly string[]).includes(c['speciesId']) &&
+    integer(c['bossIndex']) && integer(c['level'], 1, LEVEL_MAX) && integer(c['stars']);
+}
+
+function isOpponent(value: unknown): boolean {
+  const row = object(value);
+  if (!row || (row['playerId'] !== undefined && !playerId(row['playerId'])) ||
+    typeof row['name'] !== 'string' || !(NICK_RE.test(row['name']) || row['name'] === 'Training Dummy') ||
+    !integer(row['bestIndex']) || !integer(row['rebirths']) ||
+    (row['hero'] !== undefined && !isHeroRoll(row['hero']))) return false;
+  const party = row['party'];
+  return Array.isArray(party) && party.length <= PARTY_SIZE_MAX && party.every(isCompanion) &&
+    new Set(party.map((c: Companion) => c.id)).size === party.length;
+}
+
+function isOpponentList(value: unknown): boolean {
+  const rows = object(value)?.['opponents'];
+  return Array.isArray(rows) && rows.length <= LEADERBOARD_MAX && rows.every((entry) => {
+    const row = object(entry);
+    return !!row && isOpponent(row) && playerId(row['playerId']) &&
+      typeof row['name'] === 'string' && NICK_RE.test(row['name']) && isHeroRoll(row['hero']) &&
+      integer(row['rank'], 1) && integer(row['wins']) && integer(row['losses']);
+  });
+}
+
+function isThefts(value: unknown): boolean {
+  return Array.isArray(value) && value.length <= THEFTS_MAX && value.every((entry) => {
+    const theft = object(entry);
+    return !!theft && companionId(theft['id']) && isCompanion(theft['companion']) &&
+      companionId(theft['transferredId']) && playerId(theft['thiefId']) &&
+      typeof theft['thiefName'] === 'string' && NICK_RE.test(theft['thiefName']) &&
+      integer(theft['at'], 0, Number.MAX_SAFE_INTEGER) && integer(theft['reclaimUntil'], 0, Number.MAX_SAFE_INTEGER);
+  });
+}
+
+function isSnapshotResponse(value: unknown): boolean {
+  const row = object(value);
+  return !!row && integer(row['rank'], 1) && Array.isArray(row['removed']) &&
+    row['removed'].every(companionId) && isThefts(row['thefts']);
+}
+
+function isMatchResponse(value: unknown): boolean {
+  const row = object(value);
+  return !!row && playerId(row['matchId']) && integer(row['seed'], 0, 0xffffffff) &&
+    typeof row['bot'] === 'boolean' && isOpponent(row['opponent']) &&
+    integer(row['expiresAt'], 0, Number.MAX_SAFE_INTEGER);
+}
+
+function isPvpResponse(value: unknown): boolean {
+  const row = object(value);
+  return !!row && typeof row['bot'] === 'boolean' && typeof row['win'] === 'boolean' &&
+    integer(row['seed'], 0, 0xffffffff) && isOpponent(row['opponent']) &&
+    (row['stolen'] === null || isCompanion(row['stolen'])) &&
+    (row['lost'] === null || isCompanion(row['lost'])) &&
+    Array.isArray(row['blows']) && row['blows'].every((entry) => {
+      const blow = object(entry);
+      return !!blow && (blow['side'] === 'A' || blow['side'] === 'D') &&
+        companionId(blow['actorId']) && companionId(blow['targetId']) &&
+        typeof blow['damage'] === 'string' && /^\d+$/.test(blow['damage']) && typeof blow['ko'] === 'boolean';
+    });
 }
 
 /**
@@ -96,6 +179,7 @@ export function createNetClient(o: {
     path: string,
     token: string | null,
     body?: unknown,
+    validate?: (value: unknown) => boolean,
   ): Promise<NetResult<T>> {
     if (baseUrl === '') return { ok: false, error: 'offline' };
     let res: Response;
@@ -117,7 +201,9 @@ export function createNetClient(o: {
     if (res.status === 410) return { ok: false, error: 'expired', status: 410 };
     if (res.status === 409) return { ok: false, error: 'gone', status: 409 };
     const parsed = await readJson(res);
-    if (res.ok && parsed !== undefined) return { ok: true, value: parsed as T };
+    if (res.ok && parsed !== undefined) {
+      return !validate || validate(parsed) ? { ok: true, value: parsed as T } : { ok: false, error: 'server' };
+    }
     const error = (typeof parsed === 'object' && parsed !== null ? parsed : {}) as ApiError;
     if (res.status === 429 && error.error === 'cooldown') {
       return { ok: false, error: 'cooldown', retryAfterSec: error.retryAfterSec };
@@ -127,12 +213,19 @@ export function createNetClient(o: {
 
   return {
     register: (name) => call<RegisterResponse>('POST', '/v1/players', null, { nickname: name }),
-    upload: (token, snapshot) => call<SnapshotResponse>('PUT', '/v1/snapshot', token, snapshot),
+    upload: (token, snapshot) => call<SnapshotResponse>('PUT', '/v1/snapshot', token, snapshot, isSnapshotResponse),
     leaderboard: (token, n) => call<LeaderboardResponse>('GET', `/v1/leaderboard?n=${n}`, token),
-    match: (token) => call<MatchResponse>('POST', '/v1/pvp/match', token, {}),
-    pvp: (token, body) => call<PvpResponse>('POST', '/v1/pvp', token, body),
-    thefts: (token) => call<TheftsResponse>('GET', '/v1/thefts', token),
-    reclaim: (token, theftId) => call<ReclaimResponse>('POST', '/v1/reclaim', token, { theftId }),
+    opponents: (token) => call<OpponentListResult>('GET', '/v1/pvp/opponents', token, undefined, isOpponentList),
+    match: async (token, opponentId) => {
+      const result = await call<MatchResponse>('POST', '/v1/pvp/match', token, { opponentId }, isMatchResponse);
+      if (result.ok && opponentId !== undefined && (result.value.bot || result.value.opponent.playerId !== opponentId)) {
+        return { ok: false, error: 'server' };
+      }
+      return result;
+    },
+    pvp: (token, body) => call<PvpResponse>('POST', '/v1/pvp', token, body, isPvpResponse),
+    thefts: (token) => call<TheftsResponse>('GET', '/v1/thefts', token, undefined, (value) => isThefts(object(value)?.['thefts'])),
+    reclaim: (token, theftId) => call<ReclaimResponse>('POST', '/v1/reclaim', token, { theftId }, (value) => isCompanion(object(value)?.['companion'])),
   };
 }
 
@@ -148,15 +241,18 @@ export function createNetSession(deps: {
 }): NetSession {
   const { client, userDataDir, online, randomUUID } = deps;
   let identity: Identity = readIdentity(userDataDir, randomUUID);
+  let historyDirty = false;
   /** Last save handed to the session; the source of every upload. */
   let lastSave: SnapshotSource | null = null;
   /** Roster key the server already has; null = nothing uploaded yet. */
   let syncedKey: string | null = null;
   let reRegistered = false;
+  /** Keep bindings for retries and concurrent callbacks throughout this session. */
+  const selectedOpponents = new Map<string, string>();
 
   /** bestIndex is deliberately absent: kills at the frontier must not spam PUTs. */
   const rosterKey = (save: SnapshotSource): string =>
-    JSON.stringify([identity.name, save.rebirths, save.companions, save.pvpParty ?? []]);
+    JSON.stringify([identity.name, save.rebirths, save.companions, save.pvpParty ?? [], save.hero?.equipped]);
 
   const payload = (): IdentityPayload => ({ name: identity.name, playerId: identity.playerId, online });
 
@@ -203,15 +299,23 @@ export function createNetSession(deps: {
     res !== null && res.ok ? res.value.removed : [];
 
   return {
+    pvpHistory() {
+      const history = parsePvpHistory(identity.pvpHistory);
+      return { wins: history.wins, losses: history.losses };
+    },
     identity() {
       void uploadIfDirty();
       return payload();
     },
     setName(name) {
-      if (isValidName(name)) store({ ...identity, name });
+      if (isValidName(name)) {
+        const next = { ...identity, name };
+        if (writeIdentity(userDataDir, next)) identity = next;
+      }
       return payload();
     },
     onSave(save) {
+      if (historyDirty) historyDirty = !writeIdentity(userDataDir, identity);
       lastSave = save;
       void uploadIfDirty();
     },
@@ -220,15 +324,41 @@ export function createNetSession(deps: {
       const res = await withToken((token) => client.leaderboard(token, n));
       return res.ok ? { ok: true, value: { ...res.value, removed } } : res;
     },
-    async match() {
+    async opponents() {
+      const uploaded = await uploadIfDirty();
+      if (uploaded && !uploaded.ok) return uploaded;
+      return withToken((token) => client.opponents(token));
+    },
+    async match(opponentId) {
       // Upload first when dirty: the opponent picker must see my current party.
-      await uploadIfDirty();
-      return withToken((token) => client.match(token));
+      const uploaded = await uploadIfDirty();
+      if (uploaded && !uploaded.ok) return uploaded;
+      const res = await withToken((token) => client.match(token, opponentId));
+      if (res.ok && opponentId !== undefined) {
+        if (res.value.bot !== false || res.value.opponent?.playerId !== opponentId) return { ok: false, error: 'server' };
+        selectedOpponents.set(res.value.matchId, opponentId);
+      }
+      return res;
     },
     async pvp(matchId, party) {
-      const removed = removedOf(await upload());
+      const expectedOpponent = selectedOpponents.get(matchId);
+      const uploaded = await upload();
+      if (uploaded && !uploaded.ok) return uploaded;
+      const removed = removedOf(uploaded);
       const res = await withToken((token) => client.pvp(token, { matchId, party }));
-      return res.ok ? { ok: true, value: { ...res.value, removed } } : res;
+      if (res.ok && expectedOpponent !== undefined &&
+        (res.value.bot !== false || res.value.opponent?.playerId !== expectedOpponent)) return { ok: false, error: 'server' };
+      if (res.ok && res.value?.bot === false && typeof res.value.win === 'boolean') {
+        const previous = identity.pvpHistory ?? parsePvpHistory(undefined);
+        const next = recordPvpHistory(previous, matchId, res.value.win);
+        if (next !== previous) {
+          // Synchronous replacement before returning also serializes concurrent
+          // callbacks for one match. A failed disk write is reported and retried.
+          identity = { ...identity, pvpHistory: next };
+          historyDirty = !writeIdentity(userDataDir, identity);
+        }
+      }
+      return res.ok ? { ok: true, value: { ...res.value, removed, ...(historyDirty ? { historySaved: false as const } : {}) } } : res;
     },
     thefts: () => withToken((token) => client.thefts(token)),
     reclaim: (theftId) => withToken((token) => client.reclaim(token, theftId)),

@@ -17,9 +17,13 @@ export interface PlayerRow {
   lastPvpAt: number | null;
   /** Pending + recently expired steals against this player (last THEFTS_MAX). */
   thefts: Theft[];
+  wins: number;
+  losses: number;
 }
 
 export interface Store {
+  /** Serialize mutations and roll back every write if work throws. */
+  transaction<T>(work: (store: Store) => Promise<T>): Promise<T>;
   createPlayer(p: { id: string; tokenHash: string; name: string }): Promise<void>;
   getByToken(tokenHash: string): Promise<PlayerRow | null>;
   getById(id: string): Promise<PlayerRow | null>;
@@ -28,6 +32,7 @@ export interface Store {
   setStolenIds(id: string, ids: string[]): Promise<void>;
   setLastPvpAt(id: string, at: number): Promise<void>;
   setThefts(id: string, thefts: Theft[]): Promise<void>;
+  recordBattle(winnerId: string, loserId: string): Promise<void>;
   /** 1 + count of players with a snapshot scoring strictly above `key`. */
   rank(key: ScoreKey): Promise<number>;
   /** Score order, then oldest first. Players without a snapshot are invisible. */
@@ -49,18 +54,40 @@ interface MemoryRow extends PlayerRow {
 type Scored = MemoryRow & { snapshot: Snapshot };
 
 /** The token hash never leaves the store. */
-const view = ({ id, name, snapshot, stolenIds, lastPvpAt, thefts }: MemoryRow): PlayerRow => ({
+const view = ({ id, name, snapshot, stolenIds, lastPvpAt, thefts, wins, losses }: MemoryRow): PlayerRow => ({
   id,
   name,
   snapshot,
   stolenIds,
   lastPvpAt,
   thefts,
+  wins,
+  losses,
 });
 
 export class MemoryStore implements Store {
   private readonly rows = new Map<string, MemoryRow>();
   private seq = 0;
+  private tail: Promise<void> = Promise.resolve();
+
+  async transaction<T>(work: (store: Store) => Promise<T>): Promise<T> {
+    const previous = this.tail;
+    let release = (): void => {};
+    this.tail = new Promise<void>((resolve) => { release = resolve; });
+    await previous;
+    const before = structuredClone(this.rows);
+    const seq = this.seq;
+    try {
+      return await work(this);
+    } catch (error) {
+      this.rows.clear();
+      for (const [id, row] of before) this.rows.set(id, row);
+      this.seq = seq;
+      throw error;
+    } finally {
+      release();
+    }
+  }
 
   async createPlayer(p: { id: string; tokenHash: string; name: string }): Promise<void> {
     this.rows.set(p.id, {
@@ -70,6 +97,8 @@ export class MemoryStore implements Store {
       stolenIds: [],
       lastPvpAt: null,
       thefts: [],
+      wins: 0,
+      losses: 0,
       tokenHash: p.tokenHash,
       seq: this.seq++,
     });
@@ -112,6 +141,14 @@ export class MemoryStore implements Store {
     if (row) {
       row.thefts = thefts;
     }
+  }
+
+  async recordBattle(winnerId: string, loserId: string): Promise<void> {
+    const winner = this.rows.get(winnerId);
+    const loser = this.rows.get(loserId);
+    if (!winner || !loser || winnerId === loserId) throw new Error('Invalid battle participants');
+    winner.wins += 1;
+    loser.losses += 1;
   }
 
   async rank(key: ScoreKey): Promise<number> {

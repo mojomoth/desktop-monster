@@ -24,6 +24,7 @@ import {
   INPUT_GLOBAL_LABEL,
   QUIT_LABEL,
   RESET_LABEL,
+  SETTINGS_LABEL,
   setupTray,
   TRAY_TITLE,
   TRAY_TOOLTIP,
@@ -89,6 +90,7 @@ function noopActions(): TrayMenuActions {
     openCollection: () => {},
     resetProgress: () => {},
     quit: () => {},
+    setGameScale: () => {},
   };
 }
 
@@ -162,6 +164,20 @@ describe('pure-code PNG encoder (trayIcon.ts)', () => {
 });
 
 describe('tray menu template (F23)', () => {
+  it('offers all five scales, marks the current one, and shows the running version', () => {
+    const picked: number[] = [];
+    const template = buildTrayMenuTemplate(GLOBAL_MODE, {
+      ...noopActions(), setGameScale: (scale) => picked.push(scale),
+    }, 1.5, 'DesMon v9.8.7');
+    expect(template[0]?.label).toBe('DesMon v9.8.7');
+    const menu = template.find((item) => item.label === SETTINGS_LABEL)?.submenu ?? [];
+    const choices = menu.filter((item) => item.type === 'radio');
+    expect(choices.map((item) => item.label)).toEqual(['2×', '1.5×', '1× (Default)', '2/3×', '1/2×']);
+    expect(choices.filter((item) => item.checked).map((item) => item.label)).toEqual(['1.5×']);
+    choices.forEach((item) => item.click?.());
+    expect(picked).toEqual([2, 1.5, 1, 2 / 3, 1 / 2]);
+    expect(menu.at(-1)).toEqual({ label: 'DesMon v9.8.7', enabled: false });
+  });
   it('tray menu lists title, status, separator, Collection & Battle, Reset Progress, Quit in that order', () => {
     const template = buildTrayMenuTemplate(GLOBAL_MODE, noopActions());
     expect(template.map((item) => item.label ?? item.type)).toEqual([
@@ -169,6 +185,7 @@ describe('tray menu template (F23)', () => {
       INPUT_GLOBAL_LABEL,
       'separator',
       COLLECTION_LABEL,
+      SETTINGS_LABEL,
       RESET_LABEL,
       QUIT_LABEL,
     ]);
@@ -207,6 +224,7 @@ describe('tray menu template (F23)', () => {
       openCollection: () => calls.push('collection'),
       resetProgress: () => calls.push('reset'),
       quit: () => calls.push('quit'),
+      setGameScale: () => {},
     });
     template.find((item) => item.label === COLLECTION_LABEL)?.click?.();
     template.find((item) => item.label === RESET_LABEL)?.click?.();

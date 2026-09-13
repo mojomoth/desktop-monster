@@ -97,12 +97,12 @@ describe('POST /v1/pvp', () => {
     const { call, advance } = setup([2, 3]);
     await player(call, 'low', 1);
     const mid = await player(call, 'mid', 5);
-    await player(call, 'high', 9);
+    const high = await player(call, 'high', 9);
 
     const even = body<PvpResponse>(await fight(call, mid.token));
     expect(even.seed).toBe(2);
     expect(even.bot).toBe(false);
-    expect(even.opponent).toEqual({ name: 'high', bestIndex: 9, rebirths: 0, party: [] });
+    expect(even.opponent).toEqual({ playerId: high.playerId, name: 'high', bestIndex: 9, rebirths: 0, party: [] });
 
     advance(PVP_COOLDOWN_MS);
     const odd = body<PvpResponse>(await fight(call, mid.token));
@@ -284,10 +284,12 @@ describe('POST /v1/pvp', () => {
     expect(unknown.status).toBe(410);
     expect(unknown.body).toEqual({ error: 'match_expired' });
 
-    // A match belongs to whoever asked for it; a foreign caller kills it.
+    // A foreign caller cannot spend or cancel someone else's pending match.
     const mine = await preview(call, me.token);
     expect((await send(other.token, mine.matchId)).status).toBe(410);
-    expect(matches.has(mine.matchId)).toBe(false);
+    expect(matches.has(mine.matchId)).toBe(true);
+    expect((await send(me.token, mine.matchId)).status).toBe(200);
+    advance(PVP_COOLDOWN_MS);
 
     // …and it dies of old age one millisecond past MATCH_TTL_MS.
     const fresh = await preview(call, me.token);

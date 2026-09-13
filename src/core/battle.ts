@@ -4,6 +4,8 @@
 // play it back instead of re-deriving the maths.
 
 import { companionPower, partyOrder } from './collection.js';
+import { heroBuffedPower } from './hero.js';
+import type { HeroRoll } from './hero.js';
 import { typeOf } from './monsters.js';
 import { effectivePower } from './types-chart.js';
 import type { Companion } from './save.js';
@@ -21,6 +23,8 @@ export interface Battle {
   attackerWon: boolean;
   blows: Blow[];
 }
+
+export interface BattleHeroes { attacker?: HeroRoll; defender?: HeroRoll }
 
 /** Every member soaks this many times its own power before falling. */
 export const BATTLE_HP_MULT = 5n;
@@ -48,6 +52,7 @@ const line = (party: readonly Companion[]): Fighter[] =>
 export function simulateBattle(
   attackerParty: readonly Companion[],
   defenderParty: readonly Companion[],
+  heroes: BattleHeroes = {},
 ): Battle {
   const a = line(attackerParty);
   const d = line(defenderParty);
@@ -61,7 +66,7 @@ export function simulateBattle(
     // Both lines are non-empty per the loop condition; this only feeds tsc.
     if (!actor || !target) break;
     const damage = effectivePower(
-      companionPower(actor.c),
+      heroBuffedPower(companionPower(actor.c), typeOf(actor.c.speciesId), side === 'A' ? heroes.attacker : heroes.defender),
       typeOf(actor.c.speciesId),
       typeOf(target.c.speciesId),
     );

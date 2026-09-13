@@ -1,0 +1,554 @@
+{
+  "schemaVersion": 2,
+  "harnessVersion": 7,
+  "kind": "desmon-v07-evaluation",
+  "phase": "candidate",
+  "experimentStage": "validation",
+  "configuration": ".harness/v7/config.json",
+  "fixture": "fresh",
+  "round": 8,
+  "milestones": [
+    {
+      "id": "crownwyrm",
+      "label": "왕관용",
+      "kind": "monster",
+      "ids": [
+        "crownwyrm"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "speciesKills",
+          "id": "dragon",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "rootcolossus",
+      "label": "뿌리거인",
+      "kind": "monster",
+      "ids": [
+        "rootcolossus"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "h58",
+      "label": "심해 기사",
+      "kind": "hero",
+      "ids": [
+        "h58"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "elementKills",
+          "element": "water",
+          "count": 100
+        },
+        {
+          "kind": "speciesKills",
+          "id": "reefknight",
+          "count": 2
+        },
+        {
+          "kind": "totalKills",
+          "count": 1500
+        }
+      ]
+    },
+    {
+      "id": "h62",
+      "label": "천공 수호자",
+      "kind": "hero",
+      "ids": [
+        "h62"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 5
+        },
+        {
+          "kind": "seenMonsters",
+          "count": 60
+        },
+        {
+          "kind": "totalKills",
+          "count": 6000
+        }
+      ]
+    },
+    {
+      "id": "starvoid",
+      "label": "별먹이",
+      "kind": "monster",
+      "ids": [
+        "starvoid"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 16000
+        }
+      ]
+    },
+    {
+      "id": "h70",
+      "label": "별밤 계승자",
+      "kind": "hero",
+      "ids": [
+        "h70"
+      ],
+      "final": true,
+      "requirements": [
+        {
+          "kind": "uniqueHeroes",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 30000
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "control-l16",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 16,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100,
+        "earlyCaptureCount": 1
+      }
+    },
+    {
+      "id": "control-l17",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100,
+        "earlyCaptureCount": 1
+      }
+    },
+    {
+      "id": "control-l18",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 18,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100,
+        "earlyCaptureCount": 1
+      }
+    },
+    {
+      "id": "control-l19",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 19,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100,
+        "earlyCaptureCount": 1
+      }
+    },
+    {
+      "id": "control-l20",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 20,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100,
+        "earlyCaptureCount": 1
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-r8-tail10450",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailDenominator": 10000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "earlyCaptureCount": 5,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      },
+      "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10450/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+    },
+    {
+      "id": "candidate-r8-tail10425",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10425,
+        "fieldHpTailDenominator": 10000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "earlyCaptureCount": 5,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      },
+      "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10425/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+    },
+    {
+      "id": "candidate-r8-tail10400",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10400,
+        "fieldHpTailDenominator": 10000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "earlyCaptureCount": 5,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      },
+      "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10400/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+    }
+  ],
+  "selectedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r8-tail10450"
+  },
+  "frozenAt": "2026-09-12T17:38:53.294240+00:00",
+  "selectionRule": {
+    "screeningMinutes": 120,
+    "minimumBy90Minutes": 18,
+    "denominator": 20,
+    "firstMedianMinutes": [
+      45,
+      60
+    ],
+    "finalMedianHours": [
+      8,
+      12
+    ],
+    "tieBreak": [
+      "population firstAccepted p50 distance from 3150 seconds",
+      "population final eligibility p50 distance from 36000 seconds",
+      "population firstAccepted p90",
+      "experiment id lexicographic"
+    ]
+  },
+  "notes": "Round08 preregistered beforeexecution from completedexploration only. R07 all8/9reports/180raw/17archivesintegrityPASS, noeligibleboth. Prefix1153 firstp502878.7sec/20of20by90 passes, but12h h70populationmedian null with8reached12unreached;6of8before8h,2within8-12h,actualselected0. Misses all satisfy10uniqueheroes and lack30000kills; paired8-to12h kills p504200/min416, all20continue reincarnation. Compare exactly3 existingtail values10450/10425/10400per10000 with samefirstpath1153/1000/L17XP1.42/count5/depth63/start79. Old1155currenttree is not selection basis. No validationvaluesused, no newmechanic/timer/contentcondition. selected=null; bothgoals must pass freshmeasurements.",
+  "changeHistory": [
+    {
+      "version": 1,
+      "reason": "Original baseline protocol preserved in contracts/candidate-01 and baseline archives."
+    },
+    {
+      "version": 2,
+      "reason": "Approved development plan preregistration before source changes and exploration."
+    },
+    {
+      "version": 2,
+      "round": 2,
+      "at": "2026-09-12T03:45:33.166515+00:00",
+      "reason": "All8 round01 failed screening; B16/20 by90min and C10/20 do not pass. Raise XP at L17 without changing field/capture/content.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/protocol.preregistered.json",
+      "analysis": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/round01-analysis/snapshot-08-reports-08-complete.json"
+    },
+    {
+      "version": 2,
+      "round": 3,
+      "at": "2026-09-12T04:21:26.078232+00:00",
+      "reason": "Round02 no eligibleboth candidate. XP141 long stall:12h kills p50=977, uniqueheroes7–9; keepcontent goals and relieve field-only deep HP growth.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/protocol.preregistered.json"
+    },
+    {
+      "version": 2,
+      "round": 4,
+      "at": "2026-09-12T05:05:47.874315+00:00",
+      "reason": "Round04 preregistration before execution. Round03 all8 complete; all3 tails first p502902.6sec and18/20 by90min with exact20/20 recorded first-prefix pairing. Tail105 h70eligible5/20 and populationp50null (conditional37073sec does not pass);12h kills p509226 and paired8-to12h additional kills p504504. Further reduce only field tail; all6content conditions/targets/seed partitions remain unchanged. No validation seed use or adoption.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/protocol.preregistered.json",
+      "analysis": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/round03-analysis/snapshot-11-reports-08-complete.json"
+    },
+    {
+      "version": 2,
+      "round": 5,
+      "at": "2026-09-12T05:34:14.565027+00:00",
+      "reason": "Round05 preregistered before any execution. Round04 all8 complete,11reports/220raw. All3candidate first goals and20/20 recordedprefix pass; h70 populationp50=24101.5/23121.7/20968.5sec for1040/1035/1030, all before8h and thereforeFAIL. Reached17/20,20/20,20/20; actualh70chosen0. No eligibleboth. Compare exactly3 quarter-point HP ratios between1.04 and1.05, with every other parameter,6content conditions, goals, policies and seed partitions unchanged. No adoption or candidate validation seed use.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/protocol.preregistered.json",
+      "analysis": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/round04-analysis/snapshot-11-reports-08-complete.json"
+    },
+    {
+      "version": 2,
+      "parameterVersion": 3,
+      "round": 6,
+      "at": "2026-09-12T06:42:04.818891+00:00",
+      "reason": "Round06 exploration preregistered before execution. Round05 adopted validation failed and original candidate.json/validation analysis remain immutable; no validation values used to select these candidates. Designer independent proposal used only exploration rounds01/02/05 and production source; Critic independently checked exploration capture gaps. Compare exactly three candidates and five controls with21 exact parameters. Lifetime natural-capture quota uses nextCompanionId; no new save field/timer. First and final population goals, six content conditions, policy and seed partitions unchanged. Selected=null; no adoption or release claim.",
+      "previousProtocol": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-13/docs__v0.7__EVALUATION_PROTOCOL.json.original.txt",
+      "proposal": ".agentdoc/v07-setup-20260911T122653Z/evidence/round06-design-preparation/designer-proposal.md",
+      "proposalSha256": "f6f52a2007564bb2d98e844d5f838c45ba3447f6d84c83c16f711b55b59ec2bd"
+    },
+    {
+      "version": 2,
+      "parameterVersion": 3,
+      "round": 6,
+      "at": "2026-09-12T06:45:14.642019+00:00",
+      "reason": "Before any Round06 execution, static Critic preflight corrected natural-capture naming: existing transfers/legacy ID repair advance allocator. Numbers/IDs/goals unchanged. Separately register safe allocator exhaustion regression to prevent high-ID counter overflow and duplicate companion loss. Prior preregistration preserved in candidate14."
+    },
+    {
+      "version": 2,
+      "parameterVersion": 3,
+      "round": 7,
+      "at": "2026-09-12T07:24:21.813306+00:00",
+      "reason": "Round07 preregistered before execution from completedexploration only. Round06 all8screenFAIL, 8reports/160rawindependentintegrityPASS. A firstp502650.5sec/19of20by90; B2320.3/20 withp903095.8/worst3198; C2266.5/20 withp903459.7/worst3732.8. No12h/noadoption. Designer chooses B as observed central/tail reference, not currentCsource. Compare exactly3 existing21key prefixHP values, no newmechanic. Controlsgrowthbaselineunchanged. No validationvaluesused for numericalproposal. Old100seedfailurecandidate.json remainsimmutable; selected=null and currentroundlonggoalsunmeasured.",
+      "previousProtocol": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/protocol.preregistered.json",
+      "independentAnalysis": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round06-analysis/final-analysis.json",
+        "sha256": "b74876fa2928c55b8e8e14f2a69df5f7e28dd8e231e073a255e1d716ea363cd4"
+      },
+      "proposal": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round07-design-preparation/designer-proposal.md",
+        "sha256": "77634e3efdb66dd54db88c0346b2bee323bab822ab8ffcd49e4439d1822d40d6"
+      }
+    },
+    {
+      "version": 2,
+      "parameterVersion": 3,
+      "round": 8,
+      "at": "2026-09-12T16:56:58.617163+00:00",
+      "reason": "Round08 preregistered beforeexecution from completedexploration only. R07 all8/9reports/180raw/17archivesintegrityPASS, noeligibleboth. Prefix1153 firstp502878.7sec/20of20by90 passes, but12h h70populationmedian null with8reached12unreached;6of8before8h,2within8-12h,actualselected0. Misses all satisfy10uniqueheroes and lack30000kills; paired8-to12h kills p504200/min416, all20continue reincarnation. Compare exactly3 existingtail values10450/10425/10400per10000 with samefirstpath1153/1000/L17XP1.42/count5/depth63/start79. Old1155currenttree is not selection basis. No validationvaluesused, no newmechanic/timer/contentcondition. selected=null; bothgoals must pass freshmeasurements.",
+      "previousProtocol": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/protocol.preregistered.json",
+      "analysis": ".agentdoc/v07-setup-20260911T122653Z/evidence/round07-analysis/final-analysis.json",
+      "analysisSha256": "4967aaf7908a7005828b88daa0cda36a8f01d158e15f28af4b0608238727e344",
+      "proposal": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/designer-proposal.md",
+      "proposalSha256": "cdc4c8e437ac22d3218e554334ce101bc39177cab9f82ddfc6cdd9e0b1a12f4b"
+    },
+    {
+      "version": 2,
+      "parameterVersion": 3,
+      "round": 8,
+      "at": "2026-09-12T17:38:53.294240+00:00",
+      "reason": "Official adoption after all8 exploration trials and independent immutable audit completed. Prespecified ranking selects candidate-r8-tail10450 before new validation1-100; no numerical/content/goal/seed changes. Previous failed validation remains immutable.",
+      "adoptionEvidence": {
+        "at": "2026-09-12T17:38:53.294240+00:00",
+        "round": 8,
+        "kind": "prespecified-exploration-selection",
+        "preregisteredProtocol": {
+          "path": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-17/docs__v0.7__EVALUATION_PROTOCOL.json.original.txt",
+          "sha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694"
+        },
+        "independentAnalysis": {
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/final-analysis.json",
+          "bytes": 1970534,
+          "sha256": "6f1b022b3bf4bef602f754459c2b1014c052bcd16d1723fb5d51a04daa25c311"
+        },
+        "hostCheck": {
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-host-selection-check.json",
+          "sha256": "25333b89c23ff15aa5ac9dcc2298f8db0d6f79eacd0bc7a56274adc0bf34051a"
+        },
+        "ranking": [
+          "candidate-r8-tail10450",
+          "candidate-r8-tail10425"
+        ],
+        "scoreUnit": "integer100ms",
+        "scores": {
+          "candidate-r8-tail10450": [
+            2713,
+            9915,
+            35163
+          ],
+          "candidate-r8-tail10425": [
+            2713,
+            42315,
+            35163
+          ]
+        },
+        "limits": "Exploration only: selected h70 eligible10/20, unreached10/20, actualchosen0. Whole p50 lower index9 =36991.5sec; conditional28693.9sec is not the target. New Round08 validation1-100 has not run. Goals/content/parameters/seed partitions unchanged; no release claim."
+      }
+    }
+  ],
+  "progressionParameterVersion": 3,
+  "earlyCaptureContract": {
+    "quotaMeaning": "Existing permanent nextCompanionId allocator interval, positive safe integer earlyCaptureCount<=30, default1. General saves: transfers and legacy ID repair may consume/jump quota; never infer natural capture totals. Only fresh/no-PvP canonical measurement equates this interval with natural captures.",
+    "guarantee": "boss && firstCaptureBossIndex!==null && index>=firstCaptureBossIndex && nextCompanionId<=earlyCaptureCount && companions.length<30",
+    "rng": "Always one existing capture draw per boss before OR with guarantee; nonboss no capture draw. Full roster keeps ordinary35% release/soul policy.",
+    "persistence": "Preserve monotone existing allocation marker, not current roster. Successful captures and external acquisitions advance it while safe; removing/restarting/reincarnating never resets it. No new save field or reconstruction of unknown legacy natural capture history.",
+    "validation": "Exact21 parameter binding; historical17/20 remain valid only under versions1/2. New same-candidate screening/full first recorded journey pairing; do not assert equality to older XP/capture candidates.",
+    "allocatorSafety": "Implemented safe exhausted MAX marker including positiveInfinity, all-ID-digit repair with original IDs preserved, local unsafe/duplicate allocation rejection before roster/material/lost removal, external s/r delivery accepted with saturated counter. Historical Round06 focused/registered943tests and independentCritic evidence preserved; new current-source AC/gates required. No new save field or natural-only counter."
+  },
+  "recordedFirstJourneyComparison": {
+    "referenceExperiment": "candidate-r7-prefix1153",
+    "reference": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1153/screening.json",
+    "referenceSha256": "697cfe80f4880b054920c303a02b1a83700f3a056ebd5151b984e049c8b115d5",
+    "scope": "Each new candidate screening: sameexploration20 sevenfirstevents and recorded records/actions through firstaccepted or120mincensoring. Separately samecandidate screening/full20pairing. No fullattack/kill/RNGtrace claim; pastresult is comparison only, never newperformance certification."
+  },
+  "adoption": {
+    "at": "2026-09-12T17:38:53.294240+00:00",
+    "round": 8,
+    "kind": "prespecified-exploration-selection",
+    "preregisteredProtocol": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-17/docs__v0.7__EVALUATION_PROTOCOL.json.original.txt",
+      "sha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694"
+    },
+    "independentAnalysis": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/final-analysis.json",
+      "bytes": 1970534,
+      "sha256": "6f1b022b3bf4bef602f754459c2b1014c052bcd16d1723fb5d51a04daa25c311"
+    },
+    "hostCheck": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-host-selection-check.json",
+      "sha256": "25333b89c23ff15aa5ac9dcc2298f8db0d6f79eacd0bc7a56274adc0bf34051a"
+    },
+    "ranking": [
+      "candidate-r8-tail10450",
+      "candidate-r8-tail10425"
+    ],
+    "scoreUnit": "integer100ms",
+    "scores": {
+      "candidate-r8-tail10450": [
+        2713,
+        9915,
+        35163
+      ],
+      "candidate-r8-tail10425": [
+        2713,
+        42315,
+        35163
+      ]
+    },
+    "limits": "Exploration only: selected h70 eligible10/20, unreached10/20, actualchosen0. Whole p50 lower index9 =36991.5sec; conditional28693.9sec is not the target. New Round08 validation1-100 has not run. Goals/content/parameters/seed partitions unchanged; no release claim."
+  }
+}

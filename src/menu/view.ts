@@ -5,16 +5,17 @@
 // the action would succeed.
 
 import {
-  COMPANION_MAX_LEVEL,
+  COMPANION_REINCARNATION_LEVEL,
   companionPower,
   effectivePower,
   format,
+  heroBuffedPower,
   PARTY_SIZE,
   partyOrder,
   REBIRTH_MIN_INDEX,
   typeOf,
 } from '../core/index.js';
-import type { Companion, MonsterType, SaveFile } from '../core/index.js';
+import type { Companion, HeroRoll, MonsterType, SaveFile } from '../core/index.js';
 import type { LeaderboardResult, MatchResult, NetResult, PvpResult, Theft } from '../shared/api.js';
 
 /** One roster card, ready to paint. */
@@ -30,7 +31,7 @@ export interface RosterRow {
   starText: string;
   /** '.power' text: companionPower in letter-suffix form. */
   power: string;
-  /** Reincarnate needs max level (COMPANION_MAX_LEVEL). */
+  /** Legacy field name: reincarnation is available, not a growth cap. */
   maxLevel: boolean;
 }
 
@@ -61,7 +62,7 @@ export function rosterRows(save: SaveFile): RosterRow[] {
       name: companionName(c),
       starText: `★×${String(c.stars)}`,
       power: format(companionPower(c)),
-      maxLevel: c.level >= COMPANION_MAX_LEVEL,
+      maxLevel: c.level >= COMPANION_REINCARNATION_LEVEL && Number.isSafeInteger(c.stars + 1),
     }));
 }
 
@@ -73,7 +74,7 @@ export function fuseCandidates(save: SaveFile): [string, string][] {
     for (let j = i + 1; j < cs.length; j++) {
       const a = cs[i];
       const b = cs[j];
-      if (a && b && a.speciesId === b.speciesId && a.stars === b.stars) {
+      if (a && b && a.speciesId === b.speciesId && a.stars === b.stars && Number.isSafeInteger(a.stars + 1)) {
         pairs.push([a.id, b.id]);
       }
     }
@@ -84,11 +85,12 @@ export function fuseCandidates(save: SaveFile): [string, string][] {
 /** Rebirth unlocks at REBIRTH_MIN_INDEX (40) — the footer button's flag. */
 export const canRebirth = (save: SaveFile): boolean => save.monsterIndex >= REBIRTH_MIN_INDEX;
 
-/** Ids that may eat `foodId` — core's rule: any other companion on the roster. */
+/** Ids that may eat `foodId` without overflowing their resulting level. */
 export function consumeTargets(save: SaveFile, foodId: string): string[] {
   const cs = save.companions;
-  if (!cs.some((c) => c.id === foodId)) return [];
-  return cs.filter((c) => c.id !== foodId).map((c) => c.id);
+  const food = cs.find((c) => c.id === foodId);
+  if (!food) return [];
+  return cs.filter((c) => c.id !== foodId && Number.isSafeInteger(c.level + 1 + food.stars)).map((c) => c.id);
 }
 
 // ---------------------------------------------------------------- SPEC F55
@@ -132,16 +134,17 @@ export function pvpResultText(result: NetResult<PvpResult>): string {
       : 'Offline — no battle right now.';
   }
   const { win, opponent, stolen, lost } = result.value;
+  const history = result.value.historySaved === false ? ' 전적 저장을 완료하지 못했습니다. 자동 저장 때 다시 시도합니다.' : '';
   if (win) {
-    return stolen
+    return (stolen
       ? `Victory over ${opponent.name} — stole ${companionName(stolen)}!`
-      : `Victory over ${opponent.name}.`;
+      : `Victory over ${opponent.name}.`) + history;
   }
   // v3 steals are attacker-only, so `lost` is always null — the named leg is
   // still here for the v2-shaped response the server may answer with.
-  return lost
+  return (lost
     ? `Defeat by ${opponent.name} — ${companionName(lost)} was stolen from you.`
-    : `Defeat by ${opponent.name}.`;
+    : `Defeat by ${opponent.name}.`) + history;
 }
 
 // ---------------------------------------------------------------- SPEC F75
@@ -207,10 +210,11 @@ const frontOf = (party: readonly Companion[]): Companion | undefined => {
 export function partyPreview(
   myParty: readonly Companion[],
   opponentParty: readonly Companion[],
+  hero?: HeroRoll,
 ): string {
   const front = frontOf(opponentParty);
   const total = myParty.reduce((sum, c) => {
-    const power = companionPower(c);
+    const power = heroBuffedPower(companionPower(c), typeOf(c.speciesId), hero);
     return (
       sum +
       (front === undefined ? power : effectivePower(power, typeOf(c.speciesId), typeOf(front.speciesId)))

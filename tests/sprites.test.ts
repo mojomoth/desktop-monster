@@ -203,7 +203,7 @@ describe('fever aura', () => {
 describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
   it('every core species has idle x2 and hit x1 sprites registered under monster.<id>.<pose>', () => {
     const registered = allSprites();
-    expect(SPECIES_IDS).toHaveLength(105);
+    expect(SPECIES_IDS).toHaveLength(135);
     for (const id of SPECIES_IDS) {
       const art = monsterSprites[id];
       expect(art.idle.frames, `${id} idle`).toHaveLength(2);
@@ -265,9 +265,9 @@ describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
     expect(Math.max(...heights[1])).toBeLessThan(Math.min(...heights[2]));
     expect(Math.max(...heights[2])).toBeLessThan(Math.min(...heights[3]));
     // 21 species per element, 35 per hidden size (F81).
-    expect(heights[1]).toHaveLength(35);
-    expect(heights[2]).toHaveLength(35);
-    expect(heights[3]).toHaveLength(35);
+    expect(heights[1]).toHaveLength(45);
+    expect(heights[2]).toHaveLength(45);
+    expect(heights[3]).toHaveLength(45);
   });
 
   it('no two species share a silhouette: every idle frame 0 is unique', () => {
@@ -281,7 +281,7 @@ describe('monster art (SPEC F19 part 2, Assumption 4)', () => {
       expect(prev, `${id} has the same silhouette as ${String(prev)}`).toBeUndefined();
       seen.set(mask, id);
     }
-    expect(seen.size).toBe(105);
+    expect(seen.size).toBe(135);
   });
 });
 

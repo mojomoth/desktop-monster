@@ -20,7 +20,8 @@ import type { InputModePayload, InputPayload, InputSource } from '../shared/ipc.
 
 /** The subset of the native global hook this module drives. */
 export interface NativeHook {
-  on(event: 'keydown' | 'mousedown', listener: () => void): unknown;
+  on(event: 'keydown' | 'keyup', listener: (event: { keycode: number }) => void): unknown;
+  on(event: 'mousedown', listener: () => void): unknown;
   start(): void;
   stop(): void;
 }
@@ -101,7 +102,13 @@ export function startGlobalInput(deps: GlobalInputDeps): GlobalInputController {
   const tryStartHook = (): void => {
     try {
       const candidate = loadHook();
-      candidate.on('keydown', forward('keyboard'));
+      const heldKeys = new Set<number>();
+      candidate.on('keydown', ({ keycode }) => {
+        if (heldKeys.has(keycode)) return;
+        heldKeys.add(keycode);
+        onInput({ source: 'keyboard' });
+      });
+      candidate.on('keyup', ({ keycode }) => heldKeys.delete(keycode));
       candidate.on('mousedown', forward('mouse'));
       candidate.start();
       hook = candidate;

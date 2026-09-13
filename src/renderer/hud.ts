@@ -8,6 +8,7 @@
 
 import { ratio, xpToNext } from '../core/index.js';
 import type { Effectiveness, GameState } from '../core/index.js';
+import { heroReadiness, heroReady, HERO_DEFER_MS, HERO_REST_MS } from '../core/hero.js';
 import {
   COLORS,
   drawSprite,
@@ -25,6 +26,8 @@ import type { SpriteCanvas } from './sprites/index.js';
 
 /** Gap between HUD chrome and the canvas edges, in game pixels. */
 export const HUD_MARGIN = 2;
+/** Keep counters below the drag strip, closer to the field. */
+export const COUNTER_TOP = 16;
 /** XP progress bar box size (top-left, under the LV text). */
 export const XP_BAR_W = 40;
 export const XP_BAR_H = 4;
@@ -84,6 +87,40 @@ export function drawLevelHud(
   drawMeter(ctx, barX, barY, XP_BAR_W, XP_BAR_H, state.xp / xpToNext(state.level), COLORS.cyan);
   const label = `LV ${String(state.level)}`;
   drawText(ctx, label, Math.round(cx - textWidth(label) / 2), barY - FONT_H - 2);
+  if (heroReady(state.level, state.hero)) {
+    const ready = 'REBIRTH READY';
+    drawText(ctx, ready, Math.round(cx - textWidth(ready) / 2), barY - 2 * (FONT_H + 2), { color: COLORS.yellow });
+  }
+}
+
+/** Expedition gauge box: meter width, and where the soul count starts. */
+export const EXPEDITION_W = 40;
+export const EXPEDITION_H = 3;
+export const EXPEDITION_SOULS_X = HUD_MARGIN + EXPEDITION_W + 2;
+
+/**
+ * Top-left expedition readout: how far the next reincarnation offer is, plus
+ * the souls the current depth already guarantees. While the post-accept rest
+ * runs the meter drains; once it is over the same meter fills with progress
+ * toward the level that unlocks the offer, so the long quiet stretch that
+ * used to show nothing still says what it is waiting for. Display only — it
+ * grants nothing and never moves, so the whole thing stays inside
+ * x[2,60) y[16,21), clear of the hero, the monster, the party, the counters
+ * and the banner. It hides once the offer is ready or no further offer exists.
+ */
+export function drawExpedition(ctx: SpriteCanvas, state: Readonly<GameState>): void {
+  const readiness = heroReadiness(state.level, state.hero);
+  if (readiness.status === 'ready' || readiness.status === 'capped') return;
+  // Both waits drain; only the climb to the unlock level fills. Green keeps
+  // the climb apart from the cyan XP bar riding above the hero's head.
+  const [ratio, color] = readiness.status === 'rest'
+    ? [readiness.remainingMs / HERO_REST_MS, COLORS.blue]
+    : readiness.status === 'defer'
+      ? [readiness.remainingMs / HERO_DEFER_MS, COLORS.blue]
+      : [state.level / readiness.requiredLevel, COLORS.green];
+  drawMeter(ctx, HUD_MARGIN, COUNTER_TOP, EXPEDITION_W, EXPEDITION_H, ratio, color);
+  const souls = String(Math.max(1, Math.floor(state.monster.index / 8)));
+  drawText(ctx, souls.length > 4 ? '9999' : souls, EXPEDITION_SOULS_X, COUNTER_TOP, { color: COLORS.orange });
 }
 
 /** 5×5 skull marker for the kill counter — HUD chrome, drawn directly. */
@@ -113,15 +150,15 @@ export function drawCounters(
 ): void {
   const kills = String(state.killCount);
   const killsX = viewW - HUD_MARGIN - textWidth(kills);
-  drawText(ctx, kills, killsX, HUD_MARGIN);
-  drawSkullIcon(ctx, killsX - 7, HUD_MARGIN);
+  drawText(ctx, kills, killsX, COUNTER_TOP);
+  drawSkullIcon(ctx, killsX - 7, COUNTER_TOP);
 
   const coins = String(state.coins);
   const coinsX = viewW - HUD_MARGIN - textWidth(coins);
-  drawText(ctx, coins, coinsX, HUD_MARGIN + FONT_H + 2, {
+  drawText(ctx, coins, coinsX, COUNTER_TOP + FONT_H + 2, {
     color: coinPop ? COLORS.white : COLORS.yellow,
   });
-  const iconY = HUD_MARGIN + FONT_H + (coinPop ? 0 : 1);
+  const iconY = COUNTER_TOP + FONT_H + (coinPop ? 0 : 1);
   drawSprite(ctx, itemSprites.coin, 0, coinsX - 8, iconY);
 }
 
@@ -144,7 +181,7 @@ export const FLOAT_POOL_SIZE = 16;
 /** Lifetime of one floating number, ms. */
 export const FLOAT_LIFE_MS = 600;
 /** Total rise over the lifetime, game pixels. */
-export const FLOAT_RISE_PX = 8;
+export const FLOAT_RISE_PX = 14;
 /** Age fraction past which a float draws in its dim fade color. */
 export const FLOAT_FADE_RATIO = 2 / 3;
 /** Pixel scale of normal damage numbers (user change 2026-09-06: readable 2x glyphs with a 1-px outline). */
@@ -262,9 +299,7 @@ function drawScaledText(
  */
 export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
   for (const f of pool) {
-    if (!f.active) {
-      continue;
-    }
+    if (!f.active) continue;
     const scale = f.crit ? CRIT_FLOAT_SCALE : FLOAT_SCALE;
     const text = f.crit ? `${f.text}!` : f.text;
     const faded = f.ageMs >= FLOAT_LIFE_MS * FLOAT_FADE_RATIO;
@@ -282,6 +317,17 @@ export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
     }
     drawScaledText(ctx, text, x, y, scale, color);
   }
+}
+
+/** Draw the active fever state directly above the hero, with a dark outline. */
+export function drawFeverLabel(ctx: SpriteCanvas, cx: number, heroTop: number): void {
+  const scale = 2;
+  const x = Math.round(cx - (textWidth(FEVER_TEXT) * scale) / 2);
+  const y = heroTop - 26;
+  for (const [ox, oy] of [[-1, 0], [1, 0], [0, -1], [0, 1]] as const) {
+    drawScaledText(ctx, FEVER_TEXT, x + ox, y + oy, scale, COLORS.void);
+  }
+  drawScaledText(ctx, FEVER_TEXT, x, y, scale, COLORS.yellow);
 }
 
 // ---------------------------------------------------------------------------

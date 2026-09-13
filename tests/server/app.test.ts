@@ -185,7 +185,7 @@ describe('createApp', () => {
     expect((await upload(snap('greedy', -1, 0))).status).toBe(400);
     expect((await upload(snap('greedy', 2_147_483_648, 0))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 1.5))).status).toBe(400);
-    expect((await upload(snap('greedy', 1, 0, [comp('c1', { level: 11 })]))).status).toBe(400);
+    expect((await upload(snap('greedy', 1, 0, [comp('c1', { level: Number.MAX_SAFE_INTEGER + 1 })]))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 0, [comp('c1', { level: 0 })]))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 0, [comp('c1', { speciesId: 'wyrm' })]))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 0, [comp('C-1!')]))).status).toBe(400);
@@ -305,6 +305,7 @@ describe('createApp', () => {
       throw new Error('store is down');
     };
     const broken: Store = {
+      transaction: boom,
       createPlayer: boom,
       getByToken: boom,
       getById: boom,
@@ -312,6 +313,7 @@ describe('createApp', () => {
       setStolenIds: boom,
       setLastPvpAt: boom,
       setThefts: boom,
+      recordBattle: boom,
       rank: boom,
       top: boom,
       neighbor: boom,
@@ -341,6 +343,7 @@ describe('createApp', () => {
     expect(auto.expiresAt).toBe(T0 + MATCH_TTL_MS);
     // No stored party → the PARTY_SIZE_MAX strongest by raw power, strongest first.
     expect(auto.opponent).toEqual({
+      playerId: rival.playerId,
       name: 'rival',
       bestIndex: 9,
       rebirths: 0,
@@ -617,6 +620,8 @@ describe('MemoryStore', () => {
       stolenIds: [],
       lastPvpAt: null,
       thefts: [],
+      wins: 0,
+      losses: 0,
     });
     await store.setLastPvpAt('e', 1234);
     expect((await store.getById('e'))?.lastPvpAt).toBe(1234);

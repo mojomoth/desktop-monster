@@ -4,20 +4,24 @@
 // behavior have real vitest coverage without an Electron process.
 
 import type { InputModePayload } from '../shared/ipc.js';
+import { GAME_SCALES, SCALE_LABELS } from './settings.js';
 
 /** First (disabled) menu row; tests pin the version against package.json. */
-export const TRAY_TITLE = 'DesMon v0.3.0';
+export const TRAY_TITLE = 'DesMon v0.7.0';
 export const TRAY_TOOLTIP = 'DesMon';
 export const INPUT_GLOBAL_LABEL = 'Input: Global';
 export const INPUT_FALLBACK_LABEL = 'Input: Window-only (grant Accessibility…)';
 export const COLLECTION_LABEL = 'Collection & Battle…';
+export const SETTINGS_LABEL = 'Setting';
 export const RESET_LABEL = 'Reset Progress';
 export const QUIT_LABEL = 'Quit';
 
 /** Structural subset of Electron.MenuItemConstructorOptions this emits. */
 export interface TrayMenuItem {
   label?: string;
-  type?: 'separator';
+  type?: 'separator' | 'radio';
+  checked?: boolean;
+  submenu?: TrayMenuItem[];
   enabled?: boolean;
   click?: () => void;
 }
@@ -31,6 +35,7 @@ export interface TrayMenuActions {
   resetProgress: () => void;
   /** "Quit" clicked → app.quit(). */
   quit: () => void;
+  setGameScale: (scale: number) => void;
 }
 
 /**
@@ -41,16 +46,32 @@ export interface TrayMenuActions {
 export function buildTrayMenuTemplate(
   mode: InputModePayload,
   actions: TrayMenuActions,
+  gameScale = 1,
+  title = TRAY_TITLE,
 ): TrayMenuItem[] {
   const status: TrayMenuItem =
     mode.mode === 'global'
       ? { label: INPUT_GLOBAL_LABEL, enabled: false }
       : { label: INPUT_FALLBACK_LABEL, click: actions.openAccessibilitySettings };
   return [
-    { label: TRAY_TITLE, enabled: false },
+    { label: title, enabled: false },
     status,
     { type: 'separator' },
     { label: COLLECTION_LABEL, click: actions.openCollection },
+    {
+      label: SETTINGS_LABEL,
+      submenu: [
+        { label: 'Game size', enabled: false },
+        ...GAME_SCALES.map((scale, i): TrayMenuItem => ({
+          label: SCALE_LABELS[i],
+          type: 'radio',
+          checked: scale === gameScale,
+          click: () => actions.setGameScale(scale),
+        })),
+        { type: 'separator' },
+        { label: title, enabled: false },
+      ],
+    },
     { label: RESET_LABEL, click: actions.resetProgress },
     { label: QUIT_LABEL, click: actions.quit },
   ];
@@ -63,6 +84,8 @@ export interface TrayLike {
 }
 
 export interface TrayDeps {
+  getGameScale?: () => number;
+  title?: string;
   /** Wraps `new Tray(nativeImage.createFromBuffer(encodeTrayIconPng()))`. */
   createTray: () => TrayLike;
   /** Wraps `Menu.buildFromTemplate(template)`. */
@@ -92,7 +115,7 @@ export function setupTray(deps: TrayDeps): TrayController {
   activeTray = tray;
   tray.setToolTip(TRAY_TOOLTIP);
   const refresh = (mode: InputModePayload): void => {
-    tray.setContextMenu(deps.buildMenu(buildTrayMenuTemplate(mode, deps.actions)));
+    tray.setContextMenu(deps.buildMenu(buildTrayMenuTemplate(mode, deps.actions, deps.getGameScale?.() ?? 1, deps.title)));
   };
   refresh(deps.getInputMode());
   return { refresh };

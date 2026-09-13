@@ -20,11 +20,11 @@ const FALLBACK: InputModePayload = { mode: 'fallback', accessibilityGranted: fal
 const GLOBAL: InputModePayload = { mode: 'global', accessibilityGranted: true };
 
 class FakeHook implements NativeHook {
-  listeners = new Map<string, () => void>();
+  listeners = new Map<string, (event: { keycode: number }) => void>();
   started = 0;
   stopped = 0;
 
-  on(event: 'keydown' | 'mousedown', listener: () => void): void {
+  on(event: 'keydown' | 'keyup' | 'mousedown', listener: (event: { keycode: number }) => void): void {
     this.listeners.set(event, listener);
   }
   start(): void {
@@ -33,8 +33,8 @@ class FakeHook implements NativeHook {
   stop(): void {
     this.stopped += 1;
   }
-  fire(event: 'keydown' | 'mousedown'): void {
-    this.listeners.get(event)?.();
+  fire(event: 'keydown' | 'keyup' | 'mousedown', keycode = 30): void {
+    this.listeners.get(event)?.({ keycode });
   }
 }
 
@@ -79,6 +79,20 @@ function makeHarness(overrides: Partial<GlobalInputDeps> = {}) {
 }
 
 describe('startGlobalInput on darwin, permission granted', () => {
+  it('ignores held-key repeats independently and accepts a new press after release', () => {
+    const h = makeHarness();
+    h.start();
+    h.hook.fire('keydown', 30);
+    h.hook.fire('keydown', 30);
+    h.hook.fire('keydown', 31);
+    h.hook.fire('keydown', 31);
+    expect(h.inputs).toHaveLength(2);
+    h.hook.fire('keyup', 30);
+    h.hook.fire('keydown', 30);
+    h.hook.fire('keydown', 31);
+    expect(h.inputs).toEqual(Array.from({ length: 3 }, () => ({ source: 'keyboard' })));
+  });
+
   it('asks for the Accessibility grant exactly once, with prompt=true', () => {
     const h = makeHarness();
     h.start();
@@ -97,6 +111,7 @@ describe('startGlobalInput on darwin, permission granted', () => {
     h.start();
     h.hook.fire('keydown');
     h.hook.fire('mousedown');
+    h.hook.fire('keyup');
     h.hook.fire('keydown');
     expect(h.inputs).toEqual([
       { source: 'keyboard' },

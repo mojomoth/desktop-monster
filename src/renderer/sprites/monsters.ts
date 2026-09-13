@@ -19,6 +19,7 @@ import type { SpeciesId } from '../../core/index.js';
 import { COLORS } from './palette.js';
 import { registerSprites } from './sprite.js';
 import type { Sprite } from './sprite.js';
+import { rareSprites } from './species/rare.js';
 import { darkSprites } from './species/dark.js';
 import { earthSprites } from './species/earth.js';
 import { fireSprites } from './species/fire.js';
@@ -480,6 +481,7 @@ export const monsterSprites: Record<SpeciesId, SpeciesSprites> = {
   ...darkSprites,
   ...earthSprites,
   ...fireSprites,
+  ...rareSprites,
 };
 
 // Self-register every pose of every species so the integrity sweep in

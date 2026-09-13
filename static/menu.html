@@ -1,24 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>DesMon — Collection &amp; Battle</title>
+    <title>DesMon — 영웅과 모험 기록</title>
     <link rel="stylesheet" href="menu.css" />
   </head>
   <body>
-    <div class="tabs">
-      <button class="tab active" id="tab-roster" type="button">Roster</button>
-      <button class="tab" id="tab-ranking" type="button">Ranking</button>
-      <button class="tab" id="tab-battle" type="button">Battle</button>
+    <div class="tabs" role="tablist" aria-label="게임 메뉴">
+      <button class="tab active" id="tab-hero" type="button">영웅</button>
+      <button class="tab" id="tab-shop" type="button">상점</button>
+      <button class="tab" id="tab-codex" type="button">도감</button>
+      <button class="tab" id="tab-profile" type="button">내 기록</button>
+      <button class="tab" id="tab-roster" type="button">동료</button>
+      <button class="tab" id="tab-ranking" type="button">순위</button>
+      <button class="tab" id="tab-battle" type="button">대전</button>
     </div>
-    <div class="panel" id="roster"></div>
+    <p id="save-status" role="status" aria-live="polite" hidden></p>
+    <div class="panel" id="hero"></div>
+    <div class="panel" id="shop" hidden></div>
+    <div class="panel" id="codex" hidden></div>
+    <div class="panel" id="profile" hidden>
+      <h2>내 기록</h2>
+      <div class="row">
+        <label class="name" for="name">플레이어 이름</label>
+        <input id="name" type="text" maxlength="16" autocomplete="off" spellcheck="false" aria-describedby="name-rule name-status" />
+        <button class="btn" id="save-name" type="button">이름 저장</button>
+      </div>
+      <p class="muted" id="name-rule">영문·숫자·_·- 1–16자. 오프라인에서도 변경할 수 있습니다.</p>
+      <p class="muted" id="name-status" role="status" aria-live="polite"></p>
+      <div id="profile-stats"></div>
+    </div>
+    <div class="panel" id="roster" hidden></div>
     <div class="panel" id="ranking" hidden></div>
     <div class="panel" id="battle" hidden>
-      <div class="row">
-        <label class="name" for="name">Name</label>
-        <input id="name" type="text" maxlength="16" autocomplete="off" spellcheck="false" />
-      </div>
-      <button class="btn" id="find" type="button">Find opponent</button>
+      <h2>대전 상대</h2>
+      <p class="muted">영웅과 배치된 동료, 전적을 보고 상대를 선택하세요.</p>
+      <button class="btn" id="find" type="button">목록 새로고침</button>
+      <div id="opponents" aria-live="polite"></div>
       <div id="opponent"><span class="name">No opponent yet</span></div>
       <div id="party">
         <div class="slot"></div>
@@ -37,7 +55,7 @@
       <div id="thefts"></div>
     </div>
     <div class="footer">
-      <button class="btn" id="rebirth" type="button" disabled>Rebirth</button>
+      <button class="btn" id="rebirth" type="button" disabled>영혼 회귀 · 외형 유지</button>
     </div>
     <!-- #result is shared: the roster tab writes its consume prompt here too, so
          it stays outside the panels instead of moving into the Battle tab. -->

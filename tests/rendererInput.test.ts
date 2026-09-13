@@ -106,6 +106,18 @@ function wire(): Wired {
 }
 
 describe('setupFallbackInput (SPEC F14)', () => {
+  it('ignores keyboard auto-repeat but accepts subsequent fresh presses', async () => {
+    const { fake, fakeBridge, attacks, handle } = wire();
+    fakeBridge.resolveSeed('fallback');
+    await handle.ready;
+    fake.dispatch('keydown', { repeat: false });
+    fake.dispatch('keydown', { repeat: true });
+    fake.dispatch('keydown', { repeat: true });
+    expect(attacks).toEqual(['keyboard']);
+    fake.dispatch('keydown', { repeat: false });
+    expect(attacks).toEqual(['keyboard', 'keyboard']);
+  });
+
   it('attaches keydown and mousedown in fallback mode and maps them to input sources', async () => {
     const { fake, fakeBridge, attacks, handle } = wire();
     expect(handle.isAttached()).toBe(false); // detached until the seed answers

@@ -20,6 +20,7 @@ export {
 } from './palette.js';
 
 export { HERO_RIVAL_PALETTE, heroAttack, heroIdle, heroSlash } from './hero.js';
+export { drawHeroForm, HERO_FORM_IDS, heroFormSprite } from './heroForms.js';
 
 export { monsterSprites } from './monsters.js';
 export type { SpeciesSprites } from './monsters.js';

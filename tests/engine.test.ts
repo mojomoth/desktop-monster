@@ -1,21 +1,25 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   COIN_ITEM,
   coinsForIndex,
   activeCompanions,
   attackDelayOf,
+  COMMON_SPECIES_IDS,
   SPECIES_IDS,
   typeOf,
   companionPower,
   createEngine,
+  DEFAULT_SAVE,
+  eligibleMonsterIds,
   CRIT_MULT,
   damageForLevel,
   FEVER_INPUTS,
   FEVER_MS,
   monsterForIndex,
-  monsterMaxHp,
+  fieldMonsterMaxHp,
   mulberry32,
   parseSave,
+  PROGRESSION_PARAMETERS,
   serializeSave,
   upgradeSave,
   xpReward,
@@ -53,7 +57,7 @@ function makeSave(overrides: Partial<SaveFileV1> = {}): SaveFileV1 {
     coins: 0,
     items: {},
     monsterIndex,
-    monsterHp: Number(monsterMaxHp(monsterIndex)),
+    monsterHp: Number(fieldMonsterMaxHp(monsterIndex)),
     ...overrides,
   };
 }
@@ -111,14 +115,14 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.getState().monsterHp).toBe(9n);
   });
 
-  it('every species can spawn at the same normal or boss index with equal RNG intervals', () => {
+  it('every common species can spawn at the same normal or boss index with equal RNG intervals', () => {
     for (const index of [1, 7, 105]) {
-      SPECIES_IDS.forEach((species, slot) => {
+      COMMON_SPECIES_IDS.forEach((species, slot) => {
         // Draw just inside each edge; exact fractions can round into the previous interval.
         for (const offset of [0.000001, 0.999999]) {
           const engine = createEngine(
             makeSave({ monsterIndex: index - 1, monsterHp: 1 }),
-            scriptedRng([0.5, 0.5, (slot + offset) / SPECIES_IDS.length]),
+            scriptedRng([0.5, 0.5, (slot + offset) / COMMON_SPECIES_IDS.length]),
           );
           const events = engine.attack('keyboard');
           const monster = engine.getState().monster;
@@ -199,8 +203,8 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const spawned = events[events.length - 1];
     if (spawned?.type !== 'monsterSpawned') throw new Error('expected monsterSpawned');
     expect(spawned.monster.index).toBe(1);
-    expect(spawned.monster.maxHp).toBe(monsterMaxHp(1));
-    expect(spawned.monster.maxHp).toBeGreaterThan(monsterMaxHp(0));
+    expect(spawned.monster.maxHp).toBe(fieldMonsterMaxHp(1));
+    expect(spawned.monster.maxHp).toBeGreaterThan(fieldMonsterMaxHp(0));
     const s = engine.getState();
     expect(s.monster.index).toBe(1);
     expect(s.monsterHp).toBe(s.monster.maxHp);
@@ -298,7 +302,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const killed = events[2];
     if (killed?.type !== 'monsterKilled') throw new Error('expected monsterKilled');
     expect(killed.monster.boss).toBe(true);
-    expect(killed.monster.maxHp).toBe(monsterMaxHp(7) * 5n);
+    expect(killed.monster.maxHp).toBe(fieldMonsterMaxHp(7) * 5n);
     expect(killed.xpGained).toBe(xpReward(7) * 5);
     const dropped = events[3];
     if (dropped?.type !== 'itemDropped') throw new Error('expected itemDropped');
@@ -388,7 +392,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(exact.monster.index).toBe(3);
     expect(exact.monsterHp).toBe(7n);
     const over = createEngine(makeSave({ monsterHp: 9999 }), calmRng()).getState();
-    expect(over.monsterHp).toBe(monsterMaxHp(0));
+    expect(over.monsterHp).toBe(fieldMonsterMaxHp(0));
     const dead = createEngine(makeSave({ monsterHp: 0 }), calmRng()).getState();
     expect(dead.monsterHp).toBe(1n);
   });
@@ -465,6 +469,57 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(types(events)).not.toContain('bossCaptured'); // 0.5 >= CAPTURE_CHANCE
   });
 
+  it('preserves the original count1 guarantee and boss RNG after removal and restart', async () => {
+    vi.resetModules();
+    vi.doMock('../src/core/progression.js', () => ({ PROGRESSION_PARAMETERS: Object.freeze({
+      ...PROGRESSION_PARAMETERS, firstCaptureBossIndex: 63, earlyCaptureCount: 1,
+    }) }));
+    try {
+      const { createEngine, parseSave, serializeSave, PROGRESSION_PARAMETERS: parameters } = await import('../src/core/index.js');
+      const threshold = parameters.firstCaptureBossIndex;
+      const index = threshold ?? 23;
+      for (const nextCompanionId of [1, 2]) {
+        const counted = countingRng([0.5]);
+        const engine = createEngine({ ...DEFAULT_SAVE, monsterIndex: index, monsterHp: '1', nextCompanionId }, counted.rng);
+        const events = engine.attack('keyboard');
+        expect(counted.draws()).toBe(4);
+        expect(events.filter(event => event.type === 'bossCaptured')).toHaveLength(threshold === null || nextCompanionId === 2 ? 0 : 1);
+        expect(engine.getState().nextCompanionId).toBe(threshold === null || nextCompanionId === 2 ? nextCompanionId : 2);
+        if (threshold !== null && nextCompanionId === 1) {
+          const captured = engine.getState().companions[0]!;
+          engine.apply({ type: 'sacrifice', id: captured.id });
+          const saved = parseSave(serializeSave(engine.toSave()));
+          expect(saved.companions).toHaveLength(0);
+          expect(saved.nextCompanionId).toBe(2);
+          const resumedRng = countingRng([0.5]);
+          const resumed = createEngine({ ...saved, monsterIndex: index + 8, monsterHp: '1' }, resumedRng.rng);
+          expect(resumed.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
+          expect(resumedRng.draws()).toBe(4);
+        }
+      }
+      const below = createEngine({ ...DEFAULT_SAVE, monsterIndex: index - 8, monsterHp: '1' }, scriptedRng([0.5]));
+      expect(below.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
+      const normal = createEngine({ ...DEFAULT_SAVE, monsterIndex: index + 1, monsterHp: '1' }, scriptedRng([0.5]));
+      expect(normal.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
+    } finally {
+      vi.doUnmock('../src/core/progression.js');
+      vi.resetModules();
+    }
+  });
+
+  it('exports the same monster eligibility used by actual spawns without counting spawn eligibility as acquisition', () => {
+    const engine = createEngine({ ...DEFAULT_SAVE, killCount: 29, monsterHp: '1' }, scriptedRng([0.5, 0.5, 0]));
+    expect(eligibleMonsterIds(engine.getState())).toEqual([...COMMON_SPECIES_IDS]);
+    engine.attack('keyboard');
+    const state = engine.getState();
+    expect(state.monster.speciesId).toBe('dawnfinch');
+    expect(eligibleMonsterIds(state)).toContain(state.monster.speciesId);
+    expect(state.progress!.speciesKills.dawnfinch).toBeUndefined();
+    const before = engine.toSave();
+    eligibleMonsterIds(state);
+    expect(engine.toSave()).toEqual(before);
+  });
+
   it('a capture into a full roster of 30 is skipped but still spends the draw', () => {
     const companions: Companion[] = Array.from({ length: 30 }, (_, i) => ({
       id: `c${i + 1}`,
@@ -487,6 +542,60 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const s = engine.getState();
     expect(s.companions).toHaveLength(30);
     expect(s.nextCompanionId).toBe(31);
+  });
+
+  it('allocates the final safe local ID once and refuses the exhausted next capture without changing the roster', () => {
+    const max = Number.MAX_SAFE_INTEGER;
+    const existing: Companion = { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 250, stars: 0 };
+    const engine = createEngine({ ...DEFAULT_SAVE, companions: [existing], nextCompanionId: max - 1,
+      monsterIndex: 7, monsterHp: '1' }, scriptedRng([0.5, 0.5, 0]));
+    const events = engine.attack('keyboard');
+    expect(events.find(event => event.type === 'bossCaptured')).toMatchObject({ companion: { id: `c${max - 1}` } });
+    const saved = parseSave(serializeSave(engine.toSave()));
+    expect(saved.nextCompanionId).toBe(max);
+    expect(saved.companions).toHaveLength(2);
+    expect(saved.companions[0]).toEqual(existing);
+    const counted = countingRng([0.5, 0.5, 0]);
+    const resumed = createEngine({ ...saved, monsterIndex: 15, monsterHp: '1' }, counted.rng);
+    const after = resumed.attack('keyboard');
+    expect(counted.draws()).toBe(4);
+    expect(types(after)).not.toContain('bossCaptured');
+    expect(types(after)).not.toContain('companionReleased');
+    expect(resumed.getState().companions).toEqual(saved.companions);
+    expect(resumed.getState().nextCompanionId).toBe(max);
+    expect(resumed.getState().souls).toBe(saved.souls);
+    expect(resumed.getState().releasedCount).toBe(saved.releasedCount);
+    expect(parseSave(serializeSave(resumed.toSave())).companions).toEqual(saved.companions);
+  });
+
+  it.each([0, -1, 1.5, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER + 1, 1])(
+    'refuses unsafe, exhausted or duplicate local capture counter %s without replacing a companion or paying release rewards', (nextCompanionId) => {
+      const existing: Companion = { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 250, stars: 0 };
+      const counted = countingRng([0.5, 0.5, 0]);
+      const engine = createEngine({ ...DEFAULT_SAVE, companions: [existing], nextCompanionId,
+        monsterIndex: 7, monsterHp: '1', souls: 3, releasedCount: 1 }, counted.rng);
+      const events = engine.attack('keyboard');
+      expect(counted.draws()).toBe(4);
+      expect(types(events)).not.toContain('bossCaptured');
+      expect(types(events)).not.toContain('companionReleased');
+      expect(engine.getState().companions).toEqual([existing]);
+      expect(engine.getState().nextCompanionId).toBe(nextCompanionId);
+      expect(engine.getState().souls).toBe(3);
+      expect(engine.getState().releasedCount).toBe(1);
+    });
+
+  it('preserves a large server transfer ID through repeated save and capture attempts at the exhausted allocator', () => {
+    const transferred: Companion = { id: 'r9007199254740992', speciesId: 'bat', bossIndex: 7,
+      level: Number.MAX_SAFE_INTEGER, stars: 0 };
+    let saved = parseSave({ ...DEFAULT_SAVE, companions: [transferred], nextCompanionId: 1 });
+    expect(saved.nextCompanionId).toBe(Number.MAX_SAFE_INTEGER);
+    for (const monsterIndex of [7, 15]) {
+      const engine = createEngine({ ...saved, monsterIndex, monsterHp: '1' }, scriptedRng([0.5, 0.5, 0]));
+      expect(types(engine.attack('keyboard'))).not.toContain('bossCaptured');
+      saved = parseSave(serializeSave(engine.toSave()));
+      expect(saved.companions).toEqual([transferred]);
+      expect(saved.nextCompanionId).toBe(Number.MAX_SAFE_INTEGER);
+    }
   });
 
   it('bestIndex tracks the deepest monster index ever spawned', () => {
@@ -514,7 +623,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(s.souls).toBe(5);
     expect(s.rebirths).toBe(1);
     expect(s.monster.index).toBe(0);
-    expect(s.monsterHp).toBe(monsterMaxHp(0));
+    expect(s.monsterHp).toBe(fieldMonsterMaxHp(0));
     expect(s.bestIndex).toBe(40); // rebirth keeps the record
     // damage = level 1 x (1 + 5 souls)
     expect(engine.attack('keyboard')[0]).toEqual({
@@ -536,6 +645,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.toSave()).toEqual({
       ...upgradeSave(makeSaveV2({ monsterIndex: 10 })),
       monsterSpeciesId: 'sopwit',
+      progress: before.progress,
     });
   });
 
@@ -566,8 +676,8 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const engine = createEngine(
       makeSaveV2({ monsterHp: '1', companions: roster, nextCompanionId: 5 }),
       // Script the enemy types so the swing-timing assertions stay independent of randomness.
-      scriptedRng([0.5, 1.5 / SPECIES_IDS.length, 0.5, 2.5 / SPECIES_IDS.length,
-        0.5, 3.5 / SPECIES_IDS.length, 0.5, 4.5 / SPECIES_IDS.length, 0.5]),
+      scriptedRng([0.5, 1.5 / COMMON_SPECIES_IDS.length, 0.5, 2.5 / COMMON_SPECIES_IDS.length,
+        0.5, 3.5 / COMMON_SPECIES_IDS.length, 0.5, 4.5 / COMMON_SPECIES_IDS.length, 0.5]),
     );
 
     // Sub-volley time only accumulates.
@@ -606,20 +716,30 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       damage: 2n, // water 4 /2 into wind
       effectiveness: 'weak',
     });
-    expect(rest[1]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: monsterMaxHp(1) });
-    expect(rest[5]).toEqual({ type: 'monsterHit', hpAfter: 4n, maxHp: monsterMaxHp(1) });
+    expect(rest[1]).toEqual({ type: 'monsterHit', hpAfter: 9n, maxHp: fieldMonsterMaxHp(1) });
+    expect(rest[5]).toEqual({ type: 'monsterHit', hpAfter: 4n, maxHp: fieldMonsterMaxHp(1) });
     const s = engine.getState();
     expect(s.monster.index).toBe(1);
     expect(s.monsterHp).toBe(4n);
     expect(s.killCount).toBe(1);
 
-    // Still exactly one swing per member per window: the windows opened by
-    // t = 4500 (2000, 3000, 4000) plus window 5000's first swing account for
-    // 3 × 4 = 12 swings by t = 5000 — 10 land by 4500, the carried 2 by 5000.
+    // HP114 kills the golem at4000, so window5000 is booked against fire:
+    // its first swing is bat at5140. With HP115 the golem survives until
+    // window5000's bat swing. That extra swing is from the NEXT window;
+    // window4000's golem remains scheduled at5010 under both curves.
     const two = engine.tick(2 * COMPANION_ATTACK_MS + 500);
     expect(two.filter((e) => e.type === 'companionAttack')).toHaveLength(10);
+    expect(swingers(two)).toEqual(['c2', 'c1', 'c3', 'c4', 'c1', 'c2', 'c3', 'c4', 'c2', 'c1']);
     const carried = engine.tick(500);
-    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(2);
+    const expectedCarried = PROGRESSION_PARAMETERS.fieldHpNumerator === 114 ? ['c3'] : ['c3', 'c2'];
+    expect(carried.filter((e) => e.type === 'companionAttack')).toHaveLength(expectedCarried.length);
+    expect(swingers(carried)).toEqual(expectedCarried);
+    expect(engine.tick(9)).toEqual([]);
+    expect(engine.tick(1)).toEqual([
+      { type: 'companionAttack', companionId: 'c4', speciesId: 'golem', damage: 1n, effectiveness: 'weak' },
+      { type: 'monsterHit', hpAfter: PROGRESSION_PARAMETERS.fieldHpNumerator === 114 ? 3n : 16n,
+        maxHp: fieldMonsterMaxHp(4) },
+    ]);
     for (const id of ['c1', 'c2', 'c3', 'c4']) {
       expect([...swingers(two), ...swingers(carried)].filter((x) => x === id).length).toBeGreaterThanOrEqual(2);
     }
@@ -684,7 +804,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
       { type: 'companionAttack', companionId: 'c2', speciesId: 'slime', damage: 5n, effectiveness: 'normal' },
       { type: 'companionAttack', companionId: 'c3', speciesId: 'ghost', damage: 4n, effectiveness: 'weak' },
     ]);
-    expect(engine.getState().monsterHp).toBe(monsterMaxHp(60) - 15n);
+    expect(engine.getState().monsterHp).toBe(fieldMonsterMaxHp(60) - 15n);
   });
 
   it('the field party changes when a monster of another type spawns', () => {
@@ -700,7 +820,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     // Legacy monster 60 is water on its last hit point; draw a wind bat next.
     const engine = createEngine(
       makeSaveV2({ monsterIndex: 60, monsterHp: '1', companions: roster, nextCompanionId: 7 }),
-      scriptedRng([0.5, 1.5 / SPECIES_IDS.length, 0.5]), // loot, wind bat, later rolls
+      scriptedRng([0.5, 1.5 / COMMON_SPECIES_IDS.length, 0.5]), // loot, wind bat, later rolls
     );
     const attackers = (events: GameEvent[]): string[] =>
       events.flatMap((e) => (e.type === 'companionAttack' ? [e.companionId] : []));

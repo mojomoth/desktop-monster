@@ -5,6 +5,7 @@
 // and every count is cast `count(*)::int`.
 
 import { Pool } from 'pg';
+import type { PoolClient } from 'pg';
 import type { Snapshot, Theft } from '../shared/api.js';
 import type { PlayerRow, ScoreKey, Store } from './store.js';
 
@@ -22,21 +23,47 @@ CREATE TABLE IF NOT EXISTS players (
 );
 CREATE INDEX IF NOT EXISTS players_score_idx ON players (best_index DESC, rebirths DESC);
 ALTER TABLE players ADD COLUMN IF NOT EXISTS thefts jsonb NOT NULL DEFAULT '[]';
+ALTER TABLE players ADD COLUMN IF NOT EXISTS wins integer NOT NULL DEFAULT 0;
+ALTER TABLE players ADD COLUMN IF NOT EXISTS losses integer NOT NULL DEFAULT 0;
 `;
 
 /** jsonb columns arrive parsed and `double precision` arrives as a number. */
-const toRow = (r: Record<string, unknown>): PlayerRow => ({
-  id: r['id'] as string,
-  name: r['nickname'] as string,
-  snapshot: r['snapshot'] as Snapshot | null,
-  stolenIds: r['stolen_ids'] as string[],
-  lastPvpAt: r['last_pvp_at'] as number | null,
-  // Tolerant: the column is shared with the v2 service, which never writes it.
-  thefts: Array.isArray(r['thefts']) ? (r['thefts'] as Theft[]) : [],
-});
+const toRow = (r: Record<string, unknown>): PlayerRow => {
+  const snapshot = r['snapshot'] as Snapshot | null;
+  return {
+    id: r['id'] as string,
+    name: r['nickname'] as string,
+    snapshot: snapshot ? { ...snapshot, party: snapshot.party ?? [] } : null,
+    stolenIds: r['stolen_ids'] as string[],
+    lastPvpAt: r['last_pvp_at'] as number | null,
+    // Tolerant: the column is shared with the v2 service, which never writes it.
+    thefts: Array.isArray(r['thefts']) ? (r['thefts'] as Theft[]) : [],
+    wins: typeof r['wins'] === 'number' ? r['wins'] : 0,
+    losses: typeof r['losses'] === 'number' ? r['losses'] : 0,
+  };
+};
 
 export class PgStore implements Store {
-  private constructor(private readonly pool: Pool) {}
+  private constructor(private readonly pool: Pool | PoolClient) {}
+
+  async transaction<T>(work: (store: Store) => Promise<T>): Promise<T> {
+    if (!('connect' in this.pool)) return work(this);
+    const client = await this.pool.connect();
+    try {
+      await client.query('BEGIN');
+      // One small service: a table lock also serializes writes from the legacy
+      // service sharing this database. Reads remain available outside the txn.
+      await client.query('LOCK TABLE players IN SHARE ROW EXCLUSIVE MODE');
+      const result = await work(new PgStore(client));
+      await client.query('COMMIT');
+      return result;
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
 
   /** Builds the pool, runs the idempotent DDL, and returns the store. */
   static async connect(connectionString: string): Promise<PgStore> {
@@ -63,6 +90,8 @@ export class PgStore implements Store {
   }
 
   async getById(id: string): Promise<PlayerRow | null> {
+    // Unknown selected ids should become 404, never a Postgres UUID cast error.
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) return null;
     return this.one('SELECT * FROM players WHERE id = $1', [id]);
   }
 
@@ -89,6 +118,13 @@ export class PgStore implements Store {
       id,
       JSON.stringify(thefts),
     ]);
+  }
+
+  async recordBattle(winnerId: string, loserId: string): Promise<void> {
+    await this.pool.query(
+      'UPDATE players SET wins = wins + CASE WHEN id = $1 THEN 1 ELSE 0 END, losses = losses + CASE WHEN id = $2 THEN 1 ELSE 0 END WHERE id IN ($1, $2)',
+      [winnerId, loserId],
+    );
   }
 
   async rank(key: ScoreKey): Promise<number> {

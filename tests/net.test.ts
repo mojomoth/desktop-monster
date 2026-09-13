@@ -4,7 +4,7 @@
 // fake NetClient and a per-test temp userData directory. No socket is ever
 // opened: the offline test asserts the fake fetch has ZERO calls.
 
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -148,8 +148,13 @@ function fakeClient(
       tokens.push(token);
       return Promise.resolve(opts.leaderboard?.(listed++) ?? ok({ top: [], me: null }));
     },
-    match(token) {
-      calls.push('match');
+    opponents(token) {
+      calls.push('opponents');
+      tokens.push(token);
+      return Promise.resolve(ok({ opponents: [] }));
+    },
+    match(token, opponentId) {
+      calls.push(opponentId === undefined ? 'match' : `match:${opponentId}`);
       tokens.push(token);
       return Promise.resolve(opts.match?.() ?? ok(MATCH));
     },
@@ -212,14 +217,14 @@ describe('createNetClient', () => {
   it('sends Authorization Bearer and a JSON body', async () => {
     const { calls, fetchFn } = fakeFetch(
       json({ playerId: 'p1', token: 't1' }, 201),
-      json({ rank: 3, removed: ['c9'] }),
+      json({ rank: 3, removed: ['c9'], thefts: [] }),
       json({ top: [], me: null }),
     );
     const client = createNetClient({ baseUrl: BASE, fetchFn });
     const snapshot = toSnapshot('Hero_1', save({ companions: [companion('c1')] }));
 
     expect(await client.register('Hero_1')).toEqual({ ok: true, value: { playerId: 'p1', token: 't1' } });
-    expect(await client.upload('t1', snapshot)).toEqual({ ok: true, value: { rank: 3, removed: ['c9'] } });
+    expect(await client.upload('t1', snapshot)).toEqual({ ok: true, value: { rank: 3, removed: ['c9'], thefts: [] } });
     expect(await client.leaderboard(null, 5)).toEqual({ ok: true, value: { top: [], me: null } });
 
     expect(calls[0]).toEqual({
@@ -345,6 +350,73 @@ describe('createNetClient', () => {
   });
 });
 
+describe('v0.7 companion reply validation', () => {
+  const replies = (c: unknown): {
+    name: string;
+    response: unknown;
+    call: (client: NetClient) => Promise<NetResult<unknown>>;
+  }[] => [
+    {
+      name: 'directory party',
+      response: { opponents: [{ ...MATCH.opponent, playerId: 'p9', rank: 1, hero: { formId: 'h00', buffPercent: 0 }, wins: 0, losses: 0, party: [c] }] },
+      call: (client) => client.opponents('token'),
+    },
+    { name: 'match party', response: { ...MATCH, opponent: { ...MATCH.opponent, party: [c] } }, call: (client) => client.match('token') },
+    { name: 'PvP party', response: { ...PVP, opponent: { ...MATCH.opponent, party: [c] } }, call: (client) => client.pvp('token', { matchId: 'm1', party: [] }) },
+    { name: 'PvP stolen', response: { ...PVP, stolen: c }, call: (client) => client.pvp('token', { matchId: 'm1', party: [] }) },
+    { name: 'PvP lost', response: { ...PVP, lost: c }, call: (client) => client.pvp('token', { matchId: 'm1', party: [] }) },
+    { name: 'thefts', response: { thefts: [{ ...THEFT, companion: c }] }, call: (client) => client.thefts('token') },
+    { name: 'upload thefts', response: { rank: 1, removed: [], thefts: [{ ...THEFT, companion: c }] }, call: (client) => client.upload('token', toSnapshot(NAME, save())) },
+    { name: 'reclaim', response: { companion: c }, call: (client) => client.reclaim('token', 'th1') },
+  ];
+
+  it.each([11, 250, Number.MAX_SAFE_INTEGER])('preserves exact level %s in every nested companion response', async (level) => {
+    for (const row of replies({ ...companion('c1'), level })) {
+      const { fetchFn } = fakeFetch(json(row.response));
+      expect(await row.call(createNetClient({ baseUrl: BASE, fetchFn })), row.name).toEqual(ok(row.response));
+    }
+  });
+
+  it.each(replies(companion('c1')).map(({ name }) => name))('rejects unsafe/malformed companions in %s', async (name) => {
+    const malformed = [
+      ...[0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '250', undefined].map((level) => ({ ...companion('c1'), level })),
+      null, [], {}, { ...companion('c1'), id: 'invalid/id' },
+      { ...companion('c1'), speciesId: 'unknown' }, { ...companion('c1'), bossIndex: -1 },
+      { ...companion('c1'), stars: 0.5 },
+    ];
+    for (const c of malformed) {
+      const row = replies(c).find((entry) => entry.name === name)!;
+      const { fetchFn } = fakeFetch(json(row.response));
+      // Null means no transfer in PvP; a present companion must always validate.
+      const expected = c === null && (name === 'PvP stolen' || name === 'PvP lost')
+        ? ok(row.response) : { ok: false, error: 'server' };
+      expect(await row.call(createNetClient({ baseUrl: BASE, fetchFn }))).toEqual(expected);
+    }
+  });
+
+  it('rejects missing or malformed response containers without throwing', async () => {
+    for (const row of replies(companion('c1'))) {
+      for (const response of [null, [], {}, { opponent: null, stolen: null, lost: null, thefts: null, companion: null }]) {
+        const { fetchFn } = fakeFetch(json(response));
+        expect(await row.call(createNetClient({ baseUrl: BASE, fetchFn })), row.name).toEqual({ ok: false, error: 'server' });
+      }
+    }
+  });
+
+  it('requires the real requested player ID while preserving legacy random and bot previews', async () => {
+    const exact = { ...MATCH, opponent: { ...MATCH.opponent, playerId: 'selected-9' } };
+    const wrong = { ...exact, opponent: { ...exact.opponent, playerId: 'other-9' } };
+    const invalid = { ...exact, opponent: { ...exact.opponent, playerId: 'invalid/id' } };
+    const bot = { ...MATCH, bot: true, opponent: PVP.opponent };
+    const { fetchFn } = fakeFetch(json(MATCH), json(wrong), json(invalid), json(bot), json({ ...exact, bot: true }), json(exact), json(MATCH), json(bot));
+    const client = createNetClient({ baseUrl: BASE, fetchFn });
+    for (let i = 0; i < 5; i += 1) expect(await client.match('token', 'selected-9')).toEqual({ ok: false, error: 'server' });
+    expect(await client.match('token', 'selected-9')).toEqual(ok(exact));
+    expect(await client.match('token')).toEqual(ok(MATCH));
+    expect(await client.match('token')).toEqual(ok(bot));
+  });
+});
+
 describe('toSnapshot', () => {
   it('carries name, bestIndex, rebirths and the roster', () => {
     const source = save({ rebirths: 2, companions: [companion('c1'), companion('c2')] });
@@ -430,6 +502,66 @@ describe('createNetSession', () => {
     expect(client.calls).toEqual([`register:${NAME}`, 'upload', 'upload', 'pvp']);
     expect(client.uploads[1]).toEqual(toSnapshot(NAME, save({ companions: [companion('c1')] })));
     expect(result).toEqual({ ok: true, value: { ...PVP, removed: ['c1'] } });
+  });
+
+  it.each([
+    { name: 'malformed upload theft', response: () => json({ rank: 1, removed: [], thefts: [{ ...THEFT, companion: { ...companion('c1'), level: Number.MAX_SAFE_INTEGER + 1 } }] }), error: { ok: false, error: 'server' } },
+    { name: 'legacy server rejecting a high level', response: () => json({ error: 'bad_request' }, 400), error: { ok: false, error: 'server', status: 400 } },
+    { name: 'failed transport', response: () => new Error('ECONNRESET'), error: { ok: false, error: 'network' } },
+  ])('aborts PvP and preserves roster/history after $name', async ({ response, error }) => {
+    const prior = { name: NAME, playerId: 'p1', token: 't1', notifiedTheftIds: [], pvpHistory: { wins: 3, losses: 2, matchIds: ['prior'] } };
+    writeIdentity(dir, prior);
+    const { calls, fetchFn } = fakeFetch(json({ rank: 1, removed: [], thefts: [] }), response(), json(PVP));
+    const session = createNetSession({ client: createNetClient({ baseUrl: BASE, fetchFn }), userDataDir: dir, online: true, randomUUID: uuid });
+    const source = save({ companions: [{ ...companion('c1'), level: 250 }] });
+    const original = structuredClone(source);
+    session.onSave(source);
+    await flush();
+    expect(await session.pvp('m1', ['c1'])).toEqual(error);
+    expect(calls.map(({ url }) => url)).toEqual([`${BASE}/v1/snapshot`, `${BASE}/v1/snapshot`]);
+    expect(source).toEqual(original);
+    expect(session.pvpHistory()).toEqual({ wins: 3, losses: 2 });
+    expect(readIdentity(dir, uuid)).toEqual(prior);
+  });
+
+  it.each(['missing', 'mismatch', 'bot'])('rejects a specified opponent %s result before history or stolen roster relay, including retries', async (kind) => {
+    const selected = { ...MATCH, opponent: { ...MATCH.opponent, playerId: 'selected-9' } };
+    const accepted = { ...PVP, bot: false, opponent: selected.opponent, stolen: { ...companion('s7'), level: 250 } };
+    const rejected = kind === 'bot' ? { ...accepted, bot: true } : {
+      ...accepted, opponent: kind === 'missing' ? MATCH.opponent : { ...MATCH.opponent, playerId: 'wrong-9' },
+    };
+    const responses = [rejected, rejected, accepted];
+    const client = fakeClient({ match: () => ok(selected), pvp: () => ok(responses.shift()!) });
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    expect(await session.match('selected-9')).toEqual(ok(selected));
+    const prior = readIdentity(dir, uuid);
+    for (let i = 0; i < 2; i += 1) {
+      expect(await session.pvp(selected.matchId, [])).toEqual({ ok: false, error: 'server' });
+      expect(session.pvpHistory()).toEqual({ wins: 0, losses: 0 });
+      expect(readIdentity(dir, uuid)).toEqual(prior);
+    }
+    expect(await session.pvp(selected.matchId, [])).toEqual(ok({ ...accepted, removed: [] }));
+    expect(session.pvpHistory()).toEqual({ wins: 1, losses: 0 });
+  });
+
+  it('binds each specified match separately and preserves legacy random matches', async () => {
+    const first = { ...MATCH, matchId: 'first', opponent: { ...MATCH.opponent, playerId: 'first-9' } };
+    const second = { ...MATCH, matchId: 'second', opponent: { ...MATCH.opponent, playerId: 'second-9' } };
+    const previews = [first, second, MATCH];
+    const results = [
+      { ...PVP, bot: false, opponent: second.opponent },
+      { ...PVP, bot: false, opponent: first.opponent },
+      { ...PVP, bot: false, opponent: MATCH.opponent },
+    ];
+    const client = fakeClient({ match: () => ok(previews.shift()!), pvp: () => ok(results.shift()!) });
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    expect(await session.match('first-9')).toEqual(ok(first));
+    expect(await session.match('second-9')).toEqual(ok(second));
+    expect(await session.match()).toEqual(ok(MATCH));
+    for (const preview of [second, first, MATCH]) {
+      expect(await session.pvp(preview.matchId, [])).toEqual(ok({ ...PVP, bot: false, opponent: preview.opponent, removed: [] }));
+    }
+    expect(session.pvpHistory()).toEqual({ wins: 3, losses: 0 });
   });
 
   it('setName ignores an invalid nickname and makes the roster key dirty', async () => {
@@ -522,4 +654,112 @@ describe('createNetSession', () => {
     expect(client.calls).toEqual([`register:${NAME}`, 'thefts', 'reclaim:th1']);
     expect(client.tokens).toEqual(['t1', 't1']);
   });
+});
+
+describe('v0.4 directory session', () => {
+  it('rejects malformed server rows before sprites and selected ids reach the renderer', async () => {
+    const row = { playerId: 'player-1', name: 'Rival', rank: 1, bestIndex: 5, rebirths: 0, hero: { formId: 'h06', buffPercent: 25 }, party: [companion('d1')], wins: 2, losses: 1 };
+    const malformed = [
+      {}, { opponents: null }, { opponents: [{ ...row, hero: { formId: 'evil', buffPercent: 20 } }] },
+      { opponents: [{ ...row, wins: -1 }] }, { opponents: [{ ...row, party: [{ ...companion('d1'), speciesId: 'evil' }] }] },
+      { opponents: Array.from({ length: 51 }, () => row) },
+    ];
+    const { fetchFn } = fakeFetch(...malformed.map((r) => json(r)), json({ opponents: [row] }));
+    const client = createNetClient({ baseUrl: BASE, fetchFn });
+    for (let i = 0; i < malformed.length; i += 1) expect(await client.opponents('token')).toEqual({ ok: false, error: 'server' });
+    expect(await client.opponents('token')).toEqual(ok({ opponents: [row] }));
+  });
+
+  it('lists opponents and selects their id over the authenticated bridge', async () => {
+    const selected = { ...MATCH, opponent: { ...MATCH.opponent, playerId: 'player-123' } };
+    const { calls, fetchFn } = fakeFetch(json({ opponents: [] }), json(selected));
+    const client = createNetClient({ baseUrl: BASE, fetchFn });
+    expect(await client.opponents('token')).toEqual(ok({ opponents: [] }));
+    expect(await client.match('token', 'player-123')).toEqual(ok(selected));
+    expect(calls[0]).toMatchObject({ url: `${BASE}/v1/pvp/opponents`, method: 'GET', headers: { authorization: 'Bearer token' } });
+    expect(calls[1]?.body).toBe(JSON.stringify({ opponentId: 'player-123' }));
+    const offline = createNetClient({ baseUrl: '', fetchFn });
+    expect(await offline.opponents('token')).toEqual({ ok: false, error: 'offline' });
+    expect(calls).toHaveLength(2);
+  });
+
+  it('uploads equipped hero changes, lists opponents and forwards a selected id', async () => {
+    const selected = { ...MATCH, opponent: { ...MATCH.opponent, playerId: 'opponent-9' } };
+    const client = fakeClient({ match: () => ok(selected) });
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    session.onSave(save({ hero: { equipped: { formId: 'h06', buffPercent: 25 } } }));
+    await flush();
+    expect(client.uploads.at(-1)?.hero).toEqual({ formId: 'h06', buffPercent: 25 });
+    session.onSave(save({ hero: { equipped: { formId: 'h07', buffPercent: 10 } } }));
+    await flush();
+    expect(client.uploads).toHaveLength(2);
+    expect(client.uploads.at(-1)?.hero).toEqual({ formId: 'h07', buffPercent: 10 });
+    expect(await session.opponents()).toEqual(ok({ opponents: [] }));
+    expect(await session.match('opponent-9')).toEqual(ok(selected));
+    expect(client.calls.slice(-2)).toEqual(['opponents', 'match:opponent-9']);
+  });
+});
+
+
+describe('v0.5 official PvP history', () => {
+  it('counts concurrent successes once and restores absolute totals after restart and rename', async () => {
+    const client = fakeClient({ pvp: () => ok({ ...PVP, bot: false }) });
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    await Promise.all([session.pvp('same', []), session.pvp('same', [])]);
+    expect(session.pvpHistory()).toEqual({ wins: PVP.win ? 1 : 0, losses: PVP.win ? 0 : 1 });
+    session.setName('History_Hero');
+    const restarted = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    expect(restarted.pvpHistory()).toEqual(session.pvpHistory());
+    await restarted.pvp('same', []);
+    expect(restarted.pvpHistory()).toEqual(session.pvpHistory());
+    expect(readIdentity(dir, uuid).name).toBe('History_Hero');
+  });
+
+  it('excludes bot, failed and malformed verdicts and records both human wins and losses', async () => {
+    const responses: NetResult<PvpResponse>[] = [ok({ ...PVP, bot: true }), { ok: false, error: 'network' },
+      ok({ ...PVP, bot: false, win: true }), ok({ ...PVP, bot: false, win: false }),
+      ok({ ...PVP, bot: undefined } as unknown as PvpResponse)];
+    const client = fakeClient({ pvp: () => responses.shift()! });
+    const session = createNetSession({ client, userDataDir: dir, online: true, randomUUID: uuid });
+    for (let i = 0; i < 5; i++) await session.pvp(`m${i}`, []);
+    expect(session.pvpHistory()).toEqual({ wins: 1, losses: 1 });
+    expect(readIdentity(dir, uuid).pvpHistory?.matchIds).toEqual(['m2', 'm3']);
+  });
+
+  it('retains totals after the 100-match dedup window is trimmed', async () => {
+    const session = createNetSession({ client: fakeClient({ pvp: () => ok({ ...PVP, bot: false }) }), userDataDir: dir, online: true, randomUUID: uuid });
+    for (let i = 0; i < 105; i++) await session.pvp(`m${i}`, []);
+    const history = readIdentity(dir, uuid).pvpHistory!;
+    expect(history.wins + history.losses).toBe(105);
+    expect(history.matchIds).toHaveLength(100);
+    expect(history.matchIds[0]).toBe('m5');
+    await session.pvp('m104', []);
+    expect(readIdentity(dir, uuid).pvpHistory).toEqual(history);
+  });
+
+  it('returns the verdict with a persistence warning, retries disk storage on save and never recounts it', async () => {
+    const session = createNetSession({ client: fakeClient({ pvp: () => ok({ ...PVP, bot: false }) }), userDataDir: dir, online: true, randomUUID: uuid });
+    await session.leaderboard(1); // Register before deliberately obstructing only the atomic temp file.
+    const obstacle = join(dir, 'identity.json.tmp');
+    mkdirSync(obstacle);
+    const result = await session.pvp('disk-failure', []);
+    expect(result).toEqual({ ok: true, value: { ...PVP, bot: false, removed: [], historySaved: false } });
+    expect(session.pvpHistory().wins + session.pvpHistory().losses).toBe(1);
+    expect(readIdentity(dir, uuid).pvpHistory).toBeUndefined();
+    rmSync(obstacle, { recursive: true });
+    session.onSave(save());
+    await flush();
+    expect(readIdentity(dir, uuid).pvpHistory?.matchIds).toEqual(['disk-failure']);
+    await session.pvp('disk-failure', []);
+    expect(session.pvpHistory().wins + session.pvpHistory().losses).toBe(1);
+  });
+});
+
+
+it('keeps the persisted name and credentials when a valid rename cannot be stored', () => {
+  writeIdentity(dir, { name: 'Previous', playerId: 'p1', token: 't1', notifiedTheftIds: [] });
+  const session = createNetSession({ client: fakeClient(), userDataDir: dir, online: false, randomUUID: uuid });
+  mkdirSync(join(dir, 'identity.json.tmp'));
+  expect(session.setName('Proposed').name).toBe('Previous');
+  expect(readIdentity(dir, uuid)).toMatchObject({ name: 'Previous', playerId: 'p1', token: 't1' });
 });

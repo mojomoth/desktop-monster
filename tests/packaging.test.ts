@@ -113,7 +113,8 @@ describe('README operator docs (F27)', () => {
     for (const topic of ['type chart', 'party', 'replay', 'reclaim', 'notification']) {
       expect(readme.toLowerCase()).toContain(topic);
     }
-    expect(readme).toContain('Find opponent');
+    expect(readme).toContain('Opponent list');
+    expect(readme).toContain('wins/losses');
     expect(readme).toContain('24 hours');
     expect(readme).toContain('400'); // overlay window width (F76 / T72; 400×260 since 2026-09-04)
   });
@@ -142,7 +143,7 @@ describe('version bump (F76; was F57)', () => {
       version: string;
       packages: Record<string, { version?: string }>;
     };
-    expect(pkg.version).toBe('0.3.0');
+    expect(pkg.version).toBe('0.7.0');
     expect(lock.version).toBe(pkg.version);
     expect(lock.packages['']?.version).toBe(pkg.version);
   });

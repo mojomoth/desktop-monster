@@ -9,6 +9,7 @@ import type {
   LeaderboardResult,
   MatchResult,
   NetResult,
+  OpponentListResult,
   PvpResult,
   ReclaimResult,
   TheftsResult,
@@ -28,14 +29,16 @@ declare global {
       onReset(cb: () => void): () => void;
       getInputMode(): Promise<InputModePayload>;
       loadState(): Promise<SaveStatePayload | null>;
-      saveState(s: SaveStatePayload): Promise<void>;
+      saveState(s: SaveStatePayload): Promise<boolean>;
+      onSaveFailed(cb: () => void): () => void;
       openAccessibilitySettings(): Promise<void>;
       reportFirstFrame(): void;
       moveWindowBy(dx: number, dy: number): void;
       getIdentity(): Promise<IdentityPayload>;
       setName(name: string): Promise<IdentityPayload>;
       getLeaderboard(n?: number): Promise<NetResult<LeaderboardResult>>;
-      pvpMatch(): Promise<NetResult<MatchResult>>;
+      pvpOpponents(): Promise<NetResult<OpponentListResult>>;
+      pvpMatch(opponentId?: string): Promise<NetResult<MatchResult>>;
       pvp(matchId: string, party: string[]): Promise<NetResult<PvpResult>>;
       thefts(): Promise<NetResult<TheftsResult>>;
       reclaim(theftId: string): Promise<NetResult<ReclaimResult>>;

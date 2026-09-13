@@ -3,7 +3,7 @@ import {
   activeCompanions,
   applyCollection,
   autoParty,
-  COMPANION_MAX_LEVEL,
+  COMPANION_REINCARNATION_LEVEL,
   companionPower,
   createEngine,
   DEFAULT_SAVE,
@@ -129,7 +129,7 @@ describe('companion power and party selection (SPEC F32/F61, Assumptions 24/44)'
 });
 
 describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
-  it('consume adds 1 plus food stars levels, caps at 10 and removes the food', () => {
+  it('consume adds 1 plus food stars levels beyond 10 and removes the food', () => {
     const base = stateWith({
       companions: [comp('c1', { level: 3 }), comp('c2', { stars: 2 })],
       nextCompanionId: 3,
@@ -141,13 +141,13 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(base.companions.map((c) => c.id)).toEqual(['c1', 'c2']);
     expect(base.companions[0]?.level).toBe(3);
 
-    const capped = stateWith({
+    const uncapped = stateWith({
       companions: [comp('c1', { level: 9 }), comp('c2', { stars: 4 })],
       nextCompanionId: 3,
     });
     expect(
-      ok(applyCollection(capped, { type: 'consume', targetId: 'c1', foodId: 'c2' })).state.companions[0]?.level,
-    ).toBe(COMPANION_MAX_LEVEL);
+      ok(applyCollection(uncapped, { type: 'consume', targetId: 'c1', foodId: 'c2' })).state.companions[0]?.level,
+    ).toBe(14);
 
     expect(applyCollection(base, { type: 'consume', targetId: 'c1', foodId: 'c1' })).toHaveProperty('error');
     expect(applyCollection(base, { type: 'consume', targetId: 'c1', foodId: 'c9' })).toHaveProperty('error');
@@ -181,9 +181,9 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(applyCollection(base, { type: 'fuse', aId: 'c1', bId: 'c9' })).toHaveProperty('error');
   });
 
-  it('reincarnate needs max level and resets to level 1 with stars+1', () => {
+  it('reincarnate needs level 10 and resets to level 1 with stars+1', () => {
     const base = stateWith({
-      companions: [comp('c1', { level: COMPANION_MAX_LEVEL, stars: 2 }), comp('c2', { level: 9 })],
+      companions: [comp('c1', { level: COMPANION_REINCARNATION_LEVEL, stars: 2 }), comp('c2', { level: 9 })],
       nextCompanionId: 3,
     });
     const { state, events } = ok(applyCollection(base, { type: 'reincarnate', id: 'c1' }));
@@ -191,7 +191,7 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(state.companions[0]?.level).toBe(1);
     expect(state.companions[0]?.stars).toBe(3);
     expect(events).toEqual([]);
-    expect(base.companions[0]?.level).toBe(COMPANION_MAX_LEVEL);
+    expect(base.companions[0]?.level).toBe(COMPANION_REINCARNATION_LEVEL);
 
     expect(applyCollection(base, { type: 'reincarnate', id: 'c2' })).toHaveProperty('error');
     expect(applyCollection(base, { type: 'reincarnate', id: 'c9' })).toHaveProperty('error');
@@ -289,17 +289,17 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(base.companions).toHaveLength(2);
   });
 
-  it('pvpResult adds the stolen companion with a re-minted id and removes the lost one', () => {
+  it('pvpResult preserves the server transfer id and removes the lost one', () => {
     const base = stateWith({ companions: [comp('c1'), comp('c2')], nextCompanionId: 3 });
     const stolen = comp('s12345', { speciesId: 'golem', bossIndex: 31, level: 6, stars: 2 });
     const { state, events } = ok(
       applyCollection(base, { type: 'pvpResult', won: true, stolen, lostId: 'c1' }),
     );
-    expect(state.companions.map((c) => c.id)).toEqual(['c2', 'c3']);
-    expect(state.companions[1]).toEqual({ ...stolen, id: 'c3' });
+    expect(state.companions.map((c) => c.id)).toEqual(['c2', stolen.id]);
+    expect(state.companions[1]).toEqual(stolen);
     expect(state.nextCompanionId).toBe(4);
     expect(events).toEqual([
-      { type: 'pvpResolved', won: true, stolen: { ...stolen, id: 'c3' }, lostId: 'c1' },
+      { type: 'pvpResolved', won: true, stolen, lostId: 'c1' },
     ]);
 
     // A loss: nothing gained, the lost one goes; unknown lostId is ignored.

@@ -8,13 +8,18 @@ import { monsterForIndex, sizeOf, typeOf } from './monsters.js';
 import { monsterMaxHp } from './formulas.js';
 import { effectivePower } from './types-chart.js';
 import type { MonsterType } from './types-chart.js';
-import type { Blow } from './battle.js';
+import type { BattleHeroes, Blow } from './battle.js';
+import { heroBuffedPower } from './hero.js';
+import type { HeroAction, HeroRoll } from './hero.js';
+import type { EconomyAction } from './economy.js';
+import { acquiredDiscoveries, isDiscoveryAction, migrateProgress } from './progress.js';
+import type { DiscoveryAction } from './progress.js';
 import type { Companion } from './save.js';
 import type { Rng } from './rng.js';
 import type { GameState, PvpResultAction } from './types.js';
 
-/** A companion never levels past this (consume/reincarnate both cap here). */
-export const COMPANION_MAX_LEVEL = 10;
+/** Reincarnation unlocks here; companion growth has no gameplay level cap. */
+export const COMPANION_REINCARNATION_LEVEL = 10;
 
 /** How many companions fight together — field volley and PvP party (F61). */
 export const PARTY_SIZE = 5;
@@ -31,6 +36,26 @@ export const companionPower = (c: Companion): bigint => {
   return (base < 1n ? 1n : base) * BigInt(c.level) * 2n ** BigInt(c.stars);
 };
 
+export type CompanionSnapshot = Pick<Companion, 'speciesId' | 'bossIndex' | 'level' | 'stars'>;
+
+/** Confirmation crosses IPC; reject malformed or imprecise counters before use. */
+export function isCompanionSnapshot(value: unknown): value is CompanionSnapshot {
+  if (!value || typeof value !== 'object') return false;
+  const c = value as Record<string, unknown>;
+  return typeof c['speciesId'] === 'string' && c['speciesId'].length > 0 &&
+    Number.isSafeInteger(c['bossIndex']) && Number(c['bossIndex']) >= 0 &&
+    Number.isSafeInteger(c['level']) && Number(c['level']) >= 1 &&
+    Number.isSafeInteger(c['stars']) && Number(c['stars']) >= 0;
+}
+
+/** Exact preview: at Lv10 the reset retains one fifth of the previous power. */
+export function companionReincarnationPreview(c: Companion):
+  { level: 1; stars: number; beforePower: bigint; afterPower: bigint } | null {
+  if (!isCompanionSnapshot(c) || c.level < COMPANION_REINCARNATION_LEVEL || !Number.isSafeInteger(c.stars + 1)) return null;
+  return { level: 1, stars: c.stars + 1, beforePower: companionPower(c),
+    afterPower: companionPower({ ...c, level: 1, stars: c.stars + 1 }) };
+}
+
 /** Numeric part of a 'cN' id — the tie-breaker (same rule as parseSave). */
 const idNum = (id: string): number => Number(id.replace(/\D/g, '') || 0);
 
@@ -45,11 +70,13 @@ const desc = (a: bigint, b: bigint): number => (a === b ? 0 : b > a ? 1 : -1);
 export function activeCompanions(
   cs: readonly Companion[],
   enemyType?: MonsterType,
+  hero?: HeroRoll,
 ): Companion[] {
+  const power = (c: Companion): bigint => heroBuffedPower(companionPower(c), typeOf(c.speciesId), hero);
   const effective = (c: Companion): bigint =>
     enemyType === undefined
-      ? companionPower(c)
-      : effectivePower(companionPower(c), typeOf(c.speciesId), enemyType);
+      ? power(c)
+      : effectivePower(power(c), typeOf(c.speciesId), enemyType);
   return [...cs]
     .sort(
       (a, b) =>
@@ -61,8 +88,8 @@ export function activeCompanions(
 }
 
 /** The PvP default party: the PARTY_SIZE strongest by raw power. */
-export function autoParty(cs: readonly Companion[]): Companion[] {
-  return activeCompanions(cs);
+export function autoParty(cs: readonly Companion[], hero?: HeroRoll): Companion[] {
+  return activeCompanions(cs, undefined, hero);
 }
 
 /** `ids` resolved against `cs` in the given order; unknown/duplicate dropped. */
@@ -77,9 +104,9 @@ function resolveIds(cs: readonly Companion[], ids: readonly string[]): Companion
 }
 
 /** The manual PvP party; an empty result falls back to `autoParty` (F61). */
-export function pvpParty(cs: readonly Companion[], ids: readonly string[]): Companion[] {
+export function pvpParty(cs: readonly Companion[], ids: readonly string[], hero?: HeroRoll): Companion[] {
   const party = resolveIds(cs, ids);
-  return party.length > 0 ? party : autoParty(cs);
+  return party.length > 0 ? party : autoParty(cs, hero);
 }
 
 /** Draw order of a party: biggest first (back row), ties keep party order. */
@@ -98,9 +125,14 @@ export type CollectionEvent =
 
 /** Every roster/prestige operation the menu and the net layer can request. */
 export type CollectionAction =
+  | HeroAction
+  | EconomyAction
+  | DiscoveryAction
+  /** Main-origin absolute counters; never accepted from MENU_ACTION. */
+  | { type: 'syncPvpProgress'; wins: number; losses: number }
   | { type: 'consume'; targetId: string; foodId: string }
   | { type: 'fuse'; aId: string; bId: string }
-  | { type: 'reincarnate'; id: string }
+  | { type: 'reincarnate'; id: string; expected?: CompanionSnapshot }
   | { type: 'sacrifice'; id: string }
   | { type: 'rebirth' }
   | { type: 'addCompanion'; companion: Companion }
@@ -143,14 +175,32 @@ function next(
   };
 }
 
-/** Push `c` re-minted as `c${nextCompanionId}`; null when the roster is full. */
+/** Validate against the original roster before a PvP loss can remove an ID. */
+function mintedId(companions: readonly Companion[], nextCompanionId: number, c: Companion): string | null {
+  const external = /^[sr][0-9a-f]+$/.test(c.id);
+  if (!external && (!Number.isSafeInteger(nextCompanionId) || nextCompanionId < 1 ||
+    nextCompanionId >= Number.MAX_SAFE_INTEGER)) return null;
+  const id = external ? c.id : `c${nextCompanionId}`;
+  return companions.some((existing) => existing.id === id) ? null : id;
+}
+
+/** External deliveries remain valid at exhaustion; never add above the safe bound. */
+function incrementCompanionId(value: number): number {
+  return Number.isSafeInteger(value) && value >= 1 && value < Number.MAX_SAFE_INTEGER
+    ? value + 1 : Number.MAX_SAFE_INTEGER;
+}
+
+/** Keep server transfer IDs so the theft ledger survives the next save/upload. */
 function minted(
   companions: Companion[],
   nextCompanionId: number,
   c: Companion,
 ): Companion | null {
   if (companions.length >= ROSTER_CAP) return null;
-  const fresh: Companion = { ...c, id: `c${nextCompanionId}` };
+  // Legacy/local callers still receive a fresh local ID; the server owns s/r IDs.
+  const id = mintedId(companions, nextCompanionId, c);
+  if (id === null) return null;
+  const fresh: Companion = { ...c, id };
   companions.push(fresh);
   return fresh;
 }
@@ -169,15 +219,33 @@ export function applyCollection(
   const find = (id: string): Companion | undefined => cs.find((c) => c.id === id);
 
   switch (action.type) {
+    case 'acknowledgeDiscoveries':
+    case 'setDiscoveryGoal': {
+      if (!isDiscoveryAction(action)) return { error: 'discovery: invalid action' };
+      const progress = migrateProgress(state, state.monster.speciesId);
+      const codex = progress.codex!;
+      if (action.type === 'setDiscoveryGoal') codex.goal = action.goal ? { kind: action.goal.kind, id: action.goal.id } : null;
+      else {
+        const acquired = acquiredDiscoveries({ ...state, progress });
+        // A displayed snapshot can acknowledge only actually acquired entries.
+        codex.acknowledgedHeroes = [...new Set([...codex.acknowledgedHeroes,
+          ...action.heroes.filter((id) => acquired.heroes.includes(id))])];
+        codex.acknowledgedMonsters = [...new Set([...codex.acknowledgedMonsters,
+          ...action.monsters.filter((id) => acquired.monsters.includes(id))])];
+      }
+      return next(state, reroster(cs, []), { progress });
+    }
     case 'consume': {
       const target = find(action.targetId);
       const food = find(action.foodId);
       if (!target || !food || target.id === food.id) return { error: 'consume: bad ids' };
+      const level = target.level + 1 + food.stars;
+      if (!Number.isSafeInteger(level) || level < 1) return { error: 'consume: level overflow' };
       return next(
         state,
         reroster(cs, [food.id], target.id, (c) => ({
           ...c,
-          level: Math.min(COMPANION_MAX_LEVEL, c.level + 1 + food.stars),
+          level,
         })),
       );
     }
@@ -188,6 +256,7 @@ export function applyCollection(
       if (a.speciesId !== b.speciesId || a.stars !== b.stars) {
         return { error: 'fuse: needs the same species and stars' };
       }
+      if (!Number.isSafeInteger(a.stars + 1)) return { error: 'fuse: stars overflow' };
       return next(
         state,
         reroster(cs, [b.id], a.id, (c) => ({
@@ -201,7 +270,11 @@ export function applyCollection(
     case 'reincarnate': {
       const c = find(action.id);
       if (!c) return { error: 'reincarnate: unknown id' };
-      if (c.level !== COMPANION_MAX_LEVEL) return { error: 'reincarnate: needs max level' };
+      if (!Number.isSafeInteger(c.level) || c.level < COMPANION_REINCARNATION_LEVEL) return { error: 'reincarnate: needs level 10' };
+      if (!Number.isSafeInteger(c.stars + 1)) return { error: 'reincarnate: stars overflow' };
+      if (action.expected !== undefined && (!isCompanionSnapshot(action.expected) ||
+        action.expected.speciesId !== c.speciesId || action.expected.bossIndex !== c.bossIndex ||
+        action.expected.level !== c.level || action.expected.stars !== c.stars)) return { error: 'reincarnate: confirmation changed' };
       return next(
         state,
         reroster(cs, [], c.id, (x) => ({ ...x, level: 1, stars: x.stars + 1 })),
@@ -210,7 +283,9 @@ export function applyCollection(
     case 'sacrifice': {
       const c = find(action.id);
       if (!c) return { error: 'sacrifice: unknown id' };
-      return next(state, reroster(cs, [c.id]), { souls: state.souls + 1 + c.stars });
+      const souls = state.souls + 1 + c.stars;
+      if (!Number.isSafeInteger(souls)) return { error: 'sacrifice: souls overflow' };
+      return next(state, reroster(cs, [c.id]), { souls });
     }
     case 'rebirth': {
       if (state.monster.index < REBIRTH_MIN_INDEX) {
@@ -235,9 +310,9 @@ export function applyCollection(
     case 'addCompanion': {
       const companions = reroster(cs, []);
       if (!minted(companions, state.nextCompanionId, action.companion)) {
-        return { error: 'addCompanion: roster is full' };
+        return { error: 'addCompanion: roster is full or id allocation failed' };
       }
-      return next(state, companions, { nextCompanionId: state.nextCompanionId + 1 });
+      return next(state, companions, { nextCompanionId: incrementCompanionId(state.nextCompanionId) });
     }
     case 'removeCompanions':
       return next(state, reroster(cs, action.ids));
@@ -247,13 +322,16 @@ export function applyCollection(
         pvpParty: resolveIds(cs, action.ids).map((c) => c.id),
       });
     case 'pvpResult': {
+      if (action.stolen && mintedId(cs, state.nextCompanionId, action.stolen) === null) {
+        return { error: 'pvpResult: id allocation failed' };
+      }
       const companions = reroster(cs, action.lostId === null ? [] : [action.lostId]);
       // A steal into a full roster is void, never an error (Assumption 23).
       const stolen = action.stolen && minted(companions, state.nextCompanionId, action.stolen);
       return next(
         state,
         companions,
-        { nextCompanionId: state.nextCompanionId + (stolen ? 1 : 0) },
+        { nextCompanionId: stolen ? incrementCompanionId(state.nextCompanionId) : state.nextCompanionId },
         [
           {
             type: 'pvpResolved',
@@ -288,8 +366,9 @@ export function resolvePvp(
   defender: readonly Companion[],
   rng: Rng,
   attackerRosterSize = attacker.length,
+  heroes: BattleHeroes = {},
 ): { attackerWon: boolean; moved: Companion | null; blows: Blow[] } {
-  const { attackerWon, blows } = simulateBattle(attacker, defender);
+  const { attackerWon, blows } = simulateBattle(attacker, defender, heroes);
   const stealRoll = rng.next() < STEAL_CHANCE;
   const victim = defender[Math.floor(rng.next() * defender.length)] ?? null;
   return {

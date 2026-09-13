@@ -8,6 +8,10 @@ import { bigField } from './bignum.js';
 import { monsterMaxHp } from './formulas.js';
 import { isSpeciesId, SPECIES_IDS } from './monsters.js';
 import type { SpeciesId } from './monsters.js';
+import { heroForm, parseHeroProgress } from './hero.js';
+import type { HeroProgress } from './hero.js';
+import { discoveryContext, parseProgress } from './progress.js';
+import type { Progress } from './progress.js';
 
 /** Roster cap (GAME_DESIGN_V2 §2/§3); collection.ts owns the gameplay copy. */
 const ROSTER_CAP = 30;
@@ -23,7 +27,7 @@ export interface Companion {
   speciesId: string;
   /** Global monster index it was captured at → base power. */
   bossIndex: number;
-  /** 1..COMPANION_MAX_LEVEL (10). */
+  /** Positive safe integer; no gameplay level cap. */
   level: number;
   stars: number;
 }
@@ -79,6 +83,12 @@ export interface SaveFileV3 extends Omit<SaveFileV2, 'version'> {
   monsterSpeciesId?: SpeciesId;
   /** Companion ids, at most PARTY_CAP, all present in `companions`. */
   pvpParty: string[];
+  /** Additive v0.4 extension; v1–v3 saves retain their progress unchanged. */
+  hero?: HeroProgress;
+  /** Additive v0.5 progress and v0.6 codex UI state; legacy fields keep their meanings. */
+  progress?: Progress;
+  /** Additive v0.4 extension; absent in older saves and read as 0. */
+  releasedCount?: number;
 }
 
 /** The current schema. */
@@ -100,6 +110,7 @@ export const DEFAULT_SAVE: Readonly<SaveFileV3> = Object.freeze({
   rebirths: 0,
   bestIndex: 0,
   pvpParty: Object.freeze([] as string[]) as string[],
+  releasedCount: 0,
 });
 
 /**
@@ -107,8 +118,8 @@ export const DEFAULT_SAVE: Readonly<SaveFileV3> = Object.freeze({
  * v2 had no PvP party.
  */
 export function upgradeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): SaveFileV3 {
-  if (save.version === 3) return save;
-  if (save.version === 2) return { ...save, version: 3, pvpParty: [] };
+  if (save.version === 3) return { ...save, releasedCount: save.releasedCount ?? 0 };
+  if (save.version === 2) return { ...save, version: 3, pvpParty: [], releasedCount: 0 };
   return {
     version: 3,
     level: save.level,
@@ -124,6 +135,7 @@ export function upgradeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): SaveFil
     rebirths: 0,
     bestIndex: save.monsterIndex,
     pvpParty: [],
+    releasedCount: 0,
   };
 }
 
@@ -160,6 +172,9 @@ export function serializeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): strin
     rebirths: v3.rebirths,
     bestIndex: v3.bestIndex,
     pvpParty: v3.pvpParty,
+    releasedCount: v3.releasedCount ?? 0,
+    hero: parseHeroProgress(v3.hero),
+    progress: parseProgress(v3.progress),
   });
 }
 
@@ -207,7 +222,7 @@ function companionsField(value: unknown): Companion[] {
     if (typeof speciesId !== 'string' || !(SPECIES_IDS as readonly string[]).includes(speciesId)) {
       continue;
     }
-    if (!isInt(c['bossIndex'], 0) || !isInt(c['level'], 1, 10) || !isInt(c['stars'], 0)) continue;
+    if (!isInt(c['bossIndex'], 0) || !isInt(c['level'], 1) || !isInt(c['stars'], 0)) continue;
     seen.add(id);
     kept.push({ id, speciesId, bossIndex: c['bossIndex'], level: c['level'], stars: c['stars'] });
   }
@@ -247,11 +262,20 @@ export function parseSave(raw: unknown): SaveFileV3 {
       ? (value as Record<string, unknown>)
       : {};
   const companions = companionsField(record['companions']);
+  const initialHero = parseHeroProgress(record['hero']);
+  const progress = parseProgress(record['progress']);
+  const hero = parseHeroProgress(initialHero, discoveryContext({
+    killCount: intField(record['killCount'], 0, 0), hero: initialHero, progress, companions,
+    ...(typeof record['monsterSpeciesId'] === 'string' ? { monsterSpeciesId: record['monsterSpeciesId'] } : {}),
+  }, heroForm(initialHero?.equipped.formId ?? '')?.type));
   const species = record['monsterSpeciesId'];
-  // Re-minting must never collide with an id already on the roster.
-  let nextCompanionId = intField(record['nextCompanionId'], DEFAULT_SAVE.nextCompanionId, 1);
+  // Keep every ID's digit repair; MAX is the exhausted local allocator sentinel.
+  let nextCompanionId = record['nextCompanionId'] === Infinity ? Number.MAX_SAFE_INTEGER :
+    Math.min(Number.MAX_SAFE_INTEGER, intField(record['nextCompanionId'], DEFAULT_SAVE.nextCompanionId, 1));
   for (const c of companions) {
-    nextCompanionId = Math.max(nextCompanionId, Number(c.id.replace(/\D/g, '') || 0) + 1);
+    const digits = Number(c.id.replace(/\D/g, '') || 0);
+    const afterId = digits >= Number.MAX_SAFE_INTEGER ? Number.MAX_SAFE_INTEGER : digits + 1;
+    nextCompanionId = Math.max(nextCompanionId, afterId);
   }
   return {
     version: 3,
@@ -269,5 +293,8 @@ export function parseSave(raw: unknown): SaveFileV3 {
     rebirths: intField(record['rebirths'], DEFAULT_SAVE.rebirths, 0),
     bestIndex: intField(record['bestIndex'], DEFAULT_SAVE.bestIndex, 0),
     pvpParty: pvpPartyField(record['pvpParty'], companions),
+    releasedCount: intField(record['releasedCount'], 0, 0),
+    ...(hero ? { hero } : {}),
+    ...(progress ? { progress } : {}),
   };
 }

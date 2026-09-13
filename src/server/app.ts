@@ -5,6 +5,7 @@
 // injected (deps), so tests are deterministic and this file has no wall clock.
 
 import { createHash } from 'node:crypto';
+import { isHeroRoll } from '../core/hero.js';
 import { mulberry32, pvpParty, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
 import {
   COMPANION_ID_RE,
@@ -21,6 +22,8 @@ import {
 } from '../shared/api.js';
 import type {
   Companion,
+  HeroAppearance,
+  OpponentListResult,
   LeaderboardRow,
   PvpOpponent,
   PvpResponse,
@@ -62,6 +65,7 @@ export interface PendingMatch {
   seed: number;
   /** Exactly the party the player was shown — the battle is fought against it. */
   opponentParty: Companion[];
+  opponentHero?: HeroAppearance;
   createdAt: number;
 }
 
@@ -80,7 +84,7 @@ const record = (v: unknown): Record<string, unknown> | null =>
   typeof v === 'object' && v !== null && !Array.isArray(v) ? (v as Record<string, unknown>) : null;
 
 const isInt = (v: unknown, min: number, max: number): v is number =>
-  typeof v === 'number' && Number.isInteger(v) && v >= min && v <= max;
+  typeof v === 'number' && Number.isSafeInteger(v) && v >= min && v <= max;
 
 const sha256 = (value: string): string => createHash('sha256').update(value).digest('hex');
 
@@ -139,7 +143,12 @@ export function parseSnapshot(raw: unknown): Snapshot | null {
     .filter((id): id is string => typeof id === 'string' && COMPANION_ID_RE.test(id) && ids.has(id))
     .filter((id, i, all) => all.indexOf(id) === i)
     .slice(0, PARTY_SIZE_MAX);
-  return { name, bestIndex, rebirths, companions: roster, party };
+  if (s['hero'] !== undefined && !isHeroRoll(s['hero'])) return null;
+  const hero = isHeroRoll(s['hero'])
+    ? { formId: s['hero'].formId, buffPercent: s['hero'].buffPercent,
+      ...(s['hero'].stacks !== undefined ? { stacks: s['hero'].stacks } : {}) }
+    : undefined;
+  return { name, bestIndex, rebirths, companions: roster, party, ...(hero ? { hero } : {}) };
 }
 
 /** Forgets every match nobody fought within `MATCH_TTL_MS`. */
@@ -152,7 +161,6 @@ const prune = (at: number): void => {
 };
 
 export function createApp(deps: AppDeps): { handle: ApiHandler } {
-  const { store } = deps;
   /** The theft records still inside their reclaim window. */
   const pending = (row: PlayerRow): Theft[] =>
     row.thefts.filter((t) => t.reclaimUntil >= deps.now());
@@ -180,10 +188,10 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       : null;
   };
 
-  const caller = async (req: ApiRequest): Promise<PlayerRow | null> =>
+  const caller = async (req: ApiRequest, store: Store): Promise<PlayerRow | null> =>
     req.auth === null ? null : store.getByToken(sha256(req.auth));
 
-  const register = async (req: ApiRequest): Promise<ApiResponse> => {
+  const register = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
     const nickname = record(req.body)?.nickname;
     if (typeof nickname !== 'string' || !NICK_RE.test(nickname)) {
       return error(400, 'bad_request');
@@ -194,8 +202,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     return { status: 201, body: { playerId, token } };
   };
 
-  const upload = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const upload = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -223,10 +231,10 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     rebirths: s.rebirths,
   });
 
-  const leaderboard = async (req: ApiRequest): Promise<ApiResponse> => {
+  const leaderboard = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
     let me: LeaderboardRow | null = null;
     if (req.auth !== null) {
-      const mine = await caller(req);
+      const mine = await caller(req, store);
       if (!mine) {
         return error(401, 'unauthorized');
       }
@@ -247,6 +255,30 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     return { status: 200, body: { top, me } };
   };
 
+  const opponents = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
+    if (!me) return error(401, 'unauthorized');
+    const ranked = await store.top(LEADERBOARD_MAX + 1);
+    const rows = ranked.filter((r) => r.id !== me.id).slice(0, LEADERBOARD_MAX);
+    const listed = [];
+    for (const foe of rows) {
+      const s = foe.snapshot;
+      if (!s) continue;
+      listed.push({
+        playerId: foe.id,
+        rank: ranked.findIndex((r) => r.snapshot && compareScore(r.snapshot, s) === 0) + 1,
+        name: s.name,
+        bestIndex: s.bestIndex,
+        rebirths: s.rebirths,
+        hero: s.hero ?? { formId: 'h00', buffPercent: 0 },
+        party: pvpParty(s.companions, s.party ?? [], s.hero),
+        wins: foe.wins,
+        losses: foe.losses,
+      });
+    }
+    return { status: 200, body: { opponents: listed } satisfies OpponentListResult };
+  };
+
   /**
    * T60 — step 2 of a battle (SPEC F45/F69, SERVER_ARCHITECTURE_V3 §3): fight
    * the party the caller picked against the party its match parked, with core's
@@ -254,8 +286,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
    * only. Steals are attacker-only; the victim gets a theft record to reclaim
    * from. A trust boundary: the body and every party id are checked here.
    */
-  const pvp = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const pvp = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -282,43 +314,56 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     prune(at);
     const pending = matches.get(matchId);
     if (!pending || pending.playerId !== me.id) {
-      matches.delete(matchId);
       return error(410, 'match_expired');
     }
     if (ids.length > PARTY_SIZE_MAX || !ids.every((id) => mine.companions.some((c) => c.id === id))) {
       // The match survives a bad party: the client just picks again.
       return error(400, 'bad_party');
     }
-    const party = pvpParty(mine.companions, ids as string[]);
+    const party = pvpParty(mine.companions, ids as string[], mine.hero);
+    // Spend the token before awaiting writes; a failed transaction rolls back
+    // state and the client may create a fresh preview.
+    matches.delete(matchId);
     // Bot matches burn the cooldown too — it is what bounds the whole endpoint.
     await store.setLastPvpAt(me.id, at);
 
     const { seed, opponentParty } = pending;
-    const verdict = resolvePvp(party, opponentParty, mulberry32(seed), mine.companions.length);
-    matches.delete(matchId);
+    const verdict = resolvePvp(party, opponentParty, mulberry32(seed), mine.companions.length, {
+      attacker: mine.hero,
+      defender: pending.opponentHero,
+    });
 
     const foe = pending.opponentId === null ? null : await store.getById(pending.opponentId);
     const theirs = foe?.snapshot ?? null;
     const opponent: PvpOpponent = {
+      ...(pending.opponentId !== null ? { playerId: pending.opponentId } : {}),
       name: theirs?.name ?? BOT_NAME,
       bestIndex: theirs?.bestIndex ?? mine.bestIndex,
       rebirths: theirs?.rebirths ?? mine.rebirths,
       party: opponentParty,
+      ...(pending.opponentHero ? { hero: pending.opponentHero } : {}),
     };
     // The bot never steals and is never stolen from; powers stay off the wire.
-    const moved = foe && theirs ? verdict.moved : null;
+    const moved = foe && theirs && verdict.moved
+      ? theirs.companions.find((c) => c.id === verdict.moved?.id) ?? null : null;
+
+    if (foe && theirs) {
+      await store.recordBattle(verdict.attackerWon ? me.id : foe.id, verdict.attackerWon ? foe.id : me.id);
+    }
 
     let stolen: Companion | null = null;
     if (foe && theirs && moved) {
-      const transferred = { ...moved, id: `s${seed}` };
-      // ponytail: four writes, no transaction — a concurrent match against the
-      // same loser could double-steal. BEGIN/COMMIT in PgStore is the upgrade;
-      // one free instance plus the per-player cooldown makes it unreachable.
+      // Repeated seeds must never overwrite an existing companion/theft id.
+      let suffix = String(seed);
+      while (mine.companions.some((c) => c.id === `s${suffix}`) || me.stolenIds.includes(`s${suffix}`) || foe.thefts.some((t) => t.id === `t${suffix}`)) {
+        suffix = deps.randomBytesHex(7);
+      }
+      const transferred = { ...moved, id: `s${suffix}` };
       await store.setStolenIds(foe.id, [...foe.stolenIds, moved.id].slice(-STOLEN_IDS_MAX));
       await store.putSnapshot(foe.id, {
         ...theirs,
         companions: theirs.companions.filter((c) => c.id !== moved.id),
-        party: theirs.party.filter((id) => id !== moved.id),
+        party: (theirs.party ?? []).filter((id) => id !== moved.id),
       });
       await store.putSnapshot(me.id, { ...mine, companions: [...mine.companions, transferred] });
       await store.setThefts(
@@ -326,7 +371,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
         [
           ...foe.thefts,
           {
-            id: `t${seed}`,
+            id: `t${suffix}`,
             companion: moved,
             transferredId: transferred.id,
             thiefId: me.id,
@@ -355,8 +400,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
    * neighbour pick as `/v1/pvp`, but it only shows the opponent's party and
    * parks the seed under a match id. No cooldown, no store writes.
    */
-  const match = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const match = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -367,16 +412,28 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     const at = deps.now();
     prune(at);
     const seed = deps.randomSeed() >>> 0;
-    const up = await store.neighbor(me.id, mine, 'up');
-    const down = await store.neighbor(me.id, mine, 'down');
-    const foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    const selected = record(req.body)?.['opponentId'];
+    if (selected !== undefined && (typeof selected !== 'string' || !/^[A-Za-z0-9-]{1,64}$/.test(selected) || selected === me.id)) {
+      return error(400, 'bad_opponent');
+    }
+    let foe: PlayerRow | null;
+    if (typeof selected === 'string') {
+      foe = await store.getById(selected);
+      if (!foe?.snapshot) return error(404, 'opponent_missing');
+    } else {
+      const up = await store.neighbor(me.id, mine, 'up');
+      const down = await store.neighbor(me.id, mine, 'down');
+      foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    }
     const theirs = foe?.snapshot ?? null;
-    const opponent: PvpOpponent = theirs
+    const opponent: PvpOpponent = foe && theirs
       ? {
+          playerId: foe.id,
           name: theirs.name,
           bestIndex: theirs.bestIndex,
           rebirths: theirs.rebirths,
-          party: pvpParty(theirs.companions, theirs.party),
+          party: pvpParty(theirs.companions, theirs.party ?? [], theirs.hero),
+          ...(theirs.hero ? { hero: theirs.hero } : {}),
         }
       : { name: BOT_NAME, bestIndex: mine.bestIndex, rebirths: mine.rebirths, party: [] };
     const matchId = deps.randomBytesHex(8);
@@ -386,6 +443,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       opponentId: foe?.id ?? null,
       seed,
       opponentParty: opponent.party,
+      ...(opponent.hero ? { opponentHero: opponent.hero } : {}),
       createdAt: at,
     });
     return {
@@ -395,8 +453,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
   };
 
   /** T61 — the victim's inbox; reading it also drops what can no longer be taken back. */
-  const thefts = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const thefts = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -412,8 +470,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
    * Only from MY own row, only while the window is open, and only while the
    * thief still holds it; every dead record is pruned on the way out.
    */
-  const reclaim = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const reclaim = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -433,8 +491,12 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       await store.setThefts(me.id, rest);
       return error(409, 'gone');
     }
-    const companion = { ...theft.companion, id: `r${theft.id.slice(1)}` };
-    // Same four unguarded writes as the steal in /v1/pvp — see its ponytail note.
+    let reclaimedId = `r${theft.id.slice(1)}`;
+    while (me.snapshot?.companions.some((c) => c.id === reclaimedId) || me.stolenIds.includes(reclaimedId)) {
+      reclaimedId = `r${deps.randomBytesHex(7)}`;
+    }
+    const companion = { ...theft.companion, id: reclaimedId };
+    // All roster moves and theft bookkeeping share the request transaction.
     await store.setStolenIds(
       thief.id,
       [...thief.stolenIds, theft.transferredId].slice(-STOLEN_IDS_MAX),
@@ -442,7 +504,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     await store.putSnapshot(thief.id, {
       ...held,
       companions: held.companions.filter((c) => c.id !== theft.transferredId),
-      party: held.party.filter((id) => id !== theft.transferredId),
+      party: (held.party ?? []).filter((id) => id !== theft.transferredId),
     });
     // A full roster still answers 200: the client's addCompanion rule drops it.
     if (me.snapshot && me.snapshot.companions.length < ROSTER_CAP) {
@@ -455,27 +517,30 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     return { status: 200, body: { companion } satisfies ReclaimResponse };
   };
 
-  const route = async (req: ApiRequest): Promise<ApiResponse> => {
+  const route = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
     if (req.method === 'POST' && req.path === '/v1/players') {
-      return register(req);
+      return register(req, store);
     }
     if (req.method === 'PUT' && req.path === '/v1/snapshot') {
-      return upload(req);
+      return upload(req, store);
     }
     if (req.method === 'GET' && req.path === '/v1/leaderboard') {
-      return leaderboard(req);
+      return leaderboard(req, store);
+    }
+    if (req.method === 'GET' && req.path === '/v1/pvp/opponents') {
+      return opponents(req, store);
     }
     if (req.method === 'POST' && req.path === '/v1/pvp/match') {
-      return match(req);
+      return match(req, store);
     }
     if (req.method === 'POST' && req.path === '/v1/pvp') {
-      return pvp(req);
+      return pvp(req, store);
     }
     if (req.method === 'GET' && req.path === '/v1/thefts') {
-      return thefts(req);
+      return thefts(req, store);
     }
     if (req.method === 'POST' && req.path === '/v1/reclaim') {
-      return reclaim(req);
+      return reclaim(req, store);
     }
     return error(404, 'not_found');
   };
@@ -485,7 +550,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       try {
         const retryAfterSec = overLimit(req);
         return retryAfterSec === null
-          ? await route(req)
+          ? await deps.store.transaction((store) => route(req, store))
           : error(429, 'rate_limited', retryAfterSec);
       } catch {
         return error(500, 'internal');

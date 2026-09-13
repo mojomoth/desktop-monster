@@ -101,8 +101,8 @@ describe('default position (Assumption 10, src/main/window.ts)', () => {
     // v3 (F64): a 200×130 canvas at 2× CSS (shrunk from 240×150; user change 2026-09-04).
     expect(windowTs).toContain('WINDOW_W = 400');
     expect(windowTs).toContain('WINDOW_H = 260');
-    expect(styleCss).toMatch(/canvas\s*{[^}]*width: 400px;/);
-    expect(styleCss).toMatch(/canvas\s*{[^}]*height: 260px;/);
+    expect(styleCss).toMatch(/canvas\s*{[^}]*width: 100vw;/);
+    expect(styleCss).toMatch(/canvas\s*{[^}]*height: 100vh;/);
     expect(styleCss).toMatch(/canvas\s*{[^}]*image-rendering: pixelated;/);
     expect(read('static/index.html')).toContain('width="200" height="130"');
   });

@@ -18,6 +18,21 @@ const comp = (id: string, patch: Partial<Companion> = {}): Companion => ({
 const sides = (blows: readonly { side: string }[]): string => blows.map((b) => b.side).join('');
 
 describe('simulateBattle (SPEC F62)', () => {
+  it('applies each side\'s hero attack buff without changing legacy battles or companion HP', () => {
+    const a = [comp('a1', { level: 10 })];
+    const d = [comp('d1', { level: 10 })];
+    const plain = simulateBattle(a, d);
+    expect(simulateBattle(a, d, { attacker: { formId: 'h00', buffPercent: 0 } })).toEqual(plain);
+    // h02 is water specialist (+50%); h01 is fire and cannot buff a slime.
+    const specialist = simulateBattle(a, d, { defender: { formId: 'h02', buffPercent: 25 } });
+    expect(specialist.blows.slice(0, 2).map((b) => b.damage)).toEqual([10n, 15n]);
+    expect(specialist.attackerWon).toBe(false);
+    expect(simulateBattle(a, d, { defender: { formId: 'h01', buffPercent: 25 } })).toEqual(plain);
+    // h06 buffs any species; integer damage rounds down deterministically.
+    const allParty = simulateBattle(a, d, { attacker: { formId: 'h06', buffPercent: 25 } });
+    expect(allParty.blows.slice(0, 2).map((b) => b.damage)).toEqual([12n, 10n]);
+  });
+
   it('blows alternate from the front members and ko advances to the next', () => {
     // Same species, same power: 1 damage a blow against hp 1 * BATTLE_HP_MULT.
     // Equal sizes keep party order, so the front member is the last listed.

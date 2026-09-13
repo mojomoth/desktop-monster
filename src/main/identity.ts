@@ -16,6 +16,25 @@ export interface Identity {
   token: string | null;
   /** Theft ids already shown as a native notification (SERVER_ARCHITECTURE_V3 §5). */
   notifiedTheftIds: string[];
+  /** Only successful, non-bot server responses write these installation totals. */
+  pvpHistory?: PvpHistory;
+}
+
+export interface PvpHistory { wins: number; losses: number; matchIds: string[] }
+export function parsePvpHistory(value: unknown): PvpHistory {
+  const raw = typeof value === 'object' && value !== null ? value as Record<string, unknown> : {};
+  const count = (v: unknown): number => typeof v === 'number' && Number.isSafeInteger(v) && v >= 0 ? v : 0;
+  return { wins: count(raw.wins), losses: count(raw.losses),
+    // The server consumes each match once; this durable recent window also
+    // handles concurrent duplicate callbacks and reconnect retries locally.
+    matchIds: Array.isArray(raw.matchIds) ? [...new Set(raw.matchIds.filter((id): id is string =>
+      typeof id === 'string' && id.length > 0 && id.length <= 128))].slice(-100) : [] };
+}
+
+export function recordPvpHistory(history: PvpHistory, matchId: string, won: boolean): PvpHistory {
+  if (matchId.length === 0 || matchId.length > 128 || history.matchIds.includes(matchId)) return history;
+  return { wins: Math.min(Number.MAX_SAFE_INTEGER, history.wins + (won ? 1 : 0)),
+    losses: Math.min(Number.MAX_SAFE_INTEGER, history.losses + (won ? 0 : 1)), matchIds: [...history.matchIds, matchId].slice(-100) };
 }
 
 /** Absolute path of identity.json inside the given userData directory. */
@@ -53,6 +72,7 @@ export function readIdentity(dir: string, randomUUID: () => string): Identity {
     notifiedTheftIds: Array.isArray(o.notifiedTheftIds)
       ? o.notifiedTheftIds.filter((id): id is string => typeof id === 'string')
       : [],
+    ...(o.pvpHistory !== undefined ? { pvpHistory: parsePvpHistory(o.pvpHistory) } : {}),
   };
 }
 

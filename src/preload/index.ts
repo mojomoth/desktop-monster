@@ -13,6 +13,7 @@ import type {
   LeaderboardResult,
   MatchResult,
   NetResult,
+  OpponentListResult,
   PvpResult,
   ReclaimResult,
   TheftsResult,
@@ -52,8 +53,10 @@ const desmon = {
     ipcRenderer.invoke('desmon:get-input-mode') as Promise<InputModePayload>,
   loadState: (): Promise<SaveStatePayload | null> =>
     ipcRenderer.invoke('desmon:load-state') as Promise<SaveStatePayload | null>,
-  saveState: (s: SaveStatePayload): Promise<void> =>
-    ipcRenderer.invoke('desmon:save-state', s) as Promise<void>,
+  saveState: (s: SaveStatePayload): Promise<boolean> =>
+    ipcRenderer.invoke('desmon:save-state', s) as Promise<boolean>,
+  onSaveFailed: (cb: () => void): (() => void) =>
+    subscribe('desmon:save-failed', () => { cb(); }),
   openAccessibilitySettings: (): Promise<void> =>
     ipcRenderer.invoke('desmon:open-accessibility-settings') as Promise<void>,
   reportFirstFrame: (): void => {
@@ -68,8 +71,10 @@ const desmon = {
     ipcRenderer.invoke('desmon:set-name', { name }) as Promise<IdentityPayload>,
   getLeaderboard: (n?: number): Promise<NetResult<LeaderboardResult>> =>
     ipcRenderer.invoke('desmon:leaderboard', { n }) as Promise<NetResult<LeaderboardResult>>,
-  pvpMatch: (): Promise<NetResult<MatchResult>> =>
-    ipcRenderer.invoke('desmon:pvp-match') as Promise<NetResult<MatchResult>>,
+  pvpOpponents: (): Promise<NetResult<OpponentListResult>> =>
+    ipcRenderer.invoke('desmon:pvp-opponents') as Promise<NetResult<OpponentListResult>>,
+  pvpMatch: (opponentId?: string): Promise<NetResult<MatchResult>> =>
+    ipcRenderer.invoke('desmon:pvp-match', { opponentId }) as Promise<NetResult<MatchResult>>,
   pvp: (matchId: string, party: string[]): Promise<NetResult<PvpResult>> =>
     ipcRenderer.invoke('desmon:pvp', { matchId, party }) as Promise<NetResult<PvpResult>>,
   thefts: (): Promise<NetResult<TheftsResult>> =>

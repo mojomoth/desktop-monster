@@ -4,13 +4,16 @@ import { randomUUID } from 'node:crypto';
 import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import type { WebContents } from 'electron';
 import type { CollectionAction } from '../core/collection.js';
-import { parseSave } from '../core/index.js';
+import { isCompanionSnapshot, isDiscoveryAction, migrateProgress, parseSave } from '../core/index.js';
+import type { SaveFile } from '../core/save.js';
+import { isHeroRoll } from '../core/hero.js';
 import { LEADERBOARD_DEFAULT, LEADERBOARD_MAX } from '../shared/api.js';
 import type {
   IdentityPayload,
   LeaderboardResult,
   MatchResult,
   NetResult,
+  OpponentListResult,
   PvpResult,
   ReclaimResult,
   TheftsResult,
@@ -22,6 +25,7 @@ import type {
   LeaderboardQueryPayload,
   MoveWindowPayload,
   PvpPayload,
+  PvpMatchPayload,
   ReclaimPayload,
   SetNamePayload,
 } from '../shared/ipc.js';
@@ -48,9 +52,8 @@ function sendToOthers(sender: WebContents, channel: IpcChannel, payload: unknown
 }
 
 /**
- * Broadcast to EVERY window (SPEC F73). Main originates exactly one action
- * this way — the `addCompanion` after a reclaim (T69, Assumption 49), which no
- * window's save knows about yet.
+ * Broadcast main-owned updates to every window: companion reclaim and the
+ * absolute official PvP counters. Menu actions cannot originate those counters.
  */
 export function sendToAll(channel: IpcChannel, payload: unknown): void {
   for (const win of BrowserWindow.getAllWindows()) {
@@ -70,6 +73,7 @@ function isReplay(v: unknown): boolean {
   return (
     typeof r['opponentName'] === 'string' &&
     Array.isArray(r['opponentParty']) &&
+    (r['opponentHero'] === undefined || isHeroRoll(r['opponentHero'])) &&
     Array.isArray(blows) &&
     blows.every((b) => {
       const blow = (b ?? {}) as Record<string, unknown>;
@@ -89,30 +93,44 @@ function isReplay(v: unknown): boolean {
  * core's union and every id field a string (id lists, arrays of strings).
  * Anything else yields null and is dropped — the menu must not be able to
  * inject junk into the game window's state, and a bad payload never throws.
- * ponytail: nested Companion objects are only shape-checked here; parseSave
- * re-validates them when the game window flushes the resulting save.
+ * Nested companions use the save validator before entering the live engine.
  */
 function narrowAction(payload: unknown): CollectionAction | null {
   const a = (payload ?? {}) as Record<string, unknown>;
   const str = (k: string): boolean => typeof a[k] === 'string';
-  const obj = (k: string): boolean => typeof a[k] === 'object' && a[k] !== null;
+  const companion = (k: string): boolean => parseSave({ companions: [a[k]] }).companions.length === 1;
   const strs = (k: string): boolean => {
     const v = a[k];
     return Array.isArray(v) && v.every((id) => typeof id === 'string');
   };
   const ok = ((): boolean => {
     switch (a['type']) {
+      case 'acknowledgeDiscoveries':
+      case 'setDiscoveryGoal':
+        return isDiscoveryAction(payload);
       case 'consume':
         return str('targetId') && str('foodId');
       case 'fuse':
         return str('aId') && str('bId');
       case 'reincarnate':
+        return str('id') && isCompanionSnapshot(a['expected']);
       case 'sacrifice':
         return str('id');
       case 'rebirth':
+      case 'heroOffer':
         return true;
+      case 'heroReroll':
+      case 'heroDefer':
+        return Number.isSafeInteger(a['offerSerial']) && Number(a['offerSerial']) >= 0;
+      case 'heroChoose':
+        return str('formId') && Number.isSafeInteger(a['offerSerial']) && Number(a['offerSerial']) >= 0;
+      case 'heroEquip':
+        return str('formId');
+      case 'shopBuy':
+        return (a['item'] === 'training' || a['item'] === 'lure') &&
+          Number.isSafeInteger(a['shopSerial']) && Number(a['shopSerial']) >= 0;
       case 'addCompanion':
-        return obj('companion');
+        return companion('companion');
       case 'removeCompanions':
       case 'setPvpParty':
         return strs('ids');
@@ -124,7 +142,7 @@ function narrowAction(payload: unknown): CollectionAction | null {
         }
         return (
           typeof a['won'] === 'boolean' &&
-          (a['stolen'] === null || obj('stolen')) &&
+          (a['stolen'] === null || companion('stolen')) &&
           (a['lostId'] === null || str('lostId'))
         );
       default:
@@ -156,22 +174,40 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
     randomUUID,
   });
 
+  const withOfficialRecord = (save: SaveFile): SaveFile => {
+    const { wins, losses } = session.pvpHistory();
+    if (!save.progress && wins === 0 && losses === 0) return save;
+    const progress = migrateProgress(save);
+    progress.pvpWins = wins;
+    progress.pvpLosses = losses;
+    return { ...save, progress };
+  };
+
   // Live state from the T04 global-input state machine; before/without
   // startGlobalInput (e.g. SMOKE=1) it reports the fallback default.
   ipcMain.handle(IPC.GET_INPUT_MODE, (): InputModePayload => getCurrentInputMode());
 
   // Raw parsed JSON or null — validation is core's job (T08).
-  ipcMain.handle(IPC.LOAD_STATE, (): unknown => readSaveFile(app.getPath('userData')));
+  ipcMain.handle(IPC.LOAD_STATE, (): unknown => {
+    const raw = readSaveFile(app.getPath('userData'));
+    return raw === null && session.pvpHistory().wins === 0 && session.pvpHistory().losses === 0
+      ? null : withOfficialRecord(parseSave(raw));
+  });
 
-  ipcMain.handle(IPC.SAVE_STATE, (event, data: unknown): void => {
-    writeSaveFile(app.getPath('userData'), data);
+  ipcMain.handle(IPC.SAVE_STATE, (event, data: unknown): boolean => {
     // The renderer's save is untrusted input: parse it, never cast it. The
     // session uploads in the background and its result is deliberately
     // dropped — main never pushes roster changes at the game window.
     const parsed = parseSave(data);
+    Object.assign(parsed, withOfficialRecord(parsed));
+    if (!writeSaveFile(app.getPath('userData'), parsed)) {
+      sendToAll(IPC.SAVE_FAILED, undefined);
+      return false;
+    }
     session.onSave(parsed);
     // …but the OTHER window (the menu) is showing a save it did not write.
     sendToOthers(event.sender, IPC.STATE_CHANGED, parsed);
+    return true;
   });
 
   // Menu → game relay (SPEC F51). Unknown/malformed actions are ignored.
@@ -199,14 +235,26 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
   });
 
   // v3 (T67) step 1: the opponent preview the player picks a party against.
-  ipcMain.handle(IPC.PVP_MATCH, (): Promise<NetResult<MatchResult>> => session.match());
+  ipcMain.handle(IPC.PVP_OPPONENTS, (): Promise<NetResult<OpponentListResult>> => session.opponents());
+  ipcMain.handle(IPC.PVP_MATCH, (_event, p: unknown): Promise<NetResult<MatchResult>> => {
+    const { opponentId } = (p as Partial<PvpMatchPayload> | null | undefined) ?? {};
+    return opponentId === undefined || (typeof opponentId === 'string' && /^[A-Za-z0-9-]{1,64}$/.test(opponentId))
+      ? session.match(opponentId)
+      : Promise.resolve({ ok: false, error: 'network' });
+  });
 
   // v3 (T67) step 2: the battle needs the match from step 1 and my chosen
   // party. The payload is untrusted; a malformed one is refused, never sent.
   ipcMain.handle(IPC.PVP, (_event, p: unknown): Promise<NetResult<PvpResult>> => {
     const { matchId, party } = (p as Partial<PvpPayload> | null | undefined) ?? {};
     return typeof matchId === 'string' && Array.isArray(party) && party.every((id) => typeof id === 'string')
-      ? session.pvp(matchId, party)
+      ? session.pvp(matchId, party).then((result) => {
+        if (result.ok) {
+          const { wins, losses } = session.pvpHistory();
+          sendToAll(IPC.ACTION, { type: 'syncPvpProgress', wins, losses });
+        }
+        return result;
+      })
       : Promise.resolve({ ok: false, error: 'network' });
   });
 
@@ -225,7 +273,7 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
 
   // The menu's single boot path: answer the SENDER with the save on disk.
   ipcMain.on(IPC.MENU_READY, (event) => {
-    event.sender.send(IPC.STATE_CHANGED, parseSave(readSaveFile(app.getPath('userData'))));
+    event.sender.send(IPC.STATE_CHANGED, withOfficialRecord(parseSave(readSaveFile(app.getPath('userData')))));
   });
 
   ipcMain.on(IPC.FIRST_FRAME, () => {

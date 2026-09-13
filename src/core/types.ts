@@ -2,6 +2,8 @@
 // Shapes follow GAME_ARCHITECTURE §2 exactly.
 
 import type { Companion } from './save.js';
+import type { HeroProgress, HeroRoll } from './hero.js';
+import type { Progress } from './progress.js';
 import type { Effectiveness, MonsterType } from './types-chart.js';
 
 export type InputSource = 'keyboard' | 'mouse';
@@ -36,6 +38,10 @@ export interface ItemDrop {
 export interface GameState {
   /** Hero level, starts 1. */
   level: number;
+  /** v0.4; absent on legacy states until the first hero collection action. */
+  hero?: HeroProgress;
+  /** v0.5 lifetime history, discovery and gold purchases. */
+  progress?: Progress;
   /** XP into the current level. */
   xp: number;
   killCount: number;
@@ -50,6 +56,8 @@ export interface GameState {
   pvpParty: string[];
   nextCompanionId: number;
   souls: number;
+  /** v0.4: bosses released because the roster was full — 2 releases = 1 soul. */
+  releasedCount: number;
   rebirths: number;
   /** Deepest monsterIndex ever reached. */
   bestIndex: number;
@@ -70,7 +78,17 @@ export type GameEvent =
   | { type: 'monsterKilled'; monster: MonsterDef; xpGained: number }
   | { type: 'itemDropped'; drops: ItemDrop[] }
   | { type: 'bossCaptured'; companion: Companion }
+  | {
+      type: 'companionReleased';
+      speciesId: string;
+      bossIndex: number;
+      /** Souls granted by this release: 1 on every second release, else 0. */
+      souls: number;
+      /** The release was worth more than the roster's weakest keeper. */
+      strongerThanWeakest: boolean;
+    }
   | { type: 'levelUp'; newLevel: number }
+  | { type: 'heroReady' }
   | { type: 'feverStart' }
   | { type: 'feverEnd' }
   | { type: 'monsterSpawned'; monster: MonsterDef }
@@ -92,6 +110,7 @@ export interface WireBlow {
 
 export interface BattleReplay {
   opponentName: string;
+  opponentHero?: HeroRoll;
   opponentParty: Companion[];
   blows: WireBlow[];
 }

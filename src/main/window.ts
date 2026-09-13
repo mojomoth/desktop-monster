@@ -4,6 +4,7 @@
 
 import { BrowserWindow, screen } from 'electron';
 import * as path from 'node:path';
+import { isGameScale } from './settings.js';
 
 /** Overlay content size, CSS px (Assumption 10 — fixed, not resizable). */
 export const WINDOW_W = 400;
@@ -25,6 +26,19 @@ export function defaultPosition(workArea: {
     x: workArea.x + workArea.width - WINDOW_W - EDGE_MARGIN,
     y: workArea.y + workArea.height - WINDOW_H - EDGE_MARGIN,
   };
+}
+
+/** Resize around the bottom-right corner, keeping the overlay on its display. */
+export function applyOverlayScale(win: BrowserWindow, scale: number): boolean {
+  if (!isGameScale(scale) || win.isDestroyed()) return false;
+  const bounds = win.getBounds();
+  const area = screen.getDisplayMatching(bounds).workArea;
+  const width = Math.round(WINDOW_W * scale);
+  const height = Math.round(WINDOW_H * scale);
+  const x = Math.max(area.x, Math.min(bounds.x + bounds.width - width, area.x + area.width - width));
+  const y = Math.max(area.y, Math.min(bounds.y + bounds.height - height, area.y + area.height - height));
+  win.setBounds({ x, y, width, height });
+  return true;
 }
 
 export function createOverlayWindow(): BrowserWindow {

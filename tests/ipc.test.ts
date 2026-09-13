@@ -8,8 +8,59 @@
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { IPC } from '../src/shared/ipc.js';
+
+const relay = vi.hoisted(() => ({
+  handlers: new Map<string, (...args: unknown[]) => unknown>(),
+  game: { id: 1, send: vi.fn() }, menu: { id: 2, send: vi.fn() },
+}));
+vi.mock('electron', () => ({
+  app: { getPath: () => '/injected/v7-test' }, shell: { openExternal: vi.fn() },
+  BrowserWindow: { getAllWindows: () => [{ webContents: relay.game }, { webContents: relay.menu }] },
+  ipcMain: { handle: (name: string, fn: (...args: unknown[]) => unknown) => relay.handlers.set(name, fn), on: vi.fn() },
+}));
+vi.mock('../src/main/globalInput.js', () => ({ getCurrentInputMode: vi.fn() }));
+vi.mock('../src/main/persistence.js', () => ({ readSaveFile: vi.fn(), writeSaveFile: vi.fn() }));
+vi.mock('../src/main/net.js', () => ({ createNetClient: vi.fn(), createNetSession: () => ({}) }));
+import { registerIpcHandlers } from '../src/main/ipc.js';
+
+describe('v0.7 confirmed companion IPC', () => {
+  it('rejects invalid incoming companion levels before live-state relay', () => {
+    relay.game.send.mockClear(); relay.menu.send.mockClear();
+    registerIpcHandlers();
+    const send = (payload: unknown) => relay.handlers.get(IPC.MENU_ACTION)!({ sender: relay.menu }, payload);
+    const c = { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 250, stars: 0 };
+    for (const level of [0, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN]) {
+      send({ type: 'addCompanion', companion: { ...c, level } });
+      send({ type: 'pvpResult', won: true, stolen: { ...c, level }, lostId: null });
+    }
+    expect(relay.game.send).not.toHaveBeenCalled();
+    for (const level of [11, 250, Number.MAX_SAFE_INTEGER]) {
+      send({ type: 'addCompanion', companion: { ...c, level } });
+      expect(relay.game.send).toHaveBeenLastCalledWith(IPC.ACTION, { type: 'addCompanion', companion: { ...c, level } });
+      send({ type: 'pvpResult', won: true, stolen: { ...c, level }, lostId: null });
+      expect(relay.game.send).toHaveBeenLastCalledWith(IPC.ACTION, { type: 'pvpResult', won: true, stolen: { ...c, level }, lostId: null });
+    }
+    expect(relay.game.send).toHaveBeenCalledTimes(6);
+  });
+
+  it('drops missing/malformed confirmations and relays an exact safe-integer snapshot', () => {
+    relay.game.send.mockClear(); relay.menu.send.mockClear();
+    registerIpcHandlers();
+    const send = (payload: unknown) => relay.handlers.get(IPC.MENU_ACTION)!({ sender: relay.menu }, payload);
+    const expected = { speciesId: 'bat', bossIndex: 7, level: Number.MAX_SAFE_INTEGER, stars: 0 };
+    for (const snapshot of [undefined, null, {}, { ...expected, level: Number.MAX_SAFE_INTEGER + 1 },
+      { ...expected, stars: -1 }, { ...expected, bossIndex: 0.5 }, { ...expected, speciesId: '' }]) {
+      send({ type: 'reincarnate', id: 'c1', expected: snapshot });
+    }
+    expect(relay.game.send).not.toHaveBeenCalled();
+    const valid = { type: 'reincarnate', id: 'c1', expected };
+    send(valid);
+    expect(relay.game.send).toHaveBeenCalledExactlyOnceWith(IPC.ACTION, valid);
+    expect(relay.menu.send).not.toHaveBeenCalled();
+  });
+});
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
 
@@ -25,6 +76,7 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       GET_INPUT_MODE: 'desmon:get-input-mode',
       LOAD_STATE: 'desmon:load-state',
       SAVE_STATE: 'desmon:save-state',
+      SAVE_FAILED: 'desmon:save-failed',
       RESET: 'desmon:reset',
       OPEN_ACCESSIBILITY_SETTINGS: 'desmon:open-accessibility-settings',
       FIRST_FRAME: 'desmon:first-frame',
@@ -32,6 +84,7 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       GET_IDENTITY: 'desmon:get-identity',
       SET_NAME: 'desmon:set-name',
       LEADERBOARD: 'desmon:leaderboard',
+      PVP_OPPONENTS: 'desmon:pvp-opponents',
       PVP_MATCH: 'desmon:pvp-match',
       PVP: 'desmon:pvp',
       THEFTS: 'desmon:thefts',
@@ -64,12 +117,14 @@ describe('preload bridge (src/preload/index.ts)', () => {
     'getInputMode',
     'loadState',
     'saveState',
+    'onSaveFailed',
     'openAccessibilitySettings',
     'reportFirstFrame',
     'moveWindowBy',
     'getIdentity',
     'setName',
     'getLeaderboard',
+    'pvpOpponents',
     'pvpMatch',
     'pvp',
     'thefts',
@@ -109,6 +164,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     'GET_IDENTITY',
     'SET_NAME',
     'LEADERBOARD',
+    'PVP_OPPONENTS',
     'PVP_MATCH',
     'PVP',
     'THEFTS',
@@ -174,7 +230,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(mainIpcTs).toContain('LEADERBOARD_DEFAULT');
   });
 
-  it('never originates an action — the only send is the sender-excluding relay (T45/T49)', () => {
+  it('originates only official PvP progress alongside the sender-excluding action relay (v5)', () => {
     for (const channel of ['IPC.LEADERBOARD', 'IPC.PVP', 'IPC.GET_IDENTITY', 'IPC.SET_NAME']) {
       expect(mainIpcTs).toContain(`ipcMain.handle(${channel}`);
     }
@@ -182,14 +238,17 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     // main's sends live inside the relay helpers — sendToOthers and, since v3
     // (F73), sendToAll for the reclaim-originated addCompanion (T69). Both sit
     // ABOVE the handlers, and IPC.ACTION is still produced by exactly one call
-    // site: the menu-action relay.
+    // sites: the menu-action relay and official PvP progress sync.
     expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(2);
     expect(mainIpcTs.lastIndexOf('webContents.send(')).toBeLessThan(
       mainIpcTs.indexOf('ipcMain.handle'),
     );
     const relay = mainIpcTs.slice(mainIpcTs.indexOf('function sendToOthers'));
     expect(relay.indexOf('webContents.send(')).toBeLessThan(relay.indexOf('ipcMain.handle'));
-    expect(mainIpcTs.match(/IPC\.ACTION/g)).toHaveLength(1);
+    expect(mainIpcTs.match(/IPC\.ACTION/g)).toHaveLength(2);
+    expect(mainIpcTs).toContain("sendToAll(IPC.ACTION, { type: 'syncPvpProgress', wins, losses })");
+    const narrow = mainIpcTs.slice(mainIpcTs.indexOf('function narrowAction'), mainIpcTs.indexOf('export interface IpcOptions'));
+    expect(narrow).not.toContain("case 'syncPvpProgress'");
   });
 
   it('relays over every window except the sender, statelessly (F51)', () => {
@@ -258,8 +317,11 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
 
   it('pvp-match, thefts and reclaim handlers forward to the session and return its NetResult', () => {
     expect(mainIpcTs).toContain(
-      'ipcMain.handle(IPC.PVP_MATCH, (): Promise<NetResult<MatchResult>> => session.match());',
+      'ipcMain.handle(IPC.PVP_MATCH, (_event, p: unknown): Promise<NetResult<MatchResult>> => {',
     );
+    expect(mainIpcTs).toContain('session.match(opponentId)');
+    expect(mainIpcTs).toContain("typeof opponentId === 'string'");
+    expect(mainIpcTs).toContain('session.opponents()');
     expect(mainIpcTs).toContain(
       'ipcMain.handle(IPC.THEFTS, (): Promise<NetResult<TheftsResult>> => session.thefts());',
     );
@@ -312,7 +374,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
   it('menu-ready answers the sender with the current save', () => {
     const handler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.on(IPC.MENU_READY'));
     expect(handler).toContain(
-      "event.sender.send(IPC.STATE_CHANGED, parseSave(readSaveFile(app.getPath('userData'))))",
+      "event.sender.send(IPC.STATE_CHANGED, withOfficialRecord(parseSave(readSaveFile(app.getPath('userData')))))",
     );
     // The boot answer goes to the SENDER only — not through the relay.
     expect(handler.slice(0, handler.indexOf('ipcMain.on(IPC.FIRST_FRAME'))).not.toContain(

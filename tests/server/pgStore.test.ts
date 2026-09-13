@@ -63,7 +63,9 @@ describe('PgStore DDL is idempotent and int8-free (F46, §4)', () => {
     // v3 keeps pending matches in app.ts module memory (§0/§4), never in Postgres.
     expect(pgStore).not.toMatch(/CREATE TABLE IF NOT EXISTS matches/i);
     expect(pgStore).not.toMatch(/\bmatches\b/);
-    expect(pgStore.match(/ALTER TABLE/g)).toHaveLength(1);
+    expect(pgStore.match(/ALTER TABLE/g)).toHaveLength(3);
+    expect(pgStore).toContain('ADD COLUMN IF NOT EXISTS wins integer NOT NULL DEFAULT 0');
+    expect(pgStore).toContain('ADD COLUMN IF NOT EXISTS losses integer NOT NULL DEFAULT 0');
   });
 
   it('avoids int8: timestamps are double precision and counts are cast to int', () => {

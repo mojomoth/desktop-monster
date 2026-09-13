@@ -20,12 +20,18 @@ export {
   CRIT_CHANCE,
   CRIT_MULT,
   damageForLevel,
+  fieldMonsterMaxHp,
   monsterMaxHp,
   xpReward,
   xpToNext,
 } from './formulas.js';
 
 export * from './battle.js';
+export * from './hero.js';
+export * from './progress.js';
+export * from './economy.js';
+export * from './discovery.js';
+export * from './progression.js';
 
 export * from './collection.js';
 
@@ -33,7 +39,7 @@ export * from './fever.js';
 
 export * from './types-chart.js';
 
-export { createEngine } from './engine.js';
+export { createEngine, eligibleMonsterIds, RELEASES_PER_SOUL } from './engine.js';
 export type { Engine } from './engine.js';
 
 export {
@@ -71,6 +77,8 @@ export type { Companion, SaveFile, SaveFileV1, SaveFileV2, SaveFileV3 } from './
 
 export {
   BOSS_EVERY,
+  COMMON_SPECIES_IDS,
+  RARE_SPECIES_IDS,
   displayNameOf,
   isBoss,
   isSpeciesId,

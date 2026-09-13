@@ -18,6 +18,7 @@ export type FallbackEventName = 'keydown' | 'mousedown';
 /** Minimal shape of a delivered event — only the target is inspected. */
 export interface FallbackEvent {
   target?: unknown;
+  repeat?: boolean;
 }
 
 export type FallbackListener = (event: FallbackEvent) => void;
@@ -76,7 +77,8 @@ function isDragStripEvent(event: FallbackEvent): boolean {
 export function setupFallbackInput(options: FallbackInputOptions): FallbackInputHandle {
   const { target, bridge, onAttack } = options;
 
-  const onKeydown: FallbackListener = () => {
+  const onKeydown: FallbackListener = (event) => {
+    if (event.repeat) return;
     onAttack('keyboard');
   };
   const onMousedown: FallbackListener = (event) => {

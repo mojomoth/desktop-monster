@@ -16,6 +16,8 @@ export const IPC = {
   LOAD_STATE: 'desmon:load-state',
   /** renderer → main (invoke): persist the save file (atomic tmp + rename). */
   SAVE_STATE: 'desmon:save-state',
+  /** main → windows (send): the latest save failed; no success state is broadcast. */
+  SAVE_FAILED: 'desmon:save-failed',
   /** main → renderer (send): tray "Reset Progress" was clicked. */
   RESET: 'desmon:reset',
   /** renderer → main (invoke): open the macOS Accessibility settings pane. */
@@ -30,6 +32,8 @@ export const IPC = {
   SET_NAME: 'desmon:set-name',
   /** renderer → main (invoke): top-N leaderboard rows plus this player's row. */
   LEADERBOARD: 'desmon:leaderboard',
+  /** renderer → main (invoke): opponents with hero, party and official record. */
+  PVP_OPPONENTS: 'desmon:pvp-opponents',
   /** renderer → main (invoke): step 1 of a battle — the opponent preview (F73). */
   PVP_MATCH: 'desmon:pvp-match',
   /** renderer → main (invoke): resolve one asynchronous PvP battle. */
@@ -84,6 +88,8 @@ export interface PvpPayload {
   matchId: string;
   party: string[];
 }
+
+export interface PvpMatchPayload { opponentId?: string }
 
 /** Payload of `desmon:reclaim`: which theft to take back. */
 export interface ReclaimPayload {

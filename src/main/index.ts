@@ -19,7 +19,8 @@ import type { NetSession } from './net.js';
 import { createTheftWatcher } from './thefts.js';
 import { setupTray } from './tray.js';
 import { encodeTrayIconPng } from './trayIcon.js';
-import { createOverlayWindow } from './window.js';
+import { applyOverlayScale, createOverlayWindow } from './window.js';
+import { readGameScale, writeGameScale } from './settings.js';
 
 const isSmoke = Boolean(process.env.SMOKE);
 
@@ -136,16 +137,28 @@ if (!app.requestSingleInstanceLock()) {
       : registerIpcHandlers();
 
     const win = createOverlayWindow();
+    let gameScale = readGameScale(app.getPath('userData'));
+    applyOverlayScale(win, gameScale);
     smokeWin = win;
 
     // Tray (SPEC F23): 16×16 pixel-matrix icon PNG-encoded in code, menu
     // rebuilt on every input-mode change. setupTray holds the module-scope
     // reference that keeps the icon from being garbage-collected.
     const tray = setupTray({
+      title: `DesMon v${app.getVersion()}`,
+      getGameScale: () => gameScale,
       createTray: () => new Tray(nativeImage.createFromBuffer(encodeTrayIconPng())),
       buildMenu: (template) => Menu.buildFromTemplate(template),
       getInputMode: getCurrentInputMode,
       actions: {
+        setGameScale: (scale) => {
+          if (!applyOverlayScale(win, scale)) return;
+          gameScale = scale;
+          if (!writeGameScale(app.getPath('userData'), scale)) {
+            console.error('Could not save game size preference.');
+          }
+          tray.refresh(getCurrentInputMode());
+        },
         openAccessibilitySettings: () => {
           void shell.openExternal(ACCESSIBILITY_SETTINGS_URL);
         },

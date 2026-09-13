@@ -86,12 +86,19 @@ async function boot(): Promise<void> {
 
   let reportedFirstFrame = false;
   let last = performance.now();
+  let unsavedActiveMs = 0;
   const frame = (now: number): void => {
     const dt = Math.min(now - last, 100); // dt clamp: throttle/wake safety
     last = now;
     // The engine clock lives in the rAF loop: companion volleys and fever
     // transitions come back as events and persist like any other progress.
     saves.onEvents(game.update(dt));
+    // Even an untouched, companion-less field has play time to preserve.
+    unsavedActiveMs += dt;
+    if (unsavedActiveMs >= 5000) {
+      unsavedActiveMs %= 5000;
+      saves.flush();
+    }
     game.draw(ctx);
     if (!reportedFirstFrame) {
       reportedFirstFrame = true;

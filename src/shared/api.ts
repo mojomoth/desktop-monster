@@ -15,6 +15,8 @@ export interface Companion {
 }
 /** Elemental type (GAME_DESIGN_V3 §2) — re-declared, never imported from core. */
 export type MonsterType = 'fire' | 'wind' | 'earth' | 'water' | 'dark';
+/** Fixed catalog appearance + rolled buff magnitude; catalog owns type/effect. */
+export interface HeroAppearance { formId: string; buffPercent: number; stacks?: number }
 export interface Snapshot {
   name: string;
   bestIndex: number;
@@ -22,6 +24,8 @@ export interface Snapshot {
   companions: Companion[];
   /** PvP party: ≤ PARTY_SIZE_MAX ids ⊆ `companions`; bad ids are dropped, missing → []. */
   party: string[];
+  /** Absent on legacy uploads; displayed as the novice. */
+  hero?: HeroAppearance;
 }
 export interface LeaderboardRow { rank: number; name: string; bestIndex: number; rebirths: number }
 
@@ -30,7 +34,19 @@ export interface RegisterResponse { playerId: string; token: string }
 export interface SnapshotResponse { rank: number; removed: string[]; thefts: Theft[] }
 export interface LeaderboardResponse { top: LeaderboardRow[]; me: LeaderboardRow | null }
 /** v3: the opponent shows its PvP party (≤ PARTY_SIZE_MAX), not its whole roster. */
-export interface PvpOpponent { name: string; bestIndex: number; rebirths: number; party: Companion[] }
+export interface PvpOpponent {
+  /** Real player identity; absent on legacy responses and bots. */
+  playerId?: string;
+  name: string; bestIndex: number; rebirths: number; party: Companion[]; hero?: HeroAppearance;
+}
+export interface OpponentSummary extends PvpOpponent {
+  playerId: string;
+  rank: number;
+  hero: HeroAppearance;
+  wins: number;
+  losses: number;
+}
+export interface OpponentListResult { opponents: OpponentSummary[] }
 /** Step 1 of a battle: the preview the player picks a party against. */
 export interface MatchResponse {
   matchId: string;
@@ -44,7 +60,7 @@ export interface MatchResponse {
 export interface PvpRequest { matchId: string; party: string[] }
 /** One blow of the replay; `damage` is a decimal string (bigint on the wire). */
 export interface WireBlow { side: 'A' | 'D'; actorId: string; targetId: string; damage: string; ko: boolean }
-export interface BattleReplay { opponentName: string; opponentParty: Companion[]; blows: WireBlow[] }
+export interface BattleReplay { opponentName: string; opponentParty: Companion[]; opponentHero?: HeroAppearance; blows: WireBlow[] }
 export interface PvpResponse {
   bot: boolean;
   seed: number;
@@ -91,7 +107,7 @@ export type NetResult<T> =
   | { ok: false; error: NetError; status?: number; retryAfterSec?: number };
 export interface IdentityPayload { name: string; playerId: string | null; online: boolean }
 export type LeaderboardResult = LeaderboardResponse & { removed: string[] };
-export type PvpResult = PvpResponse & { removed: string[] };
+export type PvpResult = PvpResponse & { removed: string[]; historySaved?: false };
 export type MatchResult = MatchResponse;
 export type TheftsResult = TheftsResponse;
 export type ReclaimResult = ReclaimResponse;
@@ -101,7 +117,8 @@ export const NICK_RE = /^[A-Za-z0-9_-]{1,16}$/;
 /** client ids c1, c2…; server-transferred ids s<seed>, reclaimed ids r<seed>. */
 export const COMPANION_ID_RE = /^[a-z0-9]{1,16}$/;
 export const LEVEL_MIN = 1;
-export const LEVEL_MAX = 10;
+/** Representation limit only: companion progression has no gameplay level cap. */
+export const LEVEL_MAX = Number.MAX_SAFE_INTEGER;
 /** Postgres integer. */
 export const INT_MAX = 2_147_483_647;
 export const LEADERBOARD_DEFAULT = 10;
