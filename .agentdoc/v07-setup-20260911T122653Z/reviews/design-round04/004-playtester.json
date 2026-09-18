@@ -1,0 +1,126 @@
+{
+  "requestId": "9744679112a974b244d713f8c0bd84226435c9681d9ab4fa0e22d9a46b2e580b",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "049ffeb79248985d0167b5a751b46ccfdc102fbe02ca5815686b21d5a9d439f1",
+  "evaluationDigest": "a3130d216e55d5f37ee980368ba74b2d0e01bb0dc2dc3358f5561e6bbac04c7e",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "실제 발급004 prompt와 template 전체, 세 역할의 원본 응답을 순서대로 읽고 Host Playtester 검토를 완료했다. Round04의 비교·검증 시나리오를 승인한다. 공통 tail은 구현되어 있지만 현재 생산은 control-l17이며 새 세 후보는 미측정이다. 현재 동일 소스의 protocol, harness132, canonical922/lint/typecheck는 새로 통과했다. Round03 실패와 실제 후기 활동, 전체 및 조건부 분위수를 대조했고 이를 새 후보 성과로 옮기지 않는다. 최종0.7.0 자연 관측·서버 호환·패키지·결과 감사와 사람 관찰은 미완료다. 커밋·푸시·운영 배포는 하지 않았다.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "Round04의 정확한20개 수치, 세 후보와5대조,6조건, 고정 목표와 seed 분리."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "동결된 설계와 후기 활동·발견 공백·과속을 구분하는 검증 계약."
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "note": "실제 단일 BigInt 나눗셈과 독립된 동료115/100 곡선."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재 control-l17의20개 export와 비활성 tail."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/full-12h.json",
+      "note": "실제12시간의 h70 자격5/20·전체p50null 및 처치 p509226; 새 성과가 아님."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round03-analysis/final-analysis.json",
+      "note": "독립220raw/11보고서 무결성 및 같은seed 후기 활동 대조."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/prefix-reference.json",
+      "note": "사전에 고정된20개 첫 사건·기록·선택; 원본에 없는 전체 공격 trace는 범위 밖."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round04-batch.py",
+      "note": "실제 생산값 적용, 명시적 탐색seed, 선별 후12h, 원본 분리와 해시 기록."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789189793159.log",
+      "note": "현재 소스의 새 canonical922개 테스트와 lint/typecheck PASS."
+    },
+    {
+      "path": ".harness/v7/loop/electron-e2e.cjs",
+      "note": "자연 관측에서는 합성 입력만 사용하며10분마다 실제 메뉴 클릭; fixture는 관측 완료 뒤 사용."
+    },
+    {
+      "path": ".harness/v7/loop/e2e-matrix.mjs",
+      "note": "독립9개 짧은 관측과 별도 연속180분, PGID와 중복·재개·원본 무결성 검사."
+    },
+    {
+      "path": ".harness/v7/loop/server-check.mjs",
+      "note": "로컬 고레벨 왕복과 운영 빌드 소스 대응을 별도로 확인하는 출시 경계."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "양의 안전 정수 레벨과 정확한 힘을 모든 저장·서버·응답 경계에서 유지한다. Lv10 이상 환생은 Lv1/별+1이고 전후 힘 비율2/level을 설명한 뒤 확인한다. overflow와 대상 변경은 상태·재료 손실 없이 거부한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅 실제 선택/영구 컬렉션과 몬스터 speciesKills>0을 공개·aria·알림·ACK·목표에 공유한다. 레거시 ACK 교집합을 유지하고 종별 과거 처치를 추정하지 않는다. 자격 및 제시를 실제 획득과 구분한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "각50행의 영웅·동료5인 파티와 실제 지정 playerId를 확인한다. 키보드 선택·DOM·포커스를 유지하고 삭제·오류·만료·ID 불일치에서 오래된 미리보기로 전투하지 못해야 한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "L17/XP1.41과 index79 이전을 유지한1040/1035/1030 대1000을 새로 측정한다. 전체p50 2700–3600초와 탐색18/20 또는 채택검증90/100의5400초 이내 성공이 모두 필요하다. 첫 기록 대응도 새 실행으로 확인한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "6개 콘텐츠 조건과 최종h70의 실제선택10종/총30000킬을 유지한다. 자격 전체p50 28800–43200초를 판정하며 미도달,8h 이전 과속, 실제 선택0과 카탈로그 소진을 별도로 보고한다. 두 목표 통과안만 고정 tie-break로 선택한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "고레벨·서버 전송ID·기존 열린 제안과 당시 문턱을 보존한다. package/lock0.7.0 고정 뒤 최종 근거를 새로 만들고 로컬 PASS를 운영 호환으로 쓰지 않는다. 사람 관찰은 PENDING이다."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "Lv9 거부와 Lv10/11/250/MAX 저장·업로드·전투·탈취/회수, overflow 및 확인/취소/대상 변경을 실행한다.",
+      "expected": "정확한 레벨·별·BigInt 힘과 상태/재료 무손실, 잘못된 중첩 응답 거부.",
+      "evidencePlan": "등록 levels AC와 같은 소스 canonical gates; 최종 Native 자연 관측 후 진단과 직접 연 화면."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "등장/제시만 있는 레거시를 반복 부팅하고 실제 첫 선택/처치·ACK·재시작을 실행한다.",
+      "expected": "미획득 정보는 숨기고 실제 첫 획득에 카드·개수·알림·목표가 함께 갱신된다.",
+      "evidencePlan": "등록 codex AC/gates, 최종 Native의 격리 저장·접근성·화면 원본."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "실제 Tab/ShiftTab/Enter/Space와 마우스로50명 중 상대를 선택하고 자동저장·순위 변경·행 제거·만료·오류를 확인한다.",
+      "expected": "요청ID=응답ID=선택행, nonbot; 포커스 유지 또는 새로고침으로 이동; stale 전투 차단.",
+      "evidencePlan": "directory AC/gates와 최종 Native 신뢰 입력·요청/응답·포커스/선택JSON 및 PNG. 과거 재정렬전 compositor PNG 한계는 유지."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "V05에서 각8실험의 실제 export를 적용하고 탐색10001–10020×120분을 실행해 첫7시각/기록/선택ID를 고정 참조와 대조한다.",
+      "expected": "새 전체20분모에서 두 첫 목표와 기록 대응을 확인하고 선별PASS안만 같은20seed12h로 넘긴다.",
+      "evidencePlan": "생산 테스트와 source/evaluation/protocol/build/raw/log 해시, 정확한 prefix-comparison. CLI ID 또는 구조 verify만으로 목표 통과를 주장하지 않는다."
+    },
+    {
+      "id": "long-progression",
+      "action": "선별 통과안의 같은20seed12h를 실행하고6단계 자격/제시/실제 선택·처치,2/4/8/10/12h 및 paired8→12h 활동을 비교한다.",
+      "expected": "h70 전체p50 8–12h와 첫 목표를 모두 통과한 안만 선택한다. 없으면 원본 보존 후 새 사전등록이다. 조건부37073초를 전체null 대신 쓰지 않는다.",
+      "evidencePlan": "등록 progression AC/gates와 실제 원본; 채택 후 별도100seed12h, 최종 release9정책 각100seed12h, audit.mjs 네 역할. 새 획득 공백과 반복 전투를 구분한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "최종0.7.0에서 실제5/15/30분×3프로필과 별도 연속180분active를 실행하고10분마다 실제 메뉴에서 준비된 환생을 선택한다. smoke·실제 package·서버 고레벨 대응도 확인한다.",
+      "expected": "330분 이상 실제 자연 관측, 격리save/합성입력/모의네트워크, 자연 관측 중 fixture·가속 없음. 운영 호환 미입증과 사람 관찰은 PENDING으로 남긴다.",
+      "evidencePlan": "전체 PID/PGID 확인과 Native 중복·동시 빌드 방지, 원본/화면 해시, 실제app/dmg검사와 검증된 서버 소스 대응. 기존 패키지 원본은 사전 보존했다."
+    }
+  ],
+  "humanChecks": "PENDING: actual human observation has not run"
+}

@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-12T07:00:37.702076+00:00",
+  "status": "IMPLEMENTING",
+  "before": {
+    "src/core/save.ts": "f1a237ede87abfa7fb42bca26459eab6507e43632b744e868d6dac014c5e7909",
+    "src/core/collection.ts": "5fdf11a5c795ba64c13659da47760908e9d3d07a9e72ae4f1ebb09ff0cb756fc",
+    "tests/companionLevelsV7.test.ts": "1c80773e4de7506a60992015ad6918a1e5abad6595659c990c0b89e400f09e8f",
+    "src/core/engine.ts": "0f9efcfa0af1c2041b18547da715ce82db26c19f91ceebf2ce8a5868913bbb9f",
+    "tests/engine.test.ts": "6df5f2f332c9da8763551cb695a1ab212271ef3b1a12e2729cdde48fd0ba41b7"
+  },
+  "ownership": {
+    "balance": [
+      "src/core/save.ts",
+      "src/core/collection.ts",
+      "tests/companionLevelsV7.test.ts"
+    ],
+    "host": [
+      "src/core/engine.ts",
+      "tests/engine.test.ts"
+    ]
+  },
+  "noTestsDuringEdits": true
+}

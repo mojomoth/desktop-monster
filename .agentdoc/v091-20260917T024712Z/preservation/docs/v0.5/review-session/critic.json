@@ -1,0 +1,54 @@
+{
+  "requestId": "6bfd449c7fe50933914b73407b95120dba3ed91b5fd7a4077d2b49db78473682",
+  "round": 1,
+  "role": "critic",
+  "agent": "/root/experience_design",
+  "decision": "pass",
+  "summary": "독립 비평에서 0골드/최대훈련/활성미끼/중복serial,25raw에10raw반복,하위단계/레어속성충돌,12번째보장/시간전환,발견과소유,101개이력,구세이브/공식PvP재전송의 반례를 검토했다. 설계의 무료 경로, raw+중첩, 일반/레어 분리, 영구발견/heroCounts,105종레거시주기, main-origin 절대PvP카운터가 해당 실패를 막는 구체적 계약이다. blocker/major0으로 구현 진행에 동의한다. 실제 동작·경제효용·사람 재미는 후속 엔진/DOM/분포 검증 전 미확인이다.",
+  "evidence": [
+    {
+      "path": "docs/v0.5/review-session/critic-evidence.md",
+      "note": "8개 필수 기능별 반례, 선택 다양성 계산, 실제 기존 서버/IPC 경계 및 남은 검증"
+    },
+    {
+      "path": ".harness/v5/reference/GAME_DESIGN_V5.md",
+      "note": "검토한 통합 설계 원문: h01×2, legacy offerLevel, 공식 PvP 원자 보존 포함"
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "gold",
+      "assessment": "233골드 예산/0골드/훈련10/활성미끼20/오래된serial 공격: 가격 코어결정, 실패RNG무변경,무료30초보류/기본레어경로 유지. 세 정책 실제효용은 balance 측정 필요."
+    },
+    {
+      "id": "reincarnation-levels",
+      "assessment": "R0=12,R1=13,R10=17,R11+=18 확인. V4 R8/L12 열린후보는 offerLevel12로1회수락, 후보없는저장에는 exemption 없음. 후속파서/경계검사 필요."
+    },
+    {
+      "id": "repeat-stacks",
+      "assessment": "maxraw25에선택raw10→스택1로26,비연속재선택도증가. 장착/stale요청은 무증가. 총환생/스택상한에서 무보상초기화 거부. 옵션증가와 정수피해반올림 구분."
+    },
+    {
+      "id": "rare-heroes",
+      "assessment": "20개 h51..h70에 순환필수조건없음. h52는 통합설계 h01×2. 첫두슬롯과 속성충돌한 레어는 이번제안제외일뿐 영구봉쇄아님; 무료다음제안에서 호환미발견우선."
+    },
+    {
+      "id": "rare-monsters",
+      "assessment": "30개·12%/25%·12번째자격생성보장·미끼20회. 자격없음은소모없고 시간종료뒤현재적유지.20분필드주기/오프라인OR로 생활시간·네트워크강제없음."
+    },
+    {
+      "id": "codices",
+      "assessment": "미발견단색실루엣/이름미공개,조건진행무료. 조건충족/실제등장/획득을분리하여 후보보류뒤발견유지·미소유장착거부. canvas팔레트와 autosave펼침보존 검증 필요."
+    },
+    {
+      "id": "profile-history",
+      "assessment": "기존오프라인이름IPC/인증유지. 기존killCount/환생합계유지,최근100과영구heroCounts분리로101회후해금보존. 미기록과거시간/순서미생성,편집중autosave보존."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "COMMON105의index/tier복원,70/135ID+raw/stacks공유파서. main확인실제비봇응답만영구절대승패,엔진재동기화및MENU_ACTION거부. 동시중복·저장실패·재시작검증 필수."
+    }
+  ],
+  "verified": []
+}

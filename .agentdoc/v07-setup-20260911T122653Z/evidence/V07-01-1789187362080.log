@@ -1,0 +1,493 @@
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ .harness/v7/loop/server-check.test.ts (2 tests) 3ms
+ ✓ .harness/v7/loop/package-check.test.ts (3 tests) 5ms
+ ✓ .harness/v7/loop/config.test.ts (12 tests) 13ms
+ ✓ .harness/v7/loop/evidence.test.ts (3 tests) 35ms
+ ✓ .harness/v7/loop/e2e-matrix.test.ts (39 tests) 32ms
+ ✓ .harness/v7/loop/e2e.test.ts (14 tests) 66ms
+ ✓ .harness/v7/loop/develop.test.ts (11 tests) 570ms
+   ✓ v7 phased development journal > CLI records an actual failed registered check, rejects changed logs and resumes the same journal  453ms
+ ✓ .harness/v7/loop/fun.test.ts (11 tests) 855ms
+   ✓ v7 executable CLI > archives the issued prompt, preserves rejected state, and resumes accepted reports from disk  491ms
+ ✓ .harness/v7/loop/audit.test.ts (10 tests) 1361ms
+   ✓ evidence-first game audit > resumes the CLI from disk and preserves an audit after a rejected submission  663ms
+ ❯ .harness/v7/loop/measure.test.ts (27 tests | 1 failed) 5350ms
+   ✓ v7 measurement contract > preserves censored denominators and exact bigint quantiles 2ms
+   ✓ v7 measurement contract > separates 100ms readiness, delayed visits, first ownership and 1s unlock observation 22ms
+   ✓ v7 measurement contract > records a transient level unlock before an immediate reincarnation resets the level 3ms
+   ✓ v7 measurement contract > uses the real reducer deterministically and conserves gold with paid purchases 70ms
+   ✓ v7 measurement contract > matches uniform/burst input budgets for active and intermittent profiles 13ms
+   ✓ v7 measurement contract > reincarnate-first raises a level-one target by consuming before reincarnating 17ms
+   ✓ v7 measurement contract > recomputes complete raw seed evidence and rejects duplicate/missing/forged results  309ms
+   ✓ v7 measurement contract > allows different game sources and protocols in paired comparisons, without comparing different milestones 273ms
+   ✓ v7 measurement contract > cannot pass the first-reincarnation target from a fast survivor minority 0ms
+   ✓ v7 measurement contract > labels the 120-minute exploration screen and omits the unobserved late-unlock verdict 227ms
+   × v7 measurement contract > returns the same seed data from an isolated production worker 90ms
+     → expected { policy: { …(5) }, seed: 10001, …(4) } to deeply equal { policy: { …(5) }, seed: 10001, …(4) }
+   ✓ v7 measurement contract > requires phase-specific acceptance instead of accepting any structurally valid report  590ms
+   ✓ v7 measurement contract > rejects irrelevant verify options before reading an artifact 39ms
+   ✓ v7 measurement contract > accepts a passing release only with every registered policy and validation seed  2042ms
+   ✓ v7 preregistered experiment execution > requires one explicit registered exploration ID without treating controls as candidates 1ms
+   ✓ v7 preregistered experiment execution > locks validation and release to the adopted experiment and keeps seed roles separate 1ms
+   ✓ v7 preregistered experiment execution > preserves baseline execution while refusing new experiments under the historical schema  389ms
+   ✓ v7 preregistered experiment execution > checks actual production parameters and named rules without depending on object key order 1ms
+   ✓ v7 preregistered experiment execution > recomputes report experiment fingerprints and rejects a different or missing adopted identity 225ms
+   ✓ v7 preregistered experiment execution > accepts complete exploration evidence without letting its twenty seeds satisfy a candidate AC 207ms
+   ✓ v7 preregistered experiment execution > requires eighteen of all twenty exploration seeds by ninety minutes 0ms
+   ✓ v7 preregistered experiment execution > rejects simultaneous CLI selections before building or creating an output 42ms
+   ✓ official protocol execution boundary > permits the official realpath but rejects even an identical copy for new experiments 194ms
+   ✓ official protocol execution boundary > rejects copied validation selection and forged snapshot hashes against the official registration 1ms
+   ✓ official protocol execution boundary > rejects alternate CLI registration before building or creating seed outputs 39ms
+   ✓ official protocol execution boundary > rejects a completed-output resume whose embedded registration is not official 40ms
+   ✓ official protocol execution boundary > enforces the official snapshot at CLI verify while preserving historical structural comparisons  512ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  .harness/v7/loop/measure.test.ts > v7 measurement contract > returns the same seed data from an isolated production worker
+AssertionError: expected { policy: { …(5) }, seed: 10001, …(4) } to deeply equal { policy: { …(5) }, seed: 10001, …(4) }
+
+- Expected
++ Received
+
+@@ -1,81 +1,81 @@
+  {
+    "actions": [],
+    "checkpoints": [
+      {
+-       "capturedMonsterCount": 0,
++       "capturedMonsterCount": 1,
+        "chosenHeroCount": 0,
+        "coins": 136,
+-       "companionDamage": "0",
+-       "companions": 0,
++       "companionDamage": "48",
++       "companions": 1,
+        "eligibleHeroCount": 10,
+        "eligibleMonsterCount": 105,
+        "feverStarts": 0,
+        "firstAcceptedSec": null,
+-       "firstCaptureSec": null,
++       "firstCaptureSec": 50,
+        "firstKillSec": 4.5,
+        "firstLevelSec": 15.5,
+        "firstOpenSec": null,
+        "firstReadySec": null,
+        "firstRewardSec": 4.5,
+-       "heroDamage": "3123",
++       "heroDamage": "2431",
+        "income": 136,
+        "inputCount": 120,
+-       "killedMonsterCount": 18,
++       "killedMonsterCount": 21,
+        "kills": 23,
+        "lastUnlockSec": null,
+        "level": 10,
+        "longestDiscoveryGapSec": 8,
+        "longestKillGapSec": 7.5,
+-       "longestMeaningfulGapSec": 7.5,
++       "longestMeaningfulGapSec": 8,
+        "managementActions": 0,
+-       "maxCompanionLevel": 0,
++       "maxCompanionLevel": 1,
+        "minutes": 1,
+        "offers": 0,
+-       "partyPower": "0",
++       "partyPower": "4",
+        "reincarnations": 0,
+        "rerolls": 0,
+        "seenHeroCount": 0,
+-       "seenMonsterCount": 19,
++       "seenMonsterCount": 22,
+        "spent": 0,
+        "training": 0,
+      },
+      {
+-       "capturedMonsterCount": 1,
++       "capturedMonsterCount": 2,
+        "chosenHeroCount": 0,
+-       "coins": 483,
+-       "companionDamage": "2755",
+-       "companions": 1,
++       "coins": 455,
++       "companionDamage": "2492",
++       "companions": 2,
+        "eligibleHeroCount": 10,
+        "eligibleMonsterCount": 107,
+        "feverStarts": 0,
+        "firstAcceptedSec": null,
+-       "firstCaptureSec": 95.5,
++       "firstCaptureSec": 50,
+        "firstKillSec": 4.5,
+        "firstLevelSec": 15.5,
+        "firstOpenSec": null,
+        "firstReadySec": null,
+        "firstRewardSec": 4.5,
+-       "heroDamage": "36629",
+-       "income": 483,
++       "heroDamage": "32475",
++       "income": 455,
+        "inputCount": 360,
+-       "killedMonsterCount": 30,
+-       "kills": 42,
++       "killedMonsterCount": 31,
++       "kills": 40,
+        "lastUnlockSec": null,
+-       "level": 14,
+-       "longestDiscoveryGapSec": 43.5,
+-       "longestKillGapSec": 37,
+-       "longestMeaningfulGapSec": 43.5,
++       "level": 13,
++       "longestDiscoveryGapSec": 36,
++       "longestKillGapSec": 36,
++       "longestMeaningfulGapSec": 36,
+        "managementActions": 0,
+        "maxCompanionLevel": 1,
+        "minutes": 3,
+        "offers": 0,
+-       "partyPower": "38",
++       "partyPower": "16",
+        "reincarnations": 0,
+        "rerolls": 0,
+        "seenHeroCount": 0,
+-       "seenMonsterCount": 31,
++       "seenMonsterCount": 32,
+        "spent": 0,
+        "training": 0,
+      },
+    ],
+    "initial": {
+@@ -799,215 +799,230 @@
+        "sec": 38.5,
+      },
+      {
+        "id": "hexweaver",
+        "kind": "killedMonster",
+-       "sec": 39.5,
++       "sec": 40,
+      },
+      {
+-       "id": "vaneknight",
++       "id": "ghost",
+        "kind": "seenMonster",
+-       "sec": 40.5,
++       "sec": 40,
+      },
+      {
+-       "id": "vaneknight",
++       "id": "ghost",
+        "kind": "killedMonster",
+-       "sec": 41.5,
++       "sec": 41,
+      },
+      {
+-       "id": "nimbling",
++       "id": "pondstrider",
+        "kind": "seenMonster",
+-       "sec": 41.5,
++       "sec": 41,
+      },
+      {
+-       "id": "nimbling",
++       "id": "pondstrider",
+        "kind": "killedMonster",
+-       "sec": 43,
++       "sec": 42,
+      },
+      {
+-       "id": "skreave",
++       "id": "foamcap",
+        "kind": "seenMonster",
+-       "sec": 43,
++       "sec": 42,
+      },
+      {
+-       "id": "skreave",
++       "id": "foamcap",
+        "kind": "killedMonster",
+-       "sec": 47.5,
++       "sec": 43.5,
+      },
+      {
+-       "id": "fellstump",
++       "id": "",
++       "kind": "firstCaptureSec",
++       "sec": 50,
++     },
++     {
++       "id": "brimhide",
++       "kind": "capturedMonster",
++       "sec": 50,
++     },
++     {
++       "id": "brammel",
+        "kind": "seenMonster",
+-       "sec": 51,
++       "sec": 50,
+      },
+      {
+-       "id": "fellstump",
++       "id": "brammel",
+        "kind": "killedMonster",
+-       "sec": 52,
++       "sec": 51.5,
+      },
+      {
+-       "id": "kraulk",
++       "id": "thornhare",
+        "kind": "seenMonster",
+-       "sec": 52,
++       "sec": 52.5,
+      },
+      {
+-       "id": "kraulk",
++       "id": "thornhare",
+        "kind": "killedMonster",
+        "sec": 53.5,
+      },
+      {
+-       "id": "voidmaw",
++       "id": "slushmaw",
+        "kind": "seenMonster",
+-       "sec": 55,
++       "sec": 53.5,
+      },
+      {
+-       "id": "voidmaw",
++       "id": "slushmaw",
+        "kind": "killedMonster",
+-       "sec": 56.5,
++       "sec": 55,
+      },
+      {
+-       "id": "bat",
++       "id": "nimbling",
+        "kind": "seenMonster",
+-       "sec": 56.5,
++       "sec": 55,
+      },
+      {
+-       "id": "bat",
++       "id": "nimbling",
+        "kind": "killedMonster",
+-       "sec": 63,
++       "sec": 56.5,
+      },
+      {
+-       "id": "cobbleroll",
++       "id": "helmdelver",
+        "kind": "seenMonster",
+-       "sec": 67,
++       "sec": 56.5,
+      },
+      {
+-       "id": "cobbleroll",
++       "id": "helmdelver",
+        "kind": "killedMonster",
+-       "sec": 69,
++       "sec": 57.7,
+      },
+      {
+-       "id": "bramblebear",
++       "id": "quietus",
+        "kind": "seenMonster",
+-       "sec": 71.5,
++       "sec": 57.7,
+      },
+      {
+-       "id": "bramblebear",
++       "id": "quietus",
+        "kind": "killedMonster",
+-       "sec": 74.5,
++       "sec": 59,
+      },
+      {
+-       "id": "dawnfinch",
++       "id": "flintwren",
+        "kind": "seenMonster",
+-       "sec": 78,
++       "sec": 59,
+      },
+      {
+-       "id": "dawnfinch",
+-       "kind": "eligibleMonster",
+-       "sec": 78,
++       "id": "flintwren",
++       "kind": "killedMonster",
++       "sec": 65.7,
+      },
+      {
+-       "id": "dawnfinch",
+-       "kind": "killedMonster",
+-       "sec": 81,
++       "id": "flintwren",
++       "kind": "capturedMonster",
++       "sec": 65.7,
+      },
+      {
+-       "id": "",
+-       "kind": "firstCaptureSec",
+-       "sec": 95.5,
++       "id": "emberwren",
++       "kind": "seenMonster",
++       "sec": 65.7,
+      },
+      {
+-       "id": "dawnfinch",
+-       "kind": "capturedMonster",
+-       "sec": 95.5,
++       "id": "emberwren",
++       "kind": "killedMonster",
++       "sec": 67.5,
+      },
+      {
+-       "id": "chainwraith",
++       "id": "murkin",
+        "kind": "seenMonster",
+-       "sec": 98.1,
++       "sec": 67.5,
+      },
+      {
+-       "id": "chainwraith",
++       "id": "murkin",
+        "kind": "killedMonster",
+-       "sec": 102.5,
++       "sec": 69,
+      },
+      {
+-       "id": "brammel",
++       "id": "gravebloom",
+        "kind": "seenMonster",
+-       "sec": 102.5,
++       "sec": 71,
+      },
+      {
+-       "id": "brammel",
++       "id": "gravebloom",
+        "kind": "killedMonster",
+-       "sec": 107,
++       "sec": 73.5,
+      },
+      {
+-       "id": "anvilclaw",
++       "id": "kilnshell",
+        "kind": "seenMonster",
+-       "sec": 107,
++       "sec": 76,
+      },
+      {
+-       "id": "anvilclaw",
++       "id": "kilnshell",
+        "kind": "killedMonster",
+-       "sec": 110.5,
++       "sec": 78.8,
+      },
+      {
+-       "id": "bristlehog",
++       "id": "conchguard",
+        "kind": "seenMonster",
+-       "sec": 110.5,
++       "sec": 78.8,
++     },
++     {
++       "id": "dawnfinch",
++       "kind": "eligibleMonster",
++       "sec": 78.8,
+      },
+      {
+-       "id": "bristlehog",
++       "id": "conchguard",
+        "kind": "killedMonster",
+-       "sec": 116,
++       "sec": 81.5,
+      },
+      {
+-       "id": "forgehulk",
++       "id": "chainwraith",
+        "kind": "seenMonster",
+-       "sec": 116,
++       "sec": 98,
+      },
+      {
+-       "id": "forgehulk",
++       "id": "chainwraith",
+        "kind": "killedMonster",
+-       "sec": 121.5,
++       "sec": 102,
+      },
+      {
+        "id": "kindletoad",
+        "kind": "seenMonster",
+        "sec": 121.5,
+      },
+      {
+        "id": "kindletoad",
+        "kind": "killedMonster",
+-       "sec": 128,
++       "sec": 129,
+      },
+      {
+-       "id": "nubilan",
++       "id": "grumblode",
+        "kind": "seenMonster",
+-       "sec": 165,
++       "sec": 129,
+      },
+      {
+-       "id": "nubilan",
+-       "kind": "killedMonster",
+-       "sec": 171.1,
++       "id": "anchornaut",
++       "kind": "eligibleMonster",
++       "sec": 129,
+      },
+      {
+-       "id": "coalscythe",
+-       "kind": "seenMonster",
+-       "sec": 171.1,
++       "id": "grumblode",
++       "kind": "killedMonster",
++       "sec": 136.5,
+      },
+      {
+        "id": "anchornaut",
+-       "kind": "eligibleMonster",
+-       "sec": 171.1,
++       "kind": "seenMonster",
++       "sec": 136.5,
+      },
+      {
+-       "id": "coalscythe",
++       "id": "anchornaut",
+        "kind": "killedMonster",
+-       "sec": 179,
++       "sec": 172.5,
+      },
+      {
+-       "id": "golem",
++       "id": "dawnfinch",
+        "kind": "seenMonster",
+-       "sec": 179,
++       "sec": 172.5,
+      },
+    ],
+    "seed": 10001,
+  }
+
+ ❯ .harness/v7/loop/measure.test.ts:240:24
+    238|       for (const seed of [10001, 10002]) {
+    239|         const result = await workerSimulation(worker, { policy: CONFIG…
+    240|         expect(result).toEqual(simulate(core, CONFIG.measurement.basel…
+       |                        ^
+    241|       }
+    242|     } finally { await worker.terminate(); }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 9 passed (10)
+      Tests  1 failed | 131 passed (132)
+   Start at  13:29:22
+   Duration  5.88s (transform 756ms, setup 0ms, collect 1.44s, tests 8.29s, environment 1ms, prepare 845ms)
+

@@ -8,8 +8,66 @@
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { IPC } from '../src/shared/ipc.js';
+
+const relay = vi.hoisted(() => ({
+  handlers: new Map<string, (...args: unknown[]) => unknown>(),
+  match: vi.fn(), pvp: vi.fn(),
+  game: { id: 1, send: vi.fn(), getURL: () => 'file:///app/static/index.html' }, menu: { id: 2, send: vi.fn(), getURL: () => 'file:///app/static/menu.html' },
+}));
+vi.mock('electron', () => ({
+  app: { getPath: () => '/injected/v7-test' }, shell: { openExternal: vi.fn() },
+  BrowserWindow: { getAllWindows: () => [{ webContents: relay.game }, { webContents: relay.menu }] },
+  ipcMain: { handle: (name: string, fn: (...args: unknown[]) => unknown) => relay.handlers.set(name, fn), on: vi.fn() },
+}));
+vi.mock('../src/main/globalInput.js', () => ({ getCurrentInputMode: vi.fn() }));
+vi.mock('../src/main/persistence.js', () => ({ readSaveFile: vi.fn(), readSaveFileResult: vi.fn(() => ({ kind: 'missing' })), writeSaveFile: vi.fn() }));
+vi.mock('../src/main/net.js', () => ({ createNetClient: vi.fn(), createNetSession: () => ({ reclaim: vi.fn(), onSave: vi.fn(), match: relay.match, pvp: relay.pvp }) }));
+// The real coordinator stays active; only its filesystem boundary is injected.
+vi.mock('../src/main/recovery.js', () => ({ RecoveryStore: class {
+  state = {};
+  allocationSafe(value: unknown): unknown { return value; }
+} }));
+import { registerIpcHandlers } from '../src/main/ipc.js';
+
+describe('v0.9 main-owned companion IPC', () => {
+  it('rejects malformed and well-formed menu-forged ownership and battle results', () => {
+    relay.game.send.mockClear(); relay.menu.send.mockClear();
+    registerIpcHandlers();
+    const send = (payload: unknown) => relay.handlers.get(IPC.MENU_ACTION)!({ sender: relay.menu }, payload);
+    const c = { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 250, stars: 0 };
+    for (const level of [0, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN]) {
+      send({ type: 'addCompanion', companion: { ...c, level } });
+      send({ type: 'pvpResult', won: true, stolen: { ...c, level }, lostId: null });
+    }
+    expect(relay.game.send).not.toHaveBeenCalled();
+    for (const level of [11, 250, Number.MAX_SAFE_INTEGER]) {
+      send({ type: 'addCompanion', companion: { ...c, level } });
+      send({ type: 'pvpResult', won: true, stolen: { ...c, level }, lostId: null });
+    }
+    for (const ids of [[], ['c1'], [3], null]) send({ type: 'removeCompanions', ids });
+    for (const nextCompanionId of [1, 999, Number.MAX_SAFE_INTEGER, -1, NaN]) send({ type: 'syncAllocation', nextCompanionId });
+    expect(relay.game.send).not.toHaveBeenCalled();
+    expect(relay.menu.send).not.toHaveBeenCalled();
+  });
+
+  it('drops missing/malformed confirmations and relays an exact safe-integer snapshot', () => {
+    relay.game.send.mockClear(); relay.menu.send.mockClear();
+    registerIpcHandlers();
+    const send = (payload: unknown) => relay.handlers.get(IPC.MENU_ACTION)!({ sender: relay.menu }, payload);
+    const expected = { speciesId: 'bat', bossIndex: 7, level: Number.MAX_SAFE_INTEGER, stars: 0 };
+    for (const snapshot of [undefined, null, {}, { ...expected, level: Number.MAX_SAFE_INTEGER + 1 },
+      { ...expected, stars: -1 }, { ...expected, bossIndex: 0.5 }, { ...expected, speciesId: '' }]) {
+      send({ type: 'reincarnate', id: 'c1', expected: snapshot });
+    }
+    expect(relay.game.send).not.toHaveBeenCalled();
+    const valid = { type: 'reincarnate', id: 'c1', expected };
+    send(valid);
+    expect(relay.game.send).toHaveBeenCalledExactlyOnceWith(IPC.ACTION, valid);
+    expect(relay.menu.send).not.toHaveBeenCalled();
+  });
+});
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
 
@@ -25,13 +83,37 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       GET_INPUT_MODE: 'desmon:get-input-mode',
       LOAD_STATE: 'desmon:load-state',
       SAVE_STATE: 'desmon:save-state',
+      SAVE_FAILED: 'desmon:save-failed',
+      GET_SAVE_STATUS: 'desmon:get-save-status',
+      SAVE_STATUS: 'desmon:save-status',
+      GET_SETTINGS: 'desmon:get-settings',
+      UPDATE_SETTINGS: 'desmon:update-settings',
+      SETTINGS_CHANGED: 'desmon:settings-changed',
+      CONNECT_GLOBAL_INPUT: 'desmon:connect-global-input',
+      OPEN_SAVE_FOLDER: 'desmon:open-save-folder',
+      QUIT: 'desmon:quit',
       RESET: 'desmon:reset',
+      PREPARE_STATE: 'desmon:prepare-state',
+      CAPTURE_STATE: 'desmon:capture-state',
+      RELEASE_STATE: 'desmon:release-state',
+      GET_GENERATION: 'desmon:get-generation',
+      RESET_PROGRESS: 'desmon:reset-progress',
+      LIST_CHECKPOINTS: 'desmon:list-checkpoints',
+      RESTORE_CHECKPOINT: 'desmon:restore-checkpoint',
+      BATTLE_OPPONENT: 'desmon:battle-opponent',
+      LAST_BATTLE: 'desmon:last-battle',
+      PENDING_REPLAYS: 'desmon:pending-replays',
+      REPLAY_COMPLETE: 'desmon:replay-complete',
+      PVP_PLAYBACK: 'desmon:pvp-playback',
+      EXPORT_PNG: 'desmon:export-png',
+      FIELD_IMAGE: 'desmon:field-image',
       OPEN_ACCESSIBILITY_SETTINGS: 'desmon:open-accessibility-settings',
       FIRST_FRAME: 'desmon:first-frame',
       MOVE_WINDOW: 'desmon:move-window',
       GET_IDENTITY: 'desmon:get-identity',
       SET_NAME: 'desmon:set-name',
       LEADERBOARD: 'desmon:leaderboard',
+      PVP_OPPONENTS: 'desmon:pvp-opponents',
       PVP_MATCH: 'desmon:pvp-match',
       PVP: 'desmon:pvp',
       THEFTS: 'desmon:thefts',
@@ -64,12 +146,14 @@ describe('preload bridge (src/preload/index.ts)', () => {
     'getInputMode',
     'loadState',
     'saveState',
+    'onSaveFailed',
     'openAccessibilitySettings',
     'reportFirstFrame',
     'moveWindowBy',
     'getIdentity',
     'setName',
     'getLeaderboard',
+    'pvpOpponents',
     'pvpMatch',
     'pvp',
     'thefts',
@@ -109,6 +193,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     'GET_IDENTITY',
     'SET_NAME',
     'LEADERBOARD',
+    'PVP_OPPONENTS',
     'PVP_MATCH',
     'PVP',
     'THEFTS',
@@ -156,7 +241,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     // SMOKE must reach SMOKE_OK with zero fetch calls: baseUrl '' makes the
     // client short-circuit to `offline` before it ever touches the network.
     expect(mainIpcTs).toContain(
-      "const baseUrl = process.env.SMOKE ? '' : (process.env.DESMON_SERVER_URL ?? SERVER_URL);",
+      "const baseUrl = process.env.SMOKE || blocked() ? '' : (process.env.DESMON_SERVER_URL ?? SERVER_URL);",
     );
     expect(mainIpcTs.match(/createNetSession\(/g)).toHaveLength(1);
     expect(mainIpcTs).toContain("online: baseUrl !== ''");
@@ -165,7 +250,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
   it('parses the untrusted renderer save before handing it to the net session', () => {
     const saveHandler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.handle(IPC.SAVE_STATE'));
     expect(saveHandler.indexOf('writeSaveFile')).toBeLessThan(saveHandler.indexOf('session.onSave'));
-    expect(saveHandler).toContain('const parsed = parseSave(data);');
+    expect(saveHandler).toContain('try { parsed = parseSave(data); } catch {');
     expect(saveHandler).toContain('session.onSave(parsed)');
   });
 
@@ -174,22 +259,23 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(mainIpcTs).toContain('LEADERBOARD_DEFAULT');
   });
 
-  it('never originates an action — the only send is the sender-excluding relay (T45/T49)', () => {
+  it('releases official ownership and PvP progress only from the durable coordinator (v9)', () => {
     for (const channel of ['IPC.LEADERBOARD', 'IPC.PVP', 'IPC.GET_IDENTITY', 'IPC.SET_NAME']) {
       expect(mainIpcTs).toContain(`ipcMain.handle(${channel}`);
     }
-    // `removed`/`stolen`/`lost` reach the game only as MENU actions (T49), so
-    // main's sends live inside the relay helpers — sendToOthers and, since v3
-    // (F73), sendToAll for the reclaim-originated addCompanion (T69). Both sit
-    // ABOVE the handlers, and IPC.ACTION is still produced by exactly one call
-    // site: the menu-action relay.
+    // Raw ACTION is only the local menu relay. Server-owned mutations are
+    // committed first, then delivered as a single RELEASE_STATE transaction.
     expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(2);
-    expect(mainIpcTs.lastIndexOf('webContents.send(')).toBeLessThan(
-      mainIpcTs.indexOf('ipcMain.handle'),
-    );
-    const relay = mainIpcTs.slice(mainIpcTs.indexOf('function sendToOthers'));
-    expect(relay.indexOf('webContents.send(')).toBeLessThan(relay.indexOf('ipcMain.handle'));
+    expect(mainIpcTs.lastIndexOf('webContents.send(')).toBeLessThan(mainIpcTs.indexOf('ipcMain.handle'));
     expect(mainIpcTs.match(/IPC\.ACTION/g)).toHaveLength(1);
+    expect(mainIpcTs).toContain('sendToAll(IPC.RELEASE_STATE, state)');
+    const coordinator = read('src/main/coordinator.ts');
+    expect(coordinator).toContain("{ type: 'syncPvpProgress', wins: me.value.wins, losses: me.value.losses }");
+    const mutationBoundary = coordinator.slice(coordinator.indexOf('private apply('), coordinator.indexOf('private async finishBattle'));
+    expect(mutationBoundary.indexOf('this.recovery.commit')).toBeLessThan(mutationBoundary.indexOf('this.o.release'));
+    const narrow = mainIpcTs.slice(mainIpcTs.indexOf('function narrowAction'), mainIpcTs.indexOf('export interface IpcOptions'));
+    expect(narrow).not.toContain("case 'syncPvpProgress'");
+    expect(narrow).not.toContain("case 'syncAllocation'");
   });
 
   it('relays over every window except the sender, statelessly (F51)', () => {
@@ -205,7 +291,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     // v3 (F73): the broadcast twin T69 sends the reclaimed companion with.
     expect(relay).toContain('export function sendToAll(channel: IpcChannel, payload: unknown): void');
     // No window registry: src/main/index.ts keeps its bare registration call.
-    expect(mainIndexTs).toContain('registerIpcHandlers()');
+    expect(mainIndexTs).toContain('registerIpcHandlers({');
   });
 
   it('the save-state handler relays the written save to every other window as state-changed', () => {
@@ -217,7 +303,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(saveHandler).toContain('sendToOthers(event.sender, IPC.STATE_CHANGED, parsed)');
   });
 
-  it('menu-action is validated and forwarded to every other window as an action', () => {
+  it('menu-action validates local actions and rejects server-owned actions before forwarding', () => {
     const handler = mainIpcTs.slice(
       mainIpcTs.indexOf('ipcMain.handle(IPC.MENU_ACTION'),
       mainIpcTs.indexOf('ipcMain.handle(IPC.GET_IDENTITY'),
@@ -225,9 +311,11 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(handler).toContain('narrowAction(payload)');
     expect(handler.indexOf('narrowAction')).toBeLessThan(handler.indexOf('sendToOthers'));
     expect(handler).toContain('sendToOthers(event.sender, IPC.ACTION, action)');
-    // Unknown/malformed actions are dropped, never forwarded and never thrown.
-    expect(handler).toContain('if (action !== null)');
-    expect(handler).not.toContain('throw');
+    // Unknown/malformed actions are dropped. Valid mutations during playback
+    // receive an explicit busy error so the menu cannot claim they succeeded.
+    expect(handler).toContain('if (action === null ||');
+    expect(handler).toContain("['addCompanion', 'removeCompanions', 'pvpResult'].includes(action.type)) return;");
+    expect(handler).toContain("if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');");
   });
 
   it('narrows the untrusted menu payload against the whole CollectionAction union', () => {
@@ -256,35 +344,43 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     expect(mainIpcTs).toContain("import type { CollectionAction } from '../core/collection.js';");
   });
 
-  it('pvp-match, thefts and reclaim handlers forward to the session and return its NetResult', () => {
-    expect(mainIpcTs).toContain(
-      'ipcMain.handle(IPC.PVP_MATCH, (): Promise<NetResult<MatchResult>> => session.match());',
-    );
-    expect(mainIpcTs).toContain(
-      'ipcMain.handle(IPC.THEFTS, (): Promise<NetResult<TheftsResult>> => session.thefts());',
-    );
-    // A theft id is untrusted: no id, no call — and a refusal, never a throw.
-    const reclaim = mainIpcTs.slice(
-      mainIpcTs.indexOf('ipcMain.handle(IPC.RECLAIM'),
-      mainIpcTs.indexOf('ipcMain.handle(IPC.OPEN_ACCESSIBILITY_SETTINGS'),
-    );
+  it('rejects legacy match requests while routing thefts and reclaim through the coordinator', () => {
+    const legacy = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.handle(IPC.PVP_MATCH'), mainIpcTs.indexOf('ipcMain.handle(IPC.THEFTS'));
+    expect(legacy).toContain("blocked() ? 'offline' : 'sync-required'");
+    expect(legacy).not.toContain('session.match(');
+    expect(mainIpcTs).toContain('coordinator.opponents()');
+    expect(mainIpcTs).toContain('session.opponents()');
+    const thefts = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.handle(IPC.THEFTS'), mainIpcTs.indexOf('ipcMain.handle(IPC.RECLAIM'));
+    expect(thefts).toContain('blocked()');
+    expect(thefts).toContain("error: 'offline'");
+    expect(thefts).toContain('coordinator.thefts()');
+    expect(thefts).toContain('session.thefts()');
+    // A theft id is still untrusted: no id, no call and no thrown error.
+    const reclaim = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.handle(IPC.RECLAIM'), mainIpcTs.indexOf('ipcMain.handle(IPC.OPEN_ACCESSIBILITY_SETTINGS'));
     expect(reclaim).toContain("typeof theftId === 'string'");
+    expect(reclaim).toContain('coordinator.reclaim(theftId)');
     expect(reclaim).toContain('session.reclaim(theftId)');
     expect(reclaim).toContain("Promise.resolve({ ok: false, error: 'network' })");
     expect(reclaim).not.toContain('throw');
   });
 
-  it('pvp handler requires a matchId string and a party string array', () => {
-    const handler = mainIpcTs.slice(
-      mainIpcTs.indexOf('ipcMain.handle(IPC.PVP,'),
-      mainIpcTs.indexOf('ipcMain.handle(IPC.THEFTS'),
-    );
-    expect(handler).toContain("typeof matchId === 'string'");
-    expect(handler).toContain("Array.isArray(party) && party.every((id) => typeof id === 'string')");
-    expect(handler).toContain('session.pvp(matchId, party)');
-    // A malformed payload is refused like a dead network — never forwarded.
-    expect(handler).toContain("Promise.resolve({ ok: false, error: 'network' })");
-    expect(handler).not.toContain('throw');
+  it('rejects valid and malformed legacy PvP payloads without calling the network', async () => {
+    relay.match.mockClear(); relay.pvp.mockClear();
+    registerIpcHandlers({ initialSave: { kind: 'missing' } });
+    const payloads = [undefined, null, {}, { matchId: 1, party: ['c1'] }, { matchId: 'm1', party: [1] },
+      { matchId: 'm1', party: ['c1'] }, { opponentId: 'player-1' }];
+    for (const channel of [IPC.PVP_MATCH, IPC.PVP]) {
+      for (const payload of payloads) {
+        expect(await relay.handlers.get(channel)!({ sender: relay.menu }, payload)).toEqual({ ok: false, error: 'sync-required' });
+      }
+    }
+    registerIpcHandlers({ initialSave: { kind: 'error', reason: 'format' } });
+    for (const channel of [IPC.PVP_MATCH, IPC.PVP]) {
+      expect(await relay.handlers.get(channel)!({ sender: relay.menu }, { matchId: 'm1', party: ['c1'] }))
+        .toEqual({ ok: false, error: 'offline' });
+    }
+    expect(relay.match).not.toHaveBeenCalled();
+    expect(relay.pvp).not.toHaveBeenCalled();
   });
 
   it('narrowAction accepts setPvpParty and a validated pvpResult replay and drops malformed replays', () => {
@@ -312,7 +408,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
   it('menu-ready answers the sender with the current save', () => {
     const handler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.on(IPC.MENU_READY'));
     expect(handler).toContain(
-      "event.sender.send(IPC.STATE_CHANGED, parseSave(readSaveFile(app.getPath('userData'))))",
+      "event.sender.send(IPC.STATE_CHANGED, withOfficialRecord(parseSave(latestSave)))",
     );
     // The boot answer goes to the SENDER only — not through the relay.
     expect(handler.slice(0, handler.indexOf('ipcMain.on(IPC.FIRST_FRAME'))).not.toContain(
@@ -321,6 +417,6 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
   });
 
   it('is registered at startup by src/main/index.ts', () => {
-    expect(mainIndexTs).toContain('registerIpcHandlers()');
+    expect(mainIndexTs).toContain('registerIpcHandlers({');
   });
 });

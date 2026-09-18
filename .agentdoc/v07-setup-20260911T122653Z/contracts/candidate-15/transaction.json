@@ -1,0 +1,25 @@
+{
+  "at": "2026-09-12T07:24:21.813306+00:00",
+  "status": "committed",
+  "originals": {
+    ".harness/v7/config.json": "109ce26d2e7c1da5d798da28cb02d67ad1189d64f8dd1925cb636ba2d68b75b3",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "73f74b82e2ab7a14422abc14c0e81691b9e4f4f9b32e05094cf36af09dea325f",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "8539a7c718049d5e51434b9157b7f7f86bc15be90d9f9cc0ff47fb2669a25a00",
+    "docs/v0.7/DESIGN_DECISIONS.md": "fb35ab6a152c13154aafb143268054b9f02ab4ffd98baa93a983d28e2866c4f6",
+    "src/core/progression.ts": "e0272864a89758321286f11d9f14b9b7b5cafe113d3bb0e9b48d28a82a1fe841",
+    "tests/progressionV7.test.ts": "18e06a53aae0c70416d4d0f4032abefc1686ee228e8173bc1f5443c38ab51dbb"
+  },
+  "new": {
+    ".harness/v7/config.json": "34fe8a74e3c1e949a7fb4c9d94d0d1b19669e11ea61faf64479253a32701d213",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "02ee2dad082e524421622b17ee2cb0123c16562513b1b91914f9dabce56da91f",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "196f351031a385164fa68b0821606538c1d230b2b3b6c6c292deb01bec3048c1",
+    "src/core/progression.ts": "36fe3424080361108e24e42a6ef091e222572e41394d94a779a3aaaa83c2fcee"
+  },
+  "ownership": {
+    "host": "config/loop/protocol/progression numeric export/journal",
+    "designer": "DESIGN_DECISIONS only",
+    "balance": "read-only analysis/review unless explicitly assigned",
+    "critic": "read-only"
+  },
+  "note": "No executor between config/loop writes. Existing21keymechanic reused, no test/engine changes. 3exactprefixhypotheses preregistered before execution."
+}

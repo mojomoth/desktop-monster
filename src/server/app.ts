@@ -5,23 +5,31 @@
 // injected (deps), so tests are deterministic and this file has no wall clock.
 
 import { createHash } from 'node:crypto';
-import { mulberry32, pvpParty, resolvePvp, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
+import { simulateHeroicBattle } from '../core/battle.js';
+import { isHeroCombatSnapshot } from '../core/equipment.js';
+import { isHeroRoll } from '../core/hero.js';
+import { pvpParty, ROSTER_CAP, SPECIES_IDS } from '../core/index.js';
 import {
+  EQUIPMENT_PROTOCOL,
   COMPANION_ID_RE,
   INT_MAX,
   LEADERBOARD_DEFAULT,
   LEADERBOARD_MAX,
+  LEADERBOARD_METRICS,
   LEVEL_MAX,
   LEVEL_MIN,
   MATCH_TTL_MS,
   NICK_RE,
   PARTY_SIZE_MAX,
-  RECLAIM_WINDOW_MS,
-  THEFTS_MAX,
 } from '../shared/api.js';
 import type {
   Companion,
+  HeroAppearance,
+  HeroCombatSnapshot,
+  OpponentListResult,
   LeaderboardRow,
+  LeaderboardMetric,
+  MeResponse,
   PvpOpponent,
   PvpResponse,
   ReclaimResponse,
@@ -30,7 +38,8 @@ import type {
   TheftsResponse,
 } from '../shared/api.js';
 import type { ApiHandler, ApiRequest, ApiResponse } from './http.js';
-import { compareScore } from './store.js';
+import { compareMetric, compareScore } from './store.js';
+import { currentGold, publicGold, raidGold, isDecimalGold, DEFENSE_COOLDOWN_MS, DEFENSE_INBOX_MAX } from './gold.js';
 import type { PlayerRow, Store } from './store.js';
 
 export interface AppDeps {
@@ -62,6 +71,8 @@ export interface PendingMatch {
   seed: number;
   /** Exactly the party the player was shown — the battle is fought against it. */
   opponentParty: Companion[];
+  opponentHero?: HeroAppearance;
+  opponentCombat: HeroCombatSnapshot;
   createdAt: number;
 }
 
@@ -80,7 +91,7 @@ const record = (v: unknown): Record<string, unknown> | null =>
   typeof v === 'object' && v !== null && !Array.isArray(v) ? (v as Record<string, unknown>) : null;
 
 const isInt = (v: unknown, min: number, max: number): v is number =>
-  typeof v === 'number' && Number.isInteger(v) && v >= min && v <= max;
+  typeof v === 'number' && Number.isSafeInteger(v) && v >= min && v <= max;
 
 const sha256 = (value: string): string => createHash('sha256').update(value).digest('hex');
 
@@ -106,6 +117,7 @@ export function parseSnapshot(raw: unknown): Snapshot | null {
   if (!isInt(bestIndex, 0, INT_MAX) || !isInt(rebirths, 0, INT_MAX)) {
     return null;
   }
+  if (s['level'] !== undefined && !isInt(s['level'], LEVEL_MIN, LEVEL_MAX)) return null;
   if (!Array.isArray(companions) || companions.length > ROSTER_CAP) {
     return null;
   }
@@ -139,7 +151,26 @@ export function parseSnapshot(raw: unknown): Snapshot | null {
     .filter((id): id is string => typeof id === 'string' && COMPANION_ID_RE.test(id) && ids.has(id))
     .filter((id, i, all) => all.indexOf(id) === i)
     .slice(0, PARTY_SIZE_MAX);
-  return { name, bestIndex, rebirths, companions: roster, party };
+  if (s['hero'] !== undefined && !isHeroRoll(s['hero'])) return null;
+  const gold = record(s['gold']);
+  if (s['gold'] !== undefined && (!gold || !isInt(gold['revision'], 0, Number.MAX_SAFE_INTEGER - 1) ||
+    !isDecimalGold(gold['coins']))) return null;
+  if (s['combat'] !== undefined && !isHeroCombatSnapshot(s['combat'])) return null;
+  if (s['protocol'] !== undefined && s['protocol'] !== EQUIPMENT_PROTOCOL) return null;
+  if (gold && (s['protocol'] !== EQUIPMENT_PROTOCOL || !isHeroCombatSnapshot(s['combat']))) return null;
+  if (isHeroCombatSnapshot(s['combat']) && (s['level'] !== undefined && s['level'] !== s['combat'].level ||
+    isHeroRoll(s['hero']) && (s['hero'].formId !== s['combat'].hero.formId ||
+      s['hero'].buffPercent !== s['combat'].hero.buffPercent || (s['hero'].stacks ?? 0) !== (s['combat'].hero.stacks ?? 0)))) return null;
+  if (isHeroCombatSnapshot(s['combat']) && s['combat'].hero.formId !== 'h00' && !isHeroRoll(s['hero'])) return null;
+  const hero = isHeroRoll(s['hero'])
+    ? { formId: s['hero'].formId, buffPercent: s['hero'].buffPercent,
+      ...(s['hero'].stacks !== undefined ? { stacks: s['hero'].stacks } : {}) }
+    : undefined;
+  return { name, bestIndex, rebirths, companions: roster, party,
+    ...(s['level'] !== undefined ? { level: s['level'] as number } : {}), ...(hero ? { hero } : {}),
+    ...(gold ? { gold: { revision: gold['revision'] as number, coins: gold['coins'] as string } } : {}),
+    ...(s['protocol'] === EQUIPMENT_PROTOCOL ? { protocol: EQUIPMENT_PROTOCOL } : {}),
+    ...(isHeroCombatSnapshot(s['combat']) ? { combat: structuredClone(s['combat']) } : {}) };
 }
 
 /** Forgets every match nobody fought within `MATCH_TTL_MS`. */
@@ -152,7 +183,6 @@ const prune = (at: number): void => {
 };
 
 export function createApp(deps: AppDeps): { handle: ApiHandler } {
-  const { store } = deps;
   /** The theft records still inside their reclaim window. */
   const pending = (row: PlayerRow): Theft[] =>
     row.thefts.filter((t) => t.reclaimUntil >= deps.now());
@@ -180,10 +210,10 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       : null;
   };
 
-  const caller = async (req: ApiRequest): Promise<PlayerRow | null> =>
+  const caller = async (req: ApiRequest, store: Store): Promise<PlayerRow | null> =>
     req.auth === null ? null : store.getByToken(sha256(req.auth));
 
-  const register = async (req: ApiRequest): Promise<ApiResponse> => {
+  const register = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
     const nickname = record(req.body)?.nickname;
     if (typeof nickname !== 'string' || !NICK_RE.test(nickname)) {
       return error(400, 'bad_request');
@@ -194,26 +224,38 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     return { status: 201, body: { playerId, token } };
   };
 
-  const upload = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const upload = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
+    const raw = record(req.body);
+    if ((raw?.['gold'] !== undefined || me.snapshot?.protocol === EQUIPMENT_PROTOCOL) && raw?.['protocol'] !== EQUIPMENT_PROTOCOL) return error(426, 'upgrade_required');
     const snapshot = parseSnapshot(req.body);
     if (!snapshot) {
       return error(400, 'bad_request');
     }
+    let gold = me.goldAccount;
+    if (snapshot.gold) {
+      if (snapshot.gold.revision !== (gold?.revision ?? 0)) return error(409, 'gold_conflict');
+      gold = currentGold(gold, deps.now());
+      gold.balance = snapshot.gold.coins; gold.enrolled = true; gold.revision++;
+      gold.peak = String(BigInt(gold.peak) > BigInt(gold.balance) ? gold.peak : gold.balance);
+      await store.setGoldAccount(me.id, gold);
+    }
     // The defender learns what PvP took from it here, on whichever upload
     // comes first; stripping stays idempotent because stolenIds is kept.
     const removed = snapshot.companions
-      .filter((c) => me.stolenIds.includes(c.id))
+      .filter((c) => me.revokedIds.includes(c.id))
       .map((c) => c.id);
     const kept: Snapshot = {
       ...snapshot,
       companions: snapshot.companions.filter((c) => !removed.includes(c.id)),
+      party: snapshot.party.filter(id => !removed.includes(id)),
     };
+    delete kept.gold;
     await store.putSnapshot(me.id, kept);
-    return { status: 200, body: { rank: await store.rank(kept), removed, thefts: pending(me) } };
+    return { status: 200, body: { rank: await store.rank(kept), removed, thefts: pending(me), ...(snapshot.gold ? { gold: publicGold(gold) } : {}) } };
   };
 
   const row = (s: Snapshot, rank: number): LeaderboardRow => ({
@@ -223,28 +265,67 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     rebirths: s.rebirths,
   });
 
-  const leaderboard = async (req: ApiRequest): Promise<ApiResponse> => {
+  const leaderboard = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const selected = req.query.metric;
+    if (selected !== undefined && !(LEADERBOARD_METRICS as readonly string[]).includes(selected)) return error(400, 'bad_metric');
+    const metric = selected as LeaderboardMetric | undefined;
+    const metricRow = (player: PlayerRow, rank: number): LeaderboardRow => ({
+      ...row(player.snapshot!, rank),
+      ...(metric ? { level: player.snapshot?.level ?? null, wins: player.wins, losses: player.losses } : {}),
+    });
     let me: LeaderboardRow | null = null;
     if (req.auth !== null) {
-      const mine = await caller(req);
+      const mine = await caller(req, store);
       if (!mine) {
         return error(401, 'unauthorized');
       }
-      if (mine.snapshot) {
-        me = row(mine.snapshot, await store.rank(mine.snapshot));
+      if (mine.snapshot && (metric !== 'level' || mine.snapshot.level !== undefined)) {
+        me = metricRow(mine, await store.rank({ ...mine.snapshot, wins: mine.wins }, metric));
       }
     }
     const asked = Number.parseInt(req.query.n ?? '', 10);
     const n = Number.isNaN(asked)
       ? LEADERBOARD_DEFAULT
       : Math.min(Math.max(asked, 1), LEADERBOARD_MAX);
-    const scores = (await store.top(n))
-      .map((r) => r.snapshot)
-      .filter((s): s is Snapshot => s !== null);
+    const scores = await store.top(n, metric);
     // The list is a prefix of the global order, so the first equal score in it
     // is the shared rank of the tie group (n ≤ 50 — the scan is free).
-    const top = scores.map((s) => row(s, scores.findIndex((o) => compareScore(o, s) === 0) + 1));
-    return { status: 200, body: { top, me } };
+    const top = scores.map((s) => metricRow(s, scores.findIndex((o) =>
+      compareMetric({ ...o.snapshot!, wins: o.wins }, { ...s.snapshot!, wins: s.wins }, metric) === 0) + 1));
+    return { status: 200, body: { top, me, ...(metric ? { metric } : {}) } };
+  };
+
+  const profile = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
+    if (!me) return error(401, 'unauthorized');
+    return { status: 200, body: { version: 9, wins: me.wins, losses: me.losses,
+      revokedIds: me.revokedIds, lastMatch: me.lastMatch, lastReclaim: me.lastReclaim,
+      pvpMode: EQUIPMENT_PROTOCOL, gold: publicGold(me.goldAccount) } satisfies MeResponse };
+  };
+
+  const opponents = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
+    if (!me) return error(401, 'unauthorized');
+    const ranked = await store.top(LEADERBOARD_MAX + 1);
+    const rows = ranked.filter((r) => r.id !== me.id).slice(0, LEADERBOARD_MAX);
+    const listed = [];
+    for (const foe of rows) {
+      const s = foe.snapshot;
+      if (!s || s.protocol !== EQUIPMENT_PROTOCOL || !s.combat || !foe.goldAccount?.enrolled) continue;
+      listed.push({
+        playerId: foe.id,
+        rank: ranked.findIndex((r) => r.snapshot && compareScore(r.snapshot, s) === 0) + 1,
+        name: s.name,
+        bestIndex: s.bestIndex,
+        rebirths: s.rebirths,
+        hero: s.hero ?? { formId: 'h00', buffPercent: 0 },
+        party: pvpParty(s.companions, s.party ?? [], s.hero),
+        combat: structuredClone(s.combat),
+        wins: foe.wins,
+        losses: foe.losses,
+      });
+    }
+    return { status: 200, body: { opponents: listed } satisfies OpponentListResult };
   };
 
   /**
@@ -254,11 +335,22 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
    * only. Steals are attacker-only; the victim gets a theft record to reclaim
    * from. A trust boundary: the body and every party id are checked here.
    */
-  const pvp = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const pvp = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
+    const asked = record(req.body);
+    const matchId = asked?.['matchId'];
+    const ids = asked?.['party'];
+    if (!me.snapshot && !me.lastMatch) return error(400, 'no_snapshot');
+    if (typeof matchId !== 'string' || !Array.isArray(ids) || !ids.every(id => typeof id === 'string')) {
+      return error(400, 'bad_request');
+    }
+    // A committed result survives restarts and is returned even during cooldown.
+    // Retrying cannot reroll the verdict, increment records or transfer again.
+    if (me.lastMatch?.matchId === matchId) return { status: 200, body: me.lastMatch.result };
+    if (asked?.['mode'] !== EQUIPMENT_PROTOCOL || !me.goldAccount?.enrolled || me.snapshot?.protocol !== EQUIPMENT_PROTOCOL || !me.snapshot.combat) return error(426, 'upgrade_required');
     const at = deps.now();
     const elapsed = me.lastPvpAt === null ? PVP_COOLDOWN_MS : at - me.lastPvpAt;
     if (elapsed < PVP_COOLDOWN_MS) {
@@ -268,85 +360,86 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     if (!mine) {
       return error(400, 'no_snapshot');
     }
-    const asked = record(req.body);
-    const matchId = asked?.['matchId'];
-    const ids = asked?.['party'];
     // A v2 body (no matchId) is a stale client, not a stale match.
-    if (
-      typeof matchId !== 'string' ||
-      !Array.isArray(ids) ||
-      !ids.every((id) => typeof id === 'string')
-    ) {
-      return error(400, 'bad_request');
-    }
     prune(at);
     const pending = matches.get(matchId);
     if (!pending || pending.playerId !== me.id) {
-      matches.delete(matchId);
       return error(410, 'match_expired');
     }
-    if (ids.length > PARTY_SIZE_MAX || !ids.every((id) => mine.companions.some((c) => c.id === id))) {
+    if (ids.length > PARTY_SIZE_MAX || new Set(ids).size !== ids.length || !ids.every((id) => mine.companions.some((c) => c.id === id))) {
       // The match survives a bad party: the client just picks again.
       return error(400, 'bad_party');
     }
-    const party = pvpParty(mine.companions, ids as string[]);
+    const foe = pending.opponentId === null ? null : await store.getById(pending.opponentId);
+    if (pending.opponentId !== null && !foe?.snapshot) return error(404, 'opponent_missing');
+    if (foe && (!foe.goldAccount?.enrolled || foe.snapshot?.protocol !== EQUIPMENT_PROTOCOL || !foe.snapshot.combat)) return error(426, 'upgrade_required');
+    const theirs = foe?.snapshot ?? null;
+    const attackerGold = currentGold(me.goldAccount, at);
+    const defenderGold = currentGold(foe?.goldAccount ?? null, at);
+    if (foe && defenderGold.events.length >= DEFENSE_INBOX_MAX) return error(409, 'inbox_full');
+    if (foe && defenderGold.lastDefenseAt !== null && at - defenderGold.lastDefenseAt < DEFENSE_COOLDOWN_MS) {
+      return error(429, 'defense_cooldown', Math.ceil((DEFENSE_COOLDOWN_MS - (at - defenderGold.lastDefenseAt)) / 1000));
+    }
+    if (attackerGold.revision >= Number.MAX_SAFE_INTEGER || defenderGold.revision >= Number.MAX_SAFE_INTEGER ||
+      defenderGold.eventSeq >= Number.MAX_SAFE_INTEGER) return error(409, 'gold_conflict');
+    const party = pvpParty(mine.companions, ids as string[], mine.hero);
+    // Spend the token before awaiting writes; a failed transaction rolls back
+    // state and the client may create a fresh preview.
+    matches.delete(matchId);
     // Bot matches burn the cooldown too — it is what bounds the whole endpoint.
     await store.setLastPvpAt(me.id, at);
 
     const { seed, opponentParty } = pending;
-    const verdict = resolvePvp(party, opponentParty, mulberry32(seed), mine.companions.length);
-    matches.delete(matchId);
+    const ownCombat = structuredClone(mine.combat!);
+    const verdict = simulateHeroicBattle(party, opponentParty, {
+      attacker: ownCombat, defender: pending.opponentCombat,
+    }, seed);
 
-    const foe = pending.opponentId === null ? null : await store.getById(pending.opponentId);
-    const theirs = foe?.snapshot ?? null;
     const opponent: PvpOpponent = {
+      ...(pending.opponentId !== null ? { playerId: pending.opponentId } : {}),
       name: theirs?.name ?? BOT_NAME,
       bestIndex: theirs?.bestIndex ?? mine.bestIndex,
       rebirths: theirs?.rebirths ?? mine.rebirths,
       party: opponentParty,
+      ...(pending.opponentHero ? { hero: pending.opponentHero } : {}),
+      combat: structuredClone(pending.opponentCombat),
     };
-    // The bot never steals and is never stolen from; powers stay off the wire.
-    const moved = foe && theirs ? verdict.moved : null;
-
-    let stolen: Companion | null = null;
-    if (foe && theirs && moved) {
-      const transferred = { ...moved, id: `s${seed}` };
-      // ponytail: four writes, no transaction — a concurrent match against the
-      // same loser could double-steal. BEGIN/COMMIT in PgStore is the upgrade;
-      // one free instance plus the per-player cooldown makes it unreachable.
-      await store.setStolenIds(foe.id, [...foe.stolenIds, moved.id].slice(-STOLEN_IDS_MAX));
-      await store.putSnapshot(foe.id, {
-        ...theirs,
-        companions: theirs.companions.filter((c) => c.id !== moved.id),
-        party: theirs.party.filter((id) => id !== moved.id),
-      });
-      await store.putSnapshot(me.id, { ...mine, companions: [...mine.companions, transferred] });
-      await store.setThefts(
-        foe.id,
-        [
-          ...foe.thefts,
-          {
-            id: `t${seed}`,
-            companion: moved,
-            transferredId: transferred.id,
-            thiefId: me.id,
-            thiefName: me.name,
-            at,
-            reclaimUntil: at + RECLAIM_WINDOW_MS,
-          },
-        ].slice(-THEFTS_MAX),
-      );
-      stolen = transferred;
+    if (foe && theirs) {
+      await store.recordBattle(verdict.attackerWon ? me.id : foe.id, verdict.attackerWon ? foe.id : me.id);
     }
+    const gold = foe && theirs ? raidGold(attackerGold, defenderGold, me.id, foe.id, verdict.attackerWon, at)
+      : { amount: '0', delta: '0', reason: 'bot' as const };
     const answer: PvpResponse = {
+      matchId,
+      record: { wins: me.wins + (foe && theirs && verdict.attackerWon ? 1 : 0),
+        losses: me.losses + (foe && theirs && !verdict.attackerWon ? 1 : 0) },
       bot: pending.opponentId === null,
       seed,
       win: verdict.attackerWon,
       opponent,
       blows: verdict.blows.map((b) => ({ ...b, damage: String(b.damage) })),
-      stolen,
+      stolen: null,
       lost: null,
+      ownCombat, ownFighters: verdict.attackerFighters, opponentFighters: verdict.defenderFighters,
+      gold, ownParty: structuredClone(party), ...(mine.hero ? { ownHero: { ...mine.hero } } : {}),
     };
+    if (foe && theirs) {
+      attackerGold.revision++; defenderGold.revision++;
+      defenderGold.lastDefenseAt = at; defenderGold.eventSeq++;
+      defenderGold.events.push({ seq: defenderGold.eventSeq, at, presentation: {
+        battleId: matchId + '-D', role: 'defense', ownParty: structuredClone(opponentParty),
+        ownCombat: structuredClone(pending.opponentCombat),
+        ...(pending.opponentHero ? { ownHero: { ...pending.opponentHero } } : {}),
+        replay: { opponentName: mine.name, opponentParty: structuredClone(party),
+          opponentCombat: ownCombat, ownFighters: verdict.defenderFighters, opponentFighters: verdict.attackerFighters,
+          ...(mine.hero ? { opponentHero: { ...mine.hero } } : {}),
+          blows: answer.blows.map(b => ({ ...b, side: b.side === 'A' ? 'D' : 'A' })) },
+        won: !verdict.attackerWon, goldDelta: String(-BigInt(gold.delta)),
+      } });
+      await store.setGoldAccount(me.id, attackerGold);
+      await store.setGoldAccount(foe.id, defenderGold);
+    }
+    await store.setLastMatch(me.id, { matchId, result: answer });
     return { status: 200, body: answer };
   };
 
@@ -355,8 +448,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
    * neighbour pick as `/v1/pvp`, but it only shows the opponent's party and
    * parks the seed under a match id. No cooldown, no store writes.
    */
-  const match = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const match = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -364,28 +457,46 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     if (!mine) {
       return error(400, 'no_snapshot');
     }
+    if (record(req.body)?.['mode'] !== EQUIPMENT_PROTOCOL || !me.goldAccount?.enrolled || mine.protocol !== EQUIPMENT_PROTOCOL || !mine.combat) return error(426, 'upgrade_required');
     const at = deps.now();
     prune(at);
     const seed = deps.randomSeed() >>> 0;
-    const up = await store.neighbor(me.id, mine, 'up');
-    const down = await store.neighbor(me.id, mine, 'down');
-    const foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    const selected = record(req.body)?.['opponentId'];
+    if (selected !== undefined && (typeof selected !== 'string' || !/^[A-Za-z0-9-]{1,64}$/.test(selected) || selected === me.id)) {
+      return error(400, 'bad_opponent');
+    }
+    let foe: PlayerRow | null;
+    if (typeof selected === 'string') {
+      foe = await store.getById(selected);
+      if (!foe?.snapshot) return error(404, 'opponent_missing');
+    } else {
+      const up = await store.neighbor(me.id, mine, 'up', EQUIPMENT_PROTOCOL);
+      const down = await store.neighbor(me.id, mine, 'down', EQUIPMENT_PROTOCOL);
+      foe = up && down ? (seed & 1 ? down : up) : (up ?? down);
+    }
+    if (foe && (!foe.goldAccount?.enrolled || foe.snapshot?.protocol !== EQUIPMENT_PROTOCOL || !foe.snapshot.combat)) return error(426, 'upgrade_required');
     const theirs = foe?.snapshot ?? null;
-    const opponent: PvpOpponent = theirs
+    const opponent: PvpOpponent = foe && theirs
       ? {
+          playerId: foe.id,
           name: theirs.name,
           bestIndex: theirs.bestIndex,
           rebirths: theirs.rebirths,
-          party: pvpParty(theirs.companions, theirs.party),
+          party: pvpParty(theirs.companions, theirs.party ?? [], theirs.hero),
+          ...(theirs.hero ? { hero: theirs.hero } : {}),
+          combat: structuredClone(theirs.combat!),
         }
-      : { name: BOT_NAME, bestIndex: mine.bestIndex, rebirths: mine.rebirths, party: [] };
+      : { name: BOT_NAME, bestIndex: mine.bestIndex, rebirths: mine.rebirths, party: [],
+          combat: { hero: { formId: 'h00', buffPercent: 0 }, level: mine.combat.level, souls: 0, reincarnations: 0, trainingLevel: 0, loadout: { weapon: null, accessories: [] } } };
     const matchId = deps.randomBytesHex(8);
     matches.set(matchId, {
       matchId,
       playerId: me.id,
       opponentId: foe?.id ?? null,
       seed,
-      opponentParty: opponent.party,
+      opponentParty: structuredClone(opponent.party),
+      opponentCombat: structuredClone(opponent.combat!),
+      ...(opponent.hero ? { opponentHero: opponent.hero } : {}),
       createdAt: at,
     });
     return {
@@ -395,8 +506,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
   };
 
   /** T61 — the victim's inbox; reading it also drops what can no longer be taken back. */
-  const thefts = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const thefts = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
@@ -412,12 +523,15 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
    * Only from MY own row, only while the window is open, and only while the
    * thief still holds it; every dead record is pruned on the way out.
    */
-  const reclaim = async (req: ApiRequest): Promise<ApiResponse> => {
-    const me = await caller(req);
+  const reclaim = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
     if (!me) {
       return error(401, 'unauthorized');
     }
     const theftId = record(req.body)?.['theftId'];
+    if (typeof theftId === 'string' && me.lastReclaim?.theftId === theftId) {
+      return { status: 200, body: { companion: me.lastReclaim.companion } satisfies ReclaimResponse };
+    }
     const theft = me.thefts.find((t) => t.id === theftId);
     if (!theft) {
       return error(404, 'not_found');
@@ -433,8 +547,8 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       await store.setThefts(me.id, rest);
       return error(409, 'gone');
     }
-    const companion = { ...theft.companion, id: `r${theft.id.slice(1)}` };
-    // Same four unguarded writes as the steal in /v1/pvp — see its ponytail note.
+    const companion = { ...theft.companion, id: await store.allocateTransferId(me.id, 'r') };
+    // All roster moves and theft bookkeeping share the request transaction.
     await store.setStolenIds(
       thief.id,
       [...thief.stolenIds, theft.transferredId].slice(-STOLEN_IDS_MAX),
@@ -442,7 +556,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
     await store.putSnapshot(thief.id, {
       ...held,
       companions: held.companions.filter((c) => c.id !== theft.transferredId),
-      party: held.party.filter((id) => id !== theft.transferredId),
+      party: (held.party ?? []).filter((id) => id !== theft.transferredId),
     });
     // A full roster still answers 200: the client's addCompanion rule drops it.
     if (me.snapshot && me.snapshot.companions.length < ROSTER_CAP) {
@@ -452,30 +566,55 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       });
     }
     await store.setThefts(me.id, rest);
+    await store.setLastReclaim(me.id, { theftId: theft.id, companion });
     return { status: 200, body: { companion } satisfies ReclaimResponse };
   };
 
-  const route = async (req: ApiRequest): Promise<ApiResponse> => {
+  const defenseEvents = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    const me = await caller(req, store);
+    if (!me) return error(401, 'unauthorized');
+    const account = currentGold(me.goldAccount, deps.now());
+    if (req.method === 'POST') {
+      const through = record(req.body)?.['through'];
+      if (!isInt(through, 0, account.eventSeq)) return error(400, 'bad_request');
+      account.events = account.events.filter(event => event.seq > through);
+      await store.setGoldAccount(me.id, account);
+      return { status: 200, body: { ok: true } };
+    }
+    const rawAfter = req.query['after'];
+    if (rawAfter !== undefined && !/^(0|[1-9][0-9]*)$/.test(rawAfter)) return error(400, 'bad_request');
+    const after = rawAfter === undefined ? 0 : Number(rawAfter);
+    if (!isInt(after, 0, Number.MAX_SAFE_INTEGER)) return error(400, 'bad_request');
+    return { status: 200, body: { events: account.events.filter(event => event.seq > after), latestSeq: account.eventSeq } };
+  };
+
+  const route = async (req: ApiRequest, store: Store): Promise<ApiResponse> => {
+    if (req.method === 'GET' && req.path === '/v1/me') return profile(req, store);
+    if (req.method === 'GET' && req.path === '/v1/pvp/events' ||
+      req.method === 'POST' && req.path === '/v1/pvp/events/ack') return defenseEvents(req, store);
     if (req.method === 'POST' && req.path === '/v1/players') {
-      return register(req);
+      return register(req, store);
     }
     if (req.method === 'PUT' && req.path === '/v1/snapshot') {
-      return upload(req);
+      return upload(req, store);
     }
     if (req.method === 'GET' && req.path === '/v1/leaderboard') {
-      return leaderboard(req);
+      return leaderboard(req, store);
+    }
+    if (req.method === 'GET' && req.path === '/v1/pvp/opponents') {
+      return opponents(req, store);
     }
     if (req.method === 'POST' && req.path === '/v1/pvp/match') {
-      return match(req);
+      return match(req, store);
     }
     if (req.method === 'POST' && req.path === '/v1/pvp') {
-      return pvp(req);
+      return pvp(req, store);
     }
     if (req.method === 'GET' && req.path === '/v1/thefts') {
-      return thefts(req);
+      return thefts(req, store);
     }
     if (req.method === 'POST' && req.path === '/v1/reclaim') {
-      return reclaim(req);
+      return reclaim(req, store);
     }
     return error(404, 'not_found');
   };
@@ -485,7 +624,7 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
       try {
         const retryAfterSec = overLimit(req);
         return retryAfterSec === null
-          ? await route(req)
+          ? await deps.store.transaction((store) => route(req, store))
           : error(429, 'rate_limited', retryAfterSec);
       } catch {
         return error(500, 'internal');

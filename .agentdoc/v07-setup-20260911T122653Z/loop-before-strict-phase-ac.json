@@ -1,0 +1,291 @@
+{
+  "version": 7,
+  "kind": "desmon-v07-development",
+  "phase": "setup",
+  "runDir": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z",
+  "createdAt": "2026-09-11T13:01:10.428Z",
+  "baselineDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "baselineEvaluationDigest": "0453d115dfaa9b708e8bdf223d64052b9978783f9c9289e9914d93a1b6e2084e",
+  "history": [
+    {
+      "at": "2026-09-11T13:01:10.529Z",
+      "id": "H07-01",
+      "action": "start",
+      "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+      "evaluationDigest": "0453d115dfaa9b708e8bdf223d64052b9978783f9c9289e9914d93a1b6e2084e"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "H07-01",
+      "stage": "setup",
+      "dependencies": [],
+      "owner": "host",
+      "files": [
+        ".harness/v7",
+        "docs/v0.7"
+      ],
+      "ac": [
+        {
+          "id": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest"
+        },
+        {
+          "id": "baseline",
+          "command": "node .harness/v7/loop/measure.mjs verify {runDir}/evidence/baseline.json"
+        },
+        {
+          "id": "preservation",
+          "command": "node .harness/v7/loop/setup-check.mjs {runDir}"
+        }
+      ],
+      "status": "running",
+      "attempts": [
+        {
+          "startedAt": "2026-09-11T13:01:10.529Z",
+          "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "evaluationDigest": "0453d115dfaa9b708e8bdf223d64052b9978783f9c9289e9914d93a1b6e2084e",
+          "filesHash": {
+            ".harness/v7/HARNESS.md": "3198e1bc5e9c9cc25df879267b7d46a2bedff623eaa5104f9efba614b14256da",
+            ".harness/v7/agents/balance.md": "e5000e0a58551cf81356b6803eef9d1881e2bbf6da084f5042b68e87995a9b9a",
+            ".harness/v7/agents/critic.md": "ad5c4f74470fb9cb883dabb31f63c6c77f133a1d6ccaa0445e0b688539e5e8f6",
+            ".harness/v7/agents/designer.md": "48b4f69fd54e73cf2f91d01abcdcbe4e9434f584cdb27e88f2bd06f5fb2a35d5",
+            ".harness/v7/agents/playtester.md": "dd7c718b35075800e6b4de2c04ea41f1dac20ed8b92b627d8056fd9620203403",
+            ".harness/v7/config.json": "6c976f8f482e9c84bc608ec02fcde52f8211daf8fe49710540bf95b5c7e23f42",
+            ".harness/v7/loop/audit.mjs": "f9b0ca51071f5162d09598fa1cb924a92760c8dad5c22d9cb12ce993c0a503e0",
+            ".harness/v7/loop/audit.test.ts": "7e23fad73ef117732b2aef0801de2c98365a8a13a2fc5387b70c40748d9da7e1",
+            ".harness/v7/loop/config.mjs": "c0f8ba565333a7ab47554b44d4663b6287bc5dd24dffef6d27cd568812348ebc",
+            ".harness/v7/loop/config.test.ts": "9ef14c3d7fede3edb2b18f71af68777270dddcdc751ede8d2709a0cf4a7d70e7",
+            ".harness/v7/loop/develop.mjs": "dc1d85afeac040072c99e2d913b465e52ce27c4e35a4034665fe1c1999b62260",
+            ".harness/v7/loop/develop.test.ts": "d9026fc803c625183ff4ff1ca279ef647a9704a6a4747e175b38979e02d02694",
+            ".harness/v7/loop/e2e-matrix.mjs": "1f7b1df9f9fa317832b65dd032e5d0e0bdd4b31d263a2bedd100d3c07e0c850f",
+            ".harness/v7/loop/e2e-matrix.test.ts": "e5a818420ac5c23674aa80f1dd4efea2ccef6c37c51cf0627d92a6602d85cff6",
+            ".harness/v7/loop/e2e.mjs": "f02a35611d62aaa858a9552b84ccb8e0cbdcc939a9a11d1e0b4a5fcb1257b0ad",
+            ".harness/v7/loop/e2e.test.ts": "174576e94995d95dd57908b19597d7c038c3bd4cd4e3066b7a2f4d5ef988bae5",
+            ".harness/v7/loop/electron-e2e.cjs": "7556e905f19df3edbbf95aa5e2c6c6cbcacc7c7b63116317da2a3c920975e85b",
+            ".harness/v7/loop/evidence.mjs": "891b093f5bfe6f0b3f2c8174a1bf752706f9c52229bb83da0fbd169c579a7dbd",
+            ".harness/v7/loop/evidence.test.ts": "af757d0728764d29caec529fe55e0d9af283cab6266b88a362edbb10feeaddf0",
+            ".harness/v7/loop/fun.mjs": "d50279fcee073f4b46d1a042121b2056ec0a209b3cd5aecadb6021d382b1d410",
+            ".harness/v7/loop/fun.test.ts": "dd0bb176676911c4b434d7efb9a2ceb47634f61d63fc5eb4936748c88af74252",
+            ".harness/v7/loop/journey.cjs": "8e130041898e165e54e86b2f13ca81c8e6575d7f28d0b978f75df5b8eefa420b",
+            ".harness/v7/loop/measure-worker.mjs": "88f5260766c2ba5767604591dad8d56908090de828fab31fffc59c08917f12c4",
+            ".harness/v7/loop/measure.mjs": "8270b45f358a040c8fc2863a433d028cbbc98afcb6d3c4c121ba481203921c42",
+            ".harness/v7/loop/measure.test.ts": "a3a32460682f98f4e8b61521c93fe0a931acb2affc9715489ebf05de56666f44",
+            ".harness/v7/loop/package-check.mjs": "f7b1d8fbd531d00b9c729250639c8390ceef865984e79dd546e382328fd7a5c7",
+            ".harness/v7/loop/package-check.test.ts": "b0d9b178c936e225028682c5e9ceea4593dcfb0817255532fbdfde7877ea1d7b",
+            ".harness/v7/loop/setup-check.mjs": "81be28c94e552c5bade38646ad7320b9c712e95903fa21cc3073594c6b47831b",
+            ".harness/v7/skills/desktop-companion-clicker/SKILL.md": "7533bf7a366dfa296a286cfffeb0a79a197b3fae84ae40c4f7f891dcc508fbb4",
+            ".harness/v7/vitest.config.mts": "7ace95472c52650421453eb99338fec636af97fc6000e16127c474fd30bd160b",
+            "docs/v0.7/ACCEPTANCE.md": "83803157caa5006fc17a0c61918a4d664d38b81e0c2137230b2e2f456117c9b1",
+            "docs/v0.7/DEVELOPMENT_PLAN.md": "1671ebb1fa8354b8e7c15132192571b336c6aeb694de0ac805ae07010a73733c",
+            "docs/v0.7/EVALUATION_PROTOCOL.json": "4f3e750638296ed12000e03597627866a55149714deabb0b80ccb964263b58ce",
+            "docs/v0.7/HANDOFF.md": "0da5f9801ecfbb74d20a6a7ba1e8afa0eb3af5e2ad16f36aa373b7864e9d500c",
+            "docs/v0.7/LOOP.md": "c7983abba20172d47d0f947e6ad38e8388b46dfe241a99bc28b42707998bb69a",
+            "docs/v0.7/START_PROMPT.md": "1deec6304f61e0aa8b7d467b3410d7941cd5f95a643bbe4fd90913228795f4c2"
+          },
+          "checks": []
+        }
+      ],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-01",
+      "stage": "candidate",
+      "dependencies": [],
+      "owner": "designer/balance",
+      "files": [
+        "docs/v0.7/EVALUATION_PROTOCOL.json",
+        "docs/v0.7/DESIGN_DECISIONS.md"
+      ],
+      "ac": [
+        {
+          "id": "protocol",
+          "command": "node .harness/v7/loop/config.mjs validate-candidate"
+        },
+        {
+          "id": "design",
+          "command": "node .harness/v7/loop/fun.mjs verify {runDir}/reviews/design"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-02",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-01"
+      ],
+      "owner": "core",
+      "files": [
+        "src/core/collection.ts",
+        "src/core/save.ts",
+        "src/shared/api.ts",
+        "src/server/app.ts",
+        "src/main/net.ts",
+        "src/menu/view.ts",
+        "tests/collection.test.ts",
+        "tests/save.test.ts",
+        "tests/net.test.ts",
+        "tests/server",
+        "src/menu/index.ts",
+        "tests/companionLevelsV7.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "levels",
+          "command": "npx vitest run tests/companionLevelsV7.test.ts"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-03",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-01"
+      ],
+      "owner": "ui/core",
+      "files": [
+        "src/core/progress.ts",
+        "src/core/collection.ts",
+        "src/menu/codex.ts",
+        "src/menu/hero.ts",
+        "tests/progressV7.test.ts",
+        "tests/codexV7.test.ts",
+        "tests/menu.test.ts",
+        "tests/progressV6.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "codex",
+          "command": "npx vitest run tests/progressV7.test.ts tests/codexV7.test.ts"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-04",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-02"
+      ],
+      "owner": "ui",
+      "files": [
+        "src/menu/index.ts",
+        "static/menu.css",
+        "tests/menu.test.ts",
+        "tests/pvpDirectoryV7.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "directory",
+          "command": "npx vitest run tests/pvpDirectoryV7.test.ts"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-05",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-02",
+        "V07-03"
+      ],
+      "owner": "balance/core",
+      "files": [
+        "src/core/hero.ts",
+        "src/core/formulas.ts",
+        "src/core/engine.ts",
+        "src/core/discovery.ts",
+        "src/menu/hero.ts",
+        "src/renderer/hud.ts",
+        "tests/hero.test.ts",
+        "tests/formulas.test.ts",
+        "tests/balance.test.ts",
+        "tests/progressionV7.test.ts",
+        "src/core/index.ts"
+      ],
+      "ac": [
+        {
+          "id": "progression",
+          "command": "npx vitest run tests/progressionV7.test.ts"
+        },
+        {
+          "id": "measurement",
+          "command": "node .harness/v7/loop/measure.mjs verify {runDir}/evidence/candidate.json"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-06",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-04",
+        "V07-05"
+      ],
+      "owner": "host",
+      "files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "ac": [
+        {
+          "id": "integration",
+          "command": "node .harness/v7/loop/e2e.mjs {runDir}/evidence/journey.json 0 active"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    },
+    {
+      "id": "V07-07",
+      "stage": "release",
+      "dependencies": [
+        "V07-06"
+      ],
+      "owner": "host/playtester",
+      "files": [
+        "README.md",
+        "docs/v0.7/ACCEPTANCE.md",
+        "docs/v0.7/HANDOFF.md"
+      ],
+      "ac": [
+        {
+          "id": "matrix",
+          "command": "node .harness/v7/loop/e2e-matrix.mjs verify {runDir}/evidence/native"
+        },
+        {
+          "id": "measure",
+          "command": "node .harness/v7/loop/measure.mjs verify {runDir}/evidence/release.json"
+        },
+        {
+          "id": "review",
+          "command": "node .harness/v7/loop/audit.mjs verify {runDir}/reviews/final"
+        },
+        {
+          "id": "smoke",
+          "command": "npm run smoke"
+        },
+        {
+          "id": "package",
+          "command": "node .harness/v7/loop/package-check.mjs {runDir}/evidence/package.json release/mac-arm64/DesMon.app"
+        }
+      ],
+      "status": "pending",
+      "attempts": [],
+      "verificationHistory": []
+    }
+  ]
+}

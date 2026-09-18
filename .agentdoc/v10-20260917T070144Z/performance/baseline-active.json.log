@@ -1,0 +1,20 @@
+Debugger listening on ws://127.0.0.1:62794/60340832-6a11-485e-a702-fb65d4dead0a
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+V09_INSPECTOR_RESUMED
+V09_LOCK true /var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-perf-WxmXd5
+V09_FRAME_READY
+V09_APP_CALL quit [] Error
+    at e.app.<computed> [as quit] (eval at <anonymous> (/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar/dist/electron/main/index.js:5:1), <anonymous>:17:160)
+    at quit (/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar/dist/electron/main/index.js:199:46)
+    at MenuItem.click (node:electron/js2c/browser_init:2:41237)
+    at a._executeCommand (node:electron/js2c/browser_init:2:46884)
+V09_LIFECYCLE before-quit 1789630395693
+V09_WINDOW 1 close 1789630395694
+V09_WINDOW 1 closed 1789630395734
+V09_LIFECYCLE will-quit 1789630395734
+V09_PROCESS_EXIT 0 1789630395735
+V09_LIFECYCLE quit 1789630395735
+Waiting for the debugger to disconnect...
+{"event":"Runtime.executionContextDestroyed","params":{"executionContextId":1,"executionContextUniqueId":"-3703256990852320389.7161342856922893212"},"at":"2026-09-17T07:33:19.088Z"}
+{"event":"child-exit","code":0,"signal":null,"at":"2026-09-17T07:33:20.449Z"}

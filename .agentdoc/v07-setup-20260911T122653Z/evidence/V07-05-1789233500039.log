@@ -1,0 +1,29 @@
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ .harness/v7/loop/package-check.test.ts (3 tests) 5ms
+ ✓ .harness/v7/loop/config.test.ts (16 tests) 17ms
+ ✓ .harness/v7/loop/server-check.test.ts (2 tests) 6ms
+ ✓ .harness/v7/loop/evidence.test.ts (3 tests) 35ms
+ ✓ .harness/v7/loop/e2e-matrix.test.ts (44 tests) 53ms
+ ✓ .harness/v7/loop/e2e.test.ts (15 tests) 140ms
+ ✓ .harness/v7/loop/develop.test.ts (11 tests) 857ms
+   ✓ v7 phased development journal > CLI records an actual failed registered check, rejects changed logs and resumes the same journal  700ms
+ ✓ .harness/v7/loop/fun.test.ts (11 tests) 1235ms
+   ✓ v7 executable CLI > archives the issued prompt, preserves rejected state, and resumes accepted reports from disk  683ms
+ ✓ .harness/v7/loop/audit.test.ts (10 tests) 1789ms
+   ✓ evidence-first game audit > accepts evidence larger than the old 30MB limit but rejects files above the configured bound before parsing  310ms
+   ✓ evidence-first game audit > resumes the CLI from disk and preserves an audit after a rejected submission  793ms
+ ✓ .harness/v7/loop/measure.test.ts (27 tests) 6343ms
+   ✓ v7 measurement contract > recomputes complete raw seed evidence and rejects duplicate/missing/forged results  468ms
+   ✓ v7 measurement contract > allows different game sources and protocols in paired comparisons, without comparing different milestones  376ms
+   ✓ v7 measurement contract > requires phase-specific acceptance instead of accepting any structurally valid report  638ms
+   ✓ v7 measurement contract > accepts a passing release only with every registered policy and validation seed  2394ms
+   ✓ v7 preregistered experiment execution > preserves baseline execution while refusing new experiments under the historical schema  417ms
+   ✓ official protocol execution boundary > enforces the official snapshot at CLI verify while preserving historical structural comparisons  553ms
+
+ Test Files  10 passed (10)
+      Tests  142 passed (142)
+   Start at  02:18:20
+   Duration  7.13s (transform 895ms, setup 0ms, collect 1.99s, tests 10.48s, environment 1ms, prepare 1.12s)
+

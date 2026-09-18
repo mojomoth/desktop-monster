@@ -1,0 +1,21 @@
+Debugger listening on ws://127.0.0.1:56392/322a0995-1be0-4cbe-b90a-8a4bb712c72c
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+V08_INSPECTOR_RESUMED
+V08_LOCK true /var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-perf-PRerJP
+V08_FRAME_READY
+2026-09-14 14:45:14.024 DesMon[37611:29857265] representedObject is not a WeakPtrToElectronMenuModelAsNSObject
+V08_APP_CALL quit [] Error
+    at e.app.<computed> [as quit] (eval at <anonymous> (/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/preservation/DesMon-v070.app/Contents/Resources/app.asar/dist/electron/main/index.js:5:1), <anonymous>:17:160)
+    at quit (/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/preservation/DesMon-v070.app/Contents/Resources/app.asar/dist/electron/main/index.js:158:36)
+    at MenuItem.click (node:electron/js2c/browser_init:2:41237)
+    at a._executeCommand (node:electron/js2c/browser_init:2:46884)
+V08_LIFECYCLE before-quit 1789364810474
+V08_WINDOW 1 close 1789364810477
+V08_WINDOW 1 closed 1789364810536
+V08_LIFECYCLE will-quit 1789364810537
+V08_PROCESS_EXIT 0 1789364810537
+V08_LIFECYCLE quit 1789364810537
+Waiting for the debugger to disconnect...
+{"event":"Runtime.executionContextDestroyed","params":{"executionContextId":1,"executionContextUniqueId":"-7266421901351688598.-2583070209184928323"},"at":"2026-09-14T05:46:50.606Z"}
+{"event":"child-exit","code":0,"signal":null,"at":"2026-09-14T05:46:53.909Z"}

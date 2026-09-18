@@ -1,0 +1,22 @@
+error: invalid input syntax for type json
+    at /Users/jeongyounglee/work/repo/desktop-monster/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v9/postgres-check.mjs:19:3 {
+  length: 193,
+  severity: 'ERROR',
+  code: '22P02',
+  detail: 'Expected ":", but found "}".',
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: `JSON data, line 1: {"c1"}\nunnamed portal parameter $5 = '...'`,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'jsonfuncs.c',
+  line: '646',
+  routine: 'json_errsave_error'
+}

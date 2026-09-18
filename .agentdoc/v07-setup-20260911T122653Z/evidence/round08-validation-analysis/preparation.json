@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "kind": "validation-analysis-preparation",
+  "agentId": "/root/balance",
+  "round": 8,
+  "createdAt": "2026-09-12T17:46:18.333445+00:00",
+  "status": "PREPARED_WAITING_HOST_COMPLETE",
+  "script": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round08-validation.py",
+    "sha256": "83b578af2b26e8b82c851c6377c3c58871e889c2e6068cc0c306bbf4b15bc45a"
+  },
+  "protocol": {
+    "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "sha256": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+    "frozenAt": "2026-09-12T17:38:53.294240+00:00",
+    "adoptedAt": "2026-09-12T17:38:53.294240+00:00"
+  },
+  "selectedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r8-tail10450"
+  },
+  "parameters": {
+    "heroMinLevel": 17,
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailNumerator": 10450,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroLevelStepEvery": 2,
+    "heroLevelStepCap": 6,
+    "heroRestMs": 120000,
+    "heroDeferMs": 30000,
+    "xpRewardBase": 5,
+    "xpRewardPerIndex": 3,
+    "bossXpMultiplier": 5,
+    "bossHpMultiplier": 5
+  },
+  "milestones": [
+    {
+      "id": "crownwyrm",
+      "label": "왕관용",
+      "kind": "monster",
+      "ids": [
+        "crownwyrm"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "speciesKills",
+          "id": "dragon",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "rootcolossus",
+      "label": "뿌리거인",
+      "kind": "monster",
+      "ids": [
+        "rootcolossus"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "h58",
+      "label": "심해 기사",
+      "kind": "hero",
+      "ids": [
+        "h58"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "elementKills",
+          "element": "water",
+          "count": 100
+        },
+        {
+          "kind": "speciesKills",
+          "id": "reefknight",
+          "count": 2
+        },
+        {
+          "kind": "totalKills",
+          "count": 1500
+        }
+      ]
+    },
+    {
+      "id": "h62",
+      "label": "천공 수호자",
+      "kind": "hero",
+      "ids": [
+        "h62"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 5
+        },
+        {
+          "kind": "seenMonsters",
+          "count": 60
+        },
+        {
+          "kind": "totalKills",
+          "count": 6000
+        }
+      ]
+    },
+    {
+      "id": "starvoid",
+      "label": "별먹이",
+      "kind": "monster",
+      "ids": [
+        "starvoid"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 16000
+        }
+      ]
+    },
+    {
+      "id": "h70",
+      "label": "별밤 계승자",
+      "kind": "hero",
+      "ids": [
+        "h70"
+      ],
+      "final": true,
+      "requirements": [
+        {
+          "kind": "uniqueHeroes",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 30000
+        }
+      ]
+    }
+  ],
+  "measurementSettings": {
+    "tickMs": 100,
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "seeds": {
+      "baseline": {
+        "start": 1,
+        "count": 100
+      },
+      "exploration": {
+        "start": 10001,
+        "count": 20
+      },
+      "validation": {
+        "start": 1,
+        "count": 100
+      }
+    },
+    "profiles": [
+      "active",
+      "intermittent",
+      "warm-idle",
+      "pure-idle"
+    ],
+    "policies": [
+      "free",
+      "training",
+      "lure",
+      "reroll"
+    ],
+    "inputSchedules": [
+      "uniform",
+      "burst"
+    ],
+    "managementPolicies": [
+      "none",
+      "consume-weakest",
+      "fuse-first",
+      "reincarnate-first"
+    ],
+    "menuVisitSeconds": [
+      0,
+      120,
+      600
+    ],
+    "baseline": {
+      "profile": "active",
+      "policy": "free",
+      "inputSchedule": "uniform",
+      "management": "none",
+      "menuVisitSeconds": 0
+    },
+    "targets": {
+      "firstReincarnation": {
+        "medianMinSec": 2700,
+        "medianMaxSec": 3600,
+        "deadlineSec": 5400,
+        "minimumReachedFraction": 0.9
+      },
+      "lastUnlock": {
+        "medianMinSec": 28800,
+        "medianMaxSec": 43200
+      }
+    },
+    "maximumCandidates": 3,
+    "levelControls": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "validationPolicies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      }
+    ],
+    "explorationHorizonMinutes": 120,
+    "maxArtifactBytes": 268435456,
+    "maxWorkers": 4
+  },
+  "hostExpected": {
+    "sourceDigestPrefix": "ab965fd7",
+    "evaluationDigestPrefix": "4f5e3cb6",
+    "appVersion": "0.6.0",
+    "execSession": 73584,
+    "pid": 8867,
+    "pgid": 8867
+  },
+  "expected": {
+    "report": ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate-round08.json",
+    "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round08-v060/execution.json",
+    "seedStart": 1,
+    "samples": 100,
+    "minutesPerSeed": 720,
+    "policy": "active/free/uniform/none/visit0"
+  },
+  "dataAccessGate": "Do not read report/.runs or execution values until Host COMPLETE notice. Future analyzer then also requires execution.endedAt and full100 distinct seeds. Explicit DESMON_VALIDATION_COMPLETE=round08 unlock only after notice.",
+  "checksPrepared": [
+    "Full100 population/conditional p10/p50/p90/worst/unreached; no censored denominator reduction.",
+    "First7 records and checkpoint consistency,ready/open/accepted intervals,>=90/100 by5400sec and populationp502700–3600sec.",
+    "h70 population eligibilityp5028800–43200sec,seen/chosen separate;all6named eligible/seen/acquired/captured as applicable.",
+    "Adoptionbeforeexecution,officialexactprotocolSHA,selected21params/contentSHA,actualsource/compiledexports,S/E/build/manifest/raw/file/log/archive hashes.",
+    "Exact100 seed files plusmanifest,100×12h canonicalfreshonly,frozen9policydefinitionsnotpooled;allcheckpointcurrencyconservation and exactbigint.",
+    "Preserve targetFAIL and structuralPASS separately; no new numericalproposal,optimization,game execution,tests/build or finalaudit."
+  ],
+  "syntaxCheck": {
+    "command": "node --input-type=module --check (stdin only)",
+    "exitCode": 0,
+    "sourceExecuted": false
+  },
+  "analyzer": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-validation-analysis/analyzer-source.json",
+    "sha256": "0521d626c61e9cbd224cdb02a2a3d9843180644a03f46985b6b4c4cbac650c95"
+  },
+  "explorationFrozen": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/FROZEN.json",
+    "sha256": "162a2d73c766bcffa3a8c047f5df5f03a7ba5feb13e30d7b1cafebdbdb66c8c7"
+  },
+  "hostCompletionNotified": false,
+  "analysisExecuted": false,
+  "validationReportOrRawRead": false,
+  "partialExecutionRead": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "productSourceModified": false,
+  "evaluatorModified": false,
+  "newNumericalProposal": null,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false
+}

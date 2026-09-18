@@ -1,0 +1,110 @@
+{
+  "output": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-pvp-feedback-20260916T131757Z/native-release",
+  "passed": true,
+  "checks": [
+    {
+      "name": "visible-pending",
+      "passed": true,
+      "details": {
+        "inline": "전투를 준비하고 있습니다…",
+        "visible": true,
+        "role": "status",
+        "footer": "",
+        "footerVisible": false,
+        "button": "전투 중…",
+        "buttonFocused": true,
+        "inlineBounds": {
+          "top": 596.875,
+          "bottom": 632.0625
+        },
+        "buttonBounds": {
+          "top": 557.875,
+          "bottom": 588.875
+        }
+      }
+    },
+    {
+      "name": "visible-failure-at-clicked-card",
+      "passed": true,
+      "details": {
+        "inline": "서버에 연결할 수 없어 지금은 대전할 수 없습니다.",
+        "visible": true,
+        "role": "status",
+        "footer": "서버에 연결할 수 없어 지금은 대전할 수 없습니다.",
+        "footerVisible": false,
+        "button": "전투",
+        "buttonFocused": true,
+        "inlineBounds": {
+          "top": 596.875,
+          "bottom": 632.0625
+        },
+        "buttonBounds": {
+          "top": 557.875,
+          "bottom": 588.875
+        }
+      }
+    },
+    {
+      "name": "feedback-retains-button-focus",
+      "passed": true
+    },
+    {
+      "name": "failed-match-never-fights",
+      "passed": true
+    },
+    {
+      "name": "visible-verdict",
+      "passed": true,
+      "details": {
+        "inline": "FixtureFoe에게 승리 · Slime Lv 1을 데려왔습니다!",
+        "visible": true,
+        "role": "status",
+        "footer": "FixtureFoe에게 승리 · Slime Lv 1을 데려왔습니다!",
+        "footerVisible": false,
+        "button": "전투 · 60초",
+        "buttonFocused": true,
+        "inlineBounds": {
+          "top": 343.875,
+          "bottom": 379.0625
+        },
+        "buttonBounds": {
+          "top": 304.875,
+          "bottom": 335.875
+        }
+      }
+    },
+    {
+      "name": "exactly-one-committed-battle",
+      "passed": true,
+      "details": {
+        "opponent": "fixture-foe"
+      }
+    },
+    {
+      "name": "repeat-click-keeps-one-battle",
+      "passed": true
+    },
+    {
+      "name": "refresh-explains-blocked-button",
+      "passed": true,
+      "details": {
+        "inline": "FixtureFoe에게 승리 · Slime Lv 1을 데려왔습니다!",
+        "visible": false,
+        "role": "status",
+        "footer": "FixtureFoe에게 승리 · Slime Lv 1을 데려왔습니다!",
+        "footerVisible": false,
+        "button": "목록 갱신 중…",
+        "buttonFocused": false,
+        "inlineBounds": {
+          "top": 913.875,
+          "bottom": 949.0625
+        },
+        "buttonBounds": {
+          "top": 874.875,
+          "bottom": 905.875
+        }
+      }
+    }
+  ],
+  "errors": []
+}

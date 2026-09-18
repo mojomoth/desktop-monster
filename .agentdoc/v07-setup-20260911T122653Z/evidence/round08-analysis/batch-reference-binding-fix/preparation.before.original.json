@@ -1,0 +1,315 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "round": 8,
+  "status": "PREPARED_NOT_EXECUTED",
+  "observed": {
+    "protocolPath": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "protocolSha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694",
+    "parameterVersion": 3,
+    "frozenAt": "2026-09-12T16:56:58.617163+00:00",
+    "candidateIds": [
+      "candidate-r8-tail10450",
+      "candidate-r8-tail10425",
+      "candidate-r8-tail10400"
+    ],
+    "executionCount": 0,
+    "completedCount": 0,
+    "reportCountAnalyzed": 0,
+    "preregisteredArchivePresent": false
+  },
+  "registeredCandidates": [
+    {
+      "id": "candidate-r8-tail10450",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailDenominator": 10000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "earlyCaptureCount": 5,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      },
+      "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10450/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+    },
+    {
+      "id": "candidate-r8-tail10425",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10425,
+        "fieldHpTailDenominator": 10000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "earlyCaptureCount": 5,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      },
+      "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10425/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+    },
+    {
+      "id": "candidate-r8-tail10400",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10400,
+        "fieldHpTailDenominator": 10000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "earlyCaptureCount": 5,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      },
+      "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10400/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+    }
+  ],
+  "registeredMeasurementSettings": {
+    "tickMs": 100,
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "seeds": {
+      "baseline": {
+        "start": 1,
+        "count": 100
+      },
+      "exploration": {
+        "start": 10001,
+        "count": 20
+      },
+      "validation": {
+        "start": 1,
+        "count": 100
+      }
+    },
+    "profiles": [
+      "active",
+      "intermittent",
+      "warm-idle",
+      "pure-idle"
+    ],
+    "policies": [
+      "free",
+      "training",
+      "lure",
+      "reroll"
+    ],
+    "inputSchedules": [
+      "uniform",
+      "burst"
+    ],
+    "managementPolicies": [
+      "none",
+      "consume-weakest",
+      "fuse-first",
+      "reincarnate-first"
+    ],
+    "menuVisitSeconds": [
+      0,
+      120,
+      600
+    ],
+    "baseline": {
+      "profile": "active",
+      "policy": "free",
+      "inputSchedule": "uniform",
+      "management": "none",
+      "menuVisitSeconds": 0
+    },
+    "targets": {
+      "firstReincarnation": {
+        "medianMinSec": 2700,
+        "medianMaxSec": 3600,
+        "deadlineSec": 5400,
+        "minimumReachedFraction": 0.9
+      },
+      "lastUnlock": {
+        "medianMinSec": 28800,
+        "medianMaxSec": 43200
+      }
+    },
+    "maximumCandidates": 3,
+    "levelControls": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "validationPolicies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      }
+    ],
+    "explorationHorizonMinutes": 120,
+    "maxArtifactBytes": 268435456,
+    "maxWorkers": 4
+  },
+  "batchScript": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round08-batch.py",
+    "sha256": "e98b8908ae999a1ae3180a842038d09158208ec913bc77bace577ce94d83087b",
+    "historicalPairingAdded": true,
+    "sameCandidatePairingRetained": true,
+    "executed": false
+  },
+  "historicalAnalyzer": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round07-analysis/analyzer-source.json",
+    "sha256": "add1a7247feb1f55a438a6293646d9b76e3fa7f03d0c8ad5abc2896704017bbe"
+  },
+  "expectedProductionTests": {
+    "files": 4,
+    "tests": 114
+  },
+  "checksPrepared": [
+    "Read each trial reports/raw/archives/logs only after execution.endedAt; incomplete trials stay unjudged.",
+    "Validate exact21 actual source/compiled parameters, all six content conditions, frozen settings/nine policies, experiment/report/manifest/raw binding and source/evaluator/build/logSHA;114 production tests.",
+    "Preserve whole20 population p10/p50/p90/worst and unreached after finite, separate conditional distribution,90min full denominator.",
+    "Screening p502700–3600sec AND18/20by5400; same20 full12h only for passing screen and h70 eligibility populationp5028800–43200sec.",
+    "Every candidate screening compares first7events/recorded records/actions through accepted firstchoice or120min censoring to registeredR07prefix1153. Recompute frozenreferenceprefixes from originalscreening; bind copiedprefix-reference.json and round07-first-pairing.json.",
+    "Separately pair samecandidate screening/full first7events/records/actions with identical120min censoring; mask later firstevents null. Neither comparison claims full perattack/kill/RNG trace.",
+    "Compute paired8-to12h increases beforequantiles and2–12h integer100ms contentgaps only for completedfull12h.",
+    "All8complete andintegrityPASS requiredbefore ranking; bothgoalpassersonly, integer100ms distance3150→distance36000→firstp90→ID. Requiredreportcount8+actualscreenpassers, not automatically11.",
+    "Compare fivecontrols to completedRound07 identicalpolicy/seed/fixture raw; retainallhistoricalreports unchanged.",
+    "Final supplement audits duplicate/unsafe archivepaths, exactcommands/exitcodes, manifest+20seedfilesonly/literalfileSHAs, independent Python statistics,114tests and pervariant sourcearchive differences; preserve snapshots."
+  ],
+  "selection": {
+    "passingRanking": [],
+    "proposedExperiment": null,
+    "adopted": false
+  },
+  "analysisExecuted": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "productSourceModified": false,
+  "evaluatorModified": false,
+  "validationSeedsAccessed": false,
+  "newNumericalProposal": null,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false,
+  "historicalFirstJourneyReference": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/first-prefix-reference.json",
+    "sha256": "16da47c49762747b8c854a046b3442c7e8a67ccfcb795f3c478b5e63cdaae721",
+    "rawReference": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1153/screening.json",
+      "sha256": "697cfe80f4880b054920c303a02b1a83700f3a056ebd5151b984e049c8b115d5"
+    },
+    "rawReferenceBytesVerified": true,
+    "samples": 20,
+    "futureExecutionReferencePath": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/prefix-reference.json",
+    "futureTrialArtifact": "round07-first-pairing.json",
+    "futureExecutionFields": [
+      "prefixReference",
+      "historicalPrefixPairing"
+    ],
+    "appliesTo": "Each candidate screening, including screening goal failure; historical recorded comparison only, not newperformance evidence."
+  }
+}

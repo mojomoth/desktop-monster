@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "at": "2026-09-18T02:42:19.333Z",
+  "status": "complete",
+  "scope": "epic-equipment-art-followup",
+  "source": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+  "finalCheck": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/evidence/final-check.json",
+    "sha256": "2e3c68a2bf1321400e2e8563ec99304c556bd8d177f16eafde479ac64a209797"
+  },
+  "journal": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/journal.json",
+    "sha256": "ca4f3536e53d99201dd931c2e47264d19faacb393fda6d397da91eb0d5c2cda5"
+  },
+  "packages": {
+    "macApp": {
+      "path": "release/mac-arm64/DesMon.app",
+      "sha256": "f41dcece355795e48a07682f1bfafd950f1be5281a3d5d48275c11361597ffe3"
+    },
+    "macDmg": {
+      "path": "release/DesMon-0.10.0-arm64.dmg",
+      "sha256": "26c137513d797dfbf0fdf159d22933be7895c5973cfa2e77189b8fac8779ec7d"
+    },
+    "windowsInstaller": {
+      "path": "release/DesMon Setup 0.10.0.exe",
+      "sha256": "3586f577a281c2518d979ae705b2fdf68681620f202a418b4fc7b36d587cd4a8"
+    },
+    "windowsAppAsar": {
+      "path": "release/win-unpacked/resources/app.asar",
+      "sha256": "6d1c35113ad0135491d41839fb0cf3a8606c184b97e42fffe93fb0df554445fc"
+    }
+  },
+  "macAsarHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+  "preview": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-showcase-dark.png",
+    "sha256": "15d4a8dd29ebce3297a8e3402ccb906ec97521bda8dcf4679ac67fe463358463"
+  },
+  "accessoryComparison": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-accessories-light.png",
+    "sha256": "9b5035f24de09a24001b5d58f24d6b9da011d0999ead05a3ac776aef940bc90d"
+  },
+  "documentation": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/EPIC_ART.md",
+    "sha256": "3d3c9c94bc8bf55254a5938b036d044c7c5a08917b35af39157f3ac2b4971b79"
+  },
+  "independentReview": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/reviews/critic-final.json",
+    "sha256": "9eeed707466d6dea7ea44d8a4ae5ee27043e3bebba804f41da4914405791bf2c"
+  },
+  "previousReleasePreserved": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/preservation/release-manifest.json",
+    "sha256": "4f9e02775833e1e8063a41a96979fcae059be1b5c986e65ae900467e85d2acab"
+  },
+  "previousPerformance": {
+    "rerun": false,
+    "appliesTo": "previous frozen source184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+    "note": "No current-build long-duration performance approval claimed."
+  },
+  "externalChecks": {
+    "windowsHardware": false,
+    "livePostgresql": false,
+    "manualGlobalInput": false,
+    "humanFun": false,
+    "deployment": false
+  },
+  "DESMON_SKIP_NET": "1",
+  "commitsOrPRs": false
+}

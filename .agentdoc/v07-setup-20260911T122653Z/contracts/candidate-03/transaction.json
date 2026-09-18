@@ -1,0 +1,9 @@
+{
+  "status": "prepared",
+  "beforeSha256": {
+    ".harness/v7/config.json": "a8547006ed041dbbcb5a2158d59aa6692e72308b415ba9c6d1f70ef50c493115",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "9774107f2335ed6084f7fc51076c3f9ea7d8f666a1d2e6d81a4e1d3399c757e1"
+  },
+  "reason": "V07-03 legacy IPC save/ACK regression test ownership discovered by read-only inspection.",
+  "recovery": "No runner calls between writes. Restore archived config/loop only if committed marker absent and original hashes verify."
+}

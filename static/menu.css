@@ -48,6 +48,8 @@ input {
 
 .panel {
   display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 }
 
@@ -57,7 +59,8 @@ input {
 
 .card {
   display: grid;
-  grid-template-columns: 56px 1fr auto;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  min-width: 0;
   gap: 4px 8px;
   align-items: center;
   padding: 8px;
@@ -74,6 +77,8 @@ canvas.species {
 }
 
 .name {
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: #deeed6;
   font-weight: 700;
 }
@@ -110,11 +115,34 @@ canvas.species {
 
 .row {
   display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
   gap: 8px;
   align-items: center;
   justify-content: space-between;
   padding: 7px;
   border-bottom: 1px solid #8595a1;
+}
+
+/* Action buttons belong to the whole card, not an implicit narrow grid cell. */
+.card > .row {
+  grid-column: 1 / -1;
+  justify-content: flex-start;
+  border: 0;
+  padding: 4px 0 0;
+}
+
+.row > *, .card > *, input {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.power, .stars, .result, #preview {
+  overflow-wrap: anywhere;
+}
+
+.row input {
+  flex: 1 1 160px;
 }
 
 .footer {
@@ -178,9 +206,18 @@ canvas.species {
   grid-template-columns: 24px minmax(0, 1fr);
   gap: 2px 4px;
   padding: 4px;
-  overflow: hidden;
   font-size: 10px;
   box-shadow: none;
+}
+
+#party .card.mini, #opponent .party .card.mini, .opponent-card .party .card.mini {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+
+#party .card.mini canvas.species, #opponent .party .card.mini canvas.species, .opponent-card .party .card.mini canvas.species {
+  grid-row: auto;
 }
 
 .card.mini canvas.species {
@@ -199,6 +236,7 @@ canvas.species {
 }
 
 #opponent .party,
+.opponent-card .party,
 #party {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -292,3 +330,135 @@ canvas.species {
   font: inherit;
   cursor: pointer;
 }
+
+/* Compact choices keep the existing 420-point pixel menu. */
+.hero-art { width: 96px; height: 96px; image-rendering: pixelated; object-fit: contain; }
+.hero-summary { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 4px 8px; padding: 8px; background: #23243f; border: 2px solid #6dc2ca; }
+.hero-summary > .hero-art { width: 48px; height: 48px; }
+.hero-summary-text { min-width: 0; }
+.hero-summary p { margin: 0; line-height: 1.4; overflow-wrap: anywhere; }
+.hero-summary h2 { font-size: 14px; margin: 0 0 3px; }
+.hero-summary-meta, .hero-summary-gold, .hero-summary .next-level { grid-column: 1 / -1; }
+.hero-summary-meta { color: #a9b0c5; }
+.hero-summary-gold { color: #dad45e; }
+.hero-summary .power { text-align: left; }
+.muted { color: #a9b0c5; font-size: 11px; line-height: 1.6; }
+h2 { font-size: 16px; margin: 4px 0 8px; }
+h3 { font-size: 12px; margin: 4px 0; }
+.hero-opportunity { padding: 8px; border: 1px solid #8595a1; }
+.hero-opportunity > .btn { display: block; width: 100%; margin-top: 8px; }
+.hero-reset { margin: 6px 0 3px; font-size: 14px; line-height: 1.4; color: #fff0e8; }
+.hero-keeps { margin: 0; line-height: 1.5; color: #c9dccf; }
+.hero-choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; margin: 8px 0; }
+.hero-choice { display: grid; grid-template-columns: 48px minmax(0, 1fr) 54px; align-items: center; gap: 8px; padding: 6px; border: 1px solid #8595a1; background: #23243f; overflow-wrap: anywhere; }
+.hero-choice-text { min-width: 0; }
+.hero-choice .hero-art { width: 48px; height: 48px; }
+.hero-choice h3, .hero-choice p { margin: 0; line-height: 1.4; }
+.hero-choice .hero-buff { color: #6dc2ca; }
+.hero-choice .btn { padding: 6px 4px; min-height: 36px; font-size: 14px; }
+.hero-choice .stars { letter-spacing: 0; font-size: 10px; }
+.hero-rules { margin-top: 10px; }
+.hero-rules summary, .codex-help summary, #user-settings summary { cursor: pointer; line-height: 1.6; }
+.roster-shortcut { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.roster-shortcut .btn { flex-shrink: 0; }
+.hero-choice.locked .hero-art { opacity: .55; }
+.hero-gallery summary { cursor: pointer; padding: 12px 0; }
+.hero-buff { color: #6dc2ca; }
+.opponent-card { padding: 10px; border: 1px solid #8595a1; background: #23243f; margin: 8px 0; }
+.opponent-card.selected { border-color: #dad45e; background: #30346d; box-shadow: inset 0 0 0 1px #dad45e; }
+.opponent-card > .opponent-hero { float: left; width: 64px; height: 64px; margin-right: 8px; }
+.opponent-card .hero-art { width: 64px; height: 64px; }
+.opponent-card > .name, .opponent-card > .opponent-hero-name, .opponent-card > .record, .opponent-card > .muted { display: block; margin-left: 72px; line-height: 1.6; overflow-wrap: anywhere; }
+.opponent-hero-name { color: #6dc2ca; font-size: 11px; }
+.opponent-card .party { clear: both; padding: 8px 0; }
+.opponent-card .party > .muted { grid-column: 1 / -1; }
+.opponent-card > .btn { width: 100%; }
+.battle-status { display: block; margin-top: 8px; padding: 8px; border-left: 2px solid #6dc2ca; background: #192635; line-height: 1.6; overflow-wrap: anywhere; scroll-margin-block: 8px; }
+.battle-status:empty { display: none; }
+#pvp-playback-status { position: sticky; top: 0; z-index: 10; padding: 10px; color: #deeed6; background: #192635; border: 1px solid #6dc2ca; line-height: 1.5; }
+.pvp-gold-rules p { line-height: 1.6; }
+.opponent-card .record { color: #dad45e; }
+button[aria-disabled="true"] { opacity: .55; cursor: wait; }
+button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid #dad45e; outline-offset: 3px; }
+
+/* v0.5: seven short tabs wrap inside the original collection window. */
+.tabs { flex-wrap: wrap; }
+.tabs .tab { flex: 1 0 auto; min-height: 34px; }
+[hidden] { display: none !important; }
+.next-level, .field-phase { color: #dad45e; line-height: 1.6; }
+.stack-change { color: #dad45e; font-size: 11px; }
+.shop-card, .profile-stats, .profile-history, .hero-totals { padding: 12px; border: 1px solid #8595a1; background: #23243f; }
+.shop-card { display: grid; gap: 6px; }
+.shop-card p { margin: 4px 0; line-height: 1.6; }
+.shop-card > .btn { min-height: 36px; }
+.shop-effect { color: #6dc2ca; }
+.profile-stats p, .history-entry p { line-height: 1.6; overflow-wrap: anywhere; }
+.profile-history { margin-top: 12px; }
+.profile-history > summary, .hero-totals > summary { cursor: pointer; line-height: 1.6; }
+.history-entry { padding: 12px 0; border-bottom: 1px solid #4e4a4e; }
+.history-entry:last-child { border-bottom: 0; }
+.codex-tabs { display: flex; gap: 8px; }
+.codex-tabs > .btn { flex: 1; min-height: 36px; background: #30346d; }
+.codex-tabs > .selected { color: #140c1c; background: #6dc2ca; }
+.codex-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; align-items: start; }
+.codex-card { min-width: 0; padding: 8px; background: #23243f; border: 1px solid #8595a1; overflow-wrap: anywhere; }
+.codex-card.discovered { border-color: #6dc2ca; }
+.codex-summary { cursor: pointer; text-align: center; }
+.codex-summary > span { display: block; }
+.codex-number { color: #a9b0c5; font-size: 10px; }
+.codex-summary .stars { margin-top: 4px; letter-spacing: 0; font-size: 10px; }
+.codex-art { height: 100px; }
+.monster-art { width: 96px; height: 96px; image-rendering: pixelated; }
+.codex-card p { line-height: 1.6; margin: 8px 0; }
+.codex-stats { color: #6dc2ca; }
+.codex-eligibility, .condition { font-size: 11px; }
+.codex-eligibility { color: #dad45e; }
+.codex-conditions { padding-top: 4px; border-top: 1px solid #4e4a4e; }
+.codex-equip { width: 100%; min-height: 34px; }
+#name-status { min-height: 1.6em; }
+@media (max-width: 340px) { .codex-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* v0.6 return view: persistent discoveries and one optional goal in the codex. */
+.discovery-summary, .discovery-goal { padding: 8px; border: 1px solid #42546a; background: #192635; }
+.discovery-summary h3, .discovery-goal h3 { margin: 0 0 4px; }
+.discovery-summary p, .discovery-goal p { margin: 4px 0; line-height: 1.5; }
+.discovery-goal.no-goal { padding: 4px 0; border: 0; background: transparent; }
+.discovery-goal.no-goal h3 { display: none; }
+.goal-status:empty, .goal-conditions:empty, .result:empty, #welcome-status:empty, #settings-status:empty { display: none; }
+.codex-help { margin: 2px 0 6px; }
+.discovery-previews { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.discovery-preview { display: flex; align-items: center; gap: 6px; max-width: 100%; font-size: 12px; }
+.discovery-preview canvas { width: 40px; height: 40px; object-fit: contain; image-rendering: pixelated; }
+.discovery-name { overflow-wrap: anywhere; }
+.goal-status { color: #c9dccf; }
+.codex-goal { margin-top: 8px; }
+.codex-goal[aria-pressed="true"] { border-color: #9ed395; }
+
+#save-status:not([hidden]) { position: sticky; top: 0; z-index: 10; padding: 12px; border: 1px solid #ffb39c; background: #442c2c; color: #fff0e8; }
+#welcome, #save-recovery, #user-settings { padding: 10px; border: 1px solid #8595a1; background: #23243f; margin-bottom: 12px; }
+#welcome p, #save-recovery p { line-height: 1.6; overflow-wrap: anywhere; }
+.welcome-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#input-status { color: #dad45e; }
+#user-settings .btn { margin-top: 8px; }
+#settings-status, #welcome-status, #recovery-status { color: #dad45e; line-height: 1.5; }
+/* v0.9: metric controls and recoverable progress actions fit the pixel menu. */
+.rank-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.rank-tools [aria-pressed="true"] { background: #5fcde4; color: #140c1c; }
+.checkpoint-row { border-top: 1px solid #847e87; padding: 8px 0; }
+#progress-recovery { margin-top: 16px; }
+#progress-recovery summary, #party-editor summary { cursor: pointer; padding: 8px 0; }
+#share-open { margin-left: auto; }
+
+/* Equipment rarity tokens color the complete card and its name together. */
+.equipment-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; }
+.equipment-card { border:2px solid var(--rarity-color); border-radius:8px; padding:12px; background:#14212b; min-width:0; }
+.equipment-name { color:var(--rarity-color); font-size:14px; line-height:1.5; margin:6px 0; }
+.equipment-card p { overflow-wrap:anywhere; }
+.equipment-icon { image-rendering:pixelated; float:left; margin:0 8px 8px 0; }
+.equipment-details { clear:both; }
+.equipment-danger { color:#ffad99; }
+.equipment-section { margin:20px 0; }
+.equipment-pages { display:flex; align-items:center; gap:12px; margin-top:12px; }
+.equipment-card .btn { margin:6px 6px 0 0; }
+.equipment-cost { max-height:100px; overflow:auto; font-variant-numeric:tabular-nums; }
+.equipment-countdown { font-variant-numeric:tabular-nums; color:#d6bc82; }

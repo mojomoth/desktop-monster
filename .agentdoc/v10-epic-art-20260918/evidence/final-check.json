@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "at": "2026-09-18T02:40:53.360Z",
+  "task": "epic-equipment-art",
+  "passed": true,
+  "source": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+  "executedBy": "/root",
+  "gate": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/evidence/canonical-gates-final-02.json",
+    "sha256": "eb60a7fa19d868102d3f89e3df6ca4feaff645888e8ae03162109b0cbcb401a1"
+  },
+  "tests": 1202,
+  "testFiles": 88,
+  "critic": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/reviews/critic-final.json",
+    "sha256": "9eeed707466d6dea7ea44d8a4ae5ee27043e3bebba804f41da4914405791bf2c"
+  },
+  "native": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/runtime-final-02.json",
+    "sha256": "0950723a7e381927067c97eee6c8fcedade367f31e3feb88c28bd5d20963a336",
+    "scenarios": 16
+  },
+  "gallery": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/report.json",
+    "sha256": "236bea2bf5073d06aacdb9867fc17c4979119f51eba240412b711d6bbbd5a46f",
+    "pages": 150,
+    "samples": 7148,
+    "overviews": 4
+  },
+  "epicGallery": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/report.json",
+    "sha256": "2d86d20de6487816bbb223a92479eb39490d77d1b6af5e1a006afd5528a4f17b"
+  },
+  "installer": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/evidence/installer-payload.json",
+    "sha256": "96d6e022178555416207dbe41a52896301356df49889aeee553584b9b7c0fdaf"
+  },
+  "packages": {
+    "macApp": {
+      "path": "release/mac-arm64/DesMon.app",
+      "sha256": "f41dcece355795e48a07682f1bfafd950f1be5281a3d5d48275c11361597ffe3"
+    },
+    "macDmg": {
+      "path": "release/DesMon-0.10.0-arm64.dmg",
+      "sha256": "26c137513d797dfbf0fdf159d22933be7895c5973cfa2e77189b8fac8779ec7d"
+    },
+    "windowsInstaller": {
+      "path": "release/DesMon Setup 0.10.0.exe",
+      "sha256": "3586f577a281c2518d979ae705b2fdf68681620f202a418b4fc7b36d587cd4a8"
+    },
+    "windowsAppAsar": {
+      "path": "release/win-unpacked/resources/app.asar",
+      "sha256": "6d1c35113ad0135491d41839fb0cf3a8606c184b97e42fffe93fb0df554445fc"
+    }
+  },
+  "compiledPayloadFilesCheckedAcrossPlatforms": 238,
+  "macAsarHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+  "scope": "Epic artwork delta, regression, native visual/UI and installer verification. Prior long observations are not accepted as observations of this changed build."
+}

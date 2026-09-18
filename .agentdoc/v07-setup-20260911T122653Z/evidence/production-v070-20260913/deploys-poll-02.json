@@ -1,0 +1,100 @@
+[
+  {
+    "commit": {
+      "createdAt": "2026-09-13T10:25:35Z",
+      "id": "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803",
+      "message": "fix(V07-07): deploy verified v0.7 server compatibility\n\nAccept safe integer companion levels, validate network responses, and support\nhero/party opponent directories with exact opponent selection. Include the\nverified product build closure and matching regression tests required by\nthe existing Render build contract.\n\nValidation: npm test \u0026\u0026 npm run lint \u0026\u0026 npm run typecheck (955 tests);\nclean npm ci --include=dev --ignore-scripts \u0026\u0026 npm run build on Node 20.12.2.\nProduct source digest: 84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131.\nScoped production deployment requested by user; original worktree and index\nremain unchanged. This commit does not publish a client release."
+    },
+    "createdAt": "2026-09-13T10:26:24.031284Z",
+    "finishedAt": "2026-09-13T10:27:22.907611Z",
+    "id": "dep-daj7kjp5efls739fsiug",
+    "startedAt": "2026-09-13T10:26:24.001624Z",
+    "status": "live",
+    "trigger": "new_commit",
+    "updatedAt": "2026-09-13T10:27:22.907796Z"
+  },
+  {
+    "commit": {
+      "createdAt": "2026-09-08T16:37:33Z",
+      "id": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "message": "feat: add v3 elemental companions and battle effects"
+    },
+    "createdAt": "2026-09-08T16:37:42.789682Z",
+    "finishedAt": "2026-09-08T16:38:41.656678Z",
+    "id": "dep-dag3jlh5efls73fhncpg",
+    "startedAt": "2026-09-08T16:37:42.76105Z",
+    "status": "deactivated",
+    "trigger": "new_commit",
+    "updatedAt": "2026-09-13T10:27:22.906231Z"
+  },
+  {
+    "commit": {
+      "createdAt": "2026-09-03T17:54:42Z",
+      "id": "02280b04ef98b65efde810e1cad7e43f78796a39",
+      "message": "chore(eval): stage-3 validation and handoff [harness v3]"
+    },
+    "createdAt": "2026-09-03T17:54:46.141322Z",
+    "finishedAt": "2026-09-03T17:55:35.56483Z",
+    "id": "dep-dacr8pjbc2fs73cg1ggg",
+    "startedAt": "2026-09-03T17:54:46.115102Z",
+    "status": "deactivated",
+    "trigger": "new_commit",
+    "updatedAt": "2026-09-08T16:38:41.655405Z"
+  },
+  {
+    "commit": {
+      "createdAt": "2026-09-03T13:08:33Z",
+      "id": "3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2",
+      "message": "docs(agentdoc): dispatch iter 21 T74 (claude) [ralph]"
+    },
+    "createdAt": "2026-09-03T13:10:11.932632Z",
+    "finishedAt": "2026-09-03T13:11:06.73179Z",
+    "id": "dep-dacn3cvavr4c73fr6pag",
+    "startedAt": "2026-09-03T13:10:11.912039Z",
+    "status": "deactivated",
+    "trigger": "api",
+    "updatedAt": "2026-09-03T17:55:35.564026Z"
+  },
+  {
+    "commit": {
+      "createdAt": "2026-09-03T13:08:33Z",
+      "id": "3aa900a5d62f1b0b6d457dd503d31fdcbafb60c2",
+      "message": "docs(agentdoc): dispatch iter 21 T74 (claude) [ralph]"
+    },
+    "createdAt": "2026-09-03T13:10:10.164909Z",
+    "finishedAt": "2026-09-03T13:10:12.587042Z",
+    "id": "dep-dacn3cmq1p3s73es2jgg",
+    "startedAt": "2026-09-03T13:10:10.124736Z",
+    "status": "canceled",
+    "trigger": "new_commit",
+    "updatedAt": "2026-09-03T13:10:12.587667Z"
+  },
+  {
+    "commit": {
+      "createdAt": "2026-09-03T12:35:18Z",
+      "id": "23cf0cf8ab233332433e7345fa5bc4a2a3b3c75e",
+      "message": "chore(T73): bake the v3 SERVER_URL and record desmon-server-v3 in AGENTS.md"
+    },
+    "createdAt": "2026-09-03T12:37:21.967615Z",
+    "finishedAt": "2026-09-03T12:38:08.013036Z",
+    "id": "dep-dacmk0bm8hqs73bdnp30",
+    "startedAt": "2026-09-03T12:37:21.962748Z",
+    "status": "deactivated",
+    "trigger": "api",
+    "updatedAt": "2026-09-03T13:11:06.730799Z"
+  },
+  {
+    "commit": {
+      "createdAt": "2026-09-03T12:35:18Z",
+      "id": "23cf0cf8ab233332433e7345fa5bc4a2a3b3c75e",
+      "message": "chore(T73): bake the v3 SERVER_URL and record desmon-server-v3 in AGENTS.md"
+    },
+    "createdAt": "2026-09-03T12:37:13.732987Z",
+    "finishedAt": "2026-09-03T12:37:22.516546Z",
+    "id": "dep-dacmjuek1f9s73csi3jg",
+    "startedAt": "2026-09-03T12:37:13.727811Z",
+    "status": "canceled",
+    "trigger": "manual",
+    "updatedAt": "2026-09-03T12:37:22.51722Z"
+  }
+]

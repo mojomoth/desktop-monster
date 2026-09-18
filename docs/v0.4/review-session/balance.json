@@ -1,0 +1,58 @@
+{
+  "requestId": "b814ab61a09bba88b2dee676e49c36cd65fc61da72281256a300ea5f8d3d9d20",
+  "round": 1,
+  "role": "balance",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "실제 엔진의 seed1..100, 3프로필×5/15/30분 총900관측을 검증했다. 첫 환생100/100도달, p10/p50/p90=76/79/81초로 사전5분 목표 통과. 무료30초/수락후120초/roll10..25/저장 및 중복차감 방어는 별도 결정적 테스트로 확인했다. 방치 꼬리와 보관함 포화는 다음 조정의 관측 항목으로 남기며 사람 재미 통과를 뜻하지 않는다.",
+  "evidence": [
+    {
+      "path": "docs/v0.4/balance.json",
+      "note": "100seed의9시나리오백분위 및 원시900관측; warm-idle조건 명시"
+    },
+    {
+      "path": "tests/balance.test.ts",
+      "note": "실제엔진,1000ms주입tick,2inputs/s,120sec온보딩,첫후보수락정책"
+    },
+    {
+      "path": "tests/hero.test.ts",
+      "note": "3000roll분포/50폼도달,30초보류,120초성숙파티,재굴림차감,세이브재개"
+    },
+    {
+      "path": "docs/v0.4/review-session/balance-evidence.md",
+      "note": "경제해석,관측한계와실행결과"
+    }
+  ],
+  "findings": [
+    {
+      "id": "B1",
+      "severity": "minor",
+      "problem": "동료 관리를 하지 않는30분 active100%/intermittent99%표본에서30슬롯포화. 추가포획보상이멈춤.",
+      "fix": "기존Consume/Fuse/Sacrifice로공간확보하는30/30안내를추가. 다음사람관측에서관리행동/포획놓침을기록한다."
+    },
+    {
+      "id": "B2",
+      "severity": "minor",
+      "problem": "warm-idle30분 최장무처치구간p90=207초, 환생횟수p10=4 vs p50=14. 중앙값만으로방치정체를설명할수없음.",
+      "fix": "보고서에꼬리와초기120초활동조건을명시. 실제일중방치에서귀환후행동과정체수용도를관찰한다."
+    }
+  ],
+  "seed": 1,
+  "samples": 100,
+  "metrics": [
+    {
+      "name": "active 최초 환생 도달 시간",
+      "unit": "seconds",
+      "p10": 76,
+      "p50": 79,
+      "p90": 81,
+      "min": 1,
+      "max": 300
+    }
+  ],
+  "economy": {
+    "sources": "몬스터/보스 처치 골드. 지출하지 않는 기준 정책에서30분 골드 p50: active25,671 / warm-idle4,262 / intermittent18,614. 원시잔액 전부0이상.",
+    "sinks": "환생 재굴림만 게임골드50+25×min(100,횟수). 15회 시425골드. 부족골드 및 같은offerSerial의중복차감 거부. 동료Consume/Fuse/Sacrifice는 골드가 아닌 동료를 사용한다. 기준100seed에는 재굴림지출이없어 실제지출행태/가격최적화는 사람검증전 미확정.",
+    "freePath": "Lv12 첫 제안무료. 보류시 진행/골드를보존하고활성엔진30초후다시무료제안. 재시작해도제안/roll과남은대기저장. 무료기다림과즉시골드지출이공존; 현금결제없음."
+  }
+}

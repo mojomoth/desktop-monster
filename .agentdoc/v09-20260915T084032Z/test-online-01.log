@@ -1,0 +1,85 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/platformV9.test.ts (3 tests) 4ms
+ ✓ tests/recoveryV9.test.ts (15 tests) 11ms
+ ✓ tests/ipcV5.test.ts (7 tests) 9ms
+ ✓ tests/ipc.test.ts (61 tests) 11ms
+ ✓ tests/runtimeV8.test.ts (9 tests) 21ms
+ ❯ tests/onlineV9.test.ts (4 tests | 2 failed) 100ms
+   × v0.9 main-owned operations against the injected real HTTP handler > uses the clicked opponent and applies one durable result despite duplicate clicks 42ms
+     → expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+   × v0.9 main-owned operations against the injected real HTTP handler > recovers a committed reply after client/server restart without any intervening upload 14ms
+     → expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > rejects stale generation saves after reset and restores local progress with the same identity 30ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > applies revocation occurring between /me and PUT before returning the ranking 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/onlineV9.test.ts > v0.9 main-owned operations against the injected real HTTP handler > uses the clicked opponent and applies one durable result despite duplicate clicks
+AssertionError: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+
+- Expected
++ Received
+
+@@ -22,11 +22,11 @@
+    "killCount": 0,
+    "level": 20,
+    "monsterHp": "10",
+    "monsterIndex": 20,
+    "monsterSpeciesId": "vespril",
+-   "nextCompanionId": 3,
++   "nextCompanionId": 8,
+    "progress": {
+      "codex": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [],
+        "goal": null,
+
+ ❯ tests/onlineV9.test.ts:66:78
+     64|     expect(session.pvpHistory()).toEqual({ wins: 1, losses: 0 });
+     65|     expect(coordinator.pending).toBe(false);
+     66|     expect(JSON.parse(readFileSync(join(s.directory, 'save.json'), 'ut…
+       |                                                                              ^
+     67|     expect(coordinator.recovery.state.lastBattle?.before.companions).t…
+     68|     expect(s.calls.filter(path => path === 'POST /v1/pvp')).toHaveLeng…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/onlineV9.test.ts > v0.9 main-owned operations against the injected real HTTP handler > recovers a committed reply after client/server restart without any intervening upload
+AssertionError: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+
+- Expected
++ Received
+
+@@ -22,11 +22,11 @@
+    "killCount": 0,
+    "level": 20,
+    "monsterHp": "10",
+    "monsterIndex": 20,
+    "monsterSpeciesId": "vespril",
+-   "nextCompanionId": 3,
++   "nextCompanionId": 8,
+    "progress": {
+      "codex": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [],
+        "goal": null,
+
+ ❯ tests/onlineV9.test.ts:86:78
+     84|     expect((await s.store.getById(playerId))?.wins).toBe(1);
+     85|     expect(running.coordinator.pending).toBe(false);
+     86|     expect(JSON.parse(readFileSync(join(s.directory, 'save.json'), 'ut…
+       |                                                                              ^
+     87|   });
+     88|   it('rejects stale generation saves after reset and restores local pr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  2 failed | 97 passed (99)
+   Start at  18:03:04
+   Duration  561ms (transform 460ms, setup 0ms, collect 1.04s, tests 157ms, environment 1ms, prepare 453ms)
+

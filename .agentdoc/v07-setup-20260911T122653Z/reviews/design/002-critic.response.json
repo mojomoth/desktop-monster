@@ -1,0 +1,95 @@
+{
+  "requestId": "752a1ae7b40dab710d83dcd4680a71e78833f7c4252631b784bcc51731faad85",
+  "round": 1,
+  "role": "critic",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "24a640b10d7b5cdb85def3b4b77f3aa0cf405b8d27854d2952d95c29666e670e",
+  "agent": "/root/critic",
+  "decision": "pass",
+  "summary": "동결된 첫 라운드의 실험과 구현 계약을 독립 검토했다. 정확한 5개 레벨 대조와 3개 원인 분리 후보, 별도 탐색/검증 seed, 전체 표본 목표와 미도달 처리, 동료 안전 정수·환생 힘 확인, 획득 기준 도감/ACK, 지정 PvP 응답 검증, 최종 출시 증거 분리가 설계에 포함돼 있다. 사전 조사에서 재현한 대조군 XP 변경 수용·임의 live URL·상속 compiler 설정 누락·빌드 로그 누락·존재하지 않는 콘텐츠 ID 문제의 수정과 관련 7개 테스트 통과를 확인했다. 현재 구현·후보 성과·Native·live 서버·패키지·사람 재미를 통과로 주장하지 않는 조건에서 설계의 major/blocker는 발견하지 않았다.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "schemaVersion2/exploration/selectedExperiment:null, control-l16~20 및 candidate-a/b/c의 전체17개 매개변수, 여섯 기존 콘텐츠 조건과 final h70, frozenAt 및 사전 tie-break를 실제 파일에서 확인했다. 어떤 후보도 채택되거나 측정 성공한 상태가 아니다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "전후 bigint 힘 표시와 확인 중 대상 변경 무효화, 레거시 공개/ACK, 포커스/지정 상대, 대조·후보 반복과 실패 보존, 0.7.0 고정 후 출시 근거 및 사람 PENDING 계약을 확인했다. selectedCandidate 문구 한 곳은 실제 v2 필드 명칭과 달라 minor로 남긴다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "V07-03의 engine.ts 소유권과 V07-01의 평가기 경계 검증, V07-07의 별도 server AC가 등록돼 있다. 100ms, 20 exploration/100 validation, 전체9정책/Native10회, 정확한 gates와 작업 의존성을 확인했다."
+    },
+    {
+      "path": ".harness/v7/loop/config.mjs",
+      "note": "controls의 모든 비레벨 매개변수를 과거 기본값과 대조하고, 후보 전체 매개변수/중복 ID/selection/시간 조건을 검증한다. validate-candidate는 실제 build의 카탈로그로 milestone 및 species/hero requirement ID를 확인한다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "selectExperiment가 explicit 탐색 ID와 채택된 validation ID를 구분하고 production export와 실제 사전등록 매개변수/콘텐츠 규칙 일치를 검사한다. 새 실행은 v2만 허용하되 과거 v1 검증을 보존한다. raw 재집계, 미도달 포함 population 분위수, 별도 전체 분모 deadline, current source/build/evaluation/experiment 결박을 확인했다."
+    },
+    {
+      "path": ".harness/v7/loop/server-check.mjs",
+      "note": "고정 LIVE_SERVER_URL, 실제 health SHA의 git blob별 대응, tsconfig.base.json 포함, 빌드 전후 sourceDigest, 로컬 고레벨 테스트/빌드 로그 해시와 현재 source/build/tests 일치를 확인했다. 실제 운영 호환은 아직 실행하지 않았고 URL 또는 SHA 대응이 없으면 release AC를 통과시킬 수 없다."
+    },
+    {
+      "path": ".harness/v7/loop/server-check.test.ts",
+      "note": "관련 config.test.ts와 함께 node node_modules/vitest/vitest.mjs run --config .harness/v7/vitest.config.mts .harness/v7/loop/config.test.ts .harness/v7/loop/server-check.test.ts를 직접 실행해 2파일/7테스트 exit0을 확인했다. 임의 localhost, 다른 git blob, 누락된 build log, stale 증거와 legacy empty-roster probe 거절을 확인한다."
+    },
+    {
+      "path": "src/core/collection.ts",
+      "note": "현재의 consume clamp, level==10 환생, 별 증가 및 bigint power=base*level*2^stars를 읽고 설계가 바꿔야 할 경계를 대조했다. 환생후/전 힘 비율2/level은 계산상 감소이며 강화로 오인시키면 안 된다. 현재 미구현 부분은 V07-02의 실제 AC 대상이다."
+    },
+    {
+      "path": "src/core/progress.ts",
+      "note": "seen*의 추첨 이력과 heroCounts/영구 컬렉션 및 speciesKills를 구별했다. migrateProgress의 현재 ACK baselining은 새 공개 근거 교집합으로 이관해야 하며 처치를 보유 동료/총처치에서 추정할 수 없다."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "레거시 부팅에서 migrateProgress 뒤 seenHeroes 전체를 ACK로 재주입하는 경로와 offer시 seenHeroes 기록, 실제 heroChoose/처치 기록을 확인했다. 설계가 ACK 경로만 교체하고 추첨 의미를 유지하도록 명시하며 engine.ts가 V07-03 소유로 추가돼 있다."
+    },
+    {
+      "path": "src/menu/index.ts",
+      "note": "상대 행의 heroCanvas/party miniCard와 지정 playerId 요청은 현재 존재한다. 전체 replaceChildren이 포커스를 잃는 현재 경로에 대해 안정 DOM/이름 포함 버튼 라벨/선택 상태/사라진 행 포커스 이동의 후속 검증 계약을 확인했다."
+    },
+    {
+      "path": "src/shared/api.ts",
+      "note": "현재 LEVEL_MAX=10과 상대 preview/result의 ID 부재를 확인했다. Designer 계약의 양의 안전 정수 레벨 및 PvpOpponent.playerId optional 확장, 지정 선택 응답의 필수 ID 일치 검증과 random/legacy 호환이 V07-02/04에 필요하다."
+    }
+  ],
+  "findings": [
+    {
+      "id": "D07-DOC-SELECTOR-NAME",
+      "severity": "minor",
+      "problem": "DESIGN_DECISIONS.md §2의 selectedCandidate는 실제 v2 프로토콜의 selectedExperiment와 이름이 다르다. 실제 프로토콜은 exploration이고 selectedExperiment:null이며 측정기도 그 필드를 사용하므로 현재 실행 판단은 분명하다.",
+      "fix": "다음 허용된 문서 갱신에서 selectedExperiment 및 explicit experiment ID로 명칭을 맞춘다. 이번 동결 원본이나 완료 응답을 소급 수정하지 않는다."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "Lv10 제한 제거를 consume/저장/서버/모든 동료 포함 응답에 함께 적용하고 양의 안전 정수 level을 보존하도록 설계했다. Lv11/250/MAX_SAFE_INTEGER 왕복, fractional/unsafe 값 거절, consume 증가와 fuse/reincarnate 별 증가 overflow시 원래 로스터·재료 유지가 필요한 후속 AC다. level>=10의 Lv1/별+1은 유지하며 after/before=2/level이므로 Lv10은1/5, Lv250은1/125다. 별도 확인의 전후 bigint 힘과 대상 ID/level/stars/species/bossIndex 변경·삭제시 확인 무효화가 명시돼 있다. 현재 구현 성공은 아직 판정하지 않았다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "공개를 실제 영웅 선택 이력 또는 영구 collection 및 speciesKills>0로 통일하고 seen*는 자격/추첨 이력으로 보존하는 계약이 적절하다. 카드 art/name/description/stats/aria, 공개 수, 알림 미리보기/미확인 수, ACK 허용, 목표 완료가 같은 판정을 써야 한다. 레거시 후보·등장·PvP보유만으로 공개된 항목은 실루엣/ACK 제거 후 이후 실제 선택·첫처치를 새 알림으로 처리한다. engine 부팅의 구형 ACK 재주입도 소유권에 포함돼 있다. 현재 필드·환생 후보·PvP 원화를 함께 숨기지 않는 범위도 명확하다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "기존 최대50명 행의 영웅·파티 원화·순위·이름·승패·선택 버튼을 유지하고, 안정 DOM과 Tab/Enter/Space/aria 선택 상태 및 주기 업데이트 포커스 보존을 검증한다. 지정 요청 playerId에 대응하는 preview/result ID를 server/shared/net에 추가하고 누락/불일치 응답을 성공 미리보기로 쓰지 않는 Designer 계약이 있다. 이름 일치만으로는 통과시키지 않는다. 삭제된 포커스 행은 새로고침으로 이동하고 offline/empty/deleted/expired에서 설명·재시도만 제공하며 임의 매치를 시작하지 않아야 한다. 실제 UI/네트워크 검증은 V07-02/04 및 Native 후속이다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Lv16–20 controls와 Lv18의 A(XP1.42), B(fieldHP114/100), C(first capture index>=23)를 실행 전에 등록했다. controls의 나머지 모든 성장 수치가 기존 baseline과 같음을 validator가 확인한다. C는 최초획득 표지 nextCompanionId===1과 보스당 기존 RNG1회, B는 companion baseHP115/100 보존이 필수다. 기존120초휴식/30초보류 외 새 시간제한이 없고 열린 레거시 offerLevel은 보존한다. 탐색10001–10020의120분에서 전체p502700–3600초와18/20 deadline을 확인하고 이후 같은 탐색12시간, 별도 validation1–100에서90/100을 요구한다. population 판정과 조건부 분위수/준비·제시·성공 시각을 구분한다. 현재 수치가 목표를 달성한다는 추정은 승인하지 않았다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm/rootcolossus/h58/h62/starvoid/h70는 기존 ID이며 모든 대조·후보에 같은 성과 조건을 적용한다. final h70=uniqueHeroes10+totalKills30000의 자격 전체p508–12시간은 가설이다. 후보B·훈련·집중입력·무한 동료 성장의 조기완주와 포획 불운의 긴 공백을 정책별 분포/미도달/최악정체로 드러내야 한다. h70는 rare 세번째 슬롯이라 choices[0] 기준 정책에서 실제 선택되지 않을 수 있음을 이미 명시했고 자격·제시·선택 지연을 별도 기록한다. 최초 보상·새 처치종·선택과2시간이후 남은 단계/공백을 측정하고 수치·스택만을 신규 콘텐츠로 세지 않는 계약이다. 목표 실패시 새 동결 라운드로 수정하며 검증seed로 튜닝하지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "저장/서버입력/응답/업로드/PvP/탈취/회수/재시작에서 고레벨과 안전 정수가 일치해야 한다. 필드HP 후보로 과거 동료·PvP힘을 소급 변경하지 않는 분리가 명시돼 있다. server-check는 이제 실제 고정 운영URL의 health SHA와 테스트한 소스/상속compiler설정/패키지 git blob 대응, 현재 빌드와 로컬 고레벨 테스트/로그를 함께 요구한다. 이는 아직 실행되지 않은 release AC이며 local 통과만으로 live 호환이나 출시를 인증할 수 없다. package/lock0.7.0 고정 뒤 최종 Native9개+별도연속180분, 9정책100seed12시간, 실제4역audit, smoke/package가 남고 사람관찰은PENDING이다. 소스/평가 변경시 기존 실패와 근거를 보존하고 영향받은 등록AC+canonical gates를 새로 실행해야 한다."
+    }
+  ],
+  "verified": []
+}

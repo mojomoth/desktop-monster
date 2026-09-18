@@ -1,0 +1,31 @@
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ .harness/v7/loop/config.test.ts (16 tests) 21ms
+ ✓ .harness/v7/loop/package-check.test.ts (3 tests) 10ms
+ ✓ .harness/v7/loop/server-check.test.ts (2 tests) 5ms
+ ✓ .harness/v7/loop/evidence.test.ts (3 tests) 69ms
+ ✓ .harness/v7/loop/e2e-matrix.test.ts (44 tests) 60ms
+ ✓ .harness/v7/loop/e2e.test.ts (15 tests) 134ms
+ ✓ .harness/v7/loop/develop.test.ts (11 tests) 1138ms
+   ✓ v7 phased development journal > CLI records an actual failed registered check, rejects changed logs and resumes the same journal  999ms
+ ✓ .harness/v7/loop/fun.test.ts (11 tests) 1561ms
+   ✓ v7 fun-review protocol > requires preregistered targets, separate seeds and complete planned scenarios without invented play results  309ms
+   ✓ v7 executable CLI > archives the issued prompt, preserves rejected state, and resumes accepted reports from disk  640ms
+ ✓ .harness/v7/loop/audit.test.ts (10 tests) 1979ms
+   ✓ evidence-first game audit > requires actual-time Electron evidence and distinct raw simulation seeds  306ms
+   ✓ evidence-first game audit > accepts evidence larger than the old 30MB limit but rejects files above the configured bound before parsing  473ms
+   ✓ evidence-first game audit > resumes the CLI from disk and preserves an audit after a rejected submission  716ms
+ ✓ .harness/v7/loop/measure.test.ts (27 tests) 6247ms
+   ✓ v7 measurement contract > recomputes complete raw seed evidence and rejects duplicate/missing/forged results  721ms
+   ✓ v7 measurement contract > allows different game sources and protocols in paired comparisons, without comparing different milestones  341ms
+   ✓ v7 measurement contract > requires phase-specific acceptance instead of accepting any structurally valid report  632ms
+   ✓ v7 measurement contract > accepts a passing release only with every registered policy and validation seed  2261ms
+   ✓ v7 preregistered experiment execution > preserves baseline execution while refusing new experiments under the historical schema  404ms
+   ✓ official protocol execution boundary > enforces the official snapshot at CLI verify while preserving historical structural comparisons  539ms
+
+ Test Files  10 passed (10)
+      Tests  142 passed (142)
+   Start at  02:39:17
+   Duration  6.91s (transform 862ms, setup 0ms, collect 1.76s, tests 11.22s, environment 1ms, prepare 875ms)
+

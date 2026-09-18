@@ -1,0 +1,40 @@
+{
+  "reviewer": "/root/backend_v10",
+  "independentScope": "core and Host files only; reviewer-authored backend excluded",
+  "sourceHashes": {
+    "src/core/equipment.ts": "141c92d92c9040c5ac847bebe257c02e651593332369e7dda5db79ed29679b89",
+    "src/core/engine.ts": "4f9e5876596eefeec1c724ee6e8ca1d4ea15b8228350da1e97313bdef2b943be",
+    "src/core/hero.ts": "8bcd30b7a1ef004763a2eb441ae3c8cc914122495b498fcfc67560c20b6737dd",
+    "src/core/save.ts": "d3f82f97795b16a4d00cea1c83bb79088680af6471a6e4ffc47da428dbcbc5fc",
+    "src/main/ipc.ts": "ed080c1a7fcc71304f05e266cf3f85c6759f2c899da795261cbf748b2d049da9",
+    "src/main/coordinator.ts": "425048ef60dd35e1e6f8d76b2f3c3bdee6676b12371a75615eacc018efb3d213",
+    "src/main/recovery.ts": "42404a2fc9bf9231ea267b7c6bb9c5da8d81331afa9116c7879dc49d2abbf996",
+    "src/main/persistence.ts": "007dd9f0709f64bc035d962ce488381f60627608e2ea0f26f55584bfdac960ad",
+    "src/main/index.ts": "93ad8bf0d1cd1d723627e544dabe8aac7773066ceac8d685dad5cef1b21f5112",
+    "src/renderer/index.ts": "fa5a9e6309322abcfb92218b3584139a0752edc317999f3a49d8077865acf260",
+    "src/menu/equipment.ts": "4a1878355595c7c24e4917736f966724e317e1ffb9e354be928e79f32443017a",
+    "tests/v10Review.test.ts": "1ef2d6dfba2277ca9e06c811414fa05481f009d88aec6c94b2eb81faa54977e9"
+  },
+  "command": "npx vitest run tests/v10Review.test.ts",
+  "tests": 7,
+  "passed": 7,
+  "findings": [
+    {
+      "id": "C10-01",
+      "severity": "P1",
+      "status": "fixed-by-Balance",
+      "title": "Rounded displayed attack ignored final stable-ID ordering"
+    },
+    {
+      "id": "C10-02",
+      "severity": "P1",
+      "status": "fixed-by-Balance",
+      "title": "Temporary items omitted from level/enhancement auto-equipment"
+    }
+  ],
+  "pending": [
+    "Real Electron modal race and quit capture",
+    "Final balance report and heldout protocol",
+    "Candidate performance and package artifacts"
+  ]
+}

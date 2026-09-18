@@ -1,0 +1,249 @@
+{
+  "at": "2026-09-10T08:50:19.971Z",
+  "scope": "Frozen app, tests, evaluator and protocol; final prose and generated evidence recorded separately at handoff.",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "53fc0326a4ad1a742b775f3bdf887a072de0927e1d811af3431e116663d9e080",
+  "compared": 167,
+  "unchanged": 120,
+  "modified": 33,
+  "added": 12,
+  "deleted": 2,
+  "changes": [
+    {
+      "path": ".harness/v5/loop/audit.mjs",
+      "before": "3eeccff82eff16c0d9dca7902b6e0e15099199ac26a9dd10228e39008812ea50",
+      "after": "f7169588385e68a6a2e5dc71ef278663b147ef2337bf95ae0759e3982ff662d9"
+    },
+    {
+      "path": ".harness/v5/loop/audit.test.ts",
+      "before": "a0975c8f1ac85f47f8832b2fd3157252d5e18d7e4b55a69c21fd9b22aca8c8f2",
+      "after": "cb8e4e68afc19c7b45e99949e27a3c425bb36d0dd4da2b419d83f50c3ada391d"
+    },
+    {
+      "path": ".harness/v5/loop/develop.mjs",
+      "before": null,
+      "after": "9ecccb0d42e09df136529e86f383e65da3cdcd463b813b3a703d47f15ce5dad8"
+    },
+    {
+      "path": ".harness/v5/loop/develop.test.ts",
+      "before": null,
+      "after": "c87009459edd97b33fc440999f6ac6c782af4fda783cd41b8d8a3e220bf588f0"
+    },
+    {
+      "path": ".harness/v5/loop/e2e-matrix.mjs",
+      "before": null,
+      "after": "727894ae87825e12a738b3200932ee66a8b439c435c50cfbc7fa00becdeea5c7"
+    },
+    {
+      "path": ".harness/v5/loop/e2e-matrix.test.ts",
+      "before": null,
+      "after": "769af8c49e36cf4abefb2ecce7c0bb5e31ec1bbe0f8214bacd38ebbab7200351"
+    },
+    {
+      "path": ".harness/v5/loop/e2e.mjs",
+      "before": "dca4c8ce48b0da86ecb33f5cd90430e9c795e8467dc79d620867c84df60deb3f",
+      "after": "bd3d2091207e3f9a30a3d3f0349d350c1e28d475ffa3d7db6bf2c4771e597a32"
+    },
+    {
+      "path": ".harness/v5/loop/electron-e2e.cjs",
+      "before": "10738fc3e801067ee2f3fa3857fdc743a32410dac9ce7fe6e7f76527e1f0b46a",
+      "after": "ea3a16b1eec5cbf53515762af10417dac769acc694d44e1d04a459965fbea5f4"
+    },
+    {
+      "path": ".harness/v5/loop/evidence.mjs",
+      "before": "8d61238bdb04cdc9d42e61dcb7ab5bead96bb40b4802c93bd8065b7ce2936941",
+      "after": "cb00d7e8e6b01eed43160af992b5c6ecd91d48d08bd8b625c78e9c845c54afbd"
+    },
+    {
+      "path": ".harness/v5/loop/experiments.mjs",
+      "before": null,
+      "after": "f5e0354189870bce7231a1c635d7b8496fc1a1906c3cc42e56ef2975e1119990"
+    },
+    {
+      "path": ".harness/v5/loop/experiments.test.ts",
+      "before": null,
+      "after": "495b6dee6451111dcf7a2a23d72e8e51d5daa748d27265fab7012d42a83f78d9"
+    },
+    {
+      "path": ".harness/v5/loop/measure.mjs",
+      "before": "58f4588d6242759c3a9b662a3b91842595e4f4a6e3ae2e0d2b8ffb86597728ee",
+      "after": "071008a93b94402dc940abe6fcc9868f77dbd4f19cf50949171eb9f61aa8d038"
+    },
+    {
+      "path": ".harness/v5/loop/measure.test.ts",
+      "before": "14e988a759b9d8639af375ef3c39886c4940be15aaccee9a451f7bfbecae2624",
+      "after": "b33bbf00033e28e8607b77373fa7fc02bef4a1a71630fea75133ca20b69b761a"
+    },
+    {
+      "path": ".harness/v5/loop/package-check.mjs",
+      "before": null,
+      "after": "ede13e3e98403bc0581b876434dfe0db92c886ab9da90dbb8ab84af3c2562a92"
+    },
+    {
+      "path": ".harness/v5/loop/package-check.test.ts",
+      "before": null,
+      "after": "aa4e009e5a5aaafe8b4e84177b31fc14d05cb55ca4c66bbc5f2b258e16355a34"
+    },
+    {
+      "path": ".harness/v5/loop/v06-journey.cjs",
+      "before": null,
+      "after": "ded72f3f4de0a53314eedaae50d815bfed2157f67a35e435183593f88faa4b1a"
+    },
+    {
+      "path": "docs/v0.6/EVALUATION_PROTOCOL.json",
+      "before": "52ecc76c637e529abfd8e95935b5ea1feb9057564ae8695bc60faa0bca92bdeb",
+      "after": "9e7a8d4575098c34d860080fca7a0a57f8c3edc3fadf5816b53348d28727e632"
+    },
+    {
+      "path": "package-lock.json",
+      "before": "83fd35e7dde1564561311f326de03330cb6170d9cf9239083a38ab4c16fe4695",
+      "after": "4d00439d37b6c6a959ae097bd67f690a63908a3575268d667705b3b108355139"
+    },
+    {
+      "path": "package.json",
+      "before": "6641321128de3e9a0cd554a9871618d9a7c27946bc7be373114a7831c5eb36ba",
+      "after": "309ea3ae9598b79a55cb0759d45490775f9cbd3abfb8318505d205fea2b46407"
+    },
+    {
+      "path": "src/core/collection.ts",
+      "before": "380731ca0b8c342bee1cd10899349d963bcb5676870d9f13b7fb5a709d2c2d47",
+      "after": "8ee7e3b0fda37a1335846fcdd0f85546093c927cab3a7019efc0687020a08e1f"
+    },
+    {
+      "path": "src/core/engine.ts",
+      "before": "d30ae0ab4926e4840bdc09d94b7c0008733b7ad37b9634f106c8b99b6e57b09b",
+      "after": "d7b3143d3f36822f34890e090e521d675e64ed342494ccc3c0fdaaef734dad47"
+    },
+    {
+      "path": "src/core/hero.ts",
+      "before": "a249f4511b2513c8f10ff5ce195007128ad2877c320e5e0829dd1c3946ab98c2",
+      "after": "9100a7229694f7ced5e36242ab980160edcbf452ede76dac452ac7414f7ccbd7"
+    },
+    {
+      "path": "src/core/progress.ts",
+      "before": "14073f3311558b4e5ce913e8d82d801221ed6d18c3bbf02f2b93c6d505d23c9f",
+      "after": "4f2ca79191b78b3f3e285679ae80f2a250822746a3e57c72ac2dcdcdd3d981d6"
+    },
+    {
+      "path": "src/core/save.ts",
+      "before": "ccd899a1f4149330f637dd7aaf2c1d77b211deb8284d8aad1f81a8081627e611",
+      "after": "5b2a498c21dd30dae0e7c8428a82a270bb6db6809bcb3e007cb395d8bf0c6e19"
+    },
+    {
+      "path": "src/main/ipc.ts",
+      "before": "f7b89f3268570ab87b92f3fab454bf13d38a79474c04f464d874aa1977998c14",
+      "after": "c5caf69cf2433eb2fa176889ea00b4372dde6c6240f3cd7b4ec59a45f5b71d7f"
+    },
+    {
+      "path": "src/main/tray.ts",
+      "before": "398b037a3e737a3090c546382ab2fdb96e9f2eb0ea8dcb829d0f7c9b87689945",
+      "after": "a9046eb4bebe2926fad4675055fd41b7dad596d08d008c631306231eecdf3079"
+    },
+    {
+      "path": "src/menu/codex.ts",
+      "before": "67cc79f0d993e3b189d6ee63bb0acc90625569734f4e0106f9659e9d29c44c9a",
+      "after": "f04dba31180df93ea33fa1cb35040e17f17e241c32480213a16be7c9cc537ff6"
+    },
+    {
+      "path": "src/menu/economy.ts",
+      "before": "2b0348e952a1a4d543212a1e4b1ac1bc46592302cf1170aba8b7b474e4072312",
+      "after": "12c47b3245d97364b97ca03dd5d2b7697cc5b6c8e403f215b4d4c26483a6a220"
+    },
+    {
+      "path": "src/menu/hero.ts",
+      "before": "c92e49718035beb60177116560b0ffed2fa226ae185dc971d0b7cafe1a5e9754",
+      "after": "26a74c64996414df1dcc15210868013bb94e1b4f72b72e6da694ade5a0fc2a4b"
+    },
+    {
+      "path": "src/menu/index.ts",
+      "before": "bc13214d57d44a4f142e3237006b2ed13bec5e88314f824d5e84038e995040dd",
+      "after": "832d4b4c66a871d3aae51ee6132e88d8fd1a95d239892e5b156131dd936cbdb4"
+    },
+    {
+      "path": "src/preload/index.ts",
+      "before": "7c9696082f13de6402d91ee3df0090b77b949137dfe6debe324a290d38f8d2d2",
+      "after": "f2cc5b5e20da3b84708944d8c54a597187e61e3f6dc8d7cf3d3100d29173a621"
+    },
+    {
+      "path": "src/renderer/global.d.ts",
+      "before": "4ef1394da1c66e8692eab85b6c5729ab17417de4dc39265bdbc0048cb612f22e",
+      "after": "81e958edcd454cdb1d30dcce42cca510bdd5ac606a94b3744ab9ce52275742e9"
+    },
+    {
+      "path": "src/renderer/hud.ts",
+      "before": "6fd373d7051abec1913ec216fd6c3493563e766d9f00980e049be86fb70b2eca",
+      "after": "16e8dc47ca7b33ed7ec82a9137a904ec76da38019c23da21b4e33067a8b78db9"
+    },
+    {
+      "path": "src/shared/ipc.ts",
+      "before": "c73733755a35349f75478f8516db51120f4904f92ea55ff9ca656464df24694d",
+      "after": "569928268a1e2f2de96ae363a3e35b4cbe3e43348bcd6703be5bb1cf90eb2209"
+    },
+    {
+      "path": "static/menu.css",
+      "before": "45dac9ffdbc2ddb427b97f5e2f281dc6a6bc3536fcf4fe8421f4335586b32b46",
+      "after": "adddf448faab4ea3e5ea16a88c95723a6e8bd5df7cd6654ebfebf0ed3283e7e8"
+    },
+    {
+      "path": "static/menu.html",
+      "before": "8afc96ff580e0884b8f3c2ab245fdb4f799a88aff067973cb50d07560d0b1890",
+      "after": "f49b1d2373923caebc296543f082a90f95b4dfb7d5ae5819a873b4236d9ef983"
+    },
+    {
+      "path": "tests/expedition.test.ts",
+      "before": "a5a0523c49e5290abaccb051b10d291eb319be833a7078c1fdf7ec05bc384e92",
+      "after": "44ee1c22c53d78f6a225f107e9ad0a0b3a6a8d1ae066d158beafb6722199df10"
+    },
+    {
+      "path": "tests/hero.test.ts",
+      "before": "6f1e2535c17e39a1d778a8bdd3d1c294a9700a8ff12f5019ae332c058fc0253d",
+      "after": "49cbde0f159db2140ec25f40fa482fd5821bce3b0ed47e3310d50a49dda28fca"
+    },
+    {
+      "path": "tests/heroMenuReadiness.test.ts",
+      "before": null,
+      "after": "a48744ec91c974edffaf0b76b895ace6881b3911edefc4e827392a498a1b3732"
+    },
+    {
+      "path": "tests/ipc.test.ts",
+      "before": "bb0652dc917ada7e0ee0a5cd73503051413e4c4f56a3d49e76e117673a81822d",
+      "after": "8845abd33efc82bf383a39eb2cfb70b12235159658339fa72106d1a575e11ea0"
+    },
+    {
+      "path": "tests/ipcV5.test.ts",
+      "before": "585db67c772095a9ea0e18df319b6b4fdba48a9b24679fbf4b8289869a173be6",
+      "after": "a19df347e6edf38dfc01ed45ff5e3a7f5995a6e14cdadcc60b4d87b2c356205a"
+    },
+    {
+      "path": "tests/menu.test.ts",
+      "before": "414ffcdde57de101c1ea32f1ef1c85e984592d4dad25cab647af4afb268db15d",
+      "after": "f8249f15f43f2b9e732d5677de456a5d210895dd3e4eafcaeea264259e43a43f"
+    },
+    {
+      "path": "tests/packaging.test.ts",
+      "before": "0e481eea979b791bdce6c576304e5dedcafbc1716d290ab4557f1895f53a9c03",
+      "after": "66e82a6fc609411eb41458a550a67cb318d21414e33877b8e9d5bedc92030340"
+    },
+    {
+      "path": "tests/progressV6.test.ts",
+      "before": null,
+      "after": "358647f6232febd6c0f2d19a6115625b09752e499074b00220048b702406898a"
+    },
+    {
+      "path": "tests/trainingPreview.test.ts",
+      "before": null,
+      "after": "8cafabdfa5f54f6d015dd4c5f19302a8f8628a75c9e54b403b05e6ac4a000f8a"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "before": "fe0bda403d82ba522293477fac999d4c75c06466bf46321ed5ba83ec6a6073c7",
+      "after": null
+    },
+    {
+      "path": "tsconfig.test.json",
+      "before": "26488bbe5695bc863fb124589b39dc6ee3260356d10204813b96f586dd5413aa",
+      "after": null
+    }
+  ],
+  "supersededReason": "Initial path enumeration omitted tsconfig.base.json and tsconfig.test.json; both exist unchanged. Corrected scan includes every baseline path and actual root config."
+}

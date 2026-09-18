@@ -1,0 +1,85 @@
+{
+  "kind": "additional-host-native-idle-quality-review",
+  "recordedAt": "2026-09-10T10:30:00.202Z",
+  "agent": "/root",
+  "method": "Read-only assertions against the pre-rerun policy; additional to frozen matrix verifier.",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "53fc0326a4ad1a742b775f3bdf887a072de0927e1d811af3431e116663d9e080",
+  "matrix": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/final-matrix-03/matrix.json",
+    "sha256": "4a9237af0c0ce641569ffda1a5d3225e5706d1ffbe942a53fd88424f8feceecd"
+  },
+  "status": "passed",
+  "acceptedRuns": 9,
+  "observationMs": 9000193.118167,
+  "checks": 342,
+  "idles": [
+    {
+      "minutes": 5,
+      "elapsedMs": 300024.820667,
+      "samples": 12,
+      "expected": {
+        "level": 1,
+        "kills": 0,
+        "coins": 0,
+        "companions": 0,
+        "reincarnations": 0,
+        "seenMonsters": 1
+      },
+      "original": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/final-matrix-03/5-idle-1789025243819.json",
+      "sha256": "88f4c8fe497b324f3c4e67082acd06837104640b9c189c3438af3c1bb05d1922",
+      "passed": true
+    },
+    {
+      "minutes": 15,
+      "elapsedMs": 900004.4485,
+      "samples": 32,
+      "expected": {
+        "level": 1,
+        "kills": 0,
+        "coins": 0,
+        "companions": 0,
+        "reincarnations": 0,
+        "seenMonsters": 1
+      },
+      "original": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/final-matrix-03/15-idle-1789026838268.json",
+      "sha256": "c5232aedc65afae8495a7f7c8fe919830906de3e04287991092297074323dd78",
+      "passed": true
+    },
+    {
+      "minutes": 30,
+      "elapsedMs": 1800014.355708,
+      "samples": 62,
+      "expected": {
+        "level": 1,
+        "kills": 0,
+        "coins": 0,
+        "companions": 0,
+        "reincarnations": 0,
+        "seenMonsters": 1
+      },
+      "original": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/final-matrix-03/30-idle-1789034290070.json",
+      "sha256": "66a9f87065f04a8dda29a2c51ddff85c376952e27b4eb1ee01cf4cd7d6b76440",
+      "passed": true
+    }
+  ],
+  "unchangedOtherRuns": 8,
+  "rejectedOriginal": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/final-matrix-03/30-idle-1789030534754.json",
+    "sha256": "5a9061829fe39d4fb79685494d7f63b1816317c9d9a2ccbfa55e4d9d099d205b",
+    "elapsedMs": 1800033.697792
+  },
+  "policy": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/idle-quality-policy.json",
+    "sha256": "9dd422514fa9e970b0783ed245ccd1a02718bfd713f133432051376f7e22ce3d"
+  },
+  "review": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/reviews/idle-anomaly-critic.md",
+    "sha256": "70c7c8917e84cf5c0f56d8eb23140d14fc4f68a5cc3f6cd15e18b40722e6d2ba"
+  },
+  "limitations": [
+    "Original 30-idle had one unexplained kill/coin; its cause remains unconfirmed.",
+    "inputs counts synthetic sends, not every fallback window input. Zero recorded progress cannot prove absence of all HP/XP changes.",
+    "User input clarification unanswered; not evidence of no input."
+  ]
+}

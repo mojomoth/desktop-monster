@@ -1,7 +1,7 @@
 {
   "name": "desmon",
   "productName": "DesMon",
-  "version": "0.3.0",
+  "version": "0.10.0",
   "description": "Desktop Monster - a BongoCat-style desktop companion battle game",
   "author": "DesMon Developers <devvvick@gmail.com>",
   "license": "MIT",
@@ -14,7 +14,10 @@
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json",
     "start:server": "node dist/electron/server/index.js",
-    "package": "npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac"
+    "package": "npm run build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --mac",
+    "package:win": "node scripts/windows.mjs package",
+    "smoke:win": "node scripts/windows.mjs smoke",
+    "prepare:steam": "node scripts/steam-stage.mjs"
   },
   "dependencies": {
     "uiohook-napi": "1.5.5"
@@ -40,17 +43,51 @@
     "appId": "dev.desmon.app",
     "productName": "DesMon",
     "npmRebuild": false,
-    "directories": { "output": "release" },
-    "files": ["dist/**/*", "static/**/*", "!dist/electron/server/**"],
-    "asarUnpack": ["**/*.node"],
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "static/**/*",
+      "!dist/electron/server/**",
+      "!**/steam_appid.txt",
+      "!**/steamworks.js/dist/linux64/**",
+      "!**/steamworks.js/dist/**/*.lib"
+    ],
+    "asarUnpack": [
+      "**/*.node",
+      "**/steamworks.js/dist/**"
+    ],
     "mac": {
-      "target": [{ "target": "dmg", "arch": ["arm64"] }],
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
       "identity": null,
       "hardenedRuntime": false,
       "notarize": false,
       "category": "public.app-category.games"
     },
-    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }] },
-    "nsis": { "oneClick": true, "deleteAppDataOnUninstall": false }
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "optionalDependencies": {
+    "steamworks.js": "0.4.0"
   }
 }

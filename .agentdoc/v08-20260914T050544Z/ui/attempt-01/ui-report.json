@@ -1,0 +1,344 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-14T05:35:07.949Z",
+  "finishedAt": "2026-09-14T05:35:11.848Z",
+  "passed": true,
+  "isolation": {
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-mkBsH6",
+    "naturalAcquisition": false,
+    "input": "native synthetic mouse and keyboard",
+    "globalHooks": false,
+    "network": "offline launcher required"
+  },
+  "checks": [
+    {
+      "name": "420x640-three-choice-viewport",
+      "passed": true,
+      "details": {
+        "width": 420,
+        "height": 640,
+        "overflow": false,
+        "reset": "Lv.1 · 첫 몬스터부터 다시 시작합니다.",
+        "keeps": "동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득",
+        "buttons": [
+          {
+            "id": "h01",
+            "disabled": false,
+            "left": 338,
+            "right": 392,
+            "top": 307.0625,
+            "bottom": 343.0625,
+            "visible": true
+          },
+          {
+            "id": "h02",
+            "disabled": false,
+            "left": 338,
+            "right": 392,
+            "top": 390.046875,
+            "bottom": 426.046875,
+            "visible": true
+          },
+          {
+            "id": "h03",
+            "disabled": false,
+            "left": 338,
+            "right": 392,
+            "top": 473.03125,
+            "bottom": 509.03125,
+            "visible": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "choice-tab-and-shift-tab",
+      "passed": true,
+      "details": {
+        "first": "h01",
+        "second": "h02"
+      }
+    },
+    {
+      "name": "native-enter-serial-bound-choice",
+      "passed": true,
+      "details": {
+        "before": {
+          "equipped": {
+            "formId": "h00",
+            "buffPercent": 0
+          },
+          "collection": [],
+          "reincarnations": 0,
+          "choices": [
+            {
+              "formId": "h01",
+              "buffPercent": 10
+            },
+            {
+              "formId": "h02",
+              "buffPercent": 15
+            },
+            {
+              "formId": "h03",
+              "buffPercent": 20
+            }
+          ],
+          "deferRemainingMs": 0,
+          "offerSerial": 101,
+          "offerLevel": 17
+        },
+        "after": {
+          "equipped": {
+            "formId": "h01",
+            "buffPercent": 10
+          },
+          "collection": [
+            {
+              "formId": "h01",
+              "buffPercent": 10
+            }
+          ],
+          "reincarnations": 1,
+          "choices": [],
+          "deferRemainingMs": 0,
+          "offerSerial": 101,
+          "restRemainingMs": 120000
+        },
+        "level": 1,
+        "coins": 1800
+      }
+    },
+    {
+      "name": "long-content-wraps-without-horizontal-clipping",
+      "passed": true,
+      "details": {
+        "width": 420,
+        "scrollWidth": 420,
+        "cards": [
+          {
+            "name": "새벽 수호기사",
+            "effect": "현재 모든 동료 공격력 +1000024% → 수락 후 모든 동료 공격력 +1000025%",
+            "clipped": false,
+            "overflow": "visible",
+            "buttonName": "새벽 수호기사으로 환생"
+          },
+          {
+            "name": "새벽 창술사",
+            "effect": "현재 물 동료 공격력 +2000048% → 수락 후 물 동료 공격력 +2000050%",
+            "clipped": false,
+            "overflow": "visible",
+            "buttonName": "새벽 창술사으로 환생"
+          },
+          {
+            "name": "새벽 광전사",
+            "effect": "현재 모든 동료 공격력 +1000024% → 수락 후 모든 동료 공격력 +1000025%",
+            "clipped": false,
+            "overflow": "visible",
+            "buttonName": "새벽 광전사으로 환생"
+          }
+        ]
+      }
+    },
+    {
+      "name": "hero-details-and-focus-survive-real-controls-rebuild",
+      "passed": true,
+      "details": {
+        "before": true,
+        "after": {
+          "open": true,
+          "replaced": true,
+          "focus": "heroRules"
+        }
+      }
+    },
+    {
+      "name": "native-space-selects-scrolled-third-choice",
+      "passed": true,
+      "details": {
+        "formId": "h47"
+      }
+    },
+    {
+      "name": "full-roster-visible-from-hero",
+      "passed": true,
+      "details": {
+        "shortcut": "동료 30/30 · 새 동료를 맞을 자리가 없어요동료 관리"
+      }
+    },
+    {
+      "name": "existing-full-roster-rule-is-visible",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "count": 30,
+        "text": "동료 30/30 · 보관함이 가득 찼습니다. 포획에 성공한 새 보스는 놓아주며 2마리마다 영혼 1개를 얻습니다. 지금까지 4마리 · 영혼 2개. 성장·융합·방출로 자리를 만들면 새 동료를 맞을 수 있습니다.가장 약한 Slime Lv 1 방출Slime Lv 1★×01A★ PvP성장융합환생방출Slime Lv 1★×01A★ PvP성장융합환생방출Slime Lv 1★×01A★ PvP성장융합환생방출Slime Lv 1★×01A★ PvP성장융합환생방출Slime Lv 1★×01A★ PvP성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출Slime Lv 1★×01A성장융합환생방출"
+      }
+    },
+    {
+      "name": "codex-two-columns-and-three-previews",
+      "passed": true,
+      "details": {
+        "cards": 3,
+        "count": "영웅 4 · 몬스터 2",
+        "gridColumns": "194px 194px"
+      }
+    },
+    {
+      "name": "acknowledgement-does-not-clear-unshown-monsters",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01",
+          "h02",
+          "h03"
+        ],
+        "acknowledgedMonsters": [],
+        "goal": null
+      }
+    },
+    {
+      "name": "empty-discovery-box-disappears-after-explicit-ack",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01",
+          "h02",
+          "h03",
+          "h04"
+        ],
+        "acknowledgedMonsters": [
+          "slime",
+          "dragon"
+        ],
+        "goal": null
+      }
+    },
+    {
+      "name": "settings-apply-to-live-field-without-reload",
+      "passed": true,
+      "details": {
+        "before": {
+          "gameScale": 1,
+          "muted": false,
+          "screenShake": true,
+          "welcomeSeen": true,
+          "globalInputRequested": false
+        },
+        "next": {
+          "gameScale": 1,
+          "muted": true,
+          "screenShake": false,
+          "welcomeSeen": true,
+          "globalInputRequested": false
+        },
+        "actualWebContentsMuted": true,
+        "fieldEvents": [
+          {
+            "gameScale": 1,
+            "muted": true,
+            "screenShake": true,
+            "welcomeSeen": true,
+            "globalInputRequested": false
+          },
+          {
+            "gameScale": 1,
+            "muted": true,
+            "screenShake": false,
+            "welcomeSeen": true,
+            "globalInputRequested": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "real-save-failure-reaches-main-status",
+      "passed": true,
+      "details": {
+        "saved": false,
+        "status": {
+          "state": "write-error"
+        }
+      }
+    },
+    {
+      "name": "reopened-menu-restores-write-error",
+      "passed": true,
+      "details": {
+        "hidden": false,
+        "text": "저장하지 못했습니다. 앱을 닫지 마세요. 다음 자동 저장 때 다시 시도합니다."
+      }
+    },
+    {
+      "name": "plain-state-snapshot-cannot-clear-write-error",
+      "passed": true,
+      "details": {}
+    },
+    {
+      "name": "successful-disk-save-clears-error",
+      "passed": true,
+      "details": {
+        "state": "ready"
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "hero-three-choices",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/hero-three-choices.png",
+      "sha256": "4d3ac856ca1d6c2f6317f86dd288371a1cc24b6fb8bf8c8f1771b1ba1f446b62"
+    },
+    {
+      "name": "hero-after-keyboard-choice",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/hero-after-keyboard-choice.png",
+      "sha256": "7fe3c9a2fb862b1456b181064017ee9a684dd3298c2854059fdd6611657557dc"
+    },
+    {
+      "name": "hero-long-values",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/hero-long-values.png",
+      "sha256": "f3543e93095375c201e45e8784036daf1833570c3808d8e7115c7acbd7ee487b"
+    },
+    {
+      "name": "full-roster",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/full-roster.png",
+      "sha256": "f5985525a59bd3ccd15f876bd67c7270af805de16a9b32bea9582cdd795dadc7"
+    },
+    {
+      "name": "codex-unread-first",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/codex-unread-first.png",
+      "sha256": "f7af920211a5fc78956f15b30a776436dfcc59949d3271c0df2f41ff0be4ace3"
+    },
+    {
+      "name": "codex-unread-remaining",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/codex-unread-remaining.png",
+      "sha256": "2f645f026fe303350f91cda407a1da050459ae8d6bf82145b984c8538f379899"
+    },
+    {
+      "name": "codex-all-confirmed",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/codex-all-confirmed.png",
+      "sha256": "c89e98857286410a708ba3549747d04e7680641aef3102f4f716c8edecd60271"
+    },
+    {
+      "name": "presentation-settings",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/presentation-settings.png",
+      "sha256": "4e0ac26d1d463409b41de39b7f7199ef370f022eb643827038f64c5a75fcdfbd"
+    },
+    {
+      "name": "reopened-save-error",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/reopened-save-error.png",
+      "sha256": "d58a2855909211b2254fdce3db39bd6f3ec8543c57043d5c7c4307a06d144ea0"
+    },
+    {
+      "name": "save-recovered",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/ui/attempt-01/save-recovered.png",
+      "sha256": "4d3ac856ca1d6c2f6317f86dd288371a1cc24b6fb8bf8c8f1771b1ba1f446b62"
+    }
+  ],
+  "errors": [],
+  "limitations": [
+    "Fixture diagnostics do not establish human fun or natural collection.",
+    "Real OS permissions and audible sound remain manual checks.",
+    "Screen-shake IPC reaches the live renderer; this check does not measure rendered shake amplitude.",
+    "Load-error startup needs a separately launched app."
+  ]
+}

@@ -1,0 +1,127 @@
+import { describe, it, expect } from 'vitest';
+// @ts-expect-error executable Node harness has no declaration file
+import { aggregateRuns, COMBINATIONS, processGroupAlive, resumableRuns, completedNativeRun } from './e2e-matrix.mjs';
+// @ts-expect-error executable Node harness has no declaration file
+import { sha256 } from './evidence.mjs';
+// @ts-expect-error executable Node harness has no declaration file
+import { menuVisitSchedule, REQUIRED_NATIVE_CHECKS } from './e2e.mjs';
+const digest = 'a'.repeat(64);
+function fixture() {
+  const files = new Map<string, Buffer>(); let now = 0;
+  const records = COMBINATIONS.map(({minutes, profile}: {minutes: number; profile: string}, i: number) => {
+    const path = `/case/${i}.json`; const screenshot = `/case/${i}.png`;
+    files.set(screenshot, Buffer.from(`pixels${i}`));
+    const run = {mode:'electron-e2e',sourceDigest:digest,evaluationDigest:digest,startedAt:new Date(now).toISOString(),elapsedMs:minutes*60000+100,status:'passed',completion:'completed',
+      sessions:[{minutes,profile,mode:'real-time',completion:'completed',elapsedMs:minutes*60000,inputs:profile==='idle'?0:100,start:{reincarnations:0},end:{reincarnations:minutes===180?18:0},timeline:[{elapsedMs:minutes*60000}],
+        journeyPolicy:minutes===180?'menu-reincarnation-10m':'observe-only',firstReincarnationElapsedMs:minutes===180?600000:null,
+        menuVisits:menuVisitSchedule(minutes).map((scheduledAtMs:number,index:number)=>({scheduledAtMs,elapsedMs:scheduledAtMs,completedAtMs:scheduledAtMs,
+          action:'selected',formId:'h01',reincarnationsBefore:index,reincarnationsAfter:index+1}))}],
+      screenshots:[{path:screenshot,sha256:sha256(files.get(screenshot))}],
+      checks:[...REQUIRED_NATIVE_CHECKS,'real-time-observation'].map((id:string)=>({id,passed:true,details:{}})),errors:[]};
+    now += run.elapsedMs + 1;
+    files.set(path,Buffer.from(JSON.stringify(run)));
+    return {path,key:`${minutes}-${profile}`,sha256:sha256(files.get(path)),exitCode:0};
+  });
+  return {files,records,read:(path:string)=>files.get(path)!};
+}
+describe('v7 independent short observations and continuous three-hour E2E aggregation', () => {
+  it('aggregates all originals and preserves screenshot hashes and observed time', () => {
+    const f = fixture(); const aggregate = aggregateRuns(f.records,digest,digest,f.read);
+    expect(aggregate.status).toBe('passed');expect(aggregate.observationMs).toBe(330*60000);
+    expect(aggregate.sessions).toHaveLength(10);expect(aggregate.screenshots).toHaveLength(10);
+  });
+  it('rejects missing, duplicate, altered and mismatched evidence', () => {
+    const f = fixture();
+    expect(()=>aggregateRuns(f.records.slice(1),digest,digest,f.read)).toThrow(/ten/);
+    expect(()=>aggregateRuns([f.records[0],...f.records.slice(0,9)],digest,digest,f.read)).toThrow(/Duplicate/);
+    expect(()=>aggregateRuns(f.records,'b'.repeat(64),digest,f.read)).toThrow(/Stale/);
+    f.files.set('/case/0.png',Buffer.from('changed'));
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/Screenshot/);
+  });
+  it('rejects short or overlapping real-time claims and retains genuine failures', () => {
+    const mutate = (field: string, value: unknown) => {
+      const f = fixture(); const run=JSON.parse(f.files.get('/case/1.json')!.toString());
+      if(field==='short')run.sessions[0].elapsedMs=1;else run[field]=value;
+      f.files.set('/case/1.json',Buffer.from(JSON.stringify(run)));f.records[1].sha256=sha256(f.files.get('/case/1.json'));return f;
+    };
+    let f=mutate('short',null);expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/too short/);
+    f=mutate('startedAt',new Date(0).toISOString());expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/overlap/);
+    f=mutate('status','failed');f.records[1].exitCode=1;
+    expect(aggregateRuns(f.records,digest,digest,f.read).status).toBe('failed');
+    f=fixture();f.records[1].exitCode=1;expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/hidden/);
+  });
+  it.each([
+    ['elapsedMs', '300000', false, /elapsed/],
+    ['elapsedMs', null, false, /elapsed/],
+    ['elapsedMs', '300100', true, /timestamps/],
+    ['inputs', 100, false, /zero inputs/],
+    ['inputs', '0', false, /input count/],
+    ['inputs', -1, false, /input count/],
+    ['inputs', .5, false, /input count/],
+    ['timeline', [{}], false, /timeline/],
+    ['timeline', [{elapsedMs:20},{elapsedMs:10}], false, /timeline/],
+    ['checks', [{passed:true,details:{}}], true, /checks/],
+  ])('rejects malformed native observation %s=%j', (field, value, topLevel, message) => {
+    const f=fixture(); const run=JSON.parse(f.files.get('/case/1.json')!.toString());
+    (topLevel?run:run.sessions[0])[field]=value;
+    f.files.set('/case/1.json',Buffer.from(JSON.stringify(run)));f.records[1].sha256=sha256(f.files.get('/case/1.json'));
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(message);
+  });
+  it('checks the detached process group even after the wrapper has exited, refusing ambiguous legacy resumes', () => {
+    const running={pid:123,processGroupId:123};const calls:number[]=[];
+    expect(processGroupAlive(running,(pid:number,signal:number)=>{calls.push(pid);expect(signal).toBe(0);})).toBe(true);
+    expect(calls).toEqual([-123]);
+    expect(processGroupAlive(running,()=>{throw Object.assign(new Error('gone'),{code:'ESRCH'});})).toBe(false);
+    expect(processGroupAlive(running,()=>{throw Object.assign(new Error('permission'),{code:'EPERM'});})).toBe(true);
+    expect(()=>processGroupAlive({pid:123},()=>undefined)).toThrow(/process group identity/);
+    expect(()=>processGroupAlive({pid:0,processGroupId:0},()=>undefined)).toThrow(/process group identity/);
+  });
+  it.each([
+    ['journeyPolicy','observe-only',/menu policy/],
+    ['menuVisits',[],/menu visits/],
+    ['firstReincarnationElapsedMs',null,/never completed/],
+  ])('rejects missing continuous native play evidence %s', (field,value,message) => {
+    const f=fixture();const run=JSON.parse(f.files.get('/case/9.json')!.toString());run.sessions[0][field]=value;
+    f.files.set('/case/9.json',Buffer.from(JSON.stringify(run)));f.records[9].sha256=sha256(f.files.get('/case/9.json'));
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(message);
+  });
+  it.each([
+    ['elapsedMs',599999,/accelerated/],['elapsedMs',640000,/Late/],
+    ['completedAtMs',null,/completion time/],['completedAtMs',599999,/completion time/],['completedAtMs',640000,/completion time/],
+    ['scheduledAtMs',1,/invalid menu/],['reincarnationsAfter',10,/transition/],['action','injected-fixture',/transition/],
+  ])('rejects synthetic or inconsistent menu visit %s', (field,value,message) => {
+    const f=fixture();const run=JSON.parse(f.files.get('/case/9.json')!.toString());run.sessions[0].menuVisits[0][field]=value;
+    f.files.set('/case/9.json',Buffer.from(JSON.stringify(run)));f.records[9].sha256=sha256(f.files.get('/case/9.json'));
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(message);
+  });
+  it('rejects source-matching runs that omit a required v7 acceptance check', () => {
+    const f=fixture();const run=JSON.parse(f.files.get('/case/0.json')!.toString());run.checks.pop();
+    f.files.set('/case/0.json',Buffer.from(JSON.stringify(run)));f.records[0].sha256=sha256(f.files.get('/case/0.json'));
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/required native/);
+  });
+  it.each(['repeated-transition','end-disconnected','first-too-early','partial-report','partial-session'])('rejects inconsistent or incomplete three-hour evidence: %s', problem => {
+    const f=fixture();const run=JSON.parse(f.files.get('/case/9.json')!.toString());const session=run.sessions[0];
+    if(problem==='repeated-transition')session.menuVisits.forEach((visit:{reincarnationsBefore:number;reincarnationsAfter:number})=>{visit.reincarnationsBefore=0;visit.reincarnationsAfter=1;});
+    if(problem==='end-disconnected')session.end.reincarnations=0;
+    if(problem==='first-too-early')session.firstReincarnationElapsedMs=1;
+    if(problem==='partial-report')run.completion='interrupted';
+    if(problem==='partial-session')session.completion='running';
+    f.files.set('/case/9.json',Buffer.from(JSON.stringify(run)));f.records[9].sha256=sha256(f.files.get('/case/9.json'));
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/history|First reincarnation|Partial/);
+  });
+  it('preserves nine completed originals and retries only the interrupted 179-minute combination', () => {
+    const f=fixture();const run=JSON.parse(f.files.get('/case/9.json')!.toString());
+    run.status='failed';run.completion='interrupted';run.sessions[0].completion='interrupted';run.sessions[0].elapsedMs=179*60000;
+    run.sessions[0].menuVisits.pop();run.sessions[0].end.reincarnations=17;
+    f.files.set('/case/9.json',Buffer.from(JSON.stringify(run)));f.records[9].sha256=sha256(f.files.get('/case/9.json'));f.records[9].exitCode=1;
+    const original=f.files.get('/case/9.json')!;
+    const recovered=resumableRuns(f.records,digest,digest,f.read);
+    expect(recovered.runs).toEqual(f.records.slice(0,9));expect(recovered.retry).toHaveLength(1);
+    expect(recovered.retry[0]).toMatchObject({key:'180-active',path:'/case/9.json',completion:'interrupted'});
+    expect(COMBINATIONS.filter((c:{minutes:number;profile:string})=>!recovered.runs.some((r:{key:string})=>r.key===`${c.minutes}-${c.profile}`)))
+      .toEqual([{minutes:180,profile:'active'}]);
+    expect(f.files.get('/case/9.json')).toBe(original);
+    expect(completedNativeRun(run,0,'180-active')).toBe(false);
+    expect(()=>aggregateRuns(f.records,digest,digest,f.read)).toThrow(/Partial/);
+  });
+});

@@ -1,0 +1,30 @@
+# v7 검증표
+
+현재 **candidate / H07-01 historical verified / V07-01 running / V07-02–07 pending**이다. Round06선별실패를불변 sessions/V07-05-round06-exploration-failed.md에기록한뒤실제V01invalidate/start로설계등록단계에돌아왔다. Round06 실제8안이모두120분선별FAIL로완료됐다. 후보A(XP1.41/count1/깊이63)첫전체p50=2650.5초/90분19of20, B(1.42/count5)=2320.3초/20, C(1.43/count5)=2266.5초/20으로모두너무빠르다. 전체20도달이며12시간은미실행·목표NOT_EVALUATED,채택없다. 각안생산114테스트/구조검증은PASS;8보고서160raw와프로토콜/소스/빌드/로그해시를evidence/exploration/round-06에보존한다. exec17554/Python63107PGID63107은exit0종료,중복재시작금지다. 독립Balance분석은완료되어8보고서160raw무결성PASS·선별모두FAIL·장기NOT_EVALUATED·채택없음을동결했다(final-analysis SHA b74876fa...). Round07은탐색만으로등록했다: L17/XP1.42/count5/depth63/tail79+10475per10000를고정하고prefix1153/1000·1154/1000·1155/1000의3안,21키정확등록,selected=null. 계약원본candidate-15보존,설계 reviews/design-round07은 Designer001 접수 후 Critic002 독립 검토 중이다. 같은 S5b839be7/Ec12f36f4에서 새 protocol, harness142, canonical955+lint+typecheck 검사가 모두 PASS다. 새측정아직없다. 검증값을후보최적화에사용하지않았다. V05구현직후등록progression48/harness142/canonical955+lint/typecheck와독립Critic리뷰PASS는보존하며성능PASS로인증하지않는다. 현재생산은새검토시작점control-l17/0.6.0이며이후배치에서등록후보를적용한다. 이전실패candidate.json은불변이다. 최종0.7.0/Native330분/9정책100seed12h/audit/smoke/package/운영서버호환및humanChecks는PENDING이고,사용자앱50718PGID50646/기존save/dirty/v5/CURRENTv3을보존한다.
+
+하네스 준비, 설계 검토, 로컬 기능 검증, 측정 및 출시 검증을 구분한다. 실제 현재 상태는 loop.json과 HANDOFF.md 상단을 따른다.
+
+하네스 준비의 최종 판정은 [실행 결과](../../.agentdoc/v07-setup-20260911T122653Z/evidence/setup-result.md)와 [loop.json](../../.agentdoc/v07-setup-20260911T122653Z/loop.json)의 H07-01에 기록한다. 아래 후속 기능은 하네스 자체 검사로 통과 처리하지 않는다.
+
+| 대상 | 완료 근거 | 현재 단계 |
+| --- | --- | --- |
+| H07-01 하네스 | 자체 테스트·정확한 저장소 게이트·100 seed × 12시간 baseline·앱/기존 파일 보존 | 최종 저널 참조 |
+| 동료 상한 제거 | Lv11/250/MAX_SAFE_INTEGER 저장/재시작·JSONB·업로드·목록·전투·탈취/회수, overflow 무손실; sessions/V07-02.md | 이전 로컬 AC PASS; 새 프로토콜·운영 호환 PENDING |
+| 동료 환생 | Lv10 미만 거부, Lv10 이상 Lv1/별+1, 전후 힘·별도 확인·변경 대상 무효화; 동일 소스 AC/gates 통과 | 이전 로컬 AC PASS; 새 프로토콜·최종 Native PENDING |
+| 도감 공개 | 후보/스폰만으로 실루엣 유지, 선택/첫 처치 직후 카드·알림·목표 동시 갱신; sessions/V07-03.md | 이전 로컬 AC PASS; 새 프로토콜·최종 Native PENDING |
+| 레거시 도감 | 등장만 한 항목 비공개와 ACK 제거, 영구 컬렉션 ACK 반복 저장/재시작 보존, 과거 처치 추정 없음 | 이전 로컬 AC PASS; 새 프로토콜·최종 Native PENDING |
+| PvP 목록 | 각 행 영웅·파티·승패·선택, 지정 ID 전달, 50명 스크롤/키보드 포커스·오류 처리 | 이전 candidate AC/0분 진단 PASS; 최종 소스 PENDING |
+| 첫 영웅 환생 | p50 45–60분, 전체 100개 중 90개가 90분 이내 성공; ready/open/accepted 분리 | PENDING |
+| 장기 콘텐츠 | 사전등록 마지막 해금 p50 8–12시간, 2시간 이후 남은 목표와 실제 선택/처치 분포 | PENDING |
+| 정책 비교 | 동일 seed·입력량의 집중/균등, 골드 사용, 동료 관리, 방문 간격, 방치 정책 | PENDING |
+| 실제 Native | 9개 짧은 조합 + 연속 180분 active, 격리 save, 실제 메뉴 방문·환생 선택 | PENDING |
+| 출시 후보 | 최종 0.7.0 소스 게이트·네 역할 감사·smoke·실제 패키지·서버 고레벨 호환 | PENDING |
+| 사람 관찰 | 실제 참가자의 선택/자발적 재확인/업무 방해 기록 | PENDING |
+
+목표 미달도 baseline 결과로 보존한다. 미도달 seed를 0초로 바꾸거나 도달한 표본만으로 분모를 줄이지 않는다. 그래프·수치·합성 입력 관측을 사람의 재미 검증으로 표현하지 않는다.
+
+현재 preflight attempt01은0분 진단으로36개 항목 통과 뒤 첫 Enter 지정 상대 응답 대기에서 실패했다. 도감/레거시·고레벨 저장/응답·환생 확인/취소/변경 무효화·50행 표시의 실제 실행 근거는 있으나 전체 Native와 최종 소스 검증은 PENDING이다. 원본은 `.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01`에 유지한다.
+
+후속 attempt02는 입력 이벤트 보완 후41개 진단 모두 통과했다. 이 결과는0.6.0 candidate의0분 fixture 진단이며 최종0.7.0 자연 관측을 대체하지 않는다. V07-04의 최신 등록 근거는 sessions/V07-04.md이며 round01 탐색 실행은 evidence/exploration/round-01에 별도로 보존한다.
+
+Round01 전체 160개 원본의 독립 해시 감사는 통과했지만 채택 가능한 안은 없었다. Round02의 Lv17·XP1.41 후보는 탐색 20개에서 첫 환생 p50 2902.6초, 90분 안에 18/20 성공으로 선별을 통과했다. 같은 탐색 seed의 실제 12시간 측정에서는 h70 자격 충족 0/20으로 장기 목표에 실패했다. XP1.42는 첫 성공 p50 3361.5초·90분 성공 11/20, XP1.43은 4935.5초·12/20으로 선별에 실패했다. 이번 라운드의 채택안은 없다. 검증 seed 1–100을 사용하거나 목표를 완료 처리하지 않았다. 최신 상태와 다음 행동은 HANDOFF.md 및 loop.json을 따른다.

@@ -1,0 +1,70 @@
+{
+  "output": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-closeout-host.json",
+  "sha256": "87b359d94cc7840c5ac5ab18ff76e4e32ad68e7633d9a9f0f6a274f07dcfa810",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "phase": "release",
+  "audit": "audit_complete",
+  "verifiedTasks": [
+    {
+      "id": "V07-01",
+      "sourceMatches": true,
+      "evaluatorMatches": true,
+      "ownedMatches": true,
+      "sessionHashMatches": true,
+      "logsMatch": true
+    },
+    {
+      "id": "V07-02",
+      "sourceMatches": true,
+      "evaluatorMatches": true,
+      "ownedMatches": true,
+      "sessionHashMatches": true,
+      "logsMatch": true
+    },
+    {
+      "id": "V07-03",
+      "sourceMatches": true,
+      "evaluatorMatches": true,
+      "ownedMatches": true,
+      "sessionHashMatches": true,
+      "logsMatch": true
+    },
+    {
+      "id": "V07-04",
+      "sourceMatches": true,
+      "evaluatorMatches": true,
+      "ownedMatches": true,
+      "sessionHashMatches": true,
+      "logsMatch": true
+    },
+    {
+      "id": "V07-05",
+      "sourceMatches": true,
+      "evaluatorMatches": true,
+      "ownedMatches": true,
+      "sessionHashMatches": true,
+      "logsMatch": true
+    },
+    {
+      "id": "V07-06",
+      "sourceMatches": true,
+      "evaluatorMatches": true,
+      "ownedMatches": true,
+      "sessionHashMatches": true,
+      "logsMatch": true
+    }
+  ],
+  "processObservation": {
+    "scope": "Known former Native/matrix PID checks and literal v7 node/caffeinate executor command filter only; Python wrappers, Electron and generic npm/package are not exhaustively enumerated. Completion also relies on immutable process exit records and Native matrix state.",
+    "userApp50718": {
+      "pid": 50718,
+      "ppid": 50717,
+      "pgid": 50646,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    },
+    "formerNative94057": null,
+    "formerMatrix25832": null,
+    "activeV7Executors": []
+  }
+}

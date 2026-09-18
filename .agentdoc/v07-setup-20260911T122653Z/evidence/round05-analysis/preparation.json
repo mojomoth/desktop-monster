@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "round": 5,
+  "status": "PREPARED_NOT_EXECUTED",
+  "observed": {
+    "protocolPath": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "protocolSha256": "08d704cd53c453fc79776dc19e340265cb1de8922f666544b7410ad9230ed722",
+    "round": 5,
+    "frozenAt": "2026-09-12T05:34:14.565027+00:00",
+    "candidateIds": [
+      "candidate-r5-tail10425",
+      "candidate-r5-tail10450",
+      "candidate-r5-tail10475"
+    ],
+    "executionCount": 0,
+    "completedCount": 0,
+    "preregisteredArchivePresent": false
+  },
+  "analysisExecuted": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "productSourceModified": false,
+  "evaluatorModified": false,
+  "checksPrepared": [
+    "Read reports/logs/raw/archives only after execution.endedAt exists.",
+    "Bind archived protocol bytes to prepared official protocol and exact five controls plus three candidates.",
+    "Validate report runs, manifest and seed files, source/evaluator/compiled archive digests and log SHA.",
+    "Report whole-population and conditional p10/p50/p90/worst and unreached separately; 90-minute denominator always20.",
+    "Pair candidate first-prefix against immutable reference for each of20 exploration seeds.",
+    "Compute same-seed 8h-to-12h progress and first-content gaps using integer100ms ticks.",
+    "Require all8 completed screening reports and full12h reports for every passing screening; expected11 reports/220 raw if all3 candidates pass screening.",
+    "Keep ranking/proposedExperiment empty until all8 completed and artifact integrity passes; apply exact registered tuple only to both-goal passers."
+  ],
+  "preparedCorrections": [
+    "Prevent preliminary proposedExperiment when an early candidate passes but the round is incomplete.",
+    "Count raw runs from checked perSeed records; seeds is a {start,count} descriptor.",
+    "Zero analyzed reports have validation status NOT_RUN, never PASS."
+  ],
+  "validationSeedsAccessed": false,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false
+}

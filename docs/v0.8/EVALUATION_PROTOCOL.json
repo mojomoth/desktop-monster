@@ -1,0 +1,103 @@
+{
+  "version": "0.8.0",
+  "session": ".agentdoc/v08-20260914T050544Z",
+  "corePolicy": "preserve-v070",
+  "collectionPolicy": {
+    "durationMinutes": 720,
+    "tickMs": 100,
+    "inputIntervalMs": 500,
+    "menuVisitSeconds": 600,
+    "purchases": "none",
+    "screeningSeeds": {
+      "first": 20001,
+      "count": 20
+    },
+    "validationSeeds": {
+      "first": 30001,
+      "count": 100
+    },
+    "policies": [
+      {
+        "id": "A",
+        "heroChoice": "first",
+        "management": "none"
+      },
+      {
+        "id": "B",
+        "heroChoice": "unowned-rare-first",
+        "management": "none"
+      },
+      {
+        "id": "C",
+        "heroChoice": "first",
+        "management": "consume-weakest"
+      },
+      {
+        "id": "D",
+        "heroChoice": "unowned-rare-first",
+        "management": "consume-weakest"
+      }
+    ],
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "choiceRule": "Permanently unowned rare, then permanently unowned standard, else first; ties keep original display order. No rerolls.",
+    "managementRule": "At most once per 600-second visit after hero choice. Reuse v7 consume-weakest: power ascending then id.localeCompare(en), first food and last target; fewer than two means no action. No species or party protection. Record losses. Diagnostic bot only.",
+    "completeness": "4x20 screening and frozen 4x100 validation, complete 720-minute raw results and paired cells. No new pacing target."
+  },
+  "performance": {
+    "sampleMs": 5000,
+    "warmupMinutes": 5,
+    "comparisonMinutes": 30,
+    "comparisonProfiles": [
+      "active",
+      "idle"
+    ],
+    "mixedMinutes": 180,
+    "mixedPhaseMinutes": 5,
+    "mixedMenuMinutes": 10,
+    "gameScale": 1,
+    "muted": false,
+    "screenShake": true,
+    "cpuP95Max": {
+      "baselineMultiplier": 1.1,
+      "baselineAddPercentagePoints": 1
+    },
+    "workingSetP95Max": {
+      "baselineMultiplier": 1.2,
+      "baselineAddMiB": 50
+    },
+    "mixedMemoryMax": {
+      "initialWindowMinutes": [
+        5,
+        35
+      ],
+      "finalWindowMinutes": [
+        150,
+        180
+      ],
+      "multiplier": 1.2,
+      "addMiB": 50
+    },
+    "crashUnresponsiveSaveProgressErrorsAllowed": 0,
+    "meaning": "Regression budget, not a battery-life guarantee. Sum of working sets may count shared memory more than once."
+  },
+  "human": {
+    "participants": 5,
+    "naturalMinutesEach": 90,
+    "appleSiliconMachines": 2,
+    "comprehensionRequiredPerTask": 4,
+    "repeatedMisunderstandingTriggersRevision": 2,
+    "status": "PENDING"
+  }
+}

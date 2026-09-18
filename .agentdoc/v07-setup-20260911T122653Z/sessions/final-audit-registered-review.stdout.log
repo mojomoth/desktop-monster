@@ -1,0 +1,42 @@
+{
+  "commandId": "review",
+  "command": "node .harness/v7/loop/audit.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/reviews/final",
+  "exitCode": 1,
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "filesHash": {
+    "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+    "docs/v0.7/ACCEPTANCE.md": "ecacf7ba8e8ffb9081595532e6609b64eb47c8a10351a5b855a134807f8a1110",
+    "docs/v0.7/HANDOFF.md": "64b2d3a2eca77153d09080cbab8d361568278cad7d6a23dcfb0559e99554fb3e"
+  },
+  "endedFilesHash": {
+    "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+    "docs/v0.7/ACCEPTANCE.md": "ecacf7ba8e8ffb9081595532e6609b64eb47c8a10351a5b855a134807f8a1110",
+    "docs/v0.7/HANDOFF.md": "64b2d3a2eca77153d09080cbab8d361568278cad7d6a23dcfb0559e99554fb3e"
+  },
+  "artifacts": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final": {
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/1-designer-response.json": "77b177df256e58432a872e3feec6d9e72cde6e0258de138b5c628f0cbeabce55",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/2-critic-response.json": "67cf91544e968033c7d52a99a9a3d5370d70675f4f50c28c9d33d5c550bb5562",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/3-balance-response.json": "728800f98cabe878bb0506148249973003192d3ab04829e4676cbbf972a5aeaf",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/4-playtester-response.json": "913d0205b4d48d1453eba8bc65f49acdc76d2d4273c01d900b8ff232876604d2",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/audit.json": "f2727b64300fe2be9a1f8ef5e643a207c00427df0cb9ece5617ed8ee91f34b30",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/1-designer.json": "ca697060edaa0556885c75527e31397e2fbb7be9f20f7bf4cc9b608c5ad0f41e",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/1-designer.md": "f6843a17840e15d8258ae039139a5928a002bbfaf7e54728ae8de06befd9870f",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/2-critic.json": "36f575225f0b68296c1ef2c389e650382637b9ccc33f9331542b1659fc8b5e9b",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/2-critic.md": "20ee0ff48a6e664b7923d4ab70f58a3228e69df77f21f00d424b42110a3b1617",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/3-balance.json": "30a9d8778b0fd5f73f1c3419baddeedaf31e1ad894c7f9e9ca8e17bfe69be49d",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/3-balance.md": "5042057459b6350a9a33466d8051e67ea9c4c57a84875549796ec43df4ce747d",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/4-playtester.json": "60e7baaeed8873d8d866d4d5c05252edfd98a15250a7ee9bfbe4f080d190d47b",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/prompts/4-playtester.md": "99c9e23b84ae691c8e8a42cf57d88ac4ff2dcdc0890cde8fc5998a14d4931f05",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/reviews/final/report.md": "8a4c454a636f3cf5d4ea4a5ff264fcacc2362db0d9d0724c3509263b7c721c26"
+    }
+  },
+  "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789269628719.log",
+  "sha256": "0e2d2e1703deb7638cb842c6ec7b0f508821f8d483c2c44efc73c5eda2a66939",
+  "ac": true,
+  "at": "2026-09-13T03:20:32.650Z"
+}
+

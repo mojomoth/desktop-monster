@@ -1,0 +1,198 @@
+{
+  "binding": "d790a63056da650e063dc152aa758604884100412ddb225dce4528d543726884",
+  "identity": {
+    "phase": "candidate",
+    "seedSet": "validation",
+    "seeds": {
+      "start": 1,
+      "count": 100
+    },
+    "policies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      }
+    ],
+    "settings": {
+      "tickMs": 100,
+      "observationMs": 1000,
+      "checkpointsMinutes": [
+        5,
+        15,
+        30,
+        45,
+        60,
+        90,
+        120,
+        240,
+        480,
+        600,
+        720
+      ],
+      "seeds": {
+        "baseline": {
+          "start": 1,
+          "count": 100
+        },
+        "exploration": {
+          "start": 10001,
+          "count": 20
+        },
+        "validation": {
+          "start": 1,
+          "count": 100
+        }
+      },
+      "profiles": [
+        "active",
+        "intermittent",
+        "warm-idle",
+        "pure-idle"
+      ],
+      "policies": [
+        "free",
+        "training",
+        "lure",
+        "reroll"
+      ],
+      "inputSchedules": [
+        "uniform",
+        "burst"
+      ],
+      "managementPolicies": [
+        "none",
+        "consume-weakest",
+        "fuse-first",
+        "reincarnate-first"
+      ],
+      "menuVisitSeconds": [
+        0,
+        120,
+        600
+      ],
+      "baseline": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      "targets": {
+        "firstReincarnation": {
+          "medianMinSec": 2700,
+          "medianMaxSec": 3600,
+          "deadlineSec": 5400,
+          "minimumReachedFraction": 0.9
+        },
+        "lastUnlock": {
+          "medianMinSec": 28800,
+          "medianMaxSec": 43200
+        }
+      },
+      "maximumCandidates": 3,
+      "levelControls": [
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "validationPolicies": [
+        {
+          "profile": "active",
+          "policy": "free",
+          "inputSchedule": "uniform",
+          "management": "none",
+          "menuVisitSeconds": 0
+        },
+        {
+          "profile": "active",
+          "policy": "free",
+          "inputSchedule": "uniform",
+          "management": "none",
+          "menuVisitSeconds": 600
+        },
+        {
+          "profile": "intermittent",
+          "policy": "free",
+          "inputSchedule": "uniform",
+          "management": "none",
+          "menuVisitSeconds": 600
+        },
+        {
+          "profile": "warm-idle",
+          "policy": "free",
+          "inputSchedule": "uniform",
+          "management": "none",
+          "menuVisitSeconds": 600
+        },
+        {
+          "profile": "pure-idle",
+          "policy": "free",
+          "inputSchedule": "uniform",
+          "management": "none",
+          "menuVisitSeconds": 600
+        },
+        {
+          "profile": "active",
+          "policy": "free",
+          "inputSchedule": "burst",
+          "management": "none",
+          "menuVisitSeconds": 0
+        },
+        {
+          "profile": "active",
+          "policy": "training",
+          "inputSchedule": "uniform",
+          "management": "consume-weakest",
+          "menuVisitSeconds": 600
+        },
+        {
+          "profile": "active",
+          "policy": "lure",
+          "inputSchedule": "uniform",
+          "management": "fuse-first",
+          "menuVisitSeconds": 600
+        },
+        {
+          "profile": "active",
+          "policy": "reroll",
+          "inputSchedule": "uniform",
+          "management": "reincarnate-first",
+          "menuVisitSeconds": 120
+        }
+      ],
+      "explorationHorizonMinutes": 120,
+      "maxArtifactBytes": 268435456,
+      "maxWorkers": 4
+    },
+    "screening": false,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+    "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+    "fixtureSha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+    "protocolSha256": "a747365d074d49fc4b27278dc3084419fd1e2fc973f3f539322e540c3194f6c8",
+    "buildSha256": "e82aa7cbe99a6c586550ba94dbd25dda7bd4306fca2eedc0fd4453e6100c3997",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10450",
+      "parametersSha256": "58722b7db366fd4418b502e7871a6e46b7fbf12656b199849fed309c2dca923f",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    }
+  }
+}

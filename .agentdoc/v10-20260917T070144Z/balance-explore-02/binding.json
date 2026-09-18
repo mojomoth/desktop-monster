@@ -1,0 +1,95 @@
+{
+  "files": {
+    "battle.ts": "41cb8ec4edf044abe792ebe2fe167ebcd246cd51e2f82e16416670b345464ef5",
+    "bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+    "collection.ts": "cecb62d6b30acbce6dac12acfeadbfa1e3c95376e35b9907268aafde48bcd627",
+    "discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+    "economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+    "engine.ts": "4f9e5876596eefeec1c724ee6e8ca1d4ea15b8228350da1e97313bdef2b943be",
+    "equipment.ts": "141c92d92c9040c5ac847bebe257c02e651593332369e7dda5db79ed29679b89",
+    "fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+    "formulas.ts": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+    "fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+    "gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+    "hero.ts": "8bcd30b7a1ef004763a2eb441ae3c8cc914122495b498fcfc67560c20b6737dd",
+    "index.ts": "d11597d322ea6e39ec8be7e264ada5d7b70f18fc03d9cf6d673b898d0e8917e6",
+    "input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+    "loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+    "monsters.ts": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+    "progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+    "progression.ts": "e3586f6ec68e15b49e7bb641ed0e1147ab71dd6c70fb3c957af54fb88093f695",
+    "rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+    "save.ts": "d3f82f97795b16a4d00cea1c83bb79088680af6471a6e4ffc47da428dbcbc5fc",
+    "types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+    "types.ts": "e2ed34d48cc2d24cda1ea6cb3334169c972287bb878310c57ed774a88af37289"
+  },
+  "coreHash": "d86aba7dddcb78d8a5bfd1e0a96477f4908b9769b64c538d611cd3bed815a1eb",
+  "protocolHash": "78ad5df5895b8bab4a9e953a529ba4438a064fb7190e4cd98cab03fa02421652",
+  "candidateHash": "4659f052cb933b8c1b7aff875681823a3c10987beee181c375229d248f5b7571",
+  "scriptHash": "f930ef050d3700e6c1576bc05cb17cfefefa5953938c95dfa23f48eae5a4ce9d",
+  "candidates": [
+    {
+      "id": "A",
+      "prices": [
+        1500,
+        6000,
+        24000,
+        96000
+      ],
+      "weaponAttack": [
+        2,
+        12,
+        45,
+        120
+      ],
+      "bossDropBps": 6000,
+      "successK": 39
+    },
+    {
+      "id": "B",
+      "prices": [
+        3000,
+        12000,
+        48000,
+        192000
+      ],
+      "weaponAttack": [
+        5,
+        15,
+        40,
+        80
+      ],
+      "bossDropBps": 4000,
+      "successK": 29
+    },
+    {
+      "id": "C",
+      "prices": [
+        4500,
+        18000,
+        72000,
+        288000
+      ],
+      "weaponAttack": [
+        8,
+        20,
+        50,
+        100
+      ],
+      "bossDropBps": 3000,
+      "successK": 19
+    }
+  ],
+  "definitions": {
+    "tickMs": 500,
+    "input": "One keyboard attack before each 500ms tick (2/s); intermittent only first15s/min; idle two minute onboarding.",
+    "decisionsEveryMs": 5000,
+    "equipmentShoppingEveryMs": 30000,
+    "hero": "immediate-rebirth at every decision; deferred-rebirth/new-active/wealthy/enhance/collect each10m; intermittent once/min; idle never.",
+    "spending": "One affordable improvement each shopping visit; maximize displayed damage improvement per gold, ties cheaper then UID. Expansion if full. Enhance equipped weapon at most+8 (policy stopping preference, no gameplay cap), enhance-first before shopping, other active after shopping to+5. collect-first skips enhancement. Sell bag overflow at visits except collect-first; never sell equipped/temporary.",
+    "wealthy": "Exact starting wallet1000000, Lv15/souls20, five companions bossIndex39/level5; income excludes initial money.",
+    "temporary": "Automatic hero choices acknowledge current exact temporary IDs; every destroyed physical copy counted. No equipment gold mode.",
+    "missingPurchase": "Null counts as nonarrival; unconditional percentile maps null to Infinity. Report successful and unsuccessful counts.",
+    "candidateMutation": "Only declared EQUIPMENT_BALANCE field initializers in isolated compiled copies; production source remains unchanged."
+  }
+}

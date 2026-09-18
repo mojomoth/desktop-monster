@@ -1,0 +1,42 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ❯ tests/onlineV9.test.ts (8 tests | 1 failed) 94ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > uses the clicked opponent and applies one durable result despite duplicate clicks 28ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > recovers a committed reply after client/server restart without any intervening upload 9ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > rejects stale generation saves after reset and restores local progress with the same identity 13ms
+   × v0.9 main-owned operations against the injected real HTTP handler > recovers A before handling a new B click and never returns A as the selected B result 15ms
+     → expected [ 'POST /v1/pvp', 'POST /v1/pvp' ] to have a length of 1 but got 2
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > applies revocation occurring between /me and PUT before returning the ranking 6ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > clears an authenticated missing theft without leaving a permanent reset lock 6ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > releases a stale manual party when its member moves between match and battle 10ms
+   ✓ v0.9 main-owned operations against the injected real HTTP handler > does not resurrect a stolen reward reclaimed while the battle reply was lost 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/onlineV9.test.ts > v0.9 main-owned operations against the injected real HTTP handler > recovers A before handling a new B click and never returns A as the selected B result
+AssertionError: expected [ 'POST /v1/pvp', 'POST /v1/pvp' ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ tests/onlineV9.test.ts:117:73
+    115|     expect(result).toMatchObject({ ok: false, error: 'cooldown' });
+    116|     expect(s.calls.slice(from, from + 2)).toEqual(['POST /v1/pvp', 'GE…
+    117|     expect(s.calls.slice(from).filter(call => call === 'POST /v1/pvp')…
+       |                                                                         ^
+    118|     expect(running.coordinator.pending).toBe(false);
+    119|     expect(running.session.pvpHistory()).toEqual({ wins: 1, losses: 0 …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  18:32:00
+   Duration  561ms (transform 175ms, setup 0ms, collect 224ms, tests 94ms, environment 0ms, prepare 59ms)
+

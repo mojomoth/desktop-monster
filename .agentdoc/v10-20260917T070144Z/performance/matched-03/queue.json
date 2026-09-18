@@ -1,0 +1,68 @@
+{
+  "version": 10,
+  "pid": 50512,
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "baselineActive": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json",
+  "baselineIdle": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json",
+  "startedAt": "2026-09-17T14:51:41.700Z",
+  "state": "passed",
+  "slots": [
+    {
+      "slot": "candidate-active",
+      "args": [
+        ".harness/v10/performance-v4.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json",
+        "active",
+        "30"
+      ],
+      "startedAt": "2026-09-17T14:51:41.705Z",
+      "state": "passed",
+      "pid": 50513,
+      "signal": null,
+      "endedAt": "2026-09-17T15:21:43.504Z",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "appUnchanged": true
+    },
+    {
+      "slot": "candidate-idle",
+      "args": [
+        ".harness/v10/performance-v4.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json",
+        "idle",
+        "30"
+      ],
+      "startedAt": "2026-09-17T15:21:43.613Z",
+      "state": "passed",
+      "pid": 88904,
+      "signal": null,
+      "endedAt": "2026-09-17T15:51:45.450Z",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "appUnchanged": true
+    },
+    {
+      "slot": "mixed",
+      "args": [
+        ".harness/v10/performance-v4.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json",
+        "mixed",
+        "180"
+      ],
+      "startedAt": "2026-09-17T15:51:45.526Z",
+      "state": "passed",
+      "pid": 27819,
+      "signal": null,
+      "endedAt": "2026-09-17T18:51:48.528Z",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "appUnchanged": true
+    }
+  ],
+  "comparisonExitCode": 0,
+  "endedAt": "2026-09-17T18:51:48.787Z"
+}

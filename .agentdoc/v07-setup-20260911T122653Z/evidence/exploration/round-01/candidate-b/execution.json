@@ -1,0 +1,54 @@
+{
+  "experiment": {
+    "kind": "candidate",
+    "id": "candidate-b",
+    "parameters": {
+      "heroMinLevel": 18,
+      "xpBase": 20,
+      "xpGrowth": 1.4,
+      "fieldHpNumerator": 114,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": null,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5
+    }
+  },
+  "startedAt": "2026-09-12T03:36:51.364383+00:00",
+  "protocolFileSha256": "ea808fb8b7d7f023ede597b7cae164bae4499dde78a4ebf232cfdadc67cb4b8b",
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/evaluation.tar.gz",
+    "sha256": "ac73f4f991f8bcb252c0a2e6b2938f1f415aad0717c1a069ad3ff2659c7a458f"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T03:36:51.454611+00:00",
+      "endedAt": "2026-09-12T03:36:55.416366+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/production-tests.log",
+      "sha256": "a859ed2324ffbf36e6d1db4db85bd5edbf32dbd6b5aea4ec96aa837f9ee72927"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/production-source.tar.gz",
+    "sha256": "25a498382bda13ca8a68883004899db311c6f35a7e7c972384b06b55ee9b5836"
+  }
+}

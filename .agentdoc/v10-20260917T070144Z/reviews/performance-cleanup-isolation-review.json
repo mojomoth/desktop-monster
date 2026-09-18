@@ -1,0 +1,303 @@
+{
+  "version": 1,
+  "at": "2026-09-17T19:20:13.362Z",
+  "reviewer": "/root/equipment_economy",
+  "implementedBy": [
+    "/root",
+    "/root/sprite_qa"
+  ],
+  "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+  "scope": "performance-cleanup-isolation-code",
+  "verdict": "approved-code-review-only",
+  "performanceAcceptance": false,
+  "prospectiveMethodologyApproval": false,
+  "summary": "The revised observer cleanup, sampled process isolation replay and independent result gate address the previously demonstrated orphaned DesMon acceptance defect. This review approves the measurement infrastructure for prospective registration; it does not approve core implementation, numerical performance, or an unregistered future run.",
+  "sourceBindings": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-isolation.mjs",
+      "sha256": "dc58dbcc427ba57968b23ea91d0dbc89d236be7b99197d4a6f826f4cec029048"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/final-check.mjs",
+      "sha256": "4b2db989b0fc295c9bc86d44f9282233d0d27415f8f08d2a5cc17c6e4fa8b452"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/final-check.test.mjs",
+      "sha256": "5e428e0cded6697470f0d710b386819feb96e5ab3ccb4ec588081eb90aa3433b"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/config.json",
+      "sha256": "bd66886c7c9b7e1b4ae235fb562ca6645c133e73861937cb543aab50914983c7"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.mjs",
+      "sha256": "c626341277070bc677bdd750bd1ebd0647255808da010369a07d66b04f6a9773"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-v4.mjs",
+      "sha256": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/run-performance.mjs",
+      "sha256": "7e942ba3e6718ab89fc54decdf806bd4d9ff41469eb90cec22f9b44634561fd1"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.test.mjs",
+      "sha256": "4dd2e18087a008bd5fbfadfc3393875cc6f869becdc85635d7ef7dc84e57a66c"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-report.mjs",
+      "sha256": "e4376429a02ca917d91bb09393a6d7c27e2bf75a0211b1ff7c59c7edafa6a75d"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/PERFORMANCE_PROTOCOL.json",
+      "sha256": "ce803acadae6f41863645b1a46926f6d06ba7f134cd8dc6438de56279104ae24"
+    }
+  ],
+  "evidenceBindings": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/summary.json",
+      "sha256": "3f49692b00e7120eff696a283a210084c1700799557c8f35bd12962c1ff711f3"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/evidence.json",
+      "sha256": "865e852384a6ea588701cdca08b462fd62ce21ba9da71f9c4048ff7cd67270ed"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/summary.json",
+      "sha256": "664a509e9a15adeb7a31d64edc9f6047a563ff111db35dd9e8353b05f499f6dd"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/startup-sigint.json",
+      "sha256": "3a09225f85b8238036b56bd870b36935c405669b40373270f35bd96429e362c1"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/startup-sigint.json.samples.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/startup-sigint.json.log",
+      "sha256": "2bdea4a04329e031387ecbbae7345b3f238e4183f8b39cc88f3c2f97e6ff2751"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/startup-sigint.json.lifecycle.json",
+      "sha256": "e003473e6149cce1655c9ede8c35794706d11dc46cd8e2734b295ee12138593f"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/baseline-inspector-sigterm.json",
+      "sha256": "ec608858a67595198cba6ac0bbda101ba29c40838d0127ca43a08e79b3827032"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/baseline-inspector-sigterm.json.samples.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/baseline-inspector-sigterm.json.log",
+      "sha256": "01342413dca95bb60689a95b4ca23750e1b11251e9ead138497442eee3c7071d"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/baseline-inspector-sigterm.json.lifecycle.json",
+      "sha256": "5e8d3e6dbd3329100521fd8832bfa39750b61467eab1ba4ed769f36e2cc1a79f"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json",
+      "sha256": "1bdc630a84312478fb544c7dccae5a2e2a2dec1825f6f57cb6900c86f242ce31"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json.samples.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json.log",
+      "sha256": "3aee9be7144e2343e7aff485efb63e0b74efad80f1fb93a58209a4f42ffbe262"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json.lifecycle.json",
+      "sha256": "51b7efc0aa15502f736bad46165036966d1fe532e3a9d10eb59f2a2ec13ec89e"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/cleanup-write-failure.json",
+      "sha256": "519761a8da761e0e4b09a0a7266378f260ddeaf643dfa25537d99f021ad42ea2"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/cleanup-write-failure.json.samples.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/cleanup-write-failure.json.log",
+      "sha256": "b8ceb3c5e94f3c63ceef9b1415ce217555a545035bfaf63b4f70ccbf13ee91db"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/cleanup-write-failure.json.lifecycle.json",
+      "sha256": "b34ee4c1c80db87995fe7a604a0accd228153bb22045b86a0e7738f8c6018920"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/observing-sigterm.json",
+      "sha256": "0134c9e16b4d8df3fcd1429549d4584830c14a67330ae8f0006f49cd78075a9e"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/observing-sigterm.json.samples.jsonl",
+      "sha256": "ae83db3bdd4373b281510b1a6a3b1396e953a4de499cc607aafd8c16ba05cb74"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/observing-sigterm.json.log",
+      "sha256": "757b839584a207ad0565cd64767fd556809a82a70126e8cf5c1057f92a78dbbd"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/observing-sigterm.json.lifecycle.json",
+      "sha256": "de173509d420b25e95cd6b3f06297c286cafc9754cbf8ccfe0ddc516f0b864dd"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/baseline-active.json",
+      "sha256": "292cd965822f52cad0b8a4bb269f7f4709a5d1d4422bfe327d00e0ce2c5ec405"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/baseline-active.json.samples.jsonl",
+      "sha256": "95194f83ce85ea988330252d6186d4ee647e235b68ec8f47b9eaa69f8481d472"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/baseline-active.json.lifecycle.json",
+      "sha256": "81a38f728b9d94b9e3cad8544f141e7346ce72a11ecb2528d2e0237514571724"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/baseline-active.json.inventories.json",
+      "sha256": "18ec0955a5751828003e702598d848d15ce96777c2f7e6e6cd52d20c7deaa705"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/candidate-active.json",
+      "sha256": "f9a4cdd04fef2d80aaa6a644a3972afab5f92b9d7f10a0f321234135fee88e0f"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/candidate-active.json.samples.jsonl",
+      "sha256": "98e010c395d57bbc2d8124441ad4b707e0b26b454f2aebdd54f8a05548de4270"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/candidate-active.json.lifecycle.json",
+      "sha256": "bda503a7cbf2b1ac235d80d7cff3e760c496ca3a70b69a3e9093dca8c029da22"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/isolation-normal-01/candidate-active.json.inventories.json",
+      "sha256": "057be61acdf8e231f8f215b0b4c8ec4f94b851b41d684cc733251b7ee342a72c"
+    }
+  ],
+  "independentChecks": {
+    "command": "node --test .harness/v10/performance.test.mjs .harness/v10/final-check.test.mjs",
+    "exitCode": 0,
+    "tests": 23,
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "nativeCancellation": [
+      {
+        "name": "startup-sigint",
+        "observerExit": 1,
+        "performancePassed": false,
+        "cleanup": "complete",
+        "remaining": 0,
+        "owned": 1,
+        "rawSamples": 0,
+        "cancelSignal": "SIGINT"
+      },
+      {
+        "name": "baseline-inspector-sigterm",
+        "observerExit": 1,
+        "performancePassed": false,
+        "cleanup": "complete",
+        "remaining": 0,
+        "owned": 4,
+        "rawSamples": 0,
+        "cancelSignal": "SIGTERM"
+      },
+      {
+        "name": "queue-inspector-sigterm",
+        "observerExit": 1,
+        "performancePassed": false,
+        "cleanup": "complete",
+        "remaining": 0,
+        "owned": 4,
+        "rawSamples": 0,
+        "cancelSignal": "SIGTERM"
+      },
+      {
+        "name": "cleanup-write-failure",
+        "observerExit": 1,
+        "performancePassed": false,
+        "cleanup": "complete",
+        "remaining": 0,
+        "owned": 4,
+        "rawSamples": 0,
+        "cancelSignal": "SIGTERM"
+      },
+      {
+        "name": "observing-sigterm",
+        "observerExit": 1,
+        "performancePassed": false,
+        "cleanup": "complete",
+        "remaining": 0,
+        "owned": 5,
+        "rawSamples": 1,
+        "cancelSignal": "SIGTERM"
+      }
+    ],
+    "nativeHashesMatchedCurrentSource": true,
+    "personalSaveUnchanged": true,
+    "normalCompletion": [
+      {
+        "slot": "baseline-active",
+        "requestedMinutes": 0.5,
+        "inventorySamples": 8,
+        "observedIdentities": 5,
+        "guardReplayed": true
+      },
+      {
+        "slot": "candidate-active",
+        "requestedMinutes": 0.5,
+        "inventorySamples": 8,
+        "observedIdentities": 5,
+        "guardReplayed": true
+      }
+    ],
+    "normalCompletionIsNotDurationAcceptance": true
+  },
+  "findings": [
+    {
+      "id": "previous-orphan",
+      "status": "addressed",
+      "detail": "Queue handlers signal only the observer and await close; the observer installs cancellation before app spawn and always enters owned-process cleanup on the exercised startup, inspector and measurement cancellation paths. Known identities survive reparenting; exact fixture markers also find independently reparented helper/Crashpad processes. Persistence failure cannot bypass the exercised cleanup path."
+    },
+    {
+      "id": "boundary-and-continuous-isolation",
+      "status": "addressed",
+      "detail": "The runner inventories before launch, every 5 seconds and after observer close. Verification rejects any DesMon at boundaries, missing measured main during observation, unexpected identities, missing ownership, changed PID/start identity, over-10-second gaps including between slots, or incomplete/cancelled lifecycle. Process identity is linked to every raw metrics Browser PID/creationTime."
+    },
+    {
+      "id": "binding-and-independent-acceptance",
+      "status": "addressed",
+      "detail": "Five exact slots bind prospective registration, reviewer, current source, observers, protocol, apps, reports, lifecycle and raw inventories. Final acceptance requires numerical verification, isolation replay and a later current-source result review from the registered reviewer; Root and Designer cannot approve their own performance infrastructure. Numeric pass alone no longer authorizes completion."
+    },
+    {
+      "id": "existing-failure-history",
+      "status": "preserved",
+      "detail": "The earlier method approval and changes-required result review remain unchanged. matched03 numeric results do not regain isolation acceptance through this code review."
+    }
+  ],
+  "remainingLimitations": [
+    "Sampling does not prove absence of processes whose complete lifetime lies between inventories. The guard explicitly accepts at most 10 seconds between sampled observations; this is sampled evidence, not continuous OS tracing.",
+    "The inventory targets DesMon executables and unique performance-fixture markers. Arbitrary Electron/Node builds, simulations or other resource-heavy work are not inferred from these rows. The next prospective registration and work journal must prohibit agent concurrency; ordinary user applications remain uncontrolled ambient conditions.",
+    "Full command line matching can fail closed on unrelated command text containing the specific marker. The isolation guard does not kill unrelated or user-owned applications.",
+    "Identity revalidation immediately before each signal narrows PID reuse races but cannot provide a portable atomic process handle on macOS. OS SIGKILL/crash/power loss can still bypass application cleanup; leftover identities must make the next registered boundary fail.",
+    "The 5-second ps inventory adds observation overhead to both versions. Its unchanged cadence and equal treatment must remain prospectively bound.",
+    "The two 30-second normal-completion preflights validate lifecycle/guard compatibility only. They satisfy neither 30/180-minute durations nor numerical performance acceptance.",
+    "Future registration must fix one whole five-slot block, unchanged budgets/formulas and selection rules before new baseline results are seen. No future performance acceptance is issued here."
+  ],
+  "priorRecords": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-method-review.json",
+      "sha256": "d3d50b84c0864a2b072fb56b65a9b5740af9568a646073b406654b572c1d6ce8"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-result-review.json",
+      "sha256": "d1a53a0653ee68f212493f65df7c3fa57fc7f101c178cb168838e59783e82325"
+    }
+  ]
+}

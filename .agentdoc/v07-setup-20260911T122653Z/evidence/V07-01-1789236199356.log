@@ -1,0 +1,134 @@
+
+> desmon@0.7.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/hero.test.ts (13 tests) 202ms
+ ✓ tests/loot.test.ts (11 tests) 262ms
+ ✓ tests/engine.test.ts (45 tests) 292ms
+ ✓ tests/progressionV7.test.ts (45 tests) 409ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 103ms
+ ✓ tests/renderer.test.ts (104 tests) 200ms
+ ✓ tests/menu.test.ts (55 tests) 251ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 129ms
+ ✓ tests/heroRendering.test.ts (5 tests) 325ms
+ ✓ tests/heroForms.test.ts (8 tests) 638ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  492ms
+ ✓ tests/formulas.test.ts (21 tests) 85ms
+ ✓ tests/collection.test.ts (21 tests) 158ms
+ ✓ tests/progressionV5.test.ts (12 tests) 135ms
+ ✓ tests/net.test.ts (44 tests) 140ms
+ ✓ tests/sprites.test.ts (34 tests) 191ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 76ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 52ms
+ ✓ tests/progressV5.test.ts (12 tests) 61ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 26ms
+ ✓ tests/codexV7.test.ts (10 tests) 138ms
+ ✓ tests/server/pvp.test.ts (14 tests) 10ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 30ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 28ms
+ ✓ tests/server/opponents.test.ts (10 tests) 31ms
+ ✓ tests/server/app.test.ts (18 tests) 48ms
+ ❯ tests/tray.test.ts (38 tests | 1 failed) 22ms
+   ✓ tray icon pixel matrix (F23: sprites-as-code, no asset file) > is a 16×16 matrix whose every char is in the palette 4ms
+   ✓ tray icon pixel matrix (F23: sprites-as-code, no asset file) > uses at least one transparent and one opaque pixel 0ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > starts with the PNG signature and frames IHDR, IDAT, IEND in order 1ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > declares a 16×16, 8-bit, RGBA, non-interlaced image in IHDR 0ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > writes a valid CRC-32 over type+data for every chunk 0ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > inflates IDAT to filter-0 scanlines that reproduce the matrix exactly 6ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > encodes unknown palette chars as transparent instead of throwing 0ms
+   ✓ tray menu template (F23) > offers all five scales, marks the current one, and shows the running version 0ms
+   ✓ tray menu template (F23) > tray menu lists title, status, separator, Collection & Battle, Reset Progress, Quit in that order 0ms
+   × tray menu template (F23) > pins the title to package.json version and the disabled rows 4ms
+     → expected 'DesMon v0.6.0' to be 'DesMon v0.7.0' // Object.is equality
+   ✓ tray menu template (F23) > in fallback mode the status row opens the Accessibility settings 0ms
+   ✓ tray menu template (F23) > Collection & Battle, Reset Progress and Quit invoke their actions 0ms
+   ✓ tray menu template (F23) > spells the collection label with the ellipsis character (F23/F52) 0ms
+   ✓ setupTray controller (F23: build once, rebuild on mode change) > sets the tooltip and builds the initial menu from getInputMode() 0ms
+   ✓ setupTray controller (F23: build once, rebuild on mode change) > refresh(mode) rebuilds the menu and applies it to the tray 0ms
+   ✓ setupTray controller (F23: build once, rebuild on mode change) > keeps a module-scope reference to the live tray (GC keep-alive) 0ms
+   ✓ tray wiring (source contract, src/main/index.ts) > creates the Tray from the code-encoded PNG via nativeImage 0ms
+   ✓ tray wiring (source contract, src/main/index.ts) > wires the menu actions to reset IPC, the settings deep link and quit 0ms
+   ✓ tray wiring (source contract, src/main/index.ts) > rebuilds the menu from the global-input mode-change path 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares width: 420 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares height: 640 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares useContentSize: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares frame: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares resizable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares minimizable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares maximizable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares fullscreenable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares alwaysOnTop: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares show: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares title: 'DesMon — Collection & Battle' 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares contextIsolation: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares nodeIntegration: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares sandbox: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares loadFile('static/menu.html') 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > uses the same preload path as the overlay window 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > shows on ready-to-show and only then steals focus (accessory app) 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > keeps a single window: focuses the existing one and drops it on close 0ms
+   ✓ menu window wiring (source contract, src/main/index.ts) > opens the menu window from the tray action only (never under SMOKE) 0ms
+ ✓ tests/progressV7.test.ts (5 tests) 9ms
+ ✓ tests/save.test.ts (15 tests) 13ms
+ ✓ tests/progressV6.test.ts (15 tests) 14ms
+ ✓ tests/globalInput.test.ts (20 tests) 14ms
+ ✓ tests/audio.test.ts (15 tests) 19ms
+ ✓ tests/persistence.test.ts (10 tests) 23ms
+ ✓ tests/fever.test.ts (4 tests) 12ms
+ ✓ tests/ipcV5.test.ts (7 tests) 8ms
+ ✓ tests/settings.test.ts (4 tests) 8ms
+ ✓ tests/identity.test.ts (8 tests) 7ms
+ ✓ tests/ipc.test.ts (61 tests) 14ms
+ ✓ tests/packaging.test.ts (16 tests) 6ms
+ ✓ tests/server/http.test.ts (9 tests) 7ms
+ ✓ tests/typeChart.test.ts (4 tests) 5ms
+ ✓ tests/effects.test.ts (7 tests) 16ms
+ ✓ tests/anim.test.ts (14 tests) 16ms
+ ✓ tests/window.test.ts (29 tests) 5ms
+ ✓ tests/deploy.test.ts (7 tests) 9ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 14ms
+ ✓ tests/thefts.test.ts (5 tests) 4ms
+ ✓ tests/fsm.test.ts (12 tests) 4ms
+ ✓ tests/server/pgTransaction.test.ts (6 tests) 5ms
+ ✓ tests/heroMenuReadiness.test.ts (3 tests) 4ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 6ms
+ ✓ tests/battle.test.ts (5 tests) 7ms
+ ✓ tests/drag.test.ts (7 tests) 4ms
+ ✓ tests/rendererInput.test.ts (8 tests) 3ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/bignum.test.ts (7 tests) 5ms
+ ✓ tests/scaffold.test.ts (1 test) 2ms
+ ✓ tests/balance.test.ts (3 tests) 3727ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  3705ms
+ ✓ tests/expedition.test.ts (16 tests) 4740ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  602ms
+   ✓ A1 — the expedition gauge is display-only and stays out of the way (H2b/H7) > never leaves its declared pixel budget, whatever the depth (H7)  4034ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/tray.test.ts > tray menu template (F23) > pins the title to package.json version and the disabled rows
+AssertionError: expected 'DesMon v0.6.0' to be 'DesMon v0.7.0' // Object.is equality
+
+Expected: "DesMon v0.7.0"
+Received: "DesMon v0.6.0"
+
+ ❯ tests/tray.test.ts:198:24
+    196|       readFileSync(join(process.cwd(), 'package.json'), 'utf8'),
+    197|     ) as { version: string };
+    198|     expect(TRAY_TITLE).toBe(`DesMon v${pkg.version}`);
+       |                        ^
+    199|     const template = buildTrayMenuTemplate(GLOBAL_MODE, noopActions());
+    200|     expect(template[0]?.enabled).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 57 passed (58)
+      Tests  1 failed | 954 passed (955)
+   Start at  03:03:19
+   Duration  5.46s (transform 1.89s, setup 0ms, collect 7.24s, tests 12.77s, environment 7ms, prepare 3.60s)
+

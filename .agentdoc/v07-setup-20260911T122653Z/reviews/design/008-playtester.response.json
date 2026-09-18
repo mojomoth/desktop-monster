@@ -1,0 +1,102 @@
+{
+  "requestId": "f3e99bc95078f30a5d427096b11af3c38d4fede8f27059a503a37d1621db7ccd",
+  "round": 2,
+  "role": "playtester",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "e870a52ee83514ec2ba426a48d61270a9f826539fd20b4e01d110cfdeb6417a9",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "Host verified the official-path/snapshot fix and current registered protocol/harness/gates evidence, then assessed actual Designer005, Critic006 and Balance007 reports in order. The earlier veto is resolved. This approves the implementation/measurement scenarios only; no candidate has been measured or selected and no product/Native/release success is claimed.",
+  "evidence": [
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "Read official realpath and snapshot guards in run/resume/verify and preserved history comparison."
+    },
+    {
+      "path": ".harness/v7/loop/measure.test.ts",
+      "note": "Regression coverage includes actual CLI alternate path/embedded copy rejection before any seed output."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "Exploration round1 remains officially unselected; exact controls/candidates/named milestone registration unchanged."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "Assessed all six product scenarios; mandatory new-menu snapshot clarification is retained in Critic006 and this report."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789179050127.log",
+      "note": "Actual registered harness115 tests passed on current inputs."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789179063995.log",
+      "note": "Actual exact npm test && npm run lint && npm run typecheck passed: 776 product tests; no new product implementation certification."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "Safe-integer growth and before/after confirmation are designed. New menu IPC requires expected snapshot; authoritative core checks current fields, retaining optional internal calls. Product implementation remains pending."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "Shared acquisition predicates must replace seen-based disclosure including legacy ACK."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "Each real opponent needs stable identity, hero and companion party with retained focus."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Official realpath/current snapshot binding now rejects copied validation selection before execution and at resume/verify; firstAccepted targets remain future measurements."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "Registered h70 eligibility is distinct from actual appearance or selection."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "Local server round trip and live build mapping are separate release gates."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "Consume Lv250, reject overflowing consume/fuse without mutation, confirm Lv10 reincarnation and invalidate after roster change. Submit menu requests without expected and repeat the same confirmed core action.",
+      "expected": "Positive safe levels survive; Lv10→1/stars+1 with exact power preview; changed target sends no action. Missing menu snapshot and reused core confirmation are rejected.",
+      "evidencePlan": "Registered companionLevelsV7, menu, IPC unit tests and later isolated Native diagnostics."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "Boot legacy seen-only state twice, select hero and defeat one species, inspect cards and ACK.",
+      "expected": "Only actual hero acquisition and speciesKills disclose; first new acquisition notifies once.",
+      "evidencePlan": "codexAcquisitionV7 unit tests and menu accessibility/Native evidence."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "Navigate 50 rows, refresh/reorder/delete selected row, return mismatched/expired preview.",
+      "expected": "Correct ID requested and validated; focus persists or moves to refresh; stale battle disabled.",
+      "evidencePlan": "pvpDirectoryV7 tests and isolated mocked-network menu scenario."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "After registered source adoption run active validation seeds1–100 and record ready/open/accepted separately.",
+      "expected": "Population p50 45–60 minutes and 90/100 accepted by90 minutes; conditional quantiles reported separately.",
+      "evidencePlan": "New immutable production measurement output after bypass fix and exploration."
+    },
+    {
+      "id": "long-progression",
+      "action": "Measure all named milestones and h70 eligibility with all samples retained.",
+      "expected": "Final eligible population p50 8–12h; unreached selection remains visible, no imposed time locks.",
+      "evidencePlan": "Registered12h policies plus sequential9 Native runs and continuous180min journey."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "Round trip Lv11,250,MAX_SAFE and reject malformed nested responses; compare live build sources.",
+      "expected": "No level truncation or overflow loss; unknown live build remains PENDING.",
+      "evidencePlan": "server-check local tests, immutable build/log/source mapping, live health only as identity check."
+    }
+  ],
+  "humanChecks": "PENDING: actual human observation has not run"
+}

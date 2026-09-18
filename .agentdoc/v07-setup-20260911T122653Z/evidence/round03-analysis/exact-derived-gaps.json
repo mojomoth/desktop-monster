@@ -1,0 +1,375 @@
+{
+  "kind": "exact-decisecond-derived-discovery-gaps",
+  "agentId": "/root/balance",
+  "generatedAt": "2026-09-12T05:06:21.953Z",
+  "sourceAnalysis": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round03-analysis/final-analysis.json",
+    "sha256": "009d3e8dc67c76d7c88bd0b9fa7bd83a7a714e8d9a29db9eca37c0b4baf99532"
+  },
+  "scope": "2h–12h window including both boundaries. Use original100ms event ticks before subtraction; this avoids binary floating artifacts in derived gaps such as14194.599999999999. Original report times and raw unchanged. This supplement gives exact decimal gap values; all other final-analysis metrics/verdicts remain unchanged.",
+  "rows": [
+    {
+      "id": "candidate-r3-tail111",
+      "seen": {
+        "samples": 20,
+        "p10": 14194.6,
+        "p50": 21062.9,
+        "p90": 30152.6,
+        "worst": 33696.8,
+        "minimum": 13645.8
+      },
+      "acquired": {
+        "samples": 20,
+        "p10": 14194.6,
+        "p50": 21062.9,
+        "p90": 30152.6,
+        "worst": 33696.8,
+        "minimum": 13645.7
+      },
+      "perSeed": [
+        {
+          "seed": 10001,
+          "seenGapSec": 18971.6,
+          "acquiredGapSec": 18971.6
+        },
+        {
+          "seed": 10002,
+          "seenGapSec": 16893,
+          "acquiredGapSec": 16892.7
+        },
+        {
+          "seed": 10003,
+          "seenGapSec": 33696.8,
+          "acquiredGapSec": 33696.8
+        },
+        {
+          "seed": 10004,
+          "seenGapSec": 16239,
+          "acquiredGapSec": 16239
+        },
+        {
+          "seed": 10005,
+          "seenGapSec": 26086.4,
+          "acquiredGapSec": 26086.4
+        },
+        {
+          "seed": 10006,
+          "seenGapSec": 31208,
+          "acquiredGapSec": 31208
+        },
+        {
+          "seed": 10007,
+          "seenGapSec": 29805.6,
+          "acquiredGapSec": 29805.6
+        },
+        {
+          "seed": 10008,
+          "seenGapSec": 23183.5,
+          "acquiredGapSec": 23183.5
+        },
+        {
+          "seed": 10009,
+          "seenGapSec": 15430.4,
+          "acquiredGapSec": 15430.4
+        },
+        {
+          "seed": 10010,
+          "seenGapSec": 21062.9,
+          "acquiredGapSec": 21062.9
+        },
+        {
+          "seed": 10011,
+          "seenGapSec": 14625,
+          "acquiredGapSec": 14625
+        },
+        {
+          "seed": 10012,
+          "seenGapSec": 29179.5,
+          "acquiredGapSec": 29179.4
+        },
+        {
+          "seed": 10013,
+          "seenGapSec": 14467,
+          "acquiredGapSec": 14467
+        },
+        {
+          "seed": 10014,
+          "seenGapSec": 30152.6,
+          "acquiredGapSec": 30152.6
+        },
+        {
+          "seed": 10015,
+          "seenGapSec": 14718.2,
+          "acquiredGapSec": 14718.1
+        },
+        {
+          "seed": 10016,
+          "seenGapSec": 22620.3,
+          "acquiredGapSec": 22620.3
+        },
+        {
+          "seed": 10017,
+          "seenGapSec": 26389.9,
+          "acquiredGapSec": 26389.9
+        },
+        {
+          "seed": 10018,
+          "seenGapSec": 14194.6,
+          "acquiredGapSec": 14194.6
+        },
+        {
+          "seed": 10019,
+          "seenGapSec": 22699.5,
+          "acquiredGapSec": 22699.5
+        },
+        {
+          "seed": 10020,
+          "seenGapSec": 13645.8,
+          "acquiredGapSec": 13645.7
+        }
+      ]
+    },
+    {
+      "id": "candidate-r3-tail108",
+      "seen": {
+        "samples": 20,
+        "p10": 3997.3,
+        "p50": 13497,
+        "p90": 25697.1,
+        "worst": 26842,
+        "minimum": 3466
+      },
+      "acquired": {
+        "samples": 20,
+        "p10": 3997.3,
+        "p50": 13497,
+        "p90": 25697.1,
+        "worst": 26841.6,
+        "minimum": 2084
+      },
+      "perSeed": [
+        {
+          "seed": 10001,
+          "seenGapSec": 5870.5,
+          "acquiredGapSec": 5870.5
+        },
+        {
+          "seed": 10002,
+          "seenGapSec": 3466,
+          "acquiredGapSec": 2084
+        },
+        {
+          "seed": 10003,
+          "seenGapSec": 18491,
+          "acquiredGapSec": 18490.9
+        },
+        {
+          "seed": 10004,
+          "seenGapSec": 26526.8,
+          "acquiredGapSec": 26526.8
+        },
+        {
+          "seed": 10005,
+          "seenGapSec": 7084.5,
+          "acquiredGapSec": 7084.5
+        },
+        {
+          "seed": 10006,
+          "seenGapSec": 19078,
+          "acquiredGapSec": 19078
+        },
+        {
+          "seed": 10007,
+          "seenGapSec": 25697.1,
+          "acquiredGapSec": 25697.1
+        },
+        {
+          "seed": 10008,
+          "seenGapSec": 3997.3,
+          "acquiredGapSec": 3997.3
+        },
+        {
+          "seed": 10009,
+          "seenGapSec": 15424.7,
+          "acquiredGapSec": 15424.7
+        },
+        {
+          "seed": 10010,
+          "seenGapSec": 22228.1,
+          "acquiredGapSec": 22228.1
+        },
+        {
+          "seed": 10011,
+          "seenGapSec": 13348.7,
+          "acquiredGapSec": 13348.6
+        },
+        {
+          "seed": 10012,
+          "seenGapSec": 12216.1,
+          "acquiredGapSec": 12216
+        },
+        {
+          "seed": 10013,
+          "seenGapSec": 13497,
+          "acquiredGapSec": 13497
+        },
+        {
+          "seed": 10014,
+          "seenGapSec": 16413,
+          "acquiredGapSec": 14509.4
+        },
+        {
+          "seed": 10015,
+          "seenGapSec": 6314.1,
+          "acquiredGapSec": 6314.1
+        },
+        {
+          "seed": 10016,
+          "seenGapSec": 26842,
+          "acquiredGapSec": 26841.6
+        },
+        {
+          "seed": 10017,
+          "seenGapSec": 24647.2,
+          "acquiredGapSec": 24647
+        },
+        {
+          "seed": 10018,
+          "seenGapSec": 13836.7,
+          "acquiredGapSec": 13836.7
+        },
+        {
+          "seed": 10019,
+          "seenGapSec": 8634.8,
+          "acquiredGapSec": 8634.8
+        },
+        {
+          "seed": 10020,
+          "seenGapSec": 12227,
+          "acquiredGapSec": 12227
+        }
+      ]
+    },
+    {
+      "id": "candidate-r3-tail105",
+      "seen": {
+        "samples": 20,
+        "p10": 2538.5,
+        "p50": 6274.5,
+        "p90": 9221.7,
+        "worst": 24353.8,
+        "minimum": 2527.9
+      },
+      "acquired": {
+        "samples": 20,
+        "p10": 2113.5,
+        "p50": 6274.4,
+        "p90": 14798.5,
+        "worst": 28913.8,
+        "minimum": 1761
+      },
+      "perSeed": [
+        {
+          "seed": 10001,
+          "seenGapSec": 3004.5,
+          "acquiredGapSec": 2711.6
+        },
+        {
+          "seed": 10002,
+          "seenGapSec": 3136.8,
+          "acquiredGapSec": 2113.5
+        },
+        {
+          "seed": 10003,
+          "seenGapSec": 3582.5,
+          "acquiredGapSec": 3582.5
+        },
+        {
+          "seed": 10004,
+          "seenGapSec": 24353.8,
+          "acquiredGapSec": 28913.8
+        },
+        {
+          "seed": 10005,
+          "seenGapSec": 8113.9,
+          "acquiredGapSec": 8114
+        },
+        {
+          "seed": 10006,
+          "seenGapSec": 8684.7,
+          "acquiredGapSec": 8484.1
+        },
+        {
+          "seed": 10007,
+          "seenGapSec": 4856.3,
+          "acquiredGapSec": 4856.3
+        },
+        {
+          "seed": 10008,
+          "seenGapSec": 8843.7,
+          "acquiredGapSec": 12807
+        },
+        {
+          "seed": 10009,
+          "seenGapSec": 3133.6,
+          "acquiredGapSec": 2531.8
+        },
+        {
+          "seed": 10010,
+          "seenGapSec": 4624.3,
+          "acquiredGapSec": 4624.3
+        },
+        {
+          "seed": 10011,
+          "seenGapSec": 2538.5,
+          "acquiredGapSec": 1761
+        },
+        {
+          "seed": 10012,
+          "seenGapSec": 2527.9,
+          "acquiredGapSec": 2297.6
+        },
+        {
+          "seed": 10013,
+          "seenGapSec": 15894.5,
+          "acquiredGapSec": 24080.5
+        },
+        {
+          "seed": 10014,
+          "seenGapSec": 3709.2,
+          "acquiredGapSec": 3709.2
+        },
+        {
+          "seed": 10015,
+          "seenGapSec": 9169.4,
+          "acquiredGapSec": 14345.5
+        },
+        {
+          "seed": 10016,
+          "seenGapSec": 8750.5,
+          "acquiredGapSec": 14798.5
+        },
+        {
+          "seed": 10017,
+          "seenGapSec": 8190.8,
+          "acquiredGapSec": 8191
+        },
+        {
+          "seed": 10018,
+          "seenGapSec": 8391.4,
+          "acquiredGapSec": 7747.1
+        },
+        {
+          "seed": 10019,
+          "seenGapSec": 6274.5,
+          "acquiredGapSec": 6274.4
+        },
+        {
+          "seed": 10020,
+          "seenGapSec": 9221.7,
+          "acquiredGapSec": 8212.5
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "at": "2026-09-12T17:27:49.783051+00:00",
+  "scope": "Host independently recalculated actual complete report rows; whole-sample quantiles in100ms integer ticks and denominator20. All8 complete before ranking. No adoption performed by this checker.",
+  "rows": [
+    {
+      "kind": "control",
+      "id": "control-l16",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l16/execution.json",
+      "executionSha256": "34e95f8300b4595bfe7edf77ecf98855965920f3841ec2e6adb0ea514189e76d",
+      "firstMedianTicks": 8136,
+      "firstP90Ticks": 9095,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": false,
+      "h70MedianTicks": null,
+      "bothPassed": false
+    },
+    {
+      "kind": "control",
+      "id": "control-l17",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/execution.json",
+      "executionSha256": "7f1f674a02d706dc801afb62c70822276e6bb45bb7f573a34dcbf323f88ae23a",
+      "firstMedianTicks": 16365,
+      "firstP90Ticks": 32685,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": false,
+      "h70MedianTicks": null,
+      "bothPassed": false
+    },
+    {
+      "kind": "control",
+      "id": "control-l18",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l18/execution.json",
+      "executionSha256": "3792bd7dd4ac6043a209846b55c652f2d6df53b67473aba0c0dceefae3ba55fd",
+      "firstMedianTicks": 49765,
+      "firstP90Ticks": null,
+      "by90": 12,
+      "samples": 20,
+      "firstPass": false,
+      "h70MedianTicks": null,
+      "bothPassed": false
+    },
+    {
+      "kind": "control",
+      "id": "control-l19",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l19/execution.json",
+      "executionSha256": "6b0f7515077368edddcadc68c50de0c4ec73d617ee561df6de70dc186872b573",
+      "firstMedianTicks": null,
+      "firstP90Ticks": null,
+      "by90": 5,
+      "samples": 20,
+      "firstPass": false,
+      "h70MedianTicks": null,
+      "bothPassed": false
+    },
+    {
+      "kind": "control",
+      "id": "control-l20",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l20/execution.json",
+      "executionSha256": "f01fbf3430af85b168efd13b9c9be38ccd689301bd565ff9a6e03ad51398eab7",
+      "firstMedianTicks": null,
+      "firstP90Ticks": null,
+      "by90": 1,
+      "samples": 20,
+      "firstPass": false,
+      "h70MedianTicks": null,
+      "bothPassed": false
+    },
+    {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10450",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10450/execution.json",
+      "executionSha256": "e64013dc0da8928b118a944307b6021e8fe2c46d19e2c2c1a4ee3c096890882b",
+      "firstMedianTicks": 28787,
+      "firstP90Ticks": 35163,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": true,
+      "h70MedianTicks": 369915,
+      "bothPassed": true
+    },
+    {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10425",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10425/execution.json",
+      "executionSha256": "64926e1438d95ce850a8e3002bc798c576a0d723a280c4ab09dabdf64cb50a74",
+      "firstMedianTicks": 28787,
+      "firstP90Ticks": 35163,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": true,
+      "h70MedianTicks": 317685,
+      "bothPassed": true
+    },
+    {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10400",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/execution.json",
+      "executionSha256": "e5703e8989a2abd24d14e06cbaa0939ca736e9c44824638ebe863d34e54fd4de",
+      "firstMedianTicks": 28787,
+      "firstP90Ticks": 35163,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": true,
+      "h70MedianTicks": 244510,
+      "bothPassed": false
+    }
+  ],
+  "ranking": [
+    {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10450",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10450/execution.json",
+      "executionSha256": "e64013dc0da8928b118a944307b6021e8fe2c46d19e2c2c1a4ee3c096890882b",
+      "firstMedianTicks": 28787,
+      "firstP90Ticks": 35163,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": true,
+      "h70MedianTicks": 369915,
+      "bothPassed": true,
+      "tuple": [
+        2713,
+        9915,
+        35163,
+        "candidate-r8-tail10450"
+      ]
+    },
+    {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10425",
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10425/execution.json",
+      "executionSha256": "64926e1438d95ce850a8e3002bc798c576a0d723a280c4ab09dabdf64cb50a74",
+      "firstMedianTicks": 28787,
+      "firstP90Ticks": 35163,
+      "by90": 20,
+      "samples": 20,
+      "firstPass": true,
+      "h70MedianTicks": 317685,
+      "bothPassed": true,
+      "tuple": [
+        2713,
+        42315,
+        35163,
+        "candidate-r8-tail10425"
+      ]
+    }
+  ],
+  "proposedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r8-tail10450"
+  }
+}

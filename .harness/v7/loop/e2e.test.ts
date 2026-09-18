@@ -1,0 +1,140 @@
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { createApp, RATE_LIMIT } from '../../../src/server/app.js';
+import { MemoryStore } from '../../../src/server/store.js';
+import { createNetClient } from '../../../src/main/net.js';
+import { MATCH_TTL_MS } from '../../../src/shared/api.js';
+// @ts-expect-error native harness CommonJS module has no declaration file
+import journey from './journey.cjs';
+// @ts-expect-error executable Node harness has no declaration file
+import { menuVisitSchedule, parseRunArguments, writeRunCheckpoint, recordFirstReadiness } from './e2e.mjs';
+
+describe('native run selection and real-time menu schedule', () => {
+  it('sends the actual Enter/Space character between native keydown and keyup without adding a Tab character', () => {
+    expect(journey.nativeKeyEvents('Enter')).toEqual([
+      {type:'keyDown',keyCode:'Enter',modifiers:[]},{type:'char',keyCode:'\r',modifiers:[]},{type:'keyUp',keyCode:'Enter',modifiers:[]},
+    ]);
+    expect(journey.nativeKeyEvents('Space')).toEqual([
+      {type:'keyDown',keyCode:'Space',modifiers:[]},{type:'char',keyCode:' ',modifiers:[]},{type:'keyUp',keyCode:'Space',modifiers:[]},
+    ]);
+    expect(journey.nativeKeyEvents('Tab',['shift'])).toEqual([
+      {type:'keyDown',keyCode:'Tab',modifiers:['shift']},{type:'keyUp',keyCode:'Tab',modifiers:['shift']},
+    ]);
+  });
+  it('retains readiness observed at the selecting visit when adjacent samples see no ready offer', () => {
+    const observation = {firstReadyElapsedMs: null};
+    recordFirstReadiness(observation, false, 570000);
+    expect(observation.firstReadyElapsedMs).toBeNull();
+    recordFirstReadiness(observation, false, 600000); // Not ready when the visit starts.
+    recordFirstReadiness(observation, true, 600150); // Ready in the opened menu, before choosing.
+    recordFirstReadiness(observation, false, 600400); // Choice reset the level before the next sample.
+    recordFirstReadiness(observation, true, 1200000); // A later reincarnation must not replace it.
+    expect(observation.firstReadyElapsedMs).toBe(600150);
+  });
+  it('keeps diagnostics separate and accepts the three-hour active journey', () => {
+    expect(parseRunArguments(['run.json','0'])).toEqual({output:'run.json',minutes:'0',profile:'active'});
+    expect(parseRunArguments(['run.json','180','active'])).toEqual({output:'run.json',minutes:'180',profile:'active'});
+    expect(parseRunArguments(['run.json'])).toEqual({output:'run.json',minutes:'5',profile:'active'});
+  });
+  it.each([[],['run.json','180','idle'],['run.json','180','intermittent'],['run.json','60'],
+    ['run.json','5','accelerated'],['run.json','05'],['run.json','5','active','extra']])('rejects unsupported observation %j', (...args) => {
+    expect(()=>parseRunArguments(args)).toThrow(/Usage/);
+  });
+  it('requires all eighteen real menu visits, including the three-hour boundary', () => {
+    expect(menuVisitSchedule(180)).toEqual(Array.from({length:18},(_,i)=>(i+1)*600000));
+    for(const minutes of [0,5,15,30])expect(menuVisitSchedule(minutes)).toEqual([]);
+  });
+  it('persists growing partial observations before completion and retains them on interruption', () => {
+    const directory=mkdtempSync(join(tmpdir(),'desmon-v7-native-checkpoint-'));
+    try {
+      const file=join(directory,'original.json');
+      const session={completion:'running',elapsedMs:0,timeline:[] as {elapsedMs:number}[],menuVisits:[] as {scheduledAtMs:number;completedAtMs:number}[]};
+      const report={status:'running',completion:'running',sessions:[session],errors:[] as string[]};
+      writeRunCheckpoint(file,report);
+      expect(JSON.parse(readFileSync(file,'utf8')).sessions).toHaveLength(1);
+      session.elapsedMs=179*60000;session.timeline.push({elapsedMs:178.5*60000});session.menuVisits.push({scheduledAtMs:170*60000,completedAtMs:170*60000+700});
+      writeRunCheckpoint(file,report);
+      const partial=JSON.parse(readFileSync(file,'utf8'));
+      expect(partial.status).toBe('running');expect(partial.sessions[0].menuVisits).toEqual(session.menuVisits);
+      session.completion='interrupted';report.completion='interrupted';report.status='failed';report.errors.push('Terminated');
+      writeRunCheckpoint(file,report);
+      const interrupted=JSON.parse(readFileSync(file,'utf8'));
+      expect(interrupted.sessions[0].timeline).toEqual(partial.sessions[0].timeline);
+      expect(interrupted.sessions[0].elapsedMs).toBe(179*60000);expect(interrupted.status).toBe('failed');
+    } finally {rmSync(directory,{recursive:true,force:true});}
+  });
+});
+
+describe('native journey injected production client/server transport', () => {
+  afterEach(()=>{vi.restoreAllMocks();vi.useRealTimers();});
+  it('lists and previews a selected party through auth and JSON validation without opening a socket', async () => {
+    vi.useFakeTimers();
+    const network=vi.spyOn(globalThis,'fetch').mockRejectedValue(new Error('Real network forbidden'));
+    vi.setSystemTime(1710000000000);
+    const {client,calls,responses}=journey.createMockPvp({createApp,MemoryStore,createNetClient});
+    const me=await client.register('E2E_Player');const foe=await client.register('E2E_Rival');
+    expect(me.ok&&foe.ok).toBe(true);
+    const companion={id:'c1',speciesId:'slime',bossIndex:8,level:1,stars:0};
+    const snapshot={name:'E2E_Rival',bestIndex:8,rebirths:0,companions:[companion],party:['c1'],hero:{formId:'h01',buffPercent:15}};
+    expect((await client.upload(me.value.token,{...snapshot,name:'E2E_Player'})).ok).toBe(true);
+    expect((await client.upload(foe.value.token,snapshot)).ok).toBe(true);
+    const rows=await client.opponents(me.value.token);
+    expect(rows.ok).toBe(true);expect(rows.value.opponents).toHaveLength(1);
+    expect(rows.value.opponents[0]).toMatchObject({playerId:foe.value.playerId,party:[companion]});
+    const selected=await client.match(me.value.token,foe.value.playerId);
+    expect(selected.ok).toBe(true);expect(selected.value.opponent.party).toEqual([companion]);
+    expect(selected.value.opponent.playerId).toBe(foe.value.playerId);
+    expect(selected.value.expiresAt).toBe(Date.now()+MATCH_TTL_MS);
+    expect(calls.at(-1)).toEqual({path:'/v1/pvp/match',body:{opponentId:foe.value.playerId},ip:'isolated-auth-1'});
+    expect(responses.at(-1)).toEqual({requestIndex:calls.length-1,path:'/v1/pvp/match',status:200,
+      playerId:foe.value.playerId,matchId:selected.value.matchId,bot:false,expiresAt:selected.value.expiresAt});
+    expect(network).not.toHaveBeenCalled();expect(vi.getTimerCount()).toBe(0);
+  });
+  it('runs the fifty-row high-level fixture and actual rank-cap removal without bypassing production validation', async () => {
+    vi.useFakeTimers();
+    const network=vi.spyOn(globalThis,'fetch').mockRejectedValue(new Error('Real network forbidden'));
+    const {client,calls,responses}=journey.createMockPvp({createApp,MemoryStore,createNetClient,now:()=>123000});
+    const me=await client.register('Viewer');expect(me.ok).toBe(true);
+    const party=['slime','bat','ghost','golem','dragon'].map((speciesId,index)=>({id:`c${index}`,speciesId,
+      bossIndex:8,level:[11,250,Number.MAX_SAFE_INTEGER,10,1][index]!,stars:0}));
+    const snapshot=(name:string,bestIndex:number)=>({name,bestIndex,rebirths:0,companions:party,
+      party:party.map(c=>c.id),hero:{formId:'h01',buffPercent:15}});
+    expect((await client.upload(me.value.token,snapshot('Viewer',0))).ok).toBe(true);
+    for(let i=0;i<50;i++) {
+      const name=`Foe${i}`;const registered=await client.register(name);expect(registered.ok).toBe(true);
+      expect((await client.upload(registered.value.token,snapshot(name,8*(i+1)))).ok).toBe(true);
+    }
+    const directory=await client.opponents(me.value.token);
+    expect(directory.ok).toBe(true);expect(directory.value.opponents).toHaveLength(50);
+    for(const row of directory.value.opponents)expect(row.party).toEqual(party);
+    const selectedId=directory.value.opponents.at(-1).playerId;
+    const selected=await client.match(me.value.token,selectedId);
+    expect(selected.ok).toBe(true);expect(selected.value.opponent).toMatchObject({playerId:selectedId,party});
+    expect(selected.value.expiresAt).toBe(123000+MATCH_TTL_MS);
+    expect(responses.at(-1)).toMatchObject({playerId:selectedId,matchId:selected.value.matchId,bot:false,status:200});
+    const replacement=await client.register('NewTop');expect(replacement.ok).toBe(true);
+    expect((await client.upload(replacement.value.token,snapshot('NewTop',9999))).ok).toBe(true);
+    const refreshed=await client.opponents(me.value.token);
+    expect(refreshed.ok).toBe(true);expect(refreshed.value.opponents).toHaveLength(50);
+    expect(refreshed.value.opponents.some((row:{playerId:string})=>row.playerId===selectedId)).toBe(false);
+    expect(refreshed.value.opponents[0].playerId).toBe(replacement.value.playerId);
+    const registeredCalls=calls.filter((call:{path:string})=>call.path==='/v1/players');
+    expect(new Set(registeredCalls.map((call:{ip:string})=>call.ip)).size).toBe(52);
+    const viewerCalls=calls.filter((call:{path:string})=>['/v1/pvp/opponents','/v1/pvp/match'].includes(call.path));
+    expect(new Set(viewerCalls.map((call:{ip:string})=>call.ip))).toEqual(new Set(['isolated-auth-1']));
+    expect(new Set(calls.filter((call:{path:string})=>call.path==='/v1/snapshot').map((call:{ip:string})=>call.ip)).size).toBe(52);
+    expect(network).not.toHaveBeenCalled();expect(vi.getTimerCount()).toBe(0);
+  });
+  it('keeps the real per-authenticated-player rate limit with stable synthetic IPs', async () => {
+    vi.useFakeTimers();
+    const {client,calls}=journey.createMockPvp({createApp,MemoryStore,createNetClient,now:()=>1000});
+    const player=await client.register('Limited');expect(player.ok).toBe(true);
+    for(let i=0;i<RATE_LIMIT;i++)expect((await client.opponents(player.value.token)).ok).toBe(true);
+    const limited=await client.opponents(player.value.token);
+    expect(limited).toEqual({ok:false,error:'server',status:429});
+    expect(new Set(calls.slice(1).map((call:{ip:string})=>call.ip))).toEqual(new Set(['isolated-auth-1']));
+    expect(vi.getTimerCount()).toBe(0);
+  });
+});

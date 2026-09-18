@@ -1,0 +1,31 @@
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert/strict'),asar=require('@electron/asar');
+const dir='.agentdoc/v09-20260915T084032Z';
+const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const digest=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex');
+function tree(root,prefix=''){
+  const found={};for(const name of fs.readdirSync(path.join(root,prefix)).sort()){
+    const rel=path.join(prefix,name),p=path.join(root,rel),s=fs.lstatSync(p);
+    if(s.isSymbolicLink())found[rel]={link:fs.readlinkSync(p)};
+    else if(s.isDirectory())Object.assign(found,tree(root,rel));
+    else found[rel]={bytes:s.size,sha256:hash(p)};
+  }return found;
+}
+const installed=dir+'/installed-02/DesMon.app',mounted=dir+'/final-dmg-mount/DesMon.app';
+const original=tree(installed),current=tree(mounted);
+assert.deepEqual(current,original,'Final DMG bundle differs from the runtime-tested installation');
+const windows='release/win-unpacked/resources/app.asar',payload={};
+for(const folder of ['dist/electron','dist/web','static'])for(const [relative,entry] of Object.entries(tree(folder))){
+  const name=folder+'/'+relative;if(entry.link)continue;
+  const sha=crypto.createHash('sha256').update(asar.extractFile(windows,name)).digest('hex');
+  assert.equal(sha,entry.sha256,'Windows payload differs: '+name);payload[name]=sha;
+}
+const pg=JSON.parse(fs.readFileSync(dir+'/postgres-03.json'));
+assert.equal(pg.passed,true);for(const [p,sha] of Object.entries(pg.sourceHashes))assert.equal(hash(p),sha,p);
+const paths=['release/DesMon-0.9.0-arm64.dmg','release/DesMon Setup 0.9.0.exe','release/win-unpacked/DesMon.exe',windows,
+  'release/windows-manifest.json','release/mac-arm64/DesMon.app/Contents/Resources/app.asar',installed+'/Contents/Resources/app.asar'];
+const record={version:9,passed:true,at:new Date().toISOString(),artifacts:paths.map(p=>({path:p,bytes:fs.statSync(p).size,sha256:hash(p)})),
+  macBundle:{mountedFrom:paths[0],matchedInstallation:installed,entries:Object.keys(current).length,sha256:digest(current),files:current},
+  windowsPayload:{checked:Object.keys(payload).length,sha256:digest(payload),files:payload},postgres:{sourceHashes:pg.sourceHashes,report:dir+'/postgres-03.json',sha256:hash(dir+'/postgres-03.json')},
+  evaluator:{path:dir+'/final-artifacts-check.txt',sha256:hash(dir+'/final-artifacts-check.txt')}};
+fs.writeFileSync(dir+'/artifacts-verified.json',JSON.stringify(record,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({passed:true,macEntries:record.macBundle.entries,windowsPayloadFiles:record.windowsPayload.checked,artifacts:record.artifacts}));

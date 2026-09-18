@@ -1,0 +1,130 @@
+{
+  "requestId": "3718413dbc220722152045e4a0cceaf8d302a13e3725a896cb88d4f324c7ee3f",
+  "round": 2,
+  "role": "designer",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "agent": "/root/designer",
+  "decision": "pass",
+  "summary": "C070의 필수 gate 차단 판단을 수용했다. 트레이0.7 수정·기존 테스트 보존·실제 veto/refresh 뒤 현재 S/E에서 protocol, harness143,955테스트/lint/typecheck exit0를 확인했다. 채택10450 설계는 유지하며 최종100seed·Native·출시 증거와 humanChecks는 아직 PENDING이다.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "선택10450의21키·6성과 조건·원래 목표/정책 불변."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "V01/V06에tray 소유권 등록; 새 최종 design/measurement AC와 release 계약."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "0.6 결과/최종0.7 재검증·희귀선택 진단/자연획득을 구분."
+    },
+    {
+      "path": "src/main/tray.ts",
+      "note": "10행 제목은 DesMon v0.7.0; 보존본과 비교한 유일한 코드 차이."
+    },
+    {
+      "path": "tests/tray.test.ts",
+      "note": "보존본과 바이트 동일, package 버전 일치 assertion 유지."
+    },
+    {
+      "path": "package.json",
+      "note": "0.7.0 유지; 고정 명령 변경 없음."
+    },
+    {
+      "path": "package-lock.json",
+      "note": "최상위 및 root package 버전0.7.0 유지."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/transaction.json",
+      "note": "실제 C070 veto와 원본/소유권 변경·단일 제목 수정 보존."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-v01-checks-after-tray/gates.log",
+      "note": "정확한 gate exit0; 시작/종료S/E가 이번 요청과 같고 파일지문도 동일."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789236616998.log",
+      "note": "전체 로그: tray 포함955테스트,lint,typecheck 완료. SHA f825ddbf… 직접 검산."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-v01-checks-after-tray/harness.log",
+      "note": "같은 입력의143 자체검사 exit0; 실제 메타/원본 로그를 대조."
+    },
+    {
+      "path": ".harness/v7/loop/journey.cjs",
+      "note": "h70현자격/serial41의세번째 nativeclick→이력·알림·ACK; 실행은 아직 대기."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "게임 Lv10 상한 대신 양의 안전 정수 범위를 유지하고 초과 증가 전에 상태·재료를 보존한다. Lv10이상 환생의 Lv1/별+1·힘2/level 감소 안내와 expected 확인/대상 변경 무효화는 그대로이며 새 Native 근거가 필요하다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "공개·실루엣·이름/aria·알림·ACK·목표는 실제 선택/영구 영웅과 종 처치의 같은 판정을 따른다. 레거시 seen-only 복귀 및 현재조건 h70 세번째 선택 진단을 유지하고 후보제시·fixture를 자연획득으로 세지 않는다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50행의 영웅·동료 파티, 실제 지정ID/응답 일치, 상태 갱신 포커스와 삭제·만료·오류 처리를 유지한다. 실제 trusted Tab/Enter/Space와 모의 서버 ledger를 새 Native에서 확인하며 운영 PvP/전투결과 검증으로 확대하지 않는다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "생산은 등록 L17/XP1.42/prefix1153/1000/tail79·10450/10000/count5·깊이63이다. 첫 처치·보상·레벨·포획·준비·성공을 새 최종100seed에서 기록하고 과거 첫p502736.6초/100by90은0.6 이력으로만 둔다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm/rootcolossus/h58/h62/starvoid/h70와 최종10종+30000처치,무료첫슬롯·기존120초휴식/30초보류를 유지한다. 과거h70자격50/미도달50·전체40596초/조건부20933.6초·선택0을 분리하며 새 최종후기 처치·제시/획득공백을 보고한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "동료115/100과 안전 할당/외부ID 무손실을 지키고 quota는 영구 할당 구간으로 취급한다. 정원30 무보장·제거/재시작 비재무장,저장/서버/응답 고레벨 경계를 새 등록 AC로 확인하고 실제 클라이언트 출시 전 운영 호환을 확인한다."
+    }
+  ],
+  "alternatives": [
+    {
+      "name": "기존 Lv16–20 대조",
+      "tradeoff": "레벨만 바꾼 기준과 실패 원본은 보존하며 재채택하지 않는다."
+    },
+    {
+      "name": "candidate-r8-tail10450",
+      "tradeoff": "탐색 등록 순위1의 채택값을 유지; 검증 뒤 수치 조정 없음."
+    },
+    {
+      "name": "candidate-r8-tail10425",
+      "tradeoff": "통과 순위2의 비교 이력이며 최종 설정을 교체할 근거로 재활용하지 않는다."
+    },
+    {
+      "name": "candidate-r8-tail10400",
+      "tradeoff": "너무 이른 최종 해금 실패를 보존하고 목표를 움직이지 않는다."
+    },
+    {
+      "name": "버전 일치 후10450 최종 검증",
+      "tradeoff": "기존 테스트를 보존해 표시 오류를 수정하고 새 S/E의 검토·작업 AC·최종 측정·실제 관측으로 완료를 판단한다."
+    }
+  ],
+  "choice": "버전 일치 후10450 최종 검증",
+  "hypotheses": [
+    {
+      "metric": "최종 기준정책100seed 첫 성공",
+      "target": "p502700–3600초·5400초 내90/100 이상,전체분모 고정. 탐색10001–10020과 분리하며 검증1–100로 튜닝하지 않는다."
+    },
+    {
+      "metric": "최종12h 성과 해금",
+      "target": "h70 자격 전체p5028800–43200초; null/조건부/제시/실제선택과2–12h 발견 공백·paired8→12h 증가를 분리한다."
+    },
+    {
+      "metric": "새 최종 Native/출시 증거",
+      "target": "실제5/15/30분×3+별도연속180분·18회메뉴방문,9정책100seed×12h,audit/smoke/실제패키지/서버 호환은 별도 확인. 0분진단은 자연분0이며 사람 관찰 없으면 humanChecks=PENDING."
+    }
+  ],
+  "resolves": [
+    {
+      "id": "C070-VERSION-FREEZE-GATE",
+      "change": "contract19로원본/실패를보존하고V01/V06소유권등록후TRAY_TITLE만0.6→0.7수정했다. tests/tray.test.ts는보존본과동일하고package/lock0.7유지. 실제veto뒤발급된round2 S/E에서protocol/harness143 및정확한gate955/lint/typecheck exit0를원본·메타·SHA로확인했다. 과거RED와현재PASS를분리하며후속최종측정/Native는아직PENDING이다."
+    }
+  ]
+}

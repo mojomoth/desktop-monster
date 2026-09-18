@@ -1,0 +1,40 @@
+{
+  "version": "0.5.0",
+  "dateKST": "2026-09-10",
+  "workingTree": "existing V4 changes preserved; V5 additive work; no commit or deploy",
+  "commands": [
+    {
+      "command": "npm test && npm run lint && npm run typecheck",
+      "exitCode": 0,
+      "tests": 744,
+      "files": 49,
+      "durationSeconds": 75.44,
+      "session": "43521"
+    },
+    {
+      "command": "node .harness/v5/loop/fun.mjs selftest",
+      "exitCode": 0,
+      "tests": 9
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "session": "67812"
+    },
+    {
+      "command": "node .harness/v5/loop/render-preview.mjs",
+      "exitCode": 0
+    }
+  ],
+  "balance": {
+    "independentSeeds": 100,
+    "policyProfilePaths": 600,
+    "timepointSamples": 1800,
+    "report": "docs/v0.5/balance-v5.json"
+  },
+  "browser": "docs/v0.5/BROWSER_QA.md",
+  "native": "PENDING: AGENTS.md Codex restrictions prohibit npm start/smoke/package and native Electron; no native completion claimed",
+  "human": "PENDING: no participant session",
+  "DESMON_SKIP_NET": 1,
+  "deploy": "PENDING: local development; production server unchanged"
+}

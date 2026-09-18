@@ -1,0 +1,156 @@
+{
+  "requestId": "cc8c9e18aaad8f6513fd165d27961e6f46797060b2aa26c6fb49ab076c2898c6",
+  "round": 1,
+  "role": "balance",
+  "sourceDigest": "f7b0f57f757c031f03da8e7ded52178522b198bfd5d6ee4836978d835faea5e0",
+  "evaluationDigest": "b146423a49d3cb5b762dd5d49c8ce4847f71c433a45762dc6d51eaf907d66788",
+  "agent": "/root/balance",
+  "decision": "pass",
+  "summary": "Round06의 등록된 5대조·3후보 비교와 측정 계획을 설계 단계에서 승인한다. 수치 근거는 Designer의 탐색 전용 제안과 등록값이며, 이전에 감사한 별도 검증의 수치·개별 seed를 이번 후보의 제안·조정·정당화에 사용하지 않았다. 현재 control-l17, 새 count 보장과 할당 안전 수정은 미구현이고 내 allocator 초안도 미적용이다; 성능·채택·출시는 미확인이다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "실제 역할 순서, 설계/측정/audit/출시 분리, 같은 소스 등록 AC와 canonical gates 계약."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "100ms/1초 관측, 탐색20·검증100, 고정 두 목표, 9정책, V02→V05 및 최종 Native/패키지/서버 AC."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "Round06 parameterVersion3의 정확21키, 5controls/3candidates, selected=null, 영구 할당 구간·정원·1draw·allocatorSafety와 고정6조건."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "A/B 두 변수와 B/C XP 단독 비교, 보스 처치 후 보장, 레거시/PvP 카운터 의미, 같은 새 후보 screen/full 기록 대응과 판정 규칙."
+    },
+    {
+      "path": ".harness/v7/loop/config.mjs",
+      "note": "역사 버전1/2/3의 17/20/21키와 count1–30, control count1, 유리수 tail 검증을 독립 읽었다; 자기 구현의 테스트 통과로 설계를 인증하지 않는다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "공식 protocol realpath와 현재 snapshot, 실제 생산 parameter/content export binding, 전체 분모와 populationQuantile 판정·conditional distribution 분리를 읽었다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "실제21키 export는 XP1.4·tail/보장 null·count1의 control-l17이며 등록 후보가 적용된 상태가 아니다."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "현재 counter===1 및 직접++ 경로를 확인했다. 새 quota 소비·안전 발급·정원 무보장·보스당1draw는 후속 구현/회귀가 필요하다."
+    },
+    {
+      "path": "src/core/save.ts",
+      "note": "모든 ID의 숫자+1 복구는 전송 ID도 카운터에 반영하며 큰 값에서 안전 범위를 넘는다; ID 보존과 MAX 소진 표지 수정은 아직 필요하다."
+    },
+    {
+      "path": "src/core/collection.ts",
+      "note": "외부 s/r ID 보존과 counter 증가, local PvP의 lostId 제거 전 사전검증 필요를 직접 확인했다; 미래 패치와 기존 소스를 구별한다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round06-design-preparation/designer-proposal.md",
+      "note": "숫자의 탐색 전용 출처: 무포획과 이미1–4명인 약한 파티의 공백을 나눈 제안. 이 원본의 자연 포획 전용 표현은 현재 protocol의 영구 할당 구간 계약으로 정정됐음을 적용한다."
+    },
+    {
+      "path": "src/core/economy.ts",
+      "note": "훈련/미끼의 비용·구매 조건·지출 기록과 무료 경로를 확인했다. 재굴림과 보스 골드도 읽은 실제 hero/engine 경로대로 별도 원장을 검사한다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "양의 안전 정수 레벨과 bigint 힘, Lv10 이상→Lv1/별+1 및 전후 힘 2/level·대상 스냅샷 확인을 유지한다. Lv11/250/MAX 왕복과 레벨·별·ID overflow 시 재료/명단 무손실은 새 할당 수정 후 같은 소스 V02 AC·게이트로 다시 입증해야 한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "실제 영웅 선택/영구 컬렉션과 몬스터 speciesKills>0을 공개·이름·aria·알림·ACK·목표의 공통 기준으로 유지하고 레거시 허위 공개/ACK도 교정한다. 콘텐츠 자격·제시·실제 획득은 별도 사건이며 seen 기반 해금과 필드/후보/PvP 원화는 별개다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "각50행의 영웅과 동료 파티, 요청→미리보기→결과의 실제 playerId 일치, Tab/Enter/Space·갱신 포커스·삭제/만료/실패 차단을 검증한다. 외부 s/r ID를 엔진→저장→업로드→회수까지 보존하고 지정 매치의 불일치나 업로드 실패가 로스터/이력 변경으로 이어지지 않아야 한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "L17/보장 index63/tail79 이후10475/10000에서 A=XP1.41/count1, B=1.42/count5, C=1.43/count5를 고정하며 A/B 차이를 포획 단독 효과로 해석하지 않는다. 보장은 보스 처치 뒤 작동하고 기존35%/휴식120초/보류30초를 유지하므로 과속과 긴 꼬리 모두 미확인이다; 첫 전체p50 2700–3600초와90분18/20을 함께 요구한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "동료 HP115/100·정원30·여섯 성과 조건을 유지하고 최종 h70 자격 전체p50 28800–43200초를 새로 측정한다. 초기 개선으로 후기 정체·과속·일반50종 소진이 해결됐다고 보지 않으며, 같은 seed의8→12h 처치/환생/새획득 및 희귀 자격/제시/실제선택을 나눠 보고한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "quota는 영구 할당 구간으로, PvP/모든 ID 숫자 복구가 구간을 일찍 소진해도 자연 포획 수를 역산하거나 재무장하지 않는다. MAX 소진 표지·MAX-1 마지막 유일 로컬 발급·lostId 제거 전 안전/중복 검사·외부 s/r 보존은 미구현 필수 회귀이며, 새 클라이언트 전 고레벨 서버 호환과 최종0.7.0의 별도 출시 증거가 필요하다."
+    }
+  ],
+  "protocol": {
+    "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "explorationSeeds": [
+      10001,
+      10020
+    ],
+    "validationSeeds": [
+      1,
+      100
+    ],
+    "policy": "신규 저장/100ms tick·1초 주기 콘텐츠 관측/active 균등2입력·초/free/무관리/즉시 방문 choices[0] 기준을 유지한다. 5대조+3후보 각각20개×120분, 첫 두 조건 통과안만 같은20개×12시간; 모든8개 완료·무결성 확인 후 두 목표 통과안에만 (|전체firstAccepted p50−3150|, |전체h70 eligibility p50−36000|, 전체firstAccepted p90, ID 사전순)을 정수100ms로 적용한다. 미채택이면 원본 보존과 새 사전등록이며 목표/분모를 바꾸지 않는다; 공식 채택 후에만 별도1–100×12h를 실행하고 실패를 보존하며 튜닝에 쓰지 않는다. Release는 설정의9정책을 분리해 각100개×12h: active 즉시/10분, intermittent·warm-idle·pure-idle 10분, 같은 총입력 burst 즉시, training+consume/10분, lure+fuse/10분, reroll+reincarnate/2분이다.",
+    "milestones": "모든 요구조건의 AND: crownwyrm=dragon3처치; rootcolossus=영웅환생3; h58=water100+reefknight2+총처치1500; h62=환생5+seenMonsters60+총처치6000; starvoid=환생10+총처치16000; 유일 최종 h70=고유영웅선택10+총처치30000. 실제 eligible*와 roll/spawn 공유 조건을 export로 대조하고 eligible/seen/chosen 또는 killed를 별도 기록한다. 기준 첫슬롯 정책의 희귀 영웅 실제선택0은 자격 성공과 구분하며 별도 실제 UI 선택 검증을 요구한다.",
+    "censoring": "미도달은 null이며 유한 시각 뒤에 정렬한 floor((N−1)q)의 전체 p10/p50/p90/worst를 판정에 쓴다. 성공자 조건부 분위수·성공 수·미도달 수·전체 분모20/100를 함께 보고하고 조건부p50으로 전체p50을 대체하지 않는다;90분 분모도 항상20/100이다. screening의 장기 목표는 NOT_EVALUATED, 후속12h 목표 FAIL과 구분하며 읽기/분석 완료는 성능 PASS가 아니다."
+  },
+  "metrics": [
+    {
+      "name": "첫 여정과 deadline",
+      "unit": "초·전체20/100개",
+      "target": "firstKill/Reward/Level/Capture/Ready/Open/Accepted의 전체·조건부 p10/p50/p90/worst/미도달, 준비→열기→선택 지연을 기록한다. firstAccepted 전체p50 2700–3600초 및5400초 이내18/20, 별도 검증90/100을 동시에 충족해야 한다.",
+      "deadline": "모든 실험120분 선별; 통과안12시간과 별도 검증12시간에서 재확인"
+    },
+    {
+      "name": "최종 named 단계",
+      "unit": "초·콘텐츠ID별 전체표본",
+      "target": "h70 자격 전체p50 28800–43200초,8h전/8–12h/미도달 수와 자격·제시·실제선택 각각의 분포를 기록한다. 다른5단계도 같은 방식으로 남기고 반복 스택을 새 콘텐츠로 세지 않는다.",
+      "deadline": "같은 탐색 seed12h 및 채택된 별도100seed12h;120분에 최종목표를 인증하지 않음"
+    },
+    {
+      "name": "quota·정원·RNG",
+      "unit": "영구 할당 카운터·보스당draw",
+      "target": "count1/5, index62/63/71, counter1/4/5/6, null/비보스, 보장·일반추첨 각각1draw, 정원30+낮은counter의 무보장·일반35% 방출, 소비/희생/환생/재시작 비재무장을 실제 엔진 회귀로 검증한다. 새 count가 생산·worker에서 실제 소비됨을 요구한다.",
+      "deadline": "후속 V05 구현 뒤 첫 Round06 탐색 전에 등록 AC·독립 Critic 확인"
+    },
+    {
+      "name": "할당/전송 무손실",
+      "unit": "정확한 ID·안전 정수·원래 상태",
+      "target": "r9007199254740992·매우 큰 cID는 원래 ID를 보존하며 MAX로 포화한다; MAX-1→마지막 유일 cID→MAX, 소진/중복 로컬 PvP는 lostId/재료 제거 전 거부, MAX에서 외부 s/r 전달·저장·재시작을 확인한다. 현재 초안은 적용/실행하지 않았다.",
+      "deadline": "V02 수정·동일 소스 AC/게이트 후 V05로 진행; 기존 원본·테스트 보존"
+    },
+    {
+      "name": "후기 활동과 공백",
+      "unit": "seed별 처치/환생/획득 증가·초·정확bigint",
+      "target": "2/4/8/10/12h kills·파티힘·정원·고유선택·환생, 각seed의12h−8h 증가를 먼저 구한 분포와 경계 포함2–12h 새 제시/획득 최장 공백을 정수100ms로 계산한다. 시점별 중앙값을 빼지 않고 전투 정체와 일반50종 소진을 구분한다.",
+      "deadline": "완료된12h 원본에서만 계산하며 모든 seed와 최악/미도달 보존"
+    },
+    {
+      "name": "실험 출처·첫 기록 대응",
+      "unit": "21키·SHA256·같은후보20쌍",
+      "target": "공식 protocol·ID/kind·21키·6content rules, 실제 source/compiled worker/evaluator/build/log/manifest/runs 지문을 검산한다. 새 같은 후보 screening/full의 첫7시각·첫성공까지 기록·첫선택ID/level/action을20/20 짝지으며 과거 XP141 prefix나 원본에 없는 전체 공격/RNG trace 동일성을 주장하지 않는다.",
+      "deadline": "각 execution.endedAt 이후 분석; 모든8개 완결·무결성 PASS 전 선택순위 비움"
+    },
+    {
+      "name": "경제와 관리 정책",
+      "unit": "골드·행동 수·bigint 피해",
+      "target": "각 checkpoint 초기coins+income−spent=coins, 비음수·안전 정수와 정확 bigint 문자열을 확인한다. 훈련/미끼/재굴림 비용과 소모/융합/동료환생 행동·전후 힘을 기록하며 무료 기준과 섞지 않는다.",
+      "deadline": "탐색·검증 및 release9정책 각각의 전체12h 원본"
+    },
+    {
+      "name": "출시와 사람 관찰 경계",
+      "unit": "동일소스 AC·실제 분·산출물",
+      "target": "구현 후 package/lock0.7.0 먼저 고정, 등록 AC와 npm test && npm run lint && npm run typecheck,9정책×100×12h,실제5/15/30분×3프로필9개와 별도연속180분 active/10분마다 실제 메뉴 선택,네 역할 audit·smoke·실제 패키지·고레벨 서버 호환이 필요하다. 자연 관측은 격리save·합성입력으로 시간 가속/fixture 없이 수행하고 humanChecks=PENDING을 유지한다.",
+      "deadline": "최종 소스 release; 현재 설계 승인·과거 분석으로 대체 불가"
+    }
+  ],
+  "economy": {
+    "sources": "실제 처치 골드는1+floor(index/3),보스5배이고 기존25% 장신구 추첨을 유지한다; 정원 방출은 일반35% 포획 추첨에 따른 기존2회당영혼1이며 새 보장으로 강제 방출 보상을 만들지 않는다. 초기잔액+실제드롭유입−실제지출=잔액을 checkpoint마다 검사한다.",
+    "sinks": "훈련75*(현재훈련+1)^2, 미끼75+25*min(환생,100), 재굴림50+25*min(환생,100)의 기존 비용·행동과 지출 원장을 확인한다. 동료 소비/융합/희생/환생의 재료·레벨/별/힘 변화와 오류 시 무손실을 골드 지출과 구분한다.",
+    "freePath": "free/무관리/첫슬롯 경로가 처치→동료→영웅환생→종별/원소별 처치·고유영웅선택으로 여섯 조건을 달성할 수 있어야 하며 신규골드·PvP·강제시간 요구가 없다. count 보장은 영구 초기 할당 구간에만 적용하고 유료정책의 성과를 무료 기준의 성공으로 대체하지 않는다; 현재 Round06 도달 시간과 희귀 실제선택은 미측정이다."
+  }
+}

@@ -1,0 +1,656 @@
+{
+  "version": 1,
+  "profile": "mixed",
+  "requestedMinutes": 180,
+  "startedAt": "2026-09-15T11:39:49.532Z",
+  "finishedAt": "2026-09-15T14:39:51.296Z",
+  "observationMs": 10801724.480167,
+  "inputCount": 10662,
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app",
+  "appHash": "3692e162a73de3df7e596ee0756277dfe3496b26edd1591f6e1ce994ad00f044",
+  "observerHash": "cd17b18dbde752583bc3cf76539d078d0b3822cddddab944e184cc06b13efa17",
+  "checks": {
+    "duration": true,
+    "metrics": true,
+    "samples": true,
+    "progress": true,
+    "inputs": true,
+    "errors": true,
+    "appUnchanged": true,
+    "observerUnchanged": true
+  },
+  "exitCode": 0,
+  "exitSignal": null,
+  "lastObserved": {
+    "source": "last-sample",
+    "elapsedMs": 10800023.805625001,
+    "inputs": 10659,
+    "save": {
+      "version": 3,
+      "level": 16,
+      "xp": 2221,
+      "killCount": 71,
+      "coins": 1272,
+      "items": {
+        "sword_shard": 5,
+        "bone": 2,
+        "crown": 1,
+        "slime_gel": 5
+      },
+      "monsterIndex": 71,
+      "monsterSpeciesId": "grumblode",
+      "monsterHp": "829451",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c6",
+          "speciesId": "kelpwarden",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c7",
+          "speciesId": "quagmaw",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 8,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 71,
+      "pvpParty": [],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 10795008.6,
+        "speciesKills": {
+          "slime": 1,
+          "lantessa": 2,
+          "gillstub": 1,
+          "spadeling": 1,
+          "ghost": 1,
+          "whirlseed": 1,
+          "kelpwarden": 1,
+          "thornhare": 1,
+          "kraulk": 1,
+          "pyrecairn": 1,
+          "quietus": 2,
+          "flintwren": 1,
+          "voidmaw": 1,
+          "kitekin": 2,
+          "mournbell": 2,
+          "clubprawn": 2,
+          "bramblebear": 1,
+          "lichenwing": 2,
+          "bat": 2,
+          "brimhide": 3,
+          "quarryback": 2,
+          "quagmaw": 1,
+          "hexweaver": 1,
+          "gravebloom": 2,
+          "kilnshell": 2,
+          "forgehulk": 1,
+          "sporeplume": 1,
+          "nimbling": 2,
+          "gulpwick": 1,
+          "dawnfinch": 2,
+          "anchornaut": 2,
+          "gyrodillo": 1,
+          "sorrowstilt": 1,
+          "hollowstag": 1,
+          "bristlehog": 1,
+          "dragon": 2,
+          "charspine": 1,
+          "steamfin": 1,
+          "glasshade": 1,
+          "duskarmadillo": 3,
+          "flarecrow": 1,
+          "lumibel": 1,
+          "snipclaw": 1,
+          "waxwick": 1,
+          "shroudlamp": 1,
+          "cobbleroll": 1,
+          "zephyrstag": 1,
+          "gallowplate": 1,
+          "murkin": 1,
+          "vaneknight": 1,
+          "grumbol": 1,
+          "unblink": 1,
+          "conchguard": 1
+        },
+        "seenMonsters": [
+          "slime",
+          "lantessa",
+          "gillstub",
+          "spadeling",
+          "ghost",
+          "whirlseed",
+          "kelpwarden",
+          "thornhare",
+          "kraulk",
+          "pyrecairn",
+          "quietus",
+          "flintwren",
+          "voidmaw",
+          "kitekin",
+          "mournbell",
+          "clubprawn",
+          "bramblebear",
+          "lichenwing",
+          "bat",
+          "brimhide",
+          "quarryback",
+          "quagmaw",
+          "hexweaver",
+          "gravebloom",
+          "kilnshell",
+          "forgehulk",
+          "sporeplume",
+          "nimbling",
+          "gulpwick",
+          "dawnfinch",
+          "anchornaut",
+          "gyrodillo",
+          "sorrowstilt",
+          "hollowstag",
+          "bristlehog",
+          "dragon",
+          "charspine",
+          "steamfin",
+          "glasshade",
+          "duskarmadillo",
+          "flarecrow",
+          "lumibel",
+          "snipclaw",
+          "waxwick",
+          "shroudlamp",
+          "cobbleroll",
+          "zephyrstag",
+          "gallowplate",
+          "murkin",
+          "vaneknight",
+          "grumbol",
+          "unblink",
+          "conchguard",
+          "grumblode"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": 0,
+        "rareMisses": 1,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    }
+  },
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "25.2.0",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12
+  },
+  "metadata": {
+    "version": "0.9.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    },
+    "fixture": {
+      "version": 3,
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": 0,
+      "items": {},
+      "monsterIndex": 0,
+      "monsterHp": "10",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 0,
+      "pvpParty": [],
+      "releasedCount": 0
+    }
+  },
+  "isolation": {
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-perf-3CpwiV",
+    "globalHooks": false,
+    "osPermissionPrompts": false,
+    "network": "offline",
+    "input": "synthetic production IPC",
+    "time": "real wall time; no engine ticks injected"
+  },
+  "raw": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.samples.jsonl",
+    "sha256": "365da1d655778cb37334cd1df6153b56f47c6763a65062a9dd14b479fb3dc0d4",
+    "samples": 2152
+  },
+  "screenshots": [
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.start.png",
+      "sha256": "85379ca9bf48f0da4453942e26d434d5a2f386f96c608abdae024eadf47c5d19"
+    },
+    {
+      "name": "menu-10m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-10m.png",
+      "sha256": "3961b3a830ec0f4efe3393bffeaa9d4e07ebe2fab293a0823c815eca589bfbd0"
+    },
+    {
+      "name": "menu-20m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-20m.png",
+      "sha256": "7b8bb994a23f733cc32b986330242c64d91f99d9212185f8ce08c211e486935e"
+    },
+    {
+      "name": "menu-30m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-30m.png",
+      "sha256": "9fcd5bf39c4862773ea764c4146c748016ccd73f29944b586ca99e134e73a051"
+    },
+    {
+      "name": "menu-40m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-40m.png",
+      "sha256": "a67df8f357070966fc7e8d295e09bca2f22673c33f92bf65ae63a26c1c8f8a8a"
+    },
+    {
+      "name": "menu-50m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-50m.png",
+      "sha256": "0946f0cfad2c167b1c7c68bcae54fff267b6f8f8aef33c00a9df354564663167"
+    },
+    {
+      "name": "menu-60m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-60m.png",
+      "sha256": "b16792044e7de562df7ae23091c241eea854129054699a234a0bce815c058c63"
+    },
+    {
+      "name": "menu-70m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-70m.png",
+      "sha256": "b16792044e7de562df7ae23091c241eea854129054699a234a0bce815c058c63"
+    },
+    {
+      "name": "menu-80m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-80m.png",
+      "sha256": "b16792044e7de562df7ae23091c241eea854129054699a234a0bce815c058c63"
+    },
+    {
+      "name": "menu-90m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-90m.png",
+      "sha256": "2f6041cb87a0d31544a04ad813bec7820777ae505e939a562a7b88392f1f11f2"
+    },
+    {
+      "name": "menu-100m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-100m.png",
+      "sha256": "cb99206037ceebbb2da93703c43bb774c401028c36a569042d966d3627999edb"
+    },
+    {
+      "name": "menu-110m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-110m.png",
+      "sha256": "05458969a2b500ab95d3eac3d3ea737570462737bf1be51ea5dce6955f92e74a"
+    },
+    {
+      "name": "menu-120m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-120m.png",
+      "sha256": "0fad86d8107531d1bf453b2bca62189bbfbc4725b4af7097390ca636c42395e8"
+    },
+    {
+      "name": "menu-130m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-130m.png",
+      "sha256": "eb7982221f9204a11d404b4e37b27cc30f707013d25abd58b50bd08c45dbbdbf"
+    },
+    {
+      "name": "menu-140m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-140m.png",
+      "sha256": "eaa8634b7e7f77fafb10dfa0ad81a7c1f007c0909e34aee46a62662c5f67210c"
+    },
+    {
+      "name": "menu-150m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-150m.png",
+      "sha256": "eaa8634b7e7f77fafb10dfa0ad81a7c1f007c0909e34aee46a62662c5f67210c"
+    },
+    {
+      "name": "menu-160m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-160m.png",
+      "sha256": "a08b181696973fb2891348f1d346dd86fb1d46bcfece1b7e21d7a30eb350f0e6"
+    },
+    {
+      "name": "menu-170m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-170m.png",
+      "sha256": "a08b181696973fb2891348f1d346dd86fb1d46bcfece1b7e21d7a30eb350f0e6"
+    },
+    {
+      "name": "menu-180m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.menu-180m.png",
+      "sha256": "a08b181696973fb2891348f1d346dd86fb1d46bcfece1b7e21d7a30eb350f0e6"
+    },
+    {
+      "name": "end",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json.end.png",
+      "sha256": "9f4009d0694724737bbab29f89f93d22f78cfdea45a90eb01b4848029898cbc5"
+    }
+  ],
+  "errors": [],
+  "finalSave": {
+    "version": 3,
+    "level": 16,
+    "xp": 2221,
+    "killCount": 71,
+    "coins": 1272,
+    "items": {
+      "sword_shard": 5,
+      "bone": 2,
+      "crown": 1,
+      "slime_gel": 5
+    },
+    "monsterIndex": 71,
+    "monsterSpeciesId": "grumblode",
+    "monsterHp": "828963",
+    "companions": [
+      {
+        "id": "c1",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c2",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c3",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c4",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c5",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c6",
+        "speciesId": "kelpwarden",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c7",
+        "speciesId": "quagmaw",
+        "bossIndex": 23,
+        "level": 1,
+        "stars": 0
+      }
+    ],
+    "nextCompanionId": 8,
+    "earlyCaptureUsed": 5,
+    "souls": 0,
+    "rebirths": 0,
+    "bestIndex": 71,
+    "pvpParty": [],
+    "releasedCount": 0,
+    "progress": {
+      "playTimeMs": 10798807.999999998,
+      "speciesKills": {
+        "slime": 1,
+        "lantessa": 2,
+        "gillstub": 1,
+        "spadeling": 1,
+        "ghost": 1,
+        "whirlseed": 1,
+        "kelpwarden": 1,
+        "thornhare": 1,
+        "kraulk": 1,
+        "pyrecairn": 1,
+        "quietus": 2,
+        "flintwren": 1,
+        "voidmaw": 1,
+        "kitekin": 2,
+        "mournbell": 2,
+        "clubprawn": 2,
+        "bramblebear": 1,
+        "lichenwing": 2,
+        "bat": 2,
+        "brimhide": 3,
+        "quarryback": 2,
+        "quagmaw": 1,
+        "hexweaver": 1,
+        "gravebloom": 2,
+        "kilnshell": 2,
+        "forgehulk": 1,
+        "sporeplume": 1,
+        "nimbling": 2,
+        "gulpwick": 1,
+        "dawnfinch": 2,
+        "anchornaut": 2,
+        "gyrodillo": 1,
+        "sorrowstilt": 1,
+        "hollowstag": 1,
+        "bristlehog": 1,
+        "dragon": 2,
+        "charspine": 1,
+        "steamfin": 1,
+        "glasshade": 1,
+        "duskarmadillo": 3,
+        "flarecrow": 1,
+        "lumibel": 1,
+        "snipclaw": 1,
+        "waxwick": 1,
+        "shroudlamp": 1,
+        "cobbleroll": 1,
+        "zephyrstag": 1,
+        "gallowplate": 1,
+        "murkin": 1,
+        "vaneknight": 1,
+        "grumbol": 1,
+        "unblink": 1,
+        "conchguard": 1
+      },
+      "seenMonsters": [
+        "slime",
+        "lantessa",
+        "gillstub",
+        "spadeling",
+        "ghost",
+        "whirlseed",
+        "kelpwarden",
+        "thornhare",
+        "kraulk",
+        "pyrecairn",
+        "quietus",
+        "flintwren",
+        "voidmaw",
+        "kitekin",
+        "mournbell",
+        "clubprawn",
+        "bramblebear",
+        "lichenwing",
+        "bat",
+        "brimhide",
+        "quarryback",
+        "quagmaw",
+        "hexweaver",
+        "gravebloom",
+        "kilnshell",
+        "forgehulk",
+        "sporeplume",
+        "nimbling",
+        "gulpwick",
+        "dawnfinch",
+        "anchornaut",
+        "gyrodillo",
+        "sorrowstilt",
+        "hollowstag",
+        "bristlehog",
+        "dragon",
+        "charspine",
+        "steamfin",
+        "glasshade",
+        "duskarmadillo",
+        "flarecrow",
+        "lumibel",
+        "snipclaw",
+        "waxwick",
+        "shroudlamp",
+        "cobbleroll",
+        "zephyrstag",
+        "gallowplate",
+        "murkin",
+        "vaneknight",
+        "grumbol",
+        "unblink",
+        "conchguard",
+        "grumblode"
+      ],
+      "seenHeroes": [],
+      "heroCounts": {},
+      "reincarnationHistory": [],
+      "pvpWins": 0,
+      "pvpLosses": 0,
+      "goldSpent": 0,
+      "rareMisses": 1,
+      "trainingLevel": 0,
+      "lureRemaining": 0,
+      "shopSerial": 0,
+      "legacyHistory": false,
+      "codex": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [],
+        "goal": null
+      }
+    }
+  },
+  "summary": {
+    "cpuP95": 2.6942598635365265,
+    "workingSetMiBP95": 251.203125,
+    "initialMemoryMedian": 229.015625,
+    "finalMemoryMedian": 208.671875
+  },
+  "passed": true
+}

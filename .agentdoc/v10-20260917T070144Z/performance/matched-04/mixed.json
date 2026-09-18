@@ -1,0 +1,1071 @@
+{
+  "version": 1,
+  "profile": "mixed",
+  "requestedMinutes": 180,
+  "startedAt": "2026-09-17T21:25:53.496Z",
+  "finishedAt": "2026-09-18T00:25:55.155Z",
+  "observationMs": 10801615.990708001,
+  "inputCount": 10653,
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+  "checks": {
+    "duration": true,
+    "metrics": true,
+    "samples": true,
+    "progress": true,
+    "inputs": true,
+    "errors": true,
+    "appUnchanged": true,
+    "observerUnchanged": true
+  },
+  "exitCode": 0,
+  "exitSignal": null,
+  "lifecyclePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.lifecycle.json",
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 74722,
+        "ppid": 74721,
+        "pgid": 74721,
+        "started": "Fri Sep 18 06:25:52 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-wzFq6S"
+      },
+      {
+        "pid": 74726,
+        "ppid": 74722,
+        "pgid": 74721,
+        "started": "Fri Sep 18 06:25:53 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-wzFq6S --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,16833596200980131676,12176729988136112403,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=37"
+      },
+      {
+        "pid": 74727,
+        "ppid": 74722,
+        "pgid": 74721,
+        "started": "Fri Sep 18 06:25:53 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-wzFq6S --shared-files --field-trial-handle=1718379636,r,16833596200980131676,12176729988136112403,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=37"
+      },
+      {
+        "pid": 74729,
+        "ppid": 74722,
+        "pgid": 74721,
+        "started": "Fri Sep 18 06:25:53 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-wzFq6S --app-path=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757595930819 --launch-time-ticks=922757320547 --shared-files --field-trial-handle=1718379636,r,16833596200980131676,12176729988136112403,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=57"
+      },
+      {
+        "pid": 74738,
+        "ppid": 74722,
+        "pgid": 74721,
+        "started": "Fri Sep 18 06:25:54 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=audio.mojom.AudioService --lang=ko --service-sandbox-type=audio --message-loop-type-ui --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-wzFq6S --shared-files --field-trial-handle=1718379636,r,16833596200980131676,12176729988136112403,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990997080739 --seatbelt-client=59"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 74722,
+        "signal": "SIGTERM",
+        "at": "2026-09-18T00:25:55.578Z"
+      }
+    ],
+    "finishedAt": "2026-09-18T00:25:55.739Z"
+  },
+  "cancelSignal": null,
+  "lastObserved": {
+    "source": "last-sample",
+    "elapsedMs": 10800004.564749999,
+    "inputs": 10650,
+    "save": {
+      "version": 4,
+      "level": 18,
+      "xp": 1871,
+      "killCount": 95,
+      "coins": "2272",
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {
+        "sword_shard": 6,
+        "slime_gel": 7,
+        "gem": 4,
+        "bone": 4,
+        "crown": 2
+      },
+      "monsterIndex": 95,
+      "monsterSpeciesId": "cindercoil",
+      "monsterHp": "6519191",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c6",
+          "speciesId": "scorchbriar",
+          "bossIndex": 15,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c7",
+          "speciesId": "skitterel",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c8",
+          "speciesId": "chirrgrit",
+          "bossIndex": 71,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 9,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 95,
+      "pvpParty": [],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 10795013.899999928,
+        "speciesKills": {
+          "slime": 2,
+          "emberwren": 2,
+          "millox": 3,
+          "vespril": 1,
+          "brimhide": 2,
+          "kilnshell": 1,
+          "clubprawn": 2,
+          "kabulk": 1,
+          "lichenwing": 3,
+          "drusehog": 3,
+          "flintwren": 2,
+          "slagram": 1,
+          "whirlseed": 2,
+          "scorchbriar": 1,
+          "forgehulk": 1,
+          "sumpfang": 1,
+          "bellbuoy": 1,
+          "nubilan": 1,
+          "snipclaw": 1,
+          "conchguard": 2,
+          "wickmoth": 1,
+          "sorrowstilt": 1,
+          "quintel": 2,
+          "curlhart": 2,
+          "dartfinch": 2,
+          "rainheron": 1,
+          "dawnfinch": 3,
+          "skitterel": 1,
+          "sopwit": 2,
+          "bramblebear": 1,
+          "brammel": 3,
+          "pyrecairn": 1,
+          "anchornaut": 3,
+          "chimbrel": 1,
+          "matchling": 2,
+          "quietus": 1,
+          "cindercoil": 1,
+          "coalscythe": 1,
+          "sporeplume": 1,
+          "gallowplate": 1,
+          "terrakin": 1,
+          "kelpwarden": 1,
+          "helmdelver": 1,
+          "duskarmadillo": 2,
+          "sicklehood": 2,
+          "bat": 2,
+          "mistaxolotl": 1,
+          "hooklure": 1,
+          "anvilclaw": 2,
+          "fanjack": 1,
+          "lumibel": 1,
+          "glidefin": 1,
+          "inknuckle": 1,
+          "zephyrstag": 3,
+          "glasshade": 1,
+          "chirrgrit": 1,
+          "veilcap": 1,
+          "thornhare": 1,
+          "steamfin": 1,
+          "chainwraith": 1,
+          "moonmoth": 1,
+          "slushmaw": 1,
+          "rictus": 1,
+          "spadeling": 1,
+          "voidmaw": 1
+        },
+        "seenMonsters": [
+          "slime",
+          "emberwren",
+          "millox",
+          "vespril",
+          "brimhide",
+          "kilnshell",
+          "clubprawn",
+          "kabulk",
+          "lichenwing",
+          "drusehog",
+          "flintwren",
+          "slagram",
+          "whirlseed",
+          "scorchbriar",
+          "forgehulk",
+          "sumpfang",
+          "bellbuoy",
+          "nubilan",
+          "snipclaw",
+          "conchguard",
+          "wickmoth",
+          "sorrowstilt",
+          "quintel",
+          "curlhart",
+          "dartfinch",
+          "rainheron",
+          "dawnfinch",
+          "skitterel",
+          "sopwit",
+          "bramblebear",
+          "brammel",
+          "pyrecairn",
+          "anchornaut",
+          "chimbrel",
+          "matchling",
+          "quietus",
+          "cindercoil",
+          "coalscythe",
+          "sporeplume",
+          "gallowplate",
+          "terrakin",
+          "kelpwarden",
+          "helmdelver",
+          "duskarmadillo",
+          "sicklehood",
+          "bat",
+          "mistaxolotl",
+          "hooklure",
+          "anvilclaw",
+          "fanjack",
+          "lumibel",
+          "glidefin",
+          "inknuckle",
+          "zephyrstag",
+          "glasshade",
+          "chirrgrit",
+          "veilcap",
+          "thornhare",
+          "steamfin",
+          "chainwraith",
+          "moonmoth",
+          "slushmaw",
+          "rictus",
+          "spadeling",
+          "voidmaw"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": "0",
+        "rareMisses": 1,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      },
+      "equipment": {
+        "bag": [
+          {
+            "id": "e25",
+            "templateId": "w-dagger-uncommon-1",
+            "enhancement": "0",
+            "roll": 90,
+            "seed": 3618540514,
+            "attempts": "0"
+          },
+          {
+            "id": "e26",
+            "templateId": "w-greatsword-common-3",
+            "enhancement": "0",
+            "roll": 106,
+            "seed": 1555842967,
+            "attempts": "0"
+          }
+        ],
+        "loadout": {
+          "weapon": {
+            "id": "e51",
+            "templateId": "w-gun-uncommon-3",
+            "enhancement": "0",
+            "roll": 108,
+            "seed": 2641020495,
+            "attempts": "0"
+          },
+          "accessories": []
+        },
+        "temporary": [],
+        "capacity": 24,
+        "expansions": 0,
+        "revision": 25,
+        "temporaryRevision": 0,
+        "heroChangeSerial": 0,
+        "nextId": 64,
+        "rngState": 2441778519,
+        "acquired": {
+          "w-dagger-uncommon-1": 1,
+          "w-greatsword-common-3": 1,
+          "w-gun-uncommon-3": 1
+        },
+        "shop": {
+          "serial": 5,
+          "nextRefreshAt": 1789693200000,
+          "lastObservedAt": 1789691150399,
+          "stock": [
+            {
+              "id": "e52",
+              "templateId": "w-sword-rare-2",
+              "enhancement": "0",
+              "roll": 93,
+              "seed": 2752768878,
+              "attempts": "0"
+            },
+            {
+              "id": "e53",
+              "templateId": "a-charm-party-uncommon-2",
+              "enhancement": "0",
+              "roll": 104,
+              "seed": 63008750,
+              "attempts": "0"
+            },
+            {
+              "id": "e54",
+              "templateId": "a-necklace-critical-rare-1",
+              "enhancement": "0",
+              "roll": 90,
+              "seed": 61736778,
+              "attempts": "0"
+            },
+            {
+              "id": "e55",
+              "templateId": "a-charm-party-rare-4",
+              "enhancement": "0",
+              "roll": 102,
+              "seed": 2834281720,
+              "attempts": "0"
+            },
+            {
+              "id": "e56",
+              "templateId": "a-charm-critical-uncommon-3",
+              "enhancement": "0",
+              "roll": 105,
+              "seed": 4016712996,
+              "attempts": "0"
+            },
+            {
+              "id": "e57",
+              "templateId": "w-spear-rare-4",
+              "enhancement": "0",
+              "roll": 93,
+              "seed": 423940556,
+              "attempts": "0"
+            },
+            {
+              "id": "e58",
+              "templateId": "w-spear-uncommon-3",
+              "enhancement": "0",
+              "roll": 90,
+              "seed": 1862729902,
+              "attempts": "0"
+            },
+            {
+              "id": "e59",
+              "templateId": "w-spear-common-4",
+              "enhancement": "0",
+              "roll": 92,
+              "seed": 502564200,
+              "attempts": "0"
+            },
+            {
+              "id": "e60",
+              "templateId": "a-necklace-party-rare-2",
+              "enhancement": "0",
+              "roll": 108,
+              "seed": 4249672167,
+              "attempts": "0"
+            },
+            {
+              "id": "e61",
+              "templateId": "w-greatsword-common-3",
+              "enhancement": "0",
+              "roll": 94,
+              "seed": 4263925896,
+              "attempts": "0"
+            },
+            {
+              "id": "e62",
+              "templateId": "w-spear-rare-1",
+              "enhancement": "0",
+              "roll": 98,
+              "seed": 2069897372,
+              "attempts": "0"
+            },
+            {
+              "id": "e63",
+              "templateId": "a-necklace-party-uncommon-2",
+              "enhancement": "0",
+              "roll": 93,
+              "seed": 3246638643,
+              "attempts": "0"
+            }
+          ],
+          "boughtIds": []
+        }
+      }
+    }
+  },
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "25.2.0",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12
+  },
+  "metadata": {
+    "version": "0.10.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    },
+    "fixture": {
+      "version": 4,
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": "0",
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {},
+      "monsterIndex": 0,
+      "monsterHp": "10",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 0,
+      "pvpParty": [],
+      "releasedCount": 0
+    }
+  },
+  "isolation": {
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-wzFq6S",
+    "globalHooks": false,
+    "osPermissionPrompts": false,
+    "network": "offline",
+    "input": "synthetic production IPC",
+    "time": "real wall time; no engine ticks injected"
+  },
+  "raw": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.samples.jsonl",
+    "sha256": "f0e8b5ca8d3dcaeae8248b32f2589b8c5b0af7d1f33d2aae8d8c5ce7f032ff2c",
+    "samples": 2152
+  },
+  "screenshots": [
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.start.png",
+      "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+    },
+    {
+      "name": "menu-10m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-10m.png",
+      "sha256": "37cc8a53e1012a241c0ad4a73c156b2d4d676fccb21673ef499e5cdbd73690b8"
+    },
+    {
+      "name": "menu-20m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-20m.png",
+      "sha256": "e10447985bcd7afe75ec3da102cf38dfb10bafa8784eb1136fd6994b8e300e99"
+    },
+    {
+      "name": "menu-30m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-30m.png",
+      "sha256": "cb27ef888a3413a13d47fd2c9fb60e5b41ddf181d3036146a96626f73dc5afef"
+    },
+    {
+      "name": "menu-40m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-40m.png",
+      "sha256": "48f4bda05705eae7f04a7d9ac29b3be293d19d494b5621007d3df23821ef4cb6"
+    },
+    {
+      "name": "menu-50m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-50m.png",
+      "sha256": "48f4bda05705eae7f04a7d9ac29b3be293d19d494b5621007d3df23821ef4cb6"
+    },
+    {
+      "name": "menu-60m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-60m.png",
+      "sha256": "cc2c646da626c39a324cff78cae12149643d982a352e713f074e077ded8eabc0"
+    },
+    {
+      "name": "menu-70m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-70m.png",
+      "sha256": "530fe537c13fc4978eb18285a341180c95f664752ca7b4eed8953d130417273d"
+    },
+    {
+      "name": "menu-80m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-80m.png",
+      "sha256": "e81e18b8cdee186e7708de901f1a3a3ded048e188a8b8dfbd59ac11fa63b497a"
+    },
+    {
+      "name": "menu-90m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-90m.png",
+      "sha256": "dd347b6ca02b1884bf0227ea75ce7c861026b7ba0462a5f78c1b2dfdd23f71ea"
+    },
+    {
+      "name": "menu-100m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-100m.png",
+      "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+    },
+    {
+      "name": "menu-110m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-110m.png",
+      "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+    },
+    {
+      "name": "menu-120m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-120m.png",
+      "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+    },
+    {
+      "name": "menu-130m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-130m.png",
+      "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+    },
+    {
+      "name": "menu-140m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-140m.png",
+      "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+    },
+    {
+      "name": "menu-150m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-150m.png",
+      "sha256": "8113460d3a1e45b93ae7da0c041a9946bda42b806ae142ae920fafe36ebb008f"
+    },
+    {
+      "name": "menu-160m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-160m.png",
+      "sha256": "a26abe941a4a65afe15ad9fa61325c9ef9827a19e8cf68cc36f7125a21bb361c"
+    },
+    {
+      "name": "menu-170m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-170m.png",
+      "sha256": "8ee199e42f36832fd9f8cdc1abf0f4fbdb3509656cef9e775279583a6f095247"
+    },
+    {
+      "name": "menu-180m",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.menu-180m.png",
+      "sha256": "09d7d46a08af44f41aae9b0b4e14472ba99f9cc0853aca772e0e23efd77016ad"
+    },
+    {
+      "name": "end",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.end.png",
+      "sha256": "163ca4819f11c44288f06ea341ecc815f3a2fac7d12e138b61305ca838757f91"
+    }
+  ],
+  "errors": [],
+  "finalSave": {
+    "version": 4,
+    "level": 18,
+    "xp": 1871,
+    "killCount": 95,
+    "coins": "2272",
+    "pvpGoldNet": "0",
+    "pvpGoldDebt": "0",
+    "items": {
+      "sword_shard": 6,
+      "slime_gel": 7,
+      "gem": 4,
+      "bone": 4,
+      "crown": 2
+    },
+    "monsterIndex": 95,
+    "monsterSpeciesId": "cindercoil",
+    "monsterHp": "6497441",
+    "companions": [
+      {
+        "id": "c1",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c2",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c3",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c4",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c5",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c6",
+        "speciesId": "scorchbriar",
+        "bossIndex": 15,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c7",
+        "speciesId": "skitterel",
+        "bossIndex": 31,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c8",
+        "speciesId": "chirrgrit",
+        "bossIndex": 71,
+        "level": 1,
+        "stars": 0
+      }
+    ],
+    "nextCompanionId": 9,
+    "earlyCaptureUsed": 5,
+    "souls": 0,
+    "rebirths": 0,
+    "bestIndex": 95,
+    "pvpParty": [],
+    "releasedCount": 0,
+    "progress": {
+      "playTimeMs": 10798588.599999929,
+      "speciesKills": {
+        "slime": 2,
+        "emberwren": 2,
+        "millox": 3,
+        "vespril": 1,
+        "brimhide": 2,
+        "kilnshell": 1,
+        "clubprawn": 2,
+        "kabulk": 1,
+        "lichenwing": 3,
+        "drusehog": 3,
+        "flintwren": 2,
+        "slagram": 1,
+        "whirlseed": 2,
+        "scorchbriar": 1,
+        "forgehulk": 1,
+        "sumpfang": 1,
+        "bellbuoy": 1,
+        "nubilan": 1,
+        "snipclaw": 1,
+        "conchguard": 2,
+        "wickmoth": 1,
+        "sorrowstilt": 1,
+        "quintel": 2,
+        "curlhart": 2,
+        "dartfinch": 2,
+        "rainheron": 1,
+        "dawnfinch": 3,
+        "skitterel": 1,
+        "sopwit": 2,
+        "bramblebear": 1,
+        "brammel": 3,
+        "pyrecairn": 1,
+        "anchornaut": 3,
+        "chimbrel": 1,
+        "matchling": 2,
+        "quietus": 1,
+        "cindercoil": 1,
+        "coalscythe": 1,
+        "sporeplume": 1,
+        "gallowplate": 1,
+        "terrakin": 1,
+        "kelpwarden": 1,
+        "helmdelver": 1,
+        "duskarmadillo": 2,
+        "sicklehood": 2,
+        "bat": 2,
+        "mistaxolotl": 1,
+        "hooklure": 1,
+        "anvilclaw": 2,
+        "fanjack": 1,
+        "lumibel": 1,
+        "glidefin": 1,
+        "inknuckle": 1,
+        "zephyrstag": 3,
+        "glasshade": 1,
+        "chirrgrit": 1,
+        "veilcap": 1,
+        "thornhare": 1,
+        "steamfin": 1,
+        "chainwraith": 1,
+        "moonmoth": 1,
+        "slushmaw": 1,
+        "rictus": 1,
+        "spadeling": 1,
+        "voidmaw": 1
+      },
+      "seenMonsters": [
+        "slime",
+        "emberwren",
+        "millox",
+        "vespril",
+        "brimhide",
+        "kilnshell",
+        "clubprawn",
+        "kabulk",
+        "lichenwing",
+        "drusehog",
+        "flintwren",
+        "slagram",
+        "whirlseed",
+        "scorchbriar",
+        "forgehulk",
+        "sumpfang",
+        "bellbuoy",
+        "nubilan",
+        "snipclaw",
+        "conchguard",
+        "wickmoth",
+        "sorrowstilt",
+        "quintel",
+        "curlhart",
+        "dartfinch",
+        "rainheron",
+        "dawnfinch",
+        "skitterel",
+        "sopwit",
+        "bramblebear",
+        "brammel",
+        "pyrecairn",
+        "anchornaut",
+        "chimbrel",
+        "matchling",
+        "quietus",
+        "cindercoil",
+        "coalscythe",
+        "sporeplume",
+        "gallowplate",
+        "terrakin",
+        "kelpwarden",
+        "helmdelver",
+        "duskarmadillo",
+        "sicklehood",
+        "bat",
+        "mistaxolotl",
+        "hooklure",
+        "anvilclaw",
+        "fanjack",
+        "lumibel",
+        "glidefin",
+        "inknuckle",
+        "zephyrstag",
+        "glasshade",
+        "chirrgrit",
+        "veilcap",
+        "thornhare",
+        "steamfin",
+        "chainwraith",
+        "moonmoth",
+        "slushmaw",
+        "rictus",
+        "spadeling",
+        "voidmaw"
+      ],
+      "seenHeroes": [],
+      "heroCounts": {},
+      "reincarnationHistory": [],
+      "pvpWins": 0,
+      "pvpLosses": 0,
+      "goldSpent": "0",
+      "rareMisses": 1,
+      "trainingLevel": 0,
+      "lureRemaining": 0,
+      "shopSerial": 0,
+      "legacyHistory": false,
+      "codex": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [],
+        "goal": null
+      }
+    },
+    "equipment": {
+      "bag": [
+        {
+          "id": "e25",
+          "templateId": "w-dagger-uncommon-1",
+          "enhancement": "0",
+          "roll": 90,
+          "seed": 3618540514,
+          "attempts": "0"
+        },
+        {
+          "id": "e26",
+          "templateId": "w-greatsword-common-3",
+          "enhancement": "0",
+          "roll": 106,
+          "seed": 1555842967,
+          "attempts": "0"
+        }
+      ],
+      "loadout": {
+        "weapon": {
+          "id": "e51",
+          "templateId": "w-gun-uncommon-3",
+          "enhancement": "0",
+          "roll": 108,
+          "seed": 2641020495,
+          "attempts": "0"
+        },
+        "accessories": []
+      },
+      "temporary": [],
+      "capacity": 24,
+      "expansions": 0,
+      "revision": 25,
+      "temporaryRevision": 0,
+      "heroChangeSerial": 0,
+      "nextId": 64,
+      "rngState": 2441778519,
+      "acquired": {
+        "w-dagger-uncommon-1": 1,
+        "w-greatsword-common-3": 1,
+        "w-gun-uncommon-3": 1
+      },
+      "shop": {
+        "serial": 5,
+        "nextRefreshAt": 1789693200000,
+        "lastObservedAt": 1789691153978,
+        "stock": [
+          {
+            "id": "e52",
+            "templateId": "w-sword-rare-2",
+            "enhancement": "0",
+            "roll": 93,
+            "seed": 2752768878,
+            "attempts": "0"
+          },
+          {
+            "id": "e53",
+            "templateId": "a-charm-party-uncommon-2",
+            "enhancement": "0",
+            "roll": 104,
+            "seed": 63008750,
+            "attempts": "0"
+          },
+          {
+            "id": "e54",
+            "templateId": "a-necklace-critical-rare-1",
+            "enhancement": "0",
+            "roll": 90,
+            "seed": 61736778,
+            "attempts": "0"
+          },
+          {
+            "id": "e55",
+            "templateId": "a-charm-party-rare-4",
+            "enhancement": "0",
+            "roll": 102,
+            "seed": 2834281720,
+            "attempts": "0"
+          },
+          {
+            "id": "e56",
+            "templateId": "a-charm-critical-uncommon-3",
+            "enhancement": "0",
+            "roll": 105,
+            "seed": 4016712996,
+            "attempts": "0"
+          },
+          {
+            "id": "e57",
+            "templateId": "w-spear-rare-4",
+            "enhancement": "0",
+            "roll": 93,
+            "seed": 423940556,
+            "attempts": "0"
+          },
+          {
+            "id": "e58",
+            "templateId": "w-spear-uncommon-3",
+            "enhancement": "0",
+            "roll": 90,
+            "seed": 1862729902,
+            "attempts": "0"
+          },
+          {
+            "id": "e59",
+            "templateId": "w-spear-common-4",
+            "enhancement": "0",
+            "roll": 92,
+            "seed": 502564200,
+            "attempts": "0"
+          },
+          {
+            "id": "e60",
+            "templateId": "a-necklace-party-rare-2",
+            "enhancement": "0",
+            "roll": 108,
+            "seed": 4249672167,
+            "attempts": "0"
+          },
+          {
+            "id": "e61",
+            "templateId": "w-greatsword-common-3",
+            "enhancement": "0",
+            "roll": 94,
+            "seed": 4263925896,
+            "attempts": "0"
+          },
+          {
+            "id": "e62",
+            "templateId": "w-spear-rare-1",
+            "enhancement": "0",
+            "roll": 98,
+            "seed": 2069897372,
+            "attempts": "0"
+          },
+          {
+            "id": "e63",
+            "templateId": "a-necklace-party-uncommon-2",
+            "enhancement": "0",
+            "roll": 93,
+            "seed": 3246638643,
+            "attempts": "0"
+          }
+        ],
+        "boughtIds": []
+      }
+    }
+  },
+  "summary": {
+    "cpuP95": 4.165332631092766,
+    "workingSetMiBP95": 330.09375,
+    "initialMemoryMedian": 303.25,
+    "finalMemoryMedian": 300
+  },
+  "passed": true
+}

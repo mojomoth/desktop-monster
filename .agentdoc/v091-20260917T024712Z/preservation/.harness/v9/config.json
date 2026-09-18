@@ -1,0 +1,126 @@
+{
+  "version": 9,
+  "productVersion": "0.9.0",
+  "roles": [
+    "/root/designer",
+    "/root/critic",
+    "/root/balance",
+    "/root"
+  ],
+  "tasks": [
+    {
+      "id": "V09-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v9",
+        "docs/v0.9"
+      ],
+      "ac": "node --test .harness/v9/run.test.mjs"
+    },
+    {
+      "id": "V09-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V09-01"
+      ],
+      "files": [
+        "src/server",
+        "src/core",
+        "src/shared/api.ts"
+      ],
+      "ac": "npx vitest run tests/server tests/progressionV7.test.ts tests/save.test.ts"
+    },
+    {
+      "id": "V09-03",
+      "owner": "Host",
+      "dependencies": [
+        "V09-02"
+      ],
+      "files": [
+        "src/main",
+        "src/preload",
+        "src/shared/ipc.ts",
+        "src/renderer/index.ts"
+      ],
+      "ac": "npx vitest run tests/recoveryV9.test.ts tests/onlineV9.test.ts tests/ipc.test.ts"
+    },
+    {
+      "id": "V09-04",
+      "owner": "Host",
+      "dependencies": [
+        "V09-03"
+      ],
+      "files": [
+        "src/menu/index.ts",
+        "src/menu/view.ts",
+        "static/menu.html",
+        "static/menu.css"
+      ],
+      "ac": "npx vitest run tests/menu.test.ts tests/pvpDirectoryV7.test.ts tests/menuV9.test.ts"
+    },
+    {
+      "id": "V09-05",
+      "owner": "Designer",
+      "dependencies": [
+        "V09-01"
+      ],
+      "files": [
+        "src/renderer/game.ts",
+        "src/renderer/hud.ts",
+        "src/renderer/effects.ts",
+        "src/renderer/particles.ts"
+      ],
+      "ac": "npx vitest run tests/renderer.test.ts tests/effects-v09.test.ts tests/hud-v09.test.ts"
+    },
+    {
+      "id": "V09-06",
+      "owner": "Designer/Host",
+      "dependencies": [
+        "V09-04",
+        "V09-05"
+      ],
+      "files": [
+        "src/menu/share.ts",
+        "src/menu/shareUi.ts",
+        "src/main/share.ts"
+      ],
+      "ac": "npx vitest run tests/shareV9.test.ts tests/share.test.ts tests/shareUiV9.test.ts"
+    },
+    {
+      "id": "V09-07",
+      "owner": "Host",
+      "dependencies": [
+        "V09-03"
+      ],
+      "files": [
+        "package.json",
+        "package-lock.json",
+        "src/main/steam.ts",
+        "scripts",
+        ".github"
+      ],
+      "ac": "npx vitest run tests/platformV9.test.ts"
+    },
+    {
+      "id": "V09-08",
+      "owner": "Host/Critic",
+      "dependencies": [
+        "V09-02",
+        "V09-03",
+        "V09-04",
+        "V09-05",
+        "V09-06",
+        "V09-07"
+      ],
+      "files": [
+        "src",
+        "static",
+        "tests",
+        "package.json",
+        "package-lock.json"
+      ],
+      "ac": "npm run smoke && npm run package"
+    }
+  ]
+}

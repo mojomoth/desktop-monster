@@ -1,0 +1,1465 @@
+{
+  "capturedAt": "2026-09-13T03:22:23.268Z",
+  "mode": "read-only-closeout-facts",
+  "reexecutionOfTestsOrMeasurements": false,
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "expectedFrozenSource": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "expectedFrozenEvaluation": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "packageVersion": "0.7.0",
+  "lockVersion": "0.7.0",
+  "lockRootVersion": "0.7.0",
+  "current": "v3",
+  "phase": "release",
+  "tasks": [
+    {
+      "id": "H07-01",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-11T13:23:37.386Z",
+        "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+        "evaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+        "currentSourceMatches": false,
+        "currentEvaluatorMatches": false,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/setup.md",
+          "sha256": "d4e53a6b1e4252049feb58b6959e4c3df2dcfa09d65787eb1cd40e7237b729dd"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": ".harness/v7/HARNESS.md",
+            "expected": "e8a9141592f89df1b7befd31033f418ae43354fe775116e2250c8b0bc30bc338",
+            "current": "e8a9141592f89df1b7befd31033f418ae43354fe775116e2250c8b0bc30bc338",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/agents/balance.md",
+            "expected": "e5000e0a58551cf81356b6803eef9d1881e2bbf6da084f5042b68e87995a9b9a",
+            "current": "e5000e0a58551cf81356b6803eef9d1881e2bbf6da084f5042b68e87995a9b9a",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/agents/critic.md",
+            "expected": "ad5c4f74470fb9cb883dabb31f63c6c77f133a1d6ccaa0445e0b688539e5e8f6",
+            "current": "ad5c4f74470fb9cb883dabb31f63c6c77f133a1d6ccaa0445e0b688539e5e8f6",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/agents/designer.md",
+            "expected": "48b4f69fd54e73cf2f91d01abcdcbe4e9434f584cdb27e88f2bd06f5fb2a35d5",
+            "current": "48b4f69fd54e73cf2f91d01abcdcbe4e9434f584cdb27e88f2bd06f5fb2a35d5",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/agents/playtester.md",
+            "expected": "dd7c718b35075800e6b4de2c04ea41f1dac20ed8b92b627d8056fd9620203403",
+            "current": "dd7c718b35075800e6b4de2c04ea41f1dac20ed8b92b627d8056fd9620203403",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/config.json",
+            "expected": "c384bd2142a2bac9ced0347bbd8c6377536855c6166113ffc25d6fb32f7f5e9d",
+            "current": "3497ab47888310d7d5875fe611077d2c40ec0fa32a2d7084b1c604fa5bc27379",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/audit.mjs",
+            "expected": "f9b0ca51071f5162d09598fa1cb924a92760c8dad5c22d9cb12ce993c0a503e0",
+            "current": "f9b0ca51071f5162d09598fa1cb924a92760c8dad5c22d9cb12ce993c0a503e0",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/audit.test.ts",
+            "expected": "7e23fad73ef117732b2aef0801de2c98365a8a13a2fc5387b70c40748d9da7e1",
+            "current": "7e23fad73ef117732b2aef0801de2c98365a8a13a2fc5387b70c40748d9da7e1",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/config.mjs",
+            "expected": "b24e2057581aec3594ce1838082d1800e038a9fd39390d7cc3216d6ee551767b",
+            "current": "e2d7966d8f967235d2d319a4fb7fc23b441745d8d9c3e0533686549febbb4e53",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/config.test.ts",
+            "expected": "323c905aa2b9b47ce75aa3c2568d87bcbb8bf03a6fdb731ff938bc1d8e050b24",
+            "current": "25a72f0f3401e596852bb170bb0044f0e7acc2ef5363a5e835718742adad7d15",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/develop.mjs",
+            "expected": "9ec191d713b4ede310fb7e24de76e2e537e2c2cc9517e8df5d2e92d4c99884ae",
+            "current": "9ec191d713b4ede310fb7e24de76e2e537e2c2cc9517e8df5d2e92d4c99884ae",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/develop.test.ts",
+            "expected": "e8dd390d2ce048b572cdea05b55ece7e004c2c7c90bcb30293b1fc3c939f0622",
+            "current": "e8dd390d2ce048b572cdea05b55ece7e004c2c7c90bcb30293b1fc3c939f0622",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e-matrix.mjs",
+            "expected": "1f7b1df9f9fa317832b65dd032e5d0e0bdd4b31d263a2bedd100d3c07e0c850f",
+            "current": "02f320e2405b678c53296622d73b08052ca480b7a97732e6399af4594e42768d",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/e2e-matrix.test.ts",
+            "expected": "e5a818420ac5c23674aa80f1dd4efea2ccef6c37c51cf0627d92a6602d85cff6",
+            "current": "da63052d7e91a3d1d1efd62996b1ec27523296e49e36e63238ec4931b6ef32e9",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/e2e.mjs",
+            "expected": "f02a35611d62aaa858a9552b84ccb8e0cbdcc939a9a11d1e0b4a5fcb1257b0ad",
+            "current": "b442c80b180b2c9eab1b18e1f8d82b6c9ea605468427ede74d0f8392e3402d42",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/e2e.test.ts",
+            "expected": "174576e94995d95dd57908b19597d7c038c3bd4cd4e3066b7a2f4d5ef988bae5",
+            "current": "49a2e677338a669f1dec2c2ec41051d7be9f47094558bfe85f8771a49189c195",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/electron-e2e.cjs",
+            "expected": "7556e905f19df3edbbf95aa5e2c6c6cbcacc7c7b63116317da2a3c920975e85b",
+            "current": "4ebdd9e8f31b73a19c632245234fe5c064c8f9fc13d80258725420003c240cdf",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/evidence.mjs",
+            "expected": "891b093f5bfe6f0b3f2c8174a1bf752706f9c52229bb83da0fbd169c579a7dbd",
+            "current": "891b093f5bfe6f0b3f2c8174a1bf752706f9c52229bb83da0fbd169c579a7dbd",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/evidence.test.ts",
+            "expected": "af757d0728764d29caec529fe55e0d9af283cab6266b88a362edbb10feeaddf0",
+            "current": "af757d0728764d29caec529fe55e0d9af283cab6266b88a362edbb10feeaddf0",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/fun.mjs",
+            "expected": "d50279fcee073f4b46d1a042121b2056ec0a209b3cd5aecadb6021d382b1d410",
+            "current": "d50279fcee073f4b46d1a042121b2056ec0a209b3cd5aecadb6021d382b1d410",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/fun.test.ts",
+            "expected": "dd0bb176676911c4b434d7efb9a2ceb47634f61d63fc5eb4936748c88af74252",
+            "current": "dd0bb176676911c4b434d7efb9a2ceb47634f61d63fc5eb4936748c88af74252",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/journey.cjs",
+            "expected": "8e130041898e165e54e86b2f13ca81c8e6575d7f28d0b978f75df5b8eefa420b",
+            "current": "d8d31b4d14890b85e2f97a3c28041c416a21a6159a7b67e69c7b9c815a7ab581",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/measure-worker.mjs",
+            "expected": "88f5260766c2ba5767604591dad8d56908090de828fab31fffc59c08917f12c4",
+            "current": "88f5260766c2ba5767604591dad8d56908090de828fab31fffc59c08917f12c4",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/measure.mjs",
+            "expected": "25f725891fa7a82115148c1d8668984e49953399cb09ebbd079efab51041503d",
+            "current": "fd8db1feabfa33bf3c1ffcf3f64ce6bdc8e15c3ef52ee3a394f6dfce2e22e09a",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/measure.test.ts",
+            "expected": "bd20ada52196a97e6be0e8e3cb272e58ca2b7fb439cab57efb11a4c800b69e5c",
+            "current": "d57dd9d080efba88b34ec84350179a26ea0127d4a8a9ba1742298e2be9f4f02d",
+            "matches": false
+          },
+          {
+            "path": ".harness/v7/loop/package-check.mjs",
+            "expected": "f7b1d8fbd531d00b9c729250639c8390ceef865984e79dd546e382328fd7a5c7",
+            "current": "f7b1d8fbd531d00b9c729250639c8390ceef865984e79dd546e382328fd7a5c7",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/package-check.test.ts",
+            "expected": "b0d9b178c936e225028682c5e9ceea4593dcfb0817255532fbdfde7877ea1d7b",
+            "current": "b0d9b178c936e225028682c5e9ceea4593dcfb0817255532fbdfde7877ea1d7b",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/setup-check.mjs",
+            "expected": "81be28c94e552c5bade38646ad7320b9c712e95903fa21cc3073594c6b47831b",
+            "current": "81be28c94e552c5bade38646ad7320b9c712e95903fa21cc3073594c6b47831b",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/skills/desktop-companion-clicker/SKILL.md",
+            "expected": "7533bf7a366dfa296a286cfffeb0a79a197b3fae84ae40c4f7f891dcc508fbb4",
+            "current": "7533bf7a366dfa296a286cfffeb0a79a197b3fae84ae40c4f7f891dcc508fbb4",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/vitest.config.mts",
+            "expected": "7ace95472c52650421453eb99338fec636af97fc6000e16127c474fd30bd160b",
+            "current": "7ace95472c52650421453eb99338fec636af97fc6000e16127c474fd30bd160b",
+            "matches": true
+          },
+          {
+            "path": "docs/v0.7/ACCEPTANCE.md",
+            "expected": "ec2f3e0db5c6ac297450899984b0c3845a0ee7b3e1ea561a4da946d3719884eb",
+            "current": "9b6fab5139478b741220624c7fbe960aefa43fa2179c734e45febe6b7a296e63",
+            "matches": false
+          },
+          {
+            "path": "docs/v0.7/DEVELOPMENT_PLAN.md",
+            "expected": "4149097b5693f9ace3ffbbf09a6fbef20e50cb55390fc63d3ec1e358fe32be42",
+            "current": "4149097b5693f9ace3ffbbf09a6fbef20e50cb55390fc63d3ec1e358fe32be42",
+            "matches": true
+          },
+          {
+            "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+            "expected": "4f3e750638296ed12000e03597627866a55149714deabb0b80ccb964263b58ce",
+            "current": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+            "matches": false
+          },
+          {
+            "path": "docs/v0.7/HANDOFF.md",
+            "expected": "d7b2b00e8701d01f0a620fd97647637ce862fcd2b4c20c2aeb5112995f738fac",
+            "current": "f9646996aeb6aea32ccca47d8feb247d7d431be2bc95ea553d6ab9bde8cae9e4",
+            "matches": false
+          },
+          {
+            "path": "docs/v0.7/LOOP.md",
+            "expected": "a76a6e0188851c9baa4dd75def9e380e14572757b0800f4ba6cca2c307784f7c",
+            "current": "a76a6e0188851c9baa4dd75def9e380e14572757b0800f4ba6cca2c307784f7c",
+            "matches": true
+          },
+          {
+            "path": "docs/v0.7/START_PROMPT.md",
+            "expected": "f3c2ff6919f821e092214ed1188ac6d4d16f1c59ab1376e371b728f27843e7a7",
+            "current": "f3c2ff6919f821e092214ed1188ac6d4d16f1c59ab1376e371b728f27843e7a7",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest",
+          "exitCode": 0,
+          "at": "2026-09-11T13:13:32.658Z",
+          "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "endedDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "evaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "endedEvaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132407979.log",
+          "expectedLogSha256": "b24a8f09c17fb2dfad0115ea87daf41e5f14a0f0838bd3ff74500543444ad29a",
+          "actualLogSha256": "b24a8f09c17fb2dfad0115ea87daf41e5f14a0f0838bd3ff74500543444ad29a",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "preservation",
+          "command": "node .harness/v7/loop/setup-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'",
+          "exitCode": 0,
+          "at": "2026-09-11T13:21:18.254Z",
+          "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "endedDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "evaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "endedEvaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132878185.log",
+          "expectedLogSha256": "a3eeb0d62dda99732113344b967e11d20fa1e64fee9def1030482a1841de7fac",
+          "actualLogSha256": "a3eeb0d62dda99732113344b967e11d20fa1e64fee9def1030482a1841de7fac",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-11T13:15:01.729Z",
+          "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "endedDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "evaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "endedEvaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132418732.log",
+          "expectedLogSha256": "b5a3ed745d97785ebac8e8db957f5c84373a04c4c90ed367b4770735bf90053b",
+          "actualLogSha256": "b5a3ed745d97785ebac8e8db957f5c84373a04c4c90ed367b4770735bf90053b",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "baseline",
+          "command": "node .harness/v7/loop/measure.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/baseline.json --phase baseline",
+          "exitCode": 0,
+          "at": "2026-09-11T13:21:18.105Z",
+          "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "endedDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+          "evaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "endedEvaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132877692.log",
+          "expectedLogSha256": "6325b7ea40565d51a1e8f77f165eb1a79674648bfcfc62c4880d34448e9f4a24",
+          "actualLogSha256": "6325b7ea40565d51a1e8f77f165eb1a79674648bfcfc62c4880d34448e9f4a24",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        }
+      ]
+    },
+    {
+      "id": "V07-01",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-12T18:44:53.724Z",
+        "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+        "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+        "currentSourceMatches": true,
+        "currentEvaluatorMatches": true,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/V07-01-final-v070.md",
+          "sha256": "6be26a1e8499148d57422958ed7756e5c24d57beb3ed97bec41781722c55d076"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+            "expected": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+            "current": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+            "matches": true
+          },
+          {
+            "path": "docs/v0.7/DESIGN_DECISIONS.md",
+            "expected": "1dcb8e9a821f9b11d8f9ebd04d1c4d26b786a0c8f5f209c2d6bd54ad487e2c00",
+            "current": "1dcb8e9a821f9b11d8f9ebd04d1c4d26b786a0c8f5f209c2d6bd54ad487e2c00",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/config.mjs",
+            "expected": "e2d7966d8f967235d2d319a4fb7fc23b441745d8d9c3e0533686549febbb4e53",
+            "current": "e2d7966d8f967235d2d319a4fb7fc23b441745d8d9c3e0533686549febbb4e53",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/config.test.ts",
+            "expected": "25a72f0f3401e596852bb170bb0044f0e7acc2ef5363a5e835718742adad7d15",
+            "current": "25a72f0f3401e596852bb170bb0044f0e7acc2ef5363a5e835718742adad7d15",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/measure.mjs",
+            "expected": "fd8db1feabfa33bf3c1ffcf3f64ce6bdc8e15c3ef52ee3a394f6dfce2e22e09a",
+            "current": "fd8db1feabfa33bf3c1ffcf3f64ce6bdc8e15c3ef52ee3a394f6dfce2e22e09a",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/measure.test.ts",
+            "expected": "d57dd9d080efba88b34ec84350179a26ea0127d4a8a9ba1742298e2be9f4f02d",
+            "current": "d57dd9d080efba88b34ec84350179a26ea0127d4a8a9ba1742298e2be9f4f02d",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/server-check.mjs",
+            "expected": "83011d1ab7136c62e6a9a81afa5519c5d904209fd32d87962122ee3b62ebf3b1",
+            "current": "83011d1ab7136c62e6a9a81afa5519c5d904209fd32d87962122ee3b62ebf3b1",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/server-check.test.ts",
+            "expected": "1fd3626248ed4d7b3e11c6650f769bfa4e1a77c9d273b6bb824a1c9bf1e460b0",
+            "current": "1fd3626248ed4d7b3e11c6650f769bfa4e1a77c9d273b6bb824a1c9bf1e460b0",
+            "matches": true
+          },
+          {
+            "path": "src/core/progression.ts",
+            "expected": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+            "current": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+            "matches": true
+          },
+          {
+            "path": "tests/progressionV7.test.ts",
+            "expected": "18e06a53aae0c70416d4d0f4032abefc1686ee228e8173bc1f5443c38ab51dbb",
+            "current": "18e06a53aae0c70416d4d0f4032abefc1686ee228e8173bc1f5443c38ab51dbb",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/journey.cjs",
+            "expected": "d8d31b4d14890b85e2f97a3c28041c416a21a6159a7b67e69c7b9c815a7ab581",
+            "current": "d8d31b4d14890b85e2f97a3c28041c416a21a6159a7b67e69c7b9c815a7ab581",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e.mjs",
+            "expected": "b442c80b180b2c9eab1b18e1f8d82b6c9ea605468427ede74d0f8392e3402d42",
+            "current": "b442c80b180b2c9eab1b18e1f8d82b6c9ea605468427ede74d0f8392e3402d42",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e.test.ts",
+            "expected": "49a2e677338a669f1dec2c2ec41051d7be9f47094558bfe85f8771a49189c195",
+            "current": "49a2e677338a669f1dec2c2ec41051d7be9f47094558bfe85f8771a49189c195",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e-matrix.test.ts",
+            "expected": "da63052d7e91a3d1d1efd62996b1ec27523296e49e36e63238ec4931b6ef32e9",
+            "current": "da63052d7e91a3d1d1efd62996b1ec27523296e49e36e63238ec4931b6ef32e9",
+            "matches": true
+          },
+          {
+            "path": "src/main/tray.ts",
+            "expected": "c178ac674092d0b587a4e6fea8804e3b6f5ff0b49253bc6c245b9d3692486d30",
+            "current": "c178ac674092d0b587a4e6fea8804e3b6f5ff0b49253bc6c245b9d3692486d30",
+            "matches": true
+          },
+          {
+            "path": "tests/tray.test.ts",
+            "expected": "cd423afd4a045d85517327922f9e6c670a1b858f0c734e9767b8e4710d06159b",
+            "current": "cd423afd4a045d85517327922f9e6c670a1b858f0c734e9767b8e4710d06159b",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "protocol",
+          "command": "node .harness/v7/loop/config.mjs validate-candidate",
+          "exitCode": 0,
+          "at": "2026-09-12T18:10:10.613Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789236608358.log",
+          "expectedLogSha256": "c2521b9573ac8ab7d457cb2c767288c10b3d270e9a6dbf68d5ef6937fd1c08a5",
+          "actualLogSha256": "c2521b9573ac8ab7d457cb2c767288c10b3d270e9a6dbf68d5ef6937fd1c08a5",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest",
+          "exitCode": 0,
+          "at": "2026-09-12T18:10:16.935Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789236610683.log",
+          "expectedLogSha256": "7310a6c70cef905e7490c2723945bb4639aa492bb7b5b209bb7b22e4055a399e",
+          "actualLogSha256": "7310a6c70cef905e7490c2723945bb4639aa492bb7b5b209bb7b22e4055a399e",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-12T18:10:28.874Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789236616998.log",
+          "expectedLogSha256": "f825ddbf88bc5fc79a85d704cb6334b25281650902c899d6ce0049b36846250a",
+          "actualLogSha256": "f825ddbf88bc5fc79a85d704cb6334b25281650902c899d6ce0049b36846250a",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "design",
+          "command": "node .harness/v7/loop/fun.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/reviews/design-final-v070",
+          "exitCode": 0,
+          "at": "2026-09-12T18:44:53.644Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789238693560.log",
+          "expectedLogSha256": "a8b3c8ccfa8c7902cba19e086cac7f6f6f6d5e206d44a2ed477700f69495dfc4",
+          "actualLogSha256": "a8b3c8ccfa8c7902cba19e086cac7f6f6f6d5e206d44a2ed477700f69495dfc4",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "V07-02",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-12T18:45:07.422Z",
+        "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+        "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+        "currentSourceMatches": true,
+        "currentEvaluatorMatches": true,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/V07-02-final-v070.md",
+          "sha256": "9b4e6a2d9040b5509ff889f3ef76b2abae3384df1002f295cf35dcef4243c2cf"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": "src/core/collection.ts",
+            "expected": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+            "current": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+            "matches": true
+          },
+          {
+            "path": "src/core/save.ts",
+            "expected": "e3ac4241ad02888394b436f9a7c037768c6fc4711b0dbe15e0e46ab0c276c6ac",
+            "current": "e3ac4241ad02888394b436f9a7c037768c6fc4711b0dbe15e0e46ab0c276c6ac",
+            "matches": true
+          },
+          {
+            "path": "src/shared/api.ts",
+            "expected": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736",
+            "current": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736",
+            "matches": true
+          },
+          {
+            "path": "src/server/app.ts",
+            "expected": "a0327efb4b135a395cd929f8cbfd5c8badfdd49755b0ddc4e35fd2b63e08349a",
+            "current": "a0327efb4b135a395cd929f8cbfd5c8badfdd49755b0ddc4e35fd2b63e08349a",
+            "matches": true
+          },
+          {
+            "path": "src/main/net.ts",
+            "expected": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa",
+            "current": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa",
+            "matches": true
+          },
+          {
+            "path": "src/menu/view.ts",
+            "expected": "17086cac843b30a8da05fea28ccabb66f1f2582cd7e3c9b1f589ea43300b7314",
+            "current": "17086cac843b30a8da05fea28ccabb66f1f2582cd7e3c9b1f589ea43300b7314",
+            "matches": true
+          },
+          {
+            "path": "tests/collection.test.ts",
+            "expected": "e146b0a430a10ea1883a42b70e51849c1e6b524e48dc42253a8f374737aa2b02",
+            "current": "e146b0a430a10ea1883a42b70e51849c1e6b524e48dc42253a8f374737aa2b02",
+            "matches": true
+          },
+          {
+            "path": "tests/save.test.ts",
+            "expected": "02cc74ae525e578a3d0d821d5e2c7e79cd6ad16cae0633dfdc5d9f5e945207b9",
+            "current": "02cc74ae525e578a3d0d821d5e2c7e79cd6ad16cae0633dfdc5d9f5e945207b9",
+            "matches": true
+          },
+          {
+            "path": "tests/net.test.ts",
+            "expected": "f6db0c9acdd08a73bfdbe3c5b06547a77b083806205fe093c87c485d92b08bad",
+            "current": "f6db0c9acdd08a73bfdbe3c5b06547a77b083806205fe093c87c485d92b08bad",
+            "matches": true
+          },
+          {
+            "path": "tests/server/app.test.ts",
+            "expected": "5dd1829cbfa9427f639f513327c1cffaae3bc33f0d2b0b234bfae673c9094b8f",
+            "current": "5dd1829cbfa9427f639f513327c1cffaae3bc33f0d2b0b234bfae673c9094b8f",
+            "matches": true
+          },
+          {
+            "path": "tests/server/companionLevelsV7.test.ts",
+            "expected": "5c413c0e9f59fe04bb7dc583c95c9fd2604c1266fc4f53a7b3338aa311e543f9",
+            "current": "5c413c0e9f59fe04bb7dc583c95c9fd2604c1266fc4f53a7b3338aa311e543f9",
+            "matches": true
+          },
+          {
+            "path": "tests/server/http.test.ts",
+            "expected": "8e4553576f039c609645746e564eee70c343c7c0497b917bef0aa9ed1a35f93c",
+            "current": "8e4553576f039c609645746e564eee70c343c7c0497b917bef0aa9ed1a35f93c",
+            "matches": true
+          },
+          {
+            "path": "tests/server/opponents.test.ts",
+            "expected": "e1fe8178878dfa53b660b99ed027a6ef1e7b81da41a7f988b60b8cba4f736261",
+            "current": "e1fe8178878dfa53b660b99ed027a6ef1e7b81da41a7f988b60b8cba4f736261",
+            "matches": true
+          },
+          {
+            "path": "tests/server/pgStore.test.ts",
+            "expected": "e6d913dd7f8f7afed646e8db286dab244854013a01d1e7b1ffc0a5cc4bf2010b",
+            "current": "e6d913dd7f8f7afed646e8db286dab244854013a01d1e7b1ffc0a5cc4bf2010b",
+            "matches": true
+          },
+          {
+            "path": "tests/server/pgTransaction.test.ts",
+            "expected": "d8c8dcb5592337b90988a127e44defcbe81574b2d5c55e4e6eb6875048dda45c",
+            "current": "d8c8dcb5592337b90988a127e44defcbe81574b2d5c55e4e6eb6875048dda45c",
+            "matches": true
+          },
+          {
+            "path": "tests/server/pvp.test.ts",
+            "expected": "d7d33a75389be0195d64f3710946849a1809f651f4c982113564376d84318edc",
+            "current": "d7d33a75389be0195d64f3710946849a1809f651f4c982113564376d84318edc",
+            "matches": true
+          },
+          {
+            "path": "src/menu/index.ts",
+            "expected": "8681cecbe3885016d764be8ec000d9caa2a13516c92d2b69c53183e28f9fbb23",
+            "current": "8681cecbe3885016d764be8ec000d9caa2a13516c92d2b69c53183e28f9fbb23",
+            "matches": true
+          },
+          {
+            "path": "tests/companionLevelsV7.test.ts",
+            "expected": "f7984cd1d49af4952f182e66d0e91ffdc3ba25f518329ba15037bbf8f0a6ea30",
+            "current": "f7984cd1d49af4952f182e66d0e91ffdc3ba25f518329ba15037bbf8f0a6ea30",
+            "matches": true
+          },
+          {
+            "path": "src/main/ipc.ts",
+            "expected": "8e879a310f37ef6d107d42bb15f79676827ac5dae7f79f7c7dc9177a37b10492",
+            "current": "8e879a310f37ef6d107d42bb15f79676827ac5dae7f79f7c7dc9177a37b10492",
+            "matches": true
+          },
+          {
+            "path": "tests/ipc.test.ts",
+            "expected": "17def785277d395789f7f43f124fe7d27e462682fdce5edbd7fdb58b0436ffc5",
+            "current": "17def785277d395789f7f43f124fe7d27e462682fdce5edbd7fdb58b0436ffc5",
+            "matches": true
+          },
+          {
+            "path": "tests/menu.test.ts",
+            "expected": "d9c5602443e391846007829539d96e151d1e7cbb8df93b78e3e18521cc061ddf",
+            "current": "d9c5602443e391846007829539d96e151d1e7cbb8df93b78e3e18521cc061ddf",
+            "matches": true
+          },
+          {
+            "path": "src/core/engine.ts",
+            "expected": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+            "current": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+            "matches": true
+          },
+          {
+            "path": "tests/engine.test.ts",
+            "expected": "041f6cb415265695ac4203477d0bef0fd7f5ff7e5ae5f65274f80e606c3850d1",
+            "current": "041f6cb415265695ac4203477d0bef0fd7f5ff7e5ae5f65274f80e606c3850d1",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "levels",
+          "command": "npx vitest run tests/companionLevelsV7.test.ts tests/menu.test.ts tests/ipc.test.ts",
+          "exitCode": 0,
+          "at": "2026-09-12T18:44:55.192Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-02-1789238693856.log",
+          "expectedLogSha256": "eb0a20e31a12591105f4b9593d33e1fb106b09b6ff4d937b8088067005dc1dff",
+          "actualLogSha256": "eb0a20e31a12591105f4b9593d33e1fb106b09b6ff4d937b8088067005dc1dff",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:07.342Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-02-1789238695259.log",
+          "expectedLogSha256": "cb953e77822766e32f6ea8828b0676e01e3632f3b079eb1b6714a1c604ec52db",
+          "actualLogSha256": "cb953e77822766e32f6ea8828b0676e01e3632f3b079eb1b6714a1c604ec52db",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "V07-03",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-12T18:45:21.156Z",
+        "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+        "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+        "currentSourceMatches": true,
+        "currentEvaluatorMatches": true,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/V07-03-final-v070.md",
+          "sha256": "9766dfc1a1cd3592754445dcd59e6c48054792caf42e631e186c20506c66fc8f"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": "src/core/progress.ts",
+            "expected": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+            "current": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+            "matches": true
+          },
+          {
+            "path": "src/core/collection.ts",
+            "expected": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+            "current": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+            "matches": true
+          },
+          {
+            "path": "src/menu/codex.ts",
+            "expected": "853ec0845bf613bad08c30efa7c67e39c573df930cdd090b21043522e08feb75",
+            "current": "853ec0845bf613bad08c30efa7c67e39c573df930cdd090b21043522e08feb75",
+            "matches": true
+          },
+          {
+            "path": "src/menu/hero.ts",
+            "expected": "26a74c64996414df1dcc15210868013bb94e1b4f72b72e6da694ade5a0fc2a4b",
+            "current": "26a74c64996414df1dcc15210868013bb94e1b4f72b72e6da694ade5a0fc2a4b",
+            "matches": true
+          },
+          {
+            "path": "tests/progressV7.test.ts",
+            "expected": "7a5cd27a69d4856dd1dabb5166869f28eb97cb6cc4c3b6e48b086a98862264d7",
+            "current": "7a5cd27a69d4856dd1dabb5166869f28eb97cb6cc4c3b6e48b086a98862264d7",
+            "matches": true
+          },
+          {
+            "path": "tests/codexV7.test.ts",
+            "expected": "dd2a4a1e508cb2573f8c16919f7596daf2648896d173ef17329a879b986cd472",
+            "current": "dd2a4a1e508cb2573f8c16919f7596daf2648896d173ef17329a879b986cd472",
+            "matches": true
+          },
+          {
+            "path": "tests/menu.test.ts",
+            "expected": "d9c5602443e391846007829539d96e151d1e7cbb8df93b78e3e18521cc061ddf",
+            "current": "d9c5602443e391846007829539d96e151d1e7cbb8df93b78e3e18521cc061ddf",
+            "matches": true
+          },
+          {
+            "path": "tests/progressV6.test.ts",
+            "expected": "de2f7211ea5a1705c78933b58185fe4b0f648fa177dff049002908a953c2ed66",
+            "current": "de2f7211ea5a1705c78933b58185fe4b0f648fa177dff049002908a953c2ed66",
+            "matches": true
+          },
+          {
+            "path": "src/core/engine.ts",
+            "expected": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+            "current": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+            "matches": true
+          },
+          {
+            "path": "tests/ipcV5.test.ts",
+            "expected": "cf552c6ae809f9b86586c90eadfe435b7adf52e097e4d6da2f513e6f820e7275",
+            "current": "cf552c6ae809f9b86586c90eadfe435b7adf52e097e4d6da2f513e6f820e7275",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "codex",
+          "command": "npx vitest run tests/progressV7.test.ts tests/codexV7.test.ts",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:08.970Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-03-1789238707549.log",
+          "expectedLogSha256": "34d4cae4dc44bb3a860c15efbd74b187696319230b871560476fd33f2ab5912c",
+          "actualLogSha256": "34d4cae4dc44bb3a860c15efbd74b187696319230b871560476fd33f2ab5912c",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:21.083Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-03-1789238709037.log",
+          "expectedLogSha256": "6f6ff6ccef6e6ebe7c04e4faecb132a0248e42b671cb2ac42d8154d27240029f",
+          "actualLogSha256": "6f6ff6ccef6e6ebe7c04e4faecb132a0248e42b671cb2ac42d8154d27240029f",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "V07-04",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-12T18:45:34.203Z",
+        "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+        "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+        "currentSourceMatches": true,
+        "currentEvaluatorMatches": true,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/V07-04-final-v070.md",
+          "sha256": "e866a32722f4115dee1301ae8bfc457a0c2d37409e958f923a572fcfc43db163"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": "src/menu/index.ts",
+            "expected": "8681cecbe3885016d764be8ec000d9caa2a13516c92d2b69c53183e28f9fbb23",
+            "current": "8681cecbe3885016d764be8ec000d9caa2a13516c92d2b69c53183e28f9fbb23",
+            "matches": true
+          },
+          {
+            "path": "static/menu.css",
+            "expected": "b12880caa3a1de02f5305030f06a4c668f3431b3445ecd358131eadb2dcb6ffb",
+            "current": "b12880caa3a1de02f5305030f06a4c668f3431b3445ecd358131eadb2dcb6ffb",
+            "matches": true
+          },
+          {
+            "path": "tests/menu.test.ts",
+            "expected": "d9c5602443e391846007829539d96e151d1e7cbb8df93b78e3e18521cc061ddf",
+            "current": "d9c5602443e391846007829539d96e151d1e7cbb8df93b78e3e18521cc061ddf",
+            "matches": true
+          },
+          {
+            "path": "tests/pvpDirectoryV7.test.ts",
+            "expected": "b952430286ac45a6298418b0881ae05b5389c3a6bad22f1ce0c54846f6faf5d8",
+            "current": "b952430286ac45a6298418b0881ae05b5389c3a6bad22f1ce0c54846f6faf5d8",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "directory",
+          "command": "npx vitest run tests/pvpDirectoryV7.test.ts",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:22.291Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-04-1789238721280.log",
+          "expectedLogSha256": "598dc0bb583475abe2267b1638f5a768fb8a069937c65908a56a19c960b56991",
+          "actualLogSha256": "598dc0bb583475abe2267b1638f5a768fb8a069937c65908a56a19c960b56991",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:34.129Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-04-1789238722354.log",
+          "expectedLogSha256": "2f587837a04b1de4fd05612f956f080c7f5d0b8dbbb0c68d6726b12a5c88e054",
+          "actualLogSha256": "2f587837a04b1de4fd05612f956f080c7f5d0b8dbbb0c68d6726b12a5c88e054",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "V07-05",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-12T18:58:47.487Z",
+        "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+        "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+        "currentSourceMatches": true,
+        "currentEvaluatorMatches": true,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/V07-05-final-v070.md",
+          "sha256": "035c1bd69198f15cc12a7f64ee688bad152f2720049d90ad2470657fd750a854"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": "src/core/hero.ts",
+            "expected": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+            "current": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+            "matches": true
+          },
+          {
+            "path": "src/core/formulas.ts",
+            "expected": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+            "current": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+            "matches": true
+          },
+          {
+            "path": "src/core/engine.ts",
+            "expected": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+            "current": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+            "matches": true
+          },
+          {
+            "path": "src/core/discovery.ts",
+            "expected": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+            "current": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+            "matches": true
+          },
+          {
+            "path": "src/menu/hero.ts",
+            "expected": "26a74c64996414df1dcc15210868013bb94e1b4f72b72e6da694ade5a0fc2a4b",
+            "current": "26a74c64996414df1dcc15210868013bb94e1b4f72b72e6da694ade5a0fc2a4b",
+            "matches": true
+          },
+          {
+            "path": "src/renderer/hud.ts",
+            "expected": "16e8dc47ca7b33ed7ec82a9137a904ec76da38019c23da21b4e33067a8b78db9",
+            "current": "16e8dc47ca7b33ed7ec82a9137a904ec76da38019c23da21b4e33067a8b78db9",
+            "matches": true
+          },
+          {
+            "path": "tests/hero.test.ts",
+            "expected": "667c0ee373980bbf34818b9dfaa9f9a213509edf6e02de1b1c39eef69c19a287",
+            "current": "667c0ee373980bbf34818b9dfaa9f9a213509edf6e02de1b1c39eef69c19a287",
+            "matches": true
+          },
+          {
+            "path": "tests/formulas.test.ts",
+            "expected": "6c4ba788d3b0231a0967986404038c74c62d452fcecf131436746bfd6c550262",
+            "current": "6c4ba788d3b0231a0967986404038c74c62d452fcecf131436746bfd6c550262",
+            "matches": true
+          },
+          {
+            "path": "tests/balance.test.ts",
+            "expected": "9bf60c573d2b0ffd030e17dd102acf8eca761c90ff684b0df1047afdf7ecf034",
+            "current": "9bf60c573d2b0ffd030e17dd102acf8eca761c90ff684b0df1047afdf7ecf034",
+            "matches": true
+          },
+          {
+            "path": "tests/progressionV7.test.ts",
+            "expected": "18e06a53aae0c70416d4d0f4032abefc1686ee228e8173bc1f5443c38ab51dbb",
+            "current": "18e06a53aae0c70416d4d0f4032abefc1686ee228e8173bc1f5443c38ab51dbb",
+            "matches": true
+          },
+          {
+            "path": "src/core/index.ts",
+            "expected": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+            "current": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+            "matches": true
+          },
+          {
+            "path": "src/core/monsters.ts",
+            "expected": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+            "current": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+            "matches": true
+          },
+          {
+            "path": "src/core/progression.ts",
+            "expected": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+            "current": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+            "matches": true
+          },
+          {
+            "path": "tests/engine.test.ts",
+            "expected": "041f6cb415265695ac4203477d0bef0fd7f5ff7e5ae5f65274f80e606c3850d1",
+            "current": "041f6cb415265695ac4203477d0bef0fd7f5ff7e5ae5f65274f80e606c3850d1",
+            "matches": true
+          },
+          {
+            "path": "tests/progressionV5.test.ts",
+            "expected": "90916683542943f47d1295e40758bf821d92fc07ad6d88edfb4ef5f84d5c178b",
+            "current": "90916683542943f47d1295e40758bf821d92fc07ad6d88edfb4ef5f84d5c178b",
+            "matches": true
+          },
+          {
+            "path": "tests/heroMenuReadiness.test.ts",
+            "expected": "c4642c8d36f180d45a478fd9fc49305475f1c452740ca92439929f38d13988ee",
+            "current": "c4642c8d36f180d45a478fd9fc49305475f1c452740ca92439929f38d13988ee",
+            "matches": true
+          },
+          {
+            "path": "tests/progressV5.test.ts",
+            "expected": "7e8500f55eaf0ad32c4b44b85d858cd80107815ee479c7fd57d3cf615d6dccdb",
+            "current": "7e8500f55eaf0ad32c4b44b85d858cd80107815ee479c7fd57d3cf615d6dccdb",
+            "matches": true
+          },
+          {
+            "path": "tests/progressV6.test.ts",
+            "expected": "de2f7211ea5a1705c78933b58185fe4b0f648fa177dff049002908a953c2ed66",
+            "current": "de2f7211ea5a1705c78933b58185fe4b0f648fa177dff049002908a953c2ed66",
+            "matches": true
+          },
+          {
+            "path": "tests/discoveryV5.test.ts",
+            "expected": "56a3fc54f7b4b258f8814ee11686c899a6f5a3e59229b08f9ad42b94c4a001ba",
+            "current": "56a3fc54f7b4b258f8814ee11686c899a6f5a3e59229b08f9ad42b94c4a001ba",
+            "matches": true
+          },
+          {
+            "path": "tests/expedition.test.ts",
+            "expected": "84518dd4f1aae9e6fe0a1db74c361e7e278c4e34813294e485f1a21548289066",
+            "current": "84518dd4f1aae9e6fe0a1db74c361e7e278c4e34813294e485f1a21548289066",
+            "matches": true
+          },
+          {
+            "path": "tests/renderer.test.ts",
+            "expected": "f6dcdd5d164ed0505f3ad3752626b4da6eb23288d32ac90cdd958097a4234205",
+            "current": "f6dcdd5d164ed0505f3ad3752626b4da6eb23288d32ac90cdd958097a4234205",
+            "matches": true
+          },
+          {
+            "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+            "expected": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+            "current": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/measure.test.ts",
+            "expected": "d57dd9d080efba88b34ec84350179a26ea0127d4a8a9ba1742298e2be9f4f02d",
+            "current": "d57dd9d080efba88b34ec84350179a26ea0127d4a8a9ba1742298e2be9f4f02d",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/journey.cjs",
+            "expected": "d8d31b4d14890b85e2f97a3c28041c416a21a6159a7b67e69c7b9c815a7ab581",
+            "current": "d8d31b4d14890b85e2f97a3c28041c416a21a6159a7b67e69c7b9c815a7ab581",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e.mjs",
+            "expected": "b442c80b180b2c9eab1b18e1f8d82b6c9ea605468427ede74d0f8392e3402d42",
+            "current": "b442c80b180b2c9eab1b18e1f8d82b6c9ea605468427ede74d0f8392e3402d42",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e.test.ts",
+            "expected": "49a2e677338a669f1dec2c2ec41051d7be9f47094558bfe85f8771a49189c195",
+            "current": "49a2e677338a669f1dec2c2ec41051d7be9f47094558bfe85f8771a49189c195",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e-matrix.test.ts",
+            "expected": "da63052d7e91a3d1d1efd62996b1ec27523296e49e36e63238ec4931b6ef32e9",
+            "current": "da63052d7e91a3d1d1efd62996b1ec27523296e49e36e63238ec4931b6ef32e9",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/electron-e2e.cjs",
+            "expected": "4ebdd9e8f31b73a19c632245234fe5c064c8f9fc13d80258725420003c240cdf",
+            "current": "4ebdd9e8f31b73a19c632245234fe5c064c8f9fc13d80258725420003c240cdf",
+            "matches": true
+          },
+          {
+            "path": ".harness/v7/loop/e2e-matrix.mjs",
+            "expected": "02f320e2405b678c53296622d73b08052ca480b7a97732e6399af4594e42768d",
+            "current": "02f320e2405b678c53296622d73b08052ca480b7a97732e6399af4594e42768d",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "progression",
+          "command": "npx vitest run tests/progressionV7.test.ts tests/balance.test.ts",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:37.815Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789238734336.log",
+          "expectedLogSha256": "18dc7cc0bbf7593c7b5811b261747fe5c621f69d71bb3f26bc63bb3d9bba1d13",
+          "actualLogSha256": "18dc7cc0bbf7593c7b5811b261747fe5c621f69d71bb3f26bc63bb3d9bba1d13",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:44.133Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789238737879.log",
+          "expectedLogSha256": "5d651c29b2e5e6579f17b5fe1c9a857626c85efab3c8cb06348e968f9c74af6f",
+          "actualLogSha256": "5d651c29b2e5e6579f17b5fe1c9a857626c85efab3c8cb06348e968f9c74af6f",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-12T18:45:56.194Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789238744199.log",
+          "expectedLogSha256": "1cfcccb1a88cb3735c25d0050feed92d50b0e2bbe063181f78a32450fdcaa210",
+          "actualLogSha256": "1cfcccb1a88cb3735c25d0050feed92d50b0e2bbe063181f78a32450fdcaa210",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "measurement",
+          "command": "node .harness/v7/loop/measure.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/candidate-final-v070.json --phase candidate",
+          "exitCode": 0,
+          "at": "2026-09-12T18:57:31.112Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789239450700.log",
+          "expectedLogSha256": "e577818839fa6da3b35e2ac9dd986e615051ee443048ab9df6447360a91d03e5",
+          "actualLogSha256": "e577818839fa6da3b35e2ac9dd986e615051ee443048ab9df6447360a91d03e5",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "V07-06",
+      "status": "verified",
+      "latestVerification": {
+        "at": "2026-09-12T18:59:33.106Z",
+        "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+        "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+        "currentSourceMatches": true,
+        "currentEvaluatorMatches": true,
+        "session": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/sessions/V07-06-final-v070.md",
+          "sha256": "e6f9d10d0188f7d9ba286ab66993246fe40d8664bd1d33e8b48c8c5e04532864"
+        },
+        "sessionHashMatches": true,
+        "ownedFiles": [
+          {
+            "path": "package.json",
+            "expected": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a",
+            "current": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a",
+            "matches": true
+          },
+          {
+            "path": "package-lock.json",
+            "expected": "fd7f73b6343c8e4363f42b502def8e0bcdb663061489d199e86e407b6d1e6137",
+            "current": "fd7f73b6343c8e4363f42b502def8e0bcdb663061489d199e86e407b6d1e6137",
+            "matches": true
+          },
+          {
+            "path": "tests/packaging.test.ts",
+            "expected": "a7441869e0e0edafae2fb3c61935e097e0dc8ebbb43ef78f91a4ff966d248f25",
+            "current": "a7441869e0e0edafae2fb3c61935e097e0dc8ebbb43ef78f91a4ff966d248f25",
+            "matches": true
+          },
+          {
+            "path": "README.md",
+            "expected": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+            "current": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+            "matches": true
+          },
+          {
+            "path": "src/main/tray.ts",
+            "expected": "c178ac674092d0b587a4e6fea8804e3b6f5ff0b49253bc6c245b9d3692486d30",
+            "current": "c178ac674092d0b587a4e6fea8804e3b6f5ff0b49253bc6c245b9d3692486d30",
+            "matches": true
+          },
+          {
+            "path": "tests/tray.test.ts",
+            "expected": "cd423afd4a045d85517327922f9e6c670a1b858f0c734e9767b8e4710d06159b",
+            "current": "cd423afd4a045d85517327922f9e6c670a1b858f0c734e9767b8e4710d06159b",
+            "matches": true
+          }
+        ]
+      },
+      "latestChecks": [
+        {
+          "commandId": "integration",
+          "command": "node .harness/v7/loop/e2e.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/integration/journey.json 0 active",
+          "exitCode": 0,
+          "at": "2026-09-12T18:59:20.690Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-06-1789239527694.log",
+          "expectedLogSha256": "18364036bc9cfecda086ba545662481e4e6dd93ab2de0086f9177cef87e6fe00",
+          "actualLogSha256": "18364036bc9cfecda086ba545662481e4e6dd93ab2de0086f9177cef87e6fe00",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-12T18:59:33.019Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-06-1789239560774.log",
+          "expectedLogSha256": "19b417069aedac20e9eefe00487883c872c996186ad9e935a7a4eadaf6fd0f6c",
+          "actualLogSha256": "19b417069aedac20e9eefe00487883c872c996186ad9e935a7a4eadaf6fd0f6c",
+          "logMatches": true,
+          "currentOwnedFilesMatch": true
+        }
+      ]
+    },
+    {
+      "id": "V07-07",
+      "status": "running",
+      "latestVerification": null,
+      "latestChecks": [
+        {
+          "commandId": "measure",
+          "command": "node .harness/v7/loop/measure.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/release.json --phase release",
+          "exitCode": 0,
+          "at": "2026-09-12T20:11:31.277Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789243888913.log",
+          "expectedLogSha256": "e6324bf2820a45beb571007971bfef6c95348b53bcaf8e8d04ede719d2e13bc8",
+          "actualLogSha256": "e6324bf2820a45beb571007971bfef6c95348b53bcaf8e8d04ede719d2e13bc8",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "matrix",
+          "command": "node .harness/v7/loop/e2e-matrix.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/native",
+          "exitCode": 0,
+          "at": "2026-09-13T01:49:28.066Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789264167916.log",
+          "expectedLogSha256": "030262a5baafb3becc6edbfbca17d72aa592f5851138840a95357df788a10bdd",
+          "actualLogSha256": "030262a5baafb3becc6edbfbca17d72aa592f5851138840a95357df788a10bdd",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "smoke",
+          "command": "npm run smoke",
+          "exitCode": 0,
+          "at": "2026-09-13T01:54:46.718Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789264482303.log",
+          "expectedLogSha256": "69ee673e78b5acd289505f975fab0bcfff9c3ac389c029ebc19fb65b3791d9c9",
+          "actualLogSha256": "69ee673e78b5acd289505f975fab0bcfff9c3ac389c029ebc19fb65b3791d9c9",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "package",
+          "command": "npm run package && node .harness/v7/loop/package-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/package/package.json release/mac-arm64/DesMon.app",
+          "exitCode": 0,
+          "at": "2026-09-13T01:56:16.441Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789264548185.log",
+          "expectedLogSha256": "48603bfa17d59e6bb258b4d0ff84de851ae24b27a8161df2ba77e7d2f18fd420",
+          "actualLogSha256": "48603bfa17d59e6bb258b4d0ff84de851ae24b27a8161df2ba77e7d2f18fd420",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "server",
+          "command": "node .harness/v7/loop/server-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/server/compatibility.json",
+          "exitCode": 1,
+          "at": "2026-09-13T02:01:17.234Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789264877168.log",
+          "expectedLogSha256": "1ad4f75c8c59161f3e72ae93eb1fb04b7cb7ee17d54467d5b0c8278cc1f86838",
+          "actualLogSha256": "1ad4f75c8c59161f3e72ae93eb1fb04b7cb7ee17d54467d5b0c8278cc1f86838",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "exitCode": 0,
+          "at": "2026-09-13T02:04:05.595Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789265033343.log",
+          "expectedLogSha256": "440e12e515c439be1ba09079c8f5fbadc6106f5c53b2b71526eb0e4f87291adb",
+          "actualLogSha256": "440e12e515c439be1ba09079c8f5fbadc6106f5c53b2b71526eb0e4f87291adb",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        },
+        {
+          "commandId": "review",
+          "command": "node .harness/v7/loop/audit.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/reviews/final",
+          "exitCode": 1,
+          "at": "2026-09-13T03:20:32.650Z",
+          "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "endedDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+          "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789269628719.log",
+          "expectedLogSha256": "0e2d2e1703deb7638cb842c6ec7b0f508821f8d483c2c44efc73c5eda2a66939",
+          "actualLogSha256": "0e2d2e1703deb7638cb842c6ec7b0f508821f8d483c2c44efc73c5eda2a66939",
+          "logMatches": true,
+          "currentOwnedFilesMatch": false
+        }
+      ]
+    }
+  ],
+  "audit": {
+    "status": "audit_complete",
+    "role": null,
+    "reports": [
+      {
+        "role": "designer",
+        "agent": "/root/designer",
+        "findings": [
+          {
+            "id": "D070-LATE-COLLECTION-GAP",
+            "category": "fun",
+            "severity": "minor",
+            "problem": "baseline은8→12h 전원 진행하지만 새 영웅0=60/100·새 처치종0=78/100·새 포획종0=100/100이다. 2→12h 새 획득 최대공백p50=11364.3초/worst34294.8초가 남아 반응·보상이 새 수집으로 이어지는 경험은 미확인이다. 등록 시간 목표 실패라는 뜻은 아니다.",
+            "fix": "후속 사람 관찰에서 기존 도감 목표와 선택적 동료 관리/교체 설명의 이해를 먼저 검증한다. 제시와 실제 새 획득 공백을 계속 별도 보고하며, 이 검증결과를 이용해 현재 수치·30000킬 조건·정책을 자동 조정하지 않는다.",
+            "evidence": "measure#/runs"
+          },
+          {
+            "id": "D070-ENDPOINT-READINESS-SAMPLING",
+            "category": "logic",
+            "severity": "minor",
+            "problem": "30-active 종료상태와 PNG는 Lv17/REBIRTH READY인데 주기 기반 firstReadyElapsedMs는 null이다. 이를 준비 미도달이나 정확한 최초시각으로 읽으면 관측 결론이 틀린다.",
+            "fix": "현재 원본/null을 보존하고 보고서에 endpointReady와 최초시각 미확인을 구분한다. 향후 별도 등록된 관측기 개선에서는 최종 상태를 추가 표본으로 기록하되 주기 표본·비동기 save·정확한 사건시간을 혼동하지 않는다.",
+            "evidence": "e2e#/sessions/6"
+          }
+        ]
+      },
+      {
+        "role": "critic",
+        "agent": "/root/critic",
+        "findings": [
+          {
+            "id": "C070-LIVE-SERVER-CONTRACT",
+            "category": "bug",
+            "severity": "major",
+            "problem": "최종 클라이언트의 고레벨/지정 상대 계약에 대응하는 운영 호환 근거가 없다. 실제 최종 capture는 local121 tests/exit0이나 live=PENDING이다. health 보고 SHA28270992518dc5bfc9c1f89f700c0491eaf8d1ed의 api.ts104는 LEVEL_MAX=10, app.ts128/203–215는 Lv11+ 스냅샷을 저장 전400으로 거부하고,458–480에는 목록 라우트가 없으며358–394는 요청 opponentId를 무시한다. 같은 SHA/blob의 정적 반례이며 운영 인증 API를 실행한 결과로 주장하지 않는다. 격리 check423 성공으로 이 출시 전 계약 공백을 덮을 수 없다.",
+            "fix": "운영 출시PENDING을 유지한다. 서버 변경/커밋/배포는 별도 명시적 승인 범위에서만 진행하고, 호환 서버의 실제 보고 SHA·정확한 소스 매핑과 고레벨 왕복의 새 근거를 확보해 등록 server AC를 재수행한다. 소스/평가 지문이 바뀌면 영향 받는 검증과 감사를 새로 수행하며 현재 원본과 실패 이유를 보존한다.",
+            "evidence": "e2e#/checks/423/details"
+          }
+        ]
+      },
+      {
+        "role": "balance",
+        "agent": "/root/balance",
+        "findings": []
+      },
+      {
+        "role": "playtester",
+        "agent": "/root",
+        "findings": []
+      }
+    ],
+    "humanChecks": "PENDING: 실제 참가자의 재미·선택 선호·환생 힘 감소 이해·업무 방해·OS 권한/알림을 관찰하지 않았다. 합성 입력과 격리 진단은 사람 확인의 대체가 아니다.",
+    "release": "NOT_EVALUATED"
+  },
+  "nativeState": {
+    "running": null,
+    "runs": 10,
+    "attempts": 10
+  },
+  "processObservation": {
+    "scope": "Known former Native/matrix PID checks and literal v7 node/caffeinate executor command filter only; Python wrappers, Electron and generic npm/package are not exhaustively enumerated. Completion also relies on immutable process exit records and Native matrix state.",
+    "userApp50718": {
+      "pid": 50718,
+      "ppid": 50717,
+      "pgid": 50646,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    },
+    "formerNative94057": null,
+    "formerMatrix25832": null,
+    "activeV7Executors": []
+  },
+  "artifacts": [
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate-final-v070.json",
+      "sha256": "30ceb515136951b931860908e0fa951727305ed5f4678f48155a60d2bd48c15a"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release.json",
+      "sha256": "46271facabdeb917748b50b46b2136246c0fd65281b5e76b350a7dcd1e6b1079"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/native/matrix.json",
+      "sha256": "45af28ccfa167f889b415ca187c5d9cf2d8179ef4d1cea5a5bf1c91785263c5c"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/native-final-host-check.json",
+      "sha256": "b4a1a47c20e58bb4e856a8e2f1fb506e33af7f275b1815523bad019e7bc8dfcd"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json",
+      "sha256": "59bd5bbdac94dbbe2f672f6e5d9b1d7f4225be0bfb6341928ff4f15fca9347ae"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/distribution/dmg.json",
+      "sha256": "549de02072228f86b50c09ff8d8b107e2c6aab6845aff5457c852c28ac1132b0"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/server/compatibility.json",
+      "sha256": "9eeb9ad2554c1aea54100a354557ced0d91d9b2596476bedbdfa4ab3433241c4"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/server/compatibility-static-mapping.json",
+      "sha256": "b003e618dc1c60a3df8cbbc1d925316e5ffaaa5bd95f5e45eb7bc4c65a55d62d"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/FROZEN.json",
+      "sha256": "63a3724ec1114c5b6c5b186ea0f499303abdf208c7d472c6b9e22f273ad63eb9"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/session.json",
+      "sha256": "02d821623320baa61b5558e6e3aa9114968563d83c2ac884d6249a43718bc222"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/final/audit.json",
+      "sha256": "f2727b64300fe2be9a1f8ef5e643a207c00427df0cb9ece5617ed8ee91f34b30"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/final/report.md",
+      "sha256": "8a4c454a636f3cf5d4ea4a5ff264fcacc2362db0d9d0724c3509263b7c721c26"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-preservation-balance.json",
+      "sha256": "9920743c7127ddec62973259688e2e44a0566ebb268576e6de475e9a58eea608"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-preservation-balance-amendment.json",
+      "sha256": "0e0f65ba5493ccf05d759eb5a88e8d14428b313e6578230399827b7bc63e1034"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-preservation-git-designer.json",
+      "sha256": "60b6c6541afe38e8916bdd536df0c6b94d9fbdf958028005151f889d0e075138"
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/v0.7/ACCEPTANCE.md",
+      "sha256": "9b6fab5139478b741220624c7fbe960aefa43fa2179c734e45febe6b7a296e63"
+    },
+    {
+      "path": "docs/v0.7/HANDOFF.md",
+      "sha256": "f9646996aeb6aea32ccca47d8feb247d7d431be2bc95ea553d6ab9bde8cae9e4"
+    }
+  ],
+  "distribution": {
+    "path": "release/DesMon-0.7.0-arm64.dmg",
+    "sha256": "6b1b14b3f86f507116c99872b8d1538b2cf91ba8376d952cc10498175c167cbe"
+  },
+  "limitations": [
+    "This read-only snapshot checks current bytes against recorded executions; it does not rerun, re-date or recertify old results. Collector exit0 alone is not a claim that every collected comparison is true; inspect each flag.",
+    "H07 setup is historical. V07-07 stays running/unverified with mandatory server AC exit1; this journal status does not mean an executor is active.",
+    "Final status-document edits have different owned-file hashes than earlier V07-07 checks; those executions remain valid historical records for their exact inputs.",
+    "humanChecks remains PENDING. Operational authenticated API/DB compatibility and deployment correspondence are not proven."
+  ]
+}

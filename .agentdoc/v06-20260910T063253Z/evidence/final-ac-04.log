@@ -1,0 +1,20 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/ipc.test.ts (59 tests) 7ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 9ms
+ ✓ tests/progressV6.test.ts (15 tests) 15ms
+ ✓ tests/ipcV5.test.ts (6 tests) 8ms
+ ✓ tests/hero.test.ts (13 tests) 95ms
+ ✓ tests/heroMenuReadiness.test.ts (3 tests) 4ms
+ ✓ tests/menu.test.ts (41 tests) 108ms
+ ✓ tests/expedition.test.ts (16 tests) 2160ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  338ms
+   ✓ A1 — the expedition gauge is display-only and stays out of the way (H2b/H7) > never leaves its declared pixel budget, whatever the depth (H7)  1779ms
+
+ Test Files  8 passed (8)
+      Tests  157 passed (157)
+   Start at  16:21:52
+   Duration  2.87s (transform 815ms, setup 0ms, collect 2.04s, tests 2.41s, environment 1ms, prepare 683ms)
+

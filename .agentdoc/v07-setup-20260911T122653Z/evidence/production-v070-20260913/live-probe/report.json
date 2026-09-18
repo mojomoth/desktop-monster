@@ -1,0 +1,987 @@
+{
+  "schemaVersion": 1,
+  "preparedBy": "/root/balance",
+  "executedBy": "/root",
+  "startedAt": "2026-09-13T10:30:13.698Z",
+  "endedAt": "2026-09-13T10:30:19.039Z",
+  "status": "PASS",
+  "origin": "https://desmon-server-v3.onrender.com",
+  "expectedDeployedSha": "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803",
+  "timeoutMs": 30000,
+  "scriptSha256": "bdd64fb30baed84e1a96b2ecddad1d90cd85e432d12a5e88348b7d1728b9299a",
+  "bindingsBefore": [
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/production-live-probe-v070.mjs",
+      "sha256": "bdd64fb30baed84e1a96b2ecddad1d90cd85e432d12a5e88348b7d1728b9299a"
+    },
+    {
+      "path": "dist/electron/core/battle.js",
+      "sha256": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a"
+    },
+    {
+      "path": "dist/electron/core/bignum.js",
+      "sha256": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d"
+    },
+    {
+      "path": "dist/electron/core/collection.js",
+      "sha256": "becdde1595dbb5012bcca79a09de5d7317a478e3e0db066eda92dc406c2c3bbf"
+    },
+    {
+      "path": "dist/electron/core/discovery.js",
+      "sha256": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e"
+    },
+    {
+      "path": "dist/electron/core/economy.js",
+      "sha256": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411"
+    },
+    {
+      "path": "dist/electron/core/engine.js",
+      "sha256": "f0d5354545acd64ab3162bddd9e05189705076fe42591c283b44257c66e8628e"
+    },
+    {
+      "path": "dist/electron/core/fever.js",
+      "sha256": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48"
+    },
+    {
+      "path": "dist/electron/core/formulas.js",
+      "sha256": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127"
+    },
+    {
+      "path": "dist/electron/core/fsm.js",
+      "sha256": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612"
+    },
+    {
+      "path": "dist/electron/core/hero.js",
+      "sha256": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961"
+    },
+    {
+      "path": "dist/electron/core/index.js",
+      "sha256": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f"
+    },
+    {
+      "path": "dist/electron/core/input.js",
+      "sha256": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177"
+    },
+    {
+      "path": "dist/electron/core/loot.js",
+      "sha256": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79"
+    },
+    {
+      "path": "dist/electron/core/monsters.js",
+      "sha256": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3"
+    },
+    {
+      "path": "dist/electron/core/progress.js",
+      "sha256": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed"
+    },
+    {
+      "path": "dist/electron/core/progression.js",
+      "sha256": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f"
+    },
+    {
+      "path": "dist/electron/core/rng.js",
+      "sha256": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5"
+    },
+    {
+      "path": "dist/electron/core/save.js",
+      "sha256": "7786e9ecbcf5f13875dd2e3133486d69351ee79223eb6671115933754a8465c6"
+    },
+    {
+      "path": "dist/electron/core/types-chart.js",
+      "sha256": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9"
+    },
+    {
+      "path": "dist/electron/core/types.js",
+      "sha256": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+    },
+    {
+      "path": "dist/electron/main/globalInput.js",
+      "sha256": "ab645a042989aaa7a94ec8fa2592798b93f3156cd194e9e2eade009ef0dda2c5"
+    },
+    {
+      "path": "dist/electron/main/identity.js",
+      "sha256": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76"
+    },
+    {
+      "path": "dist/electron/main/index.js",
+      "sha256": "cfa4c4b77261289e0631baf4f3742b1ae166bfc83b8f5f46760b09c1c98213e1"
+    },
+    {
+      "path": "dist/electron/main/ipc.js",
+      "sha256": "a9e4884c0ebf123e111390d80eaf2a35d4e858ff350c1ddba3453ce92fb87e43"
+    },
+    {
+      "path": "dist/electron/main/menuWindow.js",
+      "sha256": "e8c2c1a4b0cc07042fc7b55b3f4000b81518b520ebb8a5369ebb512cac8eb406"
+    },
+    {
+      "path": "dist/electron/main/net.js",
+      "sha256": "22a766db657205d02b069306adc1f8e57b81251099ffbf6ec7aaf6014712bc13"
+    },
+    {
+      "path": "dist/electron/main/persistence.js",
+      "sha256": "ceba4d83c73049d54aa7383fdb9d59e5fda31baa1c0f9aadb81b9fec005a6936"
+    },
+    {
+      "path": "dist/electron/main/settings.js",
+      "sha256": "c5b3c8d03cf4e6083d3c50ead3be2936abbb1cf0e4b947a3e242968f271cc0da"
+    },
+    {
+      "path": "dist/electron/main/thefts.js",
+      "sha256": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1"
+    },
+    {
+      "path": "dist/electron/main/tray.js",
+      "sha256": "644950ea7c5d16972296f39bad842e1d83ba1e90604c2e39c35b1e9e45b46df5"
+    },
+    {
+      "path": "dist/electron/main/trayIcon.js",
+      "sha256": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52"
+    },
+    {
+      "path": "dist/electron/main/window.js",
+      "sha256": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664"
+    },
+    {
+      "path": "dist/electron/preload/index.js",
+      "sha256": "32974027c0ac4cd125cfe37e440bfda9e708d600734822c587f60ac66b01ec00"
+    },
+    {
+      "path": "dist/electron/server/app.js",
+      "sha256": "a3e85a9e40e3276e3975ba2d1180487b1963845a0ca96cc3e6bbc2fa1eafb3dc"
+    },
+    {
+      "path": "dist/electron/server/http.js",
+      "sha256": "347278e2633e4007c19ca83d659f58ee9570ba0323139905eec7c1f816df7a96"
+    },
+    {
+      "path": "dist/electron/server/index.js",
+      "sha256": "dc3787713261ba792d65d7749fd87a240d71e3a1a663e1616910dfd5935cb389"
+    },
+    {
+      "path": "dist/electron/server/pgStore.js",
+      "sha256": "42d98ded12b9b585e750329dae35d3d8549feaa1151f66f72613edf1466772f0"
+    },
+    {
+      "path": "dist/electron/server/probe.js",
+      "sha256": "3a07d24995a703a7d693881dca1a2e205e3719508450f6c17734abf0d220d5d8"
+    },
+    {
+      "path": "dist/electron/server/store.js",
+      "sha256": "e1cc046ee57f7fb584f722ec10091fa2fa87b5df703105921c8ad734962ec68e"
+    },
+    {
+      "path": "dist/electron/shared/api.js",
+      "sha256": "03253f2668c7a344fdccfd72f846651ef34b38c949507132b84dc393ce7c1b54"
+    },
+    {
+      "path": "dist/electron/shared/ipc.js",
+      "sha256": "6e11b4d0fa70c525e0be0e45aa832aa068f888bfd0a79f72e8c497fa8244f20b"
+    },
+    {
+      "path": "dist/electron/shared/serverUrl.js",
+      "sha256": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de"
+    },
+    {
+      "path": "package.json",
+      "sha256": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a"
+    },
+    {
+      "path": "src/main/net.ts",
+      "sha256": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa"
+    },
+    {
+      "path": "src/server/app.ts",
+      "sha256": "a0327efb4b135a395cd929f8cbfd5c8badfdd49755b0ddc4e35fd2b63e08349a"
+    },
+    {
+      "path": "src/server/pgStore.ts",
+      "sha256": "60f4c16ae35f92ed1558a9626eee937a9586f01ccd7bfe7f0687f831dd094004"
+    },
+    {
+      "path": "src/server/probe.ts",
+      "sha256": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee"
+    },
+    {
+      "path": "src/shared/api.ts",
+      "sha256": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736"
+    }
+  ],
+  "checks": [
+    {
+      "id": "health-exact-deployed-sha",
+      "passed": true,
+      "observedSha": "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803"
+    },
+    {
+      "id": "register-1",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "credential-shape-1",
+      "passed": true
+    },
+    {
+      "id": "upload-levels-1-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "upload-levels-1",
+      "passed": true,
+      "removedCount": 0,
+      "theftCount": 0
+    },
+    {
+      "id": "register-2",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "credential-shape-2",
+      "passed": true
+    },
+    {
+      "id": "upload-levels-2-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "upload-levels-2",
+      "passed": true,
+      "removedCount": 0,
+      "theftCount": 0
+    },
+    {
+      "id": "b-high-level-db-roundtrip-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "b-high-level-db-roundtrip",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "a-high-level-db-roundtrip-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "a-high-level-db-roundtrip",
+      "passed": true,
+      "targetPlayerId": "8ae6b4f5-8444-4162-9aa3-3b728d67c9e2",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "synthetic-1-directory-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "synthetic-1-directory",
+      "passed": true,
+      "validatedRowCount": 50,
+      "ownedTargetVisible": false,
+      "ownedTargetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "ownedTargetHighLevelsVerified": false,
+      "limit": "Top 50 only; score-0 synthetic visibility is not guaranteed; no ranking boost."
+    },
+    {
+      "id": "synthetic-2-directory-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "synthetic-2-directory",
+      "passed": true,
+      "validatedRowCount": 50,
+      "ownedTargetVisible": false,
+      "ownedTargetPlayerId": "8ae6b4f5-8444-4162-9aa3-3b728d67c9e2",
+      "ownedTargetHighLevelsVerified": false,
+      "limit": "Top 50 only; score-0 synthetic visibility is not guaranteed; no ranking boost."
+    },
+    {
+      "id": "reject-unsafe-integer",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-unsafe-integer-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-unsafe-integer",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "reject-fraction",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-fraction-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-fraction",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "reject-zero",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-zero-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-zero",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "reject-negative",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-negative-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-negative",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "reject-string",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-string-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-string",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "reject-null",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-null-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-null",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "reject-positive-infinity-json-literal",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "id": "no-loss-after-positive-infinity-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "no-loss-after-positive-infinity",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [
+        11,
+        250,
+        9007199254740991
+      ],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "synthetic-1-cleanup-upload-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "synthetic-1-cleanup-upload",
+      "passed": true,
+      "removedCount": 0,
+      "theftCount": 0
+    },
+    {
+      "id": "synthetic-2-cleanup-upload-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "synthetic-2-cleanup-upload",
+      "passed": true,
+      "removedCount": 0,
+      "theftCount": 0
+    },
+    {
+      "id": "synthetic-1-cleanup-db-empty-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "synthetic-1-cleanup-db-empty",
+      "passed": true,
+      "targetPlayerId": "8ae6b4f5-8444-4162-9aa3-3b728d67c9e2",
+      "bot": false,
+      "levels": [],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "synthetic-2-cleanup-db-empty-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "synthetic-2-cleanup-db-empty",
+      "passed": true,
+      "targetPlayerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "bot": false,
+      "levels": [],
+      "exactCompanionsHeroNameScores": true
+    },
+    {
+      "id": "health-end-same-sha",
+      "passed": true
+    }
+  ],
+  "requests": [
+    {
+      "route": "GET /healthz",
+      "owner": null,
+      "startedAt": "2026-09-13T10:30:13.712Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:14.018Z"
+    },
+    {
+      "route": "POST /v1/players",
+      "owner": null,
+      "startedAt": "2026-09-13T10:30:14.079Z",
+      "status": 201,
+      "endedAt": "2026-09-13T10:30:14.520Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:14.524Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:14.690Z"
+    },
+    {
+      "route": "POST /v1/players",
+      "owner": null,
+      "startedAt": "2026-09-13T10:30:14.693Z",
+      "status": 201,
+      "endedAt": "2026-09-13T10:30:14.859Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:14.861Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:15.017Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:15.020Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:15.215Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:15.220Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:15.373Z"
+    },
+    {
+      "route": "GET /v1/pvp/opponents",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:15.374Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:15.540Z"
+    },
+    {
+      "route": "GET /v1/pvp/opponents",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:15.543Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:15.737Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:15.741Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:15.891Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:15.893Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:16.042Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:16.045Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:16.263Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:16.266Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:16.416Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:16.417Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:16.570Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:16.573Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:16.786Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:16.788Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:16.944Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:16.945Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:17.098Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:17.102Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:17.311Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:17.313Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:17.467Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:17.467Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:17.618Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:17.620Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:17.836Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:17.838Z",
+      "status": 400,
+      "endedAt": "2026-09-13T10:30:17.993Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:17.997Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:18.149Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:18.151Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:18.361Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:18.363Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:18.517Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-2",
+      "startedAt": "2026-09-13T10:30:18.519Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:18.667Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "synthetic-1",
+      "startedAt": "2026-09-13T10:30:18.669Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:18.885Z"
+    },
+    {
+      "route": "GET /healthz",
+      "owner": null,
+      "startedAt": "2026-09-13T10:30:18.887Z",
+      "status": 200,
+      "endedAt": "2026-09-13T10:30:19.032Z"
+    }
+  ],
+  "accounts": [
+    {
+      "label": "synthetic-1",
+      "playerId": "8ae6b4f5-8444-4162-9aa3-3b728d67c9e2",
+      "name": "v7p-16a7d315-a"
+    },
+    {
+      "label": "synthetic-2",
+      "playerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "name": "v7p-18d64758-b"
+    }
+  ],
+  "scope": "Two fresh synthetic accounts; API/DB-through-server reads, not direct SQL inspection.",
+  "exclusions": [
+    "battle execution",
+    "theft",
+    "reclaim",
+    "existing credentials",
+    "personal saves",
+    "real-user payload logging"
+  ],
+  "retention": {
+    "tokens": "Memory only; never logged or persisted.",
+    "deleteApi": false,
+    "accountRowsRemain": true,
+    "interruptedRegistrationMayLeaveUnknownAccount": true,
+    "cleanup": "Empty own snapshots at score 0; verify via the other owned account preview.",
+    "previewCache": "Unfought match entries expire after 120 seconds; pruning is lazy."
+  },
+  "cleanup": [
+    {
+      "playerId": "8ae6b4f5-8444-4162-9aa3-3b728d67c9e2",
+      "emptySnapshotUpload": "PASS",
+      "dbEmptyReadback": "PASS"
+    },
+    {
+      "playerId": "a23267dc-a2a5-45ae-9ab2-a4aa108298a7",
+      "emptySnapshotUpload": "PASS",
+      "dbEmptyReadback": "PASS"
+    }
+  ],
+  "failure": null,
+  "bindingsAfter": [
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/production-live-probe-v070.mjs",
+      "sha256": "bdd64fb30baed84e1a96b2ecddad1d90cd85e432d12a5e88348b7d1728b9299a"
+    },
+    {
+      "path": "dist/electron/core/battle.js",
+      "sha256": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a"
+    },
+    {
+      "path": "dist/electron/core/bignum.js",
+      "sha256": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d"
+    },
+    {
+      "path": "dist/electron/core/collection.js",
+      "sha256": "becdde1595dbb5012bcca79a09de5d7317a478e3e0db066eda92dc406c2c3bbf"
+    },
+    {
+      "path": "dist/electron/core/discovery.js",
+      "sha256": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e"
+    },
+    {
+      "path": "dist/electron/core/economy.js",
+      "sha256": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411"
+    },
+    {
+      "path": "dist/electron/core/engine.js",
+      "sha256": "f0d5354545acd64ab3162bddd9e05189705076fe42591c283b44257c66e8628e"
+    },
+    {
+      "path": "dist/electron/core/fever.js",
+      "sha256": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48"
+    },
+    {
+      "path": "dist/electron/core/formulas.js",
+      "sha256": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127"
+    },
+    {
+      "path": "dist/electron/core/fsm.js",
+      "sha256": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612"
+    },
+    {
+      "path": "dist/electron/core/hero.js",
+      "sha256": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961"
+    },
+    {
+      "path": "dist/electron/core/index.js",
+      "sha256": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f"
+    },
+    {
+      "path": "dist/electron/core/input.js",
+      "sha256": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177"
+    },
+    {
+      "path": "dist/electron/core/loot.js",
+      "sha256": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79"
+    },
+    {
+      "path": "dist/electron/core/monsters.js",
+      "sha256": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3"
+    },
+    {
+      "path": "dist/electron/core/progress.js",
+      "sha256": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed"
+    },
+    {
+      "path": "dist/electron/core/progression.js",
+      "sha256": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f"
+    },
+    {
+      "path": "dist/electron/core/rng.js",
+      "sha256": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5"
+    },
+    {
+      "path": "dist/electron/core/save.js",
+      "sha256": "7786e9ecbcf5f13875dd2e3133486d69351ee79223eb6671115933754a8465c6"
+    },
+    {
+      "path": "dist/electron/core/types-chart.js",
+      "sha256": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9"
+    },
+    {
+      "path": "dist/electron/core/types.js",
+      "sha256": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+    },
+    {
+      "path": "dist/electron/main/globalInput.js",
+      "sha256": "ab645a042989aaa7a94ec8fa2592798b93f3156cd194e9e2eade009ef0dda2c5"
+    },
+    {
+      "path": "dist/electron/main/identity.js",
+      "sha256": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76"
+    },
+    {
+      "path": "dist/electron/main/index.js",
+      "sha256": "cfa4c4b77261289e0631baf4f3742b1ae166bfc83b8f5f46760b09c1c98213e1"
+    },
+    {
+      "path": "dist/electron/main/ipc.js",
+      "sha256": "a9e4884c0ebf123e111390d80eaf2a35d4e858ff350c1ddba3453ce92fb87e43"
+    },
+    {
+      "path": "dist/electron/main/menuWindow.js",
+      "sha256": "e8c2c1a4b0cc07042fc7b55b3f4000b81518b520ebb8a5369ebb512cac8eb406"
+    },
+    {
+      "path": "dist/electron/main/net.js",
+      "sha256": "22a766db657205d02b069306adc1f8e57b81251099ffbf6ec7aaf6014712bc13"
+    },
+    {
+      "path": "dist/electron/main/persistence.js",
+      "sha256": "ceba4d83c73049d54aa7383fdb9d59e5fda31baa1c0f9aadb81b9fec005a6936"
+    },
+    {
+      "path": "dist/electron/main/settings.js",
+      "sha256": "c5b3c8d03cf4e6083d3c50ead3be2936abbb1cf0e4b947a3e242968f271cc0da"
+    },
+    {
+      "path": "dist/electron/main/thefts.js",
+      "sha256": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1"
+    },
+    {
+      "path": "dist/electron/main/tray.js",
+      "sha256": "644950ea7c5d16972296f39bad842e1d83ba1e90604c2e39c35b1e9e45b46df5"
+    },
+    {
+      "path": "dist/electron/main/trayIcon.js",
+      "sha256": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52"
+    },
+    {
+      "path": "dist/electron/main/window.js",
+      "sha256": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664"
+    },
+    {
+      "path": "dist/electron/preload/index.js",
+      "sha256": "32974027c0ac4cd125cfe37e440bfda9e708d600734822c587f60ac66b01ec00"
+    },
+    {
+      "path": "dist/electron/server/app.js",
+      "sha256": "a3e85a9e40e3276e3975ba2d1180487b1963845a0ca96cc3e6bbc2fa1eafb3dc"
+    },
+    {
+      "path": "dist/electron/server/http.js",
+      "sha256": "347278e2633e4007c19ca83d659f58ee9570ba0323139905eec7c1f816df7a96"
+    },
+    {
+      "path": "dist/electron/server/index.js",
+      "sha256": "dc3787713261ba792d65d7749fd87a240d71e3a1a663e1616910dfd5935cb389"
+    },
+    {
+      "path": "dist/electron/server/pgStore.js",
+      "sha256": "42d98ded12b9b585e750329dae35d3d8549feaa1151f66f72613edf1466772f0"
+    },
+    {
+      "path": "dist/electron/server/probe.js",
+      "sha256": "3a07d24995a703a7d693881dca1a2e205e3719508450f6c17734abf0d220d5d8"
+    },
+    {
+      "path": "dist/electron/server/store.js",
+      "sha256": "e1cc046ee57f7fb584f722ec10091fa2fa87b5df703105921c8ad734962ec68e"
+    },
+    {
+      "path": "dist/electron/shared/api.js",
+      "sha256": "03253f2668c7a344fdccfd72f846651ef34b38c949507132b84dc393ce7c1b54"
+    },
+    {
+      "path": "dist/electron/shared/ipc.js",
+      "sha256": "6e11b4d0fa70c525e0be0e45aa832aa068f888bfd0a79f72e8c497fa8244f20b"
+    },
+    {
+      "path": "dist/electron/shared/serverUrl.js",
+      "sha256": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de"
+    },
+    {
+      "path": "package.json",
+      "sha256": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a"
+    },
+    {
+      "path": "src/main/net.ts",
+      "sha256": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa"
+    },
+    {
+      "path": "src/server/app.ts",
+      "sha256": "a0327efb4b135a395cd929f8cbfd5c8badfdd49755b0ddc4e35fd2b63e08349a"
+    },
+    {
+      "path": "src/server/pgStore.ts",
+      "sha256": "60f4c16ae35f92ed1558a9626eee937a9586f01ccd7bfe7f0687f831dd094004"
+    },
+    {
+      "path": "src/server/probe.ts",
+      "sha256": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee"
+    },
+    {
+      "path": "src/shared/api.ts",
+      "sha256": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736"
+    }
+  ],
+  "localBindingsUnchanged": true,
+  "createdAccountCount": 2,
+  "registrationRequests": 2,
+  "possibleUnidentifiedAccountCount": 0,
+  "eventsSha256": "d31eb71e60c02dbc6738065a5ec8c9aad6744b9148d617fedcf8fad10f8c21fd"
+}

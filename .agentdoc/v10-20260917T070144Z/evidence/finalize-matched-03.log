@@ -1,0 +1,19 @@
+{
+  "id": "ac",
+  "command": "node .harness/v10/final-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'",
+  "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "exitCode": 0,
+  "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-10-ac-1789671117869.log",
+  "logHash": "e712b1482e9342c9c7aa24acae0f1e7f3f7450430b765a66d6948473403c1b48",
+  "artifacts": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison.json": "f9718b891daab049241b8a25761613bf57407298674eb671f3cc49be1d365882",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/final.json": "0250be7429d14930ae17785b458367b4dc05a0615b9bf15348ecc316a9ce978f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/gallery-final.json": "189bc05bab6e949448b76098f69454d5863393a245182b859a657a6cb622f495",
+    "docs/v0.10/EQUIPMENT_CATALOG.json": "4c62266b42b21c0764e826f2c5963a4f2871757bc38c6e25b0f1eb911680e90f",
+    "docs/v0.10/CATALOG.md": "8735cd5981ca69784c22ec3d4aaaee55e052caff898591b0c34214f8773efe6f"
+  },
+  "at": "2026-09-17T18:52:04.682Z"
+}
+
+{"pid":58819,"executor":"/root","startedAt":"2026-09-17T13:40:11.583Z","state":"passed","commands":[{"args":["start","/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z","V10-10"],"startedAt":"2026-09-17T18:51:57.753Z","signal":null,"endedAt":"2026-09-17T18:51:57.825Z","exitCode":0},{"args":["check","/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z","V10-10","ac"],"startedAt":"2026-09-17T18:51:57.826Z","signal":null,"endedAt":"2026-09-17T18:52:04.688Z","exitCode":0},{"args":["verify","/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z","V10-10"],"startedAt":"2026-09-17T18:52:04.688Z","signal":null,"endedAt":"2026-09-17T18:52:04.744Z","exitCode":0}],"source":"85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1","endedAt":"2026-09-17T18:52:04.745Z"}

@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "observerPid": 56963,
+  "childPid": 56964,
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9",
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+  "appHash": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5",
+  "startedAt": "2026-09-17T19:55:44.590Z",
+  "state": "complete",
+  "cancelSignal": null,
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 56964,
+        "ppid": 56963,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:44 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9"
+      },
+      {
+        "pid": 56965,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=37"
+      },
+      {
+        "pid": 56966,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=37"
+      },
+      {
+        "pid": 56967,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --app-path=/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Resources/app.asar --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757595908280 --launch-time-ticks=917349461408 --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=57"
+      },
+      {
+        "pid": 57160,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:48 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=audio.mojom.AudioService --lang=ko --service-sandbox-type=audio --message-loop-type-ui --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990997080739 --seatbelt-client=58"
+      },
+      {
+        "pid": 56965,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "(DesMon Helper (G)"
+      },
+      {
+        "pid": 56966,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "(DesMon Helper)"
+      },
+      {
+        "pid": 57160,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:48 2026",
+        "command": "(DesMon Helper)"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 56964,
+        "signal": "SIGTERM",
+        "at": "2026-09-17T20:25:46.088Z"
+      }
+    ],
+    "finishedAt": "2026-09-17T20:25:46.455Z"
+  }
+}

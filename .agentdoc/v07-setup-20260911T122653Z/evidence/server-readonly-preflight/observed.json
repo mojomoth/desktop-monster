@@ -1,0 +1,53 @@
+{
+  "kind": "desmon-v07-server-readonly-preflight",
+  "reviewer": "/root/critic",
+  "startedAt": "2026-09-12T19:25:41.395Z",
+  "endpoint": "registered-v3-healthz",
+  "method": "GET",
+  "timeoutMs": 45000,
+  "preliminary": true,
+  "finalCompatibility": "NOT_EVALUATED",
+  "actions": [
+    "GET fixed health endpoint",
+    "read local git objects",
+    "hash current mapped source files"
+  ],
+  "http": {
+    "status": 200,
+    "ok": true,
+    "bodyBytes": 60,
+    "bodySha256": "b6118dd28f692196f01c0eadc309014896045ad8ec38d7b51f46d5abca89ce15",
+    "redirectFollowed": false
+  },
+  "observedHealth": {
+    "ok": true,
+    "sha": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+    "valid40HexSha": true
+  },
+  "localCommit": {
+    "sha": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+    "exists": true,
+    "exitCode": 0
+  },
+  "correspondence": {
+    "helper": "deployedSourcesMatch/serverSources",
+    "allMatched": false,
+    "currentSourcesStable": true,
+    "mappedFiles": 35,
+    "checkedFiles": 1,
+    "checks": [
+      {
+        "path": "src/core/battle.ts",
+        "currentSha256": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+        "commitBlobSha256": "1149a046298497a7d9dacd529731a3d3eb2eb17dd5b4bebb64de6a74d6272288",
+        "matches": false
+      }
+    ]
+  },
+  "reason": "Mapped source correspondence not established; helper stops at the first missing or mismatched blob",
+  "endedAt": "2026-09-12T19:25:41.977Z",
+  "log": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/server-readonly-preflight/observed.log",
+    "sha256": "6a3ba885c5809130167a0541ac073b86d5011924d45a673ef9e18dacff8e45e2"
+  }
+}

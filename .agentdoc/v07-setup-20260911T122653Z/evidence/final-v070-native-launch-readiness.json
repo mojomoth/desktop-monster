@@ -1,0 +1,132 @@
+{
+  "kind": "final-v070-native-launch-readiness",
+  "checkedAt": "2026-09-12T20:12:11.921016+00:00",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "releaseReport": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release.json",
+    "sha256": "46271facabdeb917748b50b46b2136246c0fd65281b5e76b350a7dcd1e6b1079"
+  },
+  "releaseExecution": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/measurement-release-v070/execution.json",
+    "sha256": "e6b466626375c0638046230a7ef694c98d7e8aa54fa7183d880e17df94d30dbf",
+    "endedAt": "2026-09-12T20:10:10.684924+00:00"
+  },
+  "policySeedCounts": [
+    {
+      "policy": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      "samples": 100
+    },
+    {
+      "policy": {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      },
+      "samples": 100
+    }
+  ],
+  "designVerify": {
+    "exitCode": 0,
+    "output": "{\n  \"status\": \"design_review_complete\",\n  \"release\": \"NOT_EVALUATED\",\n  \"humanFun\": \"PENDING\"\n}\n\n"
+  },
+  "processes": [
+    {
+      "pid": 50717,
+      "ppid": 50667,
+      "pgid": 50646,
+      "stat": "S",
+      "command": "node",
+      "args": "node /Users/jeongyounglee/work/repo/desktop-monster/node_modules/.bin/electron ."
+    }
+  ],
+  "command": [
+    "/usr/bin/caffeinate",
+    "-di",
+    "node",
+    ".harness/v7/loop/e2e-matrix.mjs",
+    "run",
+    ".agentdoc/v07-setup-20260911T122653Z/evidence/native"
+  ],
+  "naturalMinutesRequired": 330,
+  "actualNaturalMinutesCompletedAtLaunch": 0,
+  "humanChecks": "PENDING"
+}

@@ -1,0 +1,532 @@
+{
+  "schemaVersion": 1,
+  "mode": "electron-e2e",
+  "sourceDigest": "6b1f37f7491ebb6af84d27a6054c41bf036b66a22eb2dd1dd96dff2b6bd210fb",
+  "command": "node .harness/v5/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json 5 active",
+  "startedAt": "2026-09-10T04:05:01.977Z",
+  "elapsedMs": 309134.38775,
+  "status": "failed",
+  "checks": [
+    {
+      "id": "native-overlay",
+      "passed": true,
+      "details": {
+        "size": [
+          400,
+          260
+        ],
+        "alwaysOnTop": true
+      }
+    },
+    {
+      "id": "preload-isolation",
+      "passed": true,
+      "details": "Real sandboxed preload bridge; Node unavailable in renderer."
+    },
+    {
+      "id": "painted-canvas",
+      "passed": true,
+      "details": {
+        "opaquePixels": 3657
+      }
+    },
+    {
+      "id": "real-time-observation",
+      "passed": true,
+      "details": {
+        "profile": "active",
+        "minutes": 5,
+        "mode": "real-time",
+        "elapsedMs": 300035.126417,
+        "inputs": 583,
+        "start": {
+          "level": 1,
+          "kills": 0,
+          "coins": 0,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 69.59999998211862,
+          "seenMonsters": 1
+        },
+        "end": {
+          "level": 14,
+          "kills": 47,
+          "coins": 560,
+          "companions": 1,
+          "reincarnations": 0,
+          "playTimeMs": 300255.6999999821,
+          "seenMonsters": 40
+        },
+        "timeline": [
+          {
+            "elapsedMs": 0.03087500000003729,
+            "level": 1,
+            "kills": 0,
+            "coins": 0,
+            "companions": 0,
+            "reincarnations": 0,
+            "playTimeMs": 69.59999998211862,
+            "seenMonsters": 1
+          },
+          {
+            "elapsedMs": 30004.671875,
+            "level": 4,
+            "kills": 7,
+            "coins": 12,
+            "companions": 0,
+            "reincarnations": 0,
+            "playTimeMs": 30005.799999982122,
+            "seenMonsters": 8
+          },
+          {
+            "elapsedMs": 60026.0095,
+            "level": 10,
+            "kills": 23,
+            "coins": 136,
+            "companions": 0,
+            "reincarnations": 0,
+            "playTimeMs": 60003.899999982124,
+            "seenMonsters": 23
+          },
+          {
+            "elapsedMs": 90045.716709,
+            "level": 12,
+            "kills": 31,
+            "coins": 244,
+            "companions": 0,
+            "reincarnations": 0,
+            "playTimeMs": 90001.29999998212,
+            "seenMonsters": 29
+          },
+          {
+            "elapsedMs": 120052.01425,
+            "level": 13,
+            "kills": 36,
+            "coins": 346,
+            "companions": 0,
+            "reincarnations": 0,
+            "playTimeMs": 120000.09999998212,
+            "seenMonsters": 33
+          },
+          {
+            "elapsedMs": 150082.086084,
+            "level": 13,
+            "kills": 39,
+            "coins": 385,
+            "companions": 0,
+            "reincarnations": 0,
+            "playTimeMs": 150011.59999998214,
+            "seenMonsters": 34
+          },
+          {
+            "elapsedMs": 180100.35737500002,
+            "level": 14,
+            "kills": 40,
+            "coins": 455,
+            "companions": 1,
+            "reincarnations": 0,
+            "playTimeMs": 180009.6999999821,
+            "seenMonsters": 35
+          },
+          {
+            "elapsedMs": 210110.144084,
+            "level": 14,
+            "kills": 44,
+            "coins": 513,
+            "companions": 1,
+            "reincarnations": 0,
+            "playTimeMs": 210005.79999998212,
+            "seenMonsters": 38
+          },
+          {
+            "elapsedMs": 240130.3035,
+            "level": 14,
+            "kills": 47,
+            "coins": 560,
+            "companions": 1,
+            "reincarnations": 0,
+            "playTimeMs": 240352.6999999821,
+            "seenMonsters": 40
+          },
+          {
+            "elapsedMs": 270164.456292,
+            "level": 14,
+            "kills": 47,
+            "coins": 560,
+            "companions": 1,
+            "reincarnations": 0,
+            "playTimeMs": 270004.0999999821,
+            "seenMonsters": 40
+          }
+        ],
+        "policy": "2 inputs/sec; no automatic menu/reincarnation choices; idle has zero onboarding inputs"
+      }
+    },
+    {
+      "id": "fallback-keyboard-to-save",
+      "passed": true,
+      "details": {
+        "beforeHp": "10",
+        "afterHp": "9"
+      }
+    },
+    {
+      "id": "fallback-mouse-to-save",
+      "passed": true,
+      "details": {
+        "beforeHp": "9",
+        "afterHp": "8"
+      }
+    },
+    {
+      "id": "ipc-input-kill-reward",
+      "passed": true,
+      "details": {
+        "level": 2,
+        "kills": 4,
+        "coins": 5,
+        "companions": 0,
+        "reincarnations": 0,
+        "playTimeMs": 3581.1000000059603,
+        "seenMonsters": 5
+      }
+    },
+    {
+      "id": "save-reload",
+      "passed": true,
+      "details": {
+        "saved": {
+          "level": 2,
+          "kills": 4,
+          "coins": 5,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 3581.1000000059603,
+          "seenMonsters": 5
+        },
+        "resumed": {
+          "level": 2,
+          "kills": 4,
+          "coins": 5,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 3581.1000000059603,
+          "seenMonsters": 5
+        }
+      }
+    },
+    {
+      "id": "menu-singleton",
+      "passed": true,
+      "details": "Repeated opener reuses the production menu window."
+    },
+    {
+      "id": "shop-transaction",
+      "passed": true,
+      "details": {
+        "coins": 1725,
+        "training": 1
+      }
+    },
+    {
+      "id": "stale-purchase-token",
+      "passed": true,
+      "details": "Repeated token rejected by production reducer through IPC."
+    },
+    {
+      "id": "menu-hero",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "여행의 시작 · 수습 영웅\n\nLv.1 · 공격력 1\n\n환생하면 동료 버프가 열립니다\n\n중첩 0 · 환생 0회 · 보유 영웅 0/70 · 골드 1725\n\n현재 Lv.1 / 다음 환생 Lv.12\n\n새로운 모습으로 환생\n\n확정하면 Lv.1 · 첫 몬스터부터 다시 시작합니다. 동료·골드·훈련·발견·기록은 유지되고 영혼과 영구 공격력 +25%를 얻습니다. 수락 후에는 Lv.13과 플레이 2분 휴식이 필요합니다.\n\n낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.\n\nLv.12에 환생 해금"
+      }
+    },
+    {
+      "id": "menu-codex",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "영웅 도감 · 발견 0/70\n\n필드 시간 · 새벽 · 다음 전환까지 플레이 5분 0초 (20분 주기)\n\n영웅 도감\n몬스터 도감\n\n카드를 펼치면 발견 조건과 진행도를 확인할 수 있습니다. 조건을 달성해도 실제로 등장하기 전에는 실루엣으로 남습니다.\n\n#001\n미발견\n일반 · 불 · ★\n#002\n미발견\n일반 · 물 · ★\n#003\n미발견\n일반 · 바람 · ★\n#004\n미발견\n일반 · 대지 · ★\n#005\n미발견\n일반 · 어둠 · ★\n#006\n미발견\n일반 · 불 · ★\n#007\n미발견\n일반 · 물 · ★\n#008\n미발견\n일반 · 바람 · ★\n#009\n미발견\n일반 · 대지 · ★\n#010\n미발견\n일반 · 어둠 · ★\n#011\n미발견\n일반 · 불 · ★★\n#012\n미발견\n일반 · 물 · ★★\n#013\n미발견\n일반 · 바람 · ★★\n#014\n미발견\n일반 · 대지 · ★★\n#015\n미발견\n일반 · 어둠 · ★★\n#016\n미발견\n일반 · 불 · ★★\n#017\n미발견\n일반 · 물 · ★★\n#018\n미발견\n일반 · 바람 · ★★\n#019\n미발견\n일반 · 대지 · ★★\n#020\n미발견\n일반 · 어둠 · ★★\n#021\n미발견\n일반 · 불 · ★★★\n#022\n미발견\n일반 · 물 · ★★★\n#023\n미발견\n일반 · 바람 · ★★★\n#024\n미발견\n일반 · 대지 · ★★★\n#025\n미발견\n일반 · 어둠 · ★★★\n#026\n미발견\n일반 · 불 · ★★★\n#027\n미발견\n일반 · 물 · ★★★\n#028\n미발견\n일반 · 바람 · ★★★\n#029\n미발견\n일반 · 대지 · ★★★\n#030\n미발견\n일반 · 어둠 · ★★★\n#031\n미발견\n일반 · 불 · ★★★★\n#032\n미발견\n일반 · 물 · ★★★★\n#033\n미발견\n일반 · 바람 · ★★★★\n#034\n미발견\n일반 · 대지 · ★★★★\n#035\n미발견\n일반 · 어둠 · ★★★★\n#036\n미발견\n일반 · 불 · ★★★★\n#037\n미발견\n일반 · 물 · ★★★★\n#038\n미발견\n일반 · 바람 · ★★★★\n#039\n미발견\n일반 · 대지 · ★★★★\n#040\n미발견\n일반 · 어둠 · ★★★★\n#041\n미발견\n일반 · 불 · ★★★★★\n#042\n미발견\n일반 · 물 · ★★★★★\n#043\n미발견\n일반 · 바람 · ★★★★★\n#044\n미발견\n일반 · 대지 · ★★★★★\n#045\n미발견\n일반 · 어둠 · ★★★★★\n#046\n미발견\n일반 · 불 · ★★★★★\n#047\n미발견\n일반 · 물 · ★★★★★\n#048\n미발견\n일반 · 바람 · ★★★★★\n#049\n미발견\n일반 · 대지 · ★★★★★\n#050\n미발견\n일반 · 어둠 · ★★★★★\n#051\n미발견\n레어 · 불 · ★★\n#052\n미발견\n레어 · 불 · ★★★\n#053\n미발견\n레어 · 불 · ★★★★\n#054\n미발견\n레어 · 불 · ★★★★★\n#055\n미발견\n레어 · 물 · ★★\n#056\n미발견\n레어 · 물 · ★★★\n#057\n미발견\n레어 · 물 · ★★★★\n#058\n미발견\n레어 · 물 · ★★★★★\n#059\n미발견\n레어 · 바람 · ★★\n#060\n미발견\n레어 · 바람 · ★★★\n#061\n미발견\n레어 · 바람 · ★★★★\n#062\n미발견\n레어 · 바람 · ★★★★★\n#063\n미발견\n레어 · 대지 · ★★\n#064\n미발견\n레어 · 대지 · ★★★\n#065\n미발견\n레어 · 대지 · ★★★★\n#066\n미발견\n레어 · 대지 · ★★★★★\n#067\n미발견\n레어 · 어둠 · ★★\n#068\n미발견\n레어 · 어둠 · ★★★\n#069\n미발견\n레어 · 어둠 · ★★★★\n#070\n미발견\n레어 · 어둠 · ★★★★★"
+      }
+    },
+    {
+      "id": "menu-profile",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "내 기록\n플레이어 이름\n이름 저장\n\n영문·숫자·_·- 1–16자. 오프라인에서도 변경할 수 있습니다.\n\n플레이 시간 · 0시간 0분 0초\n\n몬스터 처치 · 0마리\n\n영웅 환생 · 0회\n\n총 회귀 · 0회 (영웅 환생과 영혼 회귀 포함)\n\nPvP · 0승 0패 (훈련 상대 제외)\n\n누적 골드 사용 · 75\n\n앱에서 진행한 시간을 기록합니다. 종료·절전 시간은 포함되지 않습니다. 영웅 장착 변경은 환생 기록에 포함되지 않습니다.\n\n영웅 환생 기록 · 총 0회 · 최근 0개 (최대 100개)\n영웅별 전체 환생 횟수"
+      }
+    },
+    {
+      "id": "menu-roster",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "No companions yet — beat a boss to capture one."
+      }
+    },
+    {
+      "id": "menu-ranking",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "Offline"
+      }
+    },
+    {
+      "id": "menu-battle",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "대전 상대\n\n영웅과 배치된 동료, 전적을 보고 상대를 선택하세요.\n\n목록 새로고침\n서버에 연결할 수 없습니다. 목록 새로고침으로 다시 시도하세요.\nNo opponent yet\nAuto\nSave party\n\nΣ vs opponent: 0\n\nBattle!"
+      }
+    },
+    {
+      "id": "offline-pvp",
+      "passed": true,
+      "details": "Battle is disabled with offline identity."
+    },
+    {
+      "id": "profile-name-ipc",
+      "passed": true,
+      "details": "Native input, click, preload, IPC and isolated identity store round-trip."
+    },
+    {
+      "id": "hero-choice-reset-preserve",
+      "passed": true,
+      "details": {
+        "chosen": {
+          "level": 1,
+          "kills": 0,
+          "coins": 1800,
+          "companions": 0,
+          "reincarnations": 1,
+          "playTimeMs": 660.3,
+          "seenMonsters": 2
+        },
+        "restRemainingMs": 120000,
+        "choices": [
+          {
+            "formId": "h08",
+            "buffPercent": 24
+          },
+          {
+            "formId": "h09",
+            "buffPercent": 19
+          },
+          {
+            "formId": "h02",
+            "buffPercent": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "stale-hero-choice",
+      "passed": true,
+      "details": "Replaying an accepted offer does not grant another reincarnation."
+    },
+    {
+      "id": "reincarnation-progress-honesty",
+      "passed": false,
+      "details": {
+        "level": 12,
+        "requiredLevel": 13,
+        "ready": false,
+        "filledPixels": 38,
+        "barWidth": 38,
+        "fixture": "Lv12 after first reincarnation, no rest"
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "profile": "active",
+      "minutes": 5,
+      "mode": "real-time",
+      "elapsedMs": 300035.126417,
+      "inputs": 583,
+      "start": {
+        "level": 1,
+        "kills": 0,
+        "coins": 0,
+        "companions": 0,
+        "reincarnations": 0,
+        "playTimeMs": 69.59999998211862,
+        "seenMonsters": 1
+      },
+      "end": {
+        "level": 14,
+        "kills": 47,
+        "coins": 560,
+        "companions": 1,
+        "reincarnations": 0,
+        "playTimeMs": 300255.6999999821,
+        "seenMonsters": 40
+      },
+      "timeline": [
+        {
+          "elapsedMs": 0.03087500000003729,
+          "level": 1,
+          "kills": 0,
+          "coins": 0,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 69.59999998211862,
+          "seenMonsters": 1
+        },
+        {
+          "elapsedMs": 30004.671875,
+          "level": 4,
+          "kills": 7,
+          "coins": 12,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 30005.799999982122,
+          "seenMonsters": 8
+        },
+        {
+          "elapsedMs": 60026.0095,
+          "level": 10,
+          "kills": 23,
+          "coins": 136,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 60003.899999982124,
+          "seenMonsters": 23
+        },
+        {
+          "elapsedMs": 90045.716709,
+          "level": 12,
+          "kills": 31,
+          "coins": 244,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 90001.29999998212,
+          "seenMonsters": 29
+        },
+        {
+          "elapsedMs": 120052.01425,
+          "level": 13,
+          "kills": 36,
+          "coins": 346,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 120000.09999998212,
+          "seenMonsters": 33
+        },
+        {
+          "elapsedMs": 150082.086084,
+          "level": 13,
+          "kills": 39,
+          "coins": 385,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 150011.59999998214,
+          "seenMonsters": 34
+        },
+        {
+          "elapsedMs": 180100.35737500002,
+          "level": 14,
+          "kills": 40,
+          "coins": 455,
+          "companions": 1,
+          "reincarnations": 0,
+          "playTimeMs": 180009.6999999821,
+          "seenMonsters": 35
+        },
+        {
+          "elapsedMs": 210110.144084,
+          "level": 14,
+          "kills": 44,
+          "coins": 513,
+          "companions": 1,
+          "reincarnations": 0,
+          "playTimeMs": 210005.79999998212,
+          "seenMonsters": 38
+        },
+        {
+          "elapsedMs": 240130.3035,
+          "level": 14,
+          "kills": 47,
+          "coins": 560,
+          "companions": 1,
+          "reincarnations": 0,
+          "playTimeMs": 240352.6999999821,
+          "seenMonsters": 40
+        },
+        {
+          "elapsedMs": 270164.456292,
+          "level": 14,
+          "kills": 47,
+          "coins": 560,
+          "companions": 1,
+          "reincarnations": 0,
+          "playTimeMs": 270004.0999999821,
+          "seenMonsters": 40
+        }
+      ],
+      "policy": "2 inputs/sec; no automatic menu/reincarnation choices; idle has zero onboarding inputs"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/fresh-field.png",
+      "sha256": "808ac447b05e89b989aba8059c568f3c39727b25c4c59ccdc47b925baffe0dea"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/5m-active.png",
+      "sha256": "722e9e7c3ee15732f62025f9ab1ee8aef4e23e0598bafc2be69e89baf64dcb14"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/shop.png",
+      "sha256": "a7ecfc970a0ef153c7fb2d9f2735ea1943cb15bd0f67475c973fe1d57a705c8d"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/hero.png",
+      "sha256": "54e00ae8029e534060e6d2c688fa0a45d319e4de78f963502d201060c7b3a2a3"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/codex.png",
+      "sha256": "ddfb9bddbf9ee066ebc958874ae7580787ba143be979fb5e4863db3644397996"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/profile.png",
+      "sha256": "caa215f32dae0b15ab13ce2bf8126701a5e78dfceec5d4ccad5b289d850ac7e3"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/roster.png",
+      "sha256": "0c0c97c72c5583ea1ddf86655c403281ecc1f3ab690296cb4900092b49e65f40"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/ranking.png",
+      "sha256": "b35e7098bdda9fc0e14fafb5f165defab1ee5242a91735d815b3242a9149e4fe"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/battle.png",
+      "sha256": "598180f371a71f681e0f94758f55fa42daec05d2262ad54914391de142bec288"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/hero-choices.png",
+      "sha256": "f4fe58fd380424c3793df558b35e736752271d7aab1c752911174ad91d62b54e"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e.json.screenshots/level-gate.png",
+      "sha256": "478a09aebae83b123bc2d1786401bb22fcffaf1793e38c0430d7f62ecd1222cc"
+    }
+  ],
+  "errors": [],
+  "bootstrap": "Production BrowserWindows, preload, renderer, IPC and save; harness lifecycle.",
+  "limitations": [
+    "No human player: enjoyment, distraction and retention remain unverified.",
+    "OS global hooks, Accessibility, tray startup, packaged app and live PvP are not exercised.",
+    "Live renderer uses production RNG and wall clock; distribution claims use separate seeded simulation.",
+    "Scripted fixtures are diagnostic setup, not naturally earned player progress."
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "version": 9,
+  "phase": "restart",
+  "startedAt": "2026-09-15T09:18:39.783Z",
+  "checks": [
+    {
+      "name": "isolated-production-windows",
+      "passed": true,
+      "details": {}
+    },
+    {
+      "name": "reset-survives-app-restart",
+      "passed": true,
+      "details": {
+        "fresh": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 0,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 8,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 0,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 215.2,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 1,
+            "pvpLosses": 2,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "checkpoint-survives-app-restart",
+      "passed": true,
+      "details": {
+        "list": [
+          {
+            "id": "d68bea2c-fca1-4f2f-b05f-f8a385d8e1fd",
+            "at": 1789463918476,
+            "reason": "reset",
+            "level": 27,
+            "bestIndex": 1000,
+            "companions": 3
+          }
+        ]
+      }
+    },
+    {
+      "name": "restore-cancel-preserves-current-progress",
+      "passed": true,
+      "details": {}
+    },
+    {
+      "name": "restore-recovers-progress-with-durable-identity-and-ids",
+      "passed": true,
+      "details": {
+        "restored": {
+          "version": 3,
+          "level": 27,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 1000,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "309470158987657482578049",
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "dragon",
+              "bossIndex": 63,
+              "level": 100,
+              "stars": 3
+            },
+            {
+              "id": "c2",
+              "speciesId": "bat",
+              "bossIndex": 15,
+              "level": 30,
+              "stars": 1
+            },
+            {
+              "id": "s7",
+              "speciesId": "slime",
+              "bossIndex": 7,
+              "level": 1,
+              "stars": 0
+            }
+          ],
+          "nextCompanionId": 8,
+          "earlyCaptureUsed": 3,
+          "souls": 0,
+          "rebirths": 2,
+          "bestIndex": 1000,
+          "pvpParty": [
+            "c1"
+          ],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "collection": [],
+            "reincarnations": 0,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "progress": {
+            "playTimeMs": 1775.599999833107,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime",
+              "bat",
+              "ghost",
+              "golem",
+              "dragon",
+              "lumibel",
+              "kitekin",
+              "rictus",
+              "lichenwing",
+              "brimhide",
+              "sopwit",
+              "nimbling",
+              "hexweaver",
+              "sumpfang",
+              "anvilclaw",
+              "snipclaw",
+              "panewhirr",
+              "chainwraith",
+              "bramblebear",
+              "ashtusk",
+              "vespril",
+              "fanjack",
+              "gravebloom",
+              "fellstump",
+              "forgehulk",
+              "murkin",
+              "skitterel",
+              "cryptshell",
+              "quarryback",
+              "bristlehog",
+              "foamcap",
+              "sporeplume",
+              "sorrowstilt",
+              "kabulk",
+              "matchling",
+              "gulpwick",
+              "chimbrel",
+              "sicklehood",
+              "quagmaw",
+              "wickmoth",
+              "brammel",
+              "lantessa",
+              "hollowstag",
+              "wickerhusk",
+              "emberwren",
+              "conchguard",
+              "vaneknight",
+              "voidmaw",
+              "grumblode",
+              "sootcap",
+              "bellbuoy",
+              "skreave",
+              "shroudlamp",
+              "chirrgrit",
+              "steamfin",
+              "quintel",
+              "curlhart",
+              "gallowplate",
+              "gillstub",
+              "kindletoad",
+              "pondstrider",
+              "gyrodillo",
+              "mournbell",
+              "cobbleroll",
+              "flarecrow",
+              "slushmaw",
+              "cyclonarch",
+              "hooklure",
+              "flintwren",
+              "hearthmole",
+              "kraulk",
+              "vellisk",
+              "quietus",
+              "moldwarp",
+              "scorchbriar",
+              "reefknight",
+              "millox",
+              "unblink",
+              "spadeling",
+              "kilnshell",
+              "grumbol",
+              "nubilan",
+              "glasshade",
+              "helmdelver",
+              "charspine",
+              "vorrow",
+              "dartfinch",
+              "inknuckle",
+              "thornhare",
+              "pyrecairn",
+              "rainheron",
+              "glidefin",
+              "veilcap",
+              "cairnlith",
+              "slagram",
+              "clubprawn",
+              "whirlseed",
+              "waxwick",
+              "drusehog",
+              "coalscythe",
+              "kelpwarden",
+              "velmoth",
+              "nightlynx",
+              "terrakin",
+              "cindercoil",
+              "dawnfinch",
+              "kilnbeetle",
+              "crownwyrm",
+              "cinderhare",
+              "duelphoenix",
+              "furnaceox",
+              "mistaxolotl",
+              "pearlcrab",
+              "tideleviathan",
+              "frostnewt",
+              "mirrorjelly",
+              "anchornaut",
+              "sunskipper",
+              "courierowl",
+              "stormmanta",
+              "ribbonstoat",
+              "arenakite",
+              "zephyrstag",
+              "duskarmadillo",
+              "mossbadger",
+              "crystaltortoise",
+              "coinmole",
+              "oathbison",
+              "rootcolossus",
+              "moonmoth",
+              "inkferret",
+              "cryptcervid",
+              "maskimp",
+              "victoryraven",
+              "starvoid"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03",
+              "h04",
+              "h05",
+              "h06",
+              "h07",
+              "h08",
+              "h09",
+              "h10",
+              "h11",
+              "h12",
+              "h13",
+              "h14"
+            ],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 1,
+            "pvpLosses": 2,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "restore-backs-up-current-progress-first",
+      "passed": true,
+      "details": {
+        "after": [
+          {
+            "id": "592fa224-104a-4c2d-90b4-5306d52cfb15",
+            "at": 1789463920418,
+            "reason": "restore",
+            "level": 1,
+            "bestIndex": 0,
+            "companions": 0
+          },
+          {
+            "id": "d68bea2c-fca1-4f2f-b05f-f8a385d8e1fd",
+            "at": 1789463918476,
+            "reason": "reset",
+            "level": 27,
+            "bestIndex": 1000,
+            "companions": 3
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "field-hud",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-02/restart/field-hud.png",
+      "sha256": "f948734fedf16723449ad139d8df053882f24cb16d88897c0126486a40e12917"
+    },
+    {
+      "name": "hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-02/restart/hero.png",
+      "sha256": "06c1af81f53d1b834cdb2a62a484e55ac11988b4ec9bbfc940637d63920a5b7f"
+    },
+    {
+      "name": "restart-checkpoint",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-02/restart/restart-checkpoint.png",
+      "sha256": "8f8c1d1d70931d64dfea0b97d37a700221de989e5c9f2270de9c3e9cfc0028d8"
+    },
+    {
+      "name": "restored-checkpoints",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-02/restart/restored-checkpoints.png",
+      "sha256": "c5edc4de718701b0010251b5575269148930ebc2529243b8e216bdaec2369643"
+    },
+    {
+      "name": "restored-hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-02/restart/restored-hero.png",
+      "sha256": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2"
+    }
+  ],
+  "pngs": [],
+  "errors": [],
+  "restore": null,
+  "finishedAt": "2026-09-15T09:18:40.658Z",
+  "passed": true
+}

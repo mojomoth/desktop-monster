@@ -1,0 +1,84 @@
+{
+  "version": 91,
+  "productVersion": "0.9.1",
+  "roles": [
+    "/root/designer",
+    "/root/critic",
+    "/root/balance",
+    "/root"
+  ],
+  "tasks": [
+    {
+      "id": "V091-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v91",
+        "docs/v0.9.1"
+      ],
+      "ac": "node --test .harness/v91/run.test.mjs .harness/v91/audit.test.mjs"
+    },
+    {
+      "id": "V091-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V091-01"
+      ],
+      "files": [
+        "src/core",
+        "src/server",
+        "src/shared/api.ts"
+      ],
+      "ac": "npx vitest run tests/server tests/goldV91.test.ts tests/save.test.ts tests/collection.test.ts"
+    },
+    {
+      "id": "V091-03",
+      "owner": "Designer",
+      "dependencies": [
+        "V091-01"
+      ],
+      "files": [
+        "src/renderer/game.ts",
+        "src/renderer/hud.ts",
+        "tests/renderer.test.ts"
+      ],
+      "ac": "npx vitest run tests/renderer.test.ts tests/replayV91.test.ts"
+    },
+    {
+      "id": "V091-04",
+      "owner": "Host",
+      "dependencies": [
+        "V091-02",
+        "V091-03"
+      ],
+      "files": [
+        "src/main",
+        "src/preload",
+        "src/shared",
+        "src/renderer/index.ts",
+        "src/renderer/global.d.ts",
+        "src/menu",
+        "static"
+      ],
+      "ac": "npx vitest run tests/onlineV91.test.ts tests/defenseV91.test.ts tests/menuV9.test.ts tests/recoveryV9.test.ts"
+    },
+    {
+      "id": "V091-05",
+      "owner": "Host/Critic",
+      "dependencies": [
+        "V091-02",
+        "V091-03",
+        "V091-04"
+      ],
+      "files": [
+        "src",
+        "static",
+        "tests",
+        "scripts",
+        "package.json",
+        "package-lock.json"
+      ],
+      "ac": "npm run smoke && npm run package && npm run package:win"
+    }
+  ]
+}

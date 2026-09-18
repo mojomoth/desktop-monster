@@ -1,0 +1,48 @@
+{
+  "at": "2026-09-17T18:59:25.374Z",
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3",
+  "before": [
+    {
+      "pid": 72888,
+      "line": "72888     1 72887 Thu Sep 17 22:51:36 2026     /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3"
+    },
+    {
+      "pid": 72957,
+      "line": "72957 72888 72887 Thu Sep 17 22:51:37 2026     /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3 --app-path=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757595809064 --launch-time-ticks=895501383713 --shared-files --field-trial-handle=1718379636,r,16382467787638323744,8530723207166985337,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=58"
+    },
+    {
+      "pid": 72958,
+      "line": "72958 72888 72887 Thu Sep 17 22:51:37 2026     /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3 --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,16382467787638323744,8530723207166985337,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990997080739 --seatbelt-client=58"
+    },
+    {
+      "pid": 72959,
+      "line": "72959 72888 72887 Thu Sep 17 22:51:37 2026     /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3 --shared-files --field-trial-handle=1718379636,r,16382467787638323744,8530723207166985337,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708991934122588 --seatbelt-client=44"
+    }
+  ],
+  "signals": [
+    {
+      "pid": 72888,
+      "signal": "SIGTERM",
+      "at": "2026-09-17T18:59:25.374Z"
+    }
+  ],
+  "after": [
+    {
+      "pid": 72888,
+      "line": null
+    },
+    {
+      "pid": 72957,
+      "line": null
+    },
+    {
+      "pid": 72958,
+      "line": null
+    },
+    {
+      "pid": 72959,
+      "line": null
+    }
+  ],
+  "allExited": true
+}

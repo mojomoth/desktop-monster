@@ -1,0 +1,27 @@
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ .harness/v7/loop/config.test.ts (12 tests) 12ms
+ ✓ .harness/v7/loop/server-check.test.ts (2 tests) 3ms
+ ✓ .harness/v7/loop/package-check.test.ts (3 tests) 5ms
+ ✓ .harness/v7/loop/evidence.test.ts (3 tests) 29ms
+ ✓ .harness/v7/loop/e2e-matrix.test.ts (39 tests) 29ms
+ ✓ .harness/v7/loop/e2e.test.ts (14 tests) 84ms
+ ✓ .harness/v7/loop/develop.test.ts (11 tests) 530ms
+   ✓ v7 phased development journal > CLI records an actual failed registered check, rejects changed logs and resumes the same journal  410ms
+ ✓ .harness/v7/loop/fun.test.ts (11 tests) 824ms
+   ✓ v7 executable CLI > archives the issued prompt, preserves rejected state, and resumes accepted reports from disk  471ms
+ ✓ .harness/v7/loop/audit.test.ts (10 tests) 1373ms
+   ✓ evidence-first game audit > resumes the CLI from disk and preserves an audit after a rejected submission  657ms
+ ✓ .harness/v7/loop/measure.test.ts (27 tests) 5294ms
+   ✓ v7 measurement contract > recomputes complete raw seed evidence and rejects duplicate/missing/forged results  303ms
+   ✓ v7 measurement contract > requires phase-specific acceptance instead of accepting any structurally valid report  582ms
+   ✓ v7 measurement contract > accepts a passing release only with every registered policy and validation seed  2033ms
+   ✓ v7 preregistered experiment execution > preserves baseline execution while refusing new experiments under the historical schema  382ms
+   ✓ official protocol execution boundary > enforces the official snapshot at CLI verify while preserving historical structural comparisons  505ms
+
+ Test Files  10 passed (10)
+      Tests  132 passed (132)
+   Start at  13:30:19
+   Duration  5.80s (transform 615ms, setup 0ms, collect 1.38s, tests 8.18s, environment 1ms, prepare 668ms)
+

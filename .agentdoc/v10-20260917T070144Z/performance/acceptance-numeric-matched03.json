@@ -1,0 +1,51 @@
+{
+  "at": "2026-09-17T18:52:04.744Z",
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "selectedBlock": "matched-03",
+  "registrationHash": "0794ed87ccd606dfbbe922b908fd1a5faeb41a896311d71fb546628334651e96",
+  "comparisonHash": "f9718b891daab049241b8a25761613bf57407298674eb671f3cc49be1d365882",
+  "previousFailuresPreserved": [
+    "comparison-failed-01.json",
+    "attempt-02/active-verdict.json"
+  ],
+  "previousActiveRamLimitMiB": 290.375,
+  "comparisons": [
+    {
+      "profile": "active",
+      "cpu": {
+        "baseline": 2.513946272046076,
+        "candidate": 2.379170448768259,
+        "limit": 3.513946272046076,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 313.609375,
+        "candidate": 355.359375,
+        "limit": 376.33125,
+        "passed": true
+      }
+    },
+    {
+      "profile": "idle",
+      "cpu": {
+        "baseline": 2.3775078146373714,
+        "candidate": 2.581700718298981,
+        "limit": 3.3775078146373714,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 336.328125,
+        "candidate": 380.6875,
+        "limit": 403.59375,
+        "passed": true
+      }
+    }
+  ],
+  "memoryGrowth": {
+    "initialMedianMiB": 323.171875,
+    "finalMedianMiB": 209.0625,
+    "limitMiB": 387.80625,
+    "passed": true
+  },
+  "allTasksVerified": true
+}

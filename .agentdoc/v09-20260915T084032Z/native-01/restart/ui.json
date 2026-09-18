@@ -1,0 +1,204 @@
+{
+  "version": 9,
+  "phase": "restart",
+  "startedAt": "2026-09-15T09:17:29.774Z",
+  "checks": [
+    {
+      "name": "isolated-production-windows",
+      "passed": true,
+      "details": {}
+    },
+    {
+      "name": "reset-survives-app-restart",
+      "passed": true,
+      "details": {
+        "fresh": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 0,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 3,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 0,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 10322.699999952314,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "checkpoint-survives-app-restart",
+      "passed": true,
+      "details": {
+        "list": [
+          {
+            "id": "edaf44f3-4a4f-4c6a-bc3e-82d9edc5c2c7",
+            "at": 1789463838320,
+            "reason": "reset",
+            "level": 27,
+            "bestIndex": 1000,
+            "companions": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "restore-cancel-preserves-current-progress",
+      "passed": true,
+      "details": {}
+    },
+    {
+      "name": "restore-recovers-progress-with-durable-identity-and-ids",
+      "passed": true,
+      "details": {
+        "restored": {
+          "version": 3,
+          "level": 27,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 1000,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "309470158987657442567650",
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "dragon",
+              "bossIndex": 63,
+              "level": 100,
+              "stars": 3
+            },
+            {
+              "id": "c2",
+              "speciesId": "bat",
+              "bossIndex": 15,
+              "level": 30,
+              "stars": 1
+            }
+          ],
+          "nextCompanionId": 3,
+          "earlyCaptureUsed": 2,
+          "souls": 0,
+          "rebirths": 2,
+          "bestIndex": 1000,
+          "pvpParty": [
+            "c1"
+          ],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 31745.999999761578,
+            "speciesKills": {},
+            "seenMonsters": [
+              "dragon",
+              "bat",
+              "slime"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "restore-backs-up-current-progress-first",
+      "passed": true,
+      "details": {
+        "after": [
+          {
+            "id": "0d95cd68-e19c-4d1f-a427-7438022531a8",
+            "at": 1789463850398,
+            "reason": "restore",
+            "level": 1,
+            "bestIndex": 0,
+            "companions": 0
+          },
+          {
+            "id": "edaf44f3-4a4f-4c6a-bc3e-82d9edc5c2c7",
+            "at": 1789463838320,
+            "reason": "reset",
+            "level": 27,
+            "bestIndex": 1000,
+            "companions": 2
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "field-hud",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/restart/field-hud.png",
+      "sha256": "f948734fedf16723449ad139d8df053882f24cb16d88897c0126486a40e12917"
+    },
+    {
+      "name": "hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/restart/hero.png",
+      "sha256": "06c1af81f53d1b834cdb2a62a484e55ac11988b4ec9bbfc940637d63920a5b7f"
+    },
+    {
+      "name": "restart-checkpoint",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/restart/restart-checkpoint.png",
+      "sha256": "4f0d73ed370feee6321d9c5a6ac39304e43469fd68eaf9fd194da4380aa9a587"
+    },
+    {
+      "name": "restored-checkpoints",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/restart/restored-checkpoints.png",
+      "sha256": "81b446e83251218e68969abb11b65da398ab18794af574fc5ed209f7ef7a1bff"
+    },
+    {
+      "name": "restored-hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/restart/restored-hero.png",
+      "sha256": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2"
+    }
+  ],
+  "pngs": [],
+  "errors": [],
+  "restore": null,
+  "finishedAt": "2026-09-15T09:17:30.611Z",
+  "passed": true
+}

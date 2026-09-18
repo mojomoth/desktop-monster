@@ -1,0 +1,46 @@
+{
+  "at": "2026-09-12T17:19:45.952883+00:00",
+  "status": "PREREGISTERED_READY_FOR_ACTUAL_EXECUTION",
+  "sourceDigest": "5b839be72a8ee0f35bf38d6e8fd260189f2a3934f45b289efa11d08455a26df6",
+  "evaluationDigest": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff",
+  "protocolSha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694",
+  "batchSha256": "0fae96a8d0c3073e158a1afc1fc1cee97faaa73b1ba2481bbecc97739a484e76",
+  "review": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-round08/session.json",
+    "sha256": "f93a6b1f3d380e76f250e528ef01ce22ad715c8c1645e5b3fa5de67e02ba3b9b"
+  },
+  "checks": {
+    "progression": {
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789233495083.log",
+      "sha256": "57961e874ea774c3396271cc19f6b5be366bb13a312f842902c9bb1abcd0953e"
+    },
+    "harness": {
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789233500039.log",
+      "sha256": "48ef1c4ea4a96817a513a9a6cc5376b7c43e80d95feccfede9d8f52881bd38bd"
+    },
+    "gates": {
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789233507754.log",
+      "sha256": "8081d219b460d1574550cefcd7d45896fe981f3b3b00f622c97b346d374c02a2"
+    }
+  },
+  "referenceBindingCheck": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/batch-reference-binding-fix/checks.json",
+    "sha256": "b68f750422e480f9f5dbf03cf28e88482b7bca5e677424f01e166f783d392b3c"
+  },
+  "referenceCritic": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/batch-reference-binding-fix/critic-review.md",
+    "sha256": "995d82a9bff919af3423599741227c04f3ffd9b4304c14e76d0b40e369eccb5e"
+  },
+  "analysisPreparationSha256": "9792cf6791490e9abacdef61d928dbfae816cd579c29ccc7de3f7b4059cf0db5",
+  "processCheck": {
+    "activeMeasurementNative": [],
+    "preservedUserApp": [
+      "50718 50646 01-11:14:03 /Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    ],
+    "doNotRestart": [
+      "round05",
+      "round06",
+      "round07"
+    ]
+  }
+}

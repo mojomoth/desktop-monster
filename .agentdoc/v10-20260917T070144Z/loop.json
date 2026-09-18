@@ -1,0 +1,1709 @@
+{
+  "version": 10,
+  "run": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z",
+  "createdAt": "2026-09-17T07:08:16.286Z",
+  "source": "18639efe640291c674c5cd0eba7f1a73399ba503326be703d672b29ca553d261",
+  "agents": {
+    "Host": "/root",
+    "Balance": "/root/equipment_economy",
+    "Designer": "/root/sprite_qa",
+    "Critic": "/root/equipment_economy/cleanup_counterexamples"
+  },
+  "history": [
+    {
+      "at": "2026-09-17T07:08:16.402Z",
+      "action": "register",
+      "id": "Host",
+      "arg": "/root"
+    },
+    {
+      "at": "2026-09-17T07:08:16.487Z",
+      "action": "register",
+      "id": "Balance",
+      "arg": "/root/equipment_economy"
+    },
+    {
+      "at": "2026-09-17T07:08:16.572Z",
+      "action": "register",
+      "id": "Designer",
+      "arg": "/root/sprite_qa"
+    },
+    {
+      "at": "2026-09-17T07:08:16.653Z",
+      "action": "register",
+      "id": "Critic",
+      "arg": "/root/harness_critic"
+    },
+    {
+      "at": "2026-09-17T07:08:16.755Z",
+      "action": "start",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T07:08:16.851Z",
+      "action": "implemented",
+      "id": "V10-01",
+      "arg": "harness-selftests-passed"
+    },
+    {
+      "at": "2026-09-17T07:08:16.946Z",
+      "action": "start",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T07:08:17.043Z",
+      "action": "start",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T07:37:16.881Z",
+      "action": "implemented",
+      "id": "V10-02",
+      "arg": "core-tests-and-interface-handoff"
+    },
+    {
+      "at": "2026-09-17T07:37:16.930Z",
+      "action": "implemented",
+      "id": "V10-03",
+      "arg": "designer-192-tests-handoff"
+    },
+    {
+      "at": "2026-09-17T07:37:16.980Z",
+      "action": "start",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T07:37:17.030Z",
+      "action": "implemented",
+      "id": "V10-04",
+      "arg": "backend-v10-200-tests-handoff"
+    },
+    {
+      "at": "2026-09-17T07:37:17.079Z",
+      "action": "start",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T07:49:28.020Z",
+      "action": "implemented",
+      "id": "V10-05",
+      "arg": "Menu, IPC, atomic frame saves, warnings, v4 recovery and native pilot fourteen cases implemented; final source gates/review pending."
+    },
+    {
+      "at": "2026-09-17T07:49:58.502Z",
+      "action": "start",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T07:50:15.041Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T07:54:12.687Z",
+      "action": "register",
+      "id": "Critic",
+      "arg": "/root/backend_v10"
+    },
+    {
+      "at": "2026-09-17T07:54:12.760576+00:00",
+      "action": "review-rotation",
+      "id": "Critic",
+      "note": "Initial /root/harness_critic retired; server implementer /root/backend_v10 independently reviews core/Host. Designer /root/sprite_qa reviews backend; Host reviews Designer. No self-approval. Actual V10-04 implementer retained as delegatedTo."
+    },
+    {
+      "at": "2026-09-17T07:56:53.015Z",
+      "action": "sync"
+    },
+    {
+      "at": "2026-09-17T07:57:02.037Z",
+      "action": "start",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T07:57:02.137Z",
+      "action": "implemented",
+      "id": "V10-01",
+      "arg": "Existing implementation retained; refreshed contract requires new final AC."
+    },
+    {
+      "at": "2026-09-17T07:57:02.242Z",
+      "action": "start",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T07:57:02.345Z",
+      "action": "implemented",
+      "id": "V10-02",
+      "arg": "Existing implementation retained; refreshed contract requires new final AC."
+    },
+    {
+      "at": "2026-09-17T07:57:02.449Z",
+      "action": "start",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T07:57:02.549Z",
+      "action": "implemented",
+      "id": "V10-03",
+      "arg": "Existing implementation retained; refreshed contract requires new final AC."
+    },
+    {
+      "at": "2026-09-17T07:57:02.650Z",
+      "action": "start",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T07:57:02.751Z",
+      "action": "implemented",
+      "id": "V10-04",
+      "arg": "Existing implementation retained; refreshed contract requires new final AC."
+    },
+    {
+      "at": "2026-09-17T07:57:02.851Z",
+      "action": "start",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T07:57:02.945Z",
+      "action": "implemented",
+      "id": "V10-05",
+      "arg": "Existing implementation retained; refreshed contract requires new final AC."
+    },
+    {
+      "at": "2026-09-17T07:57:03.045Z",
+      "action": "start",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T07:57:03.147Z",
+      "action": "implemented",
+      "id": "V10-06",
+      "arg": "Existing implementation retained; refreshed contract requires new final AC."
+    },
+    {
+      "at": "2026-09-17T08:02:50.655Z",
+      "action": "sync"
+    },
+    {
+      "at": "2026-09-17T08:04:31.154Z",
+      "action": "start",
+      "id": "V10-07"
+    },
+    {
+      "at": "2026-09-17T08:05:32.963Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T08:05:52.828Z",
+      "action": "check",
+      "id": "V10-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:05:52.886Z",
+      "action": "verify",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T08:05:54.752Z",
+      "action": "check",
+      "id": "V10-02",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:05:54.815Z",
+      "action": "verify",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T08:05:57.404Z",
+      "action": "check",
+      "id": "V10-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:05:57.461Z",
+      "action": "verify",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T08:05:58.961Z",
+      "action": "check",
+      "id": "V10-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:05:59.025Z",
+      "action": "verify",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T08:06:00.559Z",
+      "action": "check",
+      "id": "V10-05",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:06:00.614Z",
+      "action": "verify",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T08:06:03.471Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:06:03.527Z",
+      "action": "verify",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T08:06:30.845Z",
+      "action": "start",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T08:08:36.559Z",
+      "action": "check",
+      "id": "V10-08",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:12:55.789Z",
+      "action": "verify",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T08:20:36.425Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T08:21:47.264Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T08:21:58.362Z",
+      "action": "check",
+      "id": "V10-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:21:58.418Z",
+      "action": "verify",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T08:22:00.118Z",
+      "action": "check",
+      "id": "V10-02",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:22:00.172Z",
+      "action": "verify",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T08:22:03.043Z",
+      "action": "check",
+      "id": "V10-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:22:03.099Z",
+      "action": "verify",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T08:22:04.429Z",
+      "action": "check",
+      "id": "V10-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:22:04.484Z",
+      "action": "verify",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T08:22:05.780Z",
+      "action": "check",
+      "id": "V10-05",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:22:05.836Z",
+      "action": "verify",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T08:22:08.483Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:22:08.539Z",
+      "action": "verify",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T08:24:26.874Z",
+      "action": "check",
+      "id": "V10-08",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:24:46.076Z",
+      "action": "verify",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T08:24:47.090Z",
+      "action": "check",
+      "id": "V10-07",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:24:56.295Z",
+      "action": "verify",
+      "id": "V10-07"
+    },
+    {
+      "at": "2026-09-17T08:24:56.391Z",
+      "action": "start",
+      "id": "V10-09"
+    },
+    {
+      "at": "2026-09-17T08:25:47.817Z",
+      "action": "check",
+      "id": "V10-09",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T08:27:12.198Z",
+      "action": "verify",
+      "id": "V10-09"
+    },
+    {
+      "at": "2026-09-17T13:02:39.999Z",
+      "action": "invalidate",
+      "id": "V10-03",
+      "arg": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+    },
+    {
+      "at": "2026-09-17T13:02:40.124Z",
+      "action": "start",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T13:09:06.841Z",
+      "action": "check",
+      "id": "V10-03",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T13:09:36.125Z",
+      "action": "check",
+      "id": "V10-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:36.176Z",
+      "action": "verify",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T13:09:37.749Z",
+      "action": "check",
+      "id": "V10-02",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:37.800Z",
+      "action": "verify",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T13:09:39.935Z",
+      "action": "check",
+      "id": "V10-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:39.987Z",
+      "action": "verify",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T13:09:41.231Z",
+      "action": "check",
+      "id": "V10-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:41.282Z",
+      "action": "verify",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T13:09:41.329Z",
+      "action": "start",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T13:09:42.502Z",
+      "action": "check",
+      "id": "V10-05",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:42.553Z",
+      "action": "verify",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T13:09:42.599Z",
+      "action": "start",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T13:09:45.037Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:45.090Z",
+      "action": "verify",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T13:09:45.136Z",
+      "action": "start",
+      "id": "V10-07"
+    },
+    {
+      "at": "2026-09-17T13:09:46.077Z",
+      "action": "check",
+      "id": "V10-07",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:09:46.129Z",
+      "action": "verify",
+      "id": "V10-07"
+    },
+    {
+      "at": "2026-09-17T13:10:32.461Z",
+      "action": "start",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T13:10:54.859Z",
+      "action": "check",
+      "id": "V10-08",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:18:29.606Z",
+      "action": "check",
+      "id": "V10-08",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:19:21.301Z",
+      "action": "verify",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T13:19:21.396Z",
+      "action": "start",
+      "id": "V10-09"
+    },
+    {
+      "at": "2026-09-17T13:20:11.399Z",
+      "action": "check",
+      "id": "V10-09",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T13:21:19.942Z",
+      "action": "verify",
+      "id": "V10-09"
+    },
+    {
+      "at": "2026-09-17T18:51:57.821Z",
+      "action": "start",
+      "id": "V10-10"
+    },
+    {
+      "at": "2026-09-17T18:51:57.825Z",
+      "action": "record-actual-executor",
+      "id": "V10-10",
+      "executor": "/root"
+    },
+    {
+      "at": "2026-09-17T18:52:04.684Z",
+      "action": "check",
+      "id": "V10-10",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T18:52:04.740Z",
+      "action": "verify",
+      "id": "V10-10"
+    },
+    {
+      "at": "2026-09-17T18:59:25.719Z",
+      "action": "invalidate",
+      "id": "V10-10",
+      "arg": "Independent audit: previous agent-owned Electron orphan persisted through matched03; registered isolation conditions were violated despite numerical pass"
+    },
+    {
+      "at": "2026-09-17T19:13:57.474Z",
+      "action": "sync"
+    },
+    {
+      "at": "2026-09-17T19:13:57.513Z",
+      "action": "invalidate",
+      "id": "V10-01",
+      "arg": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+    },
+    {
+      "at": "2026-09-17T19:17:02.024Z",
+      "action": "start",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T19:17:22.867Z",
+      "action": "check",
+      "id": "V10-01",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T19:18:38.296Z",
+      "action": "check",
+      "id": "V10-01",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-17T19:19:32.992Z",
+      "action": "register",
+      "id": "Critic",
+      "arg": "/root/equipment_economy/cleanup_counterexamples"
+    },
+    {
+      "at": "2026-09-17T19:19:33.651Z",
+      "action": "check",
+      "id": "V10-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:33.701Z",
+      "action": "verify",
+      "id": "V10-01"
+    },
+    {
+      "at": "2026-09-17T19:19:33.753Z",
+      "action": "start",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T19:19:35.238Z",
+      "action": "check",
+      "id": "V10-02",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:35.290Z",
+      "action": "verify",
+      "id": "V10-02"
+    },
+    {
+      "at": "2026-09-17T19:19:35.345Z",
+      "action": "start",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T19:19:37.454Z",
+      "action": "check",
+      "id": "V10-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:37.505Z",
+      "action": "verify",
+      "id": "V10-03"
+    },
+    {
+      "at": "2026-09-17T19:19:37.558Z",
+      "action": "start",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T19:19:38.768Z",
+      "action": "check",
+      "id": "V10-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:38.819Z",
+      "action": "verify",
+      "id": "V10-04"
+    },
+    {
+      "at": "2026-09-17T19:19:38.871Z",
+      "action": "start",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T19:19:40.023Z",
+      "action": "check",
+      "id": "V10-05",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:40.072Z",
+      "action": "verify",
+      "id": "V10-05"
+    },
+    {
+      "at": "2026-09-17T19:19:40.125Z",
+      "action": "start",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T19:19:42.520Z",
+      "action": "check",
+      "id": "V10-06",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:42.570Z",
+      "action": "verify",
+      "id": "V10-06"
+    },
+    {
+      "at": "2026-09-17T19:19:42.623Z",
+      "action": "start",
+      "id": "V10-07"
+    },
+    {
+      "at": "2026-09-17T19:19:43.526Z",
+      "action": "check",
+      "id": "V10-07",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:19:43.575Z",
+      "action": "verify",
+      "id": "V10-07"
+    },
+    {
+      "at": "2026-09-17T19:19:43.624Z",
+      "action": "start",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T19:21:46.594Z",
+      "action": "check",
+      "id": "V10-08",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:21:46.652Z",
+      "action": "verify",
+      "id": "V10-08"
+    },
+    {
+      "at": "2026-09-17T19:21:46.707Z",
+      "action": "start",
+      "id": "V10-09"
+    },
+    {
+      "at": "2026-09-17T19:22:36.025Z",
+      "action": "check",
+      "id": "V10-09",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-17T19:22:36.084Z",
+      "action": "verify",
+      "id": "V10-09"
+    },
+    {
+      "at": "2026-09-18T00:35:25.739Z",
+      "action": "start",
+      "id": "V10-10"
+    },
+    {
+      "at": "2026-09-18T00:35:32.384Z",
+      "action": "check",
+      "id": "V10-10",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T00:35:47.574Z",
+      "action": "verify",
+      "id": "V10-10"
+    },
+    {
+      "at": "2026-09-18T00:38:52.190Z",
+      "action": "complete-authorized-scope",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "executedBy": "/root",
+      "independentReviewer": "/root/equipment_economy/cleanup_counterexamples",
+      "finalAC": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-10-ac-1789691725829.log",
+        "sha256": "ac6e8d4aeefd192ca9ed39102e2c0032646cdb91bb99fa5284f53972fd813e2b"
+      },
+      "note": "All ten tasks verified. No commit/PR/deploy; external checks explicitly unperformed. Prior failures retained."
+    }
+  ],
+  "tasks": [
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-ac-1789632352161.log",
+          "logHash": "358b5b70dca6e63eda2d3c4df5d29f9a1658b5eff9344ecb0030667430354eae",
+          "artifacts": {},
+          "at": "2026-09-17T08:05:52.826Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-ac-1789633317684.log",
+          "logHash": "2838ba7c8ddb9243c338d8a9ef63b3e01d3cb6c5ca612c67f083ad88aaf151a8",
+          "artifacts": {},
+          "at": "2026-09-17T08:21:58.360Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-ac-1789650575548.log",
+          "logHash": "0f7dfb654d64f2b1523ec9b15814d3d6e630b10268a6966668c0f9d5076dc1d2",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:36.124Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-gates-1789672622069.log",
+          "logHash": "60764c5f28a6a5a01cc6f3d2ab5f1cb778e5436130c3d8746c470d3f8c4befec",
+          "artifacts": {},
+          "at": "2026-09-17T19:17:22.865Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-gates-1789672693496.log",
+          "logHash": "f88d59371c66d03c82202bd629698db2668eeadc38ec67af0b38cf1abc067671",
+          "artifacts": {},
+          "at": "2026-09-17T19:18:38.294Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-ac-1789672773088.log",
+          "logHash": "3fd8f6ae1fa92b58da3ba8886f1659dcb22700731a299b53a357fa5272435865",
+          "artifacts": {},
+          "at": "2026-09-17T19:19:33.649Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.013Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T19:13:57.512Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-17T19:17:01.985Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "handoff": "Existing implementation retained; refreshed contract requires new final AC.",
+      "implementedSource": "293f18e89b8d6171869b4b65cbbaaecf919faa18a1eb448eaa1eac0cb7a11760",
+      "id": "V10-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v10",
+        "docs/v0.10",
+        "eslint.config.mjs"
+      ],
+      "ac": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V10-01"
+      ],
+      "files": [
+        "src/core/battle.ts",
+        "src/core/hero.ts",
+        "src/core/progress.ts",
+        "src/core/bignum.ts",
+        "src/core/collection.ts",
+        "src/core/input.ts",
+        "src/core/monsters.ts",
+        "src/core/loot.ts",
+        "src/core/gold.ts",
+        "src/core/engine.ts",
+        "src/core/types.ts",
+        "src/core/rng.ts",
+        "src/core/discovery.ts",
+        "src/core/index.ts",
+        "src/core/fever.ts",
+        "src/core/economy.ts",
+        "src/core/types-chart.ts",
+        "src/core/progression.ts",
+        "src/core/formulas.ts",
+        "src/core/save.ts",
+        "src/core/equipment.ts",
+        "tests/equipmentV10.test.ts",
+        "tests/save.test.ts",
+        "tests/engine.test.ts",
+        "docs/v0.10/BALANCE_CANDIDATE.json"
+      ],
+      "ac": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-02-ac-1789632352936.log",
+          "logHash": "1dbfd270e9be70620c03269275b9b585b4dd2c1891e2bfe0707f44dd7524baac",
+          "artifacts": {},
+          "at": "2026-09-17T08:05:54.750Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-02-ac-1789633318467.log",
+          "logHash": "61677bdbb2dfd5c08e10f449f412d8ed0f8c7827d37467db886de572192e4914",
+          "artifacts": {},
+          "at": "2026-09-17T08:22:00.116Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-02-ac-1789650576221.log",
+          "logHash": "c42db9cb2149c3b6cb99c411273b49dbb438598a36ab4bbbc54ebf3a4a35b0a9",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:37.747Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-02-ac-1789672773794.log",
+          "logHash": "56ba4eed4d7384c92c7f4c4a0e7fdc342b66ed220dfbf7746d124bbab68eff65",
+          "artifacts": {},
+          "at": "2026-09-17T19:19:35.236Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root/equipment_economy",
+      "startedAt": "2026-09-17T19:19:33.743Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "handoff": "Existing implementation retained; refreshed contract requires new final AC.",
+      "implementedSource": "293f18e89b8d6171869b4b65cbbaaecf919faa18a1eb448eaa1eac0cb7a11760",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-03",
+      "owner": "Designer",
+      "dependencies": [
+        "V10-01"
+      ],
+      "files": [
+        "src/renderer/sprites",
+        "src/renderer/game.ts",
+        "src/renderer/hud.ts",
+        "src/renderer/anim.ts",
+        "src/renderer/effects.ts",
+        "src/core/fsm.ts"
+      ],
+      "ac": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-03-ac-1789632354865.log",
+          "logHash": "1e3bc7e70810500e5935b7a3a2a0ee3e56e659d6d42dd3abe693b5624273cde6",
+          "artifacts": {},
+          "at": "2026-09-17T08:05:57.402Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-03-ac-1789633320220.log",
+          "logHash": "21e87851dfcfbb9f933dd09ae67a3a7938b8dd34fac490f9e315dd2deecae241",
+          "artifacts": {},
+          "at": "2026-09-17T08:22:03.041Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-03-gates-1789650521197.log",
+          "logHash": "4d46896f09178ecb8c9151bac55c26052729c3deaa5b41cc5aeae14aea2435b8",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:06.840Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-03-ac-1789650577847.log",
+          "logHash": "10fc1406e4de841f2aecd656353d3cb4d893fa996d89d52d6288f7f582313d6a",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:39.933Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-03-ac-1789672775391.log",
+          "logHash": "ddf756ab6dabe672b48942890c46c556ba13c19f5b2a9b94aeb6835fe68caa1e",
+          "artifacts": {},
+          "at": "2026-09-17T19:19:37.452Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.998Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root/sprite_qa",
+      "startedAt": "2026-09-17T19:19:35.333Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "handoff": "Existing implementation retained; refreshed contract requires new final AC.",
+      "implementedSource": "293f18e89b8d6171869b4b65cbbaaecf919faa18a1eb448eaa1eac0cb7a11760",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-04",
+      "owner": "Host",
+      "dependencies": [
+        "V10-02"
+      ],
+      "files": [
+        "src/server",
+        "src/shared/api.ts",
+        "src/main/net.ts"
+      ],
+      "ac": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-04-ac-1789632357512.log",
+          "logHash": "916cc9a3c2cc1c16c4b27ce657acb350e2d0e58773df61ecc813f6c186dea578",
+          "artifacts": {},
+          "at": "2026-09-17T08:05:58.959Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-04-ac-1789633323147.log",
+          "logHash": "910243e4bb4a4a28282a5111287cb9ffda29f6a29e1310633521bdf355be6ad8",
+          "artifacts": {},
+          "at": "2026-09-17T08:22:04.427Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-04-ac-1789650580032.log",
+          "logHash": "caf3a60be78ff44b9125eb47ab04778df438f7dfe9e2dc7da103e1d45ce86dad",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:41.229Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-04-ac-1789672777601.log",
+          "logHash": "193c251b4349d3cfca61a80e800c81964c1aea3ed342b4f2a475ae45e88ea458",
+          "artifacts": {},
+          "at": "2026-09-17T19:19:38.766Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-17T19:19:37.547Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "handoff": "Existing implementation retained; refreshed contract requires new final AC.",
+      "implementedSource": "293f18e89b8d6171869b4b65cbbaaecf919faa18a1eb448eaa1eac0cb7a11760",
+      "delegatedTo": "/root/backend_v10",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-05",
+      "owner": "Host",
+      "dependencies": [
+        "V10-02",
+        "V10-03"
+      ],
+      "files": [
+        "src/main/ipc.ts",
+        "src/main/coordinator.ts",
+        "src/main/recovery.ts",
+        "src/main/persistence.ts",
+        "src/shared/ipc.ts",
+        "src/preload",
+        "src/renderer/index.ts",
+        "src/renderer/global.d.ts",
+        "src/menu",
+        "static"
+      ],
+      "ac": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-05-ac-1789632359078.log",
+          "logHash": "c90d4c46ee3c180e415afd7b013eaf0d0d1bfb19d09161ca3dde096dfe560b67",
+          "artifacts": {},
+          "at": "2026-09-17T08:06:00.557Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-05-ac-1789633324532.log",
+          "logHash": "3dff8f810710f42fb8252d119ed64e1e944b4eb5882e7effd7a893639f33e74d",
+          "artifacts": {},
+          "at": "2026-09-17T08:22:05.778Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-05-ac-1789650581373.log",
+          "logHash": "f9e16111113d5281216cbe143109cc488381850cacadc4809af09fb661bc4eef",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:42.500Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-05-ac-1789672778914.log",
+          "logHash": "8ce1d231504c94bd06ac2a05670dbbd30c40f33c15457211edf3fb0f6326d988",
+          "artifacts": {},
+          "at": "2026-09-17T19:19:40.021Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.999Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-17T19:19:38.859Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "handoff": "Existing implementation retained; refreshed contract requires new final AC.",
+      "implementedSource": "293f18e89b8d6171869b4b65cbbaaecf919faa18a1eb448eaa1eac0cb7a11760",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-06",
+      "owner": "Host",
+      "dependencies": [
+        "V10-02",
+        "V10-03",
+        "V10-04",
+        "V10-05"
+      ],
+      "files": [
+        "src",
+        "tests",
+        "static",
+        "scripts",
+        "package.json",
+        "package-lock.json"
+      ],
+      "ac": "npm run build",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "62a3f037540b5ea25a6022a91018918502b1fad3e02f5b8b44ec4c109c1dcf55",
+          "after": "62a3f037540b5ea25a6022a91018918502b1fad3e02f5b8b44ec4c109c1dcf55",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-gates-1789631398601.log",
+          "logHash": "a2d3cea9c4715f61aa4095136fe54ea7e1e45468b95992970a352b9ff92cffa3",
+          "artifacts": {},
+          "at": "2026-09-17T07:50:15.039Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-gates-1789632315329.log",
+          "logHash": "29f0ccb179abc5f2eaeefdf66c7a797e44f2a0ec9824e65af4c22108ba9e74a3",
+          "artifacts": {},
+          "at": "2026-09-17T08:05:32.961Z"
+        },
+        {
+          "id": "ac",
+          "command": "npm run build",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-ac-1789632360664.log",
+          "logHash": "42d32b0c29d45790b88d24c7f3da690e5f683fcd107ad8086467cb077bdc8b94",
+          "artifacts": {},
+          "at": "2026-09-17T08:06:03.469Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "7cb2721e04087d01a53bca93a2466a9c06d2dce8d1200df667d53fbbfb6bbc86",
+          "after": "7cb2721e04087d01a53bca93a2466a9c06d2dce8d1200df667d53fbbfb6bbc86",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-gates-1789633225163.log",
+          "logHash": "96791828d1860d90da9d3ececa63059e442f23fd11788861fc06d0f619027200",
+          "artifacts": {},
+          "at": "2026-09-17T08:20:36.423Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-gates-1789633290903.log",
+          "logHash": "968321532276c67e210e24954832ee73a84594f65b31466c7499ad2b112ce0de",
+          "artifacts": {},
+          "at": "2026-09-17T08:21:47.262Z"
+        },
+        {
+          "id": "ac",
+          "command": "npm run build",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-ac-1789633325885.log",
+          "logHash": "42d32b0c29d45790b88d24c7f3da690e5f683fcd107ad8086467cb077bdc8b94",
+          "artifacts": {},
+          "at": "2026-09-17T08:22:08.480Z"
+        },
+        {
+          "id": "ac",
+          "command": "npm run build",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-ac-1789650582642.log",
+          "logHash": "42d32b0c29d45790b88d24c7f3da690e5f683fcd107ad8086467cb077bdc8b94",
+          "artifacts": {},
+          "at": "2026-09-17T13:09:45.036Z"
+        },
+        {
+          "id": "ac",
+          "command": "npm run build",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-ac-1789672780168.log",
+          "logHash": "42d32b0c29d45790b88d24c7f3da690e5f683fcd107ad8086467cb077bdc8b94",
+          "artifacts": {},
+          "at": "2026-09-17T19:19:42.518Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.999Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-17T19:19:40.114Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "handoff": "Existing implementation retained; refreshed contract requires new final AC.",
+      "implementedSource": "293f18e89b8d6171869b4b65cbbaaecf919faa18a1eb448eaa1eac0cb7a11760",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v10/balance-verify.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/balance/final.json",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-07-ac-1789633486176.log",
+          "logHash": "17604fec4df1cdbbbf304357917f0b3c4ff750b5960fb101cbced8dc1ef42ca0",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/balance/final.json": "69f57eb4b84d7f8021670e74cd9799bb5dfd06709c33d1286aa2c6632f5f582f"
+          },
+          "at": "2026-09-17T08:24:47.088Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/balance-verify.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/balance/final.json",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-07-ac-1789650585179.log",
+          "logHash": "17604fec4df1cdbbbf304357917f0b3c4ff750b5960fb101cbced8dc1ef42ca0",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/balance/final.json": "69f57eb4b84d7f8021670e74cd9799bb5dfd06709c33d1286aa2c6632f5f582f"
+          },
+          "at": "2026-09-17T13:09:46.075Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/balance-verify.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/balance/final.json",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-07-ac-1789672782667.log",
+          "logHash": "17604fec4df1cdbbbf304357917f0b3c4ff750b5960fb101cbced8dc1ef42ca0",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/balance/final.json": "69f57eb4b84d7f8021670e74cd9799bb5dfd06709c33d1286aa2c6632f5f582f"
+          },
+          "at": "2026-09-17T19:19:43.525Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.999Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "id": "V10-07",
+      "owner": "Balance",
+      "dependencies": [
+        "V10-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v10/balance-verify.mjs {runDir}/balance/final.json",
+      "artifacts": [
+        "{runDir}/balance/final.json"
+      ],
+      "agent": "/root/equipment_economy",
+      "startedAt": "2026-09-17T19:19:42.611Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-08",
+      "owner": "Host",
+      "dependencies": [
+        "V10-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v10/runtime.mjs {runDir}/native/final.json",
+      "artifacts": [
+        "{runDir}/native/final.json"
+      ],
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v10/runtime.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/native/final.json",
+          "before": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "after": "57b6f7769a82f99ecf25fba3cf92186e07fffe36adc3de2fc7b94fc834b9e4db",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-08-ac-1789632390944.log",
+          "logHash": "4279b77d2376938ed507e33e5940eab647a990f64d3d22f31c9653351330fd56",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json": "7639088b0432d48556aa31e477728694994746a1a5437f70e0f5052bfa890fa2"
+          },
+          "at": "2026-09-17T08:08:36.555Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/runtime.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/native/final.json",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-08-ac-1789633343325.log",
+          "logHash": "4279b77d2376938ed507e33e5940eab647a990f64d3d22f31c9653351330fd56",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json": "22bfe9ffb4c8a5978f7b172327cf0b76ec078cf5b4bad245f367741d8aabd788"
+          },
+          "at": "2026-09-17T08:24:26.869Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/runtime.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/native/final.json",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-08-ac-1789650651502.log",
+          "logHash": "dc505eb8a2151c66644242e4f58b89af93b3549ad1e71affeaddac4bed4f6c67",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json": "4b0c2d23848e515e80ac229aa3de7a5c0217f8302f1315142a0d46bf03130693"
+          },
+          "at": "2026-09-17T13:10:54.857Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/runtime.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/native/final.json",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-08-ac-1789650986228.log",
+          "logHash": "4279b77d2376938ed507e33e5940eab647a990f64d3d22f31c9653351330fd56",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json": "eb0f140034cab0eabf79509d06c87a85c85b4eb90db4dd2fb426ae22849195dd"
+          },
+          "at": "2026-09-17T13:18:29.604Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/runtime.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/native/final.json",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-08-ac-1789672783666.log",
+          "logHash": "4279b77d2376938ed507e33e5940eab647a990f64d3d22f31c9653351330fd56",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json": "77dc846a34dccb0b9081846e28893b40579cc4d40585cbbfefab7276b9dbcf11"
+          },
+          "at": "2026-09-17T19:21:46.592Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.999Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-17T19:19:43.614Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "id": "V10-09",
+      "owner": "Host",
+      "dependencies": [
+        "V10-07",
+        "V10-08"
+      ],
+      "files": [],
+      "ac": "npm run smoke && npm run package && npm run package:win",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npm run smoke && npm run package && npm run package:win",
+          "before": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "after": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-09-ac-1789633496491.log",
+          "logHash": "cf013f0fbd894b59aada33b06f3dc6b144081639e1d1b709407db47c62abd203",
+          "artifacts": {},
+          "at": "2026-09-17T08:25:47.814Z"
+        },
+        {
+          "id": "ac",
+          "command": "npm run smoke && npm run package && npm run package:win",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-09-ac-1789651161486.log",
+          "logHash": "cf013f0fbd894b59aada33b06f3dc6b144081639e1d1b709407db47c62abd203",
+          "artifacts": {},
+          "at": "2026-09-17T13:20:11.397Z"
+        },
+        {
+          "id": "ac",
+          "command": "npm run smoke && npm run package && npm run package:win",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-09-ac-1789672906751.log",
+          "logHash": "cf013f0fbd894b59aada33b06f3dc6b144081639e1d1b709407db47c62abd203",
+          "artifacts": {},
+          "at": "2026-09-17T19:22:36.023Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.999Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-17T19:21:46.695Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad"
+    },
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v10/final-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'",
+          "before": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "after": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-10-ac-1789671117869.log",
+          "logHash": "e712b1482e9342c9c7aa24acae0f1e7f3f7450430b765a66d6948473403c1b48",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison.json": "f9718b891daab049241b8a25761613bf57407298674eb671f3cc49be1d365882",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/final.json": "0250be7429d14930ae17785b458367b4dc05a0615b9bf15348ecc316a9ce978f",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/gallery-final.json": "189bc05bab6e949448b76098f69454d5863393a245182b859a657a6cb622f495",
+            "docs/v0.10/EQUIPMENT_CATALOG.json": "4c62266b42b21c0764e826f2c5963a4f2871757bc38c6e25b0f1eb911680e90f",
+            "docs/v0.10/CATALOG.md": "8735cd5981ca69784c22ec3d4aaaee55e052caff898591b0c34214f8773efe6f"
+          },
+          "at": "2026-09-17T18:52:04.682Z"
+        },
+        {
+          "id": "ac",
+          "command": "node .harness/v10/final-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'",
+          "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-10-ac-1789691725829.log",
+          "logHash": "ac6e8d4aeefd192ca9ed39102e2c0032646cdb91bb99fa5284f53972fd813e2b",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison.json": "717d10a3282a2ef067b03798f60c484fee7a54f567800bff1fc626fa0df6569a",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/isolation.json": "122b3cb3935626a81ea4728b06bf472d0af9c93cafa4ab0287c04e0aef311a23",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-result-final.json": "d41b649c2e9b8c337baf3c9ac79b78076ec24f2a6dd66563de6203340c8675be",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/final.json": "80910a46a36acbaac18b3df2dfc6f8e923e9238c524cc8f1a294112a2f75f2e0",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/gallery-final.json": "189bc05bab6e949448b76098f69454d5863393a245182b859a657a6cb622f495",
+            "docs/v0.10/EQUIPMENT_CATALOG.json": "4c62266b42b21c0764e826f2c5963a4f2871757bc38c6e25b0f1eb911680e90f",
+            "docs/v0.10/CATALOG.md": "8735cd5981ca69784c22ec3d4aaaee55e052caff898591b0c34214f8773efe6f"
+          },
+          "at": "2026-09-18T00:35:32.382Z",
+          "executedBy": "/root"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T07:56:53.014Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T08:02:50.645Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T13:02:39.999Z",
+          "reason": "Active-memory performance budget exceeded; reduce repeated sprite allocations and rerun evidence."
+        },
+        {
+          "at": "2026-09-17T18:59:25.719Z",
+          "reason": "Independent audit: previous agent-owned Electron orphan persisted through matched03; registered isolation conditions were violated despite numerical pass"
+        },
+        {
+          "at": "2026-09-17T19:13:57.472Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-17T19:13:57.513Z",
+          "reason": "Observer cleanup and independently verified process isolation changed source; retain old evidence and refresh source-bound ACs after freeze"
+        }
+      ],
+      "agent": "/root/equipment_economy/cleanup_counterexamples",
+      "startedAt": "2026-09-18T00:35:25.701Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "executedBy": "/root",
+      "executionNote": "Host executes the automatic final validator. Existing independent core/backend/visual/balance/harness reviews remain bound; do not attribute this execution to the unavailable backend reviewer.",
+      "verifiedSource": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "id": "V10-10",
+      "owner": "Critic",
+      "dependencies": [
+        "V10-09"
+      ],
+      "files": [],
+      "ac": "node .harness/v10/final-check.mjs {runDir}",
+      "artifacts": [
+        "{runDir}/performance/comparison.json",
+        "{runDir}/performance/isolation.json",
+        "{runDir}/reviews/performance-result-final.json",
+        "{runDir}/reviews/final.json",
+        "{runDir}/native/gallery-final.json",
+        "docs/v0.10/EQUIPMENT_CATALOG.json",
+        "docs/v0.10/CATALOG.md"
+      ],
+      "independentReview": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/release-critic-04.json",
+        "sha256": "b1cf11b1f93c6253b3a7072ce4b5b9e980d8725a9610418ececd03a7ac8d050d"
+      },
+      "completionNote": "Current final AC executed by Host /root after independent Critic evidence-readiness review and separate Balance performance-result approval. Assigned Critic role is not represented as the command executor."
+    }
+  ]
+}

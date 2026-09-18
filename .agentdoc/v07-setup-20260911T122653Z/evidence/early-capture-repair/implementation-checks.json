@@ -1,0 +1,30 @@
+{
+  "commands": [
+    {
+      "name": "focused",
+      "command": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/early-capture-repair/focused.log",
+      "sha256": "ddb9c3c83e468484976bc9e38244e675004c7845fc7c94fe2d3d2e8d36a6ec53"
+    },
+    {
+      "name": "protocol-and-build",
+      "command": [
+        "node",
+        ".harness/v7/loop/config.mjs",
+        "validate-candidate"
+      ],
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/early-capture-repair/protocol-and-build.log",
+      "sha256": "c2521b9573ac8ab7d457cb2c767288c10b3d270e9a6dbf68d5ef6937fd1c08a5"
+    }
+  ]
+}

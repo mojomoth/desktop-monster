@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 1,
+  "harnessVersion": 7,
+  "baselineAppVersion": "0.6.0",
+  "targetAppVersion": "0.7.0",
+  "roles": [
+    "designer",
+    "critic",
+    "balance",
+    "playtester"
+  ],
+  "features": [
+    "companion-levels",
+    "codex-acquisition",
+    "pvp-directory",
+    "first-reincarnation",
+    "long-progression",
+    "save-network-compatibility"
+  ],
+  "phases": [
+    "setup",
+    "baseline",
+    "candidate",
+    "release"
+  ],
+  "gates": "npm test && npm run lint && npm run typecheck",
+  "measurement": {
+    "tickMs": 100,
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "seeds": {
+      "baseline": {
+        "start": 1,
+        "count": 100
+      },
+      "exploration": {
+        "start": 10001,
+        "count": 20
+      },
+      "validation": {
+        "start": 1,
+        "count": 100
+      }
+    },
+    "profiles": [
+      "active",
+      "intermittent",
+      "warm-idle",
+      "pure-idle"
+    ],
+    "policies": [
+      "free",
+      "training",
+      "lure",
+      "reroll"
+    ],
+    "inputSchedules": [
+      "uniform",
+      "burst"
+    ],
+    "managementPolicies": [
+      "none",
+      "consume-weakest",
+      "fuse-first",
+      "reincarnate-first"
+    ],
+    "menuVisitSeconds": [
+      0,
+      120,
+      600
+    ],
+    "baseline": {
+      "profile": "active",
+      "policy": "free",
+      "inputSchedule": "uniform",
+      "management": "none",
+      "menuVisitSeconds": 0
+    },
+    "targets": {
+      "firstReincarnation": {
+        "medianMinSec": 2700,
+        "medianMaxSec": 3600,
+        "deadlineSec": 5400,
+        "minimumReachedFraction": 0.9
+      },
+      "lastUnlock": {
+        "medianMinSec": 28800,
+        "medianMaxSec": 43200
+      }
+    },
+    "maximumCandidates": 3,
+    "levelControls": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "validationPolicies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      }
+    ],
+    "explorationHorizonMinutes": 120,
+    "maxArtifactBytes": 268435456,
+    "maxWorkers": 4
+  },
+  "native": {
+    "durationsMinutes": [
+      0,
+      5,
+      15,
+      30,
+      180
+    ],
+    "profiles": [
+      "active",
+      "idle",
+      "intermittent"
+    ],
+    "shortMinutes": [
+      5,
+      15,
+      30
+    ],
+    "longJourney": {
+      "minutes": 180,
+      "profile": "active",
+      "menuVisitSeconds": 600
+    },
+    "matrixRuns": 10,
+    "minimumObservationMinutes": 330
+  },
+  "tasks": [
+    {
+      "id": "H07-01",
+      "stage": "setup",
+      "dependencies": [],
+      "owner": "host",
+      "files": [
+        ".harness/v7",
+        "docs/v0.7"
+      ],
+      "ac": [
+        {
+          "id": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest",
+          "artifacts": []
+        },
+        {
+          "id": "baseline",
+          "command": "node .harness/v7/loop/measure.mjs verify {runDir}/evidence/baseline.json --phase baseline",
+          "artifacts": [
+            "{runDir}/evidence/baseline.json"
+          ]
+        },
+        {
+          "id": "preservation",
+          "command": "node .harness/v7/loop/setup-check.mjs {runDir}",
+          "artifacts": [
+            "{runDir}/baseline/metadata.json",
+            "{runDir}/baseline/files.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V07-01",
+      "stage": "candidate",
+      "dependencies": [],
+      "owner": "designer/balance",
+      "files": [
+        "docs/v0.7/EVALUATION_PROTOCOL.json",
+        "docs/v0.7/DESIGN_DECISIONS.md",
+        ".harness/v7/loop/config.mjs",
+        ".harness/v7/loop/config.test.ts",
+        ".harness/v7/loop/measure.mjs",
+        ".harness/v7/loop/measure.test.ts",
+        ".harness/v7/loop/server-check.mjs",
+        ".harness/v7/loop/server-check.test.ts",
+        "src/core/progression.ts",
+        "tests/progressionV7.test.ts",
+        ".harness/v7/loop/journey.cjs",
+        ".harness/v7/loop/e2e.mjs",
+        ".harness/v7/loop/e2e.test.ts",
+        ".harness/v7/loop/e2e-matrix.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "protocol",
+          "command": "node .harness/v7/loop/config.mjs validate-candidate",
+          "artifacts": [
+            "docs/v0.7/EVALUATION_PROTOCOL.json"
+          ]
+        },
+        {
+          "id": "design",
+          "command": "node .harness/v7/loop/fun.mjs verify {runDir}/reviews/design-final-v070",
+          "artifacts": [
+            "{runDir}/reviews/design-final-v070"
+          ]
+        },
+        {
+          "id": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest",
+          "artifacts": []
+        }
+      ]
+    },
+    {
+      "id": "V07-02",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-01"
+      ],
+      "owner": "core",
+      "files": [
+        "src/core/collection.ts",
+        "src/core/save.ts",
+        "src/shared/api.ts",
+        "src/server/app.ts",
+        "src/main/net.ts",
+        "src/menu/view.ts",
+        "tests/collection.test.ts",
+        "tests/save.test.ts",
+        "tests/net.test.ts",
+        "tests/server",
+        "src/menu/index.ts",
+        "tests/companionLevelsV7.test.ts",
+        "src/main/ipc.ts",
+        "tests/ipc.test.ts",
+        "tests/menu.test.ts",
+        "src/core/engine.ts",
+        "tests/engine.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "levels",
+          "command": "npx vitest run tests/companionLevelsV7.test.ts tests/menu.test.ts tests/ipc.test.ts",
+          "artifacts": []
+        }
+      ]
+    },
+    {
+      "id": "V07-03",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-01"
+      ],
+      "owner": "ui/core",
+      "files": [
+        "src/core/progress.ts",
+        "src/core/collection.ts",
+        "src/menu/codex.ts",
+        "src/menu/hero.ts",
+        "tests/progressV7.test.ts",
+        "tests/codexV7.test.ts",
+        "tests/menu.test.ts",
+        "tests/progressV6.test.ts",
+        "src/core/engine.ts",
+        "tests/ipcV5.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "codex",
+          "command": "npx vitest run tests/progressV7.test.ts tests/codexV7.test.ts",
+          "artifacts": []
+        }
+      ]
+    },
+    {
+      "id": "V07-04",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-02"
+      ],
+      "owner": "ui",
+      "files": [
+        "src/menu/index.ts",
+        "static/menu.css",
+        "tests/menu.test.ts",
+        "tests/pvpDirectoryV7.test.ts"
+      ],
+      "ac": [
+        {
+          "id": "directory",
+          "command": "npx vitest run tests/pvpDirectoryV7.test.ts",
+          "artifacts": []
+        }
+      ]
+    },
+    {
+      "id": "V07-05",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-02",
+        "V07-03"
+      ],
+      "owner": "balance/core",
+      "files": [
+        "src/core/hero.ts",
+        "src/core/formulas.ts",
+        "src/core/engine.ts",
+        "src/core/discovery.ts",
+        "src/menu/hero.ts",
+        "src/renderer/hud.ts",
+        "tests/hero.test.ts",
+        "tests/formulas.test.ts",
+        "tests/balance.test.ts",
+        "tests/progressionV7.test.ts",
+        "src/core/index.ts",
+        "src/core/monsters.ts",
+        "src/core/progression.ts",
+        "tests/engine.test.ts",
+        "tests/progressionV5.test.ts",
+        "tests/heroMenuReadiness.test.ts",
+        "tests/progressV5.test.ts",
+        "tests/progressV6.test.ts",
+        "tests/discoveryV5.test.ts",
+        "tests/expedition.test.ts",
+        "tests/renderer.test.ts",
+        "docs/v0.7/EVALUATION_PROTOCOL.json",
+        ".harness/v7/loop/measure.test.ts",
+        ".harness/v7/loop/journey.cjs",
+        ".harness/v7/loop/e2e.mjs",
+        ".harness/v7/loop/e2e.test.ts",
+        ".harness/v7/loop/e2e-matrix.test.ts",
+        ".harness/v7/loop/electron-e2e.cjs",
+        ".harness/v7/loop/e2e-matrix.mjs"
+      ],
+      "ac": [
+        {
+          "id": "progression",
+          "command": "npx vitest run tests/progressionV7.test.ts tests/balance.test.ts",
+          "artifacts": []
+        },
+        {
+          "id": "measurement",
+          "command": "node .harness/v7/loop/measure.mjs verify {runDir}/evidence/candidate-final-v070.json --phase candidate",
+          "artifacts": [
+            "{runDir}/evidence/candidate-final-v070.json"
+          ]
+        },
+        {
+          "id": "harness",
+          "command": "node .harness/v7/loop/fun.mjs selftest",
+          "artifacts": []
+        }
+      ]
+    },
+    {
+      "id": "V07-06",
+      "stage": "candidate",
+      "dependencies": [
+        "V07-04",
+        "V07-05"
+      ],
+      "owner": "host",
+      "files": [
+        "package.json",
+        "package-lock.json",
+        "tests/packaging.test.ts",
+        "README.md"
+      ],
+      "ac": [
+        {
+          "id": "integration",
+          "command": "node .harness/v7/loop/e2e.mjs {runDir}/evidence/integration/journey.json 0 active",
+          "artifacts": [
+            "{runDir}/evidence/integration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V07-07",
+      "stage": "release",
+      "dependencies": [
+        "V07-06"
+      ],
+      "owner": "host/playtester",
+      "files": [
+        "README.md",
+        "docs/v0.7/ACCEPTANCE.md",
+        "docs/v0.7/HANDOFF.md"
+      ],
+      "ac": [
+        {
+          "id": "matrix",
+          "command": "node .harness/v7/loop/e2e-matrix.mjs verify {runDir}/evidence/native",
+          "artifacts": [
+            "{runDir}/evidence/native"
+          ]
+        },
+        {
+          "id": "measure",
+          "command": "node .harness/v7/loop/measure.mjs verify {runDir}/evidence/release.json --phase release",
+          "artifacts": [
+            "{runDir}/evidence/release.json"
+          ]
+        },
+        {
+          "id": "review",
+          "command": "node .harness/v7/loop/audit.mjs verify {runDir}/reviews/final",
+          "artifacts": [
+            "{runDir}/reviews/final"
+          ]
+        },
+        {
+          "id": "smoke",
+          "command": "npm run smoke",
+          "artifacts": []
+        },
+        {
+          "id": "package",
+          "command": "npm run package && node .harness/v7/loop/package-check.mjs {runDir}/evidence/package/package.json release/mac-arm64/DesMon.app",
+          "artifacts": [
+            "{runDir}/evidence/package",
+            "release"
+          ]
+        },
+        {
+          "id": "server",
+          "command": "node .harness/v7/loop/server-check.mjs {runDir}/evidence/server/compatibility.json",
+          "artifacts": [
+            "{runDir}/evidence/server"
+          ]
+        }
+      ]
+    }
+  ]
+}

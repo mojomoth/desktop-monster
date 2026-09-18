@@ -1,0 +1,14 @@
+{
+  "status": "prepared",
+  "paths": [
+    ".harness/v7/config.json",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json",
+    "docs/v0.7/EVALUATION_PROTOCOL.json"
+  ],
+  "beforeSha256": {
+    ".harness/v7/config.json": "c384bd2142a2bac9ced0347bbd8c6377536855c6166113ffc25d6fb32f7f5e9d",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "98782660a21a84bc5fff013cc1d46dc6785f53765f87ffa99eeb6a887ec9b8e9",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "4f3e750638296ed12000e03597627866a55149714deabb0b80ccb964263b58ce"
+  },
+  "recovery": "Host only. No develop commands between writes. Restore archived config.json and loop.json if interrupted before committed marker; histories are unchanged."
+}

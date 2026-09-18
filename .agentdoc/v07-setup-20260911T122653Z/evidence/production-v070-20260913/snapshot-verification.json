@@ -1,0 +1,33 @@
+{
+  "capturedAt": "2026-09-13T10:24:19.556029+00:00",
+  "snapshot": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v070-deploy-sx15ykb1",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigestInOriginalWorkspace": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "gates": {
+    "command": "npm test && npm run lint && npm run typecheck",
+    "execSession": 77296,
+    "exitCode": 0,
+    "testFiles": 58,
+    "tests": 955,
+    "log": "snapshot-gates-tool-transcript.log",
+    "logKind": "actual tool output assembled in order from initial exec and final write_stdin chunks"
+  },
+  "build": {
+    "command": "npm run build",
+    "execSession": 36171,
+    "exitCode": 0
+  },
+  "cleanInstallBuild": {
+    "command": "npm ci --include=dev --ignore-scripts && npm run build",
+    "execSession": 45186,
+    "exitCode": 0,
+    "runtime": "v20.12.2"
+  },
+  "overlayFilesUnchanged": true,
+  "logs": {
+    "snapshot-gates-tool-transcript.log": "84699d698b569eb434fe6c751d2bf1a0ef1094ec171e34ebc4aaba2e471917dd",
+    "snapshot-npm-ci.log": "cb4d290a1bc2f6e81056169b7f9a8ca67303390cfd571d2bfbce8a988f2588b8",
+    "snapshot-build.log": "87731f1ee3241d7f77391cdf25e13ccd011f4c062408dab0ed83b4eb0954ac3e",
+    "snapshot-clean-build.log": "87731f1ee3241d7f77391cdf25e13ccd011f4c062408dab0ed83b4eb0954ac3e"
+  }
+}

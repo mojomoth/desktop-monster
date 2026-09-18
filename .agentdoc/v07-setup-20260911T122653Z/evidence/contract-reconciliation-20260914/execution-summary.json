@@ -1,0 +1,146 @@
+{
+  "kind": "v070-contract-reconciliation-execution",
+  "completedAt": "2026-09-14T04:18:09.018Z",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "activeConfigChanged": false,
+  "activeProtocolChanged": false,
+  "releaseVerified": false,
+  "registeredAcSatisfied": false,
+  "taskStatus": "running",
+  "humanChecks": "PENDING",
+  "humanFun": "PENDING",
+  "operationalStatus": "PASSED_WITHIN_TESTED_SCOPE",
+  "registrations": [
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/preregistration.json",
+      "sha256": "e7178371f03138e6910aaba0cdff9c302d35a76202b9aae78def4e8902ac98cf"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/preregistration-r2.json",
+      "sha256": "06092e98a59268fa0a1d8d97a1e3ec6ec329a7defbd7f16459e14b220b1ee2a9"
+    }
+  ],
+  "inspections": [
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/inspection.json",
+      "sha256": "c41d22978f4f349b71669e537be3ca0ecbe2003729f5a007111c69728b1133d7",
+      "startedAt": "2026-09-14T04:09:00.916Z",
+      "endedAt": "2026-09-14T04:09:03.460Z",
+      "exitCode": 0,
+      "checks": 7,
+      "expectedGuardRejections": 5,
+      "scriptArchive": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/inspection-script-r1.executed.txt"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/inspection-r2.json",
+      "sha256": "ae2bcdc26a1dfb61c3b0df64c7de9c19cc20294daad582ee2d3593788c9d9325",
+      "startedAt": "2026-09-14T04:15:21.425Z",
+      "endedAt": "2026-09-14T04:15:23.918Z",
+      "exitCode": 0,
+      "checks": 8,
+      "expectedGuardRejections": 5,
+      "scriptSha256": "c6029483a5f28269bba634044884b333095f582b4ce7876a15fb1bb6f0091660"
+    }
+  ],
+  "compatibility": {
+    "command": "node .harness/v7/loop/server-check.mjs .agentdoc/v07-setup-20260911T122653Z/evidence/production-v070-20260913/compatibility-after-deploy.json",
+    "registeredAc": false,
+    "startedAt": "2026-09-14T04:09:18.840444+00:00",
+    "endedAt": "2026-09-14T04:09:19.915044+00:00",
+    "elapsedSeconds": 1.0739304580492899,
+    "exitCode": 0,
+    "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/current-compatibility.log",
+    "sha256": "e217a295a01092f1f388b6c3e42be8834df4f34f1e907000e78e9d5af25dde13",
+    "scope": "Existing report provenance and fresh health GET only; no new authenticated API/DB probe."
+  },
+  "newCanonicalGates": [
+    {
+      "command": "npm test && npm run lint && npm run typecheck",
+      "exitCode": 1,
+      "startedAt": "2026-09-14T04:13:35.271Z",
+      "endedAt": "2026-09-14T04:13:44.221Z",
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789359215271.log",
+      "sha256": "d6d4d0e8fd3a156043d002c7ff749322287324aa2ab18dc7e26ce54934a4c0e6",
+      "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+      "endedSourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+      "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+      "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+      "filesHash": {
+        "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+        "docs/v0.7/ACCEPTANCE.md": "d4d970c02eef137ae0a8485c4168b85dad2ee840f832cf1c2245cefb7f53d71c",
+        "docs/v0.7/HANDOFF.md": "a2f976a3af1d9c316970403345b0355b720777ad217882efcee08df32752d4f3"
+      },
+      "endedFilesHash": {
+        "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+        "docs/v0.7/ACCEPTANCE.md": "d4d970c02eef137ae0a8485c4168b85dad2ee840f832cf1c2245cefb7f53d71c",
+        "docs/v0.7/HANDOFF.md": "a2f976a3af1d9c316970403345b0355b720777ad217882efcee08df32752d4f3"
+      }
+    },
+    {
+      "command": "npm test && npm run lint && npm run typecheck",
+      "exitCode": 0,
+      "startedAt": "2026-09-14T04:15:33.956Z",
+      "endedAt": "2026-09-14T04:15:46.552Z",
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789359333956.log",
+      "sha256": "c47777f01be024b2b6381b1c9db22702e46e52cfb357703cbb12d14dcc9e2c39",
+      "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+      "endedSourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+      "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+      "endedEvaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+      "filesHash": {
+        "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+        "docs/v0.7/ACCEPTANCE.md": "d4d970c02eef137ae0a8485c4168b85dad2ee840f832cf1c2245cefb7f53d71c",
+        "docs/v0.7/HANDOFF.md": "d5cd2a916164fe0ca039777e92880630847471044645835ae0ccafc658e85b20"
+      },
+      "endedFilesHash": {
+        "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+        "docs/v0.7/ACCEPTANCE.md": "d4d970c02eef137ae0a8485c4168b85dad2ee840f832cf1c2245cefb7f53d71c",
+        "docs/v0.7/HANDOFF.md": "d5cd2a916164fe0ca039777e92880630847471044645835ae0ccafc658e85b20"
+      }
+    }
+  ],
+  "finalGateResult": "58files/955tests PASS; lint zero warnings; typecheck PASS",
+  "failuresPreserved": [
+    "First new gates exit1: 955tests passed, diagnostic no-undef lint2; typecheck not reached. Explicit globalThis binding corrected under r2 registration.",
+    "One apply_patch context mismatch before applying document changes; no partial edit.",
+    "Original server/review exit1 and formal audit major unchanged."
+  ],
+  "noExecutions": [
+    "capture",
+    "authenticated API/DB probe",
+    "measurement run",
+    "Native",
+    "formal audit",
+    "design review",
+    "smoke",
+    "package",
+    "deploy",
+    "push",
+    "client publication"
+  ],
+  "preservation": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/preservation-after.json",
+    "sha256": "2dcd7c13b44f9371e554298af0cfc28085a3037aac2cbef432fc5411e68b4bd2"
+  },
+  "artifacts": {
+    "CONTRACT_ANALYSIS.md": "0a6fe81ee577862d10c6baa1c0207e9cbf6c902ab3026cd2e9bf79730ca3ace1",
+    "current-compatibility.execution.json": "1cb6c6638c68597da97a055434cf5733f12438e3e81e9053e13f1a4fde52f401",
+    "current-compatibility.log": "e217a295a01092f1f388b6c3e42be8834df4f34f1e907000e78e9d5af25dde13",
+    "gates-driver-r2.log": "a0cdfbea4991ebde6d80aa6942d86f9a3b55efe613644ab0fce736f99d433c85",
+    "gates-driver.log": "5817635c94e82fe89ad6a78268bbbc2bcd55e58676c41b4c51af158159bb8660",
+    "inspection-r2.json": "ae2bcdc26a1dfb61c3b0df64c7de9c19cc20294daad582ee2d3593788c9d9325",
+    "inspection-r2.log": "a6948723e61255a2b80e2ff15829f127668c5576b955a17ea5f8734a17700a10",
+    "inspection-script-r1.executed.txt": "84dde736fe97513337f0130b8a384efaf255030994c482dae68d63e9d2fa0acc",
+    "inspection.json": "c41d22978f4f349b71669e537be3ca0ecbe2003729f5a007111c69728b1133d7",
+    "inspection.log": "bfa6f216b0753a9707f934ca2b84b516a2c1150a66391731916f8345de6f8ba1",
+    "preregistration-r2.json": "06092e98a59268fa0a1d8d97a1e3ec6ec329a7defbd7f16459e14b220b1ee2a9",
+    "preregistration.json": "e7178371f03138e6910aaba0cdff9c302d35a76202b9aae78def4e8902ac98cf",
+    "preservation-after.json": "2dcd7c13b44f9371e554298af0cfc28085a3037aac2cbef432fc5411e68b4bd2",
+    "preservation-before.json": "436da8c90a71d314426a6dc344a1d91bbf1e7e24ae445023d9ae0aa4b53f1915",
+    "role-judgments.json": "75bd086cd9da06cd56d65cdcc5ff152cac51862ec281e1e7eb8e0fbdc7db1dcb",
+    "server-path-only.config.proposed-r2.json": "edbdfb3f57417d7dbacbd8c74906ddbc4b5d5b17334e50698620a8d882efac00",
+    "server-path-only.config.proposed.json": "edbdfb3f57417d7dbacbd8c74906ddbc4b5d5b17334e50698620a8d882efac00"
+  },
+  "note": "Standalone operational verification and contract diagnostics are not registered server/review AC successes. No historical success recertified under a new E. Gate records appended only; registered task contracts and old histories retained."
+}

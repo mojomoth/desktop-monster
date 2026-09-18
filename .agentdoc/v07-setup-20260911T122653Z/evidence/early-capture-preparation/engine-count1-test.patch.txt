@@ -1,0 +1,76 @@
+--- a/tests/engine.test.ts
++++ b/tests/engine.test.ts
+@@ -1,4 +1,4 @@
+-import { describe, expect, it } from 'vitest';
++import { describe, expect, it, vi } from 'vitest';
+ import {
+   COIN_ITEM,
+   coinsForIndex,
+@@ -469,32 +469,42 @@
+     expect(types(events)).not.toContain('bossCaptured'); // 0.5 >= CAPTURE_CHANCE
+   });
+ 
+-  it('uses the registered first-acquisition guarantee without changing boss RNG consumption or rearming after removal', () => {
+-    const threshold = PROGRESSION_PARAMETERS.firstCaptureBossIndex;
+-    const index = threshold ?? 23;
+-    for (const nextCompanionId of [1, 2]) {
+-      const counted = countingRng([0.5]);
+-      const engine = createEngine({ ...DEFAULT_SAVE, monsterIndex: index, monsterHp: '1', nextCompanionId }, counted.rng);
+-      const events = engine.attack('keyboard');
+-      expect(counted.draws()).toBe(4);
+-      expect(events.filter(event => event.type === 'bossCaptured')).toHaveLength(threshold === null || nextCompanionId === 2 ? 0 : 1);
+-      expect(engine.getState().nextCompanionId).toBe(threshold === null || nextCompanionId === 2 ? nextCompanionId : 2);
+-      if (threshold !== null && nextCompanionId === 1) {
+-        const captured = engine.getState().companions[0]!;
+-        engine.apply({ type: 'sacrifice', id: captured.id });
+-        const saved = parseSave(serializeSave(engine.toSave()));
+-        expect(saved.companions).toHaveLength(0);
+-        expect(saved.nextCompanionId).toBe(2);
+-        const resumedRng = countingRng([0.5]);
+-        const resumed = createEngine({ ...saved, monsterIndex: index + 8, monsterHp: '1' }, resumedRng.rng);
+-        expect(resumed.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
+-        expect(resumedRng.draws()).toBe(4);
++  it('preserves the original count1 guarantee and boss RNG after removal and restart', async () => {
++    vi.resetModules();
++    vi.doMock('../src/core/progression.js', () => ({ PROGRESSION_PARAMETERS: Object.freeze({
++      ...PROGRESSION_PARAMETERS, firstCaptureBossIndex: 63, earlyCaptureCount: 1,
++    }) }));
++    try {
++      const { createEngine, parseSave, serializeSave, PROGRESSION_PARAMETERS: parameters } = await import('../src/core/index.js');
++      const threshold = parameters.firstCaptureBossIndex;
++      const index = threshold ?? 23;
++      for (const nextCompanionId of [1, 2]) {
++        const counted = countingRng([0.5]);
++        const engine = createEngine({ ...DEFAULT_SAVE, monsterIndex: index, monsterHp: '1', nextCompanionId }, counted.rng);
++        const events = engine.attack('keyboard');
++        expect(counted.draws()).toBe(4);
++        expect(events.filter(event => event.type === 'bossCaptured')).toHaveLength(threshold === null || nextCompanionId === 2 ? 0 : 1);
++        expect(engine.getState().nextCompanionId).toBe(threshold === null || nextCompanionId === 2 ? nextCompanionId : 2);
++        if (threshold !== null && nextCompanionId === 1) {
++          const captured = engine.getState().companions[0]!;
++          engine.apply({ type: 'sacrifice', id: captured.id });
++          const saved = parseSave(serializeSave(engine.toSave()));
++          expect(saved.companions).toHaveLength(0);
++          expect(saved.nextCompanionId).toBe(2);
++          const resumedRng = countingRng([0.5]);
++          const resumed = createEngine({ ...saved, monsterIndex: index + 8, monsterHp: '1' }, resumedRng.rng);
++          expect(resumed.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
++          expect(resumedRng.draws()).toBe(4);
++        }
+       }
+-    }
+-    const below = createEngine({ ...DEFAULT_SAVE, monsterIndex: index - 8, monsterHp: '1' }, scriptedRng([0.5]));
+-    expect(below.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
+-    const normal = createEngine({ ...DEFAULT_SAVE, monsterIndex: index + 1, monsterHp: '1' }, scriptedRng([0.5]));
+-    expect(normal.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
++      const below = createEngine({ ...DEFAULT_SAVE, monsterIndex: index - 8, monsterHp: '1' }, scriptedRng([0.5]));
++      expect(below.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
++      const normal = createEngine({ ...DEFAULT_SAVE, monsterIndex: index + 1, monsterHp: '1' }, scriptedRng([0.5]));
++      expect(normal.attack('keyboard').some(event => event.type === 'bossCaptured')).toBe(false);
++    } finally {
++      vi.doUnmock('../src/core/progression.js');
++      vi.resetModules();
++    }
+   });
+ 
+   it('exports the same monster eligibility used by actual spawns without counting spawn eligibility as acquisition', () => {

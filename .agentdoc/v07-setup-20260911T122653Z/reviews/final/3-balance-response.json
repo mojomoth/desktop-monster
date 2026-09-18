@@ -1,0 +1,175 @@
+{
+  "requestId": "23fdec642ad6e13640df197226817a1727e0565d63432e933d517f5fe5b5bb85",
+  "role": "balance",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "agent": "/root/balance",
+  "summary": "최종 0.7의 현재 S84e911f/Ec27f893과 동결 분석·900 raw를 다시 결박하고 첫 7사건/h70 분포를 9정책에서 독립 재계산했다. 기준 active 100개의 첫 수락 전체 p50 2736.6초·90분 내 100/100, h70 자격 전체 lower p50 40596초는 등록 구간 안이다. h70 도달50/미도달50·조건부 p50 20933.6초·실제 선택0과 후기 수집 공백은 유지된다. 기존 C070-LIVE-SERVER-CONTRACT major와 D070-LATE-COLLECTION-GAP/D070-ENDPOINT-READINESS-SAMPLING minor 두 건은 미해결이다. 새 고유 finding은 없으며 기존 ID를 중복 등록하지 않는다. 분석 결과이며 humanChecks/humanFun=PENDING, 운영 출시=PENDING이다.",
+  "coverage": [
+    {
+      "category": "bug",
+      "assessment": "실제 격리 Native 원본의 고레벨 저장/재시작, Lv11→1·별0→1·힘11→2, 도감 획득/ACK 및 영웅+5동료 목록·지정 상대 진단을 확인했다. 운영 compatibility는 live=PENDING이며 health 보고 커밋의 Lv10 상한·목록 부재·지정 ID 무시를 로컬 Git 소스로 직접 확인해 기존 major를 유지한다.",
+      "confidence": "high",
+      "unknowns": [
+        "운영 인증 API·DB·고레벨 왕복은 실행하지 않았다. health 보고 SHA의 정적 소스 반례이며 실제 배포 바이너리 attestation은 아니다.",
+        "PNG198개는 해시를 재검증했으며 이번 Balance 턴에서 198개 화면을 모두 시각 판독한 것은 아니다. smoke/package/955 gates도 재실행하지 않았다.",
+        "별도 보존 조사에서179개 현재 존재·173개 최초 전체 바이트 연결·6개 원본 위치 미확인이다. 이를 테스트 삭제/skip/약화로 단정하지 않으며 이 감사에서 원본 복구나 그 6개의 의미 검토를 대체하지 않는다."
+      ]
+    },
+    {
+      "category": "logic",
+      "assessment": "정책별100개의 완료720분/seed1–100을 유지해 총900 raw와 보고서 객체·manifest·원장9900개가 일치했다. 미도달을 뒤에 두는 floor((N−1)q) 전체 분위수와 성공자 조건부를 분리하며 두 목표 분모는 즉시 수락 active/free/uniform/none/0의100개다. 콘텐츠 자격·제시·획득과 Native 최초 준비 표본을 서로 치환하지 않았다.",
+      "confidence": "high",
+      "unknowns": [
+        "h70 전체 lower p50는 도달50개의 최댓값이며 대부분이12시간 내 획득한다는 보장이 아니다. 전체 p90/최대는 미도달로 null이다.",
+        "900은 9개 정책의 각100개이지 같은 기준 정책의900개 독립 seed가 아니다. 선택된 탐색20개나 과거0.6 검증을 합치거나 현재 결과를 튜닝에 사용하지 않았다.",
+        "Native 종료 준비상태를 최초 준비 미도달로 읽지 않는다. record는 첫 관측이며 모든 공격/포획 RNG의 연속 trace가 아니다."
+      ]
+    },
+    {
+      "category": "fun",
+      "assessment": "v5 패턴의 즉시 반응·작업 중 성장·발견·작은 선택을 적용하면 처치/환생 지속과 새 수집은 다른 성과다. 기준8→12h 전원 추가처치·환생에도 새 영웅 없는60/100·새 처치종 없는78/100·새 포획종 없는100/100이 남는다. 기존 안내의 사람 관찰은 후속 가설이며 반복 보상의 가치나 업무 방해 해결을 입증하지 않는다.",
+      "confidence": "medium",
+      "unknowns": [
+        "사람 관찰이 없으므로 humanChecks/humanFun=PENDING. 합성 입력량·18회 예정 방문을 사람 참여율이나 업무 중단 횟수로 표현하지 않는다.",
+        "희귀 선택0은 첫 standard 슬롯 정책이며 사람의 기피율이 아니다. fixture 세 번째 h70 클릭은 자연 획득·선호를 증명하지 않는다.",
+        "훈련/미끼/재굴림은 동료 관리·방문 주기와 결합돼 있다. 골드 지출 단독 인과효과·항상 우월한 최적 전략·유료 필수 경로를 주장하지 않는다."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "artifact": "measure",
+      "pointer": "/runs",
+      "note": "release SHA46271facabdeb917748b50b46b2136246c0fd65281b5e76b350a7dcd1e6b1079; raw900 literal SHA·binding·각 run JSON SHA 및 embedded 객체 동일성을 직접 재검사했다. 동결 release-v070-analysis 16파일(FROZEN63a3724e…, final116b4a84…)·source/eval/build 압축3개·manifest·실행/완료로그·readiness6개 owned/current hash도 일치했다. 기존 내 Python 재검산 e5f5bfca…는9900 checkpoint/297분포를 보존한다. 이번엔 첫7/h70의90분포와9900 금원장을 다시 계산했다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/settings/baseline",
+      "note": "기준 active/free/uniform/none/0. 모든 정책 fresh 초기상태와 validation1–100/720분을 별도 유지했다. actual command는 node .harness/v7/loop/measure.mjs run <R>/evidence/release.json --phase release --suite --candidate candidate-r8-tail10450 --seed-set validation --workers 4. 이번 감사에서 재실행하지 않았다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/targets",
+      "note": "첫 수락 전체/조건부 p10/p50/p90/최대=1698.4/2736.6/3539.5/3723.3초, 평균2665.613초;90분100/100. h70 자격 전체17441.5/40596/null/null, 조건부14841.7/20933.6/34739.3/40596초·평균24757.062초,50미도달. 전체 평균은 검열을 임의 대체해 계산하지 않는다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/protocol/milestones",
+      "note": "현재 공식protocol52f4206c…와 report embedded가 동일하며 production21키가 동결 source/compiled parameters와 같다. discovery.ts96/100/108/115/136/142의6실제조건 및 PROGRESSION_CONTENT_RULES를 대조했다. 최종은 h70 uniqueHeroes10+totalKills30000이고, 자격은 무료·성과 기반이다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/method",
+      "note": "현재 progression.ts의L17/XP20×1.42^(L−1), field1153/1000→index79 이후10450/10000, companion115/100을 읽었다. formulas.ts의BigInt 단일 floor와 monster boss5, hero.ts120–126의L+max(0,L−2)^2·영혼/환생, engine.ts238–269의동일1draw/영구할당quota5/depth63/roster30 release, hero.ts225–256·measure.mjs285의첫standard 선택을 확인했다. 새 수치 제안이나 실행은 없다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs/0/records",
+      "note": "기존 내 동결 policy01의 동일seed8→12h·2h/12h 경계 포함100ms 정수 gap을 사용했다. 추가킬p50=17231/최소386,환생p50=80/최소2,partyPower 동일68. seen 최대공백p50/p90/최대=9158.5/25518.1/31089.4초, 신규획득=11364.3/31954.9/34294.8초. 이후 처치가 계속되므로 발견 공백을 전투 정지로 부르지 않는다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs/600/policy",
+      "note": "훈련+consume/600초의h70자격100/100·전체p5016807초·지출p5028875·최대동료Lv p5067, 미끼+fuse/600초92/100·22227초·62050, 재굴림+reincarnate/120초100/100·9969초·728000. 무료600초도89/100·25894.3초다. 패키지 효과이며 단독 구매 효과가 아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/matrix/originals",
+      "note": "matrix45af28ccfa167f889b415ca187c5d9cf2d8179ef4d1cea5a5bf1c91785263c5c의10개 원본 SHA·동일S/E·430 true checks/errors0와198 PNG SHA를 직접 재검사했다.9개 실제5/15/30분×3프로필+별도180분이며 자연 합19803022.837542ms. post-natural fixture는 자연 성과에 포함하지 않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/9",
+      "note": "180분18회 예정 메뉴방문/14선택, firstReady2312052.202208ms와firstReincarnation2401183.300416ms 및종료13077킬/동료30/영웅14를 원본에서 읽었다. 한 실제 Native 경로와 100seed 모델 분포를 합쳐 목표로 집계하지 않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/6",
+      "note": "30-active 종료Lv17/76킬/1493골드지만 firstReadyElapsedMs=null을 직접 확인했다. electron-e2e.cjs229의final flush는 recordFirstReadiness에 들어가지 않는다. 기존D070-ENDPOINT-READINESS-SAMPLING minor 유지: 준비 미도달과 최초시각 미확인을 구분한다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/416/details",
+      "note": "h70 세 번째 실제 클릭 진단은 fixture=true/naturalAcquisition=false다.409–415의선택/처치 기반 도감·알림/ACK,418의Lv11/250/MAX_SAFE saved=resumed,421의Lv11힘11→Lv1별1힘2,424–429의영웅+5동료50행·지정ID/키보드/포커스를 원본 값으로 읽었다. 자연 희귀선택0 또는 사람 이해도를 덮지 않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/423/details",
+      "note": "격리 서버 진단 성공과 운영 호환을 분리한다. 실제 compatibility.json9eeb9ad2…/local로그c29c1fc3… 해시를 확인했으며 live=PENDING. 보고된Git28270992518dc5bfc9c1f89f700c0491eaf8d1ed의api.ts104 LEVEL_MAX10, app.ts128/203–215의고레벨400,358–394의opponentId미사용,458–480의directory부재를 직접 읽었다. 기존C070-LIVE-SERVER-CONTRACT major를 유지하고 호환운영SHA/새고레벨근거 전 출시는 보류한다. 이 pointer는 운영 API 실행 증거가 아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/limitations",
+      "note": "전체3-balance.md1728행/101085bytes SHA5042057459b6350a9a33466d8051e67ea9c4c57a84875549796ec43df4ce747d, template30a9d8778b0fd5f73f1c3419baddeedaf31e1ad894c7f9e9ca8e17bfe69be49d와장르3문서를 전부 읽었다. actual Designer77b177df…/Critic67cf9154…는 prompt priorReports 전체와 동일했다. v5의5분/1000ms초기 가설을 v7목표/100ms에 덮어쓰지 않았다. 별도 보존 amendment0e0f65ba…의173/179와6미확인을 출시판정으로 바꾸지 않는다."
+    }
+  ],
+  "findings": [],
+  "metrics": [
+    {
+      "name": "첫 7사건과 기준 환생 분포",
+      "evidence": "measure#/runs",
+      "interpretation": "기준100의 첫 처치·보상 p50 각4.5초, 레벨업15.5, 포획50.5, 준비/제시/수락 각2736.6. 포획p10/p90/최대=35.5/192.5/2783초;첫수락1698.4/2736.6/3539.5/3723.3초·평균2665.613초.90분내100/100·미도달0.",
+      "limitation": "등록 목표는 평균이 아니라전체p502700–3600초와90분90/100이다. 즉시방문이므로 세 시각이 같으며 Native 메뉴의 실제대기까지없다는 뜻이 아니다."
+    },
+    {
+      "name": "마지막 h70 자격·제시·실제 선택",
+      "evidence": "measure#/targets",
+      "interpretation": "자격50/100(8h전30,8–12h20),제시50,실제선택0.자격전체p10/p50/p90/최대17441.5/40596/null/null초;조건부14841.7/20933.6/34739.3/40596초.제시전체p5040692.5초/조건부21271.6초.",
+      "limitation": "전체 lower p50는50번째 관측치로 도달자최대다. 미도달50의시간·전체평균을추정하지않는다. 등록28800–43200초구간 안이어도대부분의희귀획득/선택을보장하지않는다."
+    },
+    {
+      "name": "6 named 성과의 무료 경로",
+      "evidence": "measure#/protocol/milestones",
+      "interpretation": "기준자격/제시/획득수: crownwyrm100/100/100,rootcolossus100/100/100,h58100/98/0,h6281/80/0,starvoid67/67/67,h7050/50/0.몬스터획득은처치이며실제포획은왕관용21/뿌리거인22/별먹이0이다.",
+      "limitation": "몬스터처치·동료추가·영웅선택을분리한다. 첫슬롯정책은희귀영웅을고르지않으며 유효자격만으로도감소유를주지않는다. paid-only조건은없다."
+    },
+    {
+      "name": "9정책 전체분포와 미도달 분모",
+      "evidence": "measure#/runs",
+      "interpretation": "정책순서는 baseline즉시무료,무료600,간헐무료600,warm-idle무료600,pure-idle무료600,burst즉시무료,훈련+consume600,미끼+fuse600,재굴림+reincarnate120이다.각100개 첫수락전체p50초=2736.6/3000/4800/13800/null/1822.6/2400/3000/2040;90분내=100/100/64/13/0/100/100/100/100;첫미도달=0/0/0/30/100/0/0/0/0. h70전체p50초=40596/25894.3/28810.5/null/null/25651.5/16807/22227/9969;미도달=50/11/19/56/100/32/0/8/0;제시=50/89/78/43/0/67/100/92/100;선택은전정책0이다.",
+      "limitation": "대안8개에기준목표를강제하거나100×9를단일분모로합치지않는다. 조건부h70p50=20933.6/24710.4/27112.2/30067.4/null/17327/16807/21646.7/9969초로별도보존했다."
+    },
+    {
+      "name": "작업 입력과 순수/초기활동 방치",
+      "evidence": "measure#/method",
+      "interpretation": "동일12h active균일과burst는각86400입력이나첫p50는2736.6 vs1822.6초다.간헐21780입력은4800초/90분64개;warm-idle240입력은첫수락70개·h70자격44개.입력0/동료0 pure-idle는처치/수락/자격0이다.",
+      "limitation": "초기활동으로얻은동료와새게임순수방치를혼동하지않는다. burst는피버/공격순서/RNG소비시점도달라입력총량만으로인과를설명하지않는다. 실제사용자의타이핑속도표본이아니다."
+    },
+    {
+      "name": "후기 처치·환생과 수집 공백",
+      "evidence": "measure#/runs/0/records",
+      "interpretation": "기준동일seed8→12h 추가킬p10/p50/p90/최대1128/17231/35078/66904·최소386,추가환생5/80/120/120·최소2;전원계속진행.그중새영웅0=60,새처치종0=78,새포획종0=100,파티기본힘동일68.2–12h새획득최대공백p50=11364.3초/worst34294.8초.",
+      "limitation": "기존D070-LATE-COLLECTION-GAP minor 유지. 경계포함고유kind/id gap이며금/중복방출같은모든보상의간격이나무처치시간이아니다. 안내조사만으로새수집을늘렸다고결론내리지않는다."
+    },
+    {
+      "name": "전투 정체의 긴 꼬리",
+      "evidence": "measure#/runs",
+      "interpretation": "12h각run 최장무처치시간을100개에서정렬한p50/p90/최대초는기준752.5/968/1823.8,간헐1165.1/3363.5/3895.5,warm4837.4/43081/43085,pure43200/43200/43200이다.",
+      "limitation": "최장구간의분포이며평균TTK가아니다. 무관리로스터30/Lv1을레벨상한재발로해석하지않는다. 모든포획RNG/깊이연속기록은없어개별정체원인을전부확정하지않는다."
+    },
+    {
+      "name": "전투 공식과 동료 환생의 당장 손익",
+      "evidence": "measure#/method",
+      "interpretation": "영웅비치명L+max(0,L−2)^2는Lv10=74/Lv17=242이며영혼·영웅환생·훈련을곱한뒤치명/피버가적용된다.동료힘=max(1,floor(companionHP/20))×Lv×2^별이므로환생직후힘비는2/Lv다.현재필드tail은동료HP115/100공식을바꾸지않는다.",
+      "limitation": "누적heroDamage/companionDamage는overkill포함emitted bigint,partyPower는선택파티기본힘으로DPS나실제HP감소와같지않다. Lv11→1의11→2감소를장기성장보장이나즉시강화로설명하지않는다."
+    },
+    {
+      "name": "골드 원장과 소비의 관측 효용",
+      "evidence": "measure#/runs",
+      "interpretation": "9900checkpoint에서초기금+income−spent=coins일치.기준12h지출0·금p501563085;훈련정책은전100개훈련10/지출28875,최대동료Lv p5067.미끼+fuse지출p5062050,재굴림+reincarnate728000.무료600초에서도h70자격89개로필수지출경로가아니다.",
+      "limitation": "서로다른표본의income/spent각각p50를빼서coins p50라고하지않는다.지출+관리+메뉴빈도묶음의효과라단독구매효과가아니다.회복시간은현재수입률고정가정없이는추정하지않으며수입0은도달불가이지0분이아니다."
+    },
+    {
+      "name": "환생을 빨리 선택하는 전략의 한계",
+      "evidence": "measure#/runs/100/policy",
+      "interpretation": "기준즉시수락은h70자격50개/전체p5040596초인데같은무료균일입력의600초방문군은89개/25894.3초다.기준최종환생p50137과600초군67은더많은환생이항상더빠른named조건달성을뜻하지않음을보인다.",
+      "limitation": "정책전체를비교한결과이며개별seed항상우위/인간최적전략을주장하지않는다.등록된현재값이나선택기준을완료validation으로재조정하지않는다."
+    }
+  ],
+  "economy": {
+    "sources": "처치마다1+floor(index/3) coin,보스5배;trinket확률25%.로스터30에서정상포획방출매2회영혼1.",
+    "sinks": "훈련75×(level+1)^2·훈련10단계;미끼75+25×min(환생,100)·20charges;재굴림50+25×min(환생,100).모두게임내골드이며실제결제인과를추정하지않는다.",
+    "freePath": "6성과조건은무료이며기존30초보류/120초휴식을유지한다.무료정책원장지출0과실제자격을근거로삼고,선택0인희귀영웅의소유까지주장하지않는다.",
+    "limitations": "상점훈련10단계는제거한동료레벨상한이아니다.구매·관리·방문정책은분리된단일요인실험이아니며개선안/새강제시간제한/수치조정은실행하지않았다."
+  }
+}

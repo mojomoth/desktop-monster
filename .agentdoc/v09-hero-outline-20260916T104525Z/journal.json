@@ -1,0 +1,96 @@
+{
+  "version": 9,
+  "change": "outlined hero level and reincarnation readiness labels",
+  "writer": "/root",
+  "finishedAt": "2026-09-16T10:52:49.674Z",
+  "status": "implementation-and-automated-verification-complete",
+  "sourceDigest": "095e2831c5db0e8a324c40b1c8f9293ef55f58b6fec8abfe5916d9ef6ae20aa5",
+  "roles": [
+    "/root/designer",
+    "/root/critic",
+    "/root/balance",
+    "/root"
+  ],
+  "ownership": {
+    "product": [
+      "/root",
+      "src/renderer/hud.ts"
+    ],
+    "test": [
+      "/root",
+      "tests/hud-v09.test.ts"
+    ],
+    "native": [
+      "/root/designer",
+      ".harness/v9/counter-ui.mjs"
+    ]
+  },
+  "gates": {
+    "command": "npm test && npm run lint && npm run typecheck",
+    "startedAt": "2026-09-16T10:48:02.993Z",
+    "endedAt": "2026-09-16T10:48:16.028Z",
+    "before": "095e2831c5db0e8a324c40b1c8f9293ef55f58b6fec8abfe5916d9ef6ae20aa5",
+    "after": "095e2831c5db0e8a324c40b1c8f9293ef55f58b6fec8abfe5916d9ef6ae20aa5",
+    "exitCode": 0,
+    "log": ".agentdoc/v09-hero-outline-20260916T104525Z/gates.log",
+    "logSha256": "840c0183a291399d8d5da1268798febb6bff4361753928a8127e95a29cb87507"
+  },
+  "summary": {
+    "testFiles": 73,
+    "tests": 1071,
+    "targetTests": 107,
+    "nativeChecks": 5,
+    "counterCases": 10,
+    "headLabelPixelMismatches": 0,
+    "coreFilesUnchanged": 20,
+    "macPayloadFiles": 109,
+    "windowsPayloadFiles": 109
+  },
+  "commands": [
+    {
+      "command": "npx vitest run tests/hud-v09.test.ts tests/renderer.test.ts",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run smoke",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run package",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run package:win",
+      "exitCode": 0
+    },
+    {
+      "command": "node .harness/v9/counter-ui.mjs release/mac-arm64/DesMon.app .agentdoc/v09-hero-outline-20260916T104525Z/native",
+      "exitCode": 0
+    }
+  ],
+  "evidence": {
+    ".agentdoc/v09-hero-outline-20260916T104525Z/gates.json": "ff8bf68a7b4bf05a9f2c2bf3cd702fa57a3431ad7350dc01b6f58c63e1814f4a",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/gates.log": "840c0183a291399d8d5da1268798febb6bff4361753928a8127e95a29cb87507",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/target.log": "eec0d61858b359c4c2f5eb5c34f3a6e072b014a94d6dd136766d354752e78e8b",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/smoke.log": "2f61dc0881ef1c04991144fd831becebe23a1108fa2e72acba3f7dd3149de50e",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/package-mac.log": "0da8d7092ccc953b3614c7ea9109d3e2ff68b9943ec50eeee2deb63726abc358",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/package-win.log": "3d57394498ba01dafeffa6bbcc144539142a4e2a8ac88369cd6d6e6063481ca5",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/artifacts.json": "e96ee7a05dfe202971db23a80ff4c922bfc8829c64e6ab9387683e820937917c",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/native/counter-ui.json": "75fbb83ea659c217744fa80d7e5e5f5d95e4fdc32b35871578d427f904af1668",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/reviews/designer.md": "8719e307d25927a89ee067220476f58b601cc71800e7417c6e81b39e0d32bd9b",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/reviews/critic.md": "f214178375043541789888832bedb2fffc3087ac75d82b3d9b1d4e0133bbe391",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/reviews/balance.md": "4c4492822e8c97bcddf5a74c537ed9bd8c04dc4b61a8519562f052318deb2d3d",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/reviews/playtester.md": "f7b9881e959fe6ade7b4e4b9abdb642bf4f7be267d2571991835e07aa80f3610",
+    ".agentdoc/v09-hero-outline-20260916T104525Z/preservation/manifest.json": "ee3d3461e2f17f2e49e0dc08a570de179b8787bb7942ef6137ace08b07ab3239",
+    "docs/v0.9/HEAD_OUTLINE_UPDATE.md": "b8cd9e62fe4b5b950496a27018c83bba57b3568e8a278c15bc06346d62f2e5dd",
+    "README.md": "0a6ae1107f67b9d7f29507aee7e85267a12c0519eb3f7019beed55328818f1fe"
+  },
+  "DESMON_SKIP_NET": 1,
+  "releaseReady": false,
+  "externalPending": [
+    "Windows native/CI execution",
+    "Steam AppID initialization",
+    "production deployment/migration",
+    "human validation"
+  ]
+}

@@ -1,0 +1,24 @@
+
+> desmon@0.9.1 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+tests/codexV7.test.ts(139,25): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(143,25): error TS2322: Type '{ speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(155,25): error TS2322: Type '{ codex: { acknowledgedMonsters: string[]; acknowledgedHeroes: string[]; goal: DiscoveryGoal | null; }; speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; ... 9 more ...; legacyHistory: boolean; }' is not assignable to type 'SavedProgress'.
+  Type '{ codex: { acknowledgedMonsters: string[]; acknowledgedHeroes: string[]; goal: DiscoveryGoal | null; }; speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; ... 9 more ...; legacyHistory: boolean; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/hud-v09.test.ts(30,97): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/hud-v09.test.ts(61,33): error TS2345: Argument of type '{ coins: number; killCount: number; level: number; hero?: HeroProgress; progress?: Progress; xp: number; equipment?: EquipmentState; ... 13 more ...; fever: { active: boolean; remainingMs: number; }; }' is not assignable to parameter of type 'Readonly<GameState>'.
+  Types of property 'coins' are incompatible.
+    Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(334,54): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(344,38): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(355,45): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(359,45): error TS2322: Type 'number' is not assignable to type 'bigint'.

@@ -1,0 +1,17 @@
+/Users/jeongyounglee/work/repo/desktop-monster/node_modules/@electron/asar/lib/filesystem.js:187
+            throw new Error(`"${p}" was not found in this archive`);
+            ^
+
+Error: "dist/electron/server/app.js" was not found in this archive
+    at Filesystem.getFile (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/@electron/asar/lib/filesystem.js:187:19)
+    at Object.extractFile (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/@electron/asar/lib/asar.js:256:33)
+    at [stdin]:19:53
+    at runScriptInThisContext (node:internal/vm:209:10)
+    at node:internal/process/execution:109:14
+    at [stdin]-wrapper:6:24
+    at runScript (node:internal/process/execution:92:62)
+    at evalScript (node:internal/process/execution:123:10)
+    at node:internal/main/eval_stdin:32:5
+    at ReadStream.<anonymous> (node:internal/process/execution:224:5)
+
+Node.js v20.12.2

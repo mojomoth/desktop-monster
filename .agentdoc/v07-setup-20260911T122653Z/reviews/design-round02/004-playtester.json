@@ -1,0 +1,126 @@
+{
+  "requestId": "d4c6b47d9d72bdaefebfcb7c360c4e2c1a5de7fda890ab5cefa06dab0f55e781",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "0158962366a8669d1721b4ab2d6c7e551e12dfbaadf57c51c6921f54dd658cb0",
+  "evaluationDigest": "659e1bf05b0d7f319a835ad9b8f90cadaa85944cb59149f225bfa752004cffce",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "Host가 실제 Playtester로 발급004 prompt/template과 세 역할의 보고서를 읽고 round02 비교 계약을 검토했다. 전체 prompt 출력에서 생략된 Critic 부분은 원본002 JSON 전체를 별도로 읽었다. 직접 실행한 round01은8개 모두 선별실패이고12h0개이며, 새 L17 XP1.41/1.42/1.43은 아직 미측정이다. 비교 설계는 pass이나 selectedExperiment=null과 목표PENDING을 유지한다. 현재source015896…/evaluation659e1b…에서 등록V01 protocol/harness125/canonical916·lint·typecheck를 실행해 통과했으며 다른 작업의 현재AC와 최종0.7.0 근거는 별도다. 이전 실제 Native attempt02의41개 진단과 화면을 직접 확인했지만 이는 다른 수치/평가 지문의0분 진단으로 자연330분 관측이나 출시 성공을 대신하지 않는다. 네 역할 결과 감사는 나중에 audit.mjs로 실행한다. humanChecks=PENDING.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "실행 전에 고정한 round02 전체17개 매개변수, Lv16–20 대조와 L17 XP1.41/1.42/1.43 세 후보, unchanged6개 콘텐츠 ID/성과 조건, exploration/selectedExperiment null을 읽었다. 첫p50 2700–3600초·18/20 및 이후90/100의5400초 마감과 h70자격28800–43200초를 그대로 적용한다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "실패한 round01을 현재 성공으로 바꾸지 않으며 새 후보의 단조성/성공률/12h성공을 가정하지 않는다. IPC expected 필수·내부core만legacyoptional, 획득도감/ACK, 지정PvP/포커스/만료와 최종버전 우선동결 계약을 확인했다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round01-analysis/README.md",
+      "note": "Host가 실제8개 생산변형과160개 raw를 실행했고 Balance 및 Critic이 독립 대조했다. 첫p50/90분수는 L16 813.6/20,L17 1636.5/20,L18 4976.5/12,L19 null/5,L20 null/1,A null/5,B2429.7/16,C5064.9/10, 전부N20FAIL이다. B테스트중단/재개와 C첫포획개선·환생악화를 보존했다. h70 장기목표는NOT_EVALUATED."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789185056449.log",
+      "note": "현재control-l17 source015896…/evaluation659e1b…에서 직접 실행한 exact npm test && npm run lint && npm run typecheck의0종료: 제품916개, lint, strict typecheck. 코드/도구/소유파일을 동결해 기록했다. 향후 수치/버전 변경 뒤 이 결과를 최종 검증으로 재인증하지 않는다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789185012325.log",
+      "note": "동일 지문의 실제 하네스125개 검사가 통과했다. 공식경로/단계/등록값/원본무결성 경계와 Native required항목 자체 검증이며 실제장시간플레이 성공과 구분한다."
+    },
+    {
+      "path": "tests/companionLevelsV7.test.ts",
+      "note": "실제 저장/재시작의11/250/MAX_SAFE 및 bigint힘, consume/fuse/reincarnate의 무손실overflow거부, 전후힘/expected무효화, 서버전송ID보존 시나리오를 읽었다. 현재정확한전체gates에 포함되지만 등록levelsAC의 새실행은02단계에 남아 있다."
+    },
+    {
+      "path": "tests/codexV7.test.ts",
+      "note": "전체70영웅/135몬스터의공개카드·이름/설명/aria·공개수와ACK/목표를 acquired집합으로검증한다. 레거시·반복부팅·첫획득증분 시나리오는현재등록codexAC와최종Native에서이어검증한다."
+    },
+    {
+      "path": "tests/pvpDirectoryV7.test.ts",
+      "note": "50명·고유playerId·안정행·키선택·focus·오류/퇴출·실제expiresAt 경계를 포함한20개 테스트를 읽었다. 이 테스트의 DOM 모델과 실제 Chromium 키 입력 증거는 별도로 유지한다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json",
+      "note": "직접실행한0분진단은36개pass 뒤 Enter선택응답timeout으로실패했다. 원본을수정하지않았고 실패에서키문자이벤트누락을찾았다. 실패한관측을삭제하거나전체pass로바꾸지않았다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt02/journey.json",
+      "note": "직접실행한후속0분진단41pass: trusted Enter13/Space32→지정ID요청/응답/선택DOM,5.646초자동저장·재정렬focus,행퇴출find focus,동료확인/취소/대상변경,legacy도감. 실제환생preview와PvP선택PNG를열어확인했다. 선택PNG는재정렬이전compositor프레임일수있어완료판정은JSON을근거로한다. source06e5/eval9f8a의과거진단이다."
+    },
+    {
+      "path": ".harness/v7/loop/electron-e2e.cjs",
+      "note": "별도userData·SMOKE/합성입력·모의서버, 실제관측이끝난뒤에만diagnosticfixture를적용한다. 최종5/15/30×3과별도180active의10분실제메뉴선택을다른자연관측session으로기록하고가속하지않는다."
+    },
+    {
+      "path": ".harness/v7/loop/server-check.mjs",
+      "note": "현재소스/컴파일/로컬왕복로그와실제운영healthcommit의대응sourceblobs를비교한다. healthSHA만으로고레벨호환을인정하지않으며자동배포하지않는다. smoke/package의실제실행과운영호환은미실행이다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "동료 레벨과 Lv10 환생 자격을 분리했고 확인창은 Lv/별/정확한 힘 감소를 숨기지 않는다. 후보 변경 후에도 저장/서버/응답 MAX_SAFE 무손실과 확인 중 대상 변경·취소를 현재 등록 AC 및 최종Native로 확인해야 한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅의 실제선택/영구collection, 몬스터의 양의speciesKills만 공개 증거다. 제시/스폰/보유가 공개·알림·ACK·목표를 대신하지 않으며 레거시에도 같은 판정을 적용한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "실제41개진단에서 ID와 trusted키/focus를확인했지만 현재수치와최종0.7.0의재실행은남아있다. 행당영웅/5명파티·선택강조와expired/missing/error 거부를유지한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "round01의가장가까운실패도채택하지않는다. 새세XP가설은20개전체분모의첫p50와90분성공을동시에통과해야하며준비/제시/선택을분리한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "기존6개named조건을유지한다. h70자격28800–43200초목표는12h근거가없으며현재NOT_EVALUATED다. actualseen/chosen과자격을혼동하지않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "고레벨서버호환의로컬왕복과운영build대응근거는별개다. finalpackage버전고정·동일대상AC/gates·실제package·audit결과와사람관찰상태를구분한다."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "격리저장에서 Lv9·10·11·250·MAX_SAFE 동료를 읽고 실제 메뉴 환생 미리보기→취소→확인, 확인 중 대상 변경/삭제를 수행한다. consume/fuse/환생 overflow와 서버 upload/match/PvP/theft/reclaim을 실행한다.",
+      "expected": "Lv9은거절, Lv>=10은 Lv1·별+1이며 전후힘비율2/기존레벨을 정확히 표시한다. 첫미리보기/취소/낡은snapshot/overflow는 상태와재료를변경하지않는다. 저장/재시작·서버응답에서 고레벨을보존한다.",
+      "evidencePlan": "현재등록levelsAC와exactgates; 최종0.7.0 자연관측후 별도표시한fixture진단, 전후저장과실제확인화면/IPC/서버왕복원본을묶는다."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "seen만있는레거시, collection-only영웅, 보유동료이지만해당종처치0인격리저장을반복부팅한다. 후보를열고선택한뒤몬스터를실제로처치하며알림/ACK/목표를확인한다.",
+      "expected": "미획득이름/설명/원색/aria참조는숨기고공개수·알림·ACK·목표가같이바뀐다. 잘못된legacyACK는사라지고정상collectionACK는유지되며첫실제획득이누락되지않는다.",
+      "evidencePlan": "등록codexAC와exactgates, 최종Native의legacy/offer/choice/kill/save-reload 체크와실제스크린샷을사용한다. 자연관측에fixture를섞지않는다."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "50명목록에서 Tab/ShiftTab/Enter/Space와마우스로서로다른지정상대를선택한다. 실제STATE_CHANGED와목록재정렬/퇴출,잘못된ID·bot·만료·인증오류를거친다.",
+      "expected": "각행영웅/동료파티와전적이보이고requestedID=responseID=selectedDOM이다. 갱신중동일버튼focus를보존하고퇴출시preview/선택을지우고find로옮긴다. 낡은preview나failed upload뒤전투하지않는다.",
+      "evidencePlan": "등록directory20/전체gates와최종Native trusted이벤트·request/response ledger·DOM identity·focus JSON을검사한다. 그림한장만으로완료프레임을추정하지않는다."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "Lv16–20및새L17 XP1.41/1.42/1.43을각실제생산소스로적용해등록17값/ID를검사한다. 같은탐색10001–10020에서120분을실행하고통과안만12h로승급한다.",
+      "expected": "전체첫Accepted p50=2700–3600초및최소18/20이5400초이내여야한다. 채택후별도1–100에서90/100을직접확인한다. 미도달은null·전체분모에남기고기존120초휴식/30초보류외타이머는추가하지않는다.",
+      "evidencePlan": "각source/build/evaluation/protocol/parameters/content/raw/log를보존하고전체/조건부p10/p50/p90/worst/unreached를따로보고한다. 선택전validation실행·검증결과를이용한튜닝을금지한다."
+    },
+    {
+      "id": "long-progression",
+      "action": "선별통과한20seed를12h까지실행해 crownwyrm/rootcolossus/h58/h62/starvoid/h70 자격·출현·실제선택/처치를기록한다. 두목표통과안만등록순위로채택한다.",
+      "expected": "최종h70은선택10종+총30000킬자격의전체p50가8–12h다. 다른5조건도등록그대로이며무료경로를유지한다. 첫카드정책의h70실제미선택은미도달로보존한다.",
+      "evidencePlan": "최종0.7.0에서9정책각100seed×12h원본및별도실제5/15/30×3+180active를실행한다.180분에는10분마다실제메뉴를방문하고준비된환생을선택한다. 사람평가는PENDING이다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "구현완료후package/lock0.7.0부터고정하고영향AC·gates·새설계검토를실행한다. 최종관측/정책측정후audit.mjs의실제네역할·smoke·package및server-check를실행한다.",
+      "expected": "저장/JSONB/모든중첩응답이Lv11/250/MAX를정확히보존하고잘못된응답·overflow는무손실거부한다. 실제.app/.dmg와검증된운영source/build대응이있어야출시검증이가능하며healthSHA만으로승인하지않는다.",
+      "evidencePlan": "로그와산출물해시·격리저장·실제패키지검사·서버코드/빌드대응을남긴다. 사용자PID/save/CURRENT/v5를유지하고중복실행을피한다. 자동commit/push/deploy없이운영호환미확인이면PENDING을유지한다."
+    }
+  ],
+  "humanChecks": "PENDING: 실제 사람 관찰은 없으며 합성입력·수치분석·0분Native진단을 사람의 재미 검증으로 표현하지 않는다."
+}

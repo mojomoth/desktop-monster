@@ -1,0 +1,1238 @@
+{
+  "version": 8,
+  "kind": "own-account-live-online-check",
+  "startedAt": "2026-09-14T05:45:05.365Z",
+  "endedAt": "2026-09-14T05:46:09.121Z",
+  "status": "PASS",
+  "origin": "https://desmon-server-v3.onrender.com",
+  "expectedDeployedSha": "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803",
+  "bindingsBefore": {
+    "files": {
+      "src/core/battle.ts": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+      "src/core/bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "src/core/collection.ts": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+      "src/core/discovery.ts": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+      "src/core/economy.ts": "846acc7adf6842d1f8603df242559b551d7025fd4379cd6bb0afe26d7bd9c59a",
+      "src/core/engine.ts": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+      "src/core/fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "src/core/formulas.ts": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+      "src/core/fsm.ts": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+      "src/core/hero.ts": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+      "src/core/index.ts": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+      "src/core/input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "src/core/loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "src/core/monsters.ts": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+      "src/core/progress.ts": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+      "src/core/progression.ts": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+      "src/core/rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "src/core/save.ts": "e3ac4241ad02888394b436f9a7c037768c6fc4711b0dbe15e0e46ab0c276c6ac",
+      "src/core/types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "src/core/types.ts": "ba26337369373b313c50dfaf4168cc4495a5c65f210ca77e974696f7b01c6d64",
+      "dist/electron/core/battle.js": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a",
+      "dist/electron/core/bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+      "dist/electron/core/collection.js": "becdde1595dbb5012bcca79a09de5d7317a478e3e0db066eda92dc406c2c3bbf",
+      "dist/electron/core/discovery.js": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e",
+      "dist/electron/core/economy.js": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411",
+      "dist/electron/core/engine.js": "f0d5354545acd64ab3162bddd9e05189705076fe42591c283b44257c66e8628e",
+      "dist/electron/core/fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+      "dist/electron/core/formulas.js": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127",
+      "dist/electron/core/fsm.js": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612",
+      "dist/electron/core/hero.js": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961",
+      "dist/electron/core/index.js": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f",
+      "dist/electron/core/input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+      "dist/electron/core/loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+      "dist/electron/core/monsters.js": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3",
+      "dist/electron/core/progress.js": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed",
+      "dist/electron/core/progression.js": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f",
+      "dist/electron/core/rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+      "dist/electron/core/save.js": "7786e9ecbcf5f13875dd2e3133486d69351ee79223eb6671115933754a8465c6",
+      "dist/electron/core/types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+      "dist/electron/core/types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876",
+      "dist/electron/main/globalInput.js": "6cf971e0f802f84e83dfa05c46f6efbaad824722e539e4fde716a14fb27d7755",
+      "dist/electron/main/identity.js": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76",
+      "dist/electron/main/index.js": "c4b82d2e7aa36cf7b6f353ccd1592d51965de481962bcbb4496f22279ca83039",
+      "dist/electron/main/ipc.js": "fb2164d753348fd3964df99f07bc7dc6fd99b1f11c53be02aed3cb55a8e3df91",
+      "dist/electron/main/menuWindow.js": "b61efe9a40cb30c30a9884b3ac6e5767f49e731eb55c253839def3b289d695cc",
+      "dist/electron/main/net.js": "22a766db657205d02b069306adc1f8e57b81251099ffbf6ec7aaf6014712bc13",
+      "dist/electron/main/persistence.js": "215a2440559e5e9381920ca106883880bd9ede495650678a18996ff6117669ee",
+      "dist/electron/main/settings.js": "7fc9778c1f0970692f0dcf17e50967f42c98c0c0a7adf174c09785eac24563ed",
+      "dist/electron/main/thefts.js": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1",
+      "dist/electron/main/tray.js": "1784a999b5fd3f1f6dd0464c7c3f26ded0f70894919a7bca8afe080accc061c3",
+      "dist/electron/main/trayIcon.js": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52",
+      "dist/electron/main/window.js": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664",
+      "dist/electron/preload/index.js": "a00856abb4a8db3751d2d52243d3e536acb5f2aa87e0ad26291f6643cc441a51",
+      "dist/electron/server/app.js": "a3e85a9e40e3276e3975ba2d1180487b1963845a0ca96cc3e6bbc2fa1eafb3dc",
+      "dist/electron/server/http.js": "347278e2633e4007c19ca83d659f58ee9570ba0323139905eec7c1f816df7a96",
+      "dist/electron/server/index.js": "dc3787713261ba792d65d7749fd87a240d71e3a1a663e1616910dfd5935cb389",
+      "dist/electron/server/pgStore.js": "42d98ded12b9b585e750329dae35d3d8549feaa1151f66f72613edf1466772f0",
+      "dist/electron/server/probe.js": "3a07d24995a703a7d693881dca1a2e205e3719508450f6c17734abf0d220d5d8",
+      "dist/electron/server/store.js": "e1cc046ee57f7fb584f722ec10091fa2fa87b5df703105921c8ad734962ec68e",
+      "dist/electron/shared/api.js": "03253f2668c7a344fdccfd72f846651ef34b38c949507132b84dc393ce7c1b54",
+      "dist/electron/shared/ipc.js": "309238ef5c65fcaa9853b3ed59d8e3da8f413e892fba554a8ff5ba43ef8b4b6f",
+      "dist/electron/shared/serverUrl.js": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de",
+      ".harness/v8/online-check.mjs": "3fd1122a8e0ccb436d0008cb6da2d456aee4a03b1d74b13c947984a18ccf3124",
+      "src/main/net.ts": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa",
+      "src/main/identity.ts": "f174db37997c7fdf69bfa937b13670eec4a65b31ac9c65c12dec0565219fb751",
+      "src/shared/api.ts": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736",
+      "package.json": "5f5a5d2dc420ce54d1e0ee49fbde0230132a0064ca1f8df53fcfe14f464f30d5"
+    },
+    "sha256": "48470b29c65b6c96342aca4d72af7af16fed109a34f7dc6a3342b342e3786d8e"
+  },
+  "checks": [
+    {
+      "id": "health-exact-pinned-sha",
+      "passed": true,
+      "observedSha": "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803"
+    },
+    {
+      "id": "register-A",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "fresh-credential-shape-A",
+      "passed": true
+    },
+    {
+      "id": "initial-upload-A",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "initial-upload-clean-A",
+      "passed": true
+    },
+    {
+      "id": "register-B",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "fresh-credential-shape-B",
+      "passed": true
+    },
+    {
+      "id": "initial-upload-B",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "initial-upload-clean-B",
+      "passed": true
+    },
+    {
+      "id": "initial-A-server-preview-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "initial-A-server-preview",
+      "passed": true,
+      "observer": "B",
+      "target": "A",
+      "expectedLevels": [
+        250
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-1-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-1",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-2-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-2",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-3-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-3",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-4-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-4",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-5-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-5",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-6-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-6",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-7-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-7",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-8-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-8",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-9-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-9",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-10-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-10",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-11-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-11",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-seed-preview-12-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "own-seed-preview-12",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "own-winning-steal-seed-found",
+      "passed": true,
+      "previews": 12
+    },
+    {
+      "id": "one-actual-own-battle-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "actual-battle-equals-local-resolver",
+      "passed": true,
+      "seed": 1314603443,
+      "matchId": "dde7c7c22be81314",
+      "blowCount": 1,
+      "stolenId": "s1314603443"
+    },
+    {
+      "id": "real-session-history-written",
+      "passed": true
+    },
+    {
+      "id": "victim-empty-without-upload-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "victim-empty-without-upload",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [],
+      "expectedIds": []
+    },
+    {
+      "id": "attacker-holds-stolen-without-upload-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "attacker-holds-stolen-without-upload",
+      "passed": true,
+      "observer": "B",
+      "target": "A",
+      "expectedLevels": [
+        250,
+        11
+      ],
+      "expectedIds": [
+        "c1",
+        "s1314603443"
+      ]
+    },
+    {
+      "id": "new-client-victim-remains-empty-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "new-client-victim-remains-empty",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [],
+      "expectedIds": []
+    },
+    {
+      "id": "new-client-attacker-retains-stolen-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "new-client-attacker-retains-stolen",
+      "passed": true,
+      "observer": "B",
+      "target": "A",
+      "expectedLevels": [
+        250,
+        11
+      ],
+      "expectedIds": [
+        "c1",
+        "s1314603443"
+      ]
+    },
+    {
+      "id": "victim-own-theft-inbox-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "victim-own-theft-inbox",
+      "passed": true,
+      "count": 1,
+      "allWithinOwnScope": true
+    },
+    {
+      "id": "theft-matches-actual-transfer",
+      "passed": true,
+      "count": 1
+    },
+    {
+      "id": "post-battle-process-reload",
+      "passed": true,
+      "childPid": 38699,
+      "parentPid": 37394
+    },
+    {
+      "id": "victim-reclaims-own-theft-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "reclaimed-companion-preserves-level",
+      "passed": true,
+      "reclaimedId": "r1314603443",
+      "level": 11
+    },
+    {
+      "id": "attacker-transfer-removed-after-reclaim-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "attacker-transfer-removed-after-reclaim",
+      "passed": true,
+      "observer": "B",
+      "target": "A",
+      "expectedLevels": [
+        250
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "victim-reclaimed-roster-after-reclaim-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "victim-reclaimed-roster-after-reclaim",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "r1314603443"
+      ]
+    },
+    {
+      "id": "second-new-client-attacker-state-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "second-new-client-attacker-state",
+      "passed": true,
+      "observer": "B",
+      "target": "A",
+      "expectedLevels": [
+        250
+      ],
+      "expectedIds": [
+        "c1"
+      ]
+    },
+    {
+      "id": "second-new-client-victim-state-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "second-new-client-victim-state",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [
+        11
+      ],
+      "expectedIds": [
+        "r1314603443"
+      ]
+    },
+    {
+      "id": "post-reclaim-inbox-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "post-reclaim-inbox",
+      "passed": true,
+      "count": 0,
+      "allWithinOwnScope": true
+    },
+    {
+      "id": "own-theft-inbox-empty-after-reclaim",
+      "passed": true
+    },
+    {
+      "id": "post-reclaim-process-reload",
+      "passed": true,
+      "childPid": 39219,
+      "parentPid": 37394
+    },
+    {
+      "id": "no-upload-masked-server-moves",
+      "passed": true
+    },
+    {
+      "id": "cleanup-own-thefts-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "cleanup-own-thefts",
+      "passed": true,
+      "count": 0,
+      "allWithinOwnScope": true
+    },
+    {
+      "id": "cleanup-empty-A-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "cleanup-empty-A",
+      "passed": true
+    },
+    {
+      "id": "cleanup-empty-B-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "cleanup-empty-B",
+      "passed": true
+    },
+    {
+      "id": "cleanup-server-empty-B-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "cleanup-server-empty-B",
+      "passed": true,
+      "observer": "A",
+      "target": "B",
+      "expectedLevels": [],
+      "expectedIds": []
+    },
+    {
+      "id": "cleanup-server-empty-A-client",
+      "passed": true,
+      "error": null,
+      "status": null
+    },
+    {
+      "id": "cleanup-server-empty-A",
+      "passed": true,
+      "observer": "B",
+      "target": "A",
+      "expectedLevels": [],
+      "expectedIds": []
+    },
+    {
+      "id": "health-end-same-sha",
+      "passed": true
+    },
+    {
+      "id": "compiled-client-bindings-unchanged",
+      "passed": true
+    },
+    {
+      "id": "temporary-identity-directories-removed",
+      "passed": true
+    }
+  ],
+  "requests": [
+    {
+      "route": "GET /healthz",
+      "owner": null,
+      "phase": "initial",
+      "clientGeneration": 2,
+      "startedAt": "2026-09-14T05:45:05.376Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:05.668Z"
+    },
+    {
+      "route": "POST /v1/players",
+      "owner": null,
+      "phase": "initial",
+      "clientGeneration": 2,
+      "startedAt": "2026-09-14T05:45:06.926Z",
+      "status": 201,
+      "endedAt": "2026-09-14T05:45:07.093Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 2,
+      "startedAt": "2026-09-14T05:45:08.476Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:08.645Z"
+    },
+    {
+      "route": "POST /v1/players",
+      "owner": null,
+      "phase": "initial",
+      "clientGeneration": 2,
+      "startedAt": "2026-09-14T05:45:10.026Z",
+      "status": 201,
+      "endedAt": "2026-09-14T05:45:10.409Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "B",
+      "phase": "initial",
+      "clientGeneration": 2,
+      "startedAt": "2026-09-14T05:45:11.576Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:11.784Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:13.127Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:13.351Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:14.677Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:14.917Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:16.229Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:16.388Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:17.780Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:17.975Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:19.331Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:19.489Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:20.881Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:21.057Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:22.432Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:22.631Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:23.982Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:24.202Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:25.532Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:25.776Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:27.083Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:27.247Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:28.634Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:28.792Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:30.184Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:30.342Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "initial",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:31.735Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:32.070Z"
+    },
+    {
+      "route": "POST /v1/pvp",
+      "owner": "A",
+      "phase": "battle",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:33.285Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:33.452Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "post-battle",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:34.836Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:34.997Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "post-battle",
+      "clientGeneration": 4,
+      "startedAt": "2026-09-14T05:45:36.387Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:36.557Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:37.941Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:38.100Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:39.490Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:39.649Z"
+    },
+    {
+      "route": "GET /v1/thefts",
+      "owner": "B",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:41.041Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:41.202Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:42.591Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:42.751Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:44.141Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:44.297Z"
+    },
+    {
+      "route": "GET /v1/thefts",
+      "owner": "B",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:45.691Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:45.855Z"
+    },
+    {
+      "route": "POST /v1/reclaim",
+      "owner": "B",
+      "phase": "post-battle",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:47.242Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:47.429Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "post-reclaim",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:48.793Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:48.999Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "post-reclaim",
+      "clientGeneration": 6,
+      "startedAt": "2026-09-14T05:45:50.344Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:50.576Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "post-reclaim",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:45:51.894Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:52.049Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "post-reclaim",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:45:53.448Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:53.613Z"
+    },
+    {
+      "route": "GET /v1/thefts",
+      "owner": "B",
+      "phase": "post-reclaim",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:45:55.000Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:55.174Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "post-reclaim",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:45:56.549Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:56.712Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "post-reclaim",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:45:58.100Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:58.283Z"
+    },
+    {
+      "route": "GET /v1/thefts",
+      "owner": "B",
+      "phase": "post-reclaim",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:45:59.649Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:45:59.855Z"
+    },
+    {
+      "route": "GET /v1/thefts",
+      "owner": "B",
+      "phase": "cleanup",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:46:01.200Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:46:01.428Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "A",
+      "phase": "cleanup",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:46:02.750Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:46:02.906Z"
+    },
+    {
+      "route": "PUT /v1/snapshot",
+      "owner": "B",
+      "phase": "cleanup",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:46:04.301Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:46:04.573Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "A",
+      "phase": "cleanup",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:46:05.851Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:46:06.015Z"
+    },
+    {
+      "route": "POST /v1/pvp/match",
+      "owner": "B",
+      "phase": "cleanup",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:46:07.402Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:46:07.564Z"
+    },
+    {
+      "route": "GET /healthz",
+      "owner": null,
+      "phase": "cleanup",
+      "clientGeneration": 8,
+      "startedAt": "2026-09-14T05:46:08.954Z",
+      "status": 200,
+      "endedAt": "2026-09-14T05:46:09.107Z"
+    }
+  ],
+  "accounts": [
+    {
+      "label": "A",
+      "playerId": "c3f6a2da-904c-4be4-9ecb-00c015d57099",
+      "name": "v8p-3af44c6c-a",
+      "initialLevel": 250
+    },
+    {
+      "label": "B",
+      "playerId": "a266563b-8e8e-4314-8ba0-83429544b74f",
+      "name": "v8p-ea35283e-b",
+      "initialLevel": 11
+    }
+  ],
+  "cleanup": [
+    {
+      "label": "A",
+      "emptySnapshot": "PASS"
+    },
+    {
+      "label": "B",
+      "emptySnapshot": "PASS"
+    },
+    {
+      "label": "B",
+      "emptyReadback": "PASS"
+    },
+    {
+      "label": "A",
+      "emptyReadback": "PASS"
+    }
+  ],
+  "selection": {
+    "maximumOwnSeedPreviews": 40,
+    "actualSeedPreviews": 12,
+    "predictedWinningStealOnly": true,
+    "battleRequests": 1
+  },
+  "limits": {
+    "requestIntervalMs": 1550,
+    "timeoutMs": 30000,
+    "noLeaderboardOrDirectory": true,
+    "noUploadsBetweenBattleAndReclaim": true,
+    "clientRecreation": "Actual createNetSession in fresh Node child processes reading isolated identity.json. Guarded HTTP transport is proxied by parent; not native Electron or server restart."
+  },
+  "processRestarts": [
+    {
+      "phase": "post-battle",
+      "ok": true,
+      "pid": 38699,
+      "identities": [
+        {
+          "label": "A",
+          "playerId": "c3f6a2da-904c-4be4-9ecb-00c015d57099",
+          "name": "v8p-3af44c6c-a",
+          "history": {
+            "wins": 1,
+            "losses": 0
+          },
+          "tokenReused": true
+        },
+        {
+          "label": "B",
+          "playerId": "a266563b-8e8e-4314-8ba0-83429544b74f",
+          "name": "v8p-ea35283e-b",
+          "history": {
+            "wins": 0,
+            "losses": 0
+          },
+          "tokenReused": true
+        }
+      ],
+      "previewsVerified": 2,
+      "theftCount": 1,
+      "registrationRequests": 0,
+      "uploadRequests": 0,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "phase": "post-reclaim",
+      "ok": true,
+      "pid": 39219,
+      "identities": [
+        {
+          "label": "A",
+          "playerId": "c3f6a2da-904c-4be4-9ecb-00c015d57099",
+          "name": "v8p-3af44c6c-a",
+          "history": {
+            "wins": 1,
+            "losses": 0
+          },
+          "tokenReused": true
+        },
+        {
+          "label": "B",
+          "playerId": "a266563b-8e8e-4314-8ba0-83429544b74f",
+          "name": "v8p-ea35283e-b",
+          "history": {
+            "wins": 0,
+            "losses": 0
+          },
+          "tokenReused": true
+        }
+      ],
+      "previewsVerified": 2,
+      "theftCount": 0,
+      "registrationRequests": 0,
+      "uploadRequests": 0,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    }
+  ],
+  "retention": {
+    "tokensInReportsOrLogs": false,
+    "temporaryIdentityTokens": "Authorized0700 directories/0600 identity.json; deleted in finally.",
+    "accountRowsRemain": true,
+    "deleteApiAvailable": false,
+    "successfulBattleStatisticsRemain": "One attacker win and victim loss on the two synthetic rows if the battle succeeds.",
+    "pendingUnfoughtMatches": "Expire after120seconds with lazy pruning.",
+    "staleStolenIdMarkersMayRemainOnOwnAccounts": true,
+    "temporaryIdentityDirectoriesRemoved": true
+  },
+  "failure": null,
+  "bindingsAfter": {
+    "files": {
+      "src/core/battle.ts": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+      "src/core/bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "src/core/collection.ts": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+      "src/core/discovery.ts": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+      "src/core/economy.ts": "846acc7adf6842d1f8603df242559b551d7025fd4379cd6bb0afe26d7bd9c59a",
+      "src/core/engine.ts": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+      "src/core/fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "src/core/formulas.ts": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+      "src/core/fsm.ts": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+      "src/core/hero.ts": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+      "src/core/index.ts": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+      "src/core/input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "src/core/loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "src/core/monsters.ts": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+      "src/core/progress.ts": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+      "src/core/progression.ts": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+      "src/core/rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "src/core/save.ts": "e3ac4241ad02888394b436f9a7c037768c6fc4711b0dbe15e0e46ab0c276c6ac",
+      "src/core/types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "src/core/types.ts": "ba26337369373b313c50dfaf4168cc4495a5c65f210ca77e974696f7b01c6d64",
+      "dist/electron/core/battle.js": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a",
+      "dist/electron/core/bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+      "dist/electron/core/collection.js": "becdde1595dbb5012bcca79a09de5d7317a478e3e0db066eda92dc406c2c3bbf",
+      "dist/electron/core/discovery.js": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e",
+      "dist/electron/core/economy.js": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411",
+      "dist/electron/core/engine.js": "f0d5354545acd64ab3162bddd9e05189705076fe42591c283b44257c66e8628e",
+      "dist/electron/core/fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+      "dist/electron/core/formulas.js": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127",
+      "dist/electron/core/fsm.js": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612",
+      "dist/electron/core/hero.js": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961",
+      "dist/electron/core/index.js": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f",
+      "dist/electron/core/input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+      "dist/electron/core/loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+      "dist/electron/core/monsters.js": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3",
+      "dist/electron/core/progress.js": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed",
+      "dist/electron/core/progression.js": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f",
+      "dist/electron/core/rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+      "dist/electron/core/save.js": "7786e9ecbcf5f13875dd2e3133486d69351ee79223eb6671115933754a8465c6",
+      "dist/electron/core/types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+      "dist/electron/core/types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876",
+      "dist/electron/main/globalInput.js": "6cf971e0f802f84e83dfa05c46f6efbaad824722e539e4fde716a14fb27d7755",
+      "dist/electron/main/identity.js": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76",
+      "dist/electron/main/index.js": "c4b82d2e7aa36cf7b6f353ccd1592d51965de481962bcbb4496f22279ca83039",
+      "dist/electron/main/ipc.js": "fb2164d753348fd3964df99f07bc7dc6fd99b1f11c53be02aed3cb55a8e3df91",
+      "dist/electron/main/menuWindow.js": "b61efe9a40cb30c30a9884b3ac6e5767f49e731eb55c253839def3b289d695cc",
+      "dist/electron/main/net.js": "22a766db657205d02b069306adc1f8e57b81251099ffbf6ec7aaf6014712bc13",
+      "dist/electron/main/persistence.js": "215a2440559e5e9381920ca106883880bd9ede495650678a18996ff6117669ee",
+      "dist/electron/main/settings.js": "7fc9778c1f0970692f0dcf17e50967f42c98c0c0a7adf174c09785eac24563ed",
+      "dist/electron/main/thefts.js": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1",
+      "dist/electron/main/tray.js": "1784a999b5fd3f1f6dd0464c7c3f26ded0f70894919a7bca8afe080accc061c3",
+      "dist/electron/main/trayIcon.js": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52",
+      "dist/electron/main/window.js": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664",
+      "dist/electron/preload/index.js": "a00856abb4a8db3751d2d52243d3e536acb5f2aa87e0ad26291f6643cc441a51",
+      "dist/electron/server/app.js": "a3e85a9e40e3276e3975ba2d1180487b1963845a0ca96cc3e6bbc2fa1eafb3dc",
+      "dist/electron/server/http.js": "347278e2633e4007c19ca83d659f58ee9570ba0323139905eec7c1f816df7a96",
+      "dist/electron/server/index.js": "dc3787713261ba792d65d7749fd87a240d71e3a1a663e1616910dfd5935cb389",
+      "dist/electron/server/pgStore.js": "42d98ded12b9b585e750329dae35d3d8549feaa1151f66f72613edf1466772f0",
+      "dist/electron/server/probe.js": "3a07d24995a703a7d693881dca1a2e205e3719508450f6c17734abf0d220d5d8",
+      "dist/electron/server/store.js": "e1cc046ee57f7fb584f722ec10091fa2fa87b5df703105921c8ad734962ec68e",
+      "dist/electron/shared/api.js": "03253f2668c7a344fdccfd72f846651ef34b38c949507132b84dc393ce7c1b54",
+      "dist/electron/shared/ipc.js": "309238ef5c65fcaa9853b3ed59d8e3da8f413e892fba554a8ff5ba43ef8b4b6f",
+      "dist/electron/shared/serverUrl.js": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de",
+      ".harness/v8/online-check.mjs": "3fd1122a8e0ccb436d0008cb6da2d456aee4a03b1d74b13c947984a18ccf3124",
+      "src/main/net.ts": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa",
+      "src/main/identity.ts": "f174db37997c7fdf69bfa937b13670eec4a65b31ac9c65c12dec0565219fb751",
+      "src/shared/api.ts": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736",
+      "package.json": "5f5a5d2dc420ce54d1e0ee49fbde0230132a0064ca1f8df53fcfe14f464f30d5"
+    },
+    "sha256": "48470b29c65b6c96342aca4d72af7af16fed109a34f7dc6a3342b342e3786d8e"
+  },
+  "createdAccounts": 2,
+  "possibleUnidentifiedAccounts": 0,
+  "registrationRequests": 2,
+  "eventsSha256": "7898e0fdbba2b214ec4ba4230e9a2a49e4c2a65d676e93d73cc33a9dc9621124"
+}

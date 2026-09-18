@@ -1,0 +1,128 @@
+--- .agentdoc/v06-live-demo-20260910T151800Z/demo.mjs (original)
++++ .agentdoc/v06-live-demo-20260910T151800Z/demo.mjs (repaired)
+@@ -1,3 +1,6 @@
++import process from 'node:process';
++import { Buffer } from 'node:buffer';
++import console from 'node:console';
+ import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+ import { join, resolve } from 'node:path';
+ import { tmpdir } from 'node:os';
+@@ -9,7 +12,14 @@
+ // Host-only demo adapter: expose the existing packaged-app boot without changing frozen tools.
+ const folder = resolve('.agentdoc/v06-live-demo-20260910T151800Z');
+ const original = readFileSync(join(ROOT, '.harness/v5/loop/package-check.mjs'), 'utf8');
+-const adapter = original.replace("from './evidence.mjs'", `from ${JSON.stringify(pathToFileURL(join(ROOT, '.harness/v5/loop/evidence.mjs')).href)}`) + '\nexport { inspectBoot };\n';
++const adapter = original
++  .replace('#!/usr/bin/env node\n', "#!/usr/bin/env node\nimport process from 'node:process';\nimport { Buffer } from 'node:buffer';\nimport console from 'node:console';\nimport { setTimeout, clearTimeout } from 'node:timers';\n")
++  .replace('message.error ? request.reject(new Error(message.error.message)) : request.resolve(message.result);',
++    'if (message.error) request.reject(new Error(message.error.message)); else request.resolve(message.result);')
++  .replace('const { codex: _legacyCodex, ...legacyExpected } = retainedProgress(fixture);',
++    'const legacyExpected = retainedProgress(fixture); delete legacyExpected.codex;')
++  .replaceAll(String.raw`\\\"`, String.raw`\\"`)
++  .replace("from './evidence.mjs'", `from ${JSON.stringify(pathToFileURL(join(ROOT, '.harness/v5/loop/evidence.mjs')).href)}`) + '\nexport { inspectBoot };\n';
+ writeFileSync(join(folder, 'package-demo-adapter.mjs'), adapter);
+ const { inspectBoot } = await import(pathToFileURL(join(folder, 'package-demo-adapter.mjs')));
+ const owned = mkdtempSync(join(tmpdir(), 'desmon-live-demo-'));
+--- .agentdoc/v06-live-demo-20260910T151800Z/package-demo-adapter.mjs (original)
++++ .agentdoc/v06-live-demo-20260910T151800Z/package-demo-adapter.mjs (repaired)
+@@ -1,4 +1,8 @@
+ #!/usr/bin/env node
++import process from 'node:process';
++import { Buffer } from 'node:buffer';
++import console from 'node:console';
++import { setTimeout, clearTimeout } from 'node:timers';
+ import { spawn } from 'node:child_process';
+ import { createRequire } from 'node:module';
+ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+@@ -27,7 +31,7 @@
+       const request = pending.get(message.id);
+       if (!request) return;
+       pending.delete(message.id); clearTimeout(request.timer);
+-      message.error ? request.reject(new Error(message.error.message)) : request.resolve(message.result);
++      if (message.error) request.reject(new Error(message.error.message)); else request.resolve(message.result);
+     } else if (message.method) events.set(message.method, message.params);
+   });
+   socket.addEventListener('close', () => {
+@@ -182,15 +186,15 @@
+         return boot.evaluate(`__packageCheck.field.webContents.executeJavaScript('window.desmon.loadState()')`);
+       };
+       const migrated = await flush();
+-      const { codex: _legacyCodex, ...legacyExpected } = retainedProgress(fixture);
++      const legacyExpected = retainedProgress(fixture); delete legacyExpected.codex;
+       const { codex: migratedCodex, ...legacyActual } = retainedProgress(migrated);
+       check('legacy-value-and-history-preservation', isDeepStrictEqual(legacyExpected, legacyActual), { expected: legacyExpected, actual: legacyActual });
+       check('legacy-discoveries-baselined', isDeepStrictEqual(migratedCodex, { acknowledgedHeroes: ['h01'], acknowledgedMonsters: ['slime', 'bat'], goal: null }), migratedCodex);
+       await boot.evaluate(`__packageCheck.menu=__packageCheck.require(__packageCheck.app.getAppPath()+'/dist/electron/main/menuWindow.js').showMenuWindow(); true`);
+       await until(() => boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("Boolean(window.desmon && document.querySelector('#tab-codex'))")`), 'packaged menu preload');
+       await boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("document.querySelector('#tab-codex').click()")`);
+-      await until(() => boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("Boolean(document.querySelector('[data-discovery-id=\\\"h03\\\"] .codex-goal'))")`), 'packaged goal control');
+-      await boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("document.querySelector('[data-discovery-id=\\\"h03\\\"] .codex-goal').click()")`);
++      await until(() => boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("Boolean(document.querySelector('[data-discovery-id=\\"h03\\"] .codex-goal'))")`), 'packaged goal control');
++      await boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("document.querySelector('[data-discovery-id=\\"h03\\"] .codex-goal').click()")`);
+       await until(async () => (await flush())?.progress?.codex?.goal?.id === 'h03', 'goal through packaged renderer/preload/IPC/save');
+       const saved = await flush();
+       check('new-ui-state-saved', saved.progress.codex.goal.kind === 'hero' && saved.progress.codex.goal.id === 'h03', saved.progress.codex);
+--- .agentdoc/v06-live-demo-20260910T151800Z-attempt02/demo.mjs (original)
++++ .agentdoc/v06-live-demo-20260910T151800Z-attempt02/demo.mjs (repaired)
+@@ -1,3 +1,6 @@
++import process from 'node:process';
++import { Buffer } from 'node:buffer';
++import console from 'node:console';
+ import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+ import { join, resolve } from 'node:path';
+ import { tmpdir } from 'node:os';
+@@ -9,7 +12,14 @@
+ // Host-only demo adapter: expose the existing packaged-app boot without changing frozen tools.
+ const folder = resolve('.agentdoc/v06-live-demo-20260910T151800Z-attempt02');
+ const original = readFileSync(join(ROOT, '.harness/v5/loop/package-check.mjs'), 'utf8');
+-const adapter = original.replace("from './evidence.mjs'", `from ${JSON.stringify(pathToFileURL(join(ROOT, '.harness/v5/loop/evidence.mjs')).href)}`) + '\nexport { inspectBoot };\n';
++const adapter = original
++  .replace('#!/usr/bin/env node\n', "#!/usr/bin/env node\nimport process from 'node:process';\nimport { Buffer } from 'node:buffer';\nimport console from 'node:console';\nimport { setTimeout, clearTimeout } from 'node:timers';\n")
++  .replace('message.error ? request.reject(new Error(message.error.message)) : request.resolve(message.result);',
++    'if (message.error) request.reject(new Error(message.error.message)); else request.resolve(message.result);')
++  .replace('const { codex: _legacyCodex, ...legacyExpected } = retainedProgress(fixture);',
++    'const legacyExpected = retainedProgress(fixture); delete legacyExpected.codex;')
++  .replaceAll(String.raw`\\\"`, String.raw`\\"`)
++  .replace("from './evidence.mjs'", `from ${JSON.stringify(pathToFileURL(join(ROOT, '.harness/v5/loop/evidence.mjs')).href)}`) + '\nexport { inspectBoot };\n';
+ writeFileSync(join(folder, 'package-demo-adapter.mjs'), adapter);
+ const { inspectBoot } = await import(pathToFileURL(join(folder, 'package-demo-adapter.mjs')));
+ const owned = mkdtempSync(join(tmpdir(), 'desmon-live-demo-'));
+--- .agentdoc/v06-live-demo-20260910T151800Z-attempt02/package-demo-adapter.mjs (original)
++++ .agentdoc/v06-live-demo-20260910T151800Z-attempt02/package-demo-adapter.mjs (repaired)
+@@ -1,4 +1,8 @@
+ #!/usr/bin/env node
++import process from 'node:process';
++import { Buffer } from 'node:buffer';
++import console from 'node:console';
++import { setTimeout, clearTimeout } from 'node:timers';
+ import { spawn } from 'node:child_process';
+ import { createRequire } from 'node:module';
+ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+@@ -27,7 +31,7 @@
+       const request = pending.get(message.id);
+       if (!request) return;
+       pending.delete(message.id); clearTimeout(request.timer);
+-      message.error ? request.reject(new Error(message.error.message)) : request.resolve(message.result);
++      if (message.error) request.reject(new Error(message.error.message)); else request.resolve(message.result);
+     } else if (message.method) events.set(message.method, message.params);
+   });
+   socket.addEventListener('close', () => {
+@@ -182,15 +186,15 @@
+         return boot.evaluate(`__packageCheck.field.webContents.executeJavaScript('window.desmon.loadState()')`);
+       };
+       const migrated = await flush();
+-      const { codex: _legacyCodex, ...legacyExpected } = retainedProgress(fixture);
++      const legacyExpected = retainedProgress(fixture); delete legacyExpected.codex;
+       const { codex: migratedCodex, ...legacyActual } = retainedProgress(migrated);
+       check('legacy-value-and-history-preservation', isDeepStrictEqual(legacyExpected, legacyActual), { expected: legacyExpected, actual: legacyActual });
+       check('legacy-discoveries-baselined', isDeepStrictEqual(migratedCodex, { acknowledgedHeroes: ['h01'], acknowledgedMonsters: ['slime', 'bat'], goal: null }), migratedCodex);
+       await boot.evaluate(`__packageCheck.menu=__packageCheck.require(__packageCheck.app.getAppPath()+'/dist/electron/main/menuWindow.js').showMenuWindow(); true`);
+       await until(() => boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("Boolean(window.desmon && document.querySelector('#tab-codex'))")`), 'packaged menu preload');
+       await boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("document.querySelector('#tab-codex').click()")`);
+-      await until(() => boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("Boolean(document.querySelector('[data-discovery-id=\\\"h03\\\"] .codex-goal'))")`), 'packaged goal control');
+-      await boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("document.querySelector('[data-discovery-id=\\\"h03\\\"] .codex-goal').click()")`);
++      await until(() => boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("Boolean(document.querySelector('[data-discovery-id=\\"h03\\"] .codex-goal'))")`), 'packaged goal control');
++      await boot.evaluate(`__packageCheck.menu.webContents.executeJavaScript("document.querySelector('[data-discovery-id=\\"h03\\"] .codex-goal').click()")`);
+       await until(async () => (await flush())?.progress?.codex?.goal?.id === 'h03', 'goal through packaged renderer/preload/IPC/save');
+       const saved = await flush();
+       check('new-ui-state-saved', saved.progress.codex.goal.kind === 'hero' && saved.progress.codex.goal.id === 'h03', saved.progress.codex);

@@ -1,0 +1,41 @@
+/** The production experiment: every field is consumed by the game, then audited against preregistration. */
+export interface ProgressionParameters {
+  heroMinLevel: number;
+  xpBase: number;
+  xpGrowth: number;
+  fieldHpNumerator: number;
+  fieldHpDenominator: number;
+  companionHpNumerator: number;
+  companionHpDenominator: number;
+  captureChance: number;
+  firstCaptureBossIndex: number | null;
+  heroLevelStepEvery: number;
+  heroLevelStepCap: number;
+  heroRestMs: number;
+  heroDeferMs: number;
+  xpRewardBase: number;
+  xpRewardPerIndex: number;
+  bossXpMultiplier: number;
+  bossHpMultiplier: number;
+}
+
+/** Initial registered control-l18; selecting a CLI ID does not change these values. */
+export const PROGRESSION_PARAMETERS: Readonly<ProgressionParameters> = Object.freeze({
+  heroMinLevel: 18,
+  xpBase: 20,
+  xpGrowth: 1.4,
+  fieldHpNumerator: 115,
+  fieldHpDenominator: 100,
+  companionHpNumerator: 115,
+  companionHpDenominator: 100,
+  captureChance: 0.35,
+  firstCaptureBossIndex: null,
+  heroLevelStepEvery: 2,
+  heroLevelStepCap: 6,
+  heroRestMs: 120000,
+  heroDeferMs: 30000,
+  xpRewardBase: 5,
+  xpRewardPerIndex: 3,
+  bossXpMultiplier: 5,
+  bossHpMultiplier: 5,
+});

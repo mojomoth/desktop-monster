@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "task": "epic-equipment-art",
+  "reviewedAt": "2026-09-18T02:38:32.611Z",
+  "reviewer": {
+    "id": "/root/equipment_economy/cleanup_counterexamples",
+    "role": "Critic",
+    "independentOfImplementation": true
+  },
+  "verdict": "approved-with-limits",
+  "approvalScope": "Reviewed epic equipment source and native production Canvas visual evidence only; release gates, runtime scenarios, packaging and deployment remain Host responsibilities.",
+  "visualApproval": true,
+  "blockingFindings": [],
+  "source": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+  "sourceIndependentlyRecomputed": true,
+  "sourceHashes": {
+    "src/renderer/sprites/epicEquipment.ts": "977327b212374bd6b03d8b1aa897d8ce8047fa0539ddf9eb9cfdd32ed487e3d6",
+    "src/renderer/sprites/equipment.ts": "ca7d09079027110aacc8810cffe31ec5a1a5087e35ca2610326e15ebf14d89b0",
+    "src/renderer/sprites/equippedHero.ts": "c63e92703bf37c9302b1e66e3ccb3f213dc51de7f4da5e868117852333ecaf31",
+    "tests/equipmentSprites.test.ts": "a590988b444fafa553ce6c5b582efb1c7dd830bef229764fd1ba6c3134900803",
+    "tests/equippedHeroCache.test.ts": "7d8942d9d23ad9bc53934ec63106af11c078c2a71201c0422f69e799802d5ca9"
+  },
+  "previousSourceReview": {
+    "path": ".agentdoc/v10-epic-art-20260918/reviews/critic-source.json",
+    "sha256": "f76fc95469ff785e0f684ffa917534aea2234f1028fa18b798ede62710f0975f",
+    "productAndTestHashesStillMatch": true
+  },
+  "evidence": {
+    "at": "2026-09-18T02:38:32.611Z",
+    "digest": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+    "reportSourceMatches": true,
+    "report": {
+      "path": ".agentdoc/v10-epic-art-20260918/native/epic-final-02/report.json",
+      "sha256": "2d86d20de6487816bbb223a92479eb39490d77d1b6af5e1a006afd5528a4f17b",
+      "source": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+      "generatorHash": "041bdf4bb5004344e702b810560f106d2102f7ba9a1a8587b991d2519b27fe9b",
+      "passed": true,
+      "fingerprintsChecked": 235,
+      "fingerprintMismatches": [],
+      "images": [
+        {
+          "name": "epic-weapons-dark",
+          "items": [
+            "w-sword-epic-1",
+            "w-sword-epic-2",
+            "w-sword-epic-3",
+            "w-sword-epic-4",
+            "w-greatsword-epic-1",
+            "w-greatsword-epic-2",
+            "w-greatsword-epic-3",
+            "w-greatsword-epic-4",
+            "w-spear-epic-1",
+            "w-spear-epic-2",
+            "w-spear-epic-3",
+            "w-spear-epic-4",
+            "w-gun-epic-1",
+            "w-gun-epic-2",
+            "w-gun-epic-3",
+            "w-gun-epic-4",
+            "w-dagger-epic-1",
+            "w-dagger-epic-2",
+            "w-dagger-epic-3",
+            "w-dagger-epic-4",
+            "w-staff-epic-1",
+            "w-staff-epic-2",
+            "w-staff-epic-3",
+            "w-staff-epic-4",
+            "w-hammer-epic-1",
+            "w-hammer-epic-2",
+            "w-hammer-epic-3",
+            "w-hammer-epic-4",
+            "w-gauntlet-epic-1",
+            "w-gauntlet-epic-2",
+            "w-gauntlet-epic-3",
+            "w-gauntlet-epic-4"
+          ],
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-weapons-dark.png",
+          "sha256": "ab3d7441687e97d5253ae14016d7c7706c5b14fffb75e658717696b2172881e4",
+          "hashMatches": true
+        },
+        {
+          "name": "epic-accessories-dark",
+          "items": [
+            "a-necklace-critical-epic-1",
+            "a-necklace-critical-epic-2",
+            "a-necklace-critical-epic-3",
+            "a-necklace-critical-epic-4",
+            "a-necklace-party-epic-1",
+            "a-necklace-party-epic-2",
+            "a-necklace-party-epic-3",
+            "a-necklace-party-epic-4",
+            "a-ring-critical-epic-1",
+            "a-ring-critical-epic-2",
+            "a-ring-critical-epic-3",
+            "a-ring-critical-epic-4",
+            "a-ring-party-epic-1",
+            "a-ring-party-epic-2",
+            "a-ring-party-epic-3",
+            "a-ring-party-epic-4",
+            "a-charm-critical-epic-1",
+            "a-charm-critical-epic-2",
+            "a-charm-critical-epic-3",
+            "a-charm-critical-epic-4",
+            "a-charm-party-epic-1",
+            "a-charm-party-epic-2",
+            "a-charm-party-epic-3",
+            "a-charm-party-epic-4"
+          ],
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-accessories-dark.png",
+          "sha256": "42b59f488a009ea5d5e91839fba63b1f10a12f2174a517fdda66b604f215ac01",
+          "hashMatches": true
+        },
+        {
+          "name": "epic-showcase-dark",
+          "items": [
+            "w-sword-epic-1",
+            "w-greatsword-epic-4",
+            "w-spear-epic-2",
+            "w-gun-epic-4",
+            "w-dagger-epic-1",
+            "w-staff-epic-3",
+            "w-hammer-epic-2",
+            "w-gauntlet-epic-3"
+          ],
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-showcase-dark.png",
+          "sha256": "15d4a8dd29ebce3297a8e3402ccb906ec97521bda8dcf4679ac67fe463358463",
+          "hashMatches": true
+        },
+        {
+          "name": "epic-weapons-light",
+          "items": [
+            "w-sword-epic-1",
+            "w-sword-epic-2",
+            "w-sword-epic-3",
+            "w-sword-epic-4",
+            "w-greatsword-epic-1",
+            "w-greatsword-epic-2",
+            "w-greatsword-epic-3",
+            "w-greatsword-epic-4",
+            "w-spear-epic-1",
+            "w-spear-epic-2",
+            "w-spear-epic-3",
+            "w-spear-epic-4",
+            "w-gun-epic-1",
+            "w-gun-epic-2",
+            "w-gun-epic-3",
+            "w-gun-epic-4",
+            "w-dagger-epic-1",
+            "w-dagger-epic-2",
+            "w-dagger-epic-3",
+            "w-dagger-epic-4",
+            "w-staff-epic-1",
+            "w-staff-epic-2",
+            "w-staff-epic-3",
+            "w-staff-epic-4",
+            "w-hammer-epic-1",
+            "w-hammer-epic-2",
+            "w-hammer-epic-3",
+            "w-hammer-epic-4",
+            "w-gauntlet-epic-1",
+            "w-gauntlet-epic-2",
+            "w-gauntlet-epic-3",
+            "w-gauntlet-epic-4"
+          ],
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-weapons-light.png",
+          "sha256": "c3ce7ff2171b7923bb6e8ae372aaf33afae1d4fedca8184255ec315e0af17600",
+          "hashMatches": true
+        },
+        {
+          "name": "epic-accessories-light",
+          "items": [
+            "a-necklace-critical-epic-1",
+            "a-necklace-critical-epic-2",
+            "a-necklace-critical-epic-3",
+            "a-necklace-critical-epic-4",
+            "a-necklace-party-epic-1",
+            "a-necklace-party-epic-2",
+            "a-necklace-party-epic-3",
+            "a-necklace-party-epic-4",
+            "a-ring-critical-epic-1",
+            "a-ring-critical-epic-2",
+            "a-ring-critical-epic-3",
+            "a-ring-critical-epic-4",
+            "a-ring-party-epic-1",
+            "a-ring-party-epic-2",
+            "a-ring-party-epic-3",
+            "a-ring-party-epic-4",
+            "a-charm-critical-epic-1",
+            "a-charm-critical-epic-2",
+            "a-charm-critical-epic-3",
+            "a-charm-critical-epic-4",
+            "a-charm-party-epic-1",
+            "a-charm-party-epic-2",
+            "a-charm-party-epic-3",
+            "a-charm-party-epic-4"
+          ],
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-accessories-light.png",
+          "sha256": "9b5035f24de09a24001b5d58f24d6b9da011d0999ead05a3ac776aef940bc90d",
+          "hashMatches": true
+        },
+        {
+          "name": "epic-showcase-light",
+          "items": [
+            "w-sword-epic-1",
+            "w-greatsword-epic-4",
+            "w-spear-epic-2",
+            "w-gun-epic-4",
+            "w-dagger-epic-1",
+            "w-staff-epic-3",
+            "w-hammer-epic-2",
+            "w-gauntlet-epic-3"
+          ],
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/epic-final-02/epic-showcase-light.png",
+          "sha256": "05cbbe7ac30fa7acd16ab082e7a3f3def231a3050fab24a1cb8ad87a37d1f257",
+          "hashMatches": true
+        }
+      ],
+      "runtime": {
+        "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+        "packageBinding": {
+          "checked": 119,
+          "mismatches": [],
+          "passed": true
+        },
+        "passed": true,
+        "exitCode": 0,
+        "appUnchanged": true
+      }
+    },
+    "fullGallery": {
+      "path": ".agentdoc/v10-epic-art-20260918/native/full-gallery/report.json",
+      "sha256": "236bea2bf5073d06aacdb9867fc17c4979119f51eba240412b711d6bbbd5a46f",
+      "passed": true,
+      "pages": 150,
+      "overviews": 4,
+      "samples": 7148,
+      "sourceFilesChecked": 235,
+      "sourceMismatches": [],
+      "imageMismatches": [],
+      "visuallyViewed": [
+        {
+          "name": "equipment-dark-7",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-dark-7.png",
+          "sha256": "ff989dd75ec3b377b682579290033afac3d5823cfc1d778d0c2777c26ecd1eb9"
+        },
+        {
+          "name": "equipment-dark-22",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-dark-22.png",
+          "sha256": "4c8cf23a83787169aac12eb61aea11c29b4c60638e9c9297a2d4265b1431150f"
+        },
+        {
+          "name": "equipment-dark-64",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-dark-64.png",
+          "sha256": "faeb8ab4a2adc947e0d6215071e6bdf554c48b684303e0fee4e6244432e28744"
+        },
+        {
+          "name": "equipment-light-8",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-light-8.png",
+          "sha256": "6fb2f70756138893950caea31f0a67e39016926334b4a130b9763ae22d0a4556"
+        },
+        {
+          "name": "equipment-light-29",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-light-29.png",
+          "sha256": "2e7bd7e645c56ec2caec13f88667acfe04bf8f69684037e09f60587af575b082"
+        },
+        {
+          "name": "equipment-light-55",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-light-55.png",
+          "sha256": "c15f3a641f05e3e015ac1a54b0493d4c64d09445c1d29dd3f72a14847908e235"
+        },
+        {
+          "name": "equipment-light-75",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/equipment-light-75.png",
+          "sha256": "1b8404a3e34f4b1533f560ef82106573af55803c36a2d825f8be32c45773da2c"
+        },
+        {
+          "name": "all-224-icons-dark",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/all-224-icons-dark.png",
+          "sha256": "3523de2dd78c90e81b0c32098a0e0570a4c10695599b9edd19af3a871f87c335"
+        },
+        {
+          "name": "all-224-icons-light",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/native/full-gallery/native-art/all-224-icons-light.png",
+          "sha256": "01f3082d687241402f83a85bb72d87573a0b8fec884734ded32d6970f7edaad4"
+        }
+      ]
+    },
+    "productSourceHashes": {
+      "src/renderer/sprites/epicEquipment.ts": "977327b212374bd6b03d8b1aa897d8ce8047fa0539ddf9eb9cfdd32ed487e3d6",
+      "src/renderer/sprites/equipment.ts": "ca7d09079027110aacc8810cffe31ec5a1a5087e35ca2610326e15ebf14d89b0",
+      "src/renderer/sprites/equippedHero.ts": "c63e92703bf37c9302b1e66e3ccb3f213dc51de7f4da5e868117852333ecaf31",
+      "tests/equipmentSprites.test.ts": "a590988b444fafa553ce6c5b582efb1c7dd830bef229764fd1ba6c3134900803",
+      "tests/equippedHeroCache.test.ts": "7d8942d9d23ad9bc53934ec63106af11c078c2a71201c0422f69e799802d5ca9"
+    }
+  },
+  "visualCoverage": {
+    "epicWeaponIds": 32,
+    "epicAccessoryIds": 24,
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "directlyViewed": [
+      "All 32 weapon icons and h00 idle/strike composites at enlarged 4× and actual 2× scale in the dedicated boards, on both themes.",
+      "All 24 accessories in the corrected equal-4× before/after boards, on both themes.",
+      "Eight representative weapon families in both showcase boards.",
+      "All 224 icons, including every epic, in both 3× native overview sheets; 3× is the menu icon drawing scale in src/menu/equipment.ts.",
+      "Seven full-gallery pages listed in evidence.fullGallery.visuallyViewed: gauntlet epic 1/2, greatsword epic 3, all epic staff silhouettes, and representative h20–23, h44–46, h69–70 compatible forms across poses and facings."
+    ],
+    "imageIdentityNote": "Four weapon/showcase PNGs in epic-final-02 are byte-identical to the already viewed epic-final files; both changed accessory PNGs were viewed again.",
+    "machineBindings": "Independently recomputed current aggregate source digest, all 235 source/build fingerprints for both reports, all 6 final dedicated PNG hashes and all 150 full-gallery page plus 4 overview hashes. No mismatch.",
+    "allFullGalleryPagesVisuallyInspected": false,
+    "allCombinationsAtActual2xVisuallyInspected": false
+  },
+  "findings": [
+    {
+      "id": "epic-silhouettes",
+      "severity": "pass",
+      "detail": "Each of the 56 epic items has a visibly authored motif beyond rarity color or outline. Source-only primary occupancy independently establishes 56 unique masks, 24–83 changed occupied coordinates versus paired rares, and intersection/union 0.1684–0.7108. Native views show forks, crescents, coils, antlers, claws, crowns, skulls and relic shapes."
+    },
+    {
+      "id": "same-scale-before-after",
+      "severity": "resolved",
+      "detail": "The first final accessory boards used 3× old icons and 4× current icons. Critic reported the comparison bias. epic-final-02 uses equal 4× rendering and alignment for both; current image hashes and generator 041bdf4bb5004344e702b810560f106d2102f7ba9a1a8587b991d2519b27fe9b are bound above."
+    },
+    {
+      "id": "held-safety",
+      "severity": "pass-with-sampling-limit",
+      "detail": "No new face occlusion, detached hand contact, page clipping or mirror discontinuity was observed in the dedicated h00 2× views or the seven additional pose/form pages. The pose1 head fix corresponds to the independently identified prior y6 counterexample and the additive final-pixel regression."
+    },
+    {
+      "id": "high-overlap-items",
+      "severity": "pass-with-aesthetic-limit",
+      "detail": "Gauntlet epic 1 retains a larger claw silhouette and greatsword epic 3 has a curved/serrated profile distinct from paired rare art. At actual 2× held size, fine gauntlet ornamentation compresses and broad greatswords can read as shield-like slabs; these do not invalidate the overall special-form improvement."
+    },
+    {
+      "id": "backgrounds-and-palette",
+      "severity": "pass",
+      "detail": "Warm/cool pale fills, gold accents and dark outlines preserve visible equipment shapes on the reviewed dark and light backgrounds. The existing epic UI token #de8aff and UI source are unchanged."
+    },
+    {
+      "id": "preservation",
+      "severity": "pass",
+      "detail": "All 168 non-epic icons match preserved dimensions/frames/palettes exactly with combined SHA256 6450b9b126485c4251fa4dd55963ff6f1e47d388f67bbfc8ca7b6c5eaf4960db. All 22 tracked core files, widget number rendering and gold/economy source remain unchanged. The bobbing-head correction intentionally can change lower-rarity equipped composites; icon equality is not a claim of composite equality."
+    },
+    {
+      "id": "regression-tests",
+      "severity": "pass-source-and-record-review",
+      "detail": "The 168-icon fingerprint and composed-head tests are additive. Cache goldens retain 57960 equipped-view and 3840 fever/KO cases with unchanged iteration/coverage. Prior mismatches are preserved. Earlier canonical 1202/88-file gate results were reviewed in critic-source.json; the final source-wide gate/runtime receipts are separately owned by Host."
+    }
+  ],
+  "residualLimits": [
+    "These are PNG boards rendered inside real packaged Electron using production Canvas drawing functions, with isolated fixtures. The reviewer did not interact with a running app or perform a human play session.",
+    "The dedicated weapon boards show h00 idle and strike at 2×; additional compatible forms, poses and facings were visually sampled at 4×. Deterministic tests cover the broader combinations, but no exhaustive human visual claim is made.",
+    "Accessories were reviewed at equal 4× in before/after boards and menu-equivalent 3× in catalog overviews. The evidence is not a separate exhaustive 2× accessory or 1× display study.",
+    "Some fine ornaments become small clusters when held at 2×, especially gauntlets. All reviewed icon silhouettes remain distinct, but every named source motif is not necessarily recognizable while moving at that scale.",
+    "No new long performance observation, Windows hardware validation, physical monitor/DPI study, live Postgres verification, deployment, or human enjoyment validation was performed by this reviewer.",
+    "Approval is limited to the exact product/test hashes and native evidence recorded here. It does not declare the overall release done."
+  ],
+  "actionsPerformedByReviewer": [
+    "Read-only source/evidence inspection.",
+    "Short in-memory geometry and file-hash calculations.",
+    "Viewed native PNG files.",
+    "Wrote only the authorized critic-source.json and this new critic-final.json review artifact."
+  ],
+  "actionsNotPerformedByReviewer": [
+    "No implementation changes.",
+    "No app/Electron launch.",
+    "No build/test execution.",
+    "No edits to existing reviews or Host journals."
+  ]
+}

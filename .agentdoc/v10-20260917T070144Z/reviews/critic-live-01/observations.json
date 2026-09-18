@@ -1,0 +1,45 @@
+{
+  "kind": "independent-live-observation-not-final-review",
+  "agentId": "/root/harness_critic",
+  "observedAt": "2026-09-17T07:09:38.736833+00:00",
+  "binding": {
+    ".harness/v10/run.mjs": {
+      "sha256": "c89ac04d6d79ff850c67cf1d36f39eefa01195a289a350d9aab23761acf425d3",
+      "snapshot": ".agentdoc/v10-20260917T070144Z/reviews/critic-live-01/.harness/v10/run.mjs"
+    },
+    ".harness/v10/config.json": {
+      "sha256": "52c4b557b9d66faed4d9fdeb97028d34972174e82ca9ff858bcee4d63a3ce312",
+      "snapshot": ".agentdoc/v10-20260917T070144Z/reviews/critic-live-01/.harness/v10/config.json"
+    },
+    "docs/v0.10/BALANCE_CANDIDATE.json": {
+      "sha256": "b92081a4966fd33e61e8de33737e78863888ba7068882409d9b6f1c122a97c71",
+      "snapshot": ".agentdoc/v10-20260917T070144Z/reviews/critic-live-01/docs/v0.10/BALANCE_CANDIDATE.json"
+    }
+  },
+  "findings": [
+    {
+      "id": "HC-01",
+      "severity": "major",
+      "finding": "Task start lacks overlapping-file ownership enforcement; src/core and src/core/fsm.ts are simultaneously assigned.",
+      "required": "Non-overlapping explicit ownership and a runtime overlap guard before start."
+    },
+    {
+      "id": "HC-02",
+      "severity": "major",
+      "finding": "Task verify trusts dependency verified status without verifying current dependency source/AC evidence.",
+      "required": "Revalidate dependency source-bound latest receipts before accepting dependent verification."
+    },
+    {
+      "id": "HC-03",
+      "severity": "major",
+      "finding": "Receipt artifacts validation does not require the registered artifact key set; empty artifacts vacuously pass.",
+      "required": "Require exact registered artifact inventory and hashes, with adversarial selftest."
+    },
+    {
+      "id": "HC-04",
+      "severity": "major",
+      "finding": "Balance candidate registers metric names but no acceptance bounds or candidate-selection criterion.",
+      "required": "Register policy-specific quantitative target intervals and rare-item nonarrival reporting before held-out candidate validation."
+    }
+  ]
+}

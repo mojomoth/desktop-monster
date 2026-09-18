@@ -1,0 +1,95 @@
+TAP version 13
+# Subtest: held-out denominator, distinct tuples, seed ranges and exact huge-wallet conservation are enforced
+ok 1 - held-out denominator, distinct tuples, seed ranges and exact huge-wallet conservation are enforced
+  ---
+  duration_ms: 3.053792
+  ...
+# Subtest: non-arrival remains in unconditional percentiles and cannot turn an unsuccessful policy into a pass
+ok 2 - non-arrival remains in unconditional percentiles and cannot turn an unsuccessful policy into a pass
+  ---
+  duration_ms: 0.546417
+  ...
+# Subtest: a never-used level tier and processing budget breach reject selection
+ok 3 - a never-used level tier and processing budget breach reject selection
+  ---
+  duration_ms: 0.298083
+  ...
+# Subtest: registered selection-only source change is accepted, but forged summary and non-parameter compile changes are rejected
+ok 4 - registered selection-only source change is accepted, but forged summary and non-parameter compile changes are rejected
+  ---
+  duration_ms: 348.060625
+  ...
+# Subtest: directory package identity includes file content and symlink destination without following cycles
+ok 5 - directory package identity includes file content and symlink destination without following cycles
+  ---
+  duration_ms: 2.26725
+  ...
+# Subtest: same-version installer with an older payload or changed native file cannot match the verified app
+ok 6 - same-version installer with an older payload or changed native file cannot match the verified app
+  ---
+  duration_ms: 7.979458
+  ...
+# Subtest: only latest canonical gates and exact source-bound task AC are accepted; final task is non-circular
+ok 7 - only latest canonical gates and exact source-bound task AC are accepted; final task is non-circular
+  ---
+  duration_ms: 7.533042
+  ...
+# Subtest: independent review requires author separation, current source and explicit external limitations
+ok 8 - independent review requires author separation, current source and explicit external limitations
+  ---
+  duration_ms: 7.599792
+  ...
+# Subtest: v10 keeps the registered full durations and budgets; missing/short evidence fails
+ok 9 - v10 keeps the registered full durations and budgets; missing/short evidence fails
+  ---
+  duration_ms: 1.307917
+  ...
+# Subtest: only the exact initial save can precede periodic clock persistence, within the unchanged lag limit
+ok 10 - only the exact initial save can precede periodic clock persistence, within the unchanged lag limit
+  ---
+  duration_ms: 16.211667
+  ...
+# Subtest: terminal capture inputs follow the measured schedule and remain outside the 180-minute result
+ok 11 - terminal capture inputs follow the measured schedule and remain outside the 180-minute result
+  ---
+  duration_ms: 62.359666
+  ...
+# Subtest: only the BigInt JSON boundary differs between the observers
+ok 12 - only the BigInt JSON boundary differs between the observers
+  ---
+  duration_ms: 0.8905
+  ...
+# Subtest: latest failure, stale source, changed log or artifact rejects earlier success
+ok 13 - latest failure, stale source, changed log or artifact rejects earlier success
+  ---
+  duration_ms: 3.077084
+  ...
+# Subtest: configuration rejects unknown dependencies, duplicate IDs and cycles
+ok 14 - configuration rejects unknown dependencies, duplicate IDs and cycles
+  ---
+  duration_ms: 0.214334
+  ...
+# Subtest: invalidation preserves attempts and reopens only affected descendants
+ok 15 - invalidation preserves attempts and reopens only affected descendants
+  ---
+  duration_ms: 1.1375
+  ...
+# Subtest: ownership prevents parent/child overlaps and required artifact omissions
+ok 16 - ownership prevents parent/child overlaps and required artifact omissions
+  ---
+  duration_ms: 0.06325
+  ...
+# Subtest: changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+ok 17 - changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+  ---
+  duration_ms: 0.520875
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 624.042416

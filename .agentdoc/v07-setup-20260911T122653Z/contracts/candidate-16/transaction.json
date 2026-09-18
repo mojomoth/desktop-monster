@@ -1,0 +1,25 @@
+{
+  "at": "2026-09-12T16:56:58.617163+00:00",
+  "status": "committed",
+  "originals": {
+    ".harness/v7/config.json": "34fe8a74e3c1e949a7fb4c9d94d0d1b19669e11ea61faf64479253a32701d213",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "d64c8fe6c775e4251a5beea7648bbed06da2e7ff6f9366367b32f7124930fe5f",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "196f351031a385164fa68b0821606538c1d230b2b3b6c6c292deb01bec3048c1",
+    "docs/v0.7/DESIGN_DECISIONS.md": "f9dc8dc8ec5f8ebd8a2afa385c8659c830e80f265242ecfbdbfe1337d0a1fae2",
+    "src/core/progression.ts": "58eea7d957e63b808c8170600aec00a8b05e02a4b2d2e126d47b26d8664f8d2c",
+    "tests/progressionV7.test.ts": "18e06a53aae0c70416d4d0f4032abefc1686ee228e8173bc1f5443c38ab51dbb"
+  },
+  "ownership": {
+    "host": "config/loop/protocol/progression numeric export/journal/batch",
+    "designer": "DESIGN_DECISIONS only after registration",
+    "balance": "independent analysis/review only",
+    "critic": "read-only review/diagnosis"
+  },
+  "note": "Host transactional config/loop writes; no executor between writes. Reuse existing21keymechanic, no tests/engine changes. New3tail candidates preregistered before execution.",
+  "new": {
+    ".harness/v7/config.json": "ab4f9422526ea0bc3391fee7276e5562d56363f9b4762e7d70e2ae6fd7712150",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "312f55af5fe9e17fddbe07ce7476bed2f131fd9e915895b9d5e7b9a0f29046ee",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694",
+    "src/core/progression.ts": "36fe3424080361108e24e42a6ef091e222572e41394d94a779a3aaaa83c2fcee"
+  }
+}

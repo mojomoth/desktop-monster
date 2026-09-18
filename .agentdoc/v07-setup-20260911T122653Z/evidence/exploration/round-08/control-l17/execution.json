@@ -1,0 +1,155 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 8,
+  "startedAt": "2026-09-12T17:20:03.680517+00:00",
+  "experimentKind": "control",
+  "experiment": {
+    "id": "control-l17",
+    "hypothesis": "Level-only control; all other progression parameters unchanged.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.4,
+      "fieldHpNumerator": 115,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": null,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5,
+      "fieldHpTailStartIndex": null,
+      "fieldHpTailNumerator": 115,
+      "fieldHpTailDenominator": 100,
+      "earlyCaptureCount": 1
+    }
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/protocol.preregistered.json",
+    "sha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/evaluation.tar.gz",
+    "sha256": "1316bc380d484485110b53c9996d212acc4f33da5eb79bfbe83367bf7e067e79"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T17:20:03.784306+00:00",
+      "endedAt": "2026-09-12T17:20:07.975971+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/production-tests.log",
+      "sha256": "53e48fe8f0b9c8ada661d98f062681da35c822e564ae8b445dea9179abdaf630"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/screening.json",
+        "--phase",
+        "candidate",
+        "--control",
+        "control-l17",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T17:20:07.976647+00:00",
+      "endedAt": "2026-09-12T17:20:15.793122+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/screening.log",
+      "sha256": "a14213897bc38f8d23f0e9116e3956d9cc02101b94df0c0b4775cb8350abd48e"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/screening.json"
+      ],
+      "startedAt": "2026-09-12T17:20:15.794240+00:00",
+      "endedAt": "2026-09-12T17:20:15.924096+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/screening-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/production-source.tar.gz",
+    "sha256": "43421b99c8523247274b6eac685648c06f904d5625be669dab74357da658222b"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/screening.json",
+    "sha256": "e2d86fbefe6aae3faa522937a056277dd4c56ecd13c391076ed6d8f3fd9ccc42",
+    "sourceDigest": "5b839be72a8ee0f35bf38d6e8fd260189f2a3934f45b289efa11d08455a26df6",
+    "evaluationDigest": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff",
+    "experiment": {
+      "kind": "control",
+      "id": "control-l17",
+      "parametersSha256": "7b4bab3a83b6c724796fae4a2f800b872516fdbe5d422dba2c9fd9ca07018a56",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": false,
+          "observedSec": 1636.5,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 20,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "efa3f55a0f5d96b5938d070618f53e015da0b27e26e30b93765112a0a487a80d",
+    "buildSha256": "d99fd0f58b4265dfdbac0255268cc0891a4263ce8964b43c55f51eab34905124"
+  },
+  "full-12h": {
+    "status": "NOT_EXECUTED",
+    "reason": "Screening goals failed."
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/compiled-build.tar.gz",
+    "sha256": "144559cfd194b24462f3d9a2b1359f944a4bce420ed33e148c78e3718fc8e906"
+  },
+  "endedAt": "2026-09-12T17:20:16.016512+00:00"
+}

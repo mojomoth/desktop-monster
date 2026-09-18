@@ -2,7 +2,10 @@
 // Shapes follow GAME_ARCHITECTURE §2 exactly.
 
 import type { Companion } from './save.js';
+import type { HeroProgress, HeroRoll } from './hero.js';
+import type { Progress } from './progress.js';
 import type { Effectiveness, MonsterType } from './types-chart.js';
+import type { EquipmentState, EquipmentItem } from './equipment.js';
 
 export type InputSource = 'keyboard' | 'mouse';
 
@@ -20,6 +23,8 @@ export interface MonsterDef {
   boss: boolean;
   /** Elemental type of the species (bosses keep it) — SPECIES_TYPE. */
   type: MonsterType;
+  /** A distinct encounter; ordinary appearances of this species do not drop epics. */
+  epicBossId?: string;
 }
 
 export interface ItemDef {
@@ -36,10 +41,17 @@ export interface ItemDrop {
 export interface GameState {
   /** Hero level, starts 1. */
   level: number;
+  /** v0.4; absent on legacy states until the first hero collection action. */
+  hero?: HeroProgress;
+  /** v0.5 lifetime history, discovery and gold purchases. */
+  progress?: Progress;
   /** XP into the current level. */
   xp: number;
   killCount: number;
-  coins: number;
+  coins: bigint;
+  equipment?: EquipmentState;
+  pvpGoldNet?: string;
+  pvpGoldDebt?: string;
   /** Trinket id → count. */
   items: Record<string, number>;
   monster: MonsterDef;
@@ -49,7 +61,11 @@ export interface GameState {
   /** Manually picked PvP-only party: companion ids (GAME_DESIGN_V3 §3). */
   pvpParty: string[];
   nextCompanionId: number;
+  /** Optional on legacy reducer fixtures; engine always materializes it. */
+  earlyCaptureUsed?: number;
   souls: number;
+  /** v0.4: bosses released because the roster was full — 2 releases = 1 soul. */
+  releasedCount: number;
   rebirths: number;
   /** Deepest monsterIndex ever reached. */
   bestIndex: number;
@@ -58,6 +74,9 @@ export interface GameState {
 }
 
 export type GameEvent =
+  | { type: 'equipmentChanged'; revision: number }
+  | { type: 'equipmentDropped'; item: EquipmentItem }
+  | { type: 'equipmentDestroyed'; item: EquipmentItem }
   | { type: 'attack'; damage: bigint; crit: boolean; source: InputSource }
   | {
       type: 'companionAttack';
@@ -70,7 +89,17 @@ export type GameEvent =
   | { type: 'monsterKilled'; monster: MonsterDef; xpGained: number }
   | { type: 'itemDropped'; drops: ItemDrop[] }
   | { type: 'bossCaptured'; companion: Companion }
+  | {
+      type: 'companionReleased';
+      speciesId: string;
+      bossIndex: number;
+      /** Souls granted by this release: 1 on every second release, else 0. */
+      souls: number;
+      /** The release was worth more than the roster's weakest keeper. */
+      strongerThanWeakest: boolean;
+    }
   | { type: 'levelUp'; newLevel: number }
+  | { type: 'heroReady' }
   | { type: 'feverStart' }
   | { type: 'feverEnd' }
   | { type: 'monsterSpawned'; monster: MonsterDef }
@@ -88,10 +117,14 @@ export interface WireBlow {
   targetId: string;
   damage: string;
   ko: boolean;
+  actorKind?: 'hero' | 'companion';
+  targetKind?: 'hero' | 'companion';
+  crit?: boolean;
 }
 
 export interface BattleReplay {
   opponentName: string;
+  opponentHero?: HeroRoll;
   opponentParty: Companion[];
   blows: WireBlow[];
 }

@@ -1,0 +1,387 @@
+{
+  "kind": "host-independent-exploration-selection-check",
+  "createdAt": "2026-09-12T06:10:05.652107+00:00",
+  "agent": "/root",
+  "stage": "analysis only; official adoption waits for frozen independent Balance integrity",
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/protocol.preregistered.json",
+    "sha256": "08d704cd53c453fc79776dc19e340265cb1de8922f666544b7410ad9230ed722"
+  },
+  "rule": {
+    "screeningMinutes": 120,
+    "minimumBy90Minutes": 18,
+    "denominator": 20,
+    "firstMedianMinutes": [
+      45,
+      60
+    ],
+    "finalMedianHours": [
+      8,
+      12
+    ],
+    "tieBreak": [
+      "population firstAccepted p50 distance from 3150 seconds",
+      "population final eligibility p50 distance from 36000 seconds",
+      "population firstAccepted p90",
+      "experiment id lexicographic"
+    ]
+  },
+  "samples": 220,
+  "experiments": [
+    {
+      "id": "control-l16",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l16/execution.json",
+        "sha256": "dc2736e1e6a269fac811df70c50c49e0859b4d9566c1e884c9cf944db6f688c1"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l16/screening.json",
+        "sha256": "634981943e16e3c74cbe107b4e249bcbbe16af85846a45b6f1914fffa4dff000"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 20,
+        "unreached": 0,
+        "population": {
+          "p10": 520.2,
+          "p50": 813.6,
+          "p90": 909.5,
+          "worst": 916
+        },
+        "conditional": {
+          "p10": 520.2,
+          "p50": 813.6,
+          "p90": 909.5,
+          "worst": 916
+        }
+      },
+      "firstBy90Min": 20,
+      "screeningPassed": false,
+      "bothPassed": false,
+      "final": "NOT_EVALUATED"
+    },
+    {
+      "id": "control-l17",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l17/execution.json",
+        "sha256": "68cee11fadac7ac810341893518c1c9bea7afd6d39c6b140de97e757cb2cc7cb"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l17/screening.json",
+        "sha256": "88b567ea0f7a32be9028deed81832c7b20f37851a8871c8c20e91d5632930c40"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 20,
+        "unreached": 0,
+        "population": {
+          "p10": 1132,
+          "p50": 1636.5,
+          "p90": 3268.5,
+          "worst": 3277
+        },
+        "conditional": {
+          "p10": 1132,
+          "p50": 1636.5,
+          "p90": 3268.5,
+          "worst": 3277
+        }
+      },
+      "firstBy90Min": 20,
+      "screeningPassed": false,
+      "bothPassed": false,
+      "final": "NOT_EVALUATED"
+    },
+    {
+      "id": "control-l18",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l18/execution.json",
+        "sha256": "49e709966b7123dfe1e4f0f01d8c4e5efc6379e916927ccc12b0b33983973412"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l18/screening.json",
+        "sha256": "4966e841033d162b7b77241eef5b44216b45a1963dfcddd36752658a6128778d"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 17,
+        "unreached": 3,
+        "population": {
+          "p10": 2341.1,
+          "p50": 4976.5,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 2341.1,
+          "p50": 4537.6,
+          "p90": 6471.9,
+          "worst": 6709.4
+        }
+      },
+      "firstBy90Min": 12,
+      "screeningPassed": false,
+      "bothPassed": false,
+      "final": "NOT_EVALUATED"
+    },
+    {
+      "id": "control-l19",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l19/execution.json",
+        "sha256": "d687a861eea3a064ddc8d6e1a14c1177923b78b9dec315709b1e78fbf468b374"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l19/screening.json",
+        "sha256": "b502c97f108c905dc1ef587ca638dae3a906f35d35961c6c71bd547747e83684"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 7,
+        "unreached": 13,
+        "population": {
+          "p10": 4189.5,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 3531.2,
+          "p50": 4505.4,
+          "p90": 6647.3,
+          "worst": 7191.8
+        }
+      },
+      "firstBy90Min": 5,
+      "screeningPassed": false,
+      "bothPassed": false,
+      "final": "NOT_EVALUATED"
+    },
+    {
+      "id": "control-l20",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l20/execution.json",
+        "sha256": "106ad115fd20605ab7357940e81b0b277155b9017c47841b5c1345c9d6087ba3"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/control-l20/screening.json",
+        "sha256": "fa90453b919d3b5aae08688b9d7e67805207fdac7e975177568e592f893fb23d"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 3,
+        "unreached": 17,
+        "population": {
+          "p10": 5621.6,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 5036.2,
+          "p50": 5621.6,
+          "p90": 5621.6,
+          "worst": 6902.5
+        }
+      },
+      "firstBy90Min": 1,
+      "screeningPassed": false,
+      "bothPassed": false,
+      "final": "NOT_EVALUATED"
+    },
+    {
+      "id": "candidate-r5-tail10425",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10425/execution.json",
+        "sha256": "163abe5af44a72cc7fc23fa6c535520f186c6aa8f55bcaa6895b760cfb062187"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10425/screening.json",
+        "sha256": "0406d872a537623f513a94a80a30211b92f6e1f17e9d5b0b97c24299ef3f2226"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 20,
+        "unreached": 0,
+        "population": {
+          "p10": 1755.1,
+          "p50": 2902.6,
+          "p90": 4527.5,
+          "worst": 6248
+        },
+        "conditional": {
+          "p10": 1755.1,
+          "p50": 2902.6,
+          "p90": 4527.5,
+          "worst": 6248
+        }
+      },
+      "firstBy90Min": 18,
+      "screeningPassed": true,
+      "bothPassed": false,
+      "final": {
+        "samples": 20,
+        "reached": 16,
+        "unreached": 4,
+        "population": {
+          "p10": 18219.7,
+          "p50": 26357.4,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 18219.7,
+          "p50": 24688,
+          "p90": 29869,
+          "worst": 33589.5
+        }
+      },
+      "full": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10425/full-12h.json",
+        "sha256": "f99f4f5aeae7a481a1a181e73599db00a9f2c6c8bb05f19586b8e6af2cea0fb3"
+      },
+      "h70Chosen": 0
+    },
+    {
+      "id": "candidate-r5-tail10450",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10450/execution.json",
+        "sha256": "d0a2003286230e4ee88757d461eb2b1dfbf8009aeec190643a4906a97676c582"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10450/screening.json",
+        "sha256": "e1285bc15af93f2252bc2a302073996b8a44376c92028174e8fad27a0122c4c1"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 20,
+        "unreached": 0,
+        "population": {
+          "p10": 1755.1,
+          "p50": 2902.6,
+          "p90": 4527.5,
+          "worst": 6248
+        },
+        "conditional": {
+          "p10": 1755.1,
+          "p50": 2902.6,
+          "p90": 4527.5,
+          "worst": 6248
+        }
+      },
+      "firstBy90Min": 18,
+      "screeningPassed": true,
+      "bothPassed": true,
+      "final": {
+        "samples": 20,
+        "reached": 16,
+        "unreached": 4,
+        "population": {
+          "p10": 17934.4,
+          "p50": 29903.5,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 17934.4,
+          "p50": 28499,
+          "p90": 34420.5,
+          "worst": 40025.5
+        }
+      },
+      "full": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10450/full-12h.json",
+        "sha256": "eb0364e4719c6e2efd0e06ff022ef4ff948f321cad5fca275bf7744283bb3adc"
+      },
+      "h70Chosen": 0,
+      "scoreTicks": [
+        2474,
+        60965,
+        45275,
+        "candidate-r5-tail10450"
+      ],
+      "scoreSeconds": [
+        247.4,
+        6096.5,
+        4527.5,
+        "candidate-r5-tail10450"
+      ]
+    },
+    {
+      "id": "candidate-r5-tail10475",
+      "execution": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10475/execution.json",
+        "sha256": "6e88f2b48ec24999a12124e65af17cd648381aa2a0c40cb39920b2a251c6a138"
+      },
+      "screening": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10475/screening.json",
+        "sha256": "f5b38b3f2bfc4ff091ca359daad526718ef72e59a2cb502b1c967923ad066f7d"
+      },
+      "first": {
+        "samples": 20,
+        "reached": 20,
+        "unreached": 0,
+        "population": {
+          "p10": 1755.1,
+          "p50": 2902.6,
+          "p90": 4527.5,
+          "worst": 6248
+        },
+        "conditional": {
+          "p10": 1755.1,
+          "p50": 2902.6,
+          "p90": 4527.5,
+          "worst": 6248
+        }
+      },
+      "firstBy90Min": 18,
+      "screeningPassed": true,
+      "bothPassed": true,
+      "final": {
+        "samples": 20,
+        "reached": 11,
+        "unreached": 9,
+        "population": {
+          "p10": 17467.6,
+          "p50": 37946,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 17467.6,
+          "p50": 25215.9,
+          "p90": 37946,
+          "worst": 38884
+        }
+      },
+      "full": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/candidate-r5-tail10475/full-12h.json",
+        "sha256": "aaf94e18b043051cba96263f506c777b0f0d97a1c16b22e26dafe7d3b3a80f9d"
+      },
+      "h70Chosen": 0,
+      "scoreTicks": [
+        2474,
+        19460,
+        45275,
+        "candidate-r5-tail10475"
+      ],
+      "scoreSeconds": [
+        247.4,
+        1946.0,
+        4527.5,
+        "candidate-r5-tail10475"
+      ]
+    }
+  ],
+  "ranking": [
+    "candidate-r5-tail10475",
+    "candidate-r5-tail10450"
+  ],
+  "proposedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r5-tail10475"
+  },
+  "limitations": [
+    "No validation seed used. This does not certify release or human fun.",
+    "Score arithmetic uses integer100ms before conversion to decimal seconds; earlier console IEEE247.4000000000001 was a display artifact, not a changed time."
+  ]
+}

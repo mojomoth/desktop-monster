@@ -1,0 +1,12 @@
+first offer ready at t=81s, level 12, gold 233
+offer #1 cards: h10+23 | h06+24 | h03+17 serial=1
+defer -> choices=0 deferRemainingMs=30000 gold 233->233 level 12->12 companions 2->2
+after 29s of play: heroReady=false (menu button would read "무료 재도전까지 플레이 1초")
+after 30s: heroReady=true
+offer #2 cards: h10+20 | h08+15 | h09+25 serial=2
+reroll (cost 50) -> gold 233->183 cards: h09+10 | h02+22 | h01+11 serial=3
+stale-serial reroll replay -> events=0 gold 183->183
+window resume -> serial=3 choices=3 gold=183 level=12 companions=2 rest=0
+resumed stale reroll -> events=0 gold 183->183
+no gold (33 < 50) -> events=0 cards unchanged=true; menu button is disabled at this point (menu/hero.ts: save.coins < heroRerollCost)
+choose h08 with no gold -> level=1 reincarnations=1 collection=1 souls=3 rest=120000ms companions kept=2

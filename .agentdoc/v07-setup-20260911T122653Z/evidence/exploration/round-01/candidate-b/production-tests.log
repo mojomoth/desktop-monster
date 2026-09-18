@@ -1,0 +1,75 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/formulas.test.ts (15 tests) 25ms
+ ✓ tests/progressionV7.test.ts (33 tests) 35ms
+ ❯ tests/engine.test.ts (37 tests | 1 failed) 184ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > starts fresh at level 1 with monster 0 at full hp 1ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > non-killing attack emits attack then monsterHit 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > every common species can spawn at the same normal or boss index with equal RNG intervals 45ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > fresh games draw a species once and allow consecutive repeats 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > persists a random boss and captures its actual species after restoring 1ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > rebirth draws a new first species and saves it 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > killing blow emits attack, monsterHit, monsterKilled, itemDropped, monsterSpawned in order 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > next monster spawns with index+1 and higher maxHp 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > hero reaches level 2 at exactly 20 cumulative xp and damage becomes 2 1ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > xp past the threshold carries over (threshold subtracted, not reset) 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > one huge kill can grant several levels, one levelUp event per level 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a crit multiplies damage by CRIT_MULT and each attack rolls its own draw 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > overkill damage clamps hpAfter to 0, never negative 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > kill drops are applied to state: coins first, trinkets counted by id 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > killing a boss grants 5x xp and 5x coins 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > same seed yields an identical event log 10ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > crit rate over 10000 seeded attacks is within 8 to 12 percent 8ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > toSave() round-trips into an engine with the identical state 1ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > createEngine(save) resumes monsterIndex and monsterHp exactly 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > createEngine(save) resumes exactly and clamps monsterHp into [1, maxHp] 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > getState() returns a defensive copy 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent 96ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > kills draw crit, loot, optional capture, then exactly one next species 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > uses the registered first-acquisition guarantee without changing boss RNG consumption or rearming after removal 1ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > exports the same monster eligibility used by actual spawns without counting spawn eligibility as acquisition 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a capture into a full roster of 30 is skipped but still spends the draw 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > bestIndex tracks the deepest monster index ever spawned 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > apply(rebirth) emits rebirth and multiplies hero damage by 1 plus souls 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > apply with an invalid action emits nothing and leaves state untouched 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > toSave writes version 3 and the pvpParty 0ms
+   × attack engine (SPEC F06/F07/F08, Assumption 8) > tick fires one volley per 1000ms from the 5 best-matched companions and kills chain into the next monster 7ms
+     → expected [ { type: 'companionAttack', …(4) } ] to have a length of 2 but got 1
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > attack timing is a hidden species attribute: bats strike first, golems last, all inside one window 5ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > volley damage is type-adjusted and companionAttack carries effectiveness 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > the field party changes when a monster of another type spawns 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > pvpResult with a replay is applied exactly like one without 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > tick with no companions emits nothing and never spends rng draws 0ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > companion damage is tripled during fever and never crits 0ms
+ ✓ tests/balance.test.ts (3 tests) 3118ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  3095ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/engine.test.ts > attack engine (SPEC F06/F07/F08, Assumption 8) > tick fires one volley per 1000ms from the 5 best-matched companions and kills chain into the next monster
+AssertionError: expected [ { type: 'companionAttack', …(4) } ] to have a length of 2 but got 1
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/engine.test.ts:668:65
+    666|     expect(two.filter((e) => e.type === 'companionAttack')).toHaveLeng…
+    667|     const carried = engine.tick(500);
+    668|     expect(carried.filter((e) => e.type === 'companionAttack')).toHave…
+       |                                                                 ^
+    669|     for (const id of ['c1', 'c2', 'c3', 'c4']) {
+    670|       expect([...swingers(two), ...swingers(carried)].filter((x) => x …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 87 passed (88)
+   Start at  12:36:51
+   Duration  3.48s (transform 236ms, setup 0ms, collect 566ms, tests 3.36s, environment 0ms, prepare 195ms)
+

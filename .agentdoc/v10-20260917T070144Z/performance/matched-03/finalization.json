@@ -1,0 +1,44 @@
+{
+  "pid": 58819,
+  "executor": "/root",
+  "startedAt": "2026-09-17T13:40:11.583Z",
+  "state": "passed",
+  "commands": [
+    {
+      "args": [
+        "start",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z",
+        "V10-10"
+      ],
+      "startedAt": "2026-09-17T18:51:57.753Z",
+      "signal": null,
+      "endedAt": "2026-09-17T18:51:57.825Z",
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "check",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z",
+        "V10-10",
+        "ac"
+      ],
+      "startedAt": "2026-09-17T18:51:57.826Z",
+      "signal": null,
+      "endedAt": "2026-09-17T18:52:04.688Z",
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "verify",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z",
+        "V10-10"
+      ],
+      "startedAt": "2026-09-17T18:52:04.688Z",
+      "signal": null,
+      "endedAt": "2026-09-17T18:52:04.744Z",
+      "exitCode": 0
+    }
+  ],
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "endedAt": "2026-09-17T18:52:04.745Z"
+}

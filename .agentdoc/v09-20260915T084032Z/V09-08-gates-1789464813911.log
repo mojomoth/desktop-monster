@@ -1,0 +1,103 @@
+
+> desmon@0.9.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/hero.test.ts (13 tests) 355ms
+ ✓ tests/loot.test.ts (11 tests) 420ms
+ ✓ tests/performanceV8.test.ts (6 tests) 606ms
+   ✓ v0.8 performance evidence validation > binds reports, raw samples, screenshots, app bytes and observer source before accepting a matrix  509ms
+ ✓ tests/progressionV7.test.ts (45 tests) 800ms
+ ✓ tests/renderer.test.ts (104 tests) 322ms
+ ✓ tests/hud-v09.test.ts (3 tests) 540ms
+   ✓ v0.9 HUD readability > keeps every normal/critical suffix glyph and outline clear of both HUD panels throughout its rise  514ms
+ ✓ tests/heroForms.test.ts (8 tests) 783ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  603ms
+ ✓ tests/sprites.test.ts (34 tests) 311ms
+ ✓ tests/progressionV5.test.ts (12 tests) 144ms
+ ✓ tests/menu.test.ts (63 tests) 216ms
+ ✓ tests/heroRendering.test.ts (5 tests) 701ms
+   ✓ reincarnated hero field placement > draws every compact hero above the field floor, including its class strike pose  374ms
+ ✓ tests/engine.test.ts (45 tests) 471ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 184ms
+ ✓ tests/expedition.test.ts (16 tests) 1025ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  920ms
+ ✓ tests/net.test.ts (44 tests) 156ms
+ ✓ tests/codexV7.test.ts (10 tests) 174ms
+ ✓ tests/measurementV8.test.ts (6 tests) 1339ms
+   ✓ v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly  976ms
+   ✓ v0.8 collection policy measurement > chooses the actual third rare card and records the existing consume policy without species protection  319ms
+ ✓ tests/effects-v09.test.ts (6 tests) 139ms
+ ✓ tests/collection.test.ts (21 tests) 202ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 37ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 155ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 82ms
+ ✓ tests/formulas.test.ts (21 tests) 86ms
+ ✓ tests/progressV5.test.ts (12 tests) 60ms
+ ✓ tests/share.test.ts (5 tests) 126ms
+ ✓ tests/ipcV5.test.ts (7 tests) 15ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 27ms
+ ✓ tests/globalInput.test.ts (20 tests) 18ms
+ ✓ tests/onlineV9.test.ts (8 tests) 150ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 119ms
+ ✓ tests/shareV9.test.ts (9 tests) 41ms
+ ✓ tests/server/app.test.ts (18 tests) 70ms
+ ✓ tests/menuV9.test.ts (5 tests) 28ms
+ ✓ tests/audio.test.ts (15 tests) 16ms
+ ✓ tests/server/opponents.test.ts (10 tests) 60ms
+ ✓ tests/server/v09.test.ts (8 tests) 26ms
+ ✓ tests/deploy.test.ts (7 tests) 7ms
+ ✓ tests/runtimeV8.test.ts (9 tests) 20ms
+ ✓ tests/platformV9.test.ts (3 tests) 4ms
+ ✓ tests/recoveryCaptureV9.test.ts (5 tests) 12ms
+ ✓ tests/tray.test.ts (38 tests) 16ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 20ms
+ ✓ tests/server/pvp.test.ts (14 tests) 31ms
+ ✓ tests/progressV6.test.ts (15 tests) 40ms
+ ✓ tests/server/http.test.ts (9 tests) 8ms
+ ✓ tests/identity.test.ts (8 tests) 14ms
+ ✓ tests/recoveryV9.test.ts (15 tests) 14ms
+ ✓ tests/ipc.test.ts (61 tests) 10ms
+ ✓ tests/onlineV8.test.ts (3 tests) 15ms
+ ✓ tests/save.test.ts (15 tests) 18ms
+ ✓ tests/fever.test.ts (4 tests) 14ms
+ ✓ tests/shareUiV9.test.ts (6 tests) 15ms
+ ✓ tests/progressV7.test.ts (5 tests) 11ms
+ ✓ tests/settings.test.ts (4 tests) 22ms
+ ✓ tests/packaging.test.ts (16 tests) 11ms
+ ✓ tests/server/pgTransaction.test.ts (9 tests) 7ms
+ ✓ tests/anim.test.ts (14 tests) 16ms
+ ✓ tests/thefts.test.ts (5 tests) 4ms
+ ✓ tests/fsm.test.ts (12 tests) 4ms
+ ✓ tests/effects.test.ts (7 tests) 12ms
+ ✓ tests/persistence.test.ts (10 tests) 17ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 8ms
+ ✓ tests/window.test.ts (29 tests) 5ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 6ms
+ ✓ tests/rendererInput.test.ts (8 tests) 4ms
+ ✓ tests/typeChart.test.ts (4 tests) 6ms
+ ✓ tests/drag.test.ts (7 tests) 3ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/battle.test.ts (5 tests) 10ms
+ ✓ tests/bignum.test.ts (7 tests) 3ms
+ ✓ tests/heroMenuReadiness.test.ts (3 tests) 4ms
+ ✓ tests/scaffold.test.ts (1 test) 1ms
+ ✓ tests/balance.test.ts (3 tests) 4707ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  4682ms
+
+ Test Files  73 passed (73)
+      Tests  1063 passed (1063)
+   Start at  18:33:34
+   Duration  5.21s (transform 2.51s, setup 0ms, collect 11.23s, tests 15.13s, environment 15ms, prepare 5.32s)
+
+
+> desmon@0.9.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.9.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m

@@ -1,0 +1,19 @@
+{
+  "version": 9,
+  "passed": true,
+  "at": "2026-09-15T09:21:41.427Z",
+  "database": "16.15 (Debian 16.15-1.pgdg12+2)",
+  "checks": [
+    "legacy schema migration/backfill filters revoked companion",
+    "all four metrics and legacy default match MemoryStore including ties/huge level/legacy missing level/defense loss",
+    "40 removals survive legacy truncation and direct old-service snapshot overwrite",
+    "durable serial ignores rewind and transaction rollback restores all writes",
+    "second migration is idempotent"
+  ],
+  "sourceHashes": {
+    "src/server/pgStore.ts": "d28348168b56fce4507904eddcb256015b26aa0d2531b8357aff2b901ffb9e12",
+    "src/server/store.ts": "cfb3d5f2c60d0215b3606bb1eac836e529f793974466e5b22e908b93abf8a74f",
+    "dist/electron/server/pgStore.js": "256b3bfa669e0002afcd86ea5849f211afb442eb1341f63478c1158efa45b2f5",
+    ".harness/v9/postgres-check.mjs": "5c1902d48e5171f8c9fb55a4b5a8592427ccba7e4557313c2ce58f613480aa64"
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "version": "0.10.0",
+  "status": "exploration-candidate-not-validated",
+  "baseline": {
+    "source": ".agentdoc/v10-20260917T070144Z/preservation/compiled-core",
+    "seeds": [
+      10001,
+      10020
+    ],
+    "durationMs": 1800000,
+    "policies": [
+      "active-2-inputs-per-second",
+      "immediate-reincarnation",
+      "returning-idle-five-companions"
+    ],
+    "observations": "Active seeds reached level 5 around 35s, level 10 around 58s, level 15 around 8.5m. First 750G around 8-12m. Most had 7-8 boss kills and 980-1272G after 30m. Returning idle had 3-6 bosses, 244-745G. Existing independently preserved v0.9.1 100-seed evidence remains authoritative historical evidence."
+  },
+  "parameters": {
+    "weaponRequiredLevels": [
+      1,
+      5,
+      10,
+      15
+    ],
+    "rarityPowerMultipliers": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "accessoryAttackBpsBase": 100,
+    "rollPercent": [
+      90,
+      110
+    ],
+    "buyBaseGold": [
+      1500,
+      6000,
+      24000,
+      96000
+    ],
+    "tierPriceMultiplier": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "sellFraction": [
+      1,
+      10
+    ],
+    "enhanceBaseGold": [
+      100,
+      400,
+      1600,
+      6400
+    ],
+    "enhanceCostDoubling": 2,
+    "enhanceGrowthPercentPerStage": 10,
+    "safeEnhancement": 5,
+    "enhanceSuccessRationalK": 39,
+    "initialBagCapacity": 24,
+    "expansionSlots": 8,
+    "expansionBaseGold": 3000,
+    "expansionCostDoubling": 2,
+    "shopRefreshMs": 3600000,
+    "shopStock": 12,
+    "bossEquipmentChanceBps": 6000,
+    "ordinaryDropRarityWeights": [
+      60,
+      32,
+      8
+    ],
+    "epicEncounterChanceBps": 400,
+    "epicDropChanceBps": 500,
+    "weaponAttackUnit": "percent of trained hero base, multiplied before additive accessory channel",
+    "weaponTierAttackPercent": [
+      2,
+      12,
+      45,
+      120
+    ]
+  },
+  "explorationBounds": {
+    "prices": "0.5x..4x candidate; no increased coin income to compensate",
+    "successK": [
+      19,
+      99
+    ],
+    "attackScale": [
+      0.5,
+      4
+    ],
+    "bagCapacity": [
+      16,
+      32
+    ],
+    "expansionSlots": [
+      4,
+      12
+    ],
+    "bossEquipmentChanceBps": [
+      3000,
+      8000
+    ],
+    "epicEncounterChanceBps": [
+      100,
+      800
+    ],
+    "epicDropChanceBps": [
+      100,
+      1000
+    ],
+    "attackScaleNote": "Applied to percentage-based weapon bonuses after the flat-attack proposal was rejected. The explicit A/B/C vectors were registered before exploration; range annotation clarified before exploration04."
+  },
+  "validation": {
+    "explorationSeeds": [
+      10001,
+      10020
+    ],
+    "heldOutSeeds": [
+      50001,
+      50100
+    ],
+    "durationsMinutes": [
+      30,
+      120,
+      480
+    ],
+    "requiredMetrics": [
+      "first-purchase-time-and-nonarrival",
+      "purchase-opportunity-cost",
+      "level-tier-equipped-time",
+      "reincarnation-item-loss",
+      "duplicate-accessory-concentration",
+      "enhancement-cost-and-destruction",
+      "overflow-loss",
+      "epic-eligibility-attempts-and-nonarrival",
+      "currency-conservation",
+      "unique-instance-conservation"
+    ],
+    "immutable": "All docs/v0.10/CONTRACT.md product requirements. No pity, mode toggle, artificial enhancement/currency cap, cost saturation, or weakened legacy verification."
+  },
+  "candidateComparison": [
+    {
+      "id": "A",
+      "prices": [
+        1500,
+        6000,
+        24000,
+        96000
+      ],
+      "weaponAttackPercent": [
+        2,
+        12,
+        45,
+        120
+      ],
+      "bossDropBps": 6000,
+      "successK": 39
+    },
+    {
+      "id": "B",
+      "prices": [
+        3000,
+        12000,
+        48000,
+        192000
+      ],
+      "weaponAttackPercent": [
+        5,
+        15,
+        40,
+        80
+      ],
+      "bossDropBps": 4000,
+      "successK": 29
+    },
+    {
+      "id": "C",
+      "prices": [
+        4500,
+        18000,
+        72000,
+        288000
+      ],
+      "weaponAttackPercent": [
+        8,
+        20,
+        50,
+        100
+      ],
+      "bossDropBps": 3000,
+      "successK": 19
+    }
+  ]
+}

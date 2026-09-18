@@ -1,0 +1,265 @@
+
+> desmon@0.9.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/engine.test.ts (45 tests) 346ms
+ ✓ tests/loot.test.ts (11 tests) 412ms
+ ✓ tests/performanceV8.test.ts (6 tests) 518ms
+   ✓ v0.8 performance evidence validation > binds reports, raw samples, screenshots, app bytes and observer source before accepting a matrix  423ms
+ ✓ tests/sprites.test.ts (34 tests) 205ms
+ ✓ tests/progressionV7.test.ts (45 tests) 554ms
+ ✓ tests/heroRendering.test.ts (5 tests) 413ms
+ ✓ tests/progressionV5.test.ts (12 tests) 116ms
+ ✓ tests/heroForms.test.ts (8 tests) 865ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  680ms
+ ✓ tests/collection.test.ts (21 tests) 211ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 165ms
+ ✓ tests/hud-v09.test.ts (3 tests) 734ms
+   ✓ v0.9 HUD readability > keeps the existing normal/critical damage lane clear of counters throughout its rise  400ms
+ ✓ tests/codexV7.test.ts (10 tests) 174ms
+ ✓ tests/expedition.test.ts (16 tests) 795ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  613ms
+ ✓ tests/menu.test.ts (63 tests) 302ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 68ms
+ ✓ tests/formulas.test.ts (21 tests) 94ms
+ ✓ tests/shareV9.test.ts (9 tests) 50ms
+ ✓ tests/measurementV8.test.ts (6 tests) 1267ms
+   ✓ v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly  1015ms
+ ✓ tests/progressV5.test.ts (12 tests) 46ms
+ ✓ tests/share.test.ts (5 tests) 75ms
+ ✓ tests/net.test.ts (45 tests) 165ms
+ ✓ tests/onlineV9.test.ts (8 tests) 155ms
+ ✓ tests/renderer.test.ts (104 tests) 268ms
+ ✓ tests/onlineV91.test.ts (5 tests) 221ms
+ ❯ tests/heroArtCompatibility.test.ts (2 tests | 1 failed) 12ms
+   ✓ hero art redesign preserves published save and network identities > keeps every existing form id, rank, element and buff target unchanged 1ms
+   × hero art redesign preserves published save and network identities > loads all collected looks and exact pending rolls, retaining each equipped id on the wire 10ms
+     → h01: expected { name: 'Legacy_04', level: 27, …(6) } to deeply equal { name: 'Legacy_04', level: 27, …(5) }
+ ✓ tests/hero.test.ts (17 tests) 125ms
+ ✓ tests/server/opponents.test.ts (10 tests) 96ms
+ ✓ tests/server/app.test.ts (18 tests) 32ms
+ ✓ tests/pvpAbuseV91.test.ts (8 tests) 49ms
+ ✓ tests/menuV9.test.ts (14 tests) 67ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 72ms
+ ✓ tests/effects-v09.test.ts (6 tests) 172ms
+ ✓ tests/replayV91.test.ts (14 tests) 167ms
+ ✓ tests/server/pvp.test.ts (14 tests) 20ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 46ms
+ ✓ tests/onlineV8.test.ts (3 tests) 14ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 26ms
+ ✓ tests/recoveryV9.test.ts (18 tests) 17ms
+ ✓ tests/server/v09.test.ts (9 tests) 44ms
+ ✓ tests/save.test.ts (15 tests) 17ms
+ ✓ tests/tray.test.ts (38 tests) 23ms
+ ✓ tests/shareUiV9.test.ts (6 tests) 31ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 21ms
+ ✓ tests/audio.test.ts (15 tests) 16ms
+ ✓ tests/recoveryCaptureV9.test.ts (5 tests) 13ms
+ ✓ tests/runtimeV8.test.ts (9 tests) 22ms
+ ✓ tests/progressV6.test.ts (15 tests) 14ms
+ ✓ tests/globalInput.test.ts (20 tests) 17ms
+ ✓ tests/persistence.test.ts (10 tests) 8ms
+ ❯ tests/ipc.test.ts (61 tests | 2 failed) 24ms
+   ✓ v0.9 main-owned companion IPC > rejects malformed and well-formed menu-forged ownership and battle results 3ms
+   ✓ v0.9 main-owned companion IPC > drops missing/malformed confirmations and relays an exact safe-integer snapshot 1ms
+   × shared IPC channels (src/shared/ipc.ts) > defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-window and the net channels 7ms
+     → expected { INPUT: 'desmon:input', …(43) } to deeply equal { INPUT: 'desmon:input', …(40) }
+   ✓ shared IPC channels (src/shared/ipc.ts) > uses unique, desmon:-prefixed channel names 1ms
+   ✓ preload bridge (src/preload/index.ts) > exposes window.desmon via contextBridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onInput on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onInputMode on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onReset on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes getInputMode on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes loadState on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes saveState on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onSaveFailed on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes openAccessibilitySettings on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes reportFirstFrame on the bridge 1ms
+   ✓ preload bridge (src/preload/index.ts) > exposes moveWindowBy on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes getIdentity on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes setName on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes getLeaderboard on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes pvpOpponents on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes pvpMatch on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes pvp on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes thefts on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes reclaim on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onAction on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes sendAction on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onStateChanged on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes reportMenuReady on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > inlines every shared channel literal (sandboxed preload cannot require shared/ipc) 1ms
+   ✓ preload bridge (src/preload/index.ts) > value-imports only electron — a relative runtime require would crash the sandboxed preload 0ms
+   ✓ preload bridge (src/preload/index.ts) > returns unsubscribe functions from the on* subscriptions 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.GET_INPUT_MODE 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.LOAD_STATE 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.SAVE_STATE 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.OPEN_ACCESSIBILITY_SETTINGS 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.GET_IDENTITY 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.SET_NAME 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.LEADERBOARD 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.PVP_OPPONENTS 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.PVP_MATCH 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.PVP 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.THEFTS 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.RECLAIM 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.MENU_ACTION 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > listens for the renderer first-frame report 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > moves the SENDING window on validated move-window deltas (T21) 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > serves the live input mode from the T04 global-input state machine 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > persists under the userData directory via the persistence module 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > opens the macOS Accessibility pane deep link 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > builds ONE net session, pinned offline under SMOKE (T43) 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > parses the untrusted renderer save before handing it to the net session 3ms
+   ✓ main IPC handlers (src/main/ipc.ts) > validates the net payload shapes at the IPC trust boundary 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > releases official ownership and PvP progress only from the durable coordinator (v9) 1ms
+   ✓ main IPC handlers (src/main/ipc.ts) > relays over every window except the sender, statelessly (F51) 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > the save-state handler relays the written save to every other window as state-changed 0ms
+   × main IPC handlers (src/main/ipc.ts) > menu-action validates local actions and rejects server-owned actions before forwarding 2ms
+     → expected 'ipcMain.handle(IPC.MENU_ACTION, (even…' not to contain 'throw'
+   ✓ main IPC handlers (src/main/ipc.ts) > narrows the untrusted menu payload against the whole CollectionAction union 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > rejects legacy match requests while routing thefts and reclaim through the coordinator 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > rejects valid and malformed legacy PvP payloads without calling the network 1ms
+   ✓ main IPC handlers (src/main/ipc.ts) > narrowAction accepts setPvpParty and a validated pvpResult replay and drops malformed replays 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > menu-ready answers the sender with the current save 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > is registered at startup by src/main/index.ts 0ms
+ ✓ tests/ipcV5.test.ts (7 tests) 15ms
+ ✓ tests/anim.test.ts (14 tests) 7ms
+ ✓ tests/settings.test.ts (4 tests) 14ms
+ ✓ tests/identity.test.ts (8 tests) 9ms
+ ✓ tests/goldV91.test.ts (15 tests) 10ms
+ ✓ tests/progressV7.test.ts (5 tests) 10ms
+ ✓ tests/fever.test.ts (4 tests) 10ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 11ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 5ms
+ ✓ tests/packaging.test.ts (16 tests) 10ms
+ ✓ tests/server/http.test.ts (9 tests) 5ms
+ ✓ tests/typeChart.test.ts (4 tests) 4ms
+ ✓ tests/server/pgTransaction.test.ts (9 tests) 10ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/effects.test.ts (7 tests) 6ms
+ ✓ tests/platformV9.test.ts (3 tests) 3ms
+ ✓ tests/window.test.ts (29 tests) 12ms
+ ✓ tests/heroMenuReadiness.test.ts (4 tests) 8ms
+ ✓ tests/deploy.test.ts (7 tests) 3ms
+ ✓ tests/rendererInput.test.ts (8 tests) 4ms
+ ✓ tests/thefts.test.ts (5 tests) 6ms
+ ✓ tests/bignum.test.ts (7 tests) 3ms
+ ✓ tests/drag.test.ts (7 tests) 5ms
+ ✓ tests/fsm.test.ts (12 tests) 5ms
+ ✓ tests/battle.test.ts (5 tests) 5ms
+ ✓ tests/defenseV91.test.ts (1 test) 5ms
+ ✓ tests/scaffold.test.ts (1 test) 1ms
+ ✓ tests/balance.test.ts (3 tests) 4272ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  4244ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/heroArtCompatibility.test.ts > hero art redesign preserves published save and network identities > loads all collected looks and exact pending rolls, retaining each equipped id on the wire
+AssertionError: h01: expected { name: 'Legacy_04', level: 27, …(6) } to deeply equal { name: 'Legacy_04', level: 27, …(5) }
+
+- Expected
++ Received
+
+@@ -14,10 +14,14 @@
+        "level": 5,
+        "speciesId": "dragon",
+        "stars": 2,
+      },
+    ],
++   "gold": {
++     "coins": 4321,
++     "revision": 0,
++   },
+    "hero": {
+      "buffPercent": 10,
+      "formId": "h01",
+    },
+    "level": 27,
+
+ ❯ tests/heroArtCompatibility.test.ts:66:74
+     64|       expect(restored.progress?.playTimeMs).toBe(0);
+     65|       expect(restored.progress?.seenHeroes).toEqual(collection.map((r)…
+     66|       expect(toSnapshot('Legacy_04', resumed.toSave()), equipped.formI…
+       |                                                                          ^
+     67|         name: 'Legacy_04', level: 27, bestIndex: 64, rebirths: 8,
+     68|         companions: oldSave.companions, party: ['c2', 'c1'], hero: equ…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/ipc.test.ts > shared IPC channels (src/shared/ipc.ts) > defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-window and the net channels
+AssertionError: expected { INPUT: 'desmon:input', …(43) } to deeply equal { INPUT: 'desmon:input', …(40) }
+
+- Expected
++ Received
+
+@@ -20,17 +20,20 @@
+    "MENU_ACTION": "desmon:menu-action",
+    "MENU_READY": "desmon:menu-ready",
+    "MOVE_WINDOW": "desmon:move-window",
+    "OPEN_ACCESSIBILITY_SETTINGS": "desmon:open-accessibility-settings",
+    "OPEN_SAVE_FOLDER": "desmon:open-save-folder",
++   "PENDING_REPLAYS": "desmon:pending-replays",
+    "PREPARE_STATE": "desmon:prepare-state",
+    "PVP": "desmon:pvp",
+    "PVP_MATCH": "desmon:pvp-match",
+    "PVP_OPPONENTS": "desmon:pvp-opponents",
++   "PVP_PLAYBACK": "desmon:pvp-playback",
+    "QUIT": "desmon:quit",
+    "RECLAIM": "desmon:reclaim",
+    "RELEASE_STATE": "desmon:release-state",
++   "REPLAY_COMPLETE": "desmon:replay-complete",
+    "RESET": "desmon:reset",
+    "RESET_PROGRESS": "desmon:reset-progress",
+    "RESTORE_CHECKPOINT": "desmon:restore-checkpoint",
+    "SAVE_FAILED": "desmon:save-failed",
+    "SAVE_STATE": "desmon:save-state",
+
+ ❯ tests/ipc.test.ts:80:17
+     78| describe('shared IPC channels (src/shared/ipc.ts)', () => {
+     79|   it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-…
+     80|     expect(IPC).toEqual({
+       |                 ^
+     81|       INPUT: 'desmon:input',
+     82|       INPUT_MODE: 'desmon:input-mode',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/ipc.test.ts > main IPC handlers (src/main/ipc.ts) > menu-action validates local actions and rejects server-owned actions before forwarding
+AssertionError: expected 'ipcMain.handle(IPC.MENU_ACTION, (even…' not to contain 'throw'
+
+- Expected
++ Received
+
+- throw
++ ipcMain.handle(IPC.MENU_ACTION, (event, payload: unknown): void => {
++     if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');
++     if (coordinatorBlocked() || coordinator?.pending) return;
++     const action = narrowAction(payload);
++     if (action !== null && !['addCompanion', 'removeCompanions', 'pvpResult'].includes(action.type)) {
++       sendToOthers(event.sender, IPC.ACTION, action);
++     }
++   });
++
++   
+
+ ❯ tests/ipc.test.ts:313:25
+    311|     expect(handler).toContain('if (action !== null &&');
+    312|     expect(handler).toContain("!['addCompanion', 'removeCompanions', '…
+    313|     expect(handler).not.toContain('throw');
+       |                         ^
+    314|   });
+    315| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 76 passed (78)
+      Tests  3 failed | 1122 passed (1125)
+   Start at  12:04:02
+   Duration  4.73s (transform 2.35s, setup 0ms, collect 8.89s, tests 13.84s, environment 9ms, prepare 4.74s)
+

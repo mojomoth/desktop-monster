@@ -1,0 +1,88 @@
+{
+  "requestId": "7ec0706db11224b740b75bf2199168a62e9767052d50a265647405655d7ed8e0",
+  "round": 1,
+  "role": "critic",
+  "sourceDigest": "9c391fccc7d830fd3da382c0e45da5727f0939c9115a08fbbd55a17d4ac031f4",
+  "evaluationDigest": "2e858ae487fed58a3efd3ed7539ea84b5b746b7f920b9b210f91739a0187307f",
+  "agent": "/root/critic",
+  "decision": "pass",
+  "summary": "실제002 prompt와 template 전체 및 Designer001을 읽고 독립 검토했다. 현재 source/evaluation, Designer 근거12개의 실제 파일·저장된 content 해시가 발급 스냅샷과 일치한다. round03의 정확한 단일 floor HP tail 비교 설계에는 blocker/major를 발견하지 않았다. round02 XP141의 실제 첫 목표 PASS와12시간 h70 FAIL을 구분하며 그 결과를 새 후보 성공으로 옮기지 않는다. V07-01은20개 매개변수 계약과 설계 검토이고, 활성 tail 구현·새 실험은 V07-05에 남아 있다. 후보 채택·작업 verified·결과 감사·출시 승인이 아니며 selectedExperiment=null, humanChecks=PENDING이다. 이 검토에서 테스트·빌드·측정을 실행하지 않았다.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "round3/parameterVersion2, 정확한20개 값, disabled Lv16–20 대조 및 Lv17/XP1.41/s79/T111·108·105/U100 후보3개를 확인했다. 이전 round02와6개 milestone 및selectionRule가 동등하며 선택은null이다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "첫 여정 대응 검증·single-floor 식·로스터30 이후 무관리 정체와 후기 과속 반례·전체표본 채택·이전 실패 원본 보존 및 실제V05 구현/검증 상태 분리가 명시되어 있다. XP1.4 대조와 후보의 차이를 순수HP 효과로 해석하지 않는다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/full-12h.json",
+      "note": "rawSha256를 독립 재계산했다. 탐색20개 첫 전체p50=2902.6초,90분18/20,최종h70 FAIL; 처치p50은2/4/8/10/12시간568/825/968/974/977이다. 첫 action은20개 모두Lv17이고 서로 다른 선택 영웅은12시간7–9종이다. 별도로8개 screening 원본의p50/90분수/N20/seed10001–10020/raw hash도 문서와 대조했다. 역사적 수치 확인이며 새 실행 인증은 아니다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재export는20개 필드의 control-l17/XP1.4/tail null·115/100이다. 활성 tail 후보가 이미 구현·적용되었다고 보지 않는다."
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "note": "현재 필드식은 기존 단일 기울기이며 활성 tail 구현은미완료다. 설계식은10*N^a*T^b/(D^a*U^b)의 최종bigint 나눗셈1회다. 독립 산술상 s79/tail108의HP80=673834n이며 prefix를 먼저floor하면673833n이다. tail111 HP81=768732n,tail105 HP81=687872n도 중간floor 오류를 구별한다. 동료HP115/100 경계는 별도로 유지한다."
+    },
+    {
+      "path": ".harness/v7/loop/config.mjs",
+      "note": "parameterVersion1은정확한17개,2는정확한20개 필드를 요구하며 unknown/null/string version과누락/extra를 거부한다. tail index와분자/분모는안전정수이고 enabled tail은1초과·prefix이하를bigint 교차곱으로 검사한다. 모든Lv대조는tail null/115/100을 강제한다."
+    },
+    {
+      "path": ".harness/v7/loop/config.test.ts",
+      "note": "보존된 17-key 계약, 20-key 누락·extra·암묵적 upgrade, MAX_SAFE 비율의 1단위 위반, disabled control 변경 거부 테스트를 읽었다. 기존 테스트의 삭제·약화 없이 계약 경계를 추가했다. 테스트 실행 결과는 이 읽기 리뷰에서 새로 만들지 않았다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "공식 realpath와 현재 snapshot, 실제 export deep equality 때문에 copied 17-key protocol이 새 20-key 실행을 우회하지 못한다. evaluateTargets는 전체 표본 median·전체 분모의 90분 비율·h70 eligibility를 사용한다. scenarios의 조건부 p90과 unphased verify exit0은 채택 근거가 아니며 Host가 선별 통과·12h 통과·원본 순위를 별도로 기록해야 한다."
+    },
+    {
+      "path": "src/core/collection.ts",
+      "note": "bigint companionPower·정확한 preview, 안전 정수 overflow 전 거부, Lv>=10→Lv1/별+1과 supplied expected의 현재 대상 대조를 확인했다. 서버 transfer ID 보존 및 중복·충돌 수신의 무변경 거부도 유지된다."
+    },
+    {
+      "path": "src/core/progress.ts",
+      "note": "획득은 positive heroCounts·유효 선택 이력·영구 collection 및 positive speciesKills에 한정한다. parseProgress는 collection-only ACK를 조기 삭제하지 않고 migrateProgress가 전체 획득 context로 ACK를 교집합 처리한다. seen·보유·총처치로 종별 처치를 발명하지 않는다."
+    },
+    {
+      "path": "src/menu/index.ts",
+      "note": "정확한 환생 전후 힘·확인·취소·필수 expected, 대상 변경 무효화, stable PvP 행과 선택 ID·포커스·삭제·오류·만료 처리를 유지한다. 과거 Native 진단은 변경된 최종 소스의 자연 관측 근거가 아니다."
+    },
+    {
+      "path": "src/main/net.ts",
+      "note": "고레벨 응답 safe integer, 지정 match/result의 실제 playerId·nonbot 일치와 실패한 upload 후 전투 중단을 유지한다. 운영 서버의 고레벨 호환은 실제 compatible SHA 근거가 별도로 필요하다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "동료 레벨은 Lv10 상한 없이 양의 안전 정수이며 Lv10은 환생 자격이다. Lv>=10→Lv1/별+1의 힘 비율 2/level, 예를 들어 Lv10은 1/5를 정확한 bigint로 표시하고 두 번째 확인을 받는다. 새 IPC의 필수 expected와 core의 현재 대상 대조로 변경·삭제·중복 확인을 거부하며 overflow는 재료와 상태 변경 전에 거부한다. 새 tail은 어느 깊이에서도 동료 기반 HP115/100을 바꾸면 안 된다. V05에서 큰 깊이·경계·동료 힘을 검사하고 영향받은 현재 소스의 levels AC와 gates를 다시 실행해야 한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅의 실제 선택·영구 획득과 몬스터의 종별 처치를 공유 판정으로 사용하여 이름·색·aria·카운트·알림·ACK·목표를 일치시킨다. 후보 제시·필드 등장·PvP 보유로 처치를 대체하지 않는다. 레거시의 부당한 ACK는 제거해 이후 첫 획득을 알리되 collection-only 영웅 ACK는 parse→migration에서도 보존한다. h62의 seen60 자격과 도감 획득은 별개다. 필드·offer·PvP 원화는 유지한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "최대 50행의 영웅과 최대 5명 동료 파티, 선택 playerId→preview→실제 battle의 일치가 필요하다. 지정 상대의 ID 누락·불일치·bot은 거부하고 upload 실패 뒤 전투를 진행하지 않는다. 삭제·오류·만료는 stale preview를 해제하며 만료는 비동기 identity 완료 뒤에도 확인한다. 실제 Tab/ShiftTab/Enter/Space, 주기 갱신 중 동일 버튼 포커스와 행 제거 시 재시도 포커스는 최종 소스의 Native에서 다시 검증해야 한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "XP1.41의 Lv17 필요 누적 XP11850이며 기존 보상식의 72회 처치 누적 XP12420이 첫 문턱인 산술을 독립 확인했다. tail은 index79까지 동일하고 80부터 변하므로 index71 보스까지의 첫 여정을 보존하는 설계다. 그러나 새 후보의 첫 처치·보상·레벨·포획·ready/open/accepted·선택 ID를 round02 XP141과 대응 검증하고 새 120분 20seed를 실행하기 전에는 통과가 아니다. 전체 firstAccepted p50 2700–3600초와 5400초 내 18/20을 동시에 요구하며 선택 후 별도 validation1–100에서 90/100을 요구한다. 기존 rest120초/defer30초 외 강제 시간 제한은 없다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "round02 XP141은 12시간 h70 미도달로 실제 FAIL이며 긴 처치·변화·발견 공백을 숨길 수 없다. tail 완화는 로스터30·무관리 정책을 유지하므로 초기 파티 고착 또는 강한 동료의 조기 포획에 따른 과속을 함께 측정해야 한다. crownwyrm dragon3, rootcolossus 환생3, h58 water100+reefknight2+총1500, h62 환생5+seen60+총6000, starvoid 환생10+총16000, h70 선택10종+총30000 조건은 유지한다. 선별 통과안만 탐색20×12h에서 최종 eligible h70 전체 p50 28800–43200초를 검사한다. 두 목표 통과안만 전체 p50 거리→최종 p50 거리→전체 p90→ID 순으로 채택하고 없으면 null이다. h70 제시·선택·정체와 9개 정책의 조기 해금 분포도 별도로 보고한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "고레벨 저장·재시작·upload·서버·중첩 응답·탈취·회수는 안전 정수와 전송 ID를 보존하며 invalid/overflow는 무손실 거부해야 한다. 레거시의 열린 영웅 후보와 당시 요구 레벨도 보존한다. 17-key 과거 근거의 역사 검사와 현재 20-key 실행을 구분하며 dist 불일치 실패를 삭제하거나 새 성공으로 덮지 않는다. 로컬 injected 왕복만으로 운영 호환을 인증할 수 없고 live compatible SHA 전에는 release 미검증이다. package/lock0.7.0 고정 뒤 같은 최종 소스 AC/gates, 9개 정책 100seed×12h, 실제5/15/30×3과 별도 연속180분 active의 10분마다 메뉴 선택, 4개 실제 agent의 audit·smoke·package가 필요하다. 자연 관측 중 fixture·시간 가속은 금지하며 사람 관찰은 PENDING이다."
+    }
+  ],
+  "verified": []
+}

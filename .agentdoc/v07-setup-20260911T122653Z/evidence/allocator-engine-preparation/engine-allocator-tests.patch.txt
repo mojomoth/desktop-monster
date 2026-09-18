@@ -1,0 +1,63 @@
+--- a/tests/engine.test.ts
++++ b/tests/engine.test.ts
+@@ -534,6 +534,60 @@
+     expect(s.nextCompanionId).toBe(31);
+   });
+ 
++  it('allocates the final safe local ID once and refuses the exhausted next capture without changing the roster', () => {
++    const max = Number.MAX_SAFE_INTEGER;
++    const existing: Companion = { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 250, stars: 0 };
++    const engine = createEngine({ ...DEFAULT_SAVE, companions: [existing], nextCompanionId: max - 1,
++      monsterIndex: 7, monsterHp: '1' }, scriptedRng([0.5, 0.5, 0]));
++    const events = engine.attack('keyboard');
++    expect(events.find(event => event.type === 'bossCaptured')).toMatchObject({ companion: { id: `c${max - 1}` } });
++    const saved = parseSave(serializeSave(engine.toSave()));
++    expect(saved.nextCompanionId).toBe(max);
++    expect(saved.companions).toHaveLength(2);
++    expect(saved.companions[0]).toEqual(existing);
++    const counted = countingRng([0.5, 0.5, 0]);
++    const resumed = createEngine({ ...saved, monsterIndex: 15, monsterHp: '1' }, counted.rng);
++    const after = resumed.attack('keyboard');
++    expect(counted.draws()).toBe(4);
++    expect(types(after)).not.toContain('bossCaptured');
++    expect(types(after)).not.toContain('companionReleased');
++    expect(resumed.getState().companions).toEqual(saved.companions);
++    expect(resumed.getState().nextCompanionId).toBe(max);
++    expect(resumed.getState().souls).toBe(saved.souls);
++    expect(resumed.getState().releasedCount).toBe(saved.releasedCount);
++    expect(parseSave(serializeSave(resumed.toSave())).companions).toEqual(saved.companions);
++  });
++
++  it.each([0, -1, 1.5, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER + 1, 1])(
++    'refuses unsafe, exhausted or duplicate local capture counter %s without replacing a companion or paying release rewards', (nextCompanionId) => {
++      const existing: Companion = { id: 'c1', speciesId: 'bat', bossIndex: 7, level: 250, stars: 0 };
++      const counted = countingRng([0.5, 0.5, 0]);
++      const engine = createEngine({ ...DEFAULT_SAVE, companions: [existing], nextCompanionId,
++        monsterIndex: 7, monsterHp: '1', souls: 3, releasedCount: 1 }, counted.rng);
++      const events = engine.attack('keyboard');
++      expect(counted.draws()).toBe(4);
++      expect(types(events)).not.toContain('bossCaptured');
++      expect(types(events)).not.toContain('companionReleased');
++      expect(engine.getState().companions).toEqual([existing]);
++      expect(engine.getState().nextCompanionId).toBe(nextCompanionId);
++      expect(engine.getState().souls).toBe(3);
++      expect(engine.getState().releasedCount).toBe(1);
++    });
++
++  it('preserves a large server transfer ID through repeated save and capture attempts at the exhausted allocator', () => {
++    const transferred: Companion = { id: 'r9007199254740992', speciesId: 'bat', bossIndex: 7,
++      level: Number.MAX_SAFE_INTEGER, stars: 0 };
++    let saved = parseSave({ ...DEFAULT_SAVE, companions: [transferred], nextCompanionId: 1 });
++    expect(saved.nextCompanionId).toBe(Number.MAX_SAFE_INTEGER);
++    for (const monsterIndex of [7, 15]) {
++      const engine = createEngine({ ...saved, monsterIndex, monsterHp: '1' }, scriptedRng([0.5, 0.5, 0]));
++      expect(types(engine.attack('keyboard'))).not.toContain('bossCaptured');
++      saved = parseSave(serializeSave(engine.toSave()));
++      expect(saved.companions).toEqual([transferred]);
++      expect(saved.nextCompanionId).toBe(Number.MAX_SAFE_INTEGER);
++    }
++  });
++
+   it('bestIndex tracks the deepest monster index ever spawned', () => {
+     const engine = createEngine(makeSave({ level: 100, monsterHp: 1 }), calmRng());
+     expect(engine.getState().bestIndex).toBe(0);

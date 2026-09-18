@@ -20,6 +20,10 @@ export {
 } from './palette.js';
 
 export { HERO_RIVAL_PALETTE, heroAttack, heroIdle, heroSlash } from './hero.js';
+export { drawHeroForm, HERO_FORM_IDS, heroFormSprite } from './heroForms.js';
+export { drawEquipmentIcon, equipmentIcon, equipmentColor, ITEM_RARITY_COLORS } from './equipment.js';
+export { drawEquippedHero, equippedHeroSprite, heroBodyLayers, heroEquipmentPose, HERO_HANDS, EQUIPPED_HERO_PADDING } from './equippedHero.js';
+export type { EquippedHeroOptions } from './equippedHero.js';
 
 export { monsterSprites } from './monsters.js';
 export type { SpeciesSprites } from './monsters.js';

@@ -1,0 +1,109 @@
+{
+  "requestId": "8d08eb0c140a2b1e06465a2ce80ebaf61e81af9c6b7b8f012e8d9972ab43fa05",
+  "round": 1,
+  "role": "designer",
+  "sourceDigest": "5b839be72a8ee0f35bf38d6e8fd260189f2a3934f45b289efa11d08455a26df6",
+  "evaluationDigest": "c12f36f481ed2bbf4896ecafa787cf1929856ff24202267db2f4cec3b56b7002",
+  "agent": "/root/designer",
+  "decision": "pass",
+  "summary": "Round07의 등록된 비교 전략을 설계 단계에서 승인한다. R06B의 중앙값·꼬리를 기준으로 기존 구현을 재사용하며,새 prefix의 성능·채택은 새120분/통과안12시간 측정 전 미확인이다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "실제4역할/4슬롯, fun·audit·release 검증 분리."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "현재round07 AC,6coverage·20탐색/100검증·두목표·9release정책."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "round7/version3/21키·세prefix·6콘텐츠·선택규칙;history/notes와 검증데이터는 미열람."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "첫경로/tail79/동료상대힘 영향과 같은후보 screen/full 대응,기존 UI·출시 계약."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재21키 control-l17이며 후보성능을 뜻하지 않는다."
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "note": "BigInt 단일나눗셈 prefix/tail과 동료115/100 분리."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "count/정원30/1draw/unsafe·중복발급 거부는 구현되어 있다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round06-analysis/README.md",
+      "note": "8보고서/160raw 완결;전체선별FAIL·12h0. B p50/p90/worst2320.3/3095.8/3198초, C2266.5/3459.7/3732.8초."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "양의 안전 정수 레벨과 Lv10 이상→Lv1/별+1,전후 BigInt 힘·두 단계 확인·expected 불일치 무효화를 유지한다. 동료115/100과 저장/서버/응답의 overflow 무손실은 새 HP와 분리해 현재 AC로 확인한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "실제 영웅 선택/영구 컬렉션과 speciesKills>0을 이름·설명·aria·개수·알림·ACK·목표에 공유하고 레거시 미획득은 실루엣/ACK 제거로 처리한다. 기존 seen 해금과 필드/후보/PvP 원화는 보존한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50행 영웅·동료 파티·순위/승패,정확한 요청/응답 상대ID와 선택 강조를 유지한다. Tab/Enter/Space·갱신 포커스·삭제 fallback·만료/오류 미리보기 제거는 현재 AC와 실제 Native에서 확인한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Lv16–20 대조와 L17/XP1.42/count5/index63의 prefix1153/1154/1155 per1000을 비교한다. R06의 꼬리 개선 유지 여부는 미확인이며,보장은 처치 후 적용돼 새 HP의 보스 지연을 막지 못한다;새 강제 시간은 없다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm/rootcolossus/h58/h62/starvoid와 최종h70(10종선택+30000처치)의 기존6조건·무료첫슬롯을 유지한다. prefix는 tail79 기준값/포획 상대힘도 바꾸므로 새12h에서 자격·제시·선택,30명 파티 정체·새획득 소진을 분리한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "영구 할당 구간은 레거시/PvP로 일찍 소진될 수 있고 제거/재시작으로 재무장하지 않으며,정원30은 일반35% 방출만 유지한다. 안전소진·로컬unsafe/중복발급 거부·외부s/r ID 보존 구현은 현재 AC로 다시 확인하고 새 클라이언트 전 고레벨 서버호환은 별도 증거가 필요하다."
+    }
+  ],
+  "alternatives": [
+    {
+      "name": "control-l16–control-l20",
+      "tradeoff": "XP1.4/115/100/tail·보장null/count1 대조;후보와 XP/보장도 달라 HP 단독효과로 해석하지 않는다."
+    },
+    {
+      "name": "candidate-r7-prefix1153",
+      "tradeoff": "공통 등록조건에서1153/1000은 가장 작은 HP 증가이며 중앙값이 여전히 빠를 수 있다."
+    },
+    {
+      "name": "candidate-r7-prefix1154",
+      "tradeoff": "1154/1000 중간 HP를 중간 성공 시각이나 목표통과로 보간하지 않는다."
+    },
+    {
+      "name": "candidate-r7-prefix1155",
+      "tradeoff": "1155/1000은 늦은 꼬리와 h70 지연을 다시 키울 수 있다."
+    },
+    {
+      "name": "등록된5대조+3개prefix 비교 전략",
+      "tradeoff": "현재 AC/21키 binding 후 새120분→통과안12h를 비교한다;두목표 통과안만3150초거리→36000초거리→첫p90→ID 순으로 판단하고 모두실패면 새등록한다."
+    }
+  ],
+  "choice": "등록된5대조+3개prefix 비교 전략",
+  "hypotheses": [
+    {
+      "metric": "첫 환생 중앙값과 꼬리",
+      "target": "탐색10001–10020에서 성공p502700–3600초와5400초내18/20 동시충족;전체/조건부·미도달 분리,채택후 별도1–100 검증은90/100 유지."
+    },
+    {
+      "metric": "최종 콘텐츠와 후기 활동",
+      "target": "같은탐색의 h70 자격전체p5028800–43200초;2/4/8/10/12h와 같은seed8→12h 처치/환생/새획득공백·파티힘 보고,자격으로 실제선택 대체금지."
+    },
+    {
+      "metric": "실제 적용·출시 경계",
+      "target": "21키 core/worker/report/protocol 일치와 같은후보 screen/full 첫기록20개 대응;과거prefix동일성·시간단조성 가정금지. 현재 AC·정확한게이트와 HARNESS의 최종0.7.0 Native/정책별측정/audit/smoke/package/서버 증거는 별도이며 humanChecks=PENDING."
+    }
+  ],
+  "resolves": []
+}

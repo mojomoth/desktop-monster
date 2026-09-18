@@ -1,0 +1,39 @@
+{
+  "at": "2026-09-12T17:38:53.294240+00:00",
+  "action": "adopt Round08 registered10450",
+  "state": "completed",
+  "originals": [
+    {
+      "source": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-17/docs__v0.7__EVALUATION_PROTOCOL.json.original.txt",
+      "sha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694"
+    },
+    {
+      "source": "src/core/progression.ts",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-17/src__core__progression.ts.original.txt",
+      "sha256": "988a045542a14e4ef04f9a186e41cd8a9da92badb9a84fd6ec9109835809221c"
+    },
+    {
+      "source": ".harness/v7/config.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-17/.harness__v7__config.json.original.txt",
+      "sha256": "ab4f9422526ea0bc3391fee7276e5562d56363f9b4762e7d70e2ae6fd7712150"
+    },
+    {
+      "source": ".agentdoc/v07-setup-20260911T122653Z/loop.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-17/.agentdoc__v07-setup-20260911T122653Z__loop.json.original.txt",
+      "sha256": "06a82ba5cd5891bc18607304424ed22100ba62696d25cd87f6aead81787ff130"
+    }
+  ],
+  "mutated": [
+    "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "src/core/progression.ts"
+  ],
+  "unchanged": [
+    ".harness/v7/config.json",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json"
+  ],
+  "after": {
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+    "src/core/progression.ts": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1"
+  }
+}

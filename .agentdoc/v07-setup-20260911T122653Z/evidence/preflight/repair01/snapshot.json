@@ -1,0 +1,34 @@
+{
+  "reason": "Preserve original inputs before repairing incomplete native Enter/Space event sequence and missing timeout diagnostics",
+  "files": [
+    {
+      "source": ".harness/v7/loop/journey.cjs",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/repair01/originals/journey.cjs",
+      "sha256": "77d9e17b0d016ff5906439bdb09152f9c699a3f8ba2a7ad94e4a627d7bb19d1c"
+    },
+    {
+      "source": ".harness/v7/loop/e2e.mjs",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/repair01/originals/e2e.mjs",
+      "sha256": "ecd2bc9674136e9df2d004835f25fbd7cae3c54ac197ac5b86e240ee29b23d67"
+    },
+    {
+      "source": ".harness/v7/loop/e2e.test.ts",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/repair01/originals/e2e.test.ts",
+      "sha256": "35c861f61f5863ad030d8f9ec4719eb3d648008abc3def25a2b55493526dbbc7"
+    },
+    {
+      "source": ".harness/v7/loop/e2e-matrix.test.ts",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/repair01/originals/e2e-matrix.test.ts",
+      "sha256": "d5ce701afe16e858cf6ae1f5dbcbd97250a1b57b0fc450d899f960a31f55a3e6"
+    },
+    {
+      "source": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/repair01/originals/attempt01-journey.json",
+      "sha256": "e3c189bd20c78b0a4e1cc0ec047501248e7dc1b3dc5f3147b95ae0875fe90b4a"
+    }
+  ],
+  "sources": [
+    "https://raw.githubusercontent.com/electron/electron/v39.8.10/shell/common/gin_converters/blink_converter.cc",
+    "https://raw.githubusercontent.com/chromium/chromium/142.0.7444.175/third_party/blink/renderer/core/html/html_element.cc"
+  ]
+}

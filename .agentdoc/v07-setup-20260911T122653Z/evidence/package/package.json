@@ -1,0 +1,1342 @@
+{
+  "schemaVersion": 1,
+  "mode": "package-verification",
+  "status": "passed",
+  "startedAt": "2026-09-13T01:56:07.485Z",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "command": [
+    "node",
+    ".harness/v7/loop/package-check.mjs",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json",
+    "release/mac-arm64/DesMon.app"
+  ],
+  "executable": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+  "asar": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-check-cxQuam/user-data",
+  "temporaryDataRemoved": true,
+  "processes": [
+    {
+      "command": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.smoke.log",
+      "sha256": "6bf54304794dbfec583c1803a48b575e8ebbcae31cb0c67f49a47ab49c312635"
+    },
+    {
+      "command": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+        "--inspect-brk=127.0.0.1:0"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.first.log",
+      "sha256": "e24b4d88e0c29fde87bed91b4d525fba5a6882e7983065cd8a806e5118507c07"
+    },
+    {
+      "command": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+        "--inspect-brk=127.0.0.1:0"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.legacy.log",
+      "sha256": "b6c9d968ebd303fa5e8b2b2fd67bcd9565621f50b730707686eb336b1373feec"
+    },
+    {
+      "command": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+        "--inspect-brk=127.0.0.1:0"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.restart.log",
+      "sha256": "fdd10e2521857aba0376f6aae3c90f788d3b8fa7b21905a9f1b23f07e828b2a5"
+    }
+  ],
+  "checks": [
+    {
+      "id": "packaged-production-smoke",
+      "passed": true,
+      "details": {
+        "command": [
+          "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.smoke.log",
+        "sha256": "6bf54304794dbfec583c1803a48b575e8ebbcae31cb0c67f49a47ab49c312635"
+      }
+    },
+    {
+      "id": "isolated-packaged-main",
+      "passed": true,
+      "details": {
+        "version": "0.7.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-check-cxQuam/user-data",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      }
+    },
+    {
+      "id": "release-version",
+      "passed": true,
+      "details": {
+        "expected": "0.7.0",
+        "actual": "0.7.0"
+      }
+    },
+    {
+      "id": "packaged-files-match-verified-build",
+      "passed": true,
+      "details": {
+        "files": [
+          {
+            "path": "dist/electron/core/battle.js",
+            "sha256": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a"
+          },
+          {
+            "path": "dist/electron/core/bignum.js",
+            "sha256": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d"
+          },
+          {
+            "path": "dist/electron/core/collection.js",
+            "sha256": "becdde1595dbb5012bcca79a09de5d7317a478e3e0db066eda92dc406c2c3bbf"
+          },
+          {
+            "path": "dist/electron/core/discovery.js",
+            "sha256": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e"
+          },
+          {
+            "path": "dist/electron/core/economy.js",
+            "sha256": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411"
+          },
+          {
+            "path": "dist/electron/core/engine.js",
+            "sha256": "f0d5354545acd64ab3162bddd9e05189705076fe42591c283b44257c66e8628e"
+          },
+          {
+            "path": "dist/electron/core/fever.js",
+            "sha256": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48"
+          },
+          {
+            "path": "dist/electron/core/formulas.js",
+            "sha256": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127"
+          },
+          {
+            "path": "dist/electron/core/fsm.js",
+            "sha256": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612"
+          },
+          {
+            "path": "dist/electron/core/hero.js",
+            "sha256": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961"
+          },
+          {
+            "path": "dist/electron/core/index.js",
+            "sha256": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f"
+          },
+          {
+            "path": "dist/electron/core/input.js",
+            "sha256": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177"
+          },
+          {
+            "path": "dist/electron/core/loot.js",
+            "sha256": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79"
+          },
+          {
+            "path": "dist/electron/core/monsters.js",
+            "sha256": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3"
+          },
+          {
+            "path": "dist/electron/core/progress.js",
+            "sha256": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed"
+          },
+          {
+            "path": "dist/electron/core/progression.js",
+            "sha256": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f"
+          },
+          {
+            "path": "dist/electron/core/rng.js",
+            "sha256": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5"
+          },
+          {
+            "path": "dist/electron/core/save.js",
+            "sha256": "7786e9ecbcf5f13875dd2e3133486d69351ee79223eb6671115933754a8465c6"
+          },
+          {
+            "path": "dist/electron/core/types-chart.js",
+            "sha256": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9"
+          },
+          {
+            "path": "dist/electron/core/types.js",
+            "sha256": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+          },
+          {
+            "path": "dist/electron/main/globalInput.js",
+            "sha256": "ab645a042989aaa7a94ec8fa2592798b93f3156cd194e9e2eade009ef0dda2c5"
+          },
+          {
+            "path": "dist/electron/main/identity.js",
+            "sha256": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76"
+          },
+          {
+            "path": "dist/electron/main/index.js",
+            "sha256": "cfa4c4b77261289e0631baf4f3742b1ae166bfc83b8f5f46760b09c1c98213e1"
+          },
+          {
+            "path": "dist/electron/main/ipc.js",
+            "sha256": "a9e4884c0ebf123e111390d80eaf2a35d4e858ff350c1ddba3453ce92fb87e43"
+          },
+          {
+            "path": "dist/electron/main/menuWindow.js",
+            "sha256": "e8c2c1a4b0cc07042fc7b55b3f4000b81518b520ebb8a5369ebb512cac8eb406"
+          },
+          {
+            "path": "dist/electron/main/net.js",
+            "sha256": "22a766db657205d02b069306adc1f8e57b81251099ffbf6ec7aaf6014712bc13"
+          },
+          {
+            "path": "dist/electron/main/persistence.js",
+            "sha256": "ceba4d83c73049d54aa7383fdb9d59e5fda31baa1c0f9aadb81b9fec005a6936"
+          },
+          {
+            "path": "dist/electron/main/settings.js",
+            "sha256": "c5b3c8d03cf4e6083d3c50ead3be2936abbb1cf0e4b947a3e242968f271cc0da"
+          },
+          {
+            "path": "dist/electron/main/thefts.js",
+            "sha256": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1"
+          },
+          {
+            "path": "dist/electron/main/tray.js",
+            "sha256": "644950ea7c5d16972296f39bad842e1d83ba1e90604c2e39c35b1e9e45b46df5"
+          },
+          {
+            "path": "dist/electron/main/trayIcon.js",
+            "sha256": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52"
+          },
+          {
+            "path": "dist/electron/main/window.js",
+            "sha256": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664"
+          },
+          {
+            "path": "dist/electron/preload/index.js",
+            "sha256": "32974027c0ac4cd125cfe37e440bfda9e708d600734822c587f60ac66b01ec00"
+          },
+          {
+            "path": "dist/electron/shared/api.js",
+            "sha256": "03253f2668c7a344fdccfd72f846651ef34b38c949507132b84dc393ce7c1b54"
+          },
+          {
+            "path": "dist/electron/shared/ipc.js",
+            "sha256": "6e11b4d0fa70c525e0be0e45aa832aa068f888bfd0a79f72e8c497fa8244f20b"
+          },
+          {
+            "path": "dist/electron/shared/serverUrl.js",
+            "sha256": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de"
+          },
+          {
+            "path": "dist/web/core/battle.js",
+            "sha256": "27f3f9d7b1687eabaed3efc3b0a80885c33d3bdf2d5ce60beff09c0c6c1acce2"
+          },
+          {
+            "path": "dist/web/core/bignum.js",
+            "sha256": "e24643874acb8bd0148f884c7bb81773af9d0b2793fcdc77d9b4075d5e7d9591"
+          },
+          {
+            "path": "dist/web/core/collection.js",
+            "sha256": "0de17dfba4de0a9c4734bef93796ea9c4dc25ce19939adf94611667ac89d1f7b"
+          },
+          {
+            "path": "dist/web/core/discovery.js",
+            "sha256": "8490780042434225d1f2c67aaaa88fd504b55d79f2d73360f41e9deb887b48aa"
+          },
+          {
+            "path": "dist/web/core/economy.js",
+            "sha256": "917672800b74fb4318bce2b019200ebc791b6d978db2a7488da20376832f0b13"
+          },
+          {
+            "path": "dist/web/core/engine.js",
+            "sha256": "a532a07e6032b3547179f3c99a6084cec44f68c64bd6b5d46738ad10adb1d047"
+          },
+          {
+            "path": "dist/web/core/fever.js",
+            "sha256": "1cd6bd92c1f4f2e4139a9ac881668bcc38a165be2beabf122d23355d0590d3c7"
+          },
+          {
+            "path": "dist/web/core/formulas.js",
+            "sha256": "8626285b36d8f8c9c04d30496ea21e319ed33dfaf42dc28adf4e95edb9e15ccc"
+          },
+          {
+            "path": "dist/web/core/fsm.js",
+            "sha256": "7ec11d978f26bf849c909c97fd12e50398ff0de3535031867e8d7231d23f477b"
+          },
+          {
+            "path": "dist/web/core/hero.js",
+            "sha256": "42d5f381c210836fce9924ee0c95959206baeab93ca148edf8079e04dc2cc477"
+          },
+          {
+            "path": "dist/web/core/index.js",
+            "sha256": "71d081338aa250e61995420e40068b49f3511fdca143d689bdb70a59ce641a84"
+          },
+          {
+            "path": "dist/web/core/input.js",
+            "sha256": "7ecb7492a3c4d9f22ec7d6326a614540d4b6458e095c0bb537039e87c2a7139c"
+          },
+          {
+            "path": "dist/web/core/loot.js",
+            "sha256": "db287e6729d57c151509851ff9ac65c27082d79b3a759404f42f5e5ef7c903ac"
+          },
+          {
+            "path": "dist/web/core/monsters.js",
+            "sha256": "651216db19afe364fce689016c01bdc818ea97ccbde8c9be9be279b80513df9d"
+          },
+          {
+            "path": "dist/web/core/progress.js",
+            "sha256": "d2013b8e36f8f0896b18b582961ca752f55ebb5ef14cd86e693222d4953a87bc"
+          },
+          {
+            "path": "dist/web/core/progression.js",
+            "sha256": "a025f617b0507965253d75f5b302a1533db9cfa1c42f12d8eb031a6950efefc0"
+          },
+          {
+            "path": "dist/web/core/rng.js",
+            "sha256": "7883a0dc8f39c2738fcb501327f8d1033dacbf14af581d0c68b51e77f63e8f20"
+          },
+          {
+            "path": "dist/web/core/save.js",
+            "sha256": "16b7723177acbe22452839647341cc4b73ee3cf8d27c254259d88bc5fc52aaf3"
+          },
+          {
+            "path": "dist/web/core/types-chart.js",
+            "sha256": "994cbf0449da652a181bc5f0e1e45493957c2b1087d762c0664595f93afc40fa"
+          },
+          {
+            "path": "dist/web/core/types.js",
+            "sha256": "d7d8ab94373e2a9d4f67050a2d37c3a74d082dcf009b82f190d09c087ffca3cf"
+          },
+          {
+            "path": "dist/web/menu/codex.js",
+            "sha256": "e36658bf146a60d5b09da2ac01ab7aaae90f6dc9043e451e77c9eb987c8b8a1e"
+          },
+          {
+            "path": "dist/web/menu/economy.js",
+            "sha256": "b8c09c98d15cd508ee6a7479d3b90885095a2ce3b9979ee25724165309d8a707"
+          },
+          {
+            "path": "dist/web/menu/hero.js",
+            "sha256": "4ce958df955cb60ab47ff44621a74ce4ad643b659795708badfb1766deab1aad"
+          },
+          {
+            "path": "dist/web/menu/index.js",
+            "sha256": "e408921a962df63d75a8a1227a4dff587e38412ad4b5bc648d029f704ba0920f"
+          },
+          {
+            "path": "dist/web/menu/profile.js",
+            "sha256": "f143b7ab86f34ca4d832c254acd71ba4520a2c4589636379c3d7f8d4e85927c3"
+          },
+          {
+            "path": "dist/web/menu/view.js",
+            "sha256": "7fc28f6dc87254935b4c382ed1ae4568553a13f2c4db14b8bd97f8fcb2208ad6"
+          },
+          {
+            "path": "dist/web/renderer/anim.js",
+            "sha256": "2003f5881f65e0b8d54927176c5dc56700eefd12b4e4ecfd8f7f1497381e7838"
+          },
+          {
+            "path": "dist/web/renderer/audio.js",
+            "sha256": "ae1716831b61d4b8a2c2b3f9d1796473cac36376664bde86b122708bd22df38b"
+          },
+          {
+            "path": "dist/web/renderer/drag.js",
+            "sha256": "ed4f4bbddb732781080905286961fe6e5d256f4a676ea5b3d89cfe39d294a364"
+          },
+          {
+            "path": "dist/web/renderer/effects.js",
+            "sha256": "e065381101efff50cbbfc808e28d0189def4e0cd2f6972e406850b42a83d6c7c"
+          },
+          {
+            "path": "dist/web/renderer/game.js",
+            "sha256": "3da7bdca4a3d4d1e03c5e2424687b552613f37db9841c2727661644147882b3f"
+          },
+          {
+            "path": "dist/web/renderer/hud.js",
+            "sha256": "bc61b296ed8a78b9e3dfd89533049a3ddba97364186ad9dd60b63037dab86bd6"
+          },
+          {
+            "path": "dist/web/renderer/index.js",
+            "sha256": "acd3e507f2453617dac940af9ba9caa95e736a96dfca53212bda9ee29ac2c014"
+          },
+          {
+            "path": "dist/web/renderer/input.js",
+            "sha256": "92b925d4cdb12fe505e9e91916b9ef5a441cbbb293c5825bfa802680e99669ee"
+          },
+          {
+            "path": "dist/web/renderer/sprites/aura.js",
+            "sha256": "5b7810453e62a4ffe2b2b2388c16a7b3b40e24f4f0ca24ee9be1a3904ee523c6"
+          },
+          {
+            "path": "dist/web/renderer/sprites/boss.js",
+            "sha256": "9b00221a6640c12cd21fe8b49902f74acd41e1e4631a58024aca12243fb8800f"
+          },
+          {
+            "path": "dist/web/renderer/sprites/companion.js",
+            "sha256": "1c643e3b20ebe271c3f1e4f53c3cbd5b5cd17348374ae6badb90adf161c4f180"
+          },
+          {
+            "path": "dist/web/renderer/sprites/font.js",
+            "sha256": "583678e7dc39232618f295ebacb64a782f738d9411afcf77e83cbb9d7de3658d"
+          },
+          {
+            "path": "dist/web/renderer/sprites/hero.js",
+            "sha256": "0087b8be810d3d70ae205fa2d3708921b9003d654a524309fd1ceed4d9274b0a"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroAgileLooks.js",
+            "sha256": "d39beca5fa3ec11061a8b23767ef704fea2abb709cd2dddcbb772992404b3f99"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroArcaneLooks.js",
+            "sha256": "2cb5797eeec89783ddf21e619d866a7d243b0beb0749f559fd0b0ef616fb228e"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroEvolutionStudies.js",
+            "sha256": "e7642dd0ed6ab33c896bb1aeb34524647d93449f941274797387253682d054fd"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroForms.js",
+            "sha256": "a75dec563a95b673878400578f845ebfa00ee6f92a5d4d1622f06be27ecc2e22"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroJobStudies.js",
+            "sha256": "c4bfc7102b72a7302b13d90da903ab3a70283b04e9bda3dd8ae9e53ff28c85a9"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroKnightLooks.js",
+            "sha256": "f1c8a02ce61df860a9c7e64d8d525c9ed97c06b2ae3c0bab72e8235eafded63b"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroLook.js",
+            "sha256": "bd48b4d7f6469ed4a727b0f5011a879357b024b3bd85ff01709d68ff0b32fd63"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroRareLooks.js",
+            "sha256": "6964d2184be0ea39ebeeb32a5c90f732849d8e2f458822cade72f651ad4585f6"
+          },
+          {
+            "path": "dist/web/renderer/sprites/index.js",
+            "sha256": "775be0fc4c895f691afcde691694abb2d4b61a6e3477e5fab6d4ac5ad10170f2"
+          },
+          {
+            "path": "dist/web/renderer/sprites/items.js",
+            "sha256": "dcdadffa35a5e1ba2bf102692deae197f3a21a124c1bd2dcc072ff5d1c29c827"
+          },
+          {
+            "path": "dist/web/renderer/sprites/monsters.js",
+            "sha256": "cb08247512bafb3b8471f63bf509c653a22f8a5dedf210dc1b83467e400acec4"
+          },
+          {
+            "path": "dist/web/renderer/sprites/palette.js",
+            "sha256": "5e68267b39a18e3c7604dae20335ad1985dafcbe53442c739b3c53fd00b13cf7"
+          },
+          {
+            "path": "dist/web/renderer/sprites/party.js",
+            "sha256": "88625cc2643e7e532274395d59f4c8a1788ff0f37d7b46d82064874da2243491"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/dark.js",
+            "sha256": "0c7fbed99f9b349677e9824495ba0b76554ed731d6de9e2c2269e064045e5e3a"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/earth.js",
+            "sha256": "a8842f7688d92a117656d805dd81633060c1cc98146e8e6d7969a85700445344"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/fire.js",
+            "sha256": "35b35f2d295116c3d9fad3c8003c4f867184a854b978884565d39a8f7723ca00"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/rare.js",
+            "sha256": "bbb78c3fb353f43b1339080401932ef8aef326e259b2d9652207f2de298fb0da"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/water.js",
+            "sha256": "ad901958db17274513e6cac932f33a69e955ee1057ac0cfff2abfc39aede00e4"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/wind.js",
+            "sha256": "a706931e63107e61436e8e0e2f31fafe2785980dfeba2a0c8ffaba02659b2449"
+          },
+          {
+            "path": "dist/web/renderer/sprites/sprite.js",
+            "sha256": "404297be69882c310c0fd4515f827127256bc6b37745a0f70e994fd042027d31"
+          },
+          {
+            "path": "dist/web/shared/api.js",
+            "sha256": "92556e4bb0e13f90dc171e40cc9ec364529ca1bf93513c2975d8be247cf39f7d"
+          },
+          {
+            "path": "dist/web/shared/ipc.js",
+            "sha256": "a71fc5d90d33af864c11577df904b9eba386a9835b2433e1f528c7339ac60c67"
+          },
+          {
+            "path": "dist/web/shared/serverUrl.js",
+            "sha256": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe"
+          },
+          {
+            "path": "static/index.html",
+            "sha256": "58b7acf35e9413bcae7d371cf96747bc68d434f237be0e97c9114faaea3a5c60"
+          },
+          {
+            "path": "static/menu.css",
+            "sha256": "b12880caa3a1de02f5305030f06a4c668f3431b3445ecd358131eadb2dcb6ffb"
+          },
+          {
+            "path": "static/menu.html",
+            "sha256": "f49b1d2373923caebc296543f082a90f95b4dfb7d5ae5819a873b4236d9ef983"
+          },
+          {
+            "path": "static/style.css",
+            "sha256": "5b96cfcbf0814817eee765b61c1db5d1d194b8d40b8352984d9c53b4c0c96b0d"
+          }
+        ],
+        "packagedFiles": [
+          {
+            "path": "dist/electron/core/battle.js",
+            "sha256": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a"
+          },
+          {
+            "path": "dist/electron/core/bignum.js",
+            "sha256": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d"
+          },
+          {
+            "path": "dist/electron/core/collection.js",
+            "sha256": "becdde1595dbb5012bcca79a09de5d7317a478e3e0db066eda92dc406c2c3bbf"
+          },
+          {
+            "path": "dist/electron/core/discovery.js",
+            "sha256": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e"
+          },
+          {
+            "path": "dist/electron/core/economy.js",
+            "sha256": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411"
+          },
+          {
+            "path": "dist/electron/core/engine.js",
+            "sha256": "f0d5354545acd64ab3162bddd9e05189705076fe42591c283b44257c66e8628e"
+          },
+          {
+            "path": "dist/electron/core/fever.js",
+            "sha256": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48"
+          },
+          {
+            "path": "dist/electron/core/formulas.js",
+            "sha256": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127"
+          },
+          {
+            "path": "dist/electron/core/fsm.js",
+            "sha256": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612"
+          },
+          {
+            "path": "dist/electron/core/hero.js",
+            "sha256": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961"
+          },
+          {
+            "path": "dist/electron/core/index.js",
+            "sha256": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f"
+          },
+          {
+            "path": "dist/electron/core/input.js",
+            "sha256": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177"
+          },
+          {
+            "path": "dist/electron/core/loot.js",
+            "sha256": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79"
+          },
+          {
+            "path": "dist/electron/core/monsters.js",
+            "sha256": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3"
+          },
+          {
+            "path": "dist/electron/core/progress.js",
+            "sha256": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed"
+          },
+          {
+            "path": "dist/electron/core/progression.js",
+            "sha256": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f"
+          },
+          {
+            "path": "dist/electron/core/rng.js",
+            "sha256": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5"
+          },
+          {
+            "path": "dist/electron/core/save.js",
+            "sha256": "7786e9ecbcf5f13875dd2e3133486d69351ee79223eb6671115933754a8465c6"
+          },
+          {
+            "path": "dist/electron/core/types-chart.js",
+            "sha256": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9"
+          },
+          {
+            "path": "dist/electron/core/types.js",
+            "sha256": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+          },
+          {
+            "path": "dist/electron/main/globalInput.js",
+            "sha256": "ab645a042989aaa7a94ec8fa2592798b93f3156cd194e9e2eade009ef0dda2c5"
+          },
+          {
+            "path": "dist/electron/main/identity.js",
+            "sha256": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76"
+          },
+          {
+            "path": "dist/electron/main/index.js",
+            "sha256": "cfa4c4b77261289e0631baf4f3742b1ae166bfc83b8f5f46760b09c1c98213e1"
+          },
+          {
+            "path": "dist/electron/main/ipc.js",
+            "sha256": "a9e4884c0ebf123e111390d80eaf2a35d4e858ff350c1ddba3453ce92fb87e43"
+          },
+          {
+            "path": "dist/electron/main/menuWindow.js",
+            "sha256": "e8c2c1a4b0cc07042fc7b55b3f4000b81518b520ebb8a5369ebb512cac8eb406"
+          },
+          {
+            "path": "dist/electron/main/net.js",
+            "sha256": "22a766db657205d02b069306adc1f8e57b81251099ffbf6ec7aaf6014712bc13"
+          },
+          {
+            "path": "dist/electron/main/persistence.js",
+            "sha256": "ceba4d83c73049d54aa7383fdb9d59e5fda31baa1c0f9aadb81b9fec005a6936"
+          },
+          {
+            "path": "dist/electron/main/settings.js",
+            "sha256": "c5b3c8d03cf4e6083d3c50ead3be2936abbb1cf0e4b947a3e242968f271cc0da"
+          },
+          {
+            "path": "dist/electron/main/thefts.js",
+            "sha256": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1"
+          },
+          {
+            "path": "dist/electron/main/tray.js",
+            "sha256": "644950ea7c5d16972296f39bad842e1d83ba1e90604c2e39c35b1e9e45b46df5"
+          },
+          {
+            "path": "dist/electron/main/trayIcon.js",
+            "sha256": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52"
+          },
+          {
+            "path": "dist/electron/main/window.js",
+            "sha256": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664"
+          },
+          {
+            "path": "dist/electron/preload/index.js",
+            "sha256": "32974027c0ac4cd125cfe37e440bfda9e708d600734822c587f60ac66b01ec00"
+          },
+          {
+            "path": "dist/electron/shared/api.js",
+            "sha256": "03253f2668c7a344fdccfd72f846651ef34b38c949507132b84dc393ce7c1b54"
+          },
+          {
+            "path": "dist/electron/shared/ipc.js",
+            "sha256": "6e11b4d0fa70c525e0be0e45aa832aa068f888bfd0a79f72e8c497fa8244f20b"
+          },
+          {
+            "path": "dist/electron/shared/serverUrl.js",
+            "sha256": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de"
+          },
+          {
+            "path": "dist/web/core/battle.js",
+            "sha256": "27f3f9d7b1687eabaed3efc3b0a80885c33d3bdf2d5ce60beff09c0c6c1acce2"
+          },
+          {
+            "path": "dist/web/core/bignum.js",
+            "sha256": "e24643874acb8bd0148f884c7bb81773af9d0b2793fcdc77d9b4075d5e7d9591"
+          },
+          {
+            "path": "dist/web/core/collection.js",
+            "sha256": "0de17dfba4de0a9c4734bef93796ea9c4dc25ce19939adf94611667ac89d1f7b"
+          },
+          {
+            "path": "dist/web/core/discovery.js",
+            "sha256": "8490780042434225d1f2c67aaaa88fd504b55d79f2d73360f41e9deb887b48aa"
+          },
+          {
+            "path": "dist/web/core/economy.js",
+            "sha256": "917672800b74fb4318bce2b019200ebc791b6d978db2a7488da20376832f0b13"
+          },
+          {
+            "path": "dist/web/core/engine.js",
+            "sha256": "a532a07e6032b3547179f3c99a6084cec44f68c64bd6b5d46738ad10adb1d047"
+          },
+          {
+            "path": "dist/web/core/fever.js",
+            "sha256": "1cd6bd92c1f4f2e4139a9ac881668bcc38a165be2beabf122d23355d0590d3c7"
+          },
+          {
+            "path": "dist/web/core/formulas.js",
+            "sha256": "8626285b36d8f8c9c04d30496ea21e319ed33dfaf42dc28adf4e95edb9e15ccc"
+          },
+          {
+            "path": "dist/web/core/fsm.js",
+            "sha256": "7ec11d978f26bf849c909c97fd12e50398ff0de3535031867e8d7231d23f477b"
+          },
+          {
+            "path": "dist/web/core/hero.js",
+            "sha256": "42d5f381c210836fce9924ee0c95959206baeab93ca148edf8079e04dc2cc477"
+          },
+          {
+            "path": "dist/web/core/index.js",
+            "sha256": "71d081338aa250e61995420e40068b49f3511fdca143d689bdb70a59ce641a84"
+          },
+          {
+            "path": "dist/web/core/input.js",
+            "sha256": "7ecb7492a3c4d9f22ec7d6326a614540d4b6458e095c0bb537039e87c2a7139c"
+          },
+          {
+            "path": "dist/web/core/loot.js",
+            "sha256": "db287e6729d57c151509851ff9ac65c27082d79b3a759404f42f5e5ef7c903ac"
+          },
+          {
+            "path": "dist/web/core/monsters.js",
+            "sha256": "651216db19afe364fce689016c01bdc818ea97ccbde8c9be9be279b80513df9d"
+          },
+          {
+            "path": "dist/web/core/progress.js",
+            "sha256": "d2013b8e36f8f0896b18b582961ca752f55ebb5ef14cd86e693222d4953a87bc"
+          },
+          {
+            "path": "dist/web/core/progression.js",
+            "sha256": "a025f617b0507965253d75f5b302a1533db9cfa1c42f12d8eb031a6950efefc0"
+          },
+          {
+            "path": "dist/web/core/rng.js",
+            "sha256": "7883a0dc8f39c2738fcb501327f8d1033dacbf14af581d0c68b51e77f63e8f20"
+          },
+          {
+            "path": "dist/web/core/save.js",
+            "sha256": "16b7723177acbe22452839647341cc4b73ee3cf8d27c254259d88bc5fc52aaf3"
+          },
+          {
+            "path": "dist/web/core/types-chart.js",
+            "sha256": "994cbf0449da652a181bc5f0e1e45493957c2b1087d762c0664595f93afc40fa"
+          },
+          {
+            "path": "dist/web/core/types.js",
+            "sha256": "d7d8ab94373e2a9d4f67050a2d37c3a74d082dcf009b82f190d09c087ffca3cf"
+          },
+          {
+            "path": "dist/web/menu/codex.js",
+            "sha256": "e36658bf146a60d5b09da2ac01ab7aaae90f6dc9043e451e77c9eb987c8b8a1e"
+          },
+          {
+            "path": "dist/web/menu/economy.js",
+            "sha256": "b8c09c98d15cd508ee6a7479d3b90885095a2ce3b9979ee25724165309d8a707"
+          },
+          {
+            "path": "dist/web/menu/hero.js",
+            "sha256": "4ce958df955cb60ab47ff44621a74ce4ad643b659795708badfb1766deab1aad"
+          },
+          {
+            "path": "dist/web/menu/index.js",
+            "sha256": "e408921a962df63d75a8a1227a4dff587e38412ad4b5bc648d029f704ba0920f"
+          },
+          {
+            "path": "dist/web/menu/profile.js",
+            "sha256": "f143b7ab86f34ca4d832c254acd71ba4520a2c4589636379c3d7f8d4e85927c3"
+          },
+          {
+            "path": "dist/web/menu/view.js",
+            "sha256": "7fc28f6dc87254935b4c382ed1ae4568553a13f2c4db14b8bd97f8fcb2208ad6"
+          },
+          {
+            "path": "dist/web/renderer/anim.js",
+            "sha256": "2003f5881f65e0b8d54927176c5dc56700eefd12b4e4ecfd8f7f1497381e7838"
+          },
+          {
+            "path": "dist/web/renderer/audio.js",
+            "sha256": "ae1716831b61d4b8a2c2b3f9d1796473cac36376664bde86b122708bd22df38b"
+          },
+          {
+            "path": "dist/web/renderer/drag.js",
+            "sha256": "ed4f4bbddb732781080905286961fe6e5d256f4a676ea5b3d89cfe39d294a364"
+          },
+          {
+            "path": "dist/web/renderer/effects.js",
+            "sha256": "e065381101efff50cbbfc808e28d0189def4e0cd2f6972e406850b42a83d6c7c"
+          },
+          {
+            "path": "dist/web/renderer/game.js",
+            "sha256": "3da7bdca4a3d4d1e03c5e2424687b552613f37db9841c2727661644147882b3f"
+          },
+          {
+            "path": "dist/web/renderer/hud.js",
+            "sha256": "bc61b296ed8a78b9e3dfd89533049a3ddba97364186ad9dd60b63037dab86bd6"
+          },
+          {
+            "path": "dist/web/renderer/index.js",
+            "sha256": "acd3e507f2453617dac940af9ba9caa95e736a96dfca53212bda9ee29ac2c014"
+          },
+          {
+            "path": "dist/web/renderer/input.js",
+            "sha256": "92b925d4cdb12fe505e9e91916b9ef5a441cbbb293c5825bfa802680e99669ee"
+          },
+          {
+            "path": "dist/web/renderer/sprites/aura.js",
+            "sha256": "5b7810453e62a4ffe2b2b2388c16a7b3b40e24f4f0ca24ee9be1a3904ee523c6"
+          },
+          {
+            "path": "dist/web/renderer/sprites/boss.js",
+            "sha256": "9b00221a6640c12cd21fe8b49902f74acd41e1e4631a58024aca12243fb8800f"
+          },
+          {
+            "path": "dist/web/renderer/sprites/companion.js",
+            "sha256": "1c643e3b20ebe271c3f1e4f53c3cbd5b5cd17348374ae6badb90adf161c4f180"
+          },
+          {
+            "path": "dist/web/renderer/sprites/font.js",
+            "sha256": "583678e7dc39232618f295ebacb64a782f738d9411afcf77e83cbb9d7de3658d"
+          },
+          {
+            "path": "dist/web/renderer/sprites/hero.js",
+            "sha256": "0087b8be810d3d70ae205fa2d3708921b9003d654a524309fd1ceed4d9274b0a"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroAgileLooks.js",
+            "sha256": "d39beca5fa3ec11061a8b23767ef704fea2abb709cd2dddcbb772992404b3f99"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroArcaneLooks.js",
+            "sha256": "2cb5797eeec89783ddf21e619d866a7d243b0beb0749f559fd0b0ef616fb228e"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroEvolutionStudies.js",
+            "sha256": "e7642dd0ed6ab33c896bb1aeb34524647d93449f941274797387253682d054fd"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroForms.js",
+            "sha256": "a75dec563a95b673878400578f845ebfa00ee6f92a5d4d1622f06be27ecc2e22"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroJobStudies.js",
+            "sha256": "c4bfc7102b72a7302b13d90da903ab3a70283b04e9bda3dd8ae9e53ff28c85a9"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroKnightLooks.js",
+            "sha256": "f1c8a02ce61df860a9c7e64d8d525c9ed97c06b2ae3c0bab72e8235eafded63b"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroLook.js",
+            "sha256": "bd48b4d7f6469ed4a727b0f5011a879357b024b3bd85ff01709d68ff0b32fd63"
+          },
+          {
+            "path": "dist/web/renderer/sprites/heroRareLooks.js",
+            "sha256": "6964d2184be0ea39ebeeb32a5c90f732849d8e2f458822cade72f651ad4585f6"
+          },
+          {
+            "path": "dist/web/renderer/sprites/index.js",
+            "sha256": "775be0fc4c895f691afcde691694abb2d4b61a6e3477e5fab6d4ac5ad10170f2"
+          },
+          {
+            "path": "dist/web/renderer/sprites/items.js",
+            "sha256": "dcdadffa35a5e1ba2bf102692deae197f3a21a124c1bd2dcc072ff5d1c29c827"
+          },
+          {
+            "path": "dist/web/renderer/sprites/monsters.js",
+            "sha256": "cb08247512bafb3b8471f63bf509c653a22f8a5dedf210dc1b83467e400acec4"
+          },
+          {
+            "path": "dist/web/renderer/sprites/palette.js",
+            "sha256": "5e68267b39a18e3c7604dae20335ad1985dafcbe53442c739b3c53fd00b13cf7"
+          },
+          {
+            "path": "dist/web/renderer/sprites/party.js",
+            "sha256": "88625cc2643e7e532274395d59f4c8a1788ff0f37d7b46d82064874da2243491"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/dark.js",
+            "sha256": "0c7fbed99f9b349677e9824495ba0b76554ed731d6de9e2c2269e064045e5e3a"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/earth.js",
+            "sha256": "a8842f7688d92a117656d805dd81633060c1cc98146e8e6d7969a85700445344"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/fire.js",
+            "sha256": "35b35f2d295116c3d9fad3c8003c4f867184a854b978884565d39a8f7723ca00"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/rare.js",
+            "sha256": "bbb78c3fb353f43b1339080401932ef8aef326e259b2d9652207f2de298fb0da"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/water.js",
+            "sha256": "ad901958db17274513e6cac932f33a69e955ee1057ac0cfff2abfc39aede00e4"
+          },
+          {
+            "path": "dist/web/renderer/sprites/species/wind.js",
+            "sha256": "a706931e63107e61436e8e0e2f31fafe2785980dfeba2a0c8ffaba02659b2449"
+          },
+          {
+            "path": "dist/web/renderer/sprites/sprite.js",
+            "sha256": "404297be69882c310c0fd4515f827127256bc6b37745a0f70e994fd042027d31"
+          },
+          {
+            "path": "dist/web/shared/api.js",
+            "sha256": "92556e4bb0e13f90dc171e40cc9ec364529ca1bf93513c2975d8be247cf39f7d"
+          },
+          {
+            "path": "dist/web/shared/ipc.js",
+            "sha256": "a71fc5d90d33af864c11577df904b9eba386a9835b2433e1f528c7339ac60c67"
+          },
+          {
+            "path": "dist/web/shared/serverUrl.js",
+            "sha256": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe"
+          },
+          {
+            "path": "static/index.html",
+            "sha256": "58b7acf35e9413bcae7d371cf96747bc68d434f237be0e97c9114faaea3a5c60"
+          },
+          {
+            "path": "static/menu.css",
+            "sha256": "b12880caa3a1de02f5305030f06a4c668f3431b3445ecd358131eadb2dcb6ffb"
+          },
+          {
+            "path": "static/menu.html",
+            "sha256": "f49b1d2373923caebc296543f082a90f95b4dfb7d5ae5819a873b4236d9ef983"
+          },
+          {
+            "path": "static/style.css",
+            "sha256": "5b96cfcbf0814817eee765b61c1db5d1d194b8d40b8352984d9c53b4c0c96b0d"
+          }
+        ]
+      }
+    },
+    {
+      "id": "legacy-value-and-history-preservation",
+      "passed": true,
+      "details": {
+        "expected": {
+          "level": 12,
+          "xp": 3,
+          "coins": 4321,
+          "souls": 9,
+          "killCount": 78,
+          "rebirths": 1,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 0,
+              "level": 11,
+              "stars": 0
+            }
+          ],
+          "pvpParty": [
+            "c1"
+          ],
+          "hero": {
+            "equipped": {
+              "formId": "h01",
+              "buffPercent": 15
+            },
+            "collection": [
+              {
+                "formId": "h01",
+                "buffPercent": 15
+              }
+            ],
+            "reincarnations": 1,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "history": [
+            {
+              "number": 1,
+              "formId": "h01",
+              "level": 12,
+              "playTimeMs": 1000,
+              "buffPercent": 15,
+              "stacks": 0
+            }
+          ],
+          "heroCounts": {
+            "h01": 1
+          },
+          "speciesKills": {
+            "slime": 1
+          },
+          "pvpWins": 7,
+          "pvpLosses": 3,
+          "goldSpent": 75,
+          "trainingLevel": 1
+        },
+        "actual": {
+          "level": 12,
+          "xp": 3,
+          "coins": 4321,
+          "souls": 9,
+          "killCount": 78,
+          "rebirths": 1,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 0,
+              "level": 11,
+              "stars": 0
+            }
+          ],
+          "pvpParty": [
+            "c1"
+          ],
+          "hero": {
+            "equipped": {
+              "formId": "h01",
+              "buffPercent": 15
+            },
+            "collection": [
+              {
+                "formId": "h01",
+                "buffPercent": 15
+              }
+            ],
+            "reincarnations": 1,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "history": [
+            {
+              "number": 1,
+              "formId": "h01",
+              "level": 12,
+              "playTimeMs": 1000,
+              "buffPercent": 15,
+              "stacks": 0
+            }
+          ],
+          "heroCounts": {
+            "h01": 1
+          },
+          "speciesKills": {
+            "slime": 1
+          },
+          "pvpWins": 7,
+          "pvpLosses": 3,
+          "goldSpent": 75,
+          "trainingLevel": 1
+        }
+      }
+    },
+    {
+      "id": "legacy-discoveries-baselined",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01"
+        ],
+        "acknowledgedMonsters": [
+          "slime"
+        ],
+        "goal": null
+      }
+    },
+    {
+      "id": "new-ui-state-saved",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01"
+        ],
+        "acknowledgedMonsters": [
+          "slime"
+        ],
+        "goal": {
+          "kind": "hero",
+          "id": "h03"
+        }
+      }
+    },
+    {
+      "id": "packaged-save-restart-preservation",
+      "passed": true,
+      "details": {
+        "saved": {
+          "level": 12,
+          "xp": 3,
+          "coins": 4321,
+          "souls": 9,
+          "killCount": 78,
+          "rebirths": 1,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 0,
+              "level": 11,
+              "stars": 0
+            }
+          ],
+          "pvpParty": [
+            "c1"
+          ],
+          "hero": {
+            "equipped": {
+              "formId": "h01",
+              "buffPercent": 15
+            },
+            "collection": [
+              {
+                "formId": "h01",
+                "buffPercent": 15
+              }
+            ],
+            "reincarnations": 1,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "history": [
+            {
+              "number": 1,
+              "formId": "h01",
+              "level": 12,
+              "playTimeMs": 1000,
+              "buffPercent": 15,
+              "stacks": 0
+            }
+          ],
+          "heroCounts": {
+            "h01": 1
+          },
+          "speciesKills": {
+            "slime": 1
+          },
+          "pvpWins": 7,
+          "pvpLosses": 3,
+          "goldSpent": 75,
+          "trainingLevel": 1,
+          "codex": {
+            "acknowledgedHeroes": [
+              "h01"
+            ],
+            "acknowledgedMonsters": [
+              "slime"
+            ],
+            "goal": {
+              "kind": "hero",
+              "id": "h03"
+            }
+          }
+        },
+        "resumed": {
+          "level": 12,
+          "xp": 3,
+          "coins": 4321,
+          "souls": 9,
+          "killCount": 78,
+          "rebirths": 1,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 0,
+              "level": 11,
+              "stars": 0
+            }
+          ],
+          "pvpParty": [
+            "c1"
+          ],
+          "hero": {
+            "equipped": {
+              "formId": "h01",
+              "buffPercent": 15
+            },
+            "collection": [
+              {
+                "formId": "h01",
+                "buffPercent": 15
+              }
+            ],
+            "reincarnations": 1,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "history": [
+            {
+              "number": 1,
+              "formId": "h01",
+              "level": 12,
+              "playTimeMs": 1000,
+              "buffPercent": 15,
+              "stacks": 0
+            }
+          ],
+          "heroCounts": {
+            "h01": 1
+          },
+          "speciesKills": {
+            "slime": 1
+          },
+          "pvpWins": 7,
+          "pvpLosses": 3,
+          "goldSpent": 75,
+          "trainingLevel": 1,
+          "codex": {
+            "acknowledgedHeroes": [
+              "h01"
+            ],
+            "acknowledgedMonsters": [
+              "slime"
+            ],
+            "goal": {
+              "kind": "hero",
+              "id": "h03"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "packaged-process-exits",
+      "passed": true,
+      "details": [
+        {
+          "command": [
+            "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon"
+          ],
+          "exitCode": 0,
+          "signal": null,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.smoke.log",
+          "sha256": "6bf54304794dbfec583c1803a48b575e8ebbcae31cb0c67f49a47ab49c312635"
+        },
+        {
+          "command": [
+            "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+            "--inspect-brk=127.0.0.1:0"
+          ],
+          "exitCode": 0,
+          "signal": null,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.first.log",
+          "sha256": "e24b4d88e0c29fde87bed91b4d525fba5a6882e7983065cd8a806e5118507c07"
+        },
+        {
+          "command": [
+            "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+            "--inspect-brk=127.0.0.1:0"
+          ],
+          "exitCode": 0,
+          "signal": null,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.legacy.log",
+          "sha256": "b6c9d968ebd303fa5e8b2b2fd67bcd9565621f50b730707686eb336b1373feec"
+        },
+        {
+          "command": [
+            "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+            "--inspect-brk=127.0.0.1:0"
+          ],
+          "exitCode": 0,
+          "signal": null,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.restart.log",
+          "sha256": "fdd10e2521857aba0376f6aae3c90f788d3b8fa7b21905a9f1b23f07e828b2a5"
+        }
+      ]
+    },
+    {
+      "id": "unchanged-verification-inputs",
+      "passed": true,
+      "details": "Source, tools and packaged bytes checked again after runtime validation."
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/package/package.json.menu.png",
+      "sha256": "f44f369220b93f7dfff80c1cfed2efd6d2b82f7305a4a411ae077c6f79462d31"
+    }
+  ],
+  "limitations": [
+    "Synthetic isolated fixture; no personal save or authentication copied.",
+    "SMOKE mode disables real OS hooks, Accessibility and network.",
+    "Production main stays running only by suppressing its success exit; the 20-second failure watchdog remains active.",
+    "No human fun or live PvP validation."
+  ],
+  "packageHashes": {
+    "executable": "cf74833a9b0c242e26c177005d7d61819e5bf5ed199acc794fed2eb0cc4f3149",
+    "asar": "7f8288a78178861d31ff1a657dcd8e225b379557dc62ff01870be4ee6c81924c"
+  },
+  "runtime": {
+    "version": "0.7.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-check-cxQuam/user-data",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    }
+  },
+  "fixtureHash": "6beb0c05c8226f7a09f5bcaadcf7560ac68bb98837f5d7fba11e5f8d4fdd0a08",
+  "finishedAt": "2026-09-13T01:56:15.265Z"
+}

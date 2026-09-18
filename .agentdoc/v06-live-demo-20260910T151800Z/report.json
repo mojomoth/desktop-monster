@@ -1,0 +1,778 @@
+{
+  "startedAt": "2026-09-10T15:20:21.703Z",
+  "status": "failed",
+  "source": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluation": "53fc0326a4ad1a742b775f3bdf887a072de0927e1d811af3431e116663d9e080",
+  "asar": "1659e05ad019048c3d1b003ea1d3d60ce2cd1732ab7c04a35d003c0471c85185",
+  "adapterBaseSha256": "ede13e3e98403bc0581b876434dfe0db92c886ab9da90dbb8ab84af3c2562a92",
+  "checks": [
+    {
+      "id": "same-verified-package",
+      "passed": true,
+      "details": "1659e05ad019048c3d1b003ea1d3d60ce2cd1732ab7c04a35d003c0471c85185"
+    },
+    {
+      "id": "runtime-version",
+      "passed": true,
+      "details": "0.6.0"
+    },
+    {
+      "id": "attack-kill-xp-gold",
+      "passed": true,
+      "details": {
+        "before": {
+          "level": 1,
+          "xp": 0,
+          "kills": 0,
+          "gold": 0,
+          "monsterHp": "7",
+          "companions": 0,
+          "seenMonsters": [
+            "anvilclaw"
+          ],
+          "codex": {
+            "acknowledgedHeroes": [],
+            "acknowledgedMonsters": [],
+            "goal": null
+          }
+        },
+        "after": {
+          "level": 12,
+          "xp": 771,
+          "kills": 33,
+          "gold": 310,
+          "monsterHp": "1006",
+          "companions": 1,
+          "seenMonsters": [
+            "anvilclaw",
+            "fellstump",
+            "gillstub",
+            "matchling",
+            "millox",
+            "kitekin",
+            "wickmoth",
+            "murkin",
+            "moldwarp",
+            "cryptshell",
+            "lumibel",
+            "terrakin",
+            "conchguard",
+            "sicklehood",
+            "steamfin",
+            "coalscythe",
+            "spadeling",
+            "kelpwarden",
+            "nubilan",
+            "drusehog",
+            "snipclaw",
+            "quagmaw",
+            "bramblebear",
+            "lantessa",
+            "golem",
+            "cindercoil",
+            "skitterel"
+          ],
+          "codex": {
+            "acknowledgedHeroes": [],
+            "acknowledgedMonsters": [],
+            "goal": null
+          }
+        },
+        "inputs": 120,
+        "elapsedMs": 12002.874584000001
+      }
+    },
+    {
+      "id": "displayed-discoveries-acknowledged",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [
+          "anvilclaw",
+          "fellstump",
+          "gillstub"
+        ],
+        "goal": null
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/01-start.png",
+      "sha256": "5313c797c0883da1a2080bd77e27d0882bea95fac84e4797dcab0798d9b218c9",
+      "capturedAt": "2026-09-10T15:20:25.324Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/000.png",
+      "sha256": "47f6fab8f0d4ac1cc12ffdaecabe20528a028b0609ab7a81a57a2a8b548f313f",
+      "capturedAt": "2026-09-10T15:20:25.339Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/001.png",
+      "sha256": "2124de0c19dbb4429195ccd57fbdd385107a8479b0cc58f43e6a4bcb28bb9908",
+      "capturedAt": "2026-09-10T15:20:25.540Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/002.png",
+      "sha256": "1ea3d305abc1d38e9ba4976fbcc77e2667925c987f9c5b9b05980063d410f8d6",
+      "capturedAt": "2026-09-10T15:20:25.739Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/003.png",
+      "sha256": "c8ad49480aa68337c16934bc481c5f5d61fa73665888d0cc39ae4e6abece993e",
+      "capturedAt": "2026-09-10T15:20:25.939Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/004.png",
+      "sha256": "fd11432f4d2c4ca869bdfd7109b906f2cea07d7d4930ab8a870b081faeb536c7",
+      "capturedAt": "2026-09-10T15:20:26.139Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/005.png",
+      "sha256": "353a98749c4779c05550d5d5cfda0736150e82233948cab945c718368e13a7c6",
+      "capturedAt": "2026-09-10T15:20:26.339Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/006.png",
+      "sha256": "9e01bea6b337465580b445390c638875a9c76c67f98f7d8f3c622a2e60b911f6",
+      "capturedAt": "2026-09-10T15:20:26.539Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/007.png",
+      "sha256": "f3cdfa75fd3fda55af6b62bb0b2ea8add89db42be30ac385fb3ca938fa00f00f",
+      "capturedAt": "2026-09-10T15:20:26.737Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/008.png",
+      "sha256": "73aeff8c4c24d5a4ae1c65623658779e52c0ca759c80da1e5d4e2cf9f3150b1e",
+      "capturedAt": "2026-09-10T15:20:26.939Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/009.png",
+      "sha256": "13726bb23bb58ba16c9eafb842b59d95863764182dc9ac5945137f55e8478a31",
+      "capturedAt": "2026-09-10T15:20:27.140Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/010.png",
+      "sha256": "10e395c806ae6a72ce581a90f0fac68d2e825a884ba2fa943d210e2b0669ac28",
+      "capturedAt": "2026-09-10T15:20:27.340Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/011.png",
+      "sha256": "27a72c3a27586f4b2aef5d07c779283facf3784c18804d22a0eb5fd15c9ad5ad",
+      "capturedAt": "2026-09-10T15:20:27.540Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/012.png",
+      "sha256": "cef59b9bcb098a0c4c66514f2f32c74ab521a20d7eac29f58374481d855e9197",
+      "capturedAt": "2026-09-10T15:20:27.739Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/013.png",
+      "sha256": "5b9ca56233ed7882c38a41158e08633110e701e6ef0c99753b19fd1fa4565526",
+      "capturedAt": "2026-09-10T15:20:27.940Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/014.png",
+      "sha256": "6c06e9ec78e34691f7bcb4fbcd3531c131e5d03d3c84b43308e0e994289c1229",
+      "capturedAt": "2026-09-10T15:20:28.140Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/015.png",
+      "sha256": "659a27ad0d646b5bdb781a90dde40fcd9dcf774671a24a7a7a5449f867724e74",
+      "capturedAt": "2026-09-10T15:20:28.340Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/016.png",
+      "sha256": "ae202d62bd49ebac308446719ad445fc16704500ba9bd9191c1ea2eb89cf0ede",
+      "capturedAt": "2026-09-10T15:20:28.538Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/017.png",
+      "sha256": "b4be77ecf0bd4a102a0342563e520a2853aceb8cd7ed1807ee12f5bad4338659",
+      "capturedAt": "2026-09-10T15:20:28.741Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/018.png",
+      "sha256": "2c14a91a37ccd0039d1f54fd55a7f9f3d8ccc455e47405d20fdd05c7c94bc691",
+      "capturedAt": "2026-09-10T15:20:28.941Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/019.png",
+      "sha256": "f8f7c153194b3cce492eaecd48181ff9857e8195fb155ce8256d3b396576228b",
+      "capturedAt": "2026-09-10T15:20:29.141Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/020.png",
+      "sha256": "e260ee9e8443d2dc3e990cfa89c26bad674aa6ade44ad5577c8d9d2c2d46e231",
+      "capturedAt": "2026-09-10T15:20:29.341Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/021.png",
+      "sha256": "2e8663c9b580f6e15652b32c0d25a1ab08d750bbfdc375419ee5e3e0951d6654",
+      "capturedAt": "2026-09-10T15:20:29.541Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/022.png",
+      "sha256": "d974a4086be5f7471fb6c8ff955b655364b442a881f50b9a2685f7ea8e04aabd",
+      "capturedAt": "2026-09-10T15:20:29.741Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/023.png",
+      "sha256": "a624c60e90f7e4ce32886957e030daab1454397159d887ea364826b736ee8bcc",
+      "capturedAt": "2026-09-10T15:20:29.941Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/024.png",
+      "sha256": "85c7f1f6b2f36f86754c788af525965b3a0b30b37e106eb9816a6c885b52d66e",
+      "capturedAt": "2026-09-10T15:20:30.141Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/025.png",
+      "sha256": "4ceffa313b5ec2e18ea06b8b85c8a3fc2508ab1af0a2482ea9c1cefb3f62ea56",
+      "capturedAt": "2026-09-10T15:20:30.341Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/026.png",
+      "sha256": "26cffd3adabbbbc3a6e59f0b2768ea82abab63ec850a3a169c1c08682712aaba",
+      "capturedAt": "2026-09-10T15:20:30.542Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/027.png",
+      "sha256": "60264f648633ff15ff734b14d31329e50197c5b74022cacd046b8398f0603c1b",
+      "capturedAt": "2026-09-10T15:20:30.742Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/028.png",
+      "sha256": "838a1da346df42e33043c1d94261eb2cb79a7549f01eff9b26b219df765b5b9b",
+      "capturedAt": "2026-09-10T15:20:30.939Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/029.png",
+      "sha256": "ce103e48a395b9216f8cb7cbe79710a9727300710979d2d802f1aad9090d5982",
+      "capturedAt": "2026-09-10T15:20:31.141Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/030.png",
+      "sha256": "4c2739dfd1a9a96edd546694866b890bc9c9efd781c111a6eddd8418cf25821a",
+      "capturedAt": "2026-09-10T15:20:31.342Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/031.png",
+      "sha256": "0885ffde5c6e6e18bc530423a66bb5a3aa931952c8f18f89ba1108b480d27203",
+      "capturedAt": "2026-09-10T15:20:31.541Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/032.png",
+      "sha256": "581d60297b50689d79ed8a9a7ebbc957137babafd44f17defb0088db0b1585f1",
+      "capturedAt": "2026-09-10T15:20:31.742Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/033.png",
+      "sha256": "4f31e7fd00161bc95e10a58dfdebfb3de277a71f6c8353d965739e4ec100893b",
+      "capturedAt": "2026-09-10T15:20:31.940Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/034.png",
+      "sha256": "81302fb187088fc961344b5b1497cf97554e20cc6d9fc33209363888e5b9b833",
+      "capturedAt": "2026-09-10T15:20:32.140Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/035.png",
+      "sha256": "5e031a41ee70803db5e3def1bb8ac2c93472af9a60f440d0fc21d4c0261b6c2a",
+      "capturedAt": "2026-09-10T15:20:32.342Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/036.png",
+      "sha256": "885e311a3bd69ae7ac2e6c8216c164f377a518f3a0e0a003815031c6101adc56",
+      "capturedAt": "2026-09-10T15:20:32.540Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/037.png",
+      "sha256": "f6f62ac3d80083c471c5ba0409edbaf78f0b5a625d5ed5d2979a1619f84ba369",
+      "capturedAt": "2026-09-10T15:20:32.742Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/038.png",
+      "sha256": "bc54ed1dcada2b72d5f4c98e2439d3aec025ee8f2851ad62d057b00806b82301",
+      "capturedAt": "2026-09-10T15:20:32.942Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/039.png",
+      "sha256": "e58c8db9b00130924143e611d337e04454d25d5d3168aec23b461278daa7b64c",
+      "capturedAt": "2026-09-10T15:20:33.141Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/040.png",
+      "sha256": "19e80ebecb2fc6ee28212c5cf5131c15e69ee9896c9829f1cfa1b8843de127fd",
+      "capturedAt": "2026-09-10T15:20:33.341Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/041.png",
+      "sha256": "dd83ea03b720ea85f79960678a7dc1d553d7c178d9fd5d2f8ec7761a3a86a0d2",
+      "capturedAt": "2026-09-10T15:20:33.547Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/042.png",
+      "sha256": "a8026a258efa2b20f725e5b8b08981fd0721842cf99d961bf6d1ddeaaf651498",
+      "capturedAt": "2026-09-10T15:20:33.743Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/043.png",
+      "sha256": "1fdf888ffe2013abce0f1f619bcc513953589f31b27d434a36e0f74fffff5c2c",
+      "capturedAt": "2026-09-10T15:20:33.958Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/044.png",
+      "sha256": "b4dd57090feafddfb5a8d6ab16d6b07381fe6c0dae589e0b3ec97ec795edf65d",
+      "capturedAt": "2026-09-10T15:20:34.144Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/045.png",
+      "sha256": "25a9ee6b5ac7c3fb220c66d40c7d828125c45d197512be7e96d100a4e3c93c9a",
+      "capturedAt": "2026-09-10T15:20:34.344Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/046.png",
+      "sha256": "ad5f42e2b7a095ecf8018b66854d8963a8bd80d7064d80db1d81a262573fa5f8",
+      "capturedAt": "2026-09-10T15:20:34.546Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/047.png",
+      "sha256": "96aec4cf4000c1693b6460a4cd8cf5568e669dcbbefc590f4901418a1fbe4771",
+      "capturedAt": "2026-09-10T15:20:34.746Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/048.png",
+      "sha256": "d4efdc3fcabf7465d496b3701b2205ba2f4b5deedf6b62661cc0404d704b8f2a",
+      "capturedAt": "2026-09-10T15:20:34.946Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/049.png",
+      "sha256": "a07183d1c07b224574da3f388f02ad5189a1a2fd8842ef9fbf1cc2f093a9a3f7",
+      "capturedAt": "2026-09-10T15:20:35.143Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/050.png",
+      "sha256": "9add3cbdd58dc5ac2e64139aba5e635bd2abca9e4240b7275339607163bdc65f",
+      "capturedAt": "2026-09-10T15:20:35.344Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/051.png",
+      "sha256": "d7ab4d2ef4d28ef3a421d83414e5595f088b00858e8fd9faf5e25842ebc4c357",
+      "capturedAt": "2026-09-10T15:20:35.547Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/052.png",
+      "sha256": "5c75bba63be7d5fb3328031f33cbf4ed0593271676312c862378054b672d6eb0",
+      "capturedAt": "2026-09-10T15:20:35.746Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/053.png",
+      "sha256": "87e202c9fe151d9e2dadabcdafee9d76390074fd9216a7b68a88030cf963e001",
+      "capturedAt": "2026-09-10T15:20:35.946Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/054.png",
+      "sha256": "c8daf0da17f58ebec9135be29d51aa379c7fd02c6da086a0710828b77a94a482",
+      "capturedAt": "2026-09-10T15:20:36.148Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/055.png",
+      "sha256": "bc178e57beef878257c24fb006dd5b2a6307b03691ae65de1b88d335cd3aadee",
+      "capturedAt": "2026-09-10T15:20:36.345Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/056.png",
+      "sha256": "085a61b1403ff59f926847cd1d5222efce6b5beb6e3f5499066be7fdfd96b187",
+      "capturedAt": "2026-09-10T15:20:36.547Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/057.png",
+      "sha256": "abd859004655e2b4192a401dfd3f399a7edeecec00c8230d8e7268c7c0e67376",
+      "capturedAt": "2026-09-10T15:20:36.748Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/058.png",
+      "sha256": "dc0963bf5e2194c11faab693229e56f61bc3c0614c0ca4e37024fe19fc37840a",
+      "capturedAt": "2026-09-10T15:20:36.946Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/frames/059.png",
+      "sha256": "1ad21cc2cc9af6efcd56319785ddd04fe168722f71162a4eb821bf7a0459aa7f",
+      "capturedAt": "2026-09-10T15:20:37.146Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/03-after-play.png",
+      "sha256": "a541bfb600b4e6ffc6c4c05a5600b0376c6c026f6a733bc119264f6c28b91b6e",
+      "capturedAt": "2026-09-10T15:20:37.453Z"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/04-discoveries.png",
+      "sha256": "dd3b4fdc7eee4da58d8347a6227b72f977105e089f962c399912cd63699ec13c",
+      "capturedAt": "2026-09-10T15:20:39.590Z"
+    }
+  ],
+  "processes": [
+    {
+      "command": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+        "--inspect-brk=127.0.0.1:0"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/play.log",
+      "sha256": "28e41e10ccfa995ca3d00ead200166bd9cdd1a74123252f678909ea86bb5d793"
+    }
+  ],
+  "errors": [
+    "Error: Goal save\n    at until (file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/demo.mjs:40:117)\n    at async file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-live-demo-20260910T151800Z/demo.mjs:82:3",
+    "Error: Timeout: packaged process shutdown"
+  ],
+  "limitations": [
+    "Fresh isolated demo save, no personal data or global hooks/network.",
+    "Actual packaged main with existing diagnostic success-exit suppression; original failure watchdog retained.",
+    "Each startup emits the production smoke sequence of 3 synthetic attacks in addition to the counted demo inputs.",
+    "Short demonstration with synthetic input, not a replacement for the completed 150-minute verification or human fun testing."
+  ],
+  "runtime": {
+    "version": "0.6.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-live-demo-nm0FsY/user-data",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    }
+  },
+  "before": {
+    "level": 1,
+    "xp": 0,
+    "kills": 0,
+    "gold": 0,
+    "monsterHp": "7",
+    "companions": 0,
+    "seenMonsters": [
+      "anvilclaw"
+    ],
+    "codex": {
+      "acknowledgedHeroes": [],
+      "acknowledgedMonsters": [],
+      "goal": null
+    }
+  },
+  "inputs": 120,
+  "frames": [
+    {
+      "index": 0,
+      "elapsedMs": 9.098125000000437
+    },
+    {
+      "index": 1,
+      "elapsedMs": 209.59704200000033
+    },
+    {
+      "index": 2,
+      "elapsedMs": 409.0215000000003
+    },
+    {
+      "index": 3,
+      "elapsedMs": 608.8237089999998
+    },
+    {
+      "index": 4,
+      "elapsedMs": 808.9634170000004
+    },
+    {
+      "index": 5,
+      "elapsedMs": 1008.9884590000006
+    },
+    {
+      "index": 6,
+      "elapsedMs": 1208.9267920000007
+    },
+    {
+      "index": 7,
+      "elapsedMs": 1407.2266249999998
+    },
+    {
+      "index": 8,
+      "elapsedMs": 1609.325042
+    },
+    {
+      "index": 9,
+      "elapsedMs": 1809.7867920000003
+    },
+    {
+      "index": 10,
+      "elapsedMs": 2009.93475
+    },
+    {
+      "index": 11,
+      "elapsedMs": 2210.1863340000004
+    },
+    {
+      "index": 12,
+      "elapsedMs": 2408.36375
+    },
+    {
+      "index": 13,
+      "elapsedMs": 2610.1375840000005
+    },
+    {
+      "index": 14,
+      "elapsedMs": 2809.55675
+    },
+    {
+      "index": 15,
+      "elapsedMs": 3010.3015840000003
+    },
+    {
+      "index": 16,
+      "elapsedMs": 3207.992334
+    },
+    {
+      "index": 17,
+      "elapsedMs": 3410.3556670000003
+    },
+    {
+      "index": 18,
+      "elapsedMs": 3610.624625
+    },
+    {
+      "index": 19,
+      "elapsedMs": 3810.525542
+    },
+    {
+      "index": 20,
+      "elapsedMs": 4010.7540000000004
+    },
+    {
+      "index": 21,
+      "elapsedMs": 4210.765667
+    },
+    {
+      "index": 22,
+      "elapsedMs": 4410.936667
+    },
+    {
+      "index": 23,
+      "elapsedMs": 4611.098
+    },
+    {
+      "index": 24,
+      "elapsedMs": 4810.974250000001
+    },
+    {
+      "index": 25,
+      "elapsedMs": 5010.818334000001
+    },
+    {
+      "index": 26,
+      "elapsedMs": 5211.948584000002
+    },
+    {
+      "index": 27,
+      "elapsedMs": 5411.974084000001
+    },
+    {
+      "index": 28,
+      "elapsedMs": 5609.19275
+    },
+    {
+      "index": 29,
+      "elapsedMs": 5810.511084000002
+    },
+    {
+      "index": 30,
+      "elapsedMs": 6011.438792000001
+    },
+    {
+      "index": 31,
+      "elapsedMs": 6210.452542000001
+    },
+    {
+      "index": 32,
+      "elapsedMs": 6411.6782920000005
+    },
+    {
+      "index": 33,
+      "elapsedMs": 6609.34525
+    },
+    {
+      "index": 34,
+      "elapsedMs": 6810.288084
+    },
+    {
+      "index": 35,
+      "elapsedMs": 7011.744334000001
+    },
+    {
+      "index": 36,
+      "elapsedMs": 7209.961959
+    },
+    {
+      "index": 37,
+      "elapsedMs": 7412.097417000001
+    },
+    {
+      "index": 38,
+      "elapsedMs": 7612.191500000001
+    },
+    {
+      "index": 39,
+      "elapsedMs": 7810.96775
+    },
+    {
+      "index": 40,
+      "elapsedMs": 8010.7731250000015
+    },
+    {
+      "index": 41,
+      "elapsedMs": 8216.908709000001
+    },
+    {
+      "index": 42,
+      "elapsedMs": 8412.868042
+    },
+    {
+      "index": 43,
+      "elapsedMs": 8627.462792
+    },
+    {
+      "index": 44,
+      "elapsedMs": 8814.023792
+    },
+    {
+      "index": 45,
+      "elapsedMs": 9013.603792
+    },
+    {
+      "index": 46,
+      "elapsedMs": 9215.421750000001
+    },
+    {
+      "index": 47,
+      "elapsedMs": 9416.084292000001
+    },
+    {
+      "index": 48,
+      "elapsedMs": 9615.610417
+    },
+    {
+      "index": 49,
+      "elapsedMs": 9812.322209
+    },
+    {
+      "index": 50,
+      "elapsedMs": 10013.763792000002
+    },
+    {
+      "index": 51,
+      "elapsedMs": 10216.738167000001
+    },
+    {
+      "index": 52,
+      "elapsedMs": 10416.205334
+    },
+    {
+      "index": 53,
+      "elapsedMs": 10615.916792
+    },
+    {
+      "index": 54,
+      "elapsedMs": 10817.931834
+    },
+    {
+      "index": 55,
+      "elapsedMs": 11014.335542
+    },
+    {
+      "index": 56,
+      "elapsedMs": 11216.575875
+    },
+    {
+      "index": 57,
+      "elapsedMs": 11418.130375
+    },
+    {
+      "index": 58,
+      "elapsedMs": 11616.233292
+    },
+    {
+      "index": 59,
+      "elapsedMs": 11816.10175
+    }
+  ],
+  "playElapsedMs": 12002.874584000001,
+  "after": {
+    "level": 12,
+    "xp": 771,
+    "kills": 33,
+    "gold": 310,
+    "monsterHp": "1006",
+    "companions": 1,
+    "seenMonsters": [
+      "anvilclaw",
+      "fellstump",
+      "gillstub",
+      "matchling",
+      "millox",
+      "kitekin",
+      "wickmoth",
+      "murkin",
+      "moldwarp",
+      "cryptshell",
+      "lumibel",
+      "terrakin",
+      "conchguard",
+      "sicklehood",
+      "steamfin",
+      "coalscythe",
+      "spadeling",
+      "kelpwarden",
+      "nubilan",
+      "drusehog",
+      "snipclaw",
+      "quagmaw",
+      "bramblebear",
+      "lantessa",
+      "golem",
+      "cindercoil",
+      "skitterel"
+    ],
+    "codex": {
+      "acknowledgedHeroes": [],
+      "acknowledgedMonsters": [],
+      "goal": null
+    }
+  },
+  "temporaryDataRemoved": true,
+  "finishedAt": "2026-09-10T15:20:57.963Z"
+}

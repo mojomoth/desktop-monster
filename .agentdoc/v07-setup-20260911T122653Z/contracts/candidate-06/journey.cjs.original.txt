@@ -1,0 +1,142 @@
+// Scripted v0.7 acceptance diagnostics. These fixtures never count as natural play.
+const { resolve } = require('node:path');
+
+function createMockPvp({createApp,MemoryStore,createNetClient}) {
+  let serial=0;const calls=[];
+  const {handle}=createApp({store:new MemoryStore(),now:()=>1700000000000,randomUUID:()=>`e2e-${++serial}`,
+    randomBytesHex:n=>(++serial).toString(16).padStart(n*2,'0'),randomSeed:()=>7});
+  const client=createNetClient({baseUrl:'https://desmon.invalid',fetchFn:async (url,init={})=>{
+    const parsed=new URL(url);const body=init.body?JSON.parse(init.body):null;
+    calls.push({path:parsed.pathname,body});
+    const result=await handle({method:init.method??'GET',path:parsed.pathname,query:Object.fromEntries(parsed.searchParams),
+      auth:init.headers?.authorization?.replace(/^Bearer /,'' )??null,body,ip:'isolated-e2e'});
+    return new Response(JSON.stringify(result.body),{status:result.status});
+  }});
+  return {client,calls};
+}
+
+module.exports = async function journey({core,ROOT,field,menu,ipcMain,readState,flush,loadFixture,evaluate,click,until,pause,check,screenshot}) {
+  const selector = (kind,id) => `[data-discovery-kind="${kind}"][data-discovery-id="${id}"]`;
+  const art = async (kind,id) => evaluate(menu, `(() => {
+    const card=document.querySelector(${JSON.stringify(selector(kind,id))});
+    const canvas=card?.querySelector('canvas'); if(!canvas)return null;
+    const pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
+    const colors=new Set();for(let i=0;i<pixels.length;i+=4)if(pixels[i+3])colors.add(pixels.slice(i,i+4).join(','));
+    return {colors:colors.size,label:canvas.getAttribute('aria-label'),name:card.querySelector('.name').textContent};
+  })()`);
+  const masked = value => value?.colors === 1 && value.label?.includes('실루엣');
+  const revealed = value => value?.colors > 1 && !value.label?.includes('실루엣');
+  const chooseGoal = async (kind,id) => {
+    const card=selector(kind,id);
+    if (!await evaluate(menu, `document.querySelector(${JSON.stringify(card)}).open`)) await click(menu, `${card} summary`);
+    await click(menu, `${card} .codex-goal`);
+    await until(async () => (await readState()).progress?.codex?.goal?.id === id, 'goal selected through menu');
+  };
+
+  // One actually selected hero and defeated species; the other two were only seen.
+  const roll={formId:'h01',buffPercent:15};
+  const progress=core.newProgress();
+  Object.assign(progress,{seenHeroes:['h01','h02'],seenMonsters:['slime','bat'],heroCounts:{h01:1},speciesKills:{slime:1},
+    codex:{acknowledgedHeroes:['h01','h02'],acknowledgedMonsters:['slime','bat'],goal:{kind:'hero',id:'h02'}}});
+  const legacy={...core.DEFAULT_SAVE,coins:321,killCount:1,monsterSpeciesId:'bat',progress,
+    hero:{...core.newHeroProgress(),equipped:roll,collection:[roll],reincarnations:1}};
+  await loadFixture(legacy);await click(menu,'#tab-codex');await click(menu,'.codex-heroes');
+  const selectedArt=await art('hero','h01');const seenArt=await art('hero','h02');
+  await click(menu,'.codex-monsters');
+  const killedArt=await art('monster','slime');const spawnedArt=await art('monster','bat');
+  const migrated=await readState();
+  check('v07-codex-strict-legacy',revealed(selectedArt)&&masked(seenArt)&&revealed(killedArt)&&masked(spawnedArt)&&
+    migrated.coins===321&&migrated.hero.collection[0]?.formId==='h01', {selectedArt,seenArt,killedArt,spawnedArt});
+  check('v07-codex-legacy-ack-normalization',
+    JSON.stringify(migrated.progress.codex.acknowledgedHeroes)===JSON.stringify(['h01'])&&
+    JSON.stringify(migrated.progress.codex.acknowledgedMonsters)===JSON.stringify(['slime']),migrated.progress.codex);
+  const goal=await evaluate(menu,"({name:document.querySelector('.goal-name').textContent,status:document.querySelector('.goal-status').textContent})");
+  check('v07-codex-unacquired-goal',goal.name.includes('미')&&!goal.status.includes('완료'),goal);
+  await screenshot(menu,'v07-legacy-silhouettes');
+
+  // Real offer and choice actions: seeing candidates never counts as acquisition.
+  await loadFixture({...core.DEFAULT_SAVE,level:core.heroRequiredLevel(0),progress:core.newProgress()});
+  await click(menu,'#tab-hero');await click(menu,'#hero .hero-opportunity > button:not(:disabled)');
+  await until(async () => (await readState()).hero?.choices.length===3,'v7 offer');
+  const offered=await readState();const chosenId=offered.hero.choices[0].formId;
+  await click(menu,'#tab-codex');await click(menu,'.codex-heroes');
+  const beforeChoices=await Promise.all(offered.hero.choices.map(choice=>art('hero',choice.formId)));
+  check('v07-codex-offer-stays-silhouette',beforeChoices.every(masked),{choices:offered.hero.choices,art:beforeChoices});
+  await chooseGoal('hero',chosenId);
+  await click(menu,'#tab-hero');await click(menu,'#hero .hero-choice button:not(:disabled)');
+  await until(async () => (await readState()).hero?.reincarnations===1,'v7 accepted hero');
+  await click(menu,'#tab-codex');await click(menu,'.codex-heroes');
+  const afterChoices=await Promise.all(offered.hero.choices.map(choice=>art('hero',choice.formId)));
+  const summary=await evaluate(menu,"({goal:document.querySelector('.goal-status').textContent,unread:document.querySelector('.discovery-count').textContent})");
+  check('v07-codex-selection-reveals-one',revealed(afterChoices[0])&&afterChoices.slice(1).every(masked)&&
+    summary.goal.includes('완료')&&summary.unread.includes('영웅 1'),{art:afterChoices,summary});
+  await click(menu,'.discovery-ack');
+  const acked=await flush();
+  check('v07-codex-acquired-ack-only',JSON.stringify(acked.progress.codex.acknowledgedHeroes)===JSON.stringify([chosenId]),acked.progress.codex);
+  await field.loadURL('about:blank');await field.loadFile(resolve(ROOT,'static/index.html'));await flush();
+  await click(menu,'#tab-codex');await click(menu,'.codex-heroes');
+  check('v07-codex-restart-preservation',revealed(await art('hero',chosenId))&&
+    JSON.stringify((await readState()).progress.codex)===JSON.stringify(acked.progress.codex),(await readState()).progress.codex);
+
+  // Native field input makes the first kill; holding a PvP companion is insufficient.
+  await loadFixture({...core.DEFAULT_SAVE,monsterSpeciesId:'bat',monsterHp:'1',progress:core.newProgress()});
+  await click(menu,'#tab-codex');await click(menu,'.codex-monsters');await chooseGoal('monster','bat');
+  const preKill=await art('monster','bat');
+  await click(field,'#game');await until(async () => (await readState()).progress?.speciesKills?.bat>0,'first native bat kill');
+  const postKill=await art('monster','bat');
+  const killGoal=await evaluate(menu,"document.querySelector('.goal-status').textContent");
+  check('v07-codex-first-kill-reveals',masked(preKill)&&revealed(postKill)&&killGoal.includes('완료'),{preKill,postKill,killGoal});
+  await screenshot(menu,'v07-first-kill-codex');
+
+  const highParty=[{id:'c1',speciesId:'slime',bossIndex:8,level:11,stars:0},
+    {id:'c2',speciesId:'bat',bossIndex:8,level:250,stars:0}];
+  await loadFixture({...core.DEFAULT_SAVE,monsterIndex:999,monsterSpeciesId:'slime',
+    monsterHp:core.monsterForIndex(999,'slime').maxHp.toString(),companions:highParty,nextCompanionId:3,pvpParty:['c1','c2'],progress:core.newProgress()});
+  const highSaved=await flush();
+  await field.loadURL('about:blank');await field.loadFile(resolve(ROOT,'static/index.html'));await flush();
+  const highResumed=await readState();
+  check('v07-level-over-10-save-reload',JSON.stringify(highSaved.companions)===JSON.stringify(highParty)&&
+    JSON.stringify(highResumed.companions)===JSON.stringify(highParty),{expected:highParty,saved:highSaved.companions,resumed:highResumed.companions});
+  await click(menu,'#tab-codex');await click(menu,'.codex-monsters');
+  check('v07-codex-owned-without-kill-masked',masked(await art('monster','bat')),
+    {art:await art('monster','bat'),note:'Synthetic transferred companion; no species kill record.'});
+
+  // Real HTTP client and production server handler, with an injected MemoryStore/fetch.
+  // No listener, remote host, production authentication or real PvP service is involved.
+  const {createApp}=require(resolve(ROOT,'dist/electron/server/app.js'));
+  const {MemoryStore}=require(resolve(ROOT,'dist/electron/server/store.js'));
+  const {createNetClient}=require(resolve(ROOT,'dist/electron/main/net.js'));
+  const {IPC}=require(resolve(ROOT,'dist/electron/shared/ipc.js'));
+  const {client,calls}=createMockPvp({createApp,MemoryStore,createNetClient});
+  const register=async name=>{const result=await client.register(name);if(!result.ok)throw new Error('Mock player registration failed');return result.value;};
+  const me=await register('E2E_Player');const foe=await register('E2E_Rival');const other=await register('E2E_Second');
+  const snapshot=(name,party)=>({name,bestIndex:8,rebirths:0,companions:party,party:party.map(c=>c.id),hero:{formId:'h01',buffPercent:15}});
+  const upload=await client.upload(foe.token,snapshot('E2E_Rival',highParty));
+  const directory=await client.opponents(me.token);
+  // A viewer needs a snapshot before requesting a preview.
+  await client.upload(me.token,snapshot('E2E_Player',highParty.map(c=>({...c,level:1}))));
+  const preview=upload.ok?await client.match(me.token,foe.playerId):null;
+  check('v07-level-over-10-network-roundtrip',upload.ok&&directory.ok&&
+    JSON.stringify(directory.value.opponents.find(row=>row.playerId===foe.playerId)?.party)===JSON.stringify(highParty)&&
+    preview?.ok&&JSON.stringify(preview.value.opponent.party)===JSON.stringify(highParty),{upload,directory,preview});
+  // Preserve the directory UI diagnostic even when the future high-level contract fails.
+  if(!upload.ok)await client.upload(foe.token,snapshot('E2E_Rival',highParty.map(c=>({...c,level:1}))));
+  await client.upload(other.token,snapshot('E2E_Second',[{...highParty[0],id:'d1',level:1}]));
+  for(const channel of [IPC.GET_IDENTITY,IPC.PVP_OPPONENTS,IPC.PVP_MATCH,IPC.THEFTS])ipcMain.removeHandler(channel);
+  ipcMain.handle(IPC.GET_IDENTITY,()=>({name:'E2E_Player',playerId:me.playerId,online:true}));
+  ipcMain.handle(IPC.PVP_OPPONENTS,()=>client.opponents(me.token));
+  ipcMain.handle(IPC.PVP_MATCH,(_event,payload)=>client.match(me.token,payload?.opponentId));
+  ipcMain.handle(IPC.THEFTS,()=>Promise.resolve({ok:true,value:{thefts:[],removed:[]}}));
+  await menu.loadFile(resolve(ROOT,'static/menu.html'));await pause(200);await click(menu,'#tab-battle');
+  await until(async ()=>await evaluate(menu,"document.querySelectorAll('#opponents .opponent-card').length===2"),'two selectable opponents');
+  const rows=await evaluate(menu,"Array.from(document.querySelectorAll('#opponents .opponent-card')).map(row=>({text:row.innerText,party:row.querySelectorAll('.party .mini').length,hero:!!row.querySelector('.hero-art'),button:!!row.querySelector('button:not(:disabled)')}))");
+  check('v07-pvp-party-in-every-row',rows.length===2&&rows.every(row=>row.hero&&row.button&&row.party>0)&&
+    rows.some(row=>row.text.includes('E2E_Rival')&&row.party===2),rows);
+  const rowIndex=rows.findIndex(row=>row.text.includes('E2E_Second'));
+  await click(menu,`#opponents .opponent-card:nth-child(${rowIndex+1}) button`);
+  await until(async ()=>await evaluate(menu,"document.querySelector('#opponent').innerText.includes('E2E_Second')"),'chosen opponent preview');
+  check('v07-pvp-selected-id',calls.filter(call=>call.path==='/v1/pvp/match').at(-1)?.body?.opponentId===other.playerId,
+    {expected:other.playerId,request:calls.filter(call=>call.path==='/v1/pvp/match').at(-1)});
+  await screenshot(menu,'v07-pvp-selected-list');
+};
+module.exports.createMockPvp=createMockPvp;

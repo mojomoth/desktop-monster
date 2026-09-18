@@ -1,0 +1,23 @@
+--- a/src/core/engine.ts
++++ b/src/core/engine.ts
+@@ -241,7 +241,10 @@
+     const firstCapture = PROGRESSION_PARAMETERS.firstCaptureBossIndex;
+     const drew = killed.boss && (captureRoll < CAPTURE_CHANCE || firstCapture !== null &&
+       state.nextCompanionId === 1 && killed.index >= firstCapture);
+-    if (drew && state.companions.length < ROSTER_CAP) {
++    const canAllocate = drew && Number.isSafeInteger(state.nextCompanionId) && state.nextCompanionId >= 1 &&
++      state.nextCompanionId < Number.MAX_SAFE_INTEGER &&
++      !state.companions.some(companion => companion.id === `c${state.nextCompanionId}`);
++    if (drew && state.companions.length < ROSTER_CAP && canAllocate) {
+       const companion: Companion = {
+         id: `c${state.nextCompanionId++}`,
+         speciesId: killed.speciesId,
+@@ -251,7 +254,7 @@
+       };
+       state.companions.push(companion);
+       events.push({ type: 'bossCaptured', companion: { ...companion } });
+-    } else if (drew) {
++    } else if (drew && state.companions.length >= ROSTER_CAP) {
+       // A full roster used to void the draw in silence. Release it instead:
+       // every second release pays one soul, and the event says whether the
+       // roster's weakest keeper was worth less than what just walked away.

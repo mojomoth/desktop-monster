@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "mode": "package-verification",
+  "status": "failed",
+  "startedAt": "2026-09-10T06:51:06.982Z",
+  "sourceDigest": "9338cd2015a9c4a8d47f7438cc7cb9b744a9726d9abffb4ed1cc002019ef8a08",
+  "evaluationDigest": "4cb2721025a82df949b36843ea5700ec1996e04aa540f70bd50346b3321312e8",
+  "command": [
+    "node",
+    ".harness/v5/loop/package-check.mjs",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/package-development-01.json",
+    "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-development-yx83Un/DesMon.app"
+  ],
+  "executable": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-development-yx83Un/DesMon.app/Contents/MacOS/DesMon",
+  "asar": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-development-yx83Un/DesMon.app/Contents/Resources/app.asar",
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-check-9yf875/user-data",
+  "temporaryDataRemoved": true,
+  "processes": [
+    {
+      "command": [
+        "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-development-yx83Un/DesMon.app/Contents/MacOS/DesMon"
+      ],
+      "exitCode": null,
+      "signal": "SIGTRAP",
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/package-development-01.json.smoke.log",
+      "sha256": "6fc84c5178dfca38c7638e7918dbae7b1a808fcf5d28a4035980ed743c41e1cf"
+    }
+  ],
+  "checks": [
+    {
+      "id": "packaged-production-smoke",
+      "passed": false,
+      "details": {
+        "command": [
+          "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-package-development-yx83Un/DesMon.app/Contents/MacOS/DesMon"
+        ],
+        "exitCode": null,
+        "signal": "SIGTRAP",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/package-development-01.json.smoke.log",
+        "sha256": "6fc84c5178dfca38c7638e7918dbae7b1a808fcf5d28a4035980ed743c41e1cf"
+      }
+    }
+  ],
+  "errors": [
+    "Error: Debugger listening on ws://127.0.0.1:51049/b82fce72-6916-4469-a8c4-770439f7d416\nFor help, see: https://nodejs.org/en/docs/inspector\nDebugger attached.\n[0910/155110.337579:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.337765:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.337582:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.337775:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.433924:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[2166:0910/155110.434141:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[0910/155110.440606:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.440793:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.472847:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.473074:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.473007:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.473236:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.475197:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[2166:0910/155110.475781:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[0910/155110.512625:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.512797:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.512649:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.512811:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.514601:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[2166:0910/155110.515039:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[0910/155110.552997:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.553189:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.553178:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.553542:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.554723:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[2166:0910/155110.555032:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[0910/155110.592002:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.592192:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.592014:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.592212:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.593864:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[2166:0910/155110.594085:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[0910/155110.630832:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.631032:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.630940:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.631122:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.632531:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[2166:0910/155110.632993:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[0910/155110.669322:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.669530:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.669424:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.669615:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.671027:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[2166:0910/155110.671521:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[0910/155110.707972:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.708171:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.708081:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.708253:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.709708:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[2166:0910/155110.710098:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[0910/155110.747691:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.747900:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[0910/155110.747718:ERROR:base/i18n/icu_util.cc:175] icudtl.dat not found in bundle\n[0910/155110.747914:ERROR:base/i18n/icu_util.cc:223] Invalid file descriptor to ICU data received.\n[2166:0910/155110.749512:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.\n[2166:0910/155110.749728:ERROR:content/browser/gpu/gpu_process_host.cc:999] GPU process exited unexpectedly: exit_code=5\n[2166:0910/155110.749735:FATAL:content/browser/gpu/gpu_data_manager_impl_private.cc:415] GPU process isn't usable. Goodbye.\n\n    at file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/package-check.mjs:104:95\n    at until (file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/package-check.mjs:15:50)\n    at async inspectBoot (file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/package-check.mjs:104:5)\n    at async packageCheck (file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/package-check.mjs:154:12)\n    at async file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/package-check.mjs:225:20"
+  ],
+  "limitations": [
+    "Synthetic isolated fixture; no personal save or authentication copied.",
+    "SMOKE mode disables real OS hooks, Accessibility and network.",
+    "Production main stays running only by suppressing its success exit; the 20-second failure watchdog remains active.",
+    "No human fun or live PvP validation."
+  ],
+  "packageHashes": {
+    "executable": "cf74833a9b0c242e26c177005d7d61819e5bf5ed199acc794fed2eb0cc4f3149",
+    "asar": "0f080cbbddd636e5684c274a7678391347a2da31d7c0fec1888976ed428b64a7"
+  },
+  "finishedAt": "2026-09-10T06:51:10.797Z"
+}

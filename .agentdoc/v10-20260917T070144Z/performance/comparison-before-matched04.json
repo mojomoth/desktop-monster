@@ -1,0 +1,842 @@
+{
+  "version": 1,
+  "kind": "v10-performance-comparison",
+  "passed": true,
+  "observations": {
+    "baseline-active": {
+      "slot": "baseline-active",
+      "profile": "active",
+      "durationMs": 1800049.584209,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5425.711792,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 1.8409260964290501,
+        "median": 2.3713933674990786,
+        "p95": 2.513946272046076,
+        "max": 2.615154886916545
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 262.609375,
+        "median": 287.4375,
+        "p95": 313.609375,
+        "max": 318.390625
+      },
+      "summary": {
+        "cpuP95": 2.513946272046076,
+        "workingSetMiBP95": 313.609375,
+        "initialMemoryMedian": 287.4375,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 3551,
+        "expected": 3600,
+        "fraction": 0.9863888888888889,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797365.788833,
+            "expectedInputs": 3594.731577666,
+            "actualInputs": 3546
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 42.39854199998081,
+          "expectedInputs": 0.08479708399996161,
+          "actualInputs": 0,
+          "totalAtShutdown": 3551
+        }
+      }
+    },
+    "baseline-idle": {
+      "slot": "baseline-idle",
+      "profile": "idle",
+      "durationMs": 1800034.911459,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5028.132542,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 1.635735164830756,
+        "median": 2.187637333938498,
+        "p95": 2.3775078146373714,
+        "max": 2.462740406353272
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 261.71875,
+        "median": 290.078125,
+        "p95": 336.328125,
+        "max": 342.265625
+      },
+      "summary": {
+        "cpuP95": 2.3775078146373714,
+        "workingSetMiBP95": 336.328125,
+        "initialMemoryMedian": 290.078125,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1796990.3872089998,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 27.972584000090137,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      }
+    },
+    "candidate-active": {
+      "slot": "candidate-active",
+      "profile": "active",
+      "durationMs": 1800037.953,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5022.46975,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 1.6339017081368126,
+        "median": 2.2609790276601927,
+        "p95": 2.379170448768259,
+        "max": 2.442607692083553
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 262.78125,
+        "median": 279.84375,
+        "p95": 355.359375,
+        "max": 360.78125
+      },
+      "summary": {
+        "cpuP95": 2.379170448768259,
+        "workingSetMiBP95": 355.359375,
+        "initialMemoryMedian": 279.84375,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 3550,
+        "expected": 3600,
+        "fraction": 0.9861111111111112,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1796953.6673750002,
+            "expectedInputs": 3593.9073347500002,
+            "actualInputs": 3544
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 33.59604199999012,
+          "expectedInputs": 0.06719208399998024,
+          "actualInputs": 0,
+          "totalAtShutdown": 3550
+        }
+      }
+    },
+    "candidate-idle": {
+      "slot": "candidate-idle",
+      "profile": "idle",
+      "durationMs": 1800046.303166,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5024.887667,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 1.615453663209051,
+        "median": 2.25181132711148,
+        "p95": 2.581700718298981,
+        "max": 2.72566762325578
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 266.875,
+        "median": 305,
+        "p95": 380.6875,
+        "max": 384.375
+      },
+      "summary": {
+        "cpuP95": 2.581700718298981,
+        "workingSetMiBP95": 380.6875,
+        "initialMemoryMedian": 305,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797083.2007920002,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 38.13633199990727,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      }
+    },
+    "mixed": {
+      "slot": "mixed",
+      "profile": "mixed",
+      "durationMs": 10801343.25675,
+      "rawSamples": 2153,
+      "stableSamples": 2094,
+      "maximumSampleGapMs": 6954.28945799917,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 2094,
+        "min": 1.1921614431907983,
+        "median": 2.645982206691858,
+        "p95": 3.2310724392649193,
+        "max": 3.5083439203693647
+      },
+      "workingSetMiB": {
+        "samples": 2094,
+        "min": 149.765625,
+        "median": 282.453125,
+        "p95": 327.140625,
+        "max": 402.59375
+      },
+      "summary": {
+        "cpuP95": 3.2310724392649193,
+        "workingSetMiBP95": 327.140625,
+        "initialMemoryMedian": 323.171875,
+        "finalMemoryMedian": 209.0625
+      },
+      "input": {
+        "actual": 10654,
+        "expected": 10800,
+        "fraction": 0.9864814814814815,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 300000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 295350.85566600005,
+            "expectedInputs": 590.7017113320001,
+            "actualInputs": 582
+          },
+          {
+            "startMs": 300000,
+            "endMs": 600000,
+            "measuredFromMs": 300355.893333,
+            "measuredThroughMs": 595693.827666,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 600000,
+            "endMs": 900000,
+            "measuredFromMs": 600699.8599159999,
+            "measuredThroughMs": 897751.425833,
+            "expectedInputs": 594.1031318340001,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 900000,
+            "endMs": 1200000,
+            "measuredFromMs": 902757.688416,
+            "measuredThroughMs": 1198095.055083,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 1200000,
+            "endMs": 1500000,
+            "measuredFromMs": 1203100.5925,
+            "measuredThroughMs": 1499729.953375,
+            "expectedInputs": 593.2587217500001,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 1500000,
+            "endMs": 1800000,
+            "measuredFromMs": 1504734.148916,
+            "measuredThroughMs": 1795067.6983750002,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 1800000,
+            "endMs": 2100000,
+            "measuredFromMs": 1800073.447416,
+            "measuredThroughMs": 2096708.93,
+            "expectedInputs": 593.2709651679997,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 2100000,
+            "endMs": 2400000,
+            "measuredFromMs": 2101715.783125,
+            "measuredThroughMs": 2397058.231416,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 2400000,
+            "endMs": 2700000,
+            "measuredFromMs": 2402064.8891249998,
+            "measuredThroughMs": 2698663.66975,
+            "expectedInputs": 593.1975612500003,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 2700000,
+            "endMs": 3000000,
+            "measuredFromMs": 2703668.7776659997,
+            "measuredThroughMs": 2999012.704291,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 3000000,
+            "endMs": 3300000,
+            "measuredFromMs": 3004017.771791,
+            "measuredThroughMs": 3295614.2243749998,
+            "expectedInputs": 583.1929051679997,
+            "actualInputs": 575
+          },
+          {
+            "startMs": 3300000,
+            "endMs": 3600000,
+            "measuredFromMs": 3300620.350166,
+            "measuredThroughMs": 3595957.2562499996,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 3600000,
+            "endMs": 3900000,
+            "measuredFromMs": 3600964.445791,
+            "measuredThroughMs": 3897768.7430829997,
+            "expectedInputs": 593.6085945839993,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 3900000,
+            "endMs": 4200000,
+            "measuredFromMs": 3902774.7559579997,
+            "measuredThroughMs": 4198104.235666,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 4200000,
+            "endMs": 4500000,
+            "measuredFromMs": 4203108.270041,
+            "measuredThroughMs": 4499816.57275,
+            "expectedInputs": 593.4166054180004,
+            "actualInputs": 588
+          },
+          {
+            "startMs": 4500000,
+            "endMs": 4800000,
+            "measuredFromMs": 4504821.1667909995,
+            "measuredThroughMs": 4795207.300875,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 4800000,
+            "endMs": 5100000,
+            "measuredFromMs": 4800212.349958,
+            "measuredThroughMs": 5097183.164249999,
+            "expectedInputs": 593.9416285839993,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 5100000,
+            "endMs": 5400000,
+            "measuredFromMs": 5102189.024083,
+            "measuredThroughMs": 5397568.677625,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 5400000,
+            "endMs": 5700000,
+            "measuredFromMs": 5402576.62525,
+            "measuredThroughMs": 5699526.532125,
+            "expectedInputs": 593.8998137500007,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 5700000,
+            "endMs": 6000000,
+            "measuredFromMs": 5704533.2143749995,
+            "measuredThroughMs": 5999909.682541,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 6000000,
+            "endMs": 6300000,
+            "measuredFromMs": 6004915.4466659995,
+            "measuredThroughMs": 6296770.709583,
+            "expectedInputs": 583.7105258340016,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 6300000,
+            "endMs": 6600000,
+            "measuredFromMs": 6301776.764083,
+            "measuredThroughMs": 6597104.279457999,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 6600000,
+            "endMs": 6900000,
+            "measuredFromMs": 6602111.560583,
+            "measuredThroughMs": 6899064.677625,
+            "expectedInputs": 593.9062340839989,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 6900000,
+            "endMs": 7200000,
+            "measuredFromMs": 6904070.638708,
+            "measuredThroughMs": 7199446.799208,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 7200000,
+            "endMs": 7500000,
+            "measuredFromMs": 7204448.776416,
+            "measuredThroughMs": 7496372.253416,
+            "expectedInputs": 583.8469539999999,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 7500000,
+            "endMs": 7800000,
+            "measuredFromMs": 7501375.724291,
+            "measuredThroughMs": 7796779.834333,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 7800000,
+            "endMs": 8100000,
+            "measuredFromMs": 7801784.595207999,
+            "measuredThroughMs": 8098677.390083,
+            "expectedInputs": 593.7855897500012,
+            "actualInputs": 588
+          },
+          {
+            "startMs": 8100000,
+            "endMs": 8400000,
+            "measuredFromMs": 8103683.477208,
+            "measuredThroughMs": 8399047.610375,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 8400000,
+            "endMs": 8700000,
+            "measuredFromMs": 8404050.987,
+            "measuredThroughMs": 8695933.685583,
+            "expectedInputs": 583.7653971659988,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 8700000,
+            "endMs": 9000000,
+            "measuredFromMs": 8700941.05075,
+            "measuredThroughMs": 8996254.339957999,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 9000000,
+            "endMs": 9300000,
+            "measuredFromMs": 9001266.857,
+            "measuredThroughMs": 9299215.039625,
+            "expectedInputs": 595.8963652499989,
+            "actualInputs": 588
+          },
+          {
+            "startMs": 9300000,
+            "endMs": 9600000,
+            "measuredFromMs": 9304220.217333,
+            "measuredThroughMs": 9599650.711666,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 9600000,
+            "endMs": 9900000,
+            "measuredFromMs": 9604658.649083,
+            "measuredThroughMs": 9896711.106583,
+            "expectedInputs": 584.1049149999991,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 9900000,
+            "endMs": 10200000,
+            "measuredFromMs": 9901716.224458,
+            "measuredThroughMs": 10197099.182,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 10200000,
+            "endMs": 10500000,
+            "measuredFromMs": 10202106.882125,
+            "measuredThroughMs": 10498958.531166,
+            "expectedInputs": 593.7032980820015,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 10500000,
+            "endMs": 10800000,
+            "measuredFromMs": 10503964.054166,
+            "measuredThroughMs": 10799302.987791,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 1331.4195420015603,
+          "expectedInputs": 2.662839084003121,
+          "actualInputs": 3,
+          "totalAtShutdown": 10657
+        }
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "profile": "active",
+      "cpu": {
+        "baseline": 2.513946272046076,
+        "candidate": 2.379170448768259,
+        "limit": 3.513946272046076,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 313.609375,
+        "candidate": 355.359375,
+        "limit": 376.33125,
+        "passed": true
+      }
+    },
+    {
+      "profile": "idle",
+      "cpu": {
+        "baseline": 2.3775078146373714,
+        "candidate": 2.581700718298981,
+        "limit": 3.3775078146373714,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 336.328125,
+        "candidate": 380.6875,
+        "limit": 403.59375,
+        "passed": true
+      }
+    }
+  ],
+  "memoryGrowth": {
+    "initialMedianMiB": 323.171875,
+    "finalMedianMiB": 209.0625,
+    "limitMiB": 387.80625,
+    "passed": true
+  },
+  "artifacts": {
+    "baseline-active": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json",
+      "sha256": "b50645e52995e0ea74b069f6eebe29308cff13e2feb21c15a0e9fbbf69575c66",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json.samples.jsonl",
+        "sha256": "523e1e877acf7641052c8b605bcc9c8d01237ff0c02dd61b055dfda1e5c96c5c"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json.start.png",
+          "sha256": "b6c20801903bf994735d4ff8ce38bc24f0123431966cd1e8eee296cb2b40351e"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json.end.png",
+          "sha256": "58cf4180ec4c349977521bb35e610f43c9b027ff579b62e35c102b171074d83c"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+      "appHash": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5"
+    },
+    "baseline-idle": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json",
+      "sha256": "d5cd3e27ad232205c2d0e4c46d8e54ae8dfdc912d01ad549a7cf36901491f321",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json.samples.jsonl",
+        "sha256": "67b75bf8ef9614f236a29f320f1c71151ba20a5aa28c2df150ba924a8695ad3f"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json.start.png",
+          "sha256": "b6c20801903bf994735d4ff8ce38bc24f0123431966cd1e8eee296cb2b40351e"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json.end.png",
+          "sha256": "2b302532bce442299e9b30401b889f1d24565ce5b0a67806525a9e47e069a55e"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+      "appHash": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5"
+    },
+    "candidate-active": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json",
+      "sha256": "4cdcc1a72e5475f186c4925782f817ead94afcc5f3570ef70a45a56eee21db01",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json.samples.jsonl",
+        "sha256": "5c02a0b96c120c4bd6b3814997ab03f1cca3b1c37fef829e39f0cc41b3f4d457"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json.start.png",
+          "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json.end.png",
+          "sha256": "19ee0d7365ef4bdfb52e8a2b309dce261335fb52b54697eb40e555b6c4e7c951"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7"
+    },
+    "candidate-idle": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json",
+      "sha256": "2f0ab78bc9a904af0b81f6fcc631399f9f71d58cc92d1f87ef0f340411c7dfdf",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json.samples.jsonl",
+        "sha256": "1f7768df06cb25da8e95ce897839e7300d3940dc6d46a213b2a771b294b6fd5c"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json.start.png",
+          "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json.end.png",
+          "sha256": "e9fc060d5bee9932fc070c62f147cfd960f52d48a575f93f4dc7bfd6b58b7b13"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7"
+    },
+    "mixed": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json",
+      "sha256": "77b9902c171e50790ef9b1017dd1e7a68100d42f94450b0fdfbfa1b5d8210ca9",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.samples.jsonl",
+        "sha256": "ca2608794aa72a865cc3d3f1bdf3fc4dbd8841f7647bd7bb0ae90ccf6b086b86"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.start.png",
+          "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+        },
+        {
+          "name": "menu-10m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-10m.png",
+          "sha256": "5f42d87093d81eb1a3094e63f4c419014d2706a81521630c87d736f18b9ec38a"
+        },
+        {
+          "name": "menu-20m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-20m.png",
+          "sha256": "5a634079c7c83d02e6d27625d2e9593f07fe6f3fe38584a8fbea559c6def2868"
+        },
+        {
+          "name": "menu-30m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-30m.png",
+          "sha256": "48f4bda05705eae7f04a7d9ac29b3be293d19d494b5621007d3df23821ef4cb6"
+        },
+        {
+          "name": "menu-40m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-40m.png",
+          "sha256": "48f4bda05705eae7f04a7d9ac29b3be293d19d494b5621007d3df23821ef4cb6"
+        },
+        {
+          "name": "menu-50m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-50m.png",
+          "sha256": "35726152b2d0f26ff3c0eafa8254bb482474c3581bc60817053e02376c3a8bae"
+        },
+        {
+          "name": "menu-60m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-60m.png",
+          "sha256": "e016f50a672970881f4ac7b5cd3844f8fe92d139e15959c053fedab866fdffd1"
+        },
+        {
+          "name": "menu-70m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-70m.png",
+          "sha256": "dd347b6ca02b1884bf0227ea75ce7c861026b7ba0462a5f78c1b2dfdd23f71ea"
+        },
+        {
+          "name": "menu-80m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-80m.png",
+          "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+        },
+        {
+          "name": "menu-90m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-90m.png",
+          "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+        },
+        {
+          "name": "menu-100m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-100m.png",
+          "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+        },
+        {
+          "name": "menu-110m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-110m.png",
+          "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+        },
+        {
+          "name": "menu-120m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-120m.png",
+          "sha256": "ce6ce41134122b0426ea77850f622a064083b6c92460dec06965a7934a12dfc1"
+        },
+        {
+          "name": "menu-130m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-130m.png",
+          "sha256": "fce1c19da2d0f23948de72986db1c014457d29f75f5e31be6bcb95c580bd7861"
+        },
+        {
+          "name": "menu-140m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-140m.png",
+          "sha256": "24bb625c76775215ec3251aec23ead11f267e30eaf7698de6d63630f3f915819"
+        },
+        {
+          "name": "menu-150m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-150m.png",
+          "sha256": "5d3cb51d6429b58c02aeee67364e73ea8c0677772129165ed44d75f567c75e2e"
+        },
+        {
+          "name": "menu-160m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-160m.png",
+          "sha256": "ca10c6d4c85ce1fa5542c4b76b932755ac4c62850617af0f22420ec116308916"
+        },
+        {
+          "name": "menu-170m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-170m.png",
+          "sha256": "ca10c6d4c85ce1fa5542c4b76b932755ac4c62850617af0f22420ec116308916"
+        },
+        {
+          "name": "menu-180m",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.menu-180m.png",
+          "sha256": "ce810e02a08162af18bac118dbe505a93f2ba12e83a58bfe0744fde826a9a976"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.end.png",
+          "sha256": "fa045a6c2986ff9345c55541f08659ee8cb4ff5b54b43d4fc3bf9d09f7bb2898"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7"
+    }
+  },
+  "protocol": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/PERFORMANCE_PROTOCOL.json",
+    "sha256": "ce803acadae6f41863645b1a46926f6d06ba7f134cd8dc6438de56279104ae24",
+    "performance": {
+      "sampleMs": 5000,
+      "warmupMinutes": 5,
+      "comparisonMinutes": 30,
+      "comparisonProfiles": [
+        "active",
+        "idle"
+      ],
+      "mixedMinutes": 180,
+      "mixedPhaseMinutes": 5,
+      "mixedMenuMinutes": 10,
+      "gameScale": 1,
+      "muted": false,
+      "screenShake": true,
+      "cpuP95Max": {
+        "baselineMultiplier": 1.1,
+        "baselineAddPercentagePoints": 1
+      },
+      "workingSetP95Max": {
+        "baselineMultiplier": 1.2,
+        "baselineAddMiB": 50
+      },
+      "mixedMemoryMax": {
+        "initialWindowMinutes": [
+          5,
+          35
+        ],
+        "finalWindowMinutes": [
+          150,
+          180
+        ],
+        "multiplier": 1.2,
+        "addMiB": 50
+      },
+      "crashUnresponsiveSaveProgressErrorsAllowed": 0,
+      "meaning": "Regression budget, not a battery-life guarantee. Sum of working sets may count shared memory more than once."
+    }
+  },
+  "observers": {
+    "baseline": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.mjs",
+      "sha256": "5b143ce0441f93882595faac0ee14e02aba4190f47e66791aac3089f1932f969"
+    },
+    "candidate": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-v4.mjs",
+      "sha256": "1157aacbfa7a5f2cce722f29e71db0befbd788a79d07ee2503f4ab80463eab68"
+    }
+  },
+  "verifierHash": "e4376429a02ca917d91bb09393a6d7c27e2bf75a0211b1ff7c59c7edafa6a75d",
+  "coverage": {
+    "minimumFraction": 0.95,
+    "maximumGapSamples": 2,
+    "inputJitter": 2
+  },
+  "limitations": [
+    "Regression budgets only; no battery-life or human-enjoyment claim.",
+    "Synthetic input has measured scheduling loss; counts and each mixed phase are reported.",
+    "Input counts describe emitted IPC events; engine progress is checked separately.",
+    "Working-set sums may count shared pages more than once; they are not unique physical RAM.",
+    "Permission/audio experience, environment power/thermal conditions, and successful menu choices need separate evidence.",
+    "Hashes bind the available artifacts; they do not independently authenticate their original capture."
+  ]
+}

@@ -1,0 +1,27 @@
+name: Windows preparation
+on:
+  workflow_dispatch:
+  pull_request:
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+      - run: npm ci
+      - name: Canonical gates
+        shell: bash
+        run: npm test && npm run lint && npm run typecheck
+      - run: npm run package:win
+      - run: npm run smoke:win
+      - run: node scripts/windows.mjs manifest
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DesMon-Windows-x64
+          path: |
+            release/*.exe
+            release/windows-manifest.json
+            release/win-unpacked/

@@ -8,6 +8,11 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { newEquipment } from '../src/core/equipment.js';
+import { drawEquippedHero, equippedHeroSprite, EQUIPPED_HERO_PADDING } from '../src/renderer/sprites/equippedHero.js';
+const swordEquipment = () => ({ ...newEquipment(), loadout: { weapon: {
+  id: 'e1', templateId: 'w-sword-common-1', enhancement: '0', roll: 100, seed: 1, attempts: '0',
+}, accessories: [] } });
 import {
   activeCompanions,
   attackDelayOf,
@@ -20,7 +25,7 @@ import {
   MONSTER_SPAWNING_MS,
   effectiveness,
   monsterForIndex,
-  monsterMaxHp,
+  fieldMonsterMaxHp,
   mulberry32,
   partyOrder,
   sizeOf,
@@ -51,12 +56,14 @@ import {
   HERO_X,
   HERO_Y,
   HP_BAR,
+  monsterHpBarY,
   IDLE_FRAME_MS,
   MONSTER_X,
   OPPONENT_HERO_X,
   OPPONENT_NAME_Y,
   OPPONENT_ORIGIN_X,
   REPLAY_MS,
+  REPLAY_END_MS,
   SAVE_DEBOUNCE_MS,
   SHAKE_MS,
   shakeOffset,
@@ -71,6 +78,8 @@ import {
   BANNER_MS,
   BANNER_SCALE,
   BANNER_Y,
+  COIN_COUNTER_Y,
+  COUNTER_SCALE,
   createBanner,
   createFloatPool,
   CRIT_FLOAT_SCALE,
@@ -80,17 +89,20 @@ import {
   VICTORY_TEXT,
   drawBanner,
   drawCounters,
+  drawFeverLabel,
   drawFloats,
   drawHpBar,
   drawLevelHud,
   drawMeter,
   FLOAT_FADE_RATIO,
   FLOAT_LIFE_MS,
+  FLOAT_RISE_PX,
   FLOAT_POOL_SIZE,
   floatColor,
   LEVEL_UP_TEXT,
   showBanner,
   spawnFloat,
+  spawnFieldFloat,
   tickBanner,
   tickFloats,
 } from '../src/renderer/hud.js';
@@ -103,9 +115,8 @@ import {
   SPARKLE_COUNT,
   spawnSpriteScatter,
 } from '../src/renderer/anim.js';
-import { COMPANION_ATTACK, EFFECTS } from '../src/renderer/effects.js';
+import { COMPANION_ATTACK, EFFECTS, createImpactQueue, heroImpactOf, spawnImpact } from '../src/renderer/effects.js';
 import {
-  BOSS_HP_BAR_Y,
   COLORS,
   drawFeverAura,
   drawFootBadge,
@@ -127,7 +138,6 @@ import {
   TYPE_BADGE_DY,
   TYPE_COLORS,
 } from '../src/renderer/sprites/index.js';
-import type { Sprite } from '../src/renderer/sprites/index.js';
 import type { SpeciesId } from '../src/core/index.js';
 
 const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'utf8');
@@ -178,7 +188,7 @@ const v2: SaveFileV2 = {
   coins: 0,
   items: {},
   monsterIndex: 0,
-  monsterHp: String(monsterMaxHp(0)),
+  monsterHp: String(fieldMonsterMaxHp(0)),
   companions: [],
   nextCompanionId: 1,
   souls: 0,
@@ -211,6 +221,16 @@ const artOf = (speciesId: string): { w: number; h: number } =>
   monsterSprites[speciesId as SpeciesId].idle;
 
 describe('drawMeter / drawHpBar (boxed bars)', () => {
+  it('keeps the bar three pixels above every species and its boss crown', () => {
+    for (const species of Object.keys(monsterSprites) as SpeciesId[]) {
+      for (const boss of [false, true]) {
+        const monster = { ...monsterForIndex(0, species), boss };
+        const top = GROUND_Y - artOf(species).h * SPRITE_SCALE -
+          (boss ? itemSprites.crown.h * SPRITE_SCALE : 0);
+        expect(top - (monsterHpBarY(monster) + HP_BAR.h)).toBe(3);
+      }
+    }
+  });
   it('paints a steel frame with a void interior', () => {
     const { ctx, calls } = makeCtx();
     drawMeter(ctx, 10, 20, 30, 5, 0.5, COLORS.red);
@@ -261,7 +281,8 @@ describe('drawMeter / drawHpBar (boxed bars)', () => {
     // SPEC F30: HP is unbounded, so the bar fills through core's exact
     // bigint ratio() — no Number() narrowing on the way in.
     const { ctx, calls } = makeCtx();
-    const huge = monsterMaxHp(400); // ~10^26, far past Number.MAX_SAFE_INTEGER
+    const huge = fieldMonsterMaxHp(1000);
+    expect(huge).toBeGreaterThan(BigInt(Number.MAX_SAFE_INTEGER));
     drawHpBar(ctx, 0, 0, 34, 5, huge / 4n, huge);
     expect(calls.filter((c) => c.fillStyle === COLORS.red)[0]?.w).toBe(8);
   });
@@ -310,7 +331,7 @@ describe('drawLevelHud (LV + XP bar above the hero, Assumption 17)', () => {
 describe('drawCounters (top-right kills + coins)', () => {
   it('right-aligns both rows inside the view', () => {
     const { ctx, calls } = makeCtx();
-    drawCounters(ctx, stateFixture({ killCount: 128, coins: 9999 }), VIEW_W);
+    drawCounters(ctx, stateFixture({ killCount: 128, coins: 9999n }), VIEW_W);
     expect(calls.length).toBeGreaterThan(0);
     for (const c of calls) {
       expect(c.x + c.w).toBeLessThanOrEqual(VIEW_W - 1);
@@ -320,7 +341,7 @@ describe('drawCounters (top-right kills + coins)', () => {
 
   it('draws the coin count in yellow next to the coin icon', () => {
     const { ctx, calls } = makeCtx();
-    drawCounters(ctx, stateFixture({ coins: 7 }), VIEW_W);
+    drawCounters(ctx, stateFixture({ coins: 7n }), VIEW_W);
     expect(calls.some((c) => c.fillStyle === COLORS.yellow)).toBe(true);
   });
 
@@ -328,14 +349,14 @@ describe('drawCounters (top-right kills + coins)', () => {
     // The coin-count glyphs live at y >= 9 (second HUD row); the only white
     // pixels up there appear while the pop flash is on.
     const countFlash = (calls: RectCall[]): RectCall[] =>
-      calls.filter((c) => c.w === 1 && c.h === 1 && c.y >= 9 && c.fillStyle === COLORS.white);
+      calls.filter((c) => c.w === COUNTER_SCALE && c.h === COUNTER_SCALE && c.y >= COIN_COUNTER_Y && c.fillStyle === COLORS.white);
 
     const normal = makeCtx();
-    drawCounters(normal.ctx, stateFixture({ coins: 7 }), VIEW_W);
+    drawCounters(normal.ctx, stateFixture({ coins: 7n }), VIEW_W);
     expect(countFlash(normal.calls)).toEqual([]);
 
     const popped = makeCtx();
-    drawCounters(popped.ctx, stateFixture({ coins: 7 }), VIEW_W, true);
+    drawCounters(popped.ctx, stateFixture({ coins: 7n }), VIEW_W, true);
     expect(countFlash(popped.calls).length).toBeGreaterThan(0);
   });
 });
@@ -399,6 +420,83 @@ describe('LEVEL UP! banner (T15)', () => {
 });
 
 describe('floating damage numbers (fixed pool)', () => {
+  it('keeps a boss critical hit visible for the full 600 ms, without a height cutoff', () => {
+    const pool = createFloatPool();
+    spawnFloat(pool, 170, 54, '99', true, 'boss-critical');
+    tickFloats(pool, 550);
+    const { ctx, calls } = makeCtx();
+    drawFloats(ctx, pool);
+    expect(calls.some((c) => c.fillStyle === COLORS.orange)).toBe(true);
+    expect(pool[0]?.ageMs).toBe(550);
+    tickFloats(pool, 50);
+    const expired = makeCtx();
+    drawFloats(expired.ctx, pool);
+    expect(expired.calls).toEqual([]);
+  });
+
+  it('never moves an existing number when another hit arrives', () => {
+    const pool = createFloatPool();
+    spawnFloat(pool, 170, 80, '10', false, 'first');
+    tickFloats(pool, 80);
+    const before = makeCtx();
+    drawFloats(before.ctx, pool);
+    spawnFloat(pool, 170, 80, '20', true, 'second');
+    const after = makeCtx();
+    drawFloats(after.ctx, pool);
+    expect(after.calls.filter((c) => c.fillStyle === 'first'))
+      .toEqual(before.calls.filter((c) => c.fillStyle === 'first'));
+  });
+
+  it('keeps rapid hits at the requested position, including wide labels near the edge', () => {
+    for (const [text, crit, count] of [['10', false, 3], ['5.00A', true, 2]] as const) {
+      const pool = createFloatPool();
+      for (let i = 0; i < count; i++) spawnFloat(pool, 196, 80, text, crit, `hit-${i}`);
+      expect(pool.filter((f) => f.active).map((f) => ({ x: f.x, y: f.y })))
+        .toEqual(Array.from({ length: count }, () => ({ x: 196, y: 80 })));
+      const { ctx, calls } = makeCtx();
+      drawFloats(ctx, pool);
+      const shape = (color: string): string[] => calls.filter((c) => c.fillStyle === color)
+        .map((c) => `${c.x},${c.y},${c.w},${c.h}`);
+      expect(shape('hit-0').length).toBeGreaterThan(0);
+      for (let i = 1; i < count; i++) expect(shape(`hit-${i}`)).toEqual(shape('hit-0'));
+      tickFloats(pool, 550);
+      const late = makeCtx();
+      drawFloats(late.ctx, pool);
+      expect(late.calls.length).toBe(calls.length);
+    }
+  });
+
+  it('preserves the original position and independent age of every hit in a mixed burst', () => {
+    const pool = createFloatPool();
+    for (let i = 0; i < 5; i++) {
+      spawnFloat(pool, 170, 54, i === 2 ? '20' : '10', i === 2);
+      tickFloats(pool, 90);
+    }
+    expect(pool.filter((f) => f.active).map((f) => ({ x: f.x, y: f.y, ageMs: f.ageMs, crit: f.crit })))
+      .toEqual([450, 360, 270, 180, 90].map((ageMs, i) => ({ x: 170, y: 54, ageMs, crit: i === 2 })));
+  });
+
+  it('keeps every pooled hit visible through a sustained mixed critical burst', () => {
+    const pool = createFloatPool();
+    for (let i = 0; i < 16; i++) {
+      spawnFloat(pool, 170, 54, String(i), i % 2 === 0);
+      tickFloats(pool, 1);
+    }
+    for (let frame = 0; frame < 30; frame++) {
+      const combined = makeCtx();
+      drawFloats(combined.ctx, pool);
+      let expectedPixels = 0;
+      for (const hit of pool) {
+        const individual = makeCtx();
+        drawFloats(individual.ctx, [hit]);
+        if (hit.active) expect(individual.calls.length).toBeGreaterThan(0);
+        expectedPixels += individual.calls.length;
+      }
+      expect(combined.calls.length).toBe(expectedPixels);
+      tickFloats(pool, 16);
+    }
+  });
+
   it('floatColor maps super to yellow, weak to steel and normal to white', () => {
     expect(floatColor('super')).toBe(COLORS.yellow);
     expect(floatColor('weak')).toBe(COLORS.steel);
@@ -451,6 +549,10 @@ describe('floating damage numbers (fixed pool)', () => {
     expect(ink.length).toBeGreaterThan(0);
     expect(ink.every((c) => c.fillStyle === COLORS.yellow)).toBe(true);
     expect(fresh.calls.some((c) => c.fillStyle === COLORS.void)).toBe(true);
+  });
+
+  it('uses the expanded rise distance for readable damage motion', () => {
+    expect(FLOAT_RISE_PX).toBe(14);
   });
 
   it('fades to a dim color in the last third of its life', () => {
@@ -576,7 +678,7 @@ describe('createGame (scene orchestration)', () => {
     ).toBe(true);
     // Boxed HP bar frame above the monster.
     expect(
-      calls.some((c) => c.y === HP_BAR.y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
+      calls.some((c) => c.y === monsterHpBarY(game.getState().monster) && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
     ).toBe(true);
     // Everything stays inside the canvas.
     for (const c of calls) {
@@ -603,7 +705,7 @@ describe('createGame (scene orchestration)', () => {
     // region that held no pixels before the attack. x starts right of the
     // hero's LV/XP HUD (which ends at HERO_X + 14 * SPRITE_SCALE - 1).
     const floatRegion = (calls: RectCall[]): RectCall[] =>
-      calls.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 120);
+      calls.filter((c) => c.y >= COIN_COUNTER_Y + 12 && c.y < monsterHpBarY(game.getState().monster) && c.x >= 95 && c.x <= 145);
     expect(floatRegion(before.calls)).toEqual([]);
     expect(floatRegion(after.calls).length).toBeGreaterThan(0);
   });
@@ -683,7 +785,7 @@ describe('combat presentation (core FSMs, T14)', () => {
         c.y < GROUND_Y,
     );
 
-  it('attack() restarts the 180ms hero attack animation on every input', () => {
+  it('attack() completes the current swing and queues only one more on rapid input', () => {
     const game = createGame(createEngine(null, mulberry32(42)));
     expect(game.getHeroAnim().state).toBe('idle');
 
@@ -693,9 +795,12 @@ describe('combat presentation (core FSMs, T14)', () => {
     game.update(HERO_ATTACK_MS / 2);
     expect(game.getHeroAnim()).toEqual({ state: 'attack', t: HERO_ATTACK_MS / 2 });
 
-    game.attack('mouse'); // spam mid-attack restarts the animation
-    expect(game.getHeroAnim()).toEqual({ state: 'attack', t: 0 });
+    game.attack('mouse');
+    game.attack('keyboard');
+    expect(game.getHeroAnim()).toEqual({ state: 'attack', t: HERO_ATTACK_MS / 2, pending: true });
 
+    game.update(HERO_ATTACK_MS / 2);
+    expect(game.getHeroAnim()).toEqual({ state: 'attack', t: 0 });
     game.update(HERO_ATTACK_MS);
     expect(game.getHeroAnim().state).toBe('idle');
   });
@@ -713,7 +818,7 @@ describe('combat presentation (core FSMs, T14)', () => {
   });
 
   it('shows the slash arc overlay only during the attack frame after wind-up', () => {
-    const game = createGame(createEngine(null, mulberry32(42)));
+    const game = createGame(createEngine({ ...DEFAULT_SAVE, equipment: swordEquipment() }, mulberry32(42)));
     game.attack('keyboard');
 
     // The overlay paints in front of the blade — at 1x units the slash effect
@@ -840,10 +945,14 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     // At the moment of death the scatter IS the sprite: same pixels/colors.
     const at0 = makeCtx();
     game.draw(at0.ctx);
-    expect(new Set(monsterBox(at0.calls))).toEqual(spritePixels);
+    const impactPool = createParticlePool();
+    spawnImpact(impactPool, createImpactQueue(), heroImpactOf('h00'), CENTRE.x, CENTRE.y);
+    const impactDraw = makeCtx();
+    drawParticles(impactDraw.ctx, impactPool);
+    expect(new Set(monsterBox(at0.calls))).toEqual(new Set([...spritePixels, ...monsterBox(impactDraw.calls)]));
     // The HP bar hides while the scatter plays.
     expect(
-      at0.calls.some((c) => c.y === HP_BAR.y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
+      at0.calls.some((c) => c.y === monsterHpBarY(game.getState().monster) && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
     ).toBe(false);
 
     // Under gravity the pixels leave their sprite positions.
@@ -857,7 +966,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     const spawn = makeCtx();
     game.draw(spawn.ctx);
     expect(
-      spawn.calls.some((c) => c.y === HP_BAR.y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
+      spawn.calls.some((c) => c.y === monsterHpBarY(game.getState().monster) && c.w === HP_BAR.w && c.fillStyle === COLORS.steel),
     ).toBe(true);
   });
 
@@ -890,7 +999,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     // Arrival pops the counter: the coin count flashes white this frame.
     expect(
       done.calls.some(
-        (c) => c.w === 1 && c.y >= 9 && c.y < 14 && c.x > 130 && c.fillStyle === COLORS.white,
+        (c) => c.w === COUNTER_SCALE && c.y >= COIN_COUNTER_Y && c.y < COIN_COUNTER_Y + 10 && c.x > 130 && c.fillStyle === COLORS.white,
       ),
     ).toBe(true);
   });
@@ -1000,6 +1109,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
   it('damage floats use the letter-suffix format', () => {
     // Level 5000 deals 5000 damage a hit: the float reads '5.00A', not '5000'.
     const game = createGame(createEngine({ ...v2, level: 5000 }, mulberry32(42)));
+    const hitBarY = monsterHpBarY(game.getState().monster);
     const hit = game.attack('keyboard')[0];
     if (hit?.type !== 'attack') {
       throw new Error('expected an attack event');
@@ -1009,10 +1119,10 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
     const floatRegion = (cs: RectCall[]): RectCall[] =>
-      cs.filter((c) => c.y >= 40 && c.y < HP_BAR.y && c.x >= 120);
+      cs.filter((c) => c.w === FLOAT_SCALE && c.h === FLOAT_SCALE && c.y >= COIN_COUNTER_Y + 12 && c.y < hitBarY && c.x >= 95 && c.x <= 145);
     const rendered = (text: string): string[] => {
       const pool = createFloatPool();
-      spawnFloat(pool, MONSTER_X + (artOf('slime').w * MONSTER_SCALE) / 2, HP_BAR.y - 6, text, hit.crit);
+      spawnFieldFloat(pool, 58, text, hit.crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return keys(ref.calls);
@@ -1027,7 +1137,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     // flashes white (excluded by colour), leaving the clean gray/slate burst.
     const game = createGame(
       createEngine(
-        { ...v2, monsterIndex: 3, monsterHp: String(monsterMaxHp(3)), bestIndex: 3 },
+        { ...v2, monsterIndex: 3, monsterHp: String(fieldMonsterMaxHp(3)), bestIndex: 3 },
         mulberry32(42),
       ),
     );
@@ -1059,7 +1169,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     // boss's own top rows fall inside it.
     const game = createGame(
       createEngine(
-        { ...v2, monsterIndex: 7, monsterHp: String(monsterMaxHp(7) * 5n), bestIndex: 7 },
+        { ...v2, monsterIndex: 7, monsterHp: String(fieldMonsterMaxHp(7) * 5n), bestIndex: 7 },
         mulberry32(5),
       ),
     );
@@ -1107,8 +1217,8 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     // The hp bar is raised out of the taller sprite's way.
     const barFrame = (y: number): boolean =>
       calls.some((c) => c.y === y && c.w === HP_BAR.w && c.fillStyle === COLORS.steel);
-    expect(barFrame(BOSS_HP_BAR_Y)).toBe(true);
-    expect(barFrame(HP_BAR.y)).toBe(false);
+    expect(barFrame(monsterHpBarY(game.getState().monster))).toBe(true);
+    expect(barFrame(monsterHpBarY({ ...game.getState().monster, boss: false }))).toBe(false);
   });
 
   it('a boss spawn fires the shockwave effect', () => {
@@ -1411,7 +1521,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
           {
             ...v2,
             monsterIndex: index,
-            monsterHp: String(monsterMaxHp(index)),
+            monsterHp: String(fieldMonsterMaxHp(index)),
             bestIndex: index,
           },
           mulberry32(1),
@@ -1497,7 +1607,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
           {
             ...v2,
             monsterIndex: 20,
-            monsterHp: String(monsterMaxHp(20)),
+            monsterHp: String(fieldMonsterMaxHp(20)),
             bestIndex: 20,
             companions: [companion('c1', speciesId)],
             nextCompanionId: 2,
@@ -1521,10 +1631,9 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       game.draw(ctx);
 
       const pool = createFloatPool();
-      spawnFloat(
+      spawnFieldFloat(
         pool,
-        MONSTER_X + (artOf(monster.speciesId).w * SPRITE_SCALE) / 2,
-        HP_BAR.y - 6,
+        58,
         format(volley.damage),
         false,
         floatColor(expected),
@@ -1550,7 +1659,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
         {
           ...v2,
           monsterIndex: 100,
-          monsterHp: String(monsterMaxHp(100)),
+          monsterHp: String(fieldMonsterMaxHp(100)),
           bestIndex: 100,
         },
         mulberry32(5),
@@ -1568,17 +1677,25 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     game.draw(lit.ctx);
     // The aura is the hero sprite offset 1px in one hue-shifted red, painted
     // UNDER the hero — at 1x units its own draw calls are the reference (F64).
-    const auraRef = (sprite: Sprite, frame: number, timeMs: number): RectCall[] => {
+    const auraRef = (attacking: boolean, timeMs: number): RectCall[] => {
       const ref = makeCtx();
-      drawFeverAura(ref.ctx, sprite, frame, HERO_X, HERO_Y, SPRITE_SCALE, timeMs);
+      drawFeverAura(ref.ctx, equippedHeroSprite('h00', null, { attacking }), 0,
+        HERO_X - EQUIPPED_HERO_PADDING.x * SPRITE_SCALE, HERO_Y - EQUIPPED_HERO_PADDING.y * SPRITE_SCALE, SPRITE_SCALE, timeMs);
       return ref.calls;
     };
     // 20 inputs with no tick: the hero is still on attack frame 0 at t=0.
-    const litAura = auraRef(heroAttack, 0, 0);
+    const litAura = auraRef(true, 0);
     expect(litAura.length).toBeGreaterThan(0);
     expect(new Set(litAura.map((c) => c.fillStyle))).toEqual(new Set([shiftHue(COLORS.red, 0)]));
     const litPainted = new Set(lit.calls.map(rectKey));
     expect(litAura.every((c) => litPainted.has(rectKey(c)))).toBe(true);
+
+    const feverLabel = makeCtx();
+    drawFeverLabel(feverLabel.ctx, HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2), HERO_Y);
+    expect(feverLabel.calls.some((c) => c.fillStyle === COLORS.yellow)).toBe(true);
+    expect(feverLabel.calls.some((c) => c.fillStyle === COLORS.void)).toBe(true);
+    expect(feverLabel.calls.every((c) => c.y < HERO_Y)).toBe(true);
+    expect(feverLabel.calls.every((c) => litPainted.has(rectKey(c)))).toBe(true);
 
     // FEVER!, not LEVEL UP!, flashes above the scene.
     const bannerBox = (cs: RectCall[]): RectCall[] =>
@@ -1604,7 +1721,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const later = makeCtx();
     game.draw(later.ctx);
     expect(game.getHeroAnim().state).toBe('idle'); // the attack ran out
-    const laterAura = auraRef(heroIdle, 0, 4 * FEVER_SPARKLE_MS);
+    const laterAura = auraRef(false, 4 * FEVER_SPARKLE_MS);
     const laterPainted = new Set(later.calls.map(rectKey));
     expect(laterAura.every((c) => laterPainted.has(rectKey(c)))).toBe(true);
     expect(laterAura[0]?.fillStyle).not.toBe(litAura[0]?.fillStyle);
@@ -1618,8 +1735,9 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
           c.y === HERO_Y + (heroIdle.h * SPRITE_SCALE) / 2,
       );
     const heroOnly = makeCtx();
-    drawFeverAura(heroOnly.ctx, heroIdle, 0, HERO_X, HERO_Y, SPRITE_SCALE, 4 * FEVER_SPARKLE_MS);
-    drawSprite(heroOnly.ctx, heroIdle, 0, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
+    drawFeverAura(heroOnly.ctx, equippedHeroSprite('h00', null), 0,
+      HERO_X - EQUIPPED_HERO_PADDING.x * SPRITE_SCALE, HERO_Y - EQUIPPED_HERO_PADDING.y * SPRITE_SCALE, SPRITE_SCALE, 4 * FEVER_SPARKLE_MS);
+    drawEquippedHero(heroOnly.ctx, 'h00', null, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
     expect(atCentre(later.calls).length - atCentre(heroOnly.calls).length).toBe(
       EFFECTS.feverAura.count,
     );
@@ -1782,14 +1900,16 @@ describe('collection actions in the game window (T47, SPEC F53)', () => {
   it('a rebirth flushes presentation and restarts at monster 0', () => {
     const game = createGame(
       createEngine(
-        { ...v2, monsterIndex: 40, monsterHp: String(monsterMaxHp(40)), bestIndex: 40 },
+        { ...v2, monsterIndex: 40, monsterHp: String(fieldMonsterMaxHp(40)), bestIndex: 40 },
         mulberry32(9),
       ),
     );
     game.attack('keyboard'); // damage float + slash particles in flight
     game.update(30);
 
-    expect(game.apply({ type: 'rebirth' })).toEqual([{ type: 'rebirth', souls: 5 }]);
+    expect(game.apply({ type: 'rebirth' })).toEqual([
+      { type: 'rebirth', souls: 5 }, { type: 'equipmentChanged', revision: 2 },
+    ]);
     expect(game.getState().monster.index).toBe(0);
     expect(game.getState().rebirths).toBe(1);
     // Monster 0 rises out of the ground, exactly like a kill-born spawn.
@@ -1937,7 +2057,12 @@ describe('game toSave/reset (T16 persistence wiring)', () => {
     game.reset(mulberry32(1));
     expect(game.toSave()).toEqual({
       ...DEFAULT_SAVE,
+      earlyCaptureUsed: 0,
+      pvpGoldNet: '0',
+      pvpGoldDebt: '0',
       monsterSpeciesId: createEngine(null, mulberry32(1)).getState().monster.speciesId,
+      progress: createEngine(null, mulberry32(1)).toSave().progress,
+      equipment: createEngine(null, mulberry32(1)).toSave().equipment,
     });
     expect(game.getState().level).toBe(1);
     expect(game.getHeroAnim().state).toBe('idle');
@@ -1984,27 +2109,34 @@ describe('renderer boot source contract (src/renderer/index.ts)', () => {
 
   it('persists via the scheduler on both input paths and on blur (T16)', () => {
     // Every engine step routes its events into the save policy…
-    expect(rendererIndex).toContain('saves.onEvents(game.attack(event.source))');
-    expect(rendererIndex).toContain('saves.onEvents(game.attack(source))');
+    expect(rendererIndex).toContain('inputs.push(event.source)');
+    expect(rendererIndex).toContain('inputs.push(source)');
+    expect(rendererIndex).toContain('events.push(...game.attack(source))');
+    expect(rendererIndex).toContain('saves.onEvents(events)');
+    expect(rendererIndex.indexOf('game.endEquipmentBatch()')).toBeLessThan(rendererIndex.indexOf('saves.onEvents(events)'));
     // …the save itself ships the engine snapshot over the bridge…
-    expect(rendererIndex).toContain('window.desmon.saveState(game.toSave())');
+    expect(rendererIndex).toContain('window.desmon.saveState(game.toSave(), generation)');
     // …and losing focus flushes unconditionally.
     expect(rendererIndex).toContain("addEventListener('blur'");
     expect(rendererIndex).toContain('saves.flush()');
   });
 
-  it('onReset swaps in a fresh engine, then saves immediately (T16)', () => {
-    const reset = rendererIndex.indexOf('game.reset()');
+  it('onReset requests main confirmation; committed replacement installs a fresh engine', () => {
+    const reset = rendererIndex.indexOf('window.desmon.resetProgress()');
     expect(reset).toBeGreaterThan(rendererIndex.indexOf('onReset'));
-    expect(reset).toBeGreaterThan(-1);
-    const flushAfterReset = rendererIndex.indexOf('saves.flush()', reset);
-    expect(flushAfterReset).toBeGreaterThan(reset);
+    expect(rendererIndex).not.toContain('game.reset()');
+    expect(rendererIndex).toContain('window.desmon.onPrepareState');
+    expect(rendererIndex).toContain('window.desmon.captureState(request.requestId, generation, game.toSave())');
+    expect(rendererIndex).toContain('if (release.replace) game = createGame(createEngine(parseSave(release.save))');
+    expect(rendererIndex).toContain('if (release.generation <= generation) return');
   });
 
   it('applies menu actions through the engine and flushes the save (F53)', () => {
     const action = rendererIndex.indexOf('window.desmon.onAction(');
     expect(action).toBeGreaterThan(-1);
-    expect(rendererIndex).toContain('saves.onEvents(game.apply(a))');
+    expect(rendererIndex).toContain('actions.push(a)');
+    expect(rendererIndex).toContain('events.push(...game.apply(action))');
+    expect(rendererIndex).toContain('if (mutations.length) saves.flush()');
     expect(rendererIndex.indexOf('saves.flush()', action)).toBeGreaterThan(action);
   });
 
@@ -2088,14 +2220,14 @@ describe('battle scene replay (T66, SPEC F66)', () => {
   });
 
   /** The steel frame of the field monster's HP bar — the field's signature. */
-  // The bar is centred on the CURRENT field monster: companion volleys keep
-  // killing under a scene, and species widths differ (13 slime … 20 dragon).
+  // The bar is centred on the paused field monster, whose species widths
+  // differ (13 slime … 20 dragon).
   const hpFrameKey = (game: ReturnType<typeof createGame>): string =>
     rectKey({
       x: Math.round(
         MONSTER_X + (artOf(game.getState().monster.speciesId).w * SPRITE_SCALE) / 2 - HP_BAR.w / 2,
       ),
-      y: HP_BAR.y,
+      y: monsterHpBarY(game.getState().monster),
       w: HP_BAR.w,
       h: HP_BAR.h,
       fillStyle: COLORS.steel,
@@ -2108,7 +2240,7 @@ describe('battle scene replay (T66, SPEC F66)', () => {
   };
 
   it('hides the hero slash overlay while a replay owns the field', () => {
-    const game = createGame(createEngine({ ...v2 }, mulberry32(11)));
+    const game = createGame(createEngine({ ...DEFAULT_SAVE, equipment: swordEquipment() }, mulberry32(11)));
     const arc = makeCtx();
     drawSprite(arc.ctx, heroSlash, 0, HERO_X + heroAttack.w * SPRITE_SCALE, HERO_Y + SLASH_OVERLAY_DY, {
       scale: SPRITE_SCALE,
@@ -2409,8 +2541,9 @@ describe('battle scene replay (T66, SPEC F66)', () => {
   it('replay pacing clamps to 12 s', () => {
     expect(blowMs(1)).toBe(BLOW_MS_MAX);
     expect(blowMs(REPLAY_MS / BLOW_MS_MAX)).toBe(BLOW_MS_MAX);
-    expect(blowMs(24)).toBe(500);
-    expect(blowMs(100)).toBe(BLOW_MS_MIN);
+    expect(blowMs(24)).toBe((REPLAY_MS - REPLAY_END_MS) / 23);
+    expect(blowMs(100)).toBeLessThan(BLOW_MS_MIN);
+    expect(blowMs(100) * 99 + REPLAY_END_MS).toBe(REPLAY_MS);
 
     // 20 blows at 600 ms each: the scene owns the field for exactly 12 s.
     const game = createGame(
@@ -2429,30 +2562,27 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     expect(drawn(game).has(hpFrameKey(game))).toBe(true);
   });
 
-  it('field presentation is suppressed while a replay plays', () => {
+  it('blocks manual attacks during PvP and restores them when the replay ends', () => {
     const game = createGame(createEngine({ ...v2 }, mulberry32(17)));
     game.playReplay({ opponentName: 'FOE', opponentParty: [companion('o1', 'ghost')], blows: [] });
 
-    const before = game.getState().monsterHp;
-    const events = game.attack('keyboard');
-    const hit = events[0];
-    if (hit?.type !== 'attack') {
-      throw new Error('expected an attack event');
+    const before = game.getState();
+    const pixelsBefore = drawn(game);
+    for (const source of ['keyboard', 'mouse'] as const) {
+      expect(game.attack(source)).toEqual([]);
+      expect(game.getState()).toEqual(before);
+      expect(game.getHeroAnim().state).toBe('idle');
     }
-    // The input still reached the engine…
-    expect(game.getState().monsterHp).toBeLessThan(before);
-    expect(events.some((e) => e.type === 'monsterKilled')).toBe(false);
+    expect(drawn(game)).toEqual(pixelsBefore);
 
     // …but nothing of the field's presentation painted: no damage float.
     const floatRef = (damage: bigint, crit: boolean): RectCall[] => {
       const pool = createFloatPool();
-      spawnFloat(pool, MONSTER_X + (artOf('slime').w * SPRITE_SCALE) / 2, HP_BAR.y - 6, format(damage), crit);
+      spawnFieldFloat(pool, 58, format(damage), crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return ref.calls;
     };
-    const during = drawn(game);
-    expect(floatRef(hit.damage, hit.crit).some((c) => during.has(rectKey(c)))).toBe(false);
 
     // Once the field is back the very same attack paints again.
     game.update(600);

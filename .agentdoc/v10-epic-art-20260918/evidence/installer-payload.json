@@ -1,0 +1,32 @@
+{
+  "at": "2026-09-18T02:36:33.541Z",
+  "packages": {
+    "macApp": {
+      "path": "release/mac-arm64/DesMon.app",
+      "sha256": "f41dcece355795e48a07682f1bfafd950f1be5281a3d5d48275c11361597ffe3"
+    },
+    "macDmg": {
+      "path": "release/DesMon-0.10.0-arm64.dmg",
+      "sha256": "26c137513d797dfbf0fdf159d22933be7895c5973cfa2e77189b8fac8779ec7d"
+    },
+    "windowsInstaller": {
+      "path": "release/DesMon Setup 0.10.0.exe",
+      "sha256": "3586f577a281c2518d979ae705b2fdf68681620f202a418b4fc7b36d587cd4a8"
+    },
+    "windowsAppAsar": {
+      "path": "release/win-unpacked/resources/app.asar",
+      "sha256": "6d1c35113ad0135491d41839fb0cf3a8606c184b97e42fffe93fb0df554445fc"
+    }
+  },
+  "payloads": {
+    "macPayloadHash": "f41dcece355795e48a07682f1bfafd950f1be5281a3d5d48275c11361597ffe3",
+    "windowsPayloadHash": "983bce5afa5831d113f57f21b17662acbf217803f2adf41a3ce86d41ad9cfa22",
+    "extractor": {
+      "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+      "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+    },
+    "macDmgHash": "26c137513d797dfbf0fdf159d22933be7895c5973cfa2e77189b8fac8779ec7d",
+    "windowsInstallerHash": "3586f577a281c2518d979ae705b2fdf68681620f202a418b4fc7b36d587cd4a8"
+  },
+  "passed": true
+}

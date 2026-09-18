@@ -1,0 +1,424 @@
+{
+  "version": 1,
+  "profile": "active",
+  "requestedMinutes": 30,
+  "startedAt": "2026-09-17T19:12:22.157Z",
+  "finishedAt": "2026-09-17T19:12:32.190Z",
+  "observationMs": 10032.189458,
+  "inputCount": 0,
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "observerHash": "57f74bb8e7350f94ef4b21c93792be3d01ffe17561894faf10757d8a71ef3d35",
+  "checks": {
+    "duration": false,
+    "metrics": true,
+    "samples": false,
+    "progress": false,
+    "inputs": false,
+    "errors": false,
+    "appUnchanged": true,
+    "observerUnchanged": true
+  },
+  "exitCode": 0,
+  "exitSignal": null,
+  "lifecyclePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/observing-sigterm.json.lifecycle.json",
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 98414,
+        "ppid": 98413,
+        "pgid": 98324,
+        "started": "Fri Sep 18 04:12:21 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-XCugF5"
+      },
+      {
+        "pid": 98415,
+        "ppid": 98414,
+        "pgid": 98324,
+        "started": "Fri Sep 18 04:12:21 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-XCugF5 --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,16689801999818149364,255068833748628707,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=31"
+      },
+      {
+        "pid": 98416,
+        "ppid": 98414,
+        "pgid": 98324,
+        "started": "Fri Sep 18 04:12:21 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-XCugF5 --shared-files --field-trial-handle=1718379636,r,16689801999818149364,255068833748628707,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=31"
+      },
+      {
+        "pid": 98422,
+        "ppid": 98414,
+        "pgid": 98324,
+        "started": "Fri Sep 18 04:12:21 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-XCugF5 --app-path=/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757595899291 --launch-time-ticks=914746089205 --shared-files --field-trial-handle=1718379636,r,16689801999818149364,255068833748628707,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=57"
+      },
+      {
+        "pid": 98423,
+        "ppid": 98414,
+        "pgid": 98324,
+        "started": "Fri Sep 18 04:12:22 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=audio.mojom.AudioService --lang=ko --service-sandbox-type=audio --message-loop-type-ui --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-XCugF5 --shared-files --field-trial-handle=1718379636,r,16689801999818149364,255068833748628707,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990997080739 --seatbelt-client=59"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 98414,
+        "signal": "SIGTERM",
+        "at": "2026-09-17T19:12:32.533Z"
+      }
+    ],
+    "finishedAt": "2026-09-17T19:12:32.697Z"
+  },
+  "cancelSignal": "SIGTERM",
+  "lastObserved": {
+    "source": "last-sample",
+    "elapsedMs": 5027.246375,
+    "inputs": 9,
+    "save": {
+      "version": 4,
+      "level": 2,
+      "xp": 4,
+      "killCount": 3,
+      "coins": "3",
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {
+        "sword_shard": 1
+      },
+      "monsterIndex": 3,
+      "monsterSpeciesId": "charspine",
+      "monsterHp": "15",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 3,
+      "pvpParty": [],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 4485.2,
+        "speciesKills": {
+          "slime": 1,
+          "veilcap": 1,
+          "vaneknight": 1
+        },
+        "seenMonsters": [
+          "slime",
+          "veilcap",
+          "vaneknight",
+          "charspine"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": "0",
+        "rareMisses": 0,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      },
+      "equipment": {
+        "bag": [],
+        "loadout": {
+          "weapon": null,
+          "accessories": []
+        },
+        "temporary": [],
+        "capacity": 24,
+        "expansions": 0,
+        "revision": 3,
+        "temporaryRevision": 0,
+        "heroChangeSerial": 0,
+        "nextId": 25,
+        "rngState": 3024825592,
+        "acquired": {},
+        "shop": {
+          "serial": 2,
+          "nextRefreshAt": 1789675200000,
+          "lastObservedAt": 1789672346693,
+          "stock": [
+            {
+              "id": "e13",
+              "templateId": "w-spear-uncommon-2",
+              "enhancement": "0",
+              "roll": 101,
+              "seed": 1321689618,
+              "attempts": "0"
+            },
+            {
+              "id": "e14",
+              "templateId": "a-ring-critical-rare-1",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 43855687,
+              "attempts": "0"
+            },
+            {
+              "id": "e15",
+              "templateId": "a-ring-party-uncommon-1",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 91526292,
+              "attempts": "0"
+            },
+            {
+              "id": "e16",
+              "templateId": "w-gauntlet-rare-2",
+              "enhancement": "0",
+              "roll": 102,
+              "seed": 2628487208,
+              "attempts": "0"
+            },
+            {
+              "id": "e17",
+              "templateId": "a-necklace-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 103,
+              "seed": 1804299069,
+              "attempts": "0"
+            },
+            {
+              "id": "e18",
+              "templateId": "a-necklace-critical-uncommon-3",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 331690490,
+              "attempts": "0"
+            },
+            {
+              "id": "e19",
+              "templateId": "w-dagger-uncommon-1",
+              "enhancement": "0",
+              "roll": 102,
+              "seed": 3536716198,
+              "attempts": "0"
+            },
+            {
+              "id": "e20",
+              "templateId": "a-charm-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 105,
+              "seed": 3165821497,
+              "attempts": "0"
+            },
+            {
+              "id": "e21",
+              "templateId": "a-ring-party-common-2",
+              "enhancement": "0",
+              "roll": 99,
+              "seed": 3115857099,
+              "attempts": "0"
+            },
+            {
+              "id": "e22",
+              "templateId": "w-hammer-uncommon-2",
+              "enhancement": "0",
+              "roll": 101,
+              "seed": 1680089739,
+              "attempts": "0"
+            },
+            {
+              "id": "e23",
+              "templateId": "w-spear-common-2",
+              "enhancement": "0",
+              "roll": 110,
+              "seed": 4192439239,
+              "attempts": "0"
+            },
+            {
+              "id": "e24",
+              "templateId": "a-necklace-critical-uncommon-3",
+              "enhancement": "0",
+              "roll": 97,
+              "seed": 4161982801,
+              "attempts": "0"
+            }
+          ],
+          "boughtIds": []
+        }
+      }
+    }
+  },
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "25.2.0",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12
+  },
+  "metadata": {
+    "version": "0.10.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    },
+    "fixture": {
+      "version": 4,
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": "0",
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {},
+      "monsterIndex": 0,
+      "monsterHp": "10",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 0,
+      "pvpParty": [],
+      "releasedCount": 0
+    }
+  },
+  "isolation": {
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-XCugF5",
+    "globalHooks": false,
+    "osPermissionPrompts": false,
+    "network": "offline",
+    "input": "synthetic production IPC",
+    "time": "real wall time; no engine ticks injected"
+  },
+  "raw": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/observing-sigterm.json.samples.jsonl",
+    "sha256": "2328dbfc0c0c82db85d17af5bd6e05315ac8abee2f1ae703ef836b7ea7b621e0",
+    "samples": 1
+  },
+  "screenshots": [
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/observing-sigterm.json.start.png",
+      "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+    }
+  ],
+  "errors": [
+    {
+      "type": "cancelled",
+      "signal": "SIGTERM"
+    },
+    {
+      "type": "observer",
+      "message": "Error: Observation cancelled: SIGTERM"
+    }
+  ],
+  "summary": {
+    "cpuP95": null,
+    "workingSetMiBP95": null,
+    "initialMemoryMedian": null,
+    "finalMemoryMedian": null
+  },
+  "passed": false
+}

@@ -1,0 +1,156 @@
+{
+  "requestId": "c2c3c8de015400110d1ac07759b70d08a54a93594781174f8a14015bd6b04bb8",
+  "round": 1,
+  "role": "balance",
+  "sourceDigest": "049ffeb79248985d0167b5a751b46ccfdc102fbe02ca5815686b21d5a9d439f1",
+  "evaluationDigest": "2fffd6a21a63d6c95c7ee9090f140c936a31854ad14ba831e828e91dea7f087e",
+  "agent": "/root/balance",
+  "decision": "pass",
+  "summary": "전체 발급 prompt/template과 실제 Designer→Critic 응답을 읽고 Round05 사전측정 설계를 승인한다. 현재 source/evaluation 지문을 다시 확인했고, 제 Round04 원시 분석을 독립 Critic의 재집계와 대조했다. 세 새 비율은 미측정이며 현재 export는 control-l17, selectedExperiment=null이다. 1.040의 과속과1.050의 전체 p50 미도달 사이를 탐색하되 개별 시간의 단조성·성과 보간을 가정하지 않는다. Native 첫 준비 관측 누락은 현재 measure 탐색에 영향 없는 minor이나 최종 자연 관측 전에 수정·재검증해야 한다. 설계 승인·분석 완료·작업 verified·release audit와 출시는 별도이며 humanChecks=PENDING이다. 이번 검토에서 제품·평가기 수정이나 테스트·빌드·측정은 실행하지 않았다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "네 실제 역할 순서, 등록 AC/같은 소스 게이트, 원본 보존과 단계별 완료 의미를 적용했다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "100ms tick/1초 관측,20/100 분모,9정책과 Native 9개+별도180분 및 출시 AC를 읽었다."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "Round05 frozenAt2026-09-12T05:34:14.565027+00:00, parameterVersion2의20개 값,10425/10450/10475 대10000,6조건·두 목표·선택null을 확인했다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "동일 공통 식과 첫 여정·콘텐츠·목표를 유지하는 세 내부 비율 비교다. 과거 실패와 현재 미측정 상태를 구분한다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round04-analysis/final-analysis.json",
+      "note": "제가 완료한11보고서/220 raw 분석의 SHA24d9acb7d2fdfd8462df14fb26290ed6170a19e0a548ecb74e3bb25b508b6fc6을 재확인했다. 전체/조건부·paired 후기 활동·첫 기록 대응을 보존하며 새 후보 결과로 재사용하지 않는다. 1886906 bytes."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/execution.json",
+      "note": "full-12h 원본 SHA17ed48a80137f6b037c95913dedefe8cd5f0f77ea1dd29b1bc08c8d87b812b92와 targets를 연결한다. h70 전체 p5024101.5초·17/20, 조건부23957.5초,8h 전12개. 장기 exit1/구조 verify0."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1035/execution.json",
+      "note": "full-12h 원본 SHA3cd959d90ed91de74421bd94e74649c0f1e2ed22925f9ba1d1b9ab4d06140aa9. h70 전체=조건부 p5023121.7초·20/20,8h 전15개. seed10020은1040의12515초보다 늦은35324.5초로 비단조적이다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1030/execution.json",
+      "note": "full-12h 원본 SHA13674a2503e436cada54c73a62dafba09b003e7def6c19bda4e8dd47a0087ccf. h70 전체 p5020968.5초·20/20,8h 전18개. 세 후보 모두 장기 하한 미달이며 h70 실제 선택0이다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-05/prefix-reference.json",
+      "note": "SHA790e3441e749bc143b5930a4a11e5fbd6757bf22c5e2c2aabaf173f96b8fd278을 재확인했다. 기록된 첫7시각과 첫 성공까지의 콘텐츠 기록/선택 action을 대응하며 전체 공격·처치 trace를 주장하지 않는다."
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "note": "실제 private factory의 한 번의 bigint 나눗셈과 일반 분모 지원, 필드/동료115/100 곡선 분리를 확인했다. 새 비율의 실제 경과 시간은 미측정이다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "실제20값 export는 L17/XP1.4/tail null·115/100이다. 후보 CLI ID 선택은 수치 적용을 대신하지 않는다."
+    },
+    {
+      "path": ".harness/v7/loop/electron-e2e.cjs",
+      "note": "203행의 방문·선택 뒤212행에서 준비를 표본 검사하여 같은 방문의 첫 준비를 놓칠 수 있음을 읽기 확인했다. Critic의 R05-NATIVE-FIRST-READY-OBSERVATION은 최종 Native 전 수정 대상이다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "게임상 레벨 상한 없이 양의 안전 정수와 bigint 힘을 저장·서버·모든 중첩 응답까지 유지한다. 필드 tail은 동료115/100을 바꾸지 않는다. Lv10 이상 환생은 Lv1/별+1, 기본 힘 비율2/level이므로 정확한 전후 표시와 별도 확인이 필요하다. 필수 expected/현재 대상 비교·변경/삭제 무효화와 재료 변경 전 overflow 거부, L11/250/MAX_SAFE 및 서버 s/r 전송 ID 왕복을 같은 소스 AC로 확인한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅 실제 선택·영구 컬렉션, 몬스터 speciesKills>0을 공개·이름·aria·알림·ACK·목표에 공유한다. 레거시의 제시/등장만으로 생긴 공개·ACK는 교정하고 실제 collection-only 영웅 ACK는 보존한다. h62의 seenMonsters60 자격과 처치 도감은 별개다. Round04 h70 자격/제시17·20·20과 실제 선택0을 분리하며 희귀 카드 선택 UI는 별도로 검증한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "최대50행의 영웅·최대5명 동료 파티와 실제 playerId를 행 선택·preview·결과에 결합한다. 지정 ID 누락/불일치/bot, 실패한 사전 upload는 전투·기록 갱신을 막고 legacy/random 호환은 유지한다. stable DOM, Tab/ShiftTab/Enter/Space, 갱신 포커스와 삭제·만료·오류 후 stale preview 제거·재시도 포커스를 현재 소스 AC 및 최종 Native에서 확인한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Lv16–20/XP1.4/tail 비활성 controls와 Lv17/XP1.41/s79의10425·10450·10475/10000을 비교한다. 후보는 XP기본20,보상5+3i/보스5배,포획35%/보장null,후속요구L+min(6,floor((r+1)/2)),rest120초/defer30초를 유지한다. 첫72처치(index71) 경계가 tail 적용 전이라는 산술과 실제 첫 시각/ID 일치는 별도로 검사한다. 새 전체 p502700–3600초 AND5400초 이내18/20, 채택 검증은90/100을 요구한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm dragon3; rootcolossus 환생3; h58 water100+reefknight2+총1500; h62 환생5+seen60+총6000; starvoid 환생10+총16000; 최종h70 uniqueHeroes10+총30000을 고정한다. Round04 전체 h70 p5024101.5/23121.7/20968.5초는 모두 과속 FAIL이다. paired8→12h 추가처치 p5031058/32626/36562와 모든20 seed의 후기 선택을 일반50종 소진 뒤 획득 공백과 구분한다. 새 전체 최종 자격 p5028800–43200초와 첫 목표를 모두 통과한 안만 채택하며 조건·분모·시간 제한을 바꾸지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "유효한 레거시 열린 제안·당시 요구 레벨·실제 획득 이력과 고레벨 무손실 저장/응답을 보존한다. 과거17키와 현재20키, 현재 control 검증과 새 후보 성과는 별개다. 등록 AC와 정확한 npm test && npm run lint && npm run typecheck가 같은 소스에서 성공한 뒤만 verified다. package/lock0.7.0 선고정 후 정책별100seed×12h, 실제 단기9개+연속180분active/10분 메뉴, 네 역할 audit·smoke·실제 패키지·고레벨 운영 서버 호환이 필요하다. Native minor를 그 전에 수정·새 근거로 확인하고 humanChecks=PENDING을 유지한다."
+    }
+  ],
+  "protocol": {
+    "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "explorationSeeds": [
+      10001,
+      10020
+    ],
+    "validationSeeds": [
+      1,
+      100
+    ],
+    "policy": "fresh save,100ms tick/1초 콘텐츠 관측, canonical active/free/uniform2입력초/none/즉시 choices[0]. 모든8실험을각20seed×120분 선별하고 통과안만 같은20seed×12h. 채택 후에만 별도검증1–100×12h. release9정책은 canonical; active무료10분메뉴; intermittent무료10분; warm-idle무료10분; pure-idle무료10분; active무료burst즉시; training+consume-weakest10분; lure+fuse-first10분; reroll+reincarnate-first2분이다. 총입력·초기상태·정책·seed가 같은 경우만 짝지어 비교하고 각정책100분모를 합치지 않는다.",
+    "milestones": "각 행 AND: crownwyrm=dragon3; rootcolossus=환생3; h58=water100+reefknight2+totalKills1500; h62=환생5+seenMonsters60+totalKills6000; starvoid=환생10+totalKills16000; 유일한 최종h70=uniqueHeroes10+totalKills30000. eligible/seen/실제chosen·killed/captured를 별도 기록한다. 골드·PvP·새 타이머 필수조건은 없다.",
+    "censoring": "미도달null을 유한 관측 뒤에 정렬해 floor((N−1)q)의 전체p10/p50/p90/worst를 보고한다. 성공자 조건부 분위수·도달/미도달/전체20 또는100도 별도 보고하며 null을0·종료시간·성공자p50으로 대체하지 않는다. 120분 장기NOT_EVALUATED와 실제12hFAIL은 다르다. 모든8실험 완료·필요보고서/원본 무결성 확인 후 두목표 통과안만 |전체firstp50−3150|→|전체h70eligiblep50−36000|→전체firstp90→ID사전순으로 선택한다. 그전 선택null이며 없으면 실패보존/새사전등록, validationseed 튜닝 금지다."
+  },
+  "metrics": [
+    {
+      "name": "첫 사건과 기록된 prefix 대응",
+      "unit": "seconds; content/action ID; seed",
+      "target": "kill/reward/level/capture/ready/open/accepted 첫7시각, firstAccepted까지 기록된 content records와 첫선택ID/level/sec를 immutable20seed에 정확히 대응한다. 첫 포획이 첫 선택 이후면 그 사실도 보존한다. 전체 per-attack/per-kill trace 일치를 주장하지 않는다.",
+      "deadline": "각 후보의 새120분 및 승격12h 원본; 과거 prefix 통과는 재사용하지 않는다."
+    },
+    {
+      "name": "첫 성공 전체 표본 목표",
+      "unit": "seconds; reached/20 or/100",
+      "target": "firstAccepted 전체p50 2700–3600초 AND5400초 이내 최소18/20 탐색 또는90/100 검증. 성공자 분포와 늦은/미도달 표본을 함께 보고한다.",
+      "deadline": "20seed×120분 선별→통과안12h; 채택 후100seed×12h."
+    },
+    {
+      "name": "준비·제시·메뉴 선택 지연",
+      "unit": "seconds; event/observed time",
+      "target": "firstReady/firstOpen/firstAccepted 및0/120/600초 메뉴 지연을 분리한다. measure의100ms 사건과1초 자격 관측, Native30초 표본 관측시각을 혼동하지 않는다. Native는 방문 전 실제 before 준비를 선택 전에 기록하고 첫선택보다 늦은/누락된 firstReady를 거부하도록 수정해야 한다.",
+      "deadline": "각정책 측정; R05-NATIVE-FIRST-READY-OBSERVATION 경계회귀·matrix 거부 검증과 새 평가 지문 근거를 최종 자연 관측 전에 마련한다."
+    },
+    {
+      "name": "여섯 named 콘텐츠와 최종 자격",
+      "unit": "seconds; content ID; reached/unreached/N",
+      "target": "최종h70 eligible 전체p50 28800–43200초. 여섯ID의eligible/seen/actualchosen·killed·captured를 별도 집계하며 희귀 선택0을 그대로 보고한다. 8h 전 과속 수와12h 미도달 수도 남긴다.",
+      "deadline": "선별통과20seed×12h; 채택검증100seed×12h; release정책별 분포."
+    },
+    {
+      "name": "paired 후기 진행과 발견 공백",
+      "unit": "kills/choices/levels/roster; seconds; bigint power",
+      "target": "2/4/8/10/12h 상태와 같은seed의8→12h 처치·환생·고유선택 증가를 계산한다. 처치·의미있는변화 공백과 처음제시/새획득 공백을 나누고2–12h 경계 포함 공백은 정수100ms tick으로 차감한다. 로스터30/초기포획 편차와 일반50종 소진을 구분한다.",
+      "deadline": "실제12h raw 전표본; 서로 다른 시점의 p50을 빼지 않는다."
+    },
+    {
+      "name": "정확한 수치와 실행 근거 결합",
+      "unit": "20 fields; SHA256; bigint decimal strings",
+      "target": "기존 floor(10*N^a*T^b/(D^a*U^b)), a=min(i,79),b=i−a의 단일 나눗셈을 소비한다. N/D115/100,T10425·10450·10475,U10000,보스5배는 이후,동료115/100은 고정이다. actual export·공식protocol·source/eval/build/raw/manifest/log를 결합하고 경계·일반분모·큰깊이를 검사한다.",
+      "deadline": "각실험 적용·실행 전 새검사와 원본보존; execution.endedAt 뒤만 독립 결과집계."
+    },
+    {
+      "name": "경제와 관리의 무손실",
+      "unit": "safe integers; actions; exact bigint damage",
+      "target": "각checkpoint 초기coins+income−spent=coins, 재료/동료수·훈련·미끼·재굴림·관리행동을 기록한다. overflow·중복·오래된요청은 상태변경 전 거부한다. 피해와파티힘은 정확한 bigint문자열로 보존하며 피해스냅샷을 실효DPS로 부르지 않는다.",
+      "deadline": "모든 측정checkpoint와 같은소스 기능AC; 자연관측 중 fixture 금지."
+    },
+    {
+      "name": "전체 완료 후 채택",
+      "unit": "reports/raw runs; experiment ID; ordered tuple",
+      "target": "8개 screening과 각각통과한안의 full12h가 모두 있어야 한다. 세후보모두 선별통과 시11보고서/220raw가 필요하다. 완료 전 ranking/proposedExperiment는 비우며 둘다통과한안만 등록tuple로 판단한다. 원본오류나 목표실패를 성공으로 대체하지 않는다.",
+      "deadline": "모든8실험 완료 후 Host의 공식 채택기록; 검증seed 사용은 그이후."
+    }
+  ],
+  "economy": {
+    "sources": "처치coin=1+floor(index/3),보스5배의 실제drop을 income으로 기록한다. XP5+3i/보스5배,보스35%포획·전리품과 정원30 이후2방출당soul1을 추적한다. 필드 완화에 따른 포획 깊이와 기존115/100 동료의 상대힘 차이는 실제 관측 대상이다.",
+    "sinks": "선택가능 훈련75*(level+1)^2(훈련상한10),미끼75+25*min(환생,100),재굴림50+25*min(환생,100). consume/fuse/동료환생 정책은 재료·동료수와 정확한 전후힘을 기록하며 강제 지출을 추가하지 않는다.",
+    "freePath": "canonical은 골드미사용·동료무관리로 처치→포획→XP→영웅환생·일반첫슬롯 미보유선택→종별/원소/고유선택 이력을 진행한다. 기존6조건에 필수골드/PvP/새시간제한은 없다. Round04는 후반활동이 계속되었지만 장기목표는 과속 FAIL이며 Round05의 무료 경로 성능은 새 측정 전 미확인이다."
+  }
+}

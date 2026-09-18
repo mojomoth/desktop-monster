@@ -1,0 +1,57 @@
+{
+  "version": 10,
+  "passed": true,
+  "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+  "balance": {
+    "passed": true,
+    "selected": "C",
+    "rows": 2400,
+    "coreHash": "0d70a8954909793281c94be89ba45c4694b94f8f84afae1a29e936229ea2cf59"
+  },
+  "isolation": {
+    "baseline-active": {
+      "samples": 362,
+      "observedIdentities": 5
+    },
+    "baseline-idle": {
+      "samples": 362,
+      "observedIdentities": 5
+    },
+    "candidate-active": {
+      "samples": 362,
+      "observedIdentities": 5
+    },
+    "candidate-idle": {
+      "samples": 362,
+      "observedIdentities": 5
+    },
+    "mixed": {
+      "samples": 2161,
+      "observedIdentities": 9
+    }
+  },
+  "installerPayloads": {
+    "macPayloadHash": "075b2de5f3dbdc29e7e0b5df269603f66a8ab50db201ccbe136b162e0c7817bd",
+    "windowsPayloadHash": "0b92c8e94f3d2f9aae05f66c6c00e5cb838068e133723208e1bf9b65a32f5272",
+    "extractor": {
+      "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+      "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+    },
+    "macDmgHash": "7b9101f8202cfd7fb0ff783ee9ca376732040696bb4aad2c2526f67e98357775",
+    "windowsInstallerHash": "31a98d20967ce03db845d42fef527561cc615a8e6bfc740fe063b352e1abb335"
+  },
+  "externalChecks": {
+    "windowsHardware": {
+      "performed": false,
+      "note": "Windows x64 installer built; execution on a physical Windows machine was not performed."
+    },
+    "postgresql": {
+      "performed": false,
+      "note": "Deterministic injected store/query tests and source review passed; no live PostgreSQL integration run."
+    },
+    "humanFun": {
+      "performed": false,
+      "note": "Agent simulation and native interaction only; human enjoyment evaluation was not performed."
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "status": "prepared",
+  "beforeSha256": {
+    ".harness/v7/config.json": "4c1c3a7bf977ea00b96586fca7d1a4f984e46520d77414f64f49eda130476011",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "6e1ad74b633bd5ae81d3096a6cb5114fe1b46e4a1fdcb71354c512c0fae7a926"
+  },
+  "reason": "V07-02 pending ownership expands to IPC snapshot validation and existing menu contract tests after actual Playtester veto.",
+  "recovery": "Host only; no runner calls between writes. If committed marker missing, restore config.json and loop.json from this archive after verifying original hashes."
+}

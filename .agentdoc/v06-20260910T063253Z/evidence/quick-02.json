@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 1,
+  "mode": "electron-e2e",
+  "sourceDigest": "9338cd2015a9c4a8d47f7438cc7cb9b744a9726d9abffb4ed1cc002019ef8a08",
+  "evaluationDigest": "4cb2721025a82df949b36843ea5700ec1996e04aa540f70bd50346b3321312e8",
+  "command": "node .harness/v5/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json 0 active",
+  "startedAt": "2026-09-10T06:53:09.568Z",
+  "elapsedMs": 25587.604207999997,
+  "status": "passed",
+  "checks": [
+    {
+      "id": "native-overlay",
+      "passed": true,
+      "details": {
+        "size": [
+          400,
+          260
+        ],
+        "alwaysOnTop": true
+      }
+    },
+    {
+      "id": "preload-isolation",
+      "passed": true,
+      "details": "Real sandboxed preload bridge; Node unavailable in renderer."
+    },
+    {
+      "id": "painted-canvas",
+      "passed": true,
+      "details": {
+        "opaquePixels": 3393
+      }
+    },
+    {
+      "id": "fallback-keyboard-to-save",
+      "passed": true,
+      "details": {
+        "beforeHp": "10",
+        "afterHp": "9"
+      }
+    },
+    {
+      "id": "fallback-mouse-to-save",
+      "passed": true,
+      "details": {
+        "beforeHp": "9",
+        "afterHp": "8"
+      }
+    },
+    {
+      "id": "ipc-input-kill-reward",
+      "passed": true,
+      "details": {
+        "level": 2,
+        "kills": 3,
+        "coins": 3,
+        "companions": 0,
+        "reincarnations": 0,
+        "playTimeMs": 3549.200000017882,
+        "seenMonsters": 4
+      }
+    },
+    {
+      "id": "save-reload",
+      "passed": true,
+      "details": {
+        "saved": {
+          "level": 2,
+          "kills": 3,
+          "coins": 3,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 3549.200000017882,
+          "seenMonsters": 4
+        },
+        "resumed": {
+          "level": 2,
+          "kills": 3,
+          "coins": 3,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 3549.200000017882,
+          "seenMonsters": 4
+        }
+      }
+    },
+    {
+      "id": "menu-singleton",
+      "passed": true,
+      "details": "Repeated opener reuses the production menu window."
+    },
+    {
+      "id": "shop-transaction",
+      "passed": true,
+      "details": {
+        "coins": 1725,
+        "training": 1
+      }
+    },
+    {
+      "id": "stale-purchase-token",
+      "passed": true,
+      "details": "Repeated token rejected by production reducer through IPC."
+    },
+    {
+      "id": "menu-hero",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "여행의 시작 · 수습 영웅\n\nLv.1 · 공격력 1\n\n환생하면 동료 버프가 열립니다\n\n중첩 0 · 환생 0회 · 보유 영웅 0/70 · 골드 1725\n\n현재 Lv.1 / 다음 환생 Lv.12\n\n새로운 모습으로 환생\n\n확정하면 Lv.1 · 첫 몬스터부터 다시 시작합니다. 동료·골드·훈련·발견·기록은 유지되고 영혼과 영구 공격력 +25%를 얻습니다. 수락 후에는 Lv.13과 플레이 2분 휴식이 필요합니다.\n\n낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.\n\nLv.12에 환생 해금"
+      }
+    },
+    {
+      "id": "menu-codex",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "영웅 도감 · 발견 0/70\n지난 확인 이후 발견\n\n영웅 0 · 몬스터 0 · 모두 확인했습니다.\n\n표시한 발견 확인\n\n표시한 카드만 확인합니다. 나머지 발견은 확인 후 이어서 표시됩니다. 아래 전체 도감에서 모든 발견을 볼 수 있습니다.\n\n선택한 목표\n\n목표 없음 · 아래 카드에서 하나를 무료로 선택하세요.\n\n목표 해제\n\n필드 시간 · 새벽 · 다음 전환까지 플레이 5분 0초 (20분 주기)\n\n영웅 도감\n몬스터 도감\n\n카드를 펼치면 발견 조건과 진행도를 확인할 수 있습니다. 조건을 달성해도 실제로 등장하기 전에는 실루엣으로 남습니다.\n\n#001\n미발견\n일반 · 불 · ★\n#002\n미발견\n일반 · 물 · ★\n#003\n미발견\n일반 · 바람 · ★\n#004\n미발견\n일반 · 대지 · ★\n#005\n미발견\n일반 · 어둠 · ★\n#006\n미발견\n일반 · 불 · ★\n#007\n미발견\n일반 · 물 · ★\n#008\n미발견\n일반 · 바람 · ★\n#009\n미발견\n일반 · 대지 · ★\n#010\n미발견\n일반 · 어둠 · ★\n#011\n미발견\n일반 · 불 · ★★\n#012\n미발견\n일반 · 물 · ★★\n#013\n미발견\n일반 · 바람 · ★★\n#014\n미발견\n일반 · 대지 · ★★\n#015\n미발견\n일반 · 어둠 · ★★\n#016\n미발견\n일반 · 불 · ★★\n#017\n미발견\n일반 · 물 · ★★\n#018\n미발견\n일반 · 바람 · ★★\n#019\n미발견\n일반 · 대지 · ★★\n#020\n미발견\n일반 · 어둠 · ★★\n#021\n미발견\n일반 · 불 · ★★★\n#022\n미발견\n일반 · 물 · ★★★\n#023\n미발견\n일반 · 바람 · ★★★\n#024\n미발견\n일반 · 대지 · ★★★\n#025\n미발견\n일반 · 어둠 · ★★★\n#026\n미발견\n일반 · 불 · ★★★\n#027\n미발견\n일반 · 물 · ★★★\n#028\n미발견\n일반 · 바람 · ★★★\n#029\n미발견\n일반 · 대지 · ★★★\n#030\n미발견\n일반 · 어둠 · ★★★\n#031\n미발견\n일반 · 불 · ★★★★\n#032\n미발견\n일반 · 물 · ★★★★\n#033\n미발견\n일반 · 바람 · ★★★★\n#034\n미발견\n일반 · 대지 · ★★★★\n#035\n미발견\n일반 · 어둠 · ★★★★\n#036\n미발견\n일반 · 불 · ★★★★\n#037\n미발견\n일반 · 물 · ★★★★\n#038\n미발견\n일반 · 바람 · ★★★★\n#039\n미발견\n일반 · 대지 · ★★★★\n#040\n미발견\n일반 · 어둠 · ★★★★\n#041\n미발견\n일반 · 불 · ★★★★★\n#042\n미발견\n일반 · 물 · ★★★★★\n#043\n미발견\n일반 · 바람 · ★★★★★\n#044\n미발견\n일반 · 대지 · ★★★★★\n#045\n미발견\n일반 · 어둠 · ★★★★★\n#046\n미발견\n일반 · 불 · ★★★★★\n#047\n미발견\n일반 · 물 · ★★★★★\n#048\n미발견\n일반 · 바람 · ★★★★★\n#049\n미발견\n일반 · 대지 · ★★★★★\n#050\n미발견\n일반 · 어둠 · ★★★★★\n#051\n미발견\n레어 · 불 · ★★\n#052\n미발견\n레어 · 불 · ★★★\n#053\n미발견\n레어 · 불 · ★★★★\n#054\n미발견\n레어 · 불 · ★★★★★\n#055\n미발견\n레어 · 물 · ★★\n#056\n미발견\n레어 · 물 · ★★★\n#057\n미발견\n레어 · 물 · ★★★★\n#058\n미발견\n레어 · 물 · ★★★★★\n#059\n미발견\n레어 · 바람 · ★★\n#060\n미발견\n레어 · 바람 · ★★★\n#061\n미발견\n레어 · 바람 · ★★★★\n#062\n미발견\n레어 · 바람 · ★★★★★\n#063\n미발견\n레어 · 대지 · ★★\n#064\n미발견\n레어 · 대지 · ★★★\n#065\n미발견\n레어 · 대지 · ★★★★\n#066\n미발견\n레어 · 대지 · ★★★★★\n#067\n미발견\n레어 · 어둠 · ★★\n#068\n미발견\n레어 · 어둠 · ★★★\n#069\n미발견\n레어 · 어둠 · ★★★★\n#070\n미발견\n레어 · 어둠 · ★★★★★"
+      }
+    },
+    {
+      "id": "menu-profile",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "내 기록\n플레이어 이름\n이름 저장\n\n영문·숫자·_·- 1–16자. 오프라인에서도 변경할 수 있습니다.\n\n플레이 시간 · 0시간 0분 0초\n\n몬스터 처치 · 0마리\n\n영웅 환생 · 0회\n\n총 회귀 · 0회 (영웅 환생과 영혼 회귀 포함)\n\nPvP · 0승 0패 (훈련 상대 제외)\n\n누적 골드 사용 · 75\n\n앱에서 진행한 시간을 기록합니다. 종료·절전 시간은 포함되지 않습니다. 영웅 장착 변경은 환생 기록에 포함되지 않습니다.\n\n영웅 환생 기록 · 총 0회 · 최근 0개 (최대 100개)\n영웅별 전체 환생 횟수"
+      }
+    },
+    {
+      "id": "menu-roster",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "No companions yet — beat a boss to capture one."
+      }
+    },
+    {
+      "id": "menu-ranking",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "Offline"
+      }
+    },
+    {
+      "id": "menu-battle",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "대전 상대\n\n영웅과 배치된 동료, 전적을 보고 상대를 선택하세요.\n\n목록 새로고침\n서버에 연결할 수 없습니다. 목록 새로고침으로 다시 시도하세요.\nNo opponent yet\nAuto\nSave party\n\nΣ vs opponent: 0\n\nBattle!"
+      }
+    },
+    {
+      "id": "offline-pvp",
+      "passed": true,
+      "details": "Battle is disabled with offline identity."
+    },
+    {
+      "id": "profile-name-ipc",
+      "passed": true,
+      "details": "Native input, click, preload, IPC and isolated identity store round-trip."
+    },
+    {
+      "id": "hero-choice-reset-preserve",
+      "passed": true,
+      "details": {
+        "chosen": {
+          "level": 1,
+          "kills": 0,
+          "coins": 1800,
+          "companions": 0,
+          "reincarnations": 1,
+          "playTimeMs": 645.4999999940395,
+          "seenMonsters": 2
+        },
+        "restRemainingMs": 120000,
+        "choices": [
+          {
+            "formId": "h08",
+            "buffPercent": 17
+          },
+          {
+            "formId": "h02",
+            "buffPercent": 25
+          },
+          {
+            "formId": "h06",
+            "buffPercent": 25
+          }
+        ]
+      }
+    },
+    {
+      "id": "stale-hero-choice",
+      "passed": true,
+      "details": "Replaying an accepted offer does not grant another reincarnation."
+    },
+    {
+      "id": "reincarnation-progress-honesty",
+      "passed": true,
+      "details": {
+        "level": 12,
+        "requiredLevel": 13,
+        "ready": false,
+        "filledPixels": 35,
+        "barWidth": 38,
+        "fixture": "Lv12 after first reincarnation, no rest"
+      }
+    },
+    {
+      "id": "v06-legacy-read-baseline",
+      "passed": true,
+      "details": {
+        "coins": 10147,
+        "companions": 30,
+        "heroCount": 8,
+        "unreadText": "영웅 0 · 몬스터 0 · 모두 확인했습니다."
+      }
+    },
+    {
+      "id": "v06-open-does-not-ack",
+      "passed": true,
+      "details": "Opening menu preserves unread discoveries."
+    },
+    {
+      "id": "v06-only-displayed-ack",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01",
+          "h02",
+          "h03"
+        ],
+        "acknowledgedMonsters": [
+          "slime"
+        ],
+        "goal": null
+      }
+    },
+    {
+      "id": "v06-stale-ack-keeps-later-discovery",
+      "passed": true,
+      "details": "Stale displayed-ID replay does not mark the next card."
+    },
+    {
+      "id": "v06-goal-unseen-eligible",
+      "passed": true,
+      "details": {
+        "name": "영웅 #051 · 미발견",
+        "status": "조건 충족 · 아직 미발견. Lv.12 이후 새 환생 후보에서 만날 수 있습니다.",
+        "cardName": "미발견",
+        "artLabel": "미발견 영웅 실루엣"
+      }
+    },
+    {
+      "id": "v06-focus-scroll-disclosure",
+      "passed": true,
+      "details": {
+        "before": {
+          "scroll": 5953,
+          "open": true
+        },
+        "after": {
+          "focused": true,
+          "scroll": 5953,
+          "open": true
+        }
+      }
+    },
+    {
+      "id": "v06-goal-discovered-unowned",
+      "passed": true,
+      "details": "Discovered is distinct from owned."
+    },
+    {
+      "id": "v06-goal-clear",
+      "passed": true,
+      "details": "Explicit free clear via native click → IPC → disk."
+    },
+    {
+      "id": "v06-save-failure-honest",
+      "passed": true,
+      "details": {
+        "text": "저장하지 못했습니다. 앱을 닫지 말고 다시 시도해 주세요.",
+        "visible": true,
+        "live": "polite",
+        "goal": "목표 없음 · 아래 카드에서 하나를 무료로 선택하세요."
+      }
+    },
+    {
+      "id": "v06-save-retry",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01",
+          "h02",
+          "h03"
+        ],
+        "acknowledgedMonsters": [
+          "slime"
+        ],
+        "goal": {
+          "kind": "hero",
+          "id": "h51"
+        }
+      }
+    },
+    {
+      "id": "v06-restart-ui-state",
+      "passed": true,
+      "details": {
+        "saved": {
+          "acknowledgedHeroes": [
+            "h01",
+            "h02",
+            "h03"
+          ],
+          "acknowledgedMonsters": [
+            "slime"
+          ],
+          "goal": {
+            "kind": "hero",
+            "id": "h51"
+          }
+        },
+        "resumed": {
+          "acknowledgedHeroes": [
+            "h01",
+            "h02",
+            "h03"
+          ],
+          "acknowledgedMonsters": [
+            "slime"
+          ],
+          "goal": {
+            "kind": "hero",
+            "id": "h51"
+          }
+        }
+      }
+    },
+    {
+      "id": "v06-training-zero-preview",
+      "passed": true,
+      "details": "훈련 0/10 · 영웅 공격 +0% → +5% · 피해 14 → 14 (+0)"
+    },
+    {
+      "id": "v06-training-repeat-token",
+      "passed": true,
+      "details": {
+        "coins": 1725,
+        "preview": "훈련 0/10 · 영웅 공격 +0% → +5% · 피해 14 → 14 (+0)"
+      }
+    },
+    {
+      "id": "v06-native-fever-transition",
+      "passed": true,
+      "details": {
+        "cold": {
+          "expected": 212,
+          "matched": 0
+        },
+        "hot": {
+          "expected": 212,
+          "matched": 212
+        },
+        "cooled": {
+          "expected": 212,
+          "matched": 0
+        },
+        "inputCount": 20
+      }
+    }
+  ],
+  "sessions": [],
+  "screenshots": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/fresh-field.png",
+      "sha256": "6283824066a2665a51eca82969b72828f770318401fa8b77dc60e15fbbdf47ef"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/shop.png",
+      "sha256": "e1576a3b78768b8c8b1fb40fb9d973ca21413ecb985846a748733204670a7af9"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/hero.png",
+      "sha256": "54e00ae8029e534060e6d2c688fa0a45d319e4de78f963502d201060c7b3a2a3"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/codex.png",
+      "sha256": "79f304267ddc947820a325194ecc97afb259edee23e116a310af58bbace99e0e"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/profile.png",
+      "sha256": "b37d87e0d16603cb286c5813dcce32f30d7022b88566d8a26c0bef894ce0478a"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/roster.png",
+      "sha256": "0c0c97c72c5583ea1ddf86655c403281ecc1f3ab690296cb4900092b49e65f40"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/ranking.png",
+      "sha256": "b35e7098bdda9fc0e14fafb5f165defab1ee5242a91735d815b3242a9149e4fe"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/battle.png",
+      "sha256": "598180f371a71f681e0f94758f55fa42daec05d2262ad54914391de142bec288"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/hero-choices.png",
+      "sha256": "31c61898600a1c64fb1edb96def8e822b637adba4d7b576a18145dd68598ea66"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/level-gate.png",
+      "sha256": "90fa6bb6fc984332843ae5c205e9e857529616c972b79eea2e93aadec4487890"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/v06-goal-focus.png",
+      "sha256": "8ad9b4c84a1786b1fa253e55759218aeef0b2b38002afb5c455249addf530e0d"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/v06-save-failed.png",
+      "sha256": "9c92f3249970a2a698bf6efe1d44d5aabb68bc5adef13226e036588b4f6fbcd7"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/v06-discoveries.png",
+      "sha256": "2a2c76b2526bed4f8c42a00aa28f14e6c1d4625d1b6d2401504455434c2533f2"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/v06-training.png",
+      "sha256": "5b9920922b0d42e2ec997a083983c4b9d0d9c46371ad9824104974f7df8c495b"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v06-20260910T063253Z/evidence/quick-02.json.screenshots/v06-fever-active.png",
+      "sha256": "1c549365ab515608e535d62ac8fe726bf8902c6d0743134a9125c30418c5e86a"
+    }
+  ],
+  "errors": [],
+  "bootstrap": "Production BrowserWindows, preload, renderer, IPC and save; harness lifecycle.",
+  "limitations": [
+    "No human player: enjoyment, distraction and retention remain unverified.",
+    "OS global hooks, Accessibility, tray startup, packaged app and live PvP are not exercised.",
+    "Live renderer uses production RNG and wall clock; distribution claims use separate seeded simulation.",
+    "Scripted fixtures are diagnostic setup, not naturally earned player progress."
+  ]
+}

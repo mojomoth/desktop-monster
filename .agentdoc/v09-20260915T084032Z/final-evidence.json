@@ -1,0 +1,634 @@
+{
+  "version": 9,
+  "at": "2026-09-15T14:49:08.611Z",
+  "agentId": "/root",
+  "sourceDigest": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+  "outcome": {
+    "implementation": "complete",
+    "automatedVerification": "passed",
+    "externalVerification": "pending",
+    "releaseReady": false
+  },
+  "preserved": {
+    "files": 450,
+    "currentHarness": "v3",
+    "manifest": ".agentdoc/v09-20260915T084032Z/preservation/manifest.json",
+    "sha256": "e411393d09bb79f223702ac292cafd94d8c19914e0bbfb5c0251b2e28f5ebfe6"
+  },
+  "checks": [
+    {
+      "id": "V09-01",
+      "ac": {
+        "id": "ac",
+        "command": "node --test .harness/v9/run.test.mjs",
+        "startedAt": "2026-09-15T14:44:28.627Z",
+        "endedAt": "2026-09-15T14:44:28.714Z",
+        "before": "6a6ad29ccb20b050b99b0a08368e8373c23239786a699b1763756c957240d82c",
+        "after": "6a6ad29ccb20b050b99b0a08368e8373c23239786a699b1763756c957240d82c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-01-ac-1789483468627.log",
+        "logHash": "c2a7935f6ab2ce112483d30496c8ee5c436be4822271c4e884077619faa46711"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-02",
+      "ac": {
+        "id": "ac",
+        "command": "npx vitest run tests/server tests/progressionV7.test.ts tests/save.test.ts",
+        "startedAt": "2026-09-15T14:44:28.775Z",
+        "endedAt": "2026-09-15T14:44:30.119Z",
+        "before": "befc900377354b228c52602e4e5c1d412871ffdfcdf2d0e44ee5e47e2593e71d",
+        "after": "befc900377354b228c52602e4e5c1d412871ffdfcdf2d0e44ee5e47e2593e71d",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-02-ac-1789483468775.log",
+        "logHash": "ff9f76e4e0e8fa66021240d00fd39502ac663be6e6da6730de4f7c210ab5ea41"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-03",
+      "ac": {
+        "id": "ac",
+        "command": "npx vitest run tests/recoveryV9.test.ts tests/onlineV9.test.ts tests/ipc.test.ts",
+        "startedAt": "2026-09-15T14:44:30.189Z",
+        "endedAt": "2026-09-15T14:44:31.138Z",
+        "before": "cf4ceb7ad027395f1ccacc3a8ac3733ed1e401b2ab7ac55d053c287bc2eb0e94",
+        "after": "cf4ceb7ad027395f1ccacc3a8ac3733ed1e401b2ab7ac55d053c287bc2eb0e94",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-03-ac-1789483470189.log",
+        "logHash": "4bef122aaa8ce18d216bcea78605a8c2f78aaf5547884ef9ffe13abdeab6f3f6"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-04",
+      "ac": {
+        "id": "ac",
+        "command": "npx vitest run tests/menu.test.ts tests/pvpDirectoryV7.test.ts tests/menuV9.test.ts",
+        "startedAt": "2026-09-15T14:44:31.209Z",
+        "endedAt": "2026-09-15T14:44:32.283Z",
+        "before": "eb67d50eac541298764201b44f4d3168e825a4f3be6234ce9125422233cb3753",
+        "after": "eb67d50eac541298764201b44f4d3168e825a4f3be6234ce9125422233cb3753",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-04-ac-1789483471209.log",
+        "logHash": "fd2df1a2b0e0a0ed62e6d4c18a506fc111f1acd988068fe390842ee5427c6b9a"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-05",
+      "ac": {
+        "id": "ac",
+        "command": "npx vitest run tests/renderer.test.ts tests/effects-v09.test.ts tests/hud-v09.test.ts",
+        "startedAt": "2026-09-15T14:44:32.353Z",
+        "endedAt": "2026-09-15T14:44:33.449Z",
+        "before": "f1172ee86765777d3139ad3a8564df0fe61f945e1dae106f959c10d8545bf086",
+        "after": "f1172ee86765777d3139ad3a8564df0fe61f945e1dae106f959c10d8545bf086",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-05-ac-1789483472353.log",
+        "logHash": "e5d02302710084133e789a5cbd98f61a6689ff6ce14a2b0661737a994df5a21c"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-06",
+      "ac": {
+        "id": "ac",
+        "command": "npx vitest run tests/shareV9.test.ts tests/share.test.ts tests/shareUiV9.test.ts",
+        "startedAt": "2026-09-15T14:44:33.522Z",
+        "endedAt": "2026-09-15T14:44:34.445Z",
+        "before": "69f6dfb08402a09a020b34eb3c5347d165d57348fabd6cb36d8b46befd88315b",
+        "after": "69f6dfb08402a09a020b34eb3c5347d165d57348fabd6cb36d8b46befd88315b",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-06-ac-1789483473522.log",
+        "logHash": "f7e34416c23589737152079daed8e78df2e5e2700bd4c2ab3736dcf8f3080ca7"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-07",
+      "ac": {
+        "id": "ac",
+        "command": "npx vitest run tests/platformV9.test.ts",
+        "startedAt": "2026-09-15T14:44:34.523Z",
+        "endedAt": "2026-09-15T14:44:35.197Z",
+        "before": "20b4d4bb787ce708fd047f79b89af785d1ef0990d1775816434e4cbe6602a1b8",
+        "after": "20b4d4bb787ce708fd047f79b89af785d1ef0990d1775816434e4cbe6602a1b8",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-07-ac-1789483474523.log",
+        "logHash": "0dd6f18af7d790b769a32d13e20f089f6f3ce9b1f3effae46ab562b894fbfe4d"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    },
+    {
+      "id": "V09-08",
+      "ac": {
+        "id": "ac",
+        "command": "npm run smoke && npm run package",
+        "startedAt": "2026-09-15T14:44:35.462Z",
+        "endedAt": "2026-09-15T14:45:02.753Z",
+        "before": "44a267cec5c6dd0434b4f088019377770c34639d4f9dec615f279e6d31b23c11",
+        "after": "44a267cec5c6dd0434b4f088019377770c34639d4f9dec615f279e6d31b23c11",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-ac-1789483475462.log",
+        "logHash": "bc8658fa181697957fb8105043e2e50836032096caaeeb073f85db93f7294d00"
+      },
+      "gates": {
+        "id": "gates",
+        "command": "npm test && npm run lint && npm run typecheck",
+        "startedAt": "2026-09-15T14:43:41.907Z",
+        "endedAt": "2026-09-15T14:43:54.265Z",
+        "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+        "exitCode": 0,
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+        "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+      }
+    }
+  ],
+  "evidence": {
+    ".agentdoc/v09-20260915T084032Z/native-05/native.json": "269a49c6f55f7f02c26ce00111a5f7aee5107df530d9bf7104fd6350c6de2b5d",
+    ".agentdoc/v09-20260915T084032Z/visual-02/visual.json": "e8ed2ee6aa984b6ef3d119500dd302163954216febdb4aa90b03c102bdf5d3d4",
+    ".agentdoc/v09-20260915T084032Z/core-regression-2.json": "f03d7b18ac5a12558de6e6c40ff0a22360679aa81bbcd9f68532a8d307770a1f",
+    ".agentdoc/v09-20260915T084032Z/postgres-03.json": "9ad7f3978dcc535455dec28b80b1f0bce15eb42ff6a34eee8cfcd72ccfe517bd",
+    ".agentdoc/v09-20260915T084032Z/performance-02/comparison.json": "102f14a95b29fb1e283bafcfb05f426376ca514be88cdc1362f672c1b96a0b1a",
+    ".agentdoc/v09-20260915T084032Z/artifacts-verified.json": "e1e7f80ef27c0974c350cdaacf97e8bbe0d8fa40c0a0fd44f57617f2b6a21166",
+    ".agentdoc/v09-20260915T084032Z/final-native.log": "8a0d81ff9539b8f2352e05f5827ce15e6f77a856d50824761e4fbae5c465f61f",
+    ".agentdoc/v09-20260915T084032Z/final-visual.log": "1e1534f97897aca3420b99b424228a07da85b8af32ec9e904687afbf177aa7c0",
+    ".agentdoc/v09-20260915T084032Z/final-regression.log": "a67d609c64f2c4e5e088bfa9a01d022347475ec7246ae65d25972b1cc88d7701",
+    ".agentdoc/v09-20260915T084032Z/final-performance.log": "b4ed9b93c6cfba073c63ce445c5dcedfe27c1cebf5d27d945dd2f1bc16a393b1",
+    ".agentdoc/v09-20260915T084032Z/final-verifier-tests.log": "07a7daf78a8183ddd40fa214d926e5661b66d18e1fb3a13d12fc5160a6f17c5a",
+    ".agentdoc/v09-20260915T084032Z/final-artifacts-02.log": "8cae9fcbeac802815b7aa84fee12d97304551bbd5e12f47498f964004eb4d4f3",
+    ".agentdoc/v09-20260915T084032Z/final-dmg-mount.log": "896cd2c8baf43a956a18cc8c35fc2a8a2af099296529772ce248a075830c66c5",
+    ".agentdoc/v09-20260915T084032Z/final-dmg-detach.log": "9e8dcd393f810c2add3a639e31de7b0f3e9ecebd3246b75bf5c659d263810976",
+    ".agentdoc/v09-20260915T084032Z/performance-verifier-initial-save.json": "62cb07b39bc17421ced44cf87a7dd561182d3401a43b5fad5266972e79cf11f2",
+    ".agentdoc/v09-20260915T084032Z/performance-verifier-closeout.json": "df60a716d7089bef319ad337ed08be640eb807d421b7550c1ea487a8130ad34d",
+    ".agentdoc/v09-20260915T084032Z/reviews/designer-native-01.md": "e1005e5d3a2c8d67576eb84dd8f1f43fd45dd71c028f1823f6eeffdecbec1ebd",
+    ".agentdoc/v09-20260915T084032Z/reviews/critic-implementation-05.md": "9f9f9446fd87c1d19e52fdf8773455958a3f3ca264881d056fbec9acd90e9915",
+    ".agentdoc/v09-20260915T084032Z/reviews/balance-implementation-final.md": "7cef1fda41dac15d2275c8a19e426714fb31137162bb244d04f02c4688a4eaf7",
+    ".agentdoc/v09-20260915T084032Z/reviews/critic-performance-verifier-01.md": "bbc450e68657db51f4ab0ffa3aaa19a109c6f6e690d0655db2bd4dbd557481e8",
+    ".agentdoc/v09-20260915T084032Z/reviews/critic-performance-closeout-01.md": "f0561e18f4b0ab7d8d43ce4f849f7c1e0cc3750c4a91b06d9b0fcff16ecc99c5",
+    ".agentdoc/v09-20260915T084032Z/reviews/critic-final-evidence-preflight.md": "72334901a179e65df4cb1f3a9ba3f769fdb058d3a8bdbc461943819a3a9af9a1"
+  },
+  "summary": {
+    "unitTests": 1063,
+    "testFiles": 73,
+    "coreRegressionCases": 200,
+    "nativeUiChecks": 29,
+    "nativePngs": 8,
+    "visualCases": 410,
+    "performanceObservationMinutes": 300,
+    "mixedSamples": 2152,
+    "mixedInput": {
+      "actual": 10659,
+      "expected": 10800,
+      "fraction": 0.9869444444444444,
+      "phases": [
+        {
+          "startMs": 0,
+          "endMs": 300000,
+          "measuredFromMs": 0,
+          "measuredThroughMs": 295415.665083,
+          "expectedInputs": 590.831330166,
+          "actualInputs": 583
+        },
+        {
+          "startMs": 300000,
+          "endMs": 600000,
+          "measuredFromMs": 300423.38450000004,
+          "measuredThroughMs": 595819.0736669999,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 600000,
+          "endMs": 900000,
+          "measuredFromMs": 600824.135292,
+          "measuredThroughMs": 897890.7374999999,
+          "expectedInputs": 594.1332044159998,
+          "actualInputs": 581
+        },
+        {
+          "startMs": 900000,
+          "endMs": 1200000,
+          "measuredFromMs": 902894.1495419999,
+          "measuredThroughMs": 1198257.852917,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 1200000,
+          "endMs": 1500000,
+          "measuredFromMs": 1203262.849375,
+          "measuredThroughMs": 1495305.154667,
+          "expectedInputs": 584.0846105840001,
+          "actualInputs": 577
+        },
+        {
+          "startMs": 1500000,
+          "endMs": 1800000,
+          "measuredFromMs": 1500310.756875,
+          "measuredThroughMs": 1795717.25025,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 1800000,
+          "endMs": 2100000,
+          "measuredFromMs": 1800725.039292,
+          "measuredThroughMs": 2097732.3622500002,
+          "expectedInputs": 594.0146459160005,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 2100000,
+          "endMs": 2400000,
+          "measuredFromMs": 2102738.4118330004,
+          "measuredThroughMs": 2398154.382542,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 2400000,
+          "endMs": 2700000,
+          "measuredFromMs": 2403167.1592920003,
+          "measuredThroughMs": 2695186.772917,
+          "expectedInputs": 584.0392272499995,
+          "actualInputs": 576
+        },
+        {
+          "startMs": 2700000,
+          "endMs": 3000000,
+          "measuredFromMs": 2700192.3497920004,
+          "measuredThroughMs": 2995639.1240830002,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 3000000,
+          "endMs": 3300000,
+          "measuredFromMs": 3000646.4667080003,
+          "measuredThroughMs": 3297753.7339170002,
+          "expectedInputs": 594.2145344179999,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 3300000,
+          "endMs": 3600000,
+          "measuredFromMs": 3302758.2687500003,
+          "measuredThroughMs": 3598208.382792,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 3600000,
+          "endMs": 3900000,
+          "measuredFromMs": 3603213.3070830004,
+          "measuredThroughMs": 3895306.5412500002,
+          "expectedInputs": 584.1864683339996,
+          "actualInputs": 576
+        },
+        {
+          "startMs": 3900000,
+          "endMs": 4200000,
+          "measuredFromMs": 3900312.647375,
+          "measuredThroughMs": 4195715.454957999,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 4200000,
+          "endMs": 4500000,
+          "measuredFromMs": 4200727.737167,
+          "measuredThroughMs": 4497783.34275,
+          "expectedInputs": 594.111211166,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 4500000,
+          "endMs": 4800000,
+          "measuredFromMs": 4502790.288749999,
+          "measuredThroughMs": 4798194.954624999,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 4800000,
+          "endMs": 5100000,
+          "measuredFromMs": 4803208.149792,
+          "measuredThroughMs": 5095259.47825,
+          "expectedInputs": 584.102656916,
+          "actualInputs": 576
+        },
+        {
+          "startMs": 5100000,
+          "endMs": 5400000,
+          "measuredFromMs": 5100264.465542,
+          "measuredThroughMs": 5395708.674083,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 5400000,
+          "endMs": 5700000,
+          "measuredFromMs": 5400718.666542,
+          "measuredThroughMs": 5697793.869667,
+          "expectedInputs": 594.15040625,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 5700000,
+          "endMs": 6000000,
+          "measuredFromMs": 5702803.345582999,
+          "measuredThroughMs": 5998202.769292,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 6000000,
+          "endMs": 6300000,
+          "measuredFromMs": 6003209.006666999,
+          "measuredThroughMs": 6295262.24575,
+          "expectedInputs": 584.1064781660009,
+          "actualInputs": 576
+        },
+        {
+          "startMs": 6300000,
+          "endMs": 6600000,
+          "measuredFromMs": 6300277.3275419995,
+          "measuredThroughMs": 6595684.56875,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 6600000,
+          "endMs": 6900000,
+          "measuredFromMs": 6600695.67625,
+          "measuredThroughMs": 6897826.177666999,
+          "expectedInputs": 594.2610028339997,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 6900000,
+          "endMs": 7200000,
+          "measuredFromMs": 6902828.475083,
+          "measuredThroughMs": 7198289.009542,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 7200000,
+          "endMs": 7500000,
+          "measuredFromMs": 7203298.497874999,
+          "measuredThroughMs": 7495354.682792,
+          "expectedInputs": 584.1123698340002,
+          "actualInputs": 577
+        },
+        {
+          "startMs": 7500000,
+          "endMs": 7800000,
+          "measuredFromMs": 7500361.53475,
+          "measuredThroughMs": 7795793.9325,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 7800000,
+          "endMs": 8100000,
+          "measuredFromMs": 7800798.479499999,
+          "measuredThroughMs": 8097804.154666999,
+          "expectedInputs": 594.0113503339999,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 8100000,
+          "endMs": 8400000,
+          "measuredFromMs": 8102809.4405,
+          "measuredThroughMs": 8398226.053083,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 8400000,
+          "endMs": 8700000,
+          "measuredFromMs": 8403234.464708,
+          "measuredThroughMs": 8695271.925542,
+          "expectedInputs": 584.0749216680006,
+          "actualInputs": 575
+        },
+        {
+          "startMs": 8700000,
+          "endMs": 9000000,
+          "measuredFromMs": 8700296.536583,
+          "measuredThroughMs": 8995865.058333,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 9000000,
+          "endMs": 9300000,
+          "measuredFromMs": 9000869.664208,
+          "measuredThroughMs": 9297883.002125,
+          "expectedInputs": 594.0266758340001,
+          "actualInputs": 587
+        },
+        {
+          "startMs": 9300000,
+          "endMs": 9600000,
+          "measuredFromMs": 9302887.476292001,
+          "measuredThroughMs": 9598341.685167002,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 9600000,
+          "endMs": 9900000,
+          "measuredFromMs": 9603351.111458,
+          "measuredThroughMs": 9895409.692917,
+          "expectedInputs": 584.1171629180014,
+          "actualInputs": 576
+        },
+        {
+          "startMs": 9900000,
+          "endMs": 10200000,
+          "measuredFromMs": 9900415.055375,
+          "measuredThroughMs": 10195815.218333,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        },
+        {
+          "startMs": 10200000,
+          "endMs": 10500000,
+          "measuredFromMs": 10200823.040292,
+          "measuredThroughMs": 10497902.202083,
+          "expectedInputs": 594.158323582001,
+          "actualInputs": 586
+        },
+        {
+          "startMs": 10500000,
+          "endMs": 10800000,
+          "measuredFromMs": 10502908.295,
+          "measuredThroughMs": 10798389.341417002,
+          "expectedInputs": 0,
+          "actualInputs": 0
+        }
+      ],
+      "closeout": {
+        "elapsedMs": 1700.6745419986546,
+        "expectedInputs": 3.4013490839973093,
+        "actualInputs": 3,
+        "totalAtShutdown": 10662
+      }
+    },
+    "comparisons": [
+      {
+        "profile": "active",
+        "cpu": {
+          "baseline": 2.642215107002181,
+          "candidate": 2.74505162609314,
+          "limit": 3.642215107002181,
+          "passed": true
+        },
+        "workingSetMiB": {
+          "baseline": 248.21875,
+          "candidate": 254.734375,
+          "limit": 298.21875,
+          "passed": true
+        }
+      },
+      {
+        "profile": "idle",
+        "cpu": {
+          "baseline": 2.4699722240331714,
+          "candidate": 2.496516920883527,
+          "limit": 3.4699722240331714,
+          "passed": true
+        },
+        "workingSetMiB": {
+          "baseline": 263.4375,
+          "candidate": 260.8125,
+          "limit": 316.125,
+          "passed": true
+        }
+      }
+    ],
+    "memoryGrowth": {
+      "initialMedianMiB": 229.015625,
+      "finalMedianMiB": 208.671875,
+      "limitMiB": 279.015625,
+      "passed": true
+    },
+    "macBundleEntries": 316,
+    "windowsPayloadFiles": 109
+  },
+  "pending": [
+    "Windows CI execution and Windows 11 hardware input/DPI/multi-monitor/install-update-uninstall lifecycle",
+    "Real DesMon Steam AppID/DepotID, partner SDK, initialization and Steam installation",
+    "Production server rollout/shared database migration and old-service PvP upgrade or shutdown",
+    "Historical v0.8 human observation checks"
+  ],
+  "reviewOrder": [
+    {
+      "role": "Designer",
+      "agentId": "/root/designer",
+      "report": ".agentdoc/v09-20260915T084032Z/reviews/designer-native-01.md",
+      "sha256": "e1005e5d3a2c8d67576eb84dd8f1f43fd45dd71c028f1823f6eeffdecbec1ebd",
+      "decision": "accepted within documented scope"
+    },
+    {
+      "role": "Critic",
+      "agentId": "/root/critic",
+      "report": ".agentdoc/v09-20260915T084032Z/reviews/critic-implementation-05.md",
+      "sha256": "9f9f9446fd87c1d19e52fdf8773455958a3f3ca264881d056fbec9acd90e9915",
+      "decision": "accepted within documented scope"
+    },
+    {
+      "role": "Balance",
+      "agentId": "/root/balance",
+      "report": ".agentdoc/v09-20260915T084032Z/reviews/balance-implementation-final.md",
+      "sha256": "7cef1fda41dac15d2275c8a19e426714fb31137162bb244d04f02c4688a4eaf7",
+      "decision": "accepted within documented scope"
+    }
+  ],
+  "notes": [
+    "Original performance queue comparison failure and both verifier correction records are retained; corrected comparison independently reviewed and verified.",
+    "Original final-artifacts check included server files excluded by package.json; corrected check follows the declared bundle contents. Both evaluator sources/logs retained.",
+    "Synthetic input, isolated saves and injected server used for native checks. No production accounts, global OS hooks, public deployment or git commit/push.",
+    "Full final DMG app bundle matched the separately installed, runtime-tested app; Windows payload matches all 109 packaged workspace files."
+  ],
+  "evaluator": {
+    "path": ".agentdoc/v09-20260915T084032Z/final-record.txt",
+    "sha256": "005f68a5a0f94e5410c0af5b35e3b897c0ebff67028bb1f17bb8b6276a31c626"
+  }
+}

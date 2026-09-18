@@ -1,0 +1,1065 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "at": "2026-09-12T20:14:52.730667+00:00",
+  "status": "PASS",
+  "errors": [],
+  "snapshot": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/snapshot-complete.json",
+    "sha256": "6787fb227efd29691851ae61f72bf102be3c3362c44828644e68287e588d1d26"
+  },
+  "method": "Independent Python Decimal to integer100ms; full100 and separate conditional quantiles per policy; direct new raw-file/report equality; no pooled900 target or game execution.",
+  "rawFilesRehashed": 900,
+  "rawReportEqualityCount": 900,
+  "policies": [
+    {
+      "key": "active/free/uniform/none/0",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": true,
+      "firstBy90": 100,
+      "h70EligibilityTiming": {
+        "before8h": 30,
+        "within8Through12h": 20,
+        "unreached": 50
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 22.0,
+            "p50": 137.0,
+            "p90": 329.0,
+            "worst": 341.0
+          },
+          "conditional": {
+            "p10": 22.0,
+            "p50": 137.0,
+            "p90": 329.0,
+            "worst": 341.0
+          },
+          "minimum": 14.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "59011148891",
+          "p50": "993843782603",
+          "p90": "13130308499555",
+          "min": "27941082122",
+          "max": "29673469372439"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "78472314608",
+          "p50": "683544255935",
+          "p90": "390549078282070",
+          "min": "12930059722",
+          "max": "383091580247671472017"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "1471198",
+          "p50": "13165864",
+          "p90": "6954523767",
+          "min": "235585",
+          "max": "6643950647511798"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 86400
+    },
+    {
+      "key": "active/free/uniform/none/600",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 100,
+      "h70EligibilityTiming": {
+        "before8h": 64,
+        "within8Through12h": 25,
+        "unreached": 11
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 65.0,
+            "p50": 67.0,
+            "p90": 69.0,
+            "worst": 70.0
+          },
+          "conditional": {
+            "p10": 65.0,
+            "p50": 67.0,
+            "p90": 69.0,
+            "worst": 70.0
+          },
+          "minimum": 14.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "1247267730296",
+          "p50": "2966211559394",
+          "p90": "5356969441564",
+          "min": "28329230265",
+          "max": "8328535184016"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "36368537905222440",
+          "p50": "2205154925924864703115510",
+          "p90": "426066232998072567228852325314425",
+          "min": "17247202622",
+          "max": "181948002896278681161398225566683331801170"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "866730422232",
+          "p50": "46905412462933413658",
+          "p90": "9113434737902597507025753939",
+          "min": "346845",
+          "max": "3609711777064317416689676314721066218"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 86400
+    },
+    {
+      "key": "intermittent/free/uniform/none/600",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 64,
+      "h70EligibilityTiming": {
+        "before8h": 49,
+        "within8Through12h": 32,
+        "unreached": 19
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 53.0,
+            "p50": 63.0,
+            "p90": 67.0,
+            "worst": 70.0
+          },
+          "conditional": {
+            "p10": 53.0,
+            "p50": 63.0,
+            "p90": 67.0,
+            "worst": 70.0
+          },
+          "minimum": 25.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "167011321554",
+          "p50": "569733453004",
+          "p90": "1143228578488",
+          "min": "18230847858",
+          "max": "1595515581412"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "1401509210353430",
+          "p50": "418767979216081086140168",
+          "p90": "4087708720592354460258463866811085",
+          "min": "194304318255",
+          "max": "171097471733349508235597196307875686160098"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "30278605671",
+          "p50": "11671067310618496027",
+          "p90": "81470534329509996032782108711",
+          "min": "4303942",
+          "max": "3865317211913729795231016170005446254"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 21780
+    },
+    {
+      "key": "warm-idle/free/uniform/none/600",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 13,
+      "h70EligibilityTiming": {
+        "before8h": 17,
+        "within8Through12h": 27,
+        "unreached": 56
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 42.0,
+            "p90": 61.0,
+            "worst": 67.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 42.0,
+            "p90": 61.0,
+            "worst": 67.0
+          },
+          "minimum": 0.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "14368",
+          "p50": "14920",
+          "p90": "15664",
+          "min": "14005",
+          "max": "15960"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "0",
+          "p50": "1991655925537139186",
+          "p90": "11237017012436354982012224700002",
+          "min": "0",
+          "max": "18032552632547446680184360859810473215"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "0",
+          "p50": "58782472919963",
+          "p90": "293962039304386144786108267",
+          "min": "0",
+          "max": "456657394527159183104653781748593"
+        }
+      },
+      "post8hChoiceSamples": 69,
+      "noPost8hChoiceSamples": 31,
+      "terminalInputCount": 240
+    },
+    {
+      "key": "pure-idle/free/uniform/none/600",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 0,
+      "h70EligibilityTiming": {
+        "before8h": 0,
+        "within8Through12h": 0,
+        "unreached": 100
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "0",
+          "p50": "0",
+          "p90": "0",
+          "min": "0",
+          "max": "0"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "0",
+          "p50": "0",
+          "p90": "0",
+          "min": "0",
+          "max": "0"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "0",
+          "p50": "0",
+          "p90": "0",
+          "min": "0",
+          "max": "0"
+        }
+      },
+      "post8hChoiceSamples": 0,
+      "noPost8hChoiceSamples": 100,
+      "terminalInputCount": 0
+    },
+    {
+      "key": "active/free/burst/none/0",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 100,
+      "h70EligibilityTiming": {
+        "before8h": 53,
+        "within8Through12h": 15,
+        "unreached": 32
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 23.0,
+            "p50": 285.0,
+            "p90": 340.0,
+            "worst": 348.0
+          },
+          "conditional": {
+            "p10": 23.0,
+            "p50": 285.0,
+            "p90": 340.0,
+            "worst": 348.0
+          },
+          "minimum": 14.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "63017677573",
+          "p50": "6982699699650",
+          "p90": "21287497455835",
+          "min": "29353864486",
+          "max": "30928452245207"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "79319408924",
+          "p50": "2500717666469",
+          "p90": "497929273457616867",
+          "min": "15773280987",
+          "max": "514601575176988300940"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "1146241",
+          "p50": "30175145",
+          "p90": "5617487729489",
+          "min": "199215",
+          "max": "6124761364603251"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 86400
+    },
+    {
+      "key": "active/training/uniform/consume-weakest/600",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 100,
+      "h70EligibilityTiming": {
+        "before8h": 100,
+        "within8Through12h": 0,
+        "unreached": 0
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 67.0,
+            "p50": 68.0,
+            "p90": 70.0,
+            "worst": 71.0
+          },
+          "conditional": {
+            "p10": 67.0,
+            "p50": 68.0,
+            "p90": 70.0,
+            "worst": 71.0
+          },
+          "minimum": 66.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 68.0,
+            "p50": 71.0,
+            "p90": 72.0,
+            "worst": 72.0
+          },
+          "conditional": {
+            "p10": 68.0,
+            "p50": 71.0,
+            "p90": 72.0,
+            "worst": 72.0
+          },
+          "minimum": 67.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "6401773438671",
+          "p50": "9355232230827",
+          "p90": "12606915566613",
+          "min": "4054556775283",
+          "max": "18257043805851"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "4694801551792997587481179002",
+          "p50": "314298937774602914265953086843704775",
+          "p90": "18861650032487934362286623260588012373518782",
+          "min": "65186533867392784027106",
+          "max": "8565516059141518922732708463550949904831144881717366327"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "204770523677194577934927",
+          "p50": "12419353163248519352575858766465",
+          "p90": "725896823738346482373050302589235904718",
+          "min": "2844602443224399949",
+          "max": "319019245917597935063383777375376086535960296256848"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 86400
+    },
+    {
+      "key": "active/lure/uniform/fuse-first/600",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 100,
+      "h70EligibilityTiming": {
+        "before8h": 70,
+        "within8Through12h": 22,
+        "unreached": 8
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 66.0,
+            "p50": 67.0,
+            "p90": 69.0,
+            "worst": 70.0
+          },
+          "conditional": {
+            "p10": 66.0,
+            "p50": 67.0,
+            "p90": 69.0,
+            "worst": 70.0
+          },
+          "minimum": 16.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 1.0,
+            "p50": 4.0,
+            "p90": 6.0,
+            "worst": 8.0
+          },
+          "conditional": {
+            "p10": 1.0,
+            "p50": 4.0,
+            "p90": 6.0,
+            "worst": 8.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "1412987077374",
+          "p50": "3881394474049",
+          "p90": "6391329047250",
+          "min": "34075684376",
+          "max": "9461541267373"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "229999232416676037",
+          "p50": "1319551418386830300212679939",
+          "p90": "275439802871405610372083996187712813",
+          "min": "40490580875",
+          "max": "2345732209511373936130562948220754769667900076"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "5827764119688",
+          "p50": "28931096250696224525885",
+          "p90": "5766757279756237589339608629129",
+          "min": "1002385",
+          "max": "45262879330960694729180210522078374433736"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 86400
+    },
+    {
+      "key": "active/reroll/uniform/reincarnate-first/120",
+      "samples": 100,
+      "status": "PASS",
+      "canonical": false,
+      "firstBy90": 100,
+      "h70EligibilityTiming": {
+        "before8h": 100,
+        "within8Through12h": 0,
+        "unreached": 0
+      },
+      "actualActions": {
+        "heroChoose": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 327.0,
+            "p50": 335.0,
+            "p90": 342.0,
+            "worst": 347.0
+          },
+          "conditional": {
+            "p10": 327.0,
+            "p50": 335.0,
+            "p90": 342.0,
+            "worst": 347.0
+          },
+          "minimum": 313.0
+        },
+        "consume": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 302.0,
+            "p50": 311.0,
+            "p90": 317.0,
+            "worst": 321.0
+          },
+          "conditional": {
+            "p10": 302.0,
+            "p50": 311.0,
+            "p90": 317.0,
+            "worst": 321.0
+          },
+          "minimum": 292.0
+        },
+        "fuse": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "conditional": {
+            "p10": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "worst": 0.0
+          },
+          "minimum": 0.0
+        },
+        "reincarnate": {
+          "samples": 100,
+          "reached": 100,
+          "unreached": 0,
+          "population": {
+            "p10": 32.0,
+            "p50": 33.0,
+            "p90": 34.0,
+            "worst": 35.0
+          },
+          "conditional": {
+            "p10": 32.0,
+            "p50": 33.0,
+            "p90": 34.0,
+            "worst": 35.0
+          },
+          "minimum": 30.0
+        }
+      },
+      "exactTerminalBigint": {
+        "heroDamage": {
+          "samples": 100,
+          "p10": "23725357703885",
+          "p50": "36715186132780",
+          "p90": "42572721040044",
+          "min": "13461650096128",
+          "max": "45463995715433"
+        },
+        "companionDamage": {
+          "samples": 100,
+          "p10": "527321182190004837454482654",
+          "p50": "1143031486375862753917594036108203",
+          "p90": "22163621437694868587422379901935427836980",
+          "min": "11825284813121001141442",
+          "max": "18382096494860872111906937504690568242702729163776"
+        },
+        "partyPower": {
+          "samples": 100,
+          "p10": "144582853575106610893114",
+          "p50": "395941410045521063005918435587",
+          "p90": "2909809139633474689667513651341555508",
+          "min": "5136780864611731866",
+          "max": "6403442379019058836347319813698584714113880014"
+        }
+      },
+      "post8hChoiceSamples": 100,
+      "noPost8hChoiceSamples": 0,
+      "terminalInputCount": 86400
+    }
+  ],
+  "firstAndH70DistributionsChecked": 108,
+  "milestoneDistributionsChecked": 189,
+  "checkpointsWithFirstEventsCurrencyActualActionsAndInputCountsChecked": 9900,
+  "bigintScenarioDistributionsChecked": 297,
+  "all900Paired8to12AndInteger100msGapsChecked": true,
+  "canonicalGoals": {
+    "firstMedian": true,
+    "firstDeadline": true,
+    "lastMedian": true
+  },
+  "canonicalTargetDenominator": 100,
+  "newNumericalProposal": null,
+  "validationUsedForOptimization": false,
+  "gameMeasurementsExecuted": 0
+}

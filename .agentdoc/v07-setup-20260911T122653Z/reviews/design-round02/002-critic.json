@@ -1,0 +1,88 @@
+{
+  "requestId": "005ebf4571d146f283a944023cdb558e76e8622b94d484b0c492f707a2cb6692",
+  "round": 1,
+  "role": "critic",
+  "sourceDigest": "0158962366a8669d1721b4ab2d6c7e551e12dfbaadf57c51c6921f54dd658cb0",
+  "evaluationDigest": "659e1bf05b0d7f319a835ad9b8f90cadaa85944cb59149f225bfa752004cffce",
+  "agent": "/root/critic",
+  "decision": "pass",
+  "summary": "실제 발급 prompt/template 전체와 Designer001을 읽고 round02 비교 설계를 독립 검토했다. 현재 source/evaluation 및 Designer의 근거 12개 해시가 발급 스냅샷과 일치한다. 원본 보고서 8개의 160개 표본에서 전체 p50·90분 성공 수·미도달·정책·seed·raw hash를 재계산하여 round01 전부 선별 FAIL임을 확인했다. Lv17의 XP만 1.41/1.42/1.43으로 바꾸는 새 비교에는 blocker/major를 발견하지 않았다. 이는 실험 설계 pass이며 후보 채택, 현재 작업 verified, 목표 통과, 네 역할 결과 감사 또는 출시 승인이 아니다. 새 후보와 12시간 목표는 미측정이고 selectedExperiment=null, humanChecks=PENDING이다. 테스트·빌드·측정·제품 구현은 실행하지 않았다.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "round=2, 후보 최대3개와 대조Lv16–20, 정확한17개 매개변수와 frozenAt을 확인했다. 이전 원본과 대조 및 6개 콘텐츠 조건은 JSON 동등하고 세 후보는 control-l17 대비 xpGrowth 한 값만 다르다. 선택은 null이다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "실패 후보를 채택하지 않는 절차, 전체 표본 p50/p90 및18/20→90/100의 별도 분모, 무료 경로, 영향 작업 재검증, 소스별 원본 보존과 출시 상태 분리가 명시되어 있다. XP 증가의 단조성이나 꼬리 개선을 성공으로 가정하지 않는다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round01-analysis/README.md",
+      "note": "연결된 final-analysis.json SHA256 f4322583990c3aba98b6004563c2c0a149898b30e83e10f074b56660de1d7cc7을 독립 확인했다. 8개 screening.json의 전체 p50/90분 성공은 L16 813.6/20, L17 1636.5/20, L18 4976.5/12, L19 null/5, L20 null/1, A null/5, B2429.7/16, C5064.9/10으로 요약과 일치한다. 모두 N20·탐색10001–10020·canonical 정책·raw hash 일치이며 h70 자격은0/20이다. 이는 과거 수치 대조이지 새 소스 인증이 아니다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재 실제 export는 control-l17: XP20·1.4, 필드/동료HP115/100, 포획0.35·최초보장null, stepEvery2/cap6, rest120000/defer30000, XP5+3i·보스5배이다. CLI 후보 ID만 바꾸어 다른 제품 수치를 적용했다고 주장할 수 없다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "공식 realpath와 현재 protocol hash 검사를 새 실행·완료 출력 resume·verify에서 확인했다. build와 실제 core 매개변수/콘텐츠 export를 비교한다. evaluateTargets는 전체 표본 분위수와 전체 분모의90분 성공률을 사용하며 final은 eligibleHero h70이다. 단계 AC는 탐색/120분을 거부하고 candidate는100 validation×12h, release는9개 정책 전체를 요구한다."
+    },
+    {
+      "path": "src/core/collection.ts",
+      "note": "정확한 bigint 힘, Lv>=10 환생 자격과 Lv1/별+1, level/stars/souls overflow 전 무변경 거부, supplied snapshot의 종·깊이·레벨·별 대조를 확인했다. 이전에 지적했던 서버 transfer ID 보존과 중복/충돌 거부도 유지된다. 새 메뉴 IPC는 expected 필수이며 core 내부 생략 호환과 구분된다."
+    },
+    {
+      "path": "src/core/progress.ts",
+      "note": "acquiredDiscoveries는 heroCounts/실제 이력/영구 collection 및 speciesKills의 양의 안전 정수 증거만 사용한다. parseProgress는 ACK ID 구문만 보존하여 collection-only 영웅 ACK를 조기 삭제하지 않고, migrateProgress에서 전체 획득 context로 ACK를 교집합 처리한다. seen/보유/현재 몬스터/총처치로 실제 종별 처치를 발명하지 않는다."
+    },
+    {
+      "path": "src/menu/codex.ts",
+      "note": "공유 acquired 집합을 공개 카드·조건 참조 이름·카운트·알림·ACK·목표에 사용한다. 자격 충족과 획득 완료를 분리하고 원화 정책은 도감 안에서 적용한다."
+    },
+    {
+      "path": "src/menu/index.ts",
+      "note": "환생의 전후 정확한 힘·확인/취소·대상 변경 무효화와 필수 expected 전송을 확인했다. 지정 playerId 및 안정된 행/버튼, 행 제거 후 포커스 복구, 렌더·클릭·identity promise 직후 만료 검사를 유지한다. 과거 Native 진단을 현재 최종 integration/release로 재인증하지 않는다."
+    },
+    {
+      "path": "src/main/net.ts",
+      "note": "level 응답은 Number.MAX_SAFE_INTEGER까지 안전 정수로 검증한다. 지정 match와 verdict의 playerId/nonbot 일치, preflight upload 실패 후 PvP 중단이 유지된다. 로컬 이 경로의 존재는 실제 운영 서버 호환 완료를 뜻하지 않는다."
+    },
+    {
+      "path": ".harness/v7/loop/server-check.mjs",
+      "note": "local AC·테스트 source/log·build log 및 실제 build를 묶고, 실제 health SHA의 git blobs와 core/server/shared/net·package/lock·compiler 설정을 대조한다. live compatible SHA 없는 로컬 성공만으로 release 검증을 통과시킬 수 없다."
+    },
+    {
+      "path": "tests/engine.test.ts",
+      "note": "B의 HP114 fixture 보완은 기존10회 공격과 정확한 전체 ID 순서를 유지하며 carried 배열을 실제 필드 경로에 맞게 검증한다. 5009ms 무공격과5010ms c4 약점1n 및 HP 검증이 추가되어 이전 window 지연 공격 유실을 감추지 않는다. 이번 리뷰에서는 테스트를 실행하지 않았다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "Lv10은 환생 자격일 뿐 성장 상한이 아니며 저장/서버/응답의 양의 안전 정수 범위가 필요하다. MAX_SAFE 수준의 레벨 힘은 bigint로 보존하고 증가 overflow는 재료 제거 전에 거부한다. 환생 전후 힘 비율2/level을 명시하므로 Lv10→Lv1/별+1은1/5이며 강화로 오인시키지 않는다. UI2차 확인과 mandatory IPC expected, core의 현재 대상 대조는 취소·변경·삭제·중복 실행 반례를 처리한다. 영향을 받은 현재 소스의 levels AC와 전체 gates가 다시 통과해야 한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅 선택/영구 획득과 몬스터 실제 종별 처치를 기준으로 이름·색·aria·카운트·알림·ACK·목표를 일치시키는 계약이 적절하다. 미선택 후보·필드 등장·PvP 획득은 처치를 대신하지 않는다. collection-only 영웅 ACK는 parse→migration에서도 유지하고, 레거시의 부당한 ACK는 제거하여 이후 첫 실제 획득이 새 알림이 된다. seen 이력의 해금 의미와 offer/필드/PvP 원화는 별도로 유지해야 한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "최대50행의 영웅과 최대5명 동료 파티, 요청→preview→battle의 지정 playerId 일치, stale/error/삭제/만료 거부가 설계와 현재 코드에 있다. Enter/Space/Tab/ShiftTab, 주기 갱신 중 동일 버튼 포커스, 행 제거 시 재시도 포커스는 최종 소스의 실제 Native로 다시 확인해야 한다. 만료는 렌더/전투 클릭/비동기 identity 완료 뒤에도 검사하여 과거 preview 전투를 막는다. 과거0분 fixture 진단은 출시 자연 관측을 대신하지 않는다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "L17의 빠른 전체 p50 1636.5초와20/20 성공은 XP만 늘리는 제한된 탐색의 근거다. B는 조기 포획에도4개 seed가120분 Lv17·79킬에 정체했고 C의 보장은90분 성공을12→10으로 낮췄으므로 최초 포획 보장이나 XP 증가를 성공률 개선으로 가정하지 않는다. 세 후보에서 첫 처치/보상/레벨/포획/ready/open/accepted와 최악 공백을 새로 보고하고 p50 2700–3600초 및18/20이5400초 이내를 동시에 요구한다. validation은별도1–100의90/100이다. 실패하면 null 선택과 원본을 유지한다. 기존rest120초/defer30초 외 강제 시간 제한은 없다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm dragon3킬, rootcolossus 환생3회, h58 물100킬+reefknight2킬+총1500킬, h62 환생5회+seen60종+총6000킬, starvoid 환생10회+총16000킬, h70 선택10종+총30000킬은 round01과 동일하다. 무료 경로와 실제 selector의 자격을 유지한다. h70 자격/제시/선택을 따로 보고하며 choices[0]의 미선택을 성공 또는 결측 제거로 바꾸지 않는다.120분 전부 미도달은8–12시간 목표 NOT_EVALUATED다. 선별 통과안만 탐색20×12h로 승급하고 전체 자격 p50 28800–43200초를 통과한 안끼리 등록 tie-break를 적용한다. 집중 입력·훈련·무한 동료 성장의 조기 해금 분포는9개 정책에서 숨기지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "고레벨 저장·재시작·upload·응답·탈취·회수에서 안전 정수와 server transfer ID를 보존하며 invalid nested 응답과 overflow는 무손실 거부해야 한다. 테스트용 injected roundtrip 성공과 운영 SHA 호환을 구분한다. 새 클라이언트 출시 전 live compatible SHA가 없으면 local passed/live pending/release not verified다. package/lock0.7.0 고정 후 같은 최종 소스 AC·gates, 실제5/15/30×3과 별도연속180분 active의10분 메뉴 선택,100seed×12h 정책별 측정, 실제4역할 audit·smoke·package가 필요하다. 자연 관측 중 fixture/가속 금지, 사람 관찰은 PENDING이다."
+    }
+  ],
+  "verified": []
+}

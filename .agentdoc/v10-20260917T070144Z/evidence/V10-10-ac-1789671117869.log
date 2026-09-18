@@ -1,0 +1,35 @@
+{
+  "version": 10,
+  "passed": true,
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "balance": {
+    "passed": true,
+    "selected": "C",
+    "rows": 2400,
+    "coreHash": "0d70a8954909793281c94be89ba45c4694b94f8f84afae1a29e936229ea2cf59"
+  },
+  "installerPayloads": {
+    "macPayloadHash": "075b2de5f3dbdc29e7e0b5df269603f66a8ab50db201ccbe136b162e0c7817bd",
+    "windowsPayloadHash": "0b92c8e94f3d2f9aae05f66c6c00e5cb838068e133723208e1bf9b65a32f5272",
+    "extractor": {
+      "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+      "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+    },
+    "macDmgHash": "58fc4ed21846e9434417d3006fa2a7fed2103a22a1de2c414cc703b6a35d4e7d",
+    "windowsInstallerHash": "46c7e9fd70d4eaffb4c8c4c1f8d6f802ab615c51f97323d17b6bd4e1f7cc80a7"
+  },
+  "externalChecks": {
+    "windowsHardware": {
+      "performed": false,
+      "note": "Windows x64 installer built; execution on a physical Windows machine was not performed."
+    },
+    "postgresql": {
+      "performed": false,
+      "note": "Deterministic injected store/query tests and source review passed; no live PostgreSQL integration run."
+    },
+    "humanFun": {
+      "performed": false,
+      "note": "Agent simulation and native interaction only; human enjoyment evaluation was not performed."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "version": 9,
+  "reason": "Terminal menu capture remains inside the measured closeout interval while the observer input timer runs; apply the existing schedule and cadence bounds to that interval.",
+  "originalRejection": "mixed: Final input count differs from raw.",
+  "lastRaw": {
+    "elapsedMs": 10800023.805625001,
+    "inputs": 10659
+  },
+  "closeout": {
+    "elapsedMs": 1700.6745419986546,
+    "inputs": 3
+  },
+  "unchanged": [
+    "product",
+    "observer",
+    "protocol",
+    "raw observations",
+    "duration/error/CPU/memory budgets"
+  ],
+  "bindings": {
+    ".agentdoc/v09-20260915T084032Z/reviews/performance-verifier-before-closeout.txt": "b240a0045d11d942923bcc2d2ec7f35155d157d7564dbda209e934e871e96520",
+    ".agentdoc/v09-20260915T084032Z/performance-02/queue.json": "a2e1c4e91e70e8b380939dcebf9c21c2a760d11eedd104bf4a50ee40188c97c6",
+    ".agentdoc/v09-20260915T084032Z/performance-02.stdout.log": "721ce12a8652fd340e24103fac69600b8cee2c2a664f1770d79383893c125711",
+    ".agentdoc/v09-20260915T084032Z/performance-02/mixed.json": "b3dccabcfbf81c36f68cd670383a56315c22a1bf591972a84c02c86b985f602a",
+    ".agentdoc/v09-20260915T084032Z/performance-02/mixed.json.samples.jsonl": "365da1d655778cb37334cd1df6153b56f47c6763a65062a9dd14b479fb3dc0d4",
+    ".agentdoc/v09-20260915T084032Z/performance-verifier-tests-02.log": "2d5cbe2bb9b992ce784c5019d131bd5c8f170e039b5cd094de916cd3a8ad38b7",
+    ".agentdoc/v09-20260915T084032Z/performance-report-02.log": "e9f5e26ef6a4dc0e7c692b152f094fef3c3619c4d5eae5c8ed268c04aef442a3",
+    ".agentdoc/v09-20260915T084032Z/performance-02/comparison.json": "102f14a95b29fb1e283bafcfb05f426376ca514be88cdc1362f672c1b96a0b1a"
+  },
+  "verifier": "6611fade5fdbc33cfaec6401a24455cd9c59b561c42748b6bb40bdf9a29a318b",
+  "observer": "cd17b18dbde752583bc3cf76539d078d0b3822cddddab944e184cc06b13efa17",
+  "protocol": "9be0a2c9a9ef9dfdf008d70c50820f8a1e3553ba12f9aaa22f921661889a382d"
+}

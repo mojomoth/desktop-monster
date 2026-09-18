@@ -1,0 +1,88 @@
+{
+  "requestId": "ca6b170ea33d89e28db186bd02e7983c717e11062ebf5dec027919a7e610936f",
+  "round": 1,
+  "role": "critic",
+  "sourceDigest": "5b839be72a8ee0f35bf38d6e8fd260189f2a3934f45b289efa11d08455a26df6",
+  "evaluationDigest": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff",
+  "agent": "/root/critic",
+  "decision": "pass",
+  "summary": "Round08의 등록된 tail 비교에 blocker/major를 발견하지 않았다. 첫 경로 분리와 후기 미도달·과속 반례를 검토한 설계 승인으로, 새 후보 성능·채택·작업 verified·출시 성공을 뜻하지 않는다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "이미 읽은 실제4역할/4슬롯·fun/audit/출시 분리 계약을 적용했다. 최종0.7.0 Native9개+180분,9정책별100seed·smoke·package·서버와 humanChecks=PENDING은 별도다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "현재 round08 AC,6coverage,5대조/최대3후보,전체 p50 두 목표·90% 분모·seed 분리와 정확한 게이트를 확인했다."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "공식 round8/version3에서 후보 각각21키,차이는 fieldHpTailNumerator뿐이다. 참조 screening SHA 일치와 selectedExperiment=null,두 목표 통과 후 순위를 확인했다;검증값은 미열람."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "전체 동결 문서를 읽었다(SHA434242525d31f05b4eea178e9b2acf98bd415ed8b0585d670668dbe1ac53dea6). 후기 분산·두 공백·과거/새 후보 비교 범위와 UI/레거시 계약을 검토했다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-round08/001-designer.json",
+      "note": "실제 Designer001과 이번 발급 prompt/template 전체를 읽고 독립 반례를 대조했다. 과거 설계 PASS를 이번 판단으로 재사용하지 않았다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재 export는 보장/tail 비활성 control-l17이다. 후보 CLI ID를 생산 수치 적용의 증거로 사용하지 않는다."
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "note": "일반 정수 분모·BigInt 최종 단일 나눗셈에서 index79까지 tail 지수0,80부터 변경된다. 동료115/100 곡선과 캐시는 필드에서 분리된다."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "기존 보스1draw·영구 할당/정원 guard와 안전 발급을 읽었다. 정원30의 새 동료 방출은 후기 명단 고정과 부합하나 원본 없는 개별 포획/RNG 인과를 확정하지 않는다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "공식 protocol/current hash·생산21키/콘텐츠 binding과 미도달을 뒤에 두는 전체 분위수·90분 전체 분모를 검토했다. 현재 리뷰에서 테스트/빌드/측정은 실행하지 않았다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1153/screening.json",
+      "note": "완료20개 탐색의 첫 p50=2878.7초/90분20개와 참조 SHA697cfe80…를 확인했다. 새 결과를 대체할 인증이 아니라 첫 기록 비교용이다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1153/full-12h.json",
+      "note": "완료20개 원본을 독립 재집계했다. h70 전체null/조건부18852.5초;2–12h 경계 포함 정수tick 공백 p50은 제시9955.6/실제획득10598.1초,최악27928.6/32339.5초로 일치한다. 전투 전체 중단이나 재미 판정이 아니다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round07-analysis/README.md",
+      "note": "Balance의 전체180raw 무결성 검산과 Critic의20개 full 중심 bounded 대조 범위를 구분한다. R07 첫 p502878.7/2280.3/2654와 실패·장기 미실행 상태를 유지하며 미래12h를 인증하지 않는다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "동료 115/100 힘과 양의 안전 정수 레벨을 유지하고 overflow 전에 재료·상태를 보존한다. Lv10 이상→Lv1/별+1은 힘이2/level로 감소하므로 정확한 전후 표시와 필수 expected 확인·변경 무효화를 같은 소스 AC로 확인해야 한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "실제 영웅 선택/영구 컬렉션과 speciesKills>0을 공개·aria·알림·ACK·목표에 공유하는 계약을 유지한다. 미선택 후보/등장/보유만으로 공개하지 않고 레거시 허위 ACK 제거와 collection-only 영웅 ACK 보존을 검증한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50행 영웅·동료 파티와 지정 playerId의 요청/미리보기/전투 일치를 유지한다. 삭제·만료·오류의 이전 매치 차단과 Tab/Enter/Space·갱신/삭제 포커스는 현재 AC 및 최종 Native의 별도 근거가 필요하다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "L17/XP1.42/prefix1153/count5/index63을 고정하고 tail10450·10425·10400/10000만 index80부터 바꿔 필요 처치index74와 분리한다. 과거1153의7첫사건/첫 성공까지 records·actions20쌍과 새 동일후보 screen/full20쌍을 별도로 확인하며, 새 전체 p50·18/20 및 별도 검증90/100을 생략하지 않는다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "R07은 h70 자격8/20 중6개 조기·2개 목표구간, 전체 p50=null이며 미도달12개는 모두 처치 조건 부족이었다. tail 완화가 빠른 표본만 가속할 반례가 있어 6개 조건·h70의10종/30000처치를 유지하고 새12h 전체/조건부·제시/선택·paired 활동·두 공백을 함께 보고해야 한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "보장은 자연 포획 전용 횟수가 아닌 영구 할당 구간이며 레거시/외부 전달의 소진과 제거/재시작의 비재무장을 유지한다. MAX 소진·unsafe/중복 거부·외부 s/r 보존·정원30 일반 방출 및 고레벨 저장/서버/응답 왕복을 확인하고, 로컬 검증을 운영 호환 SHA로 대신하지 않는다."
+    }
+  ],
+  "verified": []
+}

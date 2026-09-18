@@ -1,0 +1,35 @@
+[
+  {
+    "task": "HUD",
+    "command": "npx vitest run tests/hud-v09.test.ts tests/expedition.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+    "startedAt": "2026-09-16T10:07:18.609Z",
+    "endedAt": "2026-09-16T10:07:20.046Z",
+    "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+    "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+    "exitCode": 0,
+    "log": ".agentdoc/v09-no-rest-20260916T095321Z/HUD-ac.log",
+    "logSha256": "85d414d91e1362885f75a05de88c4430231ef48dc7d16a6e5b955e7b3c1c9aa2"
+  },
+  {
+    "task": "CORE",
+    "command": "npx vitest run tests/hero.test.ts tests/progressionV5.test.ts tests/progressionV7.test.ts tests/progressV5.test.ts tests/balance.test.ts tests/heroArtCompatibility.test.ts",
+    "startedAt": "2026-09-16T10:07:20.060Z",
+    "endedAt": "2026-09-16T10:07:23.491Z",
+    "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+    "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+    "exitCode": 0,
+    "log": ".agentdoc/v09-no-rest-20260916T095321Z/CORE-ac.log",
+    "logSha256": "d13cadf5e06f0c27aa0765479f869b77428d6a0f8929d9b08a65de72f6cb1574"
+  },
+  {
+    "task": "MENU_RECOVERY",
+    "command": "npx vitest run tests/heroMenuReadiness.test.ts tests/recoveryV9.test.ts",
+    "startedAt": "2026-09-16T10:07:23.505Z",
+    "endedAt": "2026-09-16T10:07:24.282Z",
+    "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+    "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+    "exitCode": 0,
+    "log": ".agentdoc/v09-no-rest-20260916T095321Z/MENU_RECOVERY-ac.log",
+    "logSha256": "4b7b19434cfdb068082db042e43dd5dba2c886397fd7c28b0930a3e2231ae28e"
+  }
+]

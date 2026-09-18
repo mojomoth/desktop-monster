@@ -1,0 +1,23 @@
+✘ [ERROR] Could not resolve "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/vitest.config.ts"
+
+failed to load config from /Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/vitest.config.ts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Build failed with 1 error:
+error: Could not resolve "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/vitest.config.ts"
+    at failureErrorWithLog (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:1467:15)
+    at /Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:926:25
+    at runOnEndCallbacks (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:1307:45)
+    at buildResponseToResult (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:924:7)
+    at /Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:951:16
+    at responseCallbacks.<computed> (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:603:9)
+    at handleIncomingPacket (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:658:12)
+    at Socket.readFromStdout (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/esbuild/lib/main.js:581:7)
+    at Socket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:559:12) {
+  errors: [Getter/Setter],
+  warnings: [Getter/Setter]
+}
+
+
+

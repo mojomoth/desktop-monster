@@ -13,15 +13,23 @@ import type {
   LeaderboardResult,
   MatchResult,
   NetResult,
+  OpponentListResult,
   PvpResult,
   ReclaimResult,
   TheftsResult,
+  LeaderboardMetric,
+  PvpPresentation,
 } from '../shared/api.js';
 import type {
+  GameSettings,
+  SettingsResult,
+  ConnectInputResult,
+  SaveStatus,
   InputModePayload,
   InputPayload,
   MenuActionPayload,
   SaveStatePayload,
+  PrepareStatePayload, ReleaseStatePayload, CheckpointInfo, OperationResult, LastBattleInfo, ExportPngPayload, ExportPngResult,
 } from '../shared/ipc.js';
 
 /** `ipcRenderer.on` wrapper that hands back an unsubscribe function. */
@@ -36,6 +44,32 @@ function subscribe(channel: string, cb: (payload: unknown) => void): () => void 
 }
 
 const desmon = {
+  onPrepareState: (cb: (p: PrepareStatePayload) => void): (() => void) => subscribe('desmon:prepare-state', p => cb(p as PrepareStatePayload)),
+  captureState: (requestId: string, generation: number, save: unknown): Promise<void> => ipcRenderer.invoke('desmon:capture-state', { requestId, generation, save }) as Promise<void>,
+  onReleaseState: (cb: (p: ReleaseStatePayload) => void): (() => void) => subscribe('desmon:release-state', p => cb(p as ReleaseStatePayload)),
+  getGeneration: (): Promise<number> => ipcRenderer.invoke('desmon:get-generation') as Promise<number>,
+  resetProgress: (): Promise<OperationResult> => ipcRenderer.invoke('desmon:reset-progress') as Promise<OperationResult>,
+  listCheckpoints: (): Promise<CheckpointInfo[]> => ipcRenderer.invoke('desmon:list-checkpoints') as Promise<CheckpointInfo[]>,
+  restoreCheckpoint: (id: string): Promise<OperationResult> => ipcRenderer.invoke('desmon:restore-checkpoint', id) as Promise<OperationResult>,
+  battleOpponent: (opponentId: string): Promise<NetResult<PvpResult>> => ipcRenderer.invoke('desmon:battle-opponent', opponentId) as Promise<NetResult<PvpResult>>,
+  getLastBattle: (): Promise<LastBattleInfo | null> => ipcRenderer.invoke('desmon:last-battle') as Promise<LastBattleInfo | null>,
+  getPendingReplays: (): Promise<PvpPresentation[]> => ipcRenderer.invoke('desmon:pending-replays') as Promise<PvpPresentation[]>,
+  completeReplay: (id: string): Promise<boolean> => ipcRenderer.invoke('desmon:replay-complete', id) as Promise<boolean>,
+  onPvpPlayback: (cb: (active: boolean) => void): (() => void) => subscribe('desmon:pvp-playback', p => cb(p === true)),
+  exportPng: (payload: ExportPngPayload): Promise<ExportPngResult> => ipcRenderer.invoke('desmon:export-png', payload) as Promise<ExportPngResult>,
+  getFieldImage: (): Promise<string | null> => ipcRenderer.invoke('desmon:field-image') as Promise<string | null>,
+  getSettings: (): Promise<GameSettings> => ipcRenderer.invoke('desmon:get-settings') as Promise<GameSettings>,
+  updateSettings: (patch: Partial<GameSettings>): Promise<SettingsResult> =>
+    ipcRenderer.invoke('desmon:update-settings', patch) as Promise<SettingsResult>,
+  onSettingsChanged: (cb: (settings: GameSettings) => void): (() => void) =>
+    subscribe('desmon:settings-changed', (value) => { cb(value as GameSettings); }),
+  connectGlobalInput: (): Promise<ConnectInputResult> =>
+    ipcRenderer.invoke('desmon:connect-global-input') as Promise<ConnectInputResult>,
+  getSaveStatus: (): Promise<SaveStatus> => ipcRenderer.invoke('desmon:get-save-status') as Promise<SaveStatus>,
+  onSaveStatus: (cb: (status: SaveStatus) => void): (() => void) =>
+    subscribe('desmon:save-status', (value) => { cb(value as SaveStatus); }),
+  openSaveFolder: (): Promise<void> => ipcRenderer.invoke('desmon:open-save-folder') as Promise<void>,
+  quit: (): Promise<void> => ipcRenderer.invoke('desmon:quit') as Promise<void>,
   onInput: (cb: (e: InputPayload) => void): (() => void) =>
     subscribe('desmon:input', (payload) => {
       cb(payload as InputPayload);
@@ -52,8 +86,10 @@ const desmon = {
     ipcRenderer.invoke('desmon:get-input-mode') as Promise<InputModePayload>,
   loadState: (): Promise<SaveStatePayload | null> =>
     ipcRenderer.invoke('desmon:load-state') as Promise<SaveStatePayload | null>,
-  saveState: (s: SaveStatePayload): Promise<void> =>
-    ipcRenderer.invoke('desmon:save-state', s) as Promise<void>,
+  saveState: (s: SaveStatePayload, generation = 0): Promise<boolean> =>
+    ipcRenderer.invoke('desmon:save-state', s, generation) as Promise<boolean>,
+  onSaveFailed: (cb: () => void): (() => void) =>
+    subscribe('desmon:save-failed', () => { cb(); }),
   openAccessibilitySettings: (): Promise<void> =>
     ipcRenderer.invoke('desmon:open-accessibility-settings') as Promise<void>,
   reportFirstFrame: (): void => {
@@ -66,10 +102,12 @@ const desmon = {
     ipcRenderer.invoke('desmon:get-identity') as Promise<IdentityPayload>,
   setName: (name: string): Promise<IdentityPayload> =>
     ipcRenderer.invoke('desmon:set-name', { name }) as Promise<IdentityPayload>,
-  getLeaderboard: (n?: number): Promise<NetResult<LeaderboardResult>> =>
-    ipcRenderer.invoke('desmon:leaderboard', { n }) as Promise<NetResult<LeaderboardResult>>,
-  pvpMatch: (): Promise<NetResult<MatchResult>> =>
-    ipcRenderer.invoke('desmon:pvp-match') as Promise<NetResult<MatchResult>>,
+  getLeaderboard: (n?: number, metric?: LeaderboardMetric): Promise<NetResult<LeaderboardResult>> =>
+    ipcRenderer.invoke('desmon:leaderboard', { n, metric }) as Promise<NetResult<LeaderboardResult>>,
+  pvpOpponents: (): Promise<NetResult<OpponentListResult>> =>
+    ipcRenderer.invoke('desmon:pvp-opponents') as Promise<NetResult<OpponentListResult>>,
+  pvpMatch: (opponentId?: string): Promise<NetResult<MatchResult>> =>
+    ipcRenderer.invoke('desmon:pvp-match', { opponentId }) as Promise<NetResult<MatchResult>>,
   pvp: (matchId: string, party: string[]): Promise<NetResult<PvpResult>> =>
     ipcRenderer.invoke('desmon:pvp', { matchId, party }) as Promise<NetResult<PvpResult>>,
   thefts: (): Promise<NetResult<TheftsResult>> =>

@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "pid": 18056,
+  "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+  "startedAt": "2026-09-17T19:25:41.915Z",
+  "registration": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04-registration.json",
+    "sha256": "31c6e44bd7040429b2048a386bde751011b59a7ee5d4496526067cc4122b7bad"
+  },
+  "methodReview": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-method-review-04.json",
+    "sha256": "49b4be1c809f26e81ce9468aed6857aba43815cf1358f19cb511511ced126795"
+  },
+  "state": "awaiting-independent-result-review",
+  "slots": [
+    {
+      "slot": "baseline-active",
+      "startedAt": "2026-09-17T19:25:41.977Z",
+      "state": "passed",
+      "pid": 18059,
+      "signal": null,
+      "endedAt": "2026-09-17T19:55:44.410Z",
+      "exitCode": 0,
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json",
+        "sha256": "1609b616323fd45fee12dc64f8fdb986afb9cb8e8f0b50bab933a03ab8e859aa"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json.lifecycle.json",
+        "sha256": "d01735701a9105ca84332988968dce32389225efc2878509e3f0954be936a6ef"
+      }
+    },
+    {
+      "slot": "baseline-idle",
+      "startedAt": "2026-09-17T19:55:44.549Z",
+      "state": "passed",
+      "pid": 56963,
+      "signal": null,
+      "endedAt": "2026-09-17T20:25:46.544Z",
+      "exitCode": 0,
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json",
+        "sha256": "58395901e74897c164b7d85d358247a9c2afc457ff92f9101e5644d830bb9bb4"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.lifecycle.json",
+        "sha256": "f80f67ac174690f6814ff5611d675253a39d7b7703cccc4e3affebcd8febff27"
+      }
+    },
+    {
+      "slot": "candidate-active",
+      "startedAt": "2026-09-17T20:25:46.682Z",
+      "state": "passed",
+      "pid": 95867,
+      "signal": null,
+      "endedAt": "2026-09-17T20:55:50.508Z",
+      "exitCode": 0,
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json",
+        "sha256": "6629f3c5291e48f052f03ba1e7ba81a1089e942b8f8232b52e0a7169b8761da7"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json.lifecycle.json",
+        "sha256": "da362356705674f38b51d6a7a32d87cf992cd4ffbe6853b30f8564cd859f5821"
+      }
+    },
+    {
+      "slot": "candidate-idle",
+      "startedAt": "2026-09-17T20:55:50.638Z",
+      "state": "passed",
+      "pid": 35764,
+      "signal": null,
+      "endedAt": "2026-09-17T21:25:52.409Z",
+      "exitCode": 0,
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json",
+        "sha256": "8258ae15a7320072e462474709167f50c92d9f2215e1266c47c70cb7ec57da05"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json.lifecycle.json",
+        "sha256": "04b008f788e2e7776abc9773ee1aef526651e4f1bdfc391720bcac535258ca45"
+      }
+    },
+    {
+      "slot": "mixed",
+      "startedAt": "2026-09-17T21:25:52.541Z",
+      "state": "passed",
+      "pid": 74721,
+      "signal": null,
+      "endedAt": "2026-09-18T00:25:55.829Z",
+      "exitCode": 0,
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json",
+        "sha256": "13b413a0ed3fcd5e52dccce21111b02060a23dd5e90c58435e5542fa8f3dc7f8"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.lifecycle.json",
+        "sha256": "a66a09478d53525ae548dd6ea60bf4bcd9ba8193dcead9868bcad173def58d46"
+      }
+    }
+  ],
+  "endedAt": "2026-09-18T00:25:56.346Z"
+}

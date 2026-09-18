@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "kind": "independent-prospective-performance-method-review",
+  "reviewedAt": "2026-09-17T13:33:39.600743+00:00",
+  "reviewer": "/root/equipment_economy",
+  "implementedBy": [
+    "/root"
+  ],
+  "verdict": "approved-methodology-only",
+  "performanceAcceptance": null,
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "registration": {
+    "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03-registration.json",
+    "sha256": "0794ed87ccd606dfbbe922b908fd1a5faeb41a896311d71fb546628334651e96"
+  },
+  "checks": {
+    "registeredBeforeNewBaseline": true,
+    "prospectiveOutputAbsentAtReview": true,
+    "currentSourceDigestMatches": true,
+    "bothAppHashesMatch": true,
+    "bothObserverHashesMatch": true,
+    "protocolHashAndBudgetFormulasUnchanged": true,
+    "fixedFiveObservationSchedule": true,
+    "currentAttemptTransitionIndependentOfItsVerdict": true,
+    "singleBlockNoBestOfSelection": true,
+    "priorFailuresAndOldNumericLimitsRetained": true,
+    "noAgentConcurrentHeavyWork": true,
+    "noForcedGcPressureCacheClearingOrSampleExclusion": true
+  },
+  "reason": "The original baseline overlapped independently recorded virtual simulation and another Electron run. A prospectively fixed, single complete block controls that known difference without changing the registered relative budgets or retrospectively converting the previous failure into a pass.",
+  "evidence": [
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/performance/baseline-active-02.json",
+      "fact": "Baseline active ran 2026-09-17T07:35:28.988Z through 08:05:29.037Z."
+    },
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/baseline/validation-02/report.json",
+      "fact": "Virtual validation ran 07:27:28.158Z through 07:48:38.864Z, overlapping baseline active."
+    },
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/performance/candidate-preflight-01.json",
+      "fact": "A separate Electron observation ran 07:47:15.146Z through 07:47:27.166Z, overlapping baseline active."
+    },
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/sessions/host-01.md",
+      "fact": "Contemporaneous integration journal also records simulation, native/gallery and build activity during the original baseline period."
+    },
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/performance/comparison-failed-01.json",
+      "fact": "Original active RAM failure remains 292.546875 MiB versus 290.375 MiB; no retrospective pass is issued."
+    },
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/performance/candidate-active.json.samples.jsonl",
+      "fact": "All 19 stable samples above 290.375 MiB occur between 5.09 and 7.09 minutes; none occur after 10 minutes. A 55.859 MiB reduction at 7.342 minutes spans the same five process IDs. These observations do not identify the cause."
+    }
+  ],
+  "limitations": [
+    "This approves the prospective measurement method only. It does not approve performance or predict a passing result.",
+    "The new baseline may produce a different numerical MiB limit under the unchanged formula. Publish both the old and newly computed limits; do not describe the numerical limit as unchanged.",
+    "One sequential block with baseline observations first cannot eliminate time-order effects or uncontrolled user/system workloads. It is improved condition control, not a randomized causal attribution.",
+    "Working-set sums can count shared pages more than once and do not separate JavaScript retention, native/GPU allocation, garbage collection, compression or OS page reclamation.",
+    "Boundary-only process/compression/swap snapshots can reveal coarse condition differences but cannot reconstruct every transient event.",
+    "A structural observer error leaves the block incomplete. Preserve all partial evidence; it is not a performance pass or permission to select favorable profiles.",
+    "If the complete block fails, retain the failure. Repeating unchanged code until a passing observation is not approved."
+  ],
+  "authorizedReviewWork": "Read-only short JSON/source-hash inspection and this review record only; no source, protocol, budget, app, simulation or running-observation mutation."
+}

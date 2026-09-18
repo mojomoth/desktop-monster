@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "pid": 98672,
+  "startedAt": "2026-09-15T09:39:38.806Z",
+  "state": "failed",
+  "slots": [
+    {
+      "slot": "baseline-active",
+      "args": [
+        ".harness/v9/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/preservation/DesMon-v080.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/baseline-active.json",
+        "active",
+        "30"
+      ],
+      "startedAt": "2026-09-15T09:39:38.812Z",
+      "state": "passed",
+      "pid": 98674,
+      "signal": null,
+      "endedAt": "2026-09-15T10:09:40.796Z",
+      "exitCode": 0
+    },
+    {
+      "slot": "baseline-idle",
+      "args": [
+        ".harness/v9/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/preservation/DesMon-v080.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/baseline-idle.json",
+        "idle",
+        "30"
+      ],
+      "startedAt": "2026-09-15T10:09:40.799Z",
+      "state": "passed",
+      "pid": 48439,
+      "signal": null,
+      "endedAt": "2026-09-15T10:39:42.946Z",
+      "exitCode": 0
+    },
+    {
+      "slot": "candidate-active",
+      "args": [
+        ".harness/v9/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/candidate-active.json",
+        "active",
+        "30"
+      ],
+      "startedAt": "2026-09-15T10:39:42.947Z",
+      "state": "passed",
+      "pid": 89720,
+      "signal": null,
+      "endedAt": "2026-09-15T11:09:45.688Z",
+      "exitCode": 0
+    },
+    {
+      "slot": "candidate-idle",
+      "args": [
+        ".harness/v9/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/candidate-idle.json",
+        "idle",
+        "30"
+      ],
+      "startedAt": "2026-09-15T11:09:45.689Z",
+      "state": "passed",
+      "pid": 31803,
+      "signal": null,
+      "endedAt": "2026-09-15T11:39:47.764Z",
+      "exitCode": 0
+    },
+    {
+      "slot": "mixed",
+      "args": [
+        ".harness/v9/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/mixed.json",
+        "mixed",
+        "180"
+      ],
+      "startedAt": "2026-09-15T11:39:47.794Z",
+      "state": "passed",
+      "pid": 73113,
+      "signal": null,
+      "endedAt": "2026-09-15T14:39:51.866Z",
+      "exitCode": 0
+    }
+  ],
+  "comparisonExitCode": 1,
+  "endedAt": "2026-09-15T14:39:52.178Z"
+}

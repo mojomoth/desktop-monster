@@ -1,0 +1,300 @@
+{
+  "kind": "simulated-not-human",
+  "seeds": "1..100",
+  "heroMinLevel": 12,
+  "note": "blind = neither the expedition gauge nor REBIRTH READY is on the field",
+  "inputModel": "2 inputs/s; 120s onboarding, then idle=0/s; intermittent=15s/min; choose first offer, no rerolls",
+  "out": [
+    {
+      "profile": "active",
+      "seeds": 100,
+      "longestBlindSec": {
+        "min": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "gaugeOnRatio": {
+        "min": 0.9916666666666667,
+        "p50": 0.9916666666666667,
+        "p90": 0.9916666666666667,
+        "max": 0.9916666666666667
+      },
+      "restModeSec": {
+        "min": 1703,
+        "p50": 1707,
+        "p90": 1710,
+        "max": 1713
+      },
+      "levelModeSec": {
+        "min": 72,
+        "p50": 78,
+        "p90": 80,
+        "max": 82
+      },
+      "readyOnlySec": {
+        "min": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "transitions": {
+        "min": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "offers": {
+        "min": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "maxExpeditionArea": 140,
+      "boundsViolations": 0,
+      "overlapViolations": 0,
+      "worst": {
+        "profile": "active",
+        "seed": 1,
+        "longestBlindSec": 0,
+        "blindStartSec": 0,
+        "gaugeOnSec": 1785,
+        "restModeSec": 1709,
+        "levelModeSec": 76,
+        "readyOnlySec": 15,
+        "maxExpeditionArea": 140,
+        "boundsViolations": 0,
+        "overlapViolations": 0,
+        "maxBlindLevel": 0,
+        "offers": 15,
+        "level30": 18,
+        "transitions": 30
+      }
+    },
+    {
+      "profile": "idle",
+      "seeds": 100,
+      "longestBlindSec": {
+        "min": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "gaugeOnRatio": {
+        "min": 0.9916666666666667,
+        "p50": 0.9922222222222222,
+        "p90": 0.9977777777777778,
+        "max": 0.9988888888888889
+      },
+      "restModeSec": {
+        "min": 238,
+        "p50": 1632,
+        "p90": 1710,
+        "max": 1713
+      },
+      "levelModeSec": {
+        "min": 72,
+        "p50": 139,
+        "p90": 1320,
+        "max": 1560
+      },
+      "readyOnlySec": {
+        "min": 2,
+        "p50": 14,
+        "p90": 15,
+        "max": 15
+      },
+      "transitions": {
+        "min": 4,
+        "p50": 28,
+        "p90": 30,
+        "max": 30
+      },
+      "offers": {
+        "min": 2,
+        "p50": 14,
+        "p90": 15,
+        "max": 15
+      },
+      "maxExpeditionArea": 132,
+      "boundsViolations": 0,
+      "overlapViolations": 0,
+      "worst": {
+        "profile": "idle",
+        "seed": 1,
+        "longestBlindSec": 0,
+        "blindStartSec": 0,
+        "gaugeOnSec": 1786,
+        "restModeSec": 1590,
+        "levelModeSec": 196,
+        "readyOnlySec": 14,
+        "maxExpeditionArea": 131,
+        "boundsViolations": 0,
+        "overlapViolations": 0,
+        "maxBlindLevel": 0,
+        "offers": 14,
+        "level30": 10,
+        "transitions": 28
+      }
+    },
+    {
+      "profile": "intermittent",
+      "seeds": 100,
+      "longestBlindSec": {
+        "min": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "gaugeOnRatio": {
+        "min": 0.9916666666666667,
+        "p50": 0.9916666666666667,
+        "p90": 0.9916666666666667,
+        "max": 0.9916666666666667
+      },
+      "restModeSec": {
+        "min": 1703,
+        "p50": 1707,
+        "p90": 1710,
+        "max": 1713
+      },
+      "levelModeSec": {
+        "min": 72,
+        "p50": 78,
+        "p90": 80,
+        "max": 82
+      },
+      "readyOnlySec": {
+        "min": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "transitions": {
+        "min": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "offers": {
+        "min": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "maxExpeditionArea": 140,
+      "boundsViolations": 0,
+      "overlapViolations": 0,
+      "worst": {
+        "profile": "intermittent",
+        "seed": 1,
+        "longestBlindSec": 0,
+        "blindStartSec": 0,
+        "gaugeOnSec": 1785,
+        "restModeSec": 1709,
+        "levelModeSec": 76,
+        "readyOnlySec": 15,
+        "maxExpeditionArea": 140,
+        "boundsViolations": 0,
+        "overlapViolations": 0,
+        "maxBlindLevel": 0,
+        "offers": 15,
+        "level30": 16,
+        "transitions": 30
+      }
+    }
+  ],
+  "seed91": {
+    "profile": "idle",
+    "seed": 91,
+    "longestBlindSec": 0,
+    "blindStartSec": 0,
+    "gaugeOnSec": 1798,
+    "restModeSec": 238,
+    "levelModeSec": 1560,
+    "readyOnlySec": 2,
+    "maxExpeditionArea": 131,
+    "boundsViolations": 0,
+    "overlapViolations": 0,
+    "maxBlindLevel": 0,
+    "offers": 2,
+    "level30": 10,
+    "transitions": 4
+  },
+  "staticGauge": {
+    "out": [
+      {
+        "profile": "active",
+        "longestStaticSec": {
+          "min": 13,
+          "p50": 15,
+          "p90": 16,
+          "max": 16
+        },
+        "worst": {
+          "profile": "active",
+          "seed": 6,
+          "longestStaticSec": 16,
+          "startAt": 63,
+          "staticMode": "level:35",
+          "staticLevel": 11
+        }
+      },
+      {
+        "profile": "idle",
+        "longestStaticSec": {
+          "min": 13,
+          "p50": 41,
+          "p90": 324,
+          "max": 548
+        },
+        "worst": {
+          "profile": "idle",
+          "seed": 68,
+          "longestStaticSec": 548,
+          "startAt": 802,
+          "staticMode": "level:32",
+          "staticLevel": 10
+        }
+      },
+      {
+        "profile": "intermittent",
+        "longestStaticSec": {
+          "min": 13,
+          "p50": 15,
+          "p90": 16,
+          "max": 16
+        },
+        "worst": {
+          "profile": "intermittent",
+          "seed": 6,
+          "longestStaticSec": 16,
+          "startAt": 63,
+          "staticMode": "level:35",
+          "staticLevel": 11
+        }
+      }
+    ],
+    "seed91": {
+      "profile": "idle",
+      "seed": 91,
+      "longestStaticSec": 521,
+      "startAt": 871,
+      "staticMode": "level:29",
+      "staticLevel": 9
+    },
+    "note": "longest stretch with an unchanged meter fill width (mode:fillPx signature); successor metric to \"blind\""
+  },
+  "gates": {
+    "command": "npx vitest run tests/expedition.test.ts tests/balance.test.ts tests/renderer.test.ts tests/hero.test.ts",
+    "files": "4 passed",
+    "tests": "131 passed"
+  },
+  "balanceDeepEqual": {
+    "a": "balance-after.json",
+    "b": "balance-final-source.json",
+    "scenarios": true,
+    "rawSamples": true,
+    "wholeFile": true
+  }
+}

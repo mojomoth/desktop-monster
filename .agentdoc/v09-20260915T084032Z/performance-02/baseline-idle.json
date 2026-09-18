@@ -1,0 +1,477 @@
+{
+  "version": 1,
+  "profile": "idle",
+  "requestedMinutes": 30,
+  "startedAt": "2026-09-15T10:09:42.187Z",
+  "finishedAt": "2026-09-15T10:39:42.262Z",
+  "observationMs": 1800053.751041,
+  "inputCount": 0,
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/preservation/DesMon-v080.app",
+  "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+  "observerHash": "cd17b18dbde752583bc3cf76539d078d0b3822cddddab944e184cc06b13efa17",
+  "checks": {
+    "duration": true,
+    "metrics": true,
+    "samples": true,
+    "progress": true,
+    "inputs": true,
+    "errors": true,
+    "appUnchanged": true,
+    "observerUnchanged": true
+  },
+  "exitCode": 0,
+  "exitSignal": null,
+  "lastObserved": {
+    "source": "last-sample",
+    "elapsedMs": 1800008.577708,
+    "inputs": 0,
+    "save": {
+      "version": 3,
+      "level": 13,
+      "xp": 263,
+      "killCount": 39,
+      "coins": 385,
+      "items": {
+        "slime_gel": 2,
+        "sword_shard": 4,
+        "bone": 1,
+        "crown": 1,
+        "gem": 1
+      },
+      "monsterIndex": 39,
+      "monsterSpeciesId": "kitekin",
+      "monsterHp": "1527",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c6",
+          "speciesId": "cobbleroll",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c7",
+          "speciesId": "rictus",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 8,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 39,
+      "pvpParty": [],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 1795010.3,
+        "speciesKills": {
+          "slime": 1,
+          "nightlynx": 2,
+          "lantessa": 1,
+          "wickerhusk": 1,
+          "sorrowstilt": 1,
+          "conchguard": 2,
+          "cobbleroll": 3,
+          "nubilan": 1,
+          "sopwit": 1,
+          "skreave": 2,
+          "sootcap": 1,
+          "ashtusk": 1,
+          "bramblebear": 1,
+          "gulpwick": 1,
+          "glasshade": 1,
+          "bellbuoy": 1,
+          "murkin": 2,
+          "ghost": 1,
+          "hexweaver": 1,
+          "millox": 1,
+          "sicklehood": 2,
+          "steamfin": 1,
+          "sumpfang": 1,
+          "moldwarp": 1,
+          "rictus": 2,
+          "sporeplume": 1,
+          "dawnfinch": 1,
+          "chainwraith": 1,
+          "helmdelver": 1,
+          "cryptshell": 1,
+          "sunskipper": 1
+        },
+        "seenMonsters": [
+          "slime",
+          "nightlynx",
+          "lantessa",
+          "wickerhusk",
+          "sorrowstilt",
+          "conchguard",
+          "cobbleroll",
+          "nubilan",
+          "sopwit",
+          "skreave",
+          "sootcap",
+          "ashtusk",
+          "bramblebear",
+          "gulpwick",
+          "glasshade",
+          "bellbuoy",
+          "murkin",
+          "ghost",
+          "hexweaver",
+          "millox",
+          "sicklehood",
+          "steamfin",
+          "sumpfang",
+          "moldwarp",
+          "rictus",
+          "sporeplume",
+          "dawnfinch",
+          "chainwraith",
+          "helmdelver",
+          "cryptshell",
+          "sunskipper",
+          "kitekin"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": 0,
+        "rareMisses": 1,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    }
+  },
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "25.2.0",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12
+  },
+  "metadata": {
+    "version": "0.8.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/preservation/DesMon-v080.app/Contents/Resources/app.asar",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    },
+    "fixture": {
+      "version": 3,
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": 0,
+      "items": {},
+      "monsterIndex": 0,
+      "monsterHp": "10",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 0,
+      "pvpParty": [],
+      "releasedCount": 0
+    }
+  },
+  "isolation": {
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-perf-7fthzf",
+    "globalHooks": false,
+    "osPermissionPrompts": false,
+    "network": "offline",
+    "input": "synthetic production IPC",
+    "time": "real wall time; no engine ticks injected"
+  },
+  "raw": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/baseline-idle.json.samples.jsonl",
+    "sha256": "ef5724705a82624bb0ac0f1fe1605786c984cf8bfe7051f0dd1021a720d99eb8",
+    "samples": 360
+  },
+  "screenshots": [
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/baseline-idle.json.start.png",
+      "sha256": "7e778b2a6831af719aa857b0fc4de11a1af1f2843fd9af80dfb39353932a3df8"
+    },
+    {
+      "name": "end",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/performance-02/baseline-idle.json.end.png",
+      "sha256": "fa5e3d7d8201254618077c86b1a0d2d44eb6be76e2b8239c35814b18128434af"
+    }
+  ],
+  "errors": [],
+  "finalSave": {
+    "version": 3,
+    "level": 13,
+    "xp": 263,
+    "killCount": 39,
+    "coins": 385,
+    "items": {
+      "slime_gel": 2,
+      "sword_shard": 4,
+      "bone": 1,
+      "crown": 1,
+      "gem": 1
+    },
+    "monsterIndex": 39,
+    "monsterSpeciesId": "kitekin",
+    "monsterHp": "1527",
+    "companions": [
+      {
+        "id": "c1",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c2",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c3",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c4",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c5",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c6",
+        "speciesId": "cobbleroll",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c7",
+        "speciesId": "rictus",
+        "bossIndex": 31,
+        "level": 1,
+        "stars": 0
+      }
+    ],
+    "nextCompanionId": 8,
+    "souls": 0,
+    "rebirths": 0,
+    "bestIndex": 39,
+    "pvpParty": [],
+    "releasedCount": 0,
+    "progress": {
+      "playTimeMs": 1795010.3,
+      "speciesKills": {
+        "slime": 1,
+        "nightlynx": 2,
+        "lantessa": 1,
+        "wickerhusk": 1,
+        "sorrowstilt": 1,
+        "conchguard": 2,
+        "cobbleroll": 3,
+        "nubilan": 1,
+        "sopwit": 1,
+        "skreave": 2,
+        "sootcap": 1,
+        "ashtusk": 1,
+        "bramblebear": 1,
+        "gulpwick": 1,
+        "glasshade": 1,
+        "bellbuoy": 1,
+        "murkin": 2,
+        "ghost": 1,
+        "hexweaver": 1,
+        "millox": 1,
+        "sicklehood": 2,
+        "steamfin": 1,
+        "sumpfang": 1,
+        "moldwarp": 1,
+        "rictus": 2,
+        "sporeplume": 1,
+        "dawnfinch": 1,
+        "chainwraith": 1,
+        "helmdelver": 1,
+        "cryptshell": 1,
+        "sunskipper": 1
+      },
+      "seenMonsters": [
+        "slime",
+        "nightlynx",
+        "lantessa",
+        "wickerhusk",
+        "sorrowstilt",
+        "conchguard",
+        "cobbleroll",
+        "nubilan",
+        "sopwit",
+        "skreave",
+        "sootcap",
+        "ashtusk",
+        "bramblebear",
+        "gulpwick",
+        "glasshade",
+        "bellbuoy",
+        "murkin",
+        "ghost",
+        "hexweaver",
+        "millox",
+        "sicklehood",
+        "steamfin",
+        "sumpfang",
+        "moldwarp",
+        "rictus",
+        "sporeplume",
+        "dawnfinch",
+        "chainwraith",
+        "helmdelver",
+        "cryptshell",
+        "sunskipper",
+        "kitekin"
+      ],
+      "seenHeroes": [],
+      "heroCounts": {},
+      "reincarnationHistory": [],
+      "pvpWins": 0,
+      "pvpLosses": 0,
+      "goldSpent": 0,
+      "rareMisses": 1,
+      "trainingLevel": 0,
+      "lureRemaining": 0,
+      "shopSerial": 0,
+      "legacyHistory": false,
+      "codex": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [],
+        "goal": null
+      }
+    }
+  },
+  "summary": {
+    "cpuP95": 2.4699722240331714,
+    "workingSetMiBP95": 263.4375,
+    "initialMemoryMedian": 224.015625,
+    "finalMemoryMedian": null
+  },
+  "passed": true
+}

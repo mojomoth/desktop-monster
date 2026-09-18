@@ -1,0 +1,78 @@
+{
+  "version": 91,
+  "passed": true,
+  "source": "76b0693d2435abf00f71d92a6590992d60617af1c8ec87d7ae005bc09a924657",
+  "reviewOrder": [
+    {
+      "role": "Designer",
+      "agentId": "/root/designer",
+      "verdict": "pass"
+    },
+    {
+      "role": "Critic",
+      "agentId": "/root/critic",
+      "verdict": "pass"
+    },
+    {
+      "role": "Balance",
+      "agentId": "/root/balance",
+      "verdict": "pass"
+    },
+    {
+      "role": "Playtester",
+      "agentId": "/root",
+      "verdict": "pass"
+    }
+  ],
+  "pending": [
+    "이 판정은 합성 레벨·파티와 두 격리 계정, 실제 macOS Electron 설치본, production createApp/MemoryStore의 검증 범위입니다. 실제 전역 입력 권한, OS 알림 표시, Windows 실기기 및 운영 서버 네트워크 검증을 수행했다는 뜻은 아닙니다.",
+    "postgres-01.json은 로컬 PostgreSQL 연결 ECONNREFUSED로 checks가 비어 있고 passed=false입니다. 실제 PostgreSQL 영속성 검증은 미완료이며 Designer UI pass로 대체되지 않습니다. 재시작 시 일시적인 연출 pool 복구는 기존 저장 형식 범위로 제한됩니다.",
+    "postgres-01.json은 ECONNREFUSED 127.0.0.1:63922, checks=[], passed=false입니다. 실제 PostgreSQL의 신규 금화 컬럼·트랜잭션·재시작 검증은 수행되지 못했으며 MemoryStore/정적 SQL 검토 또는 이전 버전의 PostgreSQL 성공으로 대체할 수 없습니다. 로컬 검토 pass는 운영 출시 준비 완료 판정이 아닙니다.",
+    "운영 서비스 배포·네트워크 검증 및 공유 DB를 사용하는 기존 v2/v3 서비스의 동료 약탈 중단·전환은 미완료입니다. 신규 gold-v1 API의 426 제한만으로 별도 구 서비스의 이전 약탈 handler까지 차단된다고 주장할 수 없습니다.",
+    "Windows 실기기 설치·실행·입력 검증, Steam AppID/SDK·Steamworks 연결과 출시 검증, 실제 전역 입력 권한 및 OS 알림 검증은 이 실제 macOS 격리 앱 증거에 포함되지 않습니다. 사람의 플레이 평가와 v0.9.1 장시간 성능 측정도 미완료입니다.",
+    "로컬 PvE 금화 획득은 자기보고 방식이므로 이 검증은 정직한 클라이언트의 중복 정산·복원·동시성 일관성을 보장하는 범위입니다. 수정 세이브나 다계정 금화 공급의 완전한 부정행위 방지를 증명하지 않습니다. 앱이 실행 중일 때의 정확한 사냥 상태 보존과 달리, 재시작은 기존 SaveFile에 저장되는 상태만 복구하며 일시적인 연출 pool까지 영속화하지 않습니다.",
+    "실제 PostgreSQL 검증은 미완료입니다. postgres-01은 ECONNREFUSED 127.0.0.1:63922, passed=false, checks=[]이며 스키마 생성 전 실패했습니다. 신규 금화 migration·실제 DB 트랜잭션·rollback·재시작 보장은 MemoryStore나 이전 버전의 PG 성공으로 대체하지 않습니다. 이번 PASS는 운영 출시 준비 완료 판정이 아닙니다.",
+    "로컬 PvE 금화는 자기보고 방식입니다. 이 검증은 정직한 클라이언트의 이전 금액 보존·동시성·중복 정산·복원 일관성 범위이며, 수정 세이브나 다계정 PvE 공급까지 차단하는 완전한 부정행위 방지는 아닙니다. 운영 배포와 공유 DB의 기존 v2/v3 약탈 서비스 중단·전환도 별도 완료가 필요합니다.",
+    "사람의 재미·손실 수용성, 실제 상대 분포와 승률, 장시간 네이티브 성능은 아직 측정하지 않았습니다. 1,400행은 가상 전투·경제 정책 증거이며 실제 플레이 시간이나 사용자 만족도 결과로 해석하지 않습니다.",
+    "Windows 실기기, Steam AppID/SDK 및 Steamworks 연결, 실제 전역 입력 권한·OS 알림과 운영 네트워크 검증은 별도 남아 있습니다. macOS 격리 설치본과 합성 계정의 성공이 이 항목들을 대신하지 않습니다.",
+    "실제 PostgreSQL 신규 gold migration/트랜잭션 검사는 로컬 DB/daemon 환경 부재로 실패했으며 checks=[]입니다. 실행 가능한 로컬 환경에서 준비된 checker를 통과해야 합니다.",
+    "운영 서버 배포와 공유 DB를 사용하는 구서비스의 동시 전환이 필요합니다. 새 클라이언트의 gold-v1 기능을 운영에 반영했다고 보고하지 않습니다.",
+    "Windows11 실기기 입력/DPI/멀티모니터/설치 수명주기, 실제 Steam AppID/연결, 실제 OS 권한·알림, 사람 재미와 기존 장시간 성능 행렬은 대기입니다. 가상 시드 측정을 실제 경과 플레이로 합산하지 않습니다."
+  ],
+  "reports": {
+    "0": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/native-06/native.json",
+      "hash": "492f2844af25ee439423271427f5a8fbb4f488bada4a1d861badf611814094b4"
+    },
+    "1": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/balance-01.json",
+      "hash": "45d502b42b519d433c246741234fe76b5364f748cb11ce0bbad5d43b62229c03"
+    },
+    "2": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/postgres-01.json",
+      "hash": "5442bb0d7ba4132edfd44aee840837bc472aaf50e95fbf9f30e1da51d981a8e4"
+    },
+    "3": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/install-02.json",
+      "hash": "0fc0512baa99441b588f3b79a39a20e1b3d0a67795588139e9738ab28400784c"
+    }
+  },
+  "responses": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/review/designer.json",
+      "hash": "d08749c9acbd61f0acea91f5dad1bf095a60cbd9413a895572dcb9b62b075a80"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/review/critic.json",
+      "hash": "c02f5d3e74242d03cdb40d76f07003eefeb14fd1206f96b3e5660a5d6862742e"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/review/balance.json",
+      "hash": "6b37bacd9220209b99d96386616894dd5b79db0613fee7630ef567c2e138ab72"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/review/playtester.json",
+      "hash": "0c4624b3184854c774e82a53104a44ce04bcd9f14562f8849985b7ca69342b69"
+    }
+  ]
+}

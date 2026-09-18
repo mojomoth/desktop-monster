@@ -1,0 +1,155 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 6,
+  "startedAt": "2026-09-12T07:13:05.494288+00:00",
+  "experimentKind": "candidate",
+  "experiment": {
+    "id": "candidate-r6-first63-xp141",
+    "hypothesis": "First-only depth63 guarantee addresses no-capture tail with the smallest mechanic change; cannot fix already-acquired weak parties. All remaining19 parameters identical between candidates. Tail10475 fixed from Round05 exploration. Full roster uses ordinary35% release, no forced release; preserve one RNG draw per boss. Unmeasured hypothesis.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.41,
+      "fieldHpNumerator": 115,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": 63,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 10475,
+      "fieldHpTailDenominator": 10000,
+      "earlyCaptureCount": 1
+    }
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/protocol.preregistered.json",
+    "sha256": "8539a7c718049d5e51434b9157b7f7f86bc15be90d9f9cc0ff47fb2669a25a00"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/evaluation.tar.gz",
+    "sha256": "002522601713610da2fd7f343a5913f94fb638a86c0b63eaa177dfa2b150dabf"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T07:13:05.593148+00:00",
+      "endedAt": "2026-09-12T07:13:09.206961+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/production-tests.log",
+      "sha256": "d0b1d451cffcbc03aa244b896fec872d5d6b7ddf81bd6809b4a5f626d9d80e11"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r6-first63-xp141",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T07:13:09.207607+00:00",
+      "endedAt": "2026-09-12T07:13:17.495218+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/screening.log",
+      "sha256": "a650944c82eeaef7a6c5682f481da0103e80f10a5f635247bb608583abdcc0c9"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/screening.json"
+      ],
+      "startedAt": "2026-09-12T07:13:17.495938+00:00",
+      "endedAt": "2026-09-12T07:13:17.616258+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/screening-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/production-source.tar.gz",
+    "sha256": "1e16498c228c25222b0a7b51d284a6525c03f26a0f84b5469943c7f57e24d9e8"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/screening.json",
+    "sha256": "e2a9a335987166135374ce8f623e9a3dca4ebf77cb78e6eed745cfd0014046aa",
+    "sourceDigest": "7419f38f38f295e16c83e9cda15461a6c7814d52b69da01e8a530614ebbf00f7",
+    "evaluationDigest": "b146423a49d3cb5b762dd5d49c8ce4847f71c433a45762dc6d51eaf907d66788",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r6-first63-xp141",
+      "parametersSha256": "fc6d8d6845f6428b98d5cb991ec67d796e221499f329455071e81415e61a0616",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": false,
+          "observedSec": 2650.5,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 19,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "3775d84ac183c3253b3388ae4b5c63965918c2532e63548399592ea7c8898a42",
+    "buildSha256": "978054c57fc044b188a510b01e8db02b6103e7c0e8dcc37b782fc457e453b040"
+  },
+  "full-12h": {
+    "status": "NOT_EXECUTED",
+    "reason": "Screening goals failed."
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first63-xp141/compiled-build.tar.gz",
+    "sha256": "12b881164fcaa0e55d57044d8beff7310379fd9dd27165556c94f88364c9e5c8"
+  },
+  "endedAt": "2026-09-12T07:13:17.691026+00:00"
+}

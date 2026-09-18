@@ -1,0 +1,55 @@
+{
+  "kind": "contract-reconciliation-preregistration",
+  "registeredAt": "2026-09-14T04:15:21.332874+00:00",
+  "owner": "/root",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "inspectionScript": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/contract-reconciliation-inspect.mjs",
+    "sha256": "c6029483a5f28269bba634044884b333095f582b4ce7876a15fb1bb6f0091660",
+    "scope": "Separate diagnostic identity Q; not part of frozen evaluator E and not a registered release AC."
+  },
+  "operationalEvidence": {
+    "compatibility-after-deploy.json": "5e7eae8ac5544c419e5278ead20791f338c7b4f43f93643724683e7af82343b7",
+    "live-probe/report.json": "d51451fea61eac6c3c1fadc9d6d2b9a953ff1c53ac2c4dc28a22401a3fcfdee4",
+    "supplemental-review.json": "7d2b9d19c20911062b12ac5611bcfa405903d1f5d0db34506376c188013e703f"
+  },
+  "runs": [
+    {
+      "id": "inspection",
+      "command": "node .agentdoc/v07-setup-20260911T122653Z/sessions/contract-reconciliation-inspect.mjs",
+      "expected": "exit0 for same integrity checks (now8 check records including failed new gates) and five expected guard rejections; no release approval",
+      "output": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/inspection-r2.json"
+    },
+    {
+      "id": "gates",
+      "command": "npm test && npm run lint && npm run typecheck",
+      "via": "node .harness/v7/loop/develop.mjs check .agentdoc/v07-setup-20260911T122653Z V07-07 gates",
+      "when": "After state documents are written; actual new journal check only; no verified call"
+    }
+  ],
+  "notRunning": [
+    "new capture",
+    "authenticated API/DB probe",
+    "design review",
+    "formal audit",
+    "candidate/release measurement",
+    "Native",
+    "smoke",
+    "package",
+    "deploy",
+    "push"
+  ],
+  "stateAfter": "running/unverified; humanChecks/humanFun PENDING",
+  "decision": "Preserve S/E; do not activate config proposal because path-only change is insufficient and makes E stale. Record strict successor-contract requirements and costs.",
+  "revision": 2,
+  "previousRegistration": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/preregistration.json",
+    "sha256": "e7178371f03138e6910aaba0cdff9c302d35a76202b9aae78def4e8902ac98cf"
+  },
+  "previousExecutedScript": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/contract-reconciliation-20260914/inspection-script-r1.executed.txt",
+    "sha256": "84dde736fe97513337f0130b8a384efaf255030994c482dae68d63e9d2fa0acc"
+  },
+  "reason": "Lint rejected bare structuredClone/console in the new diagnostic after 955tests passed. Explicit globalThis binding preserves behavior. New inspection output paths; first result and failed gates immutable."
+}

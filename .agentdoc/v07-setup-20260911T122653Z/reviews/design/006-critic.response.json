@@ -1,0 +1,69 @@
+{
+  "requestId": "1c290a4bd50c2c685f2cd196aa9fe36e3224de43c75ee4f746e35f409225ff36",
+  "round": 2,
+  "role": "critic",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "e870a52ee83514ec2ba426a48d61270a9f826539fd20b4e01d110cfdeb6417a9",
+  "agent": "/root/critic",
+  "decision": "pass",
+  "summary": "P07-OFFICIAL-PROTOCOL-BYPASS의 수정을 독립 검증했다. 이전 copied-validation 재현은 현재 공식 스냅샷 검사에서 거절되고, 실제 경계 테스트 5개도 통과했다. run/완료 재개/CLI verify의 공식 경로·현재 스냅샷과 부분 재개의 protocol binding을 확인했다. 제품 구현과 후보 성과는 아직 미래 검증 대상이며 새 major/blocker는 발견하지 않았다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "nonbaseline readMeasurementProtocol의 official realpath 제한, run 빌드 전후/완료 재개와 CLI verify의 validateOfficialProtocolSnapshot, 부분 seed의 source/evaluation/protocol/experiment binding을 읽었다. 이전 메모리 copied-validation 재현이 Measurement snapshot differs 오류로 거절됨을 직접 확인했다. historical compare는 구조 검증으로 분리돼 있다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.test.ts",
+      "note": "node node_modules/vitest/vitest.mjs run --config .harness/v7/vitest.config.mts .harness/v7/loop/measure.test.ts -t \"official protocol execution boundary\"를 독립 실행해 exit0/5개 통과를 확인했다. copy/위조 hash/CLI 조기 실행/완료 재개/verify 우회 거절 및 과거 구조비교 보존을 검사한다. 선택 밖22개는 이번 실행에서 미실행이며 테스트 파일을 수정하지 않았다."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "공식 상태는 여전히 exploration/selectedExperiment:null이다. 5개 레벨 대조·3개 후보와17개 수치,6개 named 콘텐츠/final h70 및 별도 탐색·검증 계약은 유지된다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "selectedExperiment 명칭 수정과 expected snapshot의 UI/core/IPC 역할, 지정 상대의 응답ID, 강화된 V07-02 AC를 확인했다. core의 expected 생략 호환은 내부 호출용이며 새 메뉴-origin에는 snapshot을 요구한다는 구현 경계는 minor 명확화로 남긴다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "V07-02의 main/ipc.ts/tests/ipc.test.ts/tests/menu.test.ts 소유와 세 테스트파일을 포함한 levels AC를 확인했다. canonical gates,20/100 seed,9정책,Native9개+연속180분,별도 live-server AC는 유지된다."
+    }
+  ],
+  "findings": [
+    {
+      "id": "C07-MENU-EXPECTED-BOUNDARY",
+      "severity": "minor",
+      "problem": "문서의 IPC는 expected가 있으면 검사한다는 문장은 내부 reducer 생략 호환과 신규 MENU_ACTION의 경계를 혼동할 여지가 있다. Host는 신규 메뉴-origin에서 expected를 필수로 하고 core만 optional 호환을 유지한다고 명확히 확인했다.",
+      "fix": "V07-02 구현/IPC 테스트에서 신규 메뉴-origin의 expected 누락을 거절하고 core 내부 id-only 호출 호환을 유지한다. 다음 허용된 문서 갱신에도 이 구분을 명시하며 동결 리뷰 원본은 보존한다."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "안전 정수 level과 증가 overflow 무손실, Lv >= 10의 Lv1/별+1 및 전후 bigint 힘 확인 계약을 유지한다. 메뉴가 표시한 speciesId/bossIndex/level/stars를 보내고 core가 적용 직전 일치를 확인한다. 신규 메뉴 요청의 snapshot 누락은 거절하고 내부 reducer의 생략만 호환한다. 구현과 고레벨/상태 변경 회귀 AC는 후속이다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅 실제 선택/영구 collection과 speciesKills > 0을 공개·알림·ACK·목표에 공유하며 seen의 추첨 의미를 보존한다. 레거시 미획득 ACK 제거와 이후 첫 획득 알림, PvP 보유만 있는 종의 실루엣, engine 구형 ACK 재주입 수정은 후속 AC로 검증한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50명 행의 영웅·파티 표시, 안정 DOM/키보드 포커스, 실제 지정 playerId 요청·응답 일치가 필수다. 타입 optional은 legacy/random 호환이며 지정 응답 ID 누락·불일치는 성공 처리하지 않는다. 삭제·만료·offline 재시도도 실제 UI 검증 대상이다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "공식 경로/스냅샷 검사로 미채택 복사본의 validation 우회가 닫혔다. Lv16–20 및 A/B/C를 탐색 10001–10020에서 비교한 뒤 공식 채택 후에만 1–100을 검증한다. 전체 firstAccepted p50 45–60분과 90/100의 90분 내 성공, 준비/제시/성공 및 조건부 분위수 분리를 유지한다. 수치의 목표 성공은 아직 미측정이다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "final h70 = uniqueHeroes 10 + totalKills 30000의 자격 전체 p50 8–12시간은 가설이다. 여섯 기존 콘텐츠 성과 조건, 2시간 이후 남은 단계·새 선택/처치·공백/최악 정체와 미도달을 정책별로 보고한다. canonical 첫 카드 선택의 h70 미선택을 자격 성공으로 숨기지 않고 새 시간 제한을 추가하지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "level 상한 제거는 저장·서버 입력·동료 포함 응답·탈취·회수·재시작 전체 경계에 적용한다. 필드 HP 후보는 기존 동료 힘을 보존한다. local 테스트와 live SHA 소스 대응은 별도이며 0.7.0 고정 후 최종 100 seed × 9정책/Native/4역 audit/smoke/package가 필요하다. 사람 관찰은 PENDING이다."
+    }
+  ],
+  "verified": [
+    "P07-OFFICIAL-PROTOCOL-BYPASS"
+  ]
+}

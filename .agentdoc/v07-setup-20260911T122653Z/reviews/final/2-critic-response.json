@@ -1,0 +1,173 @@
+{
+  "requestId": "00e21a637d927ab7a52c245aa5d4ba0517a0ae52ca5baae17113b43575f6b971",
+  "role": "critic",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "agent": "/root/critic",
+  "summary": "최종 S84e911f/Ec27f893의 release 900개와 Native 10원본·430 checks·198 PNG 해시를 독립 대조했다. baseline 첫 수락 전체 p50 2736.6초/90분 내 100 of 100, h70 자격 전체 lower p50 40596초를 재현했으나 h70 미도달 50/100·선택 0을 유지한다. Designer의 후기 수집 공백과 endpoint-readiness 관측 한계에 동의하며, 운영 서버의 구버전 계약을 major 미해결 사항으로 기록한다. 이 응답은 결과 분석이며 humanChecks/humanFun=PENDING, 운영 출시=PENDING이다.",
+  "coverage": [
+    {
+      "category": "bug",
+      "assessment": "격리 Native에서 Lv11/250/MAX_SAFE 저장·재시작, 정확한 환생 손실 표시와 취소/대상 변경 무효화, 실제 50행 영웅·5동료와 지정 상대 ID/포커스 연결을 확인했다. 반면 최종 서버 capture의 live=PENDING이며 보고된 운영 커밋에는 Lv10 상한과 구형 PvP 계약이 남아 있어 로컬 기능 확인을 운영 호환으로 확장할 수 없다.",
+      "confidence": "high",
+      "unknowns": [
+        "운영 register/upload/PvP/reclaim·DB를 호출하지 않았다. 구버전 계약은 health가 보고한 SHA의 로컬 Git 소스에 관한 사실이며 실제 배포 바이너리의 독립 attestation은 아니다.",
+        "사람의 글로벌 입력 권한·OS 알림·업무 방해 경험은 미확인이다. Host의 이후 smoke/package/DMG/955 gates는 내가 재실행하거나 이 두 감사 artifact로 재인증하지 않았다.",
+        "초기 개별 사용자 변경·모든 테스트 원본의 추적성 전체는 이 e2e/measure pair만으로 판정하지 않는다. 보존 조사와 별도 근거가 필요하다."
+      ]
+    },
+    {
+      "category": "logic",
+      "assessment": "900개는 9정책 각각 validation 1–100/720분이며 9900 checkpoint에서 금 잔액·수락 action 수·ready≤open≤accepted 연결을 재계산했다. 목표는 baseline 전체100 lower quantile이며 h70 조건부 20933.6초, 자격50/제시50/선택0과 구분된다. 180분은 실제18방문/14선택이고 30-active의 ready-null은 종료 Lv17 READY와 함께 읽어야 한다.",
+      "confidence": "high",
+      "unknowns": [
+        "100개 중50개 도달의 전체 lower p50은 관측 성공 중 최댓값이다. 이 통계는 과반 또는 대부분이 12시간에 획득한다는 보장이 아니다.",
+        "Native 준비 시각은 저장 표본의 관측시각이고 첫 환생 시각은 실제 선택 완료 관측시각이다. 정확한 엔진 사건시각과 동일시하지 않는다.",
+        "모든 보스 포획/명단 변동의 연속 trace가 없어 정책별 차이의 개별 RNG 원인을 확정하지 않는다."
+      ]
+    },
+    {
+      "category": "fun",
+      "assessment": "v5 장르의 즉시 반응·편안한 반복·발견·작은 선택을 적용하면 등록 성장 목표와 수집 기대는 다른 결과다. baseline 8→12h 전원 처치/환생은 늘었지만 새 영웅 없는60/100·새 처치종 없는78/100·새 포획종 없는100/100이 재현된다. 안내 이해도 조사는 합리적인 다음 조사지만 반복 보상의 가치나 업무 중단 비용까지 해결했다고 볼 수 없다.",
+      "confidence": "medium",
+      "unknowns": [
+        "humanChecks/humanFun=PENDING: 사람이 재미·선택 의미·애착·주의 전환을 어떻게 경험하는지는 관측하지 않았다.",
+        "희귀 선택0은 첫 슬롯 정책의 구조적 결과이며 사람의 레어 기피율이 아니다.",
+        "훈련/미끼/재굴림 정책은 지출과 동료 관리·방문 주기가 함께 달라 단일 유료 기능의 인과효과나 모든 상황의 최적 전략을 증명하지 않는다."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "artifact": "e2e",
+      "pointer": "/matrix/originals",
+      "note": "matrix SHA45af28ccfa167f889b415ca187c5d9cf2d8179ef4d1cea5a5bf1c91785263c5c 및 10개 원본 SHA·동일 S/E·각43 true checks/errors0를 직접 대조했다. 198 PNG 해시도 원본/집계에 각각 대조했으며 모든 화면을 시각 판독했다는 뜻은 아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/observationMs",
+      "note": "실제 자연 관측 합19803022.837542ms. 9개 short와 별도180분의 합이며 fixture 진단 시간은 제외됐다. 원본 startedAt/elapsedMs를 독립 비교해 순차 실행을 확인했다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/9",
+      "note": "18회 10–180분 방문/14선택, 첫 준비2312052.202208ms≤첫 선택완료2401183.300416ms. 모든 before/after 연결 및 최대 완료지연1267.079333ms를 직접 계산. natural-menu-40m/180m PNG를 직접 봤으며 종료 환생14/명단30/골드3462764와 메뉴 직전3462763을 구분했다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/6",
+      "note": "30-active 원본과 직접 본 endpoint PNG의 Lv17/REBIRTH READY, 마지막 Lv16 표본 사이 기록 간격29122.136875ms. electron-e2e.cjs229는 최종 flush를 readiness helper에 넣지 않는다. 최초시각은 미확인이고 null을 미도달로 바꾸지 않는다. 기존 supplemental report abf20e185ae18a5fbc529dd95d7a7f984fbaa6b26701c6167a839fcf817f627f 참조."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/409/details",
+      "note": "409–415의 선택 영웅/처치 몬스터만 색·이름·aria 공개, 제안만 한 카드 실루엣 유지, 실제 선택 후1개 공개/알림/ACK/목표/재시작을 읽었다. core collection.ts222–234의 실제 acquired 교집합과 부합한다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/416/details",
+      "note": "fixture=true/naturalAcquisition=false. 직접 본 세 번째 h70 카드와 단일 heroChoose/serial41 action, after 장착/보유/heroCounts/history/ACK·미선택 실루엣을 대조했다. 자연 획득0을 이 fixture로 대체하지 않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/418/details",
+      "note": "Lv11/250/9007199254740991의 expected=saved=resumed. MAX_SAFE를 넘는 성장은 허용하지 않는 안전 정수 계약이며 양의 안전 레벨을 Lv10으로 잘라 저장한 증거는 없다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/421/details",
+      "note": "직접 본 환생 확인 PNG 및 실제 전후 Lv11→1/별0→1/힘11→2. 420 취소 무변경, 422 Lv250→251 대상 변경 후 확인 무효화도 읽었다. collection.ts270–280의 snapshot/별 overflow 경계, main/ipc.ts115–116의 필수 expected와 구분했다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/425/details",
+      "note": "실제 inputTrace의 keyDown/char/keyUp,22개 trusted DOM 사건, Tab/ShiftTab/Enter/Space를 읽었다. 424는 고유50행 모두 hero+5party,428은 Enter e2e-103/Space e2e-101/mouse e2e-7의 요청ID=응답ID=DOMID. 선택 목록 PNG도 직접 확인했다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/427/details",
+      "note": "51번째 상대 추가로 목록에서 밀려난 행의 포커스가 refresh로 이동하고 preview0/selected0/battleDisabled=true. 서버 계정 삭제를 실행했다는 뜻이 아니다. 426의 동일 버튼·행 유지와 점수 재정렬 후 포커스도 확인했다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/423/details",
+      "note": "여기 업로드/목록/지정미리보기 성공은 격리 서버 진단이다. 별도로 실제 evidence/server/compatibility.json SHA9eeb9ad2554c1aea54100a354557ced0d91d9b2596476bedbdfa4ab3433241c4 및 tests.log 해시를 읽어 local121 tests/exit0·live PENDING을 확인했다. 내 compatibility-static-mapping.json b003e618dc1c60a3df8cbbc1d925316e5ffaaa5bd95f5e45eb7bc4c65a55d62d는 보고 SHA28270992518dc5bfc9c1f89f700c0491eaf8d1ed 대비35개 전체를 끝까지 대조해13일치/17불일치/5누락을 기록한다. 이 pointer를 운영 API 호출 증거로 쓰지 않는다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/targets",
+      "note": "release SHA46271facabdeb917748b50b46b2136246c0fd65281b5e76b350a7dcd1e6b1079. 직접 raw를 집계한 baseline 첫 전체p50=2736.6초/90분100 of100, h70 전체lower p50=40596초·도달50·조건부p50=20933.6초. populationQuantile의 floor((n−1)q)·null-last와 일치한다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs",
+      "note": "900개 모두 해당정책의 seed1–100과720분 완료. rawSha256/protocolSha256를 JSON.stringify/sha256로 재계산했고9900 checkpoint의 초기금+수입−지출=잔액, 수락 action 누계, 최초 사건 순서에 불일치0이었다. 제품/측정기를 다시 실행하지 않았다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs/100/policy",
+      "note": "active/free/uniform/none에서 방문주기만600초인 비교군: h70 전체p50=25894.3초/89도달, 최종환생p50=67. 즉시수락 baseline은40596초/50도달/137환생이다. 따라서 환생 횟수 증가나 즉시 선택을 장기 목표의 항상 우월한 전략으로 볼 수 없다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs/600/policy",
+      "note": "훈련+consume/600초는 h70 p50=16807초/100도달·지출p50=28875·최대동료Lv p50=67. reroll+reincarnate/120초는9969초/100도달·지출728000이다. 무료600초도89도달하므로 필수 과금 경로가 아니며 지출·관리·방문 복합 효과를 분리해 주장하지 않는다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs/0/records",
+      "note": "baseline100 전체에서8→12h 새영웅0=60,새처치종0=78,새포획종0=100; partyPower 동일68, 추가킬p50=17231/최소386·환생p50=80/최소2. 2h/12h 양끝 포함한 고유kind/id 사건 공백을100ms 정수로 재계산해 seen p50=9158.5초/worst31089.4, 실제새획득 p50=11364.3/worst34294.8을 재현했다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/method",
+      "note": "현재 hero.ts225–256은 첫슬롯standard/셋째eligible rare, measure.mjs285는 첫카드만 선택한다. 9정책 모두h70 chosen0이 그 정책과 부합한다. engine.ts238–269의 full30 release는 새 roster 추가와 다르며 partyPower와 overkill 포함 damage를 DPS로 치환하지 않았다. v5 PATTERNS/balance-template/brainstorm-variant 전체를 이 범위에 적용했고 v5 초기5분 목표·1000ms tick을 v7 계약에 덮어쓰지 않았다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/limitations",
+      "note": "정식 전체2-critic.md SHA20ee0ff48a6e664b7923d4ab70f58a3228e69df77f21f00d424b42110a3b1617 및 template36f575225f0b68296c1ef2c389e650382637b9ccc33f9331542b1659fc8b5e9b를 읽었다. 실제 Designer 응답77b177df256e58432a872e3feec6d9e72cde6e0258de138b5c628f0cbeabce55는 prompt priorReports/audit history와 동일하다. 사람 관찰과 운영 서버는 이 Native/measure 결과의 확인 범위 밖이다."
+    }
+  ],
+  "findings": [
+    {
+      "id": "C070-LIVE-SERVER-CONTRACT",
+      "category": "bug",
+      "severity": "major",
+      "problem": "최종 클라이언트의 고레벨/지정 상대 계약에 대응하는 운영 호환 근거가 없다. 실제 최종 capture는 local121 tests/exit0이나 live=PENDING이다. health 보고 SHA28270992518dc5bfc9c1f89f700c0491eaf8d1ed의 api.ts104는 LEVEL_MAX=10, app.ts128/203–215는 Lv11+ 스냅샷을 저장 전400으로 거부하고,458–480에는 목록 라우트가 없으며358–394는 요청 opponentId를 무시한다. 같은 SHA/blob의 정적 반례이며 운영 인증 API를 실행한 결과로 주장하지 않는다. 격리 check423 성공으로 이 출시 전 계약 공백을 덮을 수 없다.",
+      "fix": "운영 출시PENDING을 유지한다. 서버 변경/커밋/배포는 별도 명시적 승인 범위에서만 진행하고, 호환 서버의 실제 보고 SHA·정확한 소스 매핑과 고레벨 왕복의 새 근거를 확보해 등록 server AC를 재수행한다. 소스/평가 지문이 바뀌면 영향 받는 검증과 감사를 새로 수행하며 현재 원본과 실패 이유를 보존한다.",
+      "evidence": "e2e#/checks/423/details"
+    }
+  ],
+  "challenges": [
+    {
+      "proposal": "Designer choice: 기존 목표·동료 관리 안내의 사람 관찰",
+      "counterexample": "baseline은8→12h 전원 진행해도60/100에 새영웅이 없고100/100에 새포획종이 없다. 안내를 완벽히 이해해도 기존 명단을 유지하며 편히 방치하려는 사람에게 새수집이 생기는 것은 아니다. 즉시 수락보다10분 방문군의 h70 자격이 빨랐으므로 언제 환생할지의 실제 tradeoff도 남는다.",
+      "verdict": "후속 조사 우선안으로 타당하나 재미 개선의 입증은 아니다. 이해도와 별도로 관리 없이 기다릴 선택·업무 중단 횟수·다시 보고 싶은 이유를 관측하고, 완료 validation을 이용한 수치 재조정은 하지 않는다."
+    },
+    {
+      "proposal": "희귀 세 번째 카드 선택 설명 조사 및 자격·제시·획득 구분",
+      "counterexample": "900개 모두h70 선택0은 실제선호가 아니라첫standard 슬롯 정책의 필연적 결과다. 별도 fixture의실제 h70 세 번째 클릭은 기능을 보여도 자연 발견·선택 이유를 검증하지 않는다.",
+      "verdict": "세 단계 구분 조사에는 동의한다. 선택0을 사람의 기피율로 인용하거나 설명 추가가 자연 레어 획득을 늘렸다고 주장하지 않는다. 다른 선택 정책 연구는 향후 별도 사전등록으로 분리한다."
+    },
+    {
+      "proposal": "등록 마지막 자격p50을 장기 성장 경험의 대표 지표로 사용",
+      "counterexample": "전체100 중50도달이면 lower p50=40596초는 도달자의최대이며 조건부 p50=20933.6초와크게 다르다. 도달이한개만적은 가상반례에서는 동일한성공자시간대여도 전체p50가null이다.",
+      "verdict": "등록 통계 계산에는 오류가 없다. 하지만 대부분이8–12h에 보상을 획득한다는 설명은 부정확하다. 50미도달·선택0·조건부분포를 함께 유지한다."
+    },
+    {
+      "proposal": "동료 환생 전후 힘을 이해하면 유의미한 선택인지 평가 가능",
+      "counterexample": "실제 Lv11힘11→Lv1힘2를 이해한 사람도 당장의전투력 손해를 감수할 이유가 없을 수 있다. 훈련+consume과 reroll+reincarnate 측정은 방문주기·지출까지달라 환생 단독의이득을 입증하지 않는다.",
+      "verdict": "정확한 preview/확인/취소는 기능적 성과다. 이해도와 선택 가치·회복 기대를 구분하고 Lv1/별+1 계약을 유지한 채 사람의 선택·취소 이유를 조사한다."
+    },
+    {
+      "proposal": "비방해형 다음 목표 진행 표시 실험",
+      "counterexample": "18회 메뉴 방문은 합성 일정이며 실제 사람이 작업을 중단한 횟수가 아니다. 후기 목표를 더 눈에 띄게 보여도 새획득 공백은 유지되고 주의전환만 늘 수 있다.",
+      "verdict": "강제 시간 제한·자동 포커스·잦은 알림 없이 기존 목표를 재사용하는 후속 가설로만 둔다. 업무 방해 예산은 사람 관찰 전PENDING이다."
+    },
+    {
+      "proposal": "Designer의 두 minor 관측/재미 사항을 최종 결과의 잔여 문제로 제시",
+      "counterexample": "D070-ENDPOINT-READINESS-SAMPLING과 D070-LATE-COLLECTION-GAP의 수치는 직접 재현했다. 그러나 최종 서버 capture와 동일SHA 정적 매핑은 Lv11+/목록/지정 상대의 운영 호환 문제도 남아 있음을 보여 준다.",
+      "verdict": "기존 두 minor를 보존하고 의미를 축소하지 않는다. 운영 계약은 별도의 major로 명시해 로컬 기능·모델 분석 완료와 출시 확인을 구분한다. helper의일반적인 Compared every 문구도 전체35방문 로그로 인용하지 않는다."
+    }
+  ]
+}

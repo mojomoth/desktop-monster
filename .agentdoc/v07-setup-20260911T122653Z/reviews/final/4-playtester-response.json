@@ -1,0 +1,153 @@
+{
+  "requestId": "2ef0a74577b20690a91546e81637cffc95fe54926e889ffc0b34c496c166cf7a",
+  "role": "playtester",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "agent": "/root",
+  "summary": "Host 겸 Playtester로 실제 10개 Native 관측·자연 330분3.023초·430개 참인 검사와 별도 900개 정책별12시간 원본을 검토했다. 전체 prompt/template과 세 실제 역할 응답을 읽고 원본·직접 본 화면·독립 계산으로 대조했다. 기준 첫 성공p50 45.61분/90분100 of100과 h70 자격전체p50 11시간16분36초를 확인했지만 h70 미도달50/선택0을 유지한다. C070 운영 서버 major와 D070 두 minor는 미해결이며 기술 승인·운영 출시는 보류한다. 분석 완료와 출시 검증은 다른 상태이고 humanChecks=PENDING이다.",
+  "coverage": [
+    {
+      "category": "bug",
+      "assessment": "격리 실제 Electron에서 고레벨11/250/MAX_SAFE 저장·재시작, Lv11힘11→Lv1별1힘2 확인, 레거시 도감/단일알림/ACK/목표,50행 영웅·5동료·실제 지정상대·키보드와포커스를 확인했다. Host가 실제 smoke/패키지/DMG를 별도 실행했어도 운영 서버의 구버전 계약을 해소하지 못하므로 C070 major를 유지한다.",
+      "confidence": "high",
+      "unknowns": [
+        "운영 register/upload/PvP/회수·실DB는 실행하지 않았다. health 보고SHA의 정적 소스 반례이며 실제 운영바이너리 attestation이 아니다.",
+        "합성 입력과 모의 네트워크로 수행했다. 실제 OS 글로벌 입력 권한·알림·사람의 작업 복귀 경험은 PENDING이다.",
+        "최초179 경로는 모두존재하나6개 변경테스트의 최초 전체바이트 위치가 미확인이다. 별도보존증거의 한계이며 본 audit pair로 사용자 변경 전체의 복구가능성을 인증하지 않는다."
+      ]
+    },
+    {
+      "category": "logic",
+      "assessment": "미도달을 뒤에 두는 등록floor((N−1)q) 전체분포를 유지했다. 기준100개 첫성공과h70자격/제시/실제획득을 분리했고9정책×100을단일분모로합치지않았다. 긴Native18방문14선택과주기준비관측을 실제원본/PNG로 연결했으며30-active 종료READY와firstReady=null의표본한계를 유지한다.",
+      "confidence": "high",
+      "unknowns": [
+        "h70은50도달/50미도달이므로 전체lower p50=40596초가도달자의최댓값이다. 대부분이12시간에획득한다는의미가아니다.",
+        "Native준비/선택시각은관측시각이다.30-active의정확최초준비시각은미확인이고비동기최종save를정확한엔진사건시간으로바꾸지않는다.",
+        "후기포획RNG와전체명단의연속깊이trace는없다.누적overkill피해나partyPower를DPS로치환하지않는다."
+      ]
+    },
+    {
+      "category": "fun",
+      "assessment": "장르의 Ambient→Surprise→Interaction→Reward→Collection에서전투반응·반복환생은지속되지만새수집공백은길다. Designer의안내이해도조사를후속우선안으로유지하되Critic이제시한관리거부/업무중단/환생시점의반례를포함해야한다. Balance의정책차이는복합행동결과이며더많은환생이나골드지출이항상더좋다는결론을내리지않는다.",
+      "confidence": "medium",
+      "unknowns": [
+        "사람관찰이없으므로재미·취향·강화손실이해·업무방해의효과는PENDING이다.",
+        "희귀선택0은첫standard슬롯정책이므로사람의기피율이아니다.진단에서세번째카드를눌렀다는사실도자연획득이나선호를증명하지않는다.",
+        "안내추가가콘텐츠소진을해결한다는보장은없다.현재검증결과를이용해등록수치·조건·정책을자동최적화하지않는다."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "artifact": "e2e",
+      "pointer": "/matrix/originals",
+      "note": "실제matrix45af28cc…의10원본·로그·198PNG를Host의 native-final-host-check.json b4a1a47c…에서 독립재해시했다.430checks모두true/errors0이며모든짧은종료9개와긴종료1개를직접봤다.실제순차실행종료를확인한기록이며하네스준비/0분진단을자연관측으로대체하지않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/observationMs",
+      "note": "자연합19803022.837542ms=330분3.023초.9개5/15/30분×3프로필뒤별도연속180분이며fixture진단은각자연관측뒤였다.실행중빌드·시간가속·개인save는사용하지않았다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/9",
+      "note": "실제10분마다18회메뉴,14개서로다른영웅선택/환생14.모든18메뉴PNG를실시간직접보고 sessions/native-long-host-observations.jsonl a549d898…에해시/상태를기록했다.최대완료지연1267.079333ms,첫준비2312052.202208ms≤첫선택완료2401183.300416ms.종료Lv1/13077킬/동료30/영웅14이며h70총30000킬에는미달한다.60분선택후PNG는이미Lv2이고180분메뉴gold3462763→후속endpoint3462764는순차표본이다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/6",
+      "note": "직접본30-active 종료Lv17/REBIRTH READY와실제firstReadyElapsedMs=null을함께보존했다.마지막Lv16표본과최종flush사이정확준비시각은미확인이다.D070-ENDPOINT-READINESS-SAMPLING을미도달이나수정완료로표현하지않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/416/details",
+      "note": "이번최종검토에서도실제180분원본의rare-third-offer/acquired PNG를직접봤다.원본은fixture=true/naturalAcquisition=false,세번째h70 실제heroChoose/serial41 단1회→Lv1/환생11/영구컬렉션·heroCounts·history,단일알림/ACK·목표완료.미선택둘은실루엣이다.이원본을900개 시뮬레이션의 희귀 선택0의대체근거로쓰지않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/418/details",
+      "note": "Lv11/250/9007199254740991 expected=saved=resumed를직접읽었다.별도Native진단의신뢰경계왕복이며MAX초과를허용하는계약이아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/421/details",
+      "note": "180분후속진단PNG를이번에직접보아Slime Lv11→1/별0→1/힘11→2/감소안내/확인·취소를대조했다.420취소무변경,422 Bat Lv250→251변경뒤확인무효화도원본에서읽었다.현재collection.ts consume/fuse/reincarnate의변경전안전정수검사와expected snapshot대조를직접확인했다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/428/details",
+      "note": "실제Enter e2e-103,Space e2e-101,mouse e2e-7에대해요청opponentId=응답playerId=DOM선택/포커스가같다.424–426의50고유행/영웅+5동료/실제trustedkeyboard/행재사용과함께읽었다.직접본selected-list PNG는E2E_Foe49의선택강조와5파티를보여주며다른시점ID클릭으로오인하지않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/427/details",
+      "note": "51번째높은순위상대때문에e2e-7이목록에서빠진후refresh포커스,selected0/previewParty0/battleDisabled=true를원본과이번에직접본fallback PNG로대조했다.계정삭제나운영서버변경을실행한것은아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/409/details",
+      "note": "409–415의레거시획득집합/반복부팅/알림·ACK·목표원본을읽었고실제first-kill-codex PNG에서Bat 1회처치공개와나머지실루엣을다시봤다.collection.ts222–234의ACK가acquired와교집합인것을확인했다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/targets",
+      "note": "실제release46271fac…와Host 독립900재집계 v2 fc4d9dd5…/Balance교차검산3fe09117…이일치한다.기준첫전체p50=2736.6초/90분100 of100, h70전체p50=40596초/50도달50미도달·조건부20933.6초.보조v1의조건부p90 8개계산차이는원본을보존하고등록floor방식으로교정했으며중앙값/전체목표/제품/실제측정은변하지않았다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/runs",
+      "note": "9정책각validation1–100×720분900원본을새로실행했다.이전0.6/탐색10001–10020과분리했다.독립Balance 동결16파일과raw/실행archive결박을확인했고정책별빠름/지연/미도달을유지했다.기준8→12h전원추가킬/환생에도신규영웅없는60·신규처치종없는78·신규포획종없는100이다.D070-LATE-COLLECTION-GAP은미해결이다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/protocol/milestones",
+      "note": "동결21개수치와6콘텐츠ID/성과조건이실제생산코드와같다.h70은actualuniqueHeroes10+totalKills30000.현재engine.ts238–269의index63이상보스/명단30미만/영구할당1–5와1RNG draw를직접읽었으며필드HP와동료힘HP115/100을혼동하지않았다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/423/details",
+      "note": "이성공은격리서버진단이다.Host가최종별도capture9eeb9ad2…를실제로실행해로컬121테스트/빌드0와livePENDING/CLI1을확인했고등록server AC도1이었다.독립35파일매핑b003e618…는보고된운영Git28270992518dc5bfc9c1f89f700c0491eaf8d1ed에서13일치/17불일치/5없음을보였다.C070-LIVE-SERVER-CONTRACT major를유지한다.이pointer를인증운영API호출증거로쓰지않으며helper .every의첫불일치중단을전체35검사로과장하지않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/limitations",
+      "note": "전체4-playtester.md 1907행/119436bytes SHA99c9e23b84ae691c8e8a42cf57d88ac4ff2dcdc0890cde8fc5998a14d4931f05와실제template60e7baaeed8873d8d866d4d5c05252edfd98a15250a7ee9bfbe4f080d190d47b,지정v5 genre3문서를모두읽었다.실제D77b177df/C67cf9154/B728800f9응답FULL을읽고순서대로submit/next했다.별도Host smoke/actualpackage10/DMG5/955gates성공은각원본로그에있고이Nativepair의출시승인으로합치지않는다."
+    }
+  ],
+  "findings": [],
+  "nextUpdates": [
+    {
+      "priority": 1,
+      "title": "운영 고레벨·지정 상대 호환 근거 확보",
+      "hypothesis": "현재검증한서버계약이운영빌드와정확히대응하면새클라이언트의Lv11이상과상대목록/지정선택을운영호환근거로검증할수있다.",
+      "metric": "보고된운영SHA와검증된35파일대응, 고레벨11/250/MAX_SAFE 왕복·잘못된응답거절, 새등록server AC 및새감사의미해결major수.",
+      "acceptance": "별도로승인된운영작업후새불변근거와등록server AC성공을확인한다.필요한소스/평가기변경시영향받은검증을새로실행하고현재major/실패원본을고치거나삭제하지않는다.이번결과는PENDING이며배포를실행하지않는다.",
+      "cost": "운영변경의별도승인과실제배포대응검증이필요하다.현재로컬제품수치는변경하지않는다.",
+      "basis": [
+        "C070-LIVE-SERVER-CONTRACT"
+      ]
+    },
+    {
+      "priority": 2,
+      "title": "기존 목표와 선택적 동료 관리의 사람 관찰",
+      "hypothesis": "기존도감목표·희귀세번째선택·환생힘감소를이해하는지와관리없이계속기다리고싶은지를분리하면안내부족과수집소진을구분할수있다.",
+      "metric": "자격/제시/획득구분정확도, 환생확인전힘감소인식, 선택·취소이유, 새획득공백중다시보고싶은이유, 업무중단횟수.",
+      "acceptance": "후속조사 전에참가자수·관측절차·판정값을사전등록하고실제사람의응답/행동을기록한다.현재5명중4명이해안은Designer의후속가설이며실행한AC가아니다.합성18회방문·선택0을사람행동으로바꾸지않고현재validation으로수치를재조정하지않는다.",
+      "cost": "새기능을만들기전기존UI를이용한소규모사람관찰.자동포커스·강제시간제한·반복알림추가없음.",
+      "basis": [
+        "D070-LATE-COLLECTION-GAP"
+      ]
+    },
+    {
+      "priority": 3,
+      "title": "종료 준비상태와 최초 준비시각의 관측 구분 보강",
+      "hypothesis": "향후관측에서종료상태준비여부를주기최초표본과함께명시하면READY이지만firstReady=null인결과를미도달로오독하지않을수있다.",
+      "metric": "endpointReady·첫관측시각·실제선택완료시각의구분, 비동기save/end표본경계, 기존null원본보존.",
+      "acceptance": "현재D070표본한계를문서에그대로유지한다.후속평가기변경은먼저등록하고새경계검사와새실제관측으로검증한다.현재원본의null을뒤늦게수정하거나마지막save시각을정확최초사건시각으로인증하지않는다.",
+      "cost": "현재는보고서의한계설명.평가기구현변경은별도후속범위이며새지문에필요한관측을다시수행해야한다.",
+      "basis": [
+        "D070-ENDPOINT-READINESS-SAMPLING"
+      ]
+    }
+  ],
+  "humanChecks": "PENDING: 실제 참가자의 재미·선택 선호·환생 힘 감소 이해·업무 방해·OS 권한/알림을 관찰하지 않았다. 합성 입력과 격리 진단은 사람 확인의 대체가 아니다."
+}

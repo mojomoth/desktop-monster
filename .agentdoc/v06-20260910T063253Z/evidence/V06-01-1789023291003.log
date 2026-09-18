@@ -1,0 +1,249 @@
+
+> desmon@0.5.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 26ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 112ms
+ ✓ tests/collection.test.ts (21 tests) 162ms
+ ✓ tests/loot.test.ts (11 tests) 251ms
+ ✓ tests/engine.test.ts (35 tests) 282ms
+ ✓ tests/sprites.test.ts (34 tests) 164ms
+ ✓ tests/hero.test.ts (13 tests) 160ms
+ ✓ tests/heroForms.test.ts (8 tests) 597ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  520ms
+ ❯ tests/renderer.test.ts (104 tests | 1 failed) 191ms
+   ✓ drawMeter / drawHpBar (boxed bars) > keeps the bar three pixels above every species and its boss crown 12ms
+   ✓ drawMeter / drawHpBar (boxed bars) > paints a steel frame with a void interior 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > fills proportionally inside the box 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > paints no fill at ratio 0 and a full interior at ratio 1 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > clamps out-of-range and non-finite ratios into the box 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > keeps at least 1px of fill while hp is nonzero 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > drawHpBar fills red in proportion to hp/maxHp 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > drawHpBar takes bigint hp and maxHp 0ms
+   ✓ drawLevelHud (LV + XP bar above the hero, Assumption 17) > hugs the anchor: the XP bar box ends at `bottom`, centered on `cx` 1ms
+   ✓ drawLevelHud (LV + XP bar above the hero, Assumption 17) > paints the LV label centered above the bar (never overlapping the hero) 1ms
+   ✓ drawLevelHud (LV + XP bar above the hero, Assumption 17) > fills the XP bar in proportion to xp/xpToNext(level) 1ms
+   ✓ drawCounters (top-right kills + coins) > right-aligns both rows inside the view 2ms
+   ✓ drawCounters (top-right kills + coins) > draws the coin count in yellow next to the coin icon 0ms
+   ✓ drawCounters (top-right kills + coins) > pops the coin row on collection: the count flashes white (T15) 0ms
+   ✓ LEVEL UP! banner (T15) > draws nothing until shown and nothing after it expires 0ms
+   ✓ LEVEL UP! banner (T15) > draws a centered double-size banner that flashes yellow/white 3ms
+   ✓ LEVEL UP! banner (T15) > banner text is configurable: FEVER! and LEVEL UP! both render 1ms
+   ✓ floating damage numbers (fixed pool) > keeps a boss critical hit visible for the full 600 ms, without a height cutoff 0ms
+   ✓ floating damage numbers (fixed pool) > never moves an existing number when another hit arrives 2ms
+   ✓ floating damage numbers (fixed pool) > keeps rapid hits at the requested position, including wide labels near the edge 2ms
+   ✓ floating damage numbers (fixed pool) > preserves the original position and independent age of every hit in a mixed burst 0ms
+   ✓ floating damage numbers (fixed pool) > keeps every pooled hit visible through a sustained mixed critical burst 31ms
+   ✓ floating damage numbers (fixed pool) > floatColor maps super to yellow, weak to steel and normal to white 0ms
+   ✓ floating damage numbers (fixed pool) > pre-allocates an inactive pool of the fixed size 0ms
+   ✓ floating damage numbers (fixed pool) > never grows under key-mash: overflow recycles the oldest slot 0ms
+   ✓ floating damage numbers (fixed pool) > expires a float after its lifetime 0ms
+   ✓ floating damage numbers (fixed pool) > rises as it ages and draws crits in yellow 0ms
+   ✓ floating damage numbers (fixed pool) > uses the expanded rise distance for readable damage motion 0ms
+   ✓ floating damage numbers (fixed pool) > fades to a dim color in the last third of its life 0ms
+   ✓ floating damage numbers (fixed pool) > draws crit numbers triple-size with a bang and normal numbers double-size, both outlined 1ms
+   ✓ floating damage numbers (fixed pool) > a critical hit shakes the world for SHAKE_MS and rings the monster with sparks 9ms
+   ✓ createGame (scene orchestration) > draws the full scene: clear, field strip, hero left, monster right, HUD 14ms
+   ✓ createGame (scene orchestration) > attack() steps the engine and spawns a floating damage number 2ms
+   ✓ createGame (scene orchestration) > update() advances the idle bob to the second frame after IDLE_FRAME_MS 0ms
+   ✓ createGame (scene orchestration) > update() treats non-finite and negative dt as 0 2ms
+   ✓ createGame (scene orchestration) > tints the monster per tier at draw time (tier 1 uses shifted colors) 1ms
+   ✓ combat presentation (core FSMs, T14) > attack() restarts the 180ms hero attack animation on every input 1ms
+   ✓ combat presentation (core FSMs, T14) > draws the attack pose instead of the idle bob while attacking 1ms
+   ✓ combat presentation (core FSMs, T14) > shows the slash arc overlay only during the attack frame after wind-up 1ms
+   ✓ combat presentation (core FSMs, T14) > flashes the monster white for the hit duration, then returns to color 2ms
+   ✓ combat presentation (core FSMs, T14) > a killing blow plays the 500ms dying scatter, then spawns the next monster 2ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > the dying monster scatters into its own pixels, which then move 3ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > the item drop arcs through the gap, then flies off to the coin counter 1ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > the next monster pops in bottom-up during spawning 1ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > a level-up shows the flashing banner and hero sparkles 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > update() ticks the engine and returns companion events to the save scheduler 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > damage floats use the letter-suffix format 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a monster hit spawns the species hit effect 7ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a boss draws at species size plus one with a crown and its hp bar raised 2ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a boss spawn fires the shockwave effect 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > active companions draw as an overlapping party group left of the hero, flipped to face right, star-tinted 9ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a companion volley spawns per-species attacks from each slot 4ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a capture shows the sparkle effect and the new companion appears 2ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > the field monster shows a type badge under its feet 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > party members and the opponent group wear type badges under their feet 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a normal monster draws at its species size 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > the field party is re-read from state every frame so a new monster changes it 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > companion floats are coloured by effectiveness 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > fever draws a hue-cycling aura behind the hero and a FEVER banner 11ms
+   ✓ collection actions in the game window (T47, SPEC F53) > apply() forwards collection actions to the engine and reports its events 3ms
+   ✓ collection actions in the game window (T47, SPEC F53) > apply(removeCompanions) never touches in-flight presentation 5ms
+   ✓ collection actions in the game window (T47, SPEC F53) > a won pvp shows the VICTORY banner and pops the stolen companion in 2ms
+   ✓ collection actions in the game window (T47, SPEC F53) > a lost pvp shows the DEFEAT banner and scatters the lost companion 1ms
+   ✓ collection actions in the game window (T47, SPEC F53) > a rebirth flushes presentation and restarts at monster 0 2ms
+   ✓ createSaveScheduler (T16 save policy) > saves immediately on a kill and on a level-up 0ms
+   ✓ createSaveScheduler (T16 save policy) > debounces a damage-only attack by 500ms 0ms
+   ✓ createSaveScheduler (T16 save policy) > coalesces key-mash damage into one trailing save 0ms
+   ✓ createSaveScheduler (T16 save policy) > a kill cancels the pending damage debounce (no double save) 0ms
+   ✓ createSaveScheduler (T16 save policy) > flush() saves immediately and cancels any pending debounce 0ms
+   ✓ createSaveScheduler (T16 save policy) > an empty event batch neither saves nor schedules 0ms
+   ✓ game toSave/reset (T16 persistence wiring) > toSave() mirrors the wrapped engine snapshot 0ms
+   ✓ game toSave/reset (T16 persistence wiring) > reset() returns progress to the defaults with idle animations 0ms
+   ✓ game toSave/reset (T16 persistence wiring) > reset() clears every in-flight presentation system 1ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires reportFirstFrame 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires parseSave 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires createEngine 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires createGame 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires onInput 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires requestAnimationFrame 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires setupFallbackInput 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires setupWindowDrag 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires moveWindowBy 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires createSaveScheduler 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires saveState 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires onReset 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > persists via the scheduler on both input paths and on blur (T16) 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > onReset swaps in a fresh engine, then saves immediately (T16) 2ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > applies menu actions through the engine and flushes the save (F53) 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > disables image smoothing and clamps dt to 100ms 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > reports the first frame exactly once, after drawing 0ms
+   ✓ smoke sequence source contract (src/main/index.ts, SPEC F18) > drives a core SimulatedInputDriver over the real input channel 0ms
+   ✓ smoke sequence source contract (src/main/index.ts, SPEC F18) > prints SMOKE_OK and exits 0 only from the first-frame path 0ms
+   ✓ smoke sequence source contract (src/main/index.ts, SPEC F18) > keeps the 20s watchdog failure exit 0ms
+   × window.desmon declaration stays in sync with the preload bridge > declares every method the preload exposes 13ms
+     → expected '// Ambient type of the preload bridge…' to contain 'onSaveFailed('
+   ✓ battle scene replay (T66, SPEC F66) > hides the hero slash overlay while a replay owns the field 2ms
+   ✓ battle scene replay (T66, SPEC F66) > playReplay draws the opponent party mirrored on the right with its name 2ms
+   ✓ battle scene replay (T66, SPEC F66) > playReplay draws the opponent hero mirrored beside mine in the rival palette 2ms
+   ✓ battle scene replay (T66, SPEC F66) > the opponent hero swings when its side lands a blow 1ms
+   ✓ battle scene replay (T66, SPEC F66) > each blow spawns a styled attack then a float at the target 1ms
+   ✓ battle scene replay (T66, SPEC F66) > companion attack styles differ: golem slashes on the target, dragon breathes from the actor 2ms
+   ✓ battle scene replay (T66, SPEC F66) > a ko scatters the target and removes it from the opponent group 2ms
+   ✓ battle scene replay (T66, SPEC F66) > the field monster is hidden while a replay plays and returns afterwards 2ms
+   ✓ battle scene replay (T66, SPEC F66) > replay pacing clamps to 12 s 3ms
+   ✓ battle scene replay (T66, SPEC F66) > blocks manual attacks during PvP and restores them when the replay ends 1ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 63ms
+ ✓ tests/server/app.test.ts (18 tests) 24ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 6ms
+ ✓ tests/net.test.ts (24 tests) 128ms
+ ✓ tests/heroRendering.test.ts (5 tests) 404ms
+ ✓ tests/menu.test.ts (41 tests) 216ms
+ ✓ tests/progressionV5.test.ts (12 tests) 97ms
+ ✓ tests/progressV5.test.ts (12 tests) 60ms
+ ✓ tests/formulas.test.ts (15 tests) 28ms
+ ✓ tests/server/pvp.test.ts (14 tests) 18ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 24ms
+ ✓ tests/server/opponents.test.ts (10 tests) 30ms
+ ✓ tests/audio.test.ts (15 tests) 23ms
+ ✓ tests/effects.test.ts (7 tests) 7ms
+ ✓ tests/save.test.ts (15 tests) 22ms
+ ✓ tests/server/http.test.ts (9 tests) 6ms
+ ✓ tests/tray.test.ts (38 tests) 17ms
+ ✓ tests/globalInput.test.ts (20 tests) 14ms
+ ✓ tests/fever.test.ts (4 tests) 9ms
+ ✓ tests/progressV6.test.ts (15 tests) 34ms
+ ✓ tests/packaging.test.ts (16 tests) 16ms
+ ✓ tests/persistence.test.ts (10 tests) 16ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 7ms
+ ✓ tests/identity.test.ts (8 tests) 14ms
+ ✓ tests/settings.test.ts (4 tests) 8ms
+ ✓ tests/anim.test.ts (14 tests) 10ms
+ ✓ tests/ipc.test.ts (59 tests) 9ms
+ ✓ tests/ipcV5.test.ts (6 tests) 7ms
+ ✓ tests/window.test.ts (29 tests) 4ms
+ ✓ tests/server/pgTransaction.test.ts (3 tests) 3ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/typeChart.test.ts (4 tests) 4ms
+ ✓ tests/fsm.test.ts (12 tests) 3ms
+ ✓ tests/thefts.test.ts (5 tests) 5ms
+ ✓ tests/deploy.test.ts (7 tests) 4ms
+ ✓ tests/battle.test.ts (5 tests) 6ms
+ ✓ tests/drag.test.ts (7 tests) 3ms
+ ✓ tests/heroMenuReadiness.test.ts (3 tests) 6ms
+ ✓ tests/rendererInput.test.ts (8 tests) 5ms
+ ✓ tests/scaffold.test.ts (1 test) 2ms
+ ✓ tests/bignum.test.ts (7 tests) 3ms
+ ✓ tests/expedition.test.ts (16 tests) 3138ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  690ms
+   ✓ A1 — the expedition gauge is display-only and stays out of the way (H2b/H7) > never leaves its declared pixel budget, whatever the depth (H7)  2394ms
+ ✓ tests/balance.test.ts (2 tests) 77158ms
+   ✓ v0.5 deterministic pacing and gold policy playtest > checks 100 seeds across active, warm-idle and intermittent play at 5/15/30 minutes  77155ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/renderer.test.ts > window.desmon declaration stays in sync with the preload bridge > declares every method the preload exposes
+AssertionError: expected '// Ambient type of the preload bridge…' to contain 'onSaveFailed('
+
+- Expected
++ Received
+
+- onSaveFailed(
++ // Ambient type of the preload bridge (GAME_ARCHITECTURE §3.3). The renderer
++ // build cannot import src/preload (it value-imports 'electron' and would be
++ // pulled into the web emit), so the shape is declared here from the shared
++ // payload types; tests/renderer.test.ts pins this file's method list against
++ // the preload source so the two can never drift.
++
++ import type {
++   IdentityPayload,
++   LeaderboardResult,
++   MatchResult,
++   NetResult,
++   OpponentListResult,
++   PvpResult,
++   ReclaimResult,
++   TheftsResult,
++ } from '../shared/api.js';
++ import type {
++   InputModePayload,
++   InputPayload,
++   MenuActionPayload,
++   SaveStatePayload,
++ } from '../shared/ipc.js';
++
++ declare global {
++   interface Window {
++     desmon: {
++       onInput(cb: (e: InputPayload) => void): () => void;
++       onInputMode(cb: (m: InputModePayload) => void): () => void;
++       onReset(cb: () => void): () => void;
++       getInputMode(): Promise<InputModePayload>;
++       loadState(): Promise<SaveStatePayload | null>;
++       saveState(s: SaveStatePayload): Promise<void>;
++       openAccessibilitySettings(): Promise<void>;
++       reportFirstFrame(): void;
++       moveWindowBy(dx: number, dy: number): void;
++       getIdentity(): Promise<IdentityPayload>;
++       setName(name: string): Promise<IdentityPayload>;
++       getLeaderboard(n?: number): Promise<NetResult<LeaderboardResult>>;
++       pvpOpponents(): Promise<NetResult<OpponentListResult>>;
++       pvpMatch(opponentId?: string): Promise<NetResult<MatchResult>>;
++       pvp(matchId: string, party: string[]): Promise<NetResult<PvpResult>>;
++       thefts(): Promise<NetResult<TheftsResult>>;
++       reclaim(theftId: string): Promise<NetResult<ReclaimResult>>;
++       onAction(cb: (a: MenuActionPayload) => void): () => void;
++       sendAction(a: MenuActionPayload): Promise<void>;
++       onStateChanged(cb: (s: SaveStatePayload) => void): () => void;
++       reportMenuReady(): void;
++     };
++   }
++ }
++
++ export {};
++
+
+ ❯ tests/renderer.test.ts:2160:25
+    2158|     expect(methods.length).toBeGreaterThanOrEqual(8);
+    2159|     for (const method of methods) {
+    2160|       expect(globalDts).toContain(`${method ?? ''}(`);
+       |                         ^
+    2161|     }
+    2162|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 51 passed (52)
+      Tests  1 failed | 775 passed (776)
+   Start at  15:54:51
+   Duration  77.62s (transform 2.10s, setup 0ms, collect 7.31s, tests 83.61s, environment 6ms, prepare 3.97s)
+

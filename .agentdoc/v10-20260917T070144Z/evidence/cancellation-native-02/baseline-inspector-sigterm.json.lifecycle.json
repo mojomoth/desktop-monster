@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "observerPid": 2439,
+  "childPid": 2440,
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-xCYBbA",
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+  "appHash": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5",
+  "startedAt": "2026-09-17T19:14:09.721Z",
+  "state": "complete",
+  "cancelSignal": "SIGTERM",
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 2440,
+        "ppid": 2439,
+        "pgid": 2428,
+        "started": "Fri Sep 18 04:14:09 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-xCYBbA"
+      },
+      {
+        "pid": 2448,
+        "ppid": 2440,
+        "pgid": 2428,
+        "started": "Fri Sep 18 04:14:10 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-xCYBbA --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,6164385588157185717,348800885861719463,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=37"
+      },
+      {
+        "pid": 2449,
+        "ppid": 2440,
+        "pgid": 2428,
+        "started": "Fri Sep 18 04:14:10 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-xCYBbA --shared-files --field-trial-handle=1718379636,r,6164385588157185717,348800885861719463,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=37"
+      },
+      {
+        "pid": 2450,
+        "ppid": 2440,
+        "pgid": 2428,
+        "started": "Fri Sep 18 04:14:10 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-xCYBbA --app-path=/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Resources/app.asar --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757595899830 --launch-time-ticks=914854659147 --shared-files --field-trial-handle=1718379636,r,6164385588157185717,348800885861719463,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=56"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 2440,
+        "signal": "SIGTERM",
+        "at": "2026-09-17T19:14:10.857Z"
+      }
+    ],
+    "finishedAt": "2026-09-17T19:14:11.022Z"
+  }
+}

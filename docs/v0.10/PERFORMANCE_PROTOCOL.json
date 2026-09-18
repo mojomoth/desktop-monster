@@ -1,0 +1,42 @@
+{
+  "version": "0.10.0",
+  "baselineVersion": "0.9.1",
+  "performance": {
+    "sampleMs": 5000,
+    "warmupMinutes": 5,
+    "comparisonMinutes": 30,
+    "comparisonProfiles": [
+      "active",
+      "idle"
+    ],
+    "mixedMinutes": 180,
+    "mixedPhaseMinutes": 5,
+    "mixedMenuMinutes": 10,
+    "gameScale": 1,
+    "muted": false,
+    "screenShake": true,
+    "cpuP95Max": {
+      "baselineMultiplier": 1.1,
+      "baselineAddPercentagePoints": 1
+    },
+    "workingSetP95Max": {
+      "baselineMultiplier": 1.2,
+      "baselineAddMiB": 50
+    },
+    "mixedMemoryMax": {
+      "initialWindowMinutes": [
+        5,
+        35
+      ],
+      "finalWindowMinutes": [
+        150,
+        180
+      ],
+      "multiplier": 1.2,
+      "addMiB": 50
+    },
+    "crashUnresponsiveSaveProgressErrorsAllowed": 0,
+    "meaning": "Regression budget, not a battery-life guarantee. Sum of working sets may count shared memory more than once."
+  },
+  "observerMigration": "Candidate observer differs only by serializing BigInt fixture fields to decimal JSON strings. The verifier checks that exact source transformation; timers, input, sampling, isolation and limits are identical."
+}

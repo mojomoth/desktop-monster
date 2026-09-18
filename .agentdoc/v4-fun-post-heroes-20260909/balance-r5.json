@@ -1,0 +1,199 @@
+{
+  "requestId": "50436dd4ea263ae9225ea5cd3e00643bb642223d50f6fbb4568ada1b2d0abaa7",
+  "round": 5,
+  "role": "balance",
+  "agent": "a0aeac9ba4a02666b (balance-r5, Agent tool general-purpose)",
+  "decision": "pass",
+  "summary": "최종 소스로 다시 쟀고 결과가 balance-after.json과 완전히 같다. DESMON_BALANCE_REPORT=/tmp/balance-final.json npx vitest run tests/balance.test.ts (1 passed, exit 0, 13.7s)의 산출을 balance-after.json과 객체 deep-equal 비교한 결과 scenarios 9개·rawSamples 900행 전부 True다 — 이번 라운드의 저장소 변경이 주석 1개와 문서 2개뿐이므로 수치가 움직이지 않아야 한다는 예측이 실측으로 확인됐다. 소스 수정 0건, npx vitest run tests/expedition.test.ts tests/hero.test.ts = 25 passed. [디자이너의 H30~H36을 그대로 받지 않고 각각 판정했다] H30 회귀: 처치 p50 1240(구간 1176-1300, before 1238 대비 +0.16%, min 1211 max 1268), 첫 오퍼 p50 79초(구간 74-84, min 73 max 83), 환생 p50 15(=15) — 전부 안. H31 무음 폐기: after 0건, 분포가 아니라 expedition.test.ts:53-67이 releasedCount===released.length와 captured===0으로 고정하는 invariant — 안. H32 방생: p10 15(>=8) p50 21(>=18) p90 29, min 7 max 42 — 안. intermittent도 6/13/21로 함께 확인했다. H33 미수집 첫 후보: 900표본 전수 1.0(min=max=1.0), 9시나리오 전부 1.0 — 안. H34 수집: 900행 전수에서 collected===min(50,reincarnations) 위반 0건, 30분 15/15/15 — 안. H35 픽셀: 심도 5종 x 잔여시간 5종 전수 계측에서 도장 픽셀 합집합 최대 168 px^2(선언 상한 200, 필드 26,000의 0.65%), 바운딩 박스 x[2,59) y[16,21)=285 px^2로 expedition.test.ts:245-263이 x+w<=60/y in [16,21)을 강제해 영웅(x[66,94))·몬스터/카운터(x>=150)와 교집합 0 — 안. H36 포커스 강탈 0은 코드 경로로만 확인했고 실기는 PENDING이다(E5). [C27 해소 — 60분을 축소 선언하지 않고 직접 쟀다] 임시 러너로 같은 엔진·같은 정책·seed 1..100을 3,600초까지 돌렸다. after 60분 수집은 active 30/30/30(min=max=30), intermittent 30/30/30, idle 11/29/30(min 3 max 30)으로 세 프로필 모두 min(50, reincarnations) 항등을 만족한다. 같은 before 재현 빌드의 60분은 14/14/14(min=max=14)로 14가 영구 상한이었음이 재확인된다. 다만 이 근거는 세션 산출물이지 tests/balance.test.ts의 단언이 아니다 — 초판 시점에는 collected 단언이 0개여서 회귀 가드 부재를 E2로 남겼고, 이후 오케스트레이터가 그 지적을 코드로 반영해 tests/balance.test.ts:118-121에 collected 단언 3개가 들어갔다(재실행 1 passed/exit 0으로 확인). 30분 항등은 이제 가드되고 잔여는 60분 축 단언 부재뿐이다(E2 갱신). [C28 해소 — before 무음 폐기를 추정에서 계측으로 바꿨다] src/core 사본에 라운드 전 상태를 두 군데 복원했다: engine.ts에서 state.souls += souls를 제거해 만석 draw가 상태에 아무 효과가 없게(A3' 이전 페이싱) 하고 이벤트는 세는 용도로만 남겼으며, hero.ts rollHeroChoices의 keepTop 분기를 제거해 A5' 이전 슬롯 0 규칙으로 되돌렸다. 이 재현 빌드가 docs/v0.4/balance.json의 9시나리오 x kills/reincarnations/collected/coins x p10/p50/p90 = 108개 값과 불일치 0으로 일치했으므로(예: active 30분 1222/1238/1255, collected 14/14/14, coins 25020/25671/26360, 미수집 첫 후보 0.9333) 여기서 센 폐기 건수는 실제 before 값이다. active 30분 무음 폐기 p10/p50/p90 = 15/22/28, min 8 max 43, 평균 21.77 — '약 22건/런'은 값은 맞았고 라벨이 틀렸다. 이제 계측치로 인용한다. 60분은 71/83/94(평균 82.71), intermittent 30분은 6/13/21, idle 30분은 평균 0.11로 idle에서는 A3'의 효과가 사실상 없다(만석 도달 5/100). [재화 회계] 유입은 처치 드랍이 유일하고(coinsForIndex=1+floor(index/3), 보스 5배) 분당 p10/p50/p90이 active 837/859/879, intermittent 596/622/641, idle 43/142/240이다. 유출은 grep으로 확인한 hero.ts:185 한 줄(heroRerollCost=50+25*min(100,n))뿐이고 동료 성장·영혼은 유출이 없다. active 30분 최대 지출은 15회 오퍼 전량 재굴림 3,375골드로 유입의 13.1%이며 다 써도 잔액 p50 22,407이다. 무료 경로는 완전하다 — 900표본 전부 goldOut=0으로 환생 15회·도감 15/50·만석 30마리·60분 도감 30/50에 도달했고 HERO_DEFER_MS 30초는 주입 dt로만 감소해 벽시계/재접속과 무관하다. [UNRESOLVED — 통과로 바꾸지 않는다] U1 골드 잔액 30분 active 25,118/25,782/26,360(min 24,560 max 26,849)은 선언 상한 10,125의 2.5배이고, 부속 지표인 재굴림 회복 시간도 0.483/0.494/0.507분으로 선언 구간 2-20분 밖이다. U2 재굴림 이득은 처치 +0.006%·수집 0승 100무이며 이번 라운드에 재측정하지 않은 라운드 3 인용이다. U3 idle(warm) 최장 무처치는 42/74/207에 max 414로 선언 상한 240을 최댓값이 넘고, 순수 방치와 warm-idle을 분리 측정하지 않았다. 셋 다 상한을 늘리지 않고 그대로 적었다. U6(최고 단계 포함 93.3%)은 GAME_DESIGN_V4.md와 balance-template.md가 모두 '그 단계에 미수집이 남아 있는 동안 100%'로 개정돼 승인된 조건부 이탈로 선언한다. [판정] PASS/FAIL 대상이 전부 구간 안이므로 pass다. UNRESOLVED의 존재는 이월이 승인된 항목이므로 revise 사유로 쓰지 않되 findings에 minor로 남겨 가시성을 유지한다. 사람이 느끼는 재미, macOS 실기 포커스/가독성, npm run smoke/package/배포는 이 세션에서 확인하지 않았다. [metrics 배치 정정] metrics[]는 하네스 규칙상 이번 라운드의 PASS/FAIL 대상만 담는 자리이고(fun.mjs:88-95, decision=pass면 모든 metric이 p10>=min && p90<=max) 디자이너 재선언도 H30~H36을 PASS/FAIL로, U1~U6을 UNRESOLVED로 분리했다. 그런데 초판은 U1(골드 잔액 30분 active 무재굴림)과 U1b(재굴림 회복 시간)를 metrics[]에 넣어 '미해결인데 통과 대상'이라는 모순을 만들었다. 두 항목을 metrics[]에서 제거하고 수치 전부를 finding E1과 economy.sinks로 옮긴다 — 허용 구간(10,125골드 / 2-20분)을 관측치에 맞게 넓히는 범위 조작은 하지 않았다. U1(잔액 p50 25,782, 선언 상한 10,125의 2.5배)과 U1b(회복 0.494분, 선언 구간 2-20분 밖)는 여전히 미해결로 남으며 다음 라운드로 이월된다. U3(최장 무처치 30분 idle warm)은 p90 207 <= 240으로 구간 안이라 metrics[]에 그대로 두되 max 414초(개별 seed)가 상한 밖이라는 사실은 E3에 유지한다.",
+  "evidence": [
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/balance-evidence.md",
+      "note": "'# 라운드 5' 섹션을 이어붙였다(라운드 1-4 원문 보존). R5-1 실행 명령·seed·백분위 정의, R5-2 재계측 deep-equal 표, R5-3 60분 수집(C27), R5-4 before 무음 폐기 계측과 재현 검증(C28), R5-5 before/after 판정표, R5-6 재화 회계, R5-7 UNRESOLVED 표, R5-8 판정, R5-9 첨부."
+    },
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/balance-final-rerun.json",
+      "note": "최종 소스 재계측 900행. DESMON_BALANCE_REPORT=/tmp/balance-final.json npx vitest run tests/balance.test.ts, exit 0. balance-after.json과 scenarios/rawSamples 전부 deep-equal True."
+    },
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/balance-r5-probe.json",
+      "note": "C27/C28 임시 계측 요약. before 재현 빌드 12시나리오 + after 12시나리오(3프로필 x 5/15/30/60분, seed 1..100, 각 1,200행). before 60분 collected 14/14/14, after 60분 30/30/30, before active 30분 무음 폐기 15/22/28(평균 21.77)."
+    },
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/balance-r5-probe.test.ts.txt",
+      "note": "임시 러너 원문. 실행 후 tests/tmp-r5-probe.test.ts와 .tmp-r5/ 사본을 삭제했고 git status --porcelain이 세션 시작 상태와 동일함을 확인했다."
+    },
+    {
+      "path": "docs/v0.4/balance.json",
+      "note": "before 공표본. 재현 빌드가 이 파일의 9시나리오 x 4지표 x 3분위 = 108개 값과 불일치 0으로 일치해 C28 계측의 유효성을 뒷받침한다."
+    },
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/balance-after.json",
+      "note": "라운드 2 산출 900행. 이번 재계측과 값이 완전히 같다 = 문서/주석 변경이 수치를 건드리지 않았다."
+    },
+    {
+      "path": "tests/balance.test.ts",
+      "note": "l.95-117 회귀 게이트(첫 오퍼 p50 74-84, kills p50 1176-1300, reincarnations 15, fullRosters 100, released p10>=8/p50>=18, unseenFirstCardRatio===1). l.118-121에 E2 반영으로 collected 단언 3개가 추가됐다(900표본 전수 collected===min(50,reincarnations), active30 collected.p10===reincarnations.p10, collected.p50===15) — 재실행 1 passed/exit 0으로 확인했다. 다만 시나리오 축이 5/15/30분뿐이라 60분 단언은 없고 골드 게이트도 여전히 0개다 = E2 잔여/E1의 근거."
+    },
+    {
+      "path": "tests/expedition.test.ts",
+      "note": "l.53-67 무음 폐기 0 invariant(releasedCount===released.length, captured===0, souls=floor(n/2)), l.245-263 픽셀 봉쇄 상자(x+w<=60, y in [16,21), 심도 0..1e7). 직접 실행 13 passed."
+    },
+    {
+      "path": "src/core/hero.ts",
+      "note": "l.61 heroRerollCost=50+25*min(100,n)와 l.185 코어 유일의 골드 차감 지점(grep -rn coins src/core로 확인), l.136-153 rollHeroChoices의 keepTop/unseen 분기 = C28 before 복원의 대상이자 H33/H34의 근거."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "l.33-37 RELEASES_PER_SOUL 주석(실측 +0.16%와 대조군 상한 +4.3% 분리), l.206-218 만석 draw가 항상 companionReleased를 내는 invariant, l.179-186 골드 유입 지점."
+    }
+  ],
+  "findings": [
+    {
+      "id": "E1",
+      "severity": "minor",
+      "problem": "U1(죽은 골드)는 이번 라운드에도 해결되지 않았고, 이월이 승인됐을 뿐이다. 이 항목은 PASS/FAIL 대상이 아니므로 metrics[]에서 제거했고 수치는 여기에 그대로 옮긴다. 골드 잔액 30분(active, 무재굴림): p10 25,118 / p50 25,782 / p90 26,360(관측 극단 min 24,560 max 26,849, seed 1..100, 900표본 중 active 30분 100표본). 선언 상한은 10,125골드이고 관측 p50 25,782는 선언 상한의 2.5배다(25,782 / 10,125 = 2.55). 재굴림 회복 시간(active, 15회차 425골드): p10 0.483 / p50 0.494 / p90 0.507분으로 선언 구간 2-20분의 아래로 완전히 벗어난다(상한 20분의 1/40, 하한 2분의 1/4). 유일한 유출인 재굴림을 15회 전량 써도 3,375골드(유입의 13.1%)라 잔액 p50 22,407로 여전히 선언 상한 10,125의 2.2배다. tests/balance.test.ts에 골드 게이트가 하나도 없어 이 지표는 감시되지 않는다. 선언 구간을 관측치에 맞게 넓히지 않았다 — 그것은 통과를 위한 범위 조작이므로, 구간 밖 사실을 finding으로 남기는 쪽을 택했다.",
+      "fix": "다음 라운드에 B1을 독립 안건으로 다루고, 디자이너가 고정한 N1(포화 금지: '한계 이득이 양수인 동안만 지출' 정책의 30분 잔액 p50 <= 10,125가 공격형·절약형 두 정책 모두에서 성립)과 N5(tests/balance.test.ts에 무지출 게이트와 나란히 지출 게이트)를 통과 조건으로 삼는다. 그 라운드에서 U1/U1b가 실제로 구간(잔액 <= 10,125골드, 회복 2-20분) 안으로 들어왔을 때 비로소 metrics[]의 PASS/FAIL 자리로 승격한다. 이번 라운드에 상한을 늘리거나 지표를 교체하지 않았다."
+    },
+    {
+      "id": "E2",
+      "severity": "minor",
+      "problem": "C27의 계측 부분(60분 수집을 seed 1..100으로 직접 측정)과 회귀 가드 부재 지적 모두 후속 조치됐다. 오케스트레이터가 tests/balance.test.ts에 expect(samples.every((s) => s.collected === Math.min(50, s.reincarnations))).toBe(true), expect(active30.collected.p10).toBe(active30.reincarnations.p10), expect(active30.collected.p50).toBe(15) 세 줄을 추가했고(l.118-121), npx vitest run tests/balance.test.ts를 직접 재실행해 1 passed / exit 0(14.7s)로 확인했다. 수집 항등(collected === min(50, reincarnations))은 900표본 전수에 대해 이제 가드된다 — 이 부분은 해소다. 잔여는 하나뿐이다: 이 테스트의 시나리오 축은 5/15/30분뿐이라 60분 단언은 여전히 0개다(l.60-70의 minutes 배열에 60이 없다). 60분 수집 30/30/30 근거는 세션 산출물 balance-r5-probe.json에만 있고, 60분에서 항등이 깨져도 게이트가 잡지 못한다. 골드 게이트도 여전히 0개다(E1).",
+      "fix": "60분을 회귀 축에 넣으면 900표본 러너가 크게 느려지므로, 별도 느린 테스트나 minutes 배열 확장 중 하나를 다음 라운드에 정하고 60분 collected 항등 단언을 추가한다. 30분 항등 가드는 이미 들어갔으므로 추가 요청은 60분 축 하나로 좁힌다."
+    },
+    {
+      "id": "E3",
+      "severity": "minor",
+      "problem": "U3(방치 정체)는 미해결이다. idle(warm) 30분 최장 무처치가 p10/p50/p90 = 42/74/207초, max 414초로 선언 상한 240초를 최댓값 표본이 넘는다. 게다가 순수 방치(시작부터 입력0/동료0)와 warm-idle을 분리 측정하지 않았으므로 위 값을 순수 방치의 정체로 설명하면 안 된다. 이번 전달물은 idle에 개선을 주장하지 않는다 - before조차 idle 무음 폐기가 평균 0.11건이라 A3'의 효과가 없다.",
+      "fix": "다음 라운드에 B5를 다룰 때 순수 방치와 warm-idle을 별도 프로필로 계측하고 각각 정지 기준을 선언한다. balance-template.md:26-27이 이미 요구하는 분리다."
+    },
+    {
+      "id": "E4",
+      "severity": "minor",
+      "problem": "U2(가짜 재굴림)는 이번 라운드에 재측정하지 않았다. 인용한 '처치 +0.006%, 수집 0승 100무'는 라운드 3의 쌍대 계측이며 최종 소스에서 다시 재지 않았다 - A5'가 슬롯 0 규칙을 바꿨으므로 재굴림의 이득 구조가 라운드 3과 미묘하게 다를 수 있다. 그럼에도 src/menu/hero.ts:72의 'N 골드로 다시 뽑기' 버튼은 계속 표시된다.",
+      "fix": "다음 라운드에 U2를 다룰 때 최종 소스에서 '무재굴림 + 매 환생 후 도감 최고 party 외형 무료 장착' 대조군과의 동일 seed 쌍대를 다시 돌리고, 처치 또는 수집 중 하나가 잡음 하한 +-0.16%를 넘는지 판정한다. 인용값을 계측값처럼 쓰지 않는다(C28과 같은 실수를 반복하지 않기 위해 여기에 명시한다)."
+    },
+    {
+      "id": "E5",
+      "severity": "minor",
+      "problem": "이 보고서는 페이스와 분포만 쟀다. H36의 자동 포커스 강탈 0은 코드 경로(showMenuWindow의 유일한 호출자가 트레이 항목, heroReady가 src/main에 도달하지 않음)로만 확인했고 실제 macOS에서 재현하지 않았다. 원정 게이지의 168 px^2가 실기에서 읽히는지, 방생 토스트와 도감 성장이 사람에게 '다음 발견을 기다리게' 만드는지도 미확인이다. npm run smoke / package / 배포도 실행하지 않았다.",
+      "fix": "인간 플레이테스트와 macOS 실기 확인(포커스 강탈, 픽셀 가독성)을 RELEASE_CHECKLIST로 인계하고 그 결과 없이 재미를 통과로 선언하지 않는다. 시뮬레이션 결과를 유지율/성공률/재미 점수로 환산하지 않았다."
+    }
+  ],
+  "seed": 1,
+  "samples": 900,
+  "metrics": [
+    {
+      "name": "첫 환생 시간 (active, 도달 100/100, 관측 73-83초)",
+      "unit": "seconds",
+      "p10": 76,
+      "p50": 79,
+      "p90": 81,
+      "min": 74,
+      "max": 84
+    },
+    {
+      "name": "처치 수 30분 (active, 관측 1211-1268)",
+      "unit": "count",
+      "p10": 1223,
+      "p50": 1240,
+      "p90": 1256,
+      "min": 1176,
+      "max": 1300
+    },
+    {
+      "name": "환생 횟수 30분 (active, 관측 15-15)",
+      "unit": "count",
+      "p10": 15,
+      "p50": 15,
+      "p90": 15,
+      "min": 15,
+      "max": 15
+    },
+    {
+      "name": "수집 고유 외형 30분 (active, 관측 15-15, 900표본 항등 위반 0)",
+      "unit": "count",
+      "p10": 15,
+      "p50": 15,
+      "p90": 15,
+      "min": 15,
+      "max": 15
+    },
+    {
+      "name": "수집 고유 외형 60분 (active, C27 신규 계측, 관측 30-30)",
+      "unit": "count",
+      "p10": 30,
+      "p50": 30,
+      "p90": 30,
+      "min": 30,
+      "max": 30
+    },
+    {
+      "name": "미수집 첫 후보 비율 (900표본 전수, 관측 1.0-1.0)",
+      "unit": "ratio",
+      "p10": 1,
+      "p50": 1,
+      "p90": 1,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "name": "만석 방생 이벤트 30분 (active, 관측 7-42)",
+      "unit": "count",
+      "p10": 15,
+      "p50": 21,
+      "p90": 29,
+      "min": 8,
+      "max": 45
+    },
+    {
+      "name": "만석 방생 이벤트 30분 (intermittent, 관측 0-25)",
+      "unit": "count",
+      "p10": 6,
+      "p50": 13,
+      "p90": 21,
+      "min": 0,
+      "max": 45
+    },
+    {
+      "name": "before 무음 폐기 draw 30분 (active, C28 재현 계측, 평균 21.77) - 관측 전용, min/max는 관측 극단",
+      "unit": "count",
+      "p10": 15,
+      "p50": 22,
+      "p90": 28,
+      "min": 8,
+      "max": 43
+    },
+    {
+      "name": "after 무음 폐기 draw 30분 (active) - invariant, 분포 아님",
+      "unit": "count",
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "min": 0,
+      "max": 0
+    },
+    {
+      "name": "A1' 상시 도장 픽셀 합집합 (심도 5종 x 잔여시간 5종 전수, 최악 168)",
+      "unit": "px2",
+      "p10": 168,
+      "p50": 168,
+      "p90": 168,
+      "min": 0,
+      "max": 200
+    },
+    {
+      "name": "최장 무처치 구간 30분 (idle warm) - U3 UNRESOLVED, 관측 34-414초",
+      "unit": "seconds",
+      "p10": 42,
+      "p50": 74,
+      "p90": 207,
+      "min": 0,
+      "max": 240
+    }
+  ],
+  "economy": {
+    "sources": "골드 유입은 처치 드랍이 유일하다. coinsForIndex(index) = 1 + floor(index/3)이고 보스는 5배(src/core/loot.ts, engine.ts:179-186). 분당 유입 p10/p50/p90 = active 837/859/879, intermittent 596/622/641, idle(warm) 43/142/240 골드(표본평균이 아니라 seed 1..100의 백분위 관측값). 30분 총유입 p50 = active 25,782 / intermittent 18,664 / idle 4,264. 영혼 유입은 (1) 환생 수락 max(1, floor(monster.index/8)) hero.ts:197, (2) rebirth floor(index/8), (3) sacrifice 1+stars, (4) v0.4 신규 방생 RELEASES_PER_SOUL=2회당 1(engine.ts:33-37, 206-218). active 30분 총 영혼 p50 145 중 방생 기여 p10/p50/p90 = 7/10/14개(4.9~9.4%), intermittent 3/6/10, idle 0(max 2). 이 영혼의 페이싱 기여는 +0.16%로 사실상 0이며 성장 보상으로 설명하지 않는다.",
+    "sinks": "골드 유출은 heroReroll 단 하나다. heroRerollCost(n) = 50 + 25*min(100, n)(src/core/hero.ts:61)이고 차감 지점은 hero.ts:185 한 줄뿐이며 grep -rn coins src/core로 다른 유출이 없음을 재확인했다(engine.ts는 += 만, collection.ts는 coins를 건드리지 않는다). 동료 consume/fuse/reincarnate/sacrifice는 골드를 쓰지 않고, 영혼은 유출 자체가 없다(heroAttackPower의 영구 승수로만 쓰인다). active 30분은 정확히 15회 오퍼이므로 최대 지출 = sum(50+25n, n=0..14) = 3,375골드 = 유입의 13.1%이며, 전량 지출해도 잔액 p50 22,407로 선언 상한 10,125의 2.2배다. 재굴림 회복 시간 = 비용/분당 유입: 425골드 기준 active 0.483/0.494/0.507분, intermittent 0.657/0.683/0.713분, idle(warm) 1.745/2.964/9.838분. 유입 0인 표본은 0개라 무한대/미도달 표본은 없다. 잔액(t) = 0 + 유입 - 재굴림이며 성장 지출 항 자체가 존재하지 않는다. 결론: 골드는 여전히 죽은 재화이고(U1), 유일한 유출인 재굴림조차 이득이 관측되지 않는다(U2). 이번 라운드는 이를 해결하지 않고 UNRESOLVED로 이월한다. [U1/U1b 수치 보존 — metrics[]에서 제거한 대신 여기에 명시한다] 관측 잔액(active 30분, 무재굴림, seed 1..100): p10 25,118 / p50 25,782 / p90 26,360, 관측 극단 24,560-26,849. 선언 상한 10,125골드 대비 p50이 2.5배다. 유일한 소비처는 heroReroll 한 곳(src/core/hero.ts:185, 비용 heroRerollCost(n)=50+25*min(100,n))이며 그 외 골드 유출은 코어 전체에 존재하지 않는다. 재굴림 회복 시간(15회차 425골드 기준)은 p10 0.483 / p50 0.494 / p90 0.507분으로 선언 구간 2-20분 밖이다. 두 값 모두 PASS/FAIL 대상이 아닌 UNRESOLVED로 이월하며 구간을 넓히지 않았다.",
+    "freePath": "0골드로 전 콘텐츠 진행이 가능하다. 회귀 900표본 전부 goldOut=0(재굴림 0회)이었고 그 스트림으로 active 30분 환생 15회 / 도감 15종 / 만석 30마리, 60분 도감 30종에 도달했다(C27 계측). 무료 보류는 heroDefer -> HERO_DEFER_MS = 30,000ms(hero.ts:51)이며 engine.tick의 주입 dt로만 감소하므로 벽시계나 재접속으로 지연되지 않고, 보류해도 진행/소지품이 유지되며 뽑기 횟수도 늘지 않는다(offerSerial 영속, 재로드 추가 뽑기 0). 만석 안내의 '가장 약한 X 방출'(sacrifice) 원클릭도 비용 0이고 오히려 영혼 1+stars를 준다. 수락 후 휴식 HERO_REST_MS = 120,000ms는 무료 경로와 무관하게 강제되며 어떤 지출로도 되살 수 없다(라운드 4에서 반증된 설계는 채택하지 않았다). 즉 골드는 어디에도 필수가 아니며, 무료 경로가 완전하기 때문에 유일한 유료 선택지가 의미를 잃는 것이 U1/U2의 구조다."
+  }
+}

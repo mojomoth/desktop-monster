@@ -1,0 +1,95 @@
+{
+  "requestId": "c83d060af18a6541d946fedcc712bf5a630b47eed4eda45b514a4091e2e1a900",
+  "round": 1,
+  "role": "critic",
+  "sourceDigest": "5f4e7f33b90bc57b3afeb0d628be8821e00f0aed1231ff97cff0c56036e09762",
+  "evaluationDigest": "5339a9f232ac04f4709ae6fe3078781793d134e4d5d45be5aa4391d805f38ddf",
+  "agent": "/root/critic",
+  "decision": "revise",
+  "summary": "채택10450의 수치·콘텐츠 계약은 유지할 수 있으나 현재 최종 입력은 반려한다. package/lock 0.7.0과 실제 트레이 0.6.0이 달라 필수 gate가 954 PASS/1 FAIL이며 lint/typecheck는 미실행이다. 제품 표시 수정 후 새 지문의 실제 검토·등록 검증이 필요하고, 과거 0.6 결과나 희귀 선택 정적 검토로 이를 대신할 수 없다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "실제 반려 후 refresh, 동일 소스 AC/gate 및 설계·결과 감사·출시 상태 분리 계약 전체를 읽었다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "전체 설정 확인: 최종 design/measurement 경로, 100 seed·9정책·330분 Native 및 필수 gate."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "전체 공식 프로토콜 확인: selected10450,21키·6조건·전체분모·seed 구분·불변 채택 이력."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "전체 설계 확인: 완료0.6 요약과 최종0.7 PENDING, 알림/ACK·확인·서버·사람 관찰의 구분."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "실제 생산21키가 채택안과 일치하며 다른 후보로 재조정하지 않았다."
+    },
+    {
+      "path": "package.json",
+      "note": "실제 version=0.7.0이며 canonical 명령 이름은 유지된다."
+    },
+    {
+      "path": "package-lock.json",
+      "note": "최상위와 packages 빈 키의 version 모두0.7.0."
+    },
+    {
+      "path": "src/main/tray.ts",
+      "note": "10행의 실제 TRAY_TITLE=DesMon v0.6.0으로 버전 불일치를 독립 확인."
+    },
+    {
+      "path": "tests/tray.test.ts",
+      "note": "198행은 package 버전과 실제 제목의 정확한 일치를 요구한다. 약화 없이 제품을 고쳐야 한다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789236199356.log",
+      "note": "전체 실제 실패 로그 확인: 954 PASS/1 FAIL, expected0.7/received0.6. SHA256 09a6ebc54b5f0bf376fe41017ddf954b61062fb125b7bc5c819529f20b65c179. 후속 lint/typecheck 미실행."
+    },
+    {
+      "path": ".harness/v7/loop/journey.cjs",
+      "note": "추가69행: 유효 fire/water/dark·Lv22/serial41, 수동 상태 변경 없는 onAction 관측과 h70 세 번째 실제 클릭. 필수 ID/누락 회귀도 읽었으며 실제 Native 결과는 아직 없다."
+    },
+    {
+      "path": "src/core/collection.ts",
+      "note": "소모/융합/환생/희생 overflow 거부와 확인 스냅샷, 실제 획득만 ACK 및 외부 ID 수신 경계를 재확인."
+    }
+  ],
+  "findings": [
+    {
+      "id": "C070-VERSION-FREEZE-GATE",
+      "severity": "major",
+      "problem": "src/main/tray.ts:10의 TRAY_TITLE은 DesMon v0.6.0인데 package/lock은 0.7.0이다. 유지된 tests/tray.test.ts:198이 실제 실패했다. 표시 수정 자체는 작지만 현재 최종 소스의 필수 gate와 버전 일치 계약을 차단하므로 미해결 minor로 승인하지 않는다.",
+      "fix": "Host가 원본·실패 로그를 보존하고 tray 파일 소유권을 등록한 뒤 제목을 0.7.0에 맞춘다. 기존 버전 일치 테스트와 package/lock 0.7.0을 유지한다. 실제 veto 이후 fun refresh로 새 S/E의 Designer부터 재검토하고, 영향 AC 및 npm test && npm run lint && npm run typecheck를 같은 수정 소스에서 새로 통과시킨 뒤 후속 최종 측정/Native 근거를 만든다."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "collection의 level 증가·stars+1·희생 souls overflow는 제거 전에 거부하며, Lv10 이상 환생은 Lv1/별+1이다. 전후 힘은 2/level로 감소할 수 있고 bigint 정확 표시와 메뉴 expected 필수/코어 일치 검증을 유지해야 하며, 최종 AC·Native 재확인은 남아 있다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "acquiredDiscoveries는 선택/유효 이력/영구 컬렉션과 speciesKills>0을 사용하므로 seen·보유 몬스터·후보만으로 공개하지 않는다. 새 journey의 현재 자격 h70 세 번째 native 클릭→ID/serial→선택 이력·단일 알림·ACK 검사는 정적으로 타당하나 실제 실행은 PENDING이며 자연 획득 증거가 아니다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50행 영웅·동료 파티와 지정 playerId 검증, 업로드 실패 중단, 삭제 행 포커스 복구·매치 만료 재검사를 유지한다. 모의 서버/합성 입력의 과거 성공을 최종 Native나 운영 서버 호환으로 확장할 수 없으며 새 동일 소스 검증이 필요하다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "실제21키 export는 L17/XP1.42/prefix1153/1000/tail10450/10000/count5/index63으로 공식 선택과 일치한다. 첫 accepted 전체 p50 2700–3600초와 5400초 내90/100을 새 최종 기준정책에서 확인하며, 과거 요약·성공자 조건부 분위수·탐색20개로 대체하지 않는다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "여섯 성과 조건과 최종 h70의10종/30000처치, 전체 p50 8–12시간을 유지한다. 완료된 0.6 요약의 h70 자격50/100·미도달50/100·선택0을 감추지 않고, 최종9정책에서 후기 공백·과속·조건부/전체 분포를 분리하며 이 요약으로 추가 튜닝하지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "save의 MAX 소진 표지/Infinity 보정과 외부 s/r ID 보존은 할당 구간을 지키며 자연 포획 횟수로 역산하지 않는다. 양의 안전 정수 레벨을 저장·서버·중첩 응답까지 보존하고, 최종 로컬 왕복과 운영 호환 SHA 증거를 구분하여 live 미확인 상태에서 클라이언트 출시를 인증하지 않는다."
+    }
+  ],
+  "verified": []
+}

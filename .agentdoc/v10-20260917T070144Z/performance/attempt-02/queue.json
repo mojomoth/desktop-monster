@@ -1,0 +1,50 @@
+{
+  "version": 10,
+  "pid": 33949,
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "baselineActive": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/baseline-active-02.json",
+  "baselineIdle": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/baseline-idle-01.json",
+  "startedAt": "2026-09-17T13:21:30.987Z",
+  "state": "interrupted",
+  "slots": [
+    {
+      "slot": "candidate-active",
+      "args": [
+        ".harness/v10/performance-v4.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/attempt-02/candidate-active.json",
+        "active",
+        "30"
+      ],
+      "startedAt": "2026-09-17T13:21:30.988Z",
+      "state": "passed",
+      "pid": 33950,
+      "signal": null,
+      "endedAt": "2026-09-17T13:51:36.289Z",
+      "exitCode": 0,
+      "sourceUnchanged": true,
+      "appUnchanged": true
+    },
+    {
+      "slot": "candidate-idle",
+      "args": [
+        ".harness/v10/performance-v4.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/attempt-02/candidate-idle.json",
+        "idle",
+        "30"
+      ],
+      "startedAt": "2026-09-17T13:51:36.347Z",
+      "state": "failed",
+      "pid": 72887,
+      "signal": "SIGTERM",
+      "endedAt": "2026-09-17T13:51:37.008Z",
+      "exitCode": 1,
+      "sourceUnchanged": true,
+      "appUnchanged": true
+    }
+  ],
+  "signal": "SIGTERM",
+  "endedAt": "2026-09-17T13:51:37.021Z"
+}

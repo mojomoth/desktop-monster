@@ -1,0 +1,21 @@
+{
+  "app": {
+    "original": "release/mac-arm64/DesMon.app",
+    "preserved": ".agentdoc/v10-20260917T070144Z/preservation/DesMon-0.10.0-performance-01.app",
+    "sha256": "eaa3d8337fed1d6ffcd21e01e5e668084efcc82f4c5c1ed2a349fd85e8752fb9"
+  },
+  "installers": [
+    {
+      "original": "release/DesMon-0.10.0-arm64.dmg",
+      "preserved": ".agentdoc/v10-20260917T070144Z/preservation/DesMon-0.10.0-performance-01.dmg",
+      "sha256": "de1d28fddec3623b09a120e7f58e4684d2ed1c13fa93f926d260ef846119a729"
+    },
+    {
+      "original": "release/DesMon Setup 0.10.0.exe",
+      "preserved": ".agentdoc/v10-20260917T070144Z/preservation/DesMon-0.10.0-performance-01.exe",
+      "sha256": "9dc758e44bbb75368a921dae6a2590439f0ded657e9d7ee056118d216725151f"
+    }
+  ],
+  "comparisonSha256": "7aee86fa0167a737818258db7e5b5f043e784821f35e28e613d7e48e5990fc75",
+  "reason": "Preserve failed active-memory budget observation and its exact package before allocation optimization."
+}

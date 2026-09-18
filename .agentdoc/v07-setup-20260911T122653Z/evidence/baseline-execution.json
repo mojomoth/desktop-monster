@@ -1,0 +1,39 @@
+{
+  "status": "complete",
+  "startedAt": "2026-09-11T13:14:04.614Z",
+  "command": "node .harness/v7/loop/measure.mjs run .agentdoc/v07-setup-20260911T122653Z/evidence/baseline.json --phase baseline --seed 1 --seeds 100 --workers 4 --protocol docs/v0.7/EVALUATION_PROTOCOL.json",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823",
+  "simulation": {
+    "seeds": 100,
+    "hoursPerSeed": 12,
+    "tickMs": 100
+  },
+  "note": "Deterministic engine simulation, not 1,200 hours of human or native Electron observation. Earlier interrupted attempts retained alongside and excluded.",
+  "runtime": {
+    "node": "v20.12.2",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "archives": {
+    "baseline/product-source.tar.gz": "8b0abb32fb0960f495a18e197a5510d35010df5890b0962294f4f9de37023aeb",
+    "baseline/harness-inputs.tar.gz": "6bb7de7279d59bb4d23db94ebf1d10f58675dc227d19891befb49ac96661cbb8",
+    "baseline/preexisting-demo-scripts.tar.gz": "73368e4c61f6510ca46f8e5769bc6bd5453c331653efdec830acf6528f1eec42"
+  },
+  "completedAt": "2026-09-11T13:22:40.191269+00:00",
+  "exitCode": 0,
+  "reportSha256": "35a8306d24a4b109eab9b8f531a5017d58168109c750dcf91d4ca92c0a999d3f",
+  "compiledBuildSha256": "d562920942952641e631b7bb924d5f835bcdc2457297fd71eb5f0ca15209e60f",
+  "rawSha256": "82d864832f8548d442d05537af3d3914b72fbed0483dc966f6940c65938b475b",
+  "timing": {
+    "workers": 4,
+    "tickMs": 100,
+    "readinessResolutionMs": 100,
+    "eligibilityResolutionMs": 1000,
+    "eligibilityEventResolutionMs": 100,
+    "modeledMinutes": 720,
+    "wallElapsedSeconds": 412.424804625
+  },
+  "sourceDigestAtEnd": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigestAtEnd": "4933f879e09866b5d660d420842a274c1ff85914d71c703d7d175f81b6766823"
+}

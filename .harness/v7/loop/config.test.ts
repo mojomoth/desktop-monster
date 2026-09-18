@@ -1,0 +1,253 @@
+import { describe, expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
+// Harness-only tests run in this separate Vitest project.
+import { CONFIG, PROTOCOL_PATH, validateConfig, validateParameters, validateProtocol, validateProtocolContent } from './config.mjs';
+
+// Exact round02 parameter fixture: archived reports predate the field-tail keys.
+const archivedParameters = {
+  heroMinLevel: 17, xpBase: 20, xpGrowth: 1.41, fieldHpNumerator: 115, fieldHpDenominator: 100,
+  companionHpNumerator: 115, companionHpDenominator: 100, captureChance: 0.35,
+  firstCaptureBossIndex: null, heroLevelStepEvery: 2, heroLevelStepCap: 6,
+  heroRestMs: 120000, heroDeferMs: 30000, xpRewardBase: 5, xpRewardPerIndex: 3,
+  bossXpMultiplier: 5, bossHpMultiplier: 5,
+};
+const tailParameters = { ...archivedParameters, fieldHpTailStartIndex: 79,
+  fieldHpTailNumerator: 111, fieldHpTailDenominator: 100 };
+const earlyCaptureParameters = { ...tailParameters, earlyCaptureCount: 1 };
+const archivedTailProtocol = {
+  schemaVersion: 2, harnessVersion: 7, kind: 'desmon-v07-evaluation', phase: 'candidate',
+  fixture: 'fresh', round: 3, experimentStage: 'exploration', selectedExperiment: null,
+  progressionParameterVersion: 2, frozenAt: '2026-09-12T04:21:26.078232+00:00',
+  milestones: [{ id: 'h70', label: '별밤 계승자', kind: 'hero', ids: ['h70'], final: true,
+    requirements: [{ kind: 'uniqueHeroes', count: 10 }, { kind: 'totalKills', count: 30000 }] }],
+  controls: [16, 17, 18, 19, 20].map(heroMinLevel => ({ id: `control-l${heroMinLevel}`,
+    hypothesis: 'Level-only control; all other progression parameters unchanged.',
+    parameters: { ...tailParameters, heroMinLevel, xpGrowth: 1.4, fieldHpTailStartIndex: null,
+      fieldHpTailNumerator: 115, fieldHpTailDenominator: 100 } })),
+  candidates: [{ id: 'candidate-r3-tail111', hypothesis: 'Registered field tail hypothesis', parameters: tailParameters }],
+};
+
+describe('v7 configuration boundaries', () => {
+  it('rejects duplicate AC identities and dependency cycles', () => {
+    const duplicate = structuredClone(CONFIG);
+    duplicate.tasks[0].ac.push(duplicate.tasks[0].ac[0]);
+    expect(() => validateConfig(duplicate)).toThrow(/AC/);
+    const cycle = structuredClone(CONFIG);
+    cycle.tasks[0].dependencies = [cycle.tasks[0].id];
+    expect(() => validateConfig(cycle)).toThrow(/cycle/);
+    const missingArtifacts = structuredClone(CONFIG);
+    delete missingArtifacts.tasks[0].ac[0].artifacts;
+    expect(() => validateConfig(missingArtifacts)).toThrow(/artifact/);
+  });
+  it('does not validate an unregistered baseline as a candidate', () => {
+    const baseline = { schemaVersion: 1, harnessVersion: 7, kind: 'desmon-v07-evaluation', phase: 'baseline', fixture: 'fresh', milestones: [], candidates: [] };
+    expect(validateProtocol(baseline)).toBe(baseline);
+    expect(() => validateProtocol(baseline, true)).toThrow(/Candidate/);
+  });
+  it('requires exact named content and a selected frozen candidate', () => {
+    const protocol = { schemaVersion: 1, harnessVersion: 7, kind: 'desmon-v07-evaluation', phase: 'candidate', fixture: 'fresh', milestones: [{ id: 'late', label: 'Late heroes', kind: 'hero', ids: ['h70'], final: true }], candidates: [{ id: 'one', hypothesis: 'Measured growth', parameters: { minimumLevel: 17 } }], selectedCandidate: 'one', frozenAt: '2026-09-11T12:26:53Z' };
+    expect(validateProtocol(protocol, true)).toBe(protocol);
+    expect(() => validateProtocol({ ...protocol, selectedCandidate: 'unregistered' }, true)).toThrow(/Select/);
+    expect(() => validateProtocol({ ...protocol, milestones: [{ ...protocol.milestones[0], ids: [] }] }, true)).toThrow(/milestones/);
+  });
+  it('distinguishes preregistered exploration from adopted validation and retains five controls', () => {
+    const protocol = JSON.parse(readFileSync(PROTOCOL_PATH, 'utf8'));
+    const exploration = { ...protocol, phase: 'candidate', experimentStage: 'exploration', selectedExperiment: null };
+    expect(validateProtocol(exploration, true)).toBe(exploration);
+    expect(() => validateProtocol({ ...exploration, experimentStage: 'validation' }, true)).toThrow(/Select/);
+    expect(() => validateProtocol({ ...exploration, phase: 'release' }, true)).toThrow(/Release/);
+    const selected = { ...exploration, experimentStage: 'validation', selectedExperiment: { kind: 'control', id: protocol.controls[0].id } };
+    expect(validateProtocol(selected, true)).toBe(selected);
+    expect(() => validateProtocol({ ...selected, selectedExperiment: { kind: 'candidate', id: 'missing' } }, true)).toThrow(/Select/);
+    expect(() => validateProtocol({ ...exploration, controls: protocol.controls.slice(1) }, true)).toThrow(/five/);
+    expect(() => validateProtocol({ ...exploration, candidates: [...protocol.candidates, protocol.candidates[0]] }, true)).toThrow(/Too many/);
+  });
+  it('rejects partial or invalid production parameters and time-gated milestones', () => {
+    const registered = JSON.parse(readFileSync(PROTOCOL_PATH, 'utf8'));
+    for (const parameters of [{}, { ...registered.candidates[0].parameters, xpGrowth: '1.4' },
+      { ...registered.candidates[0].parameters, firstCaptureBossIndex: 22 },
+      { ...registered.candidates[0].parameters, companionHpNumerator: 114 },
+      { ...registered.candidates[0].parameters, heroRestMs: 180000 },
+      { ...registered.candidates[0].parameters, unknown: 1 }]) {
+      const protocol = structuredClone(registered);
+      protocol.candidates[0].parameters = parameters;
+      expect(() => validateProtocol(protocol, true)).toThrow();
+    }
+    const protocol = structuredClone(registered);
+    protocol.milestones[0].requirements = [{ kind: 'playTimeMs', count: 300000 }];
+    expect(() => validateProtocol(protocol, true)).toThrow(/performance/);
+    const controls = structuredClone(registered);
+    controls.controls.forEach((c: {parameters:{xpBase:number}})=>{c.parameters.xpBase=1;});
+    expect(()=>validateProtocol(controls,true)).toThrow(/Level-only/);
+    const catalog={HERO_FORMS:[{id:'h70'}],SPECIES_IDS:['slime']};
+    expect(()=>validateProtocolContent({milestones:[{kind:'hero',ids:['missing']}]},catalog)).toThrow(/Unknown/);
+    expect(()=>validateProtocolContent({milestones:[{kind:'hero',ids:['h70'],requirements:[{kind:'speciesKills',id:'missing'}]}]},catalog)).toThrow(/Unknown/);
+  });
+  it('retains exact archived17-key registration when the parameter version is absent or one', () => {
+    const archived = {
+      schemaVersion: 2, harnessVersion: 7, kind: 'desmon-v07-evaluation', phase: 'candidate',
+      fixture: 'fresh', round: 2, experimentStage: 'exploration', selectedExperiment: null,
+      frozenAt: '2026-09-12T03:45:33.166515+00:00',
+      milestones: [{ id: 'h70', label: '별밤 계승자', kind: 'hero', ids: ['h70'], final: true,
+        requirements: [{ kind: 'uniqueHeroes', count: 10 }, { kind: 'totalKills', count: 30000 }] }],
+      controls: [16, 17, 18, 19, 20].map(heroMinLevel => ({ id: `control-l${heroMinLevel}`,
+        hypothesis: 'Level-only control; all other progression parameters unchanged.',
+        parameters: { ...archivedParameters, heroMinLevel, xpGrowth: 1.4 } })),
+      candidates: [{ id: 'candidate-r2-xp141', hypothesis: 'Registered XP1.41 hypothesis', parameters: archivedParameters }],
+    };
+    expect(Object.keys(archivedParameters)).toHaveLength(17);
+    expect(validateParameters(archivedParameters)).toBe(archivedParameters);
+    expect(validateParameters(archivedParameters, 1)).toBe(archivedParameters);
+    expect(validateProtocol(archived, true)).toBe(archived);
+    const explicit = { ...archived, progressionParameterVersion: 1 };
+    expect(validateProtocol(explicit, true)).toBe(explicit);
+    expect(() => validateProtocol({ ...archived, progressionParameterVersion: 2 }, true)).toThrow(/exact progression/);
+    expect(() => validateParameters({ ...archivedParameters, fieldHpTailStartIndex: null })).toThrow(/exact progression/);
+    const missing = { ...archivedParameters } as Record<string, unknown>;
+    delete missing['xpBase'];
+    expect(() => validateParameters(missing)).toThrow(/exact progression/);
+  });
+  it('requires all20 exact keys for parameter version two and rejects implicit upgrades', () => {
+    expect(Object.keys(tailParameters)).toHaveLength(20);
+    expect(validateParameters(tailParameters, 2)).toBe(tailParameters);
+    expect(() => validateParameters(tailParameters)).toThrow(/exact progression/);
+    expect(() => validateParameters(tailParameters, 1)).toThrow(/exact progression/);
+    for (const key of ['fieldHpTailStartIndex', 'fieldHpTailNumerator', 'fieldHpTailDenominator']) {
+      const missing = { ...tailParameters } as Record<string, unknown>;
+      delete missing[key];
+      expect(() => validateParameters(missing, 2)).toThrow(/exact progression/);
+    }
+    expect(() => validateParameters({ ...tailParameters, unknown: 1 }, 2)).toThrow(/exact progression/);
+    const official = structuredClone(archivedTailProtocol);
+    expect(official.progressionParameterVersion).toBe(2);
+    expect(validateProtocol(official, true)).toBe(official);
+    const implicit = { ...official } as Partial<typeof official>;
+    delete implicit.progressionParameterVersion;
+    expect(() => validateProtocol(implicit, true)).toThrow(/exact progression/);
+  });
+  it('rejects null, strings and unknown parameter versions instead of assuming legacy', () => {
+    const protocol = JSON.parse(readFileSync(PROTOCOL_PATH, 'utf8'));
+    const baseline = { schemaVersion: 1, harnessVersion: 7, kind: 'desmon-v07-evaluation', phase: 'baseline', fixture: 'fresh', milestones: [], candidates: [] };
+    for (const version of [null, '1', '2', '3', 0, 4, false, NaN]) {
+      expect(() => validateParameters(archivedParameters, version)).toThrow(/parameter version/);
+      expect(() => validateProtocol({ ...protocol, progressionParameterVersion: version }, true)).toThrow(/parameter version/);
+      expect(() => validateProtocol({ ...baseline, progressionParameterVersion: version })).toThrow(/parameter version/);
+    }
+  });
+  it('accepts only null or nonnegative safe tail indices and positive safe ratio integers', () => {
+    for (const fieldHpTailStartIndex of [null, 0, 79, Number.MAX_SAFE_INTEGER]) {
+      const parameters = { ...tailParameters, fieldHpTailStartIndex };
+      expect(validateParameters(parameters, 2)).toBe(parameters);
+    }
+    for (const fieldHpTailStartIndex of [-1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '79']) {
+      expect(() => validateParameters({ ...tailParameters, fieldHpTailStartIndex }, 2)).toThrow(/tail start index/);
+    }
+    for (const key of ['fieldHpTailNumerator', 'fieldHpTailDenominator']) {
+      for (const value of [0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '100']) {
+        expect(() => validateParameters({ ...tailParameters, [key]: value }, 2)).toThrow(/Invalid parameter fieldHpTail/);
+      }
+    }
+  });
+  it('requires enabled tail growth above one and no greater than the prefix', () => {
+    for (const fieldHpTailNumerator of [105, 108, 111, 115]) {
+      const parameters = { ...tailParameters, fieldHpTailNumerator };
+      expect(validateParameters(parameters, 2)).toBe(parameters);
+    }
+    for (const fieldHpTailNumerator of [99, 100, 116]) {
+      expect(() => validateParameters({ ...tailParameters, fieldHpTailNumerator }, 2)).toThrow(/tail growth/);
+    }
+    const disabled = { ...tailParameters, fieldHpTailStartIndex: null, fieldHpTailNumerator: 1 };
+    expect(validateParameters(disabled, 2)).toBe(disabled);
+  });
+  it('compares large rational slopes exactly when floating-point products hide a one-unit violation', () => {
+    const n = Number.MAX_SAFE_INTEGER;
+    const tooSteep = { ...tailParameters, fieldHpNumerator: n, fieldHpDenominator: n - 1,
+      fieldHpTailNumerator: n - 1, fieldHpTailDenominator: n - 2 };
+    expect((n - 1) * (n - 1)).toBe(n * (n - 2));
+    expect(() => validateParameters(tooSteep, 2)).toThrow(/tail growth/);
+    const slower = { ...tailParameters, fieldHpNumerator: n - 1, fieldHpDenominator: n - 2,
+      fieldHpTailNumerator: n, fieldHpTailDenominator: n - 1 };
+    expect(validateParameters(slower, 2)).toBe(slower);
+  });
+  it('keeps version-two level controls disabled with exact legacy tail numbers', () => {
+    const registered = structuredClone(archivedTailProtocol);
+    for (const change of [{ fieldHpTailStartIndex: 0 }, { fieldHpTailNumerator: 114 }, { fieldHpTailDenominator: 101 }]) {
+      const one = structuredClone(registered);
+      Object.assign(one.controls[0].parameters, change);
+      expect(() => validateProtocol(one, true)).toThrow(/Level-only/);
+      const every = structuredClone(registered);
+      for (const control of every.controls) Object.assign(control.parameters, change);
+      expect(() => validateProtocol(every, true)).toThrow(/Level-only/);
+    }
+  });
+  it('requires all21 exact keys for version three without upgrading archived17/20-key parameters', () => {
+    expect(Object.keys(earlyCaptureParameters)).toHaveLength(21);
+    expect(validateParameters(earlyCaptureParameters, 3)).toBe(earlyCaptureParameters);
+    expect(() => validateParameters(earlyCaptureParameters)).toThrow(/exact progression/);
+    expect(() => validateParameters(earlyCaptureParameters, 2)).toThrow(/exact progression/);
+    expect(() => validateParameters(archivedParameters, 3)).toThrow(/exact progression/);
+    expect(() => validateParameters(tailParameters, 3)).toThrow(/exact progression/);
+    for (const key of Object.keys(earlyCaptureParameters)) {
+      const missing = { ...earlyCaptureParameters } as Record<string, unknown>;
+      delete missing[key];
+      expect(() => validateParameters(missing, 3)).toThrow(/exact progression/);
+    }
+    expect(() => validateParameters({ ...earlyCaptureParameters, unknown: 1 }, 3)).toThrow(/exact progression/);
+    const official = JSON.parse(readFileSync(PROTOCOL_PATH, 'utf8'));
+    expect(official.progressionParameterVersion).toBe(3);
+    expect(validateProtocol(official, true)).toBe(official);
+    expect(() => validateProtocol({ ...official, progressionParameterVersion: 2 }, true)).toThrow(/exact progression/);
+    const implicit = { ...official };
+    delete implicit.progressionParameterVersion;
+    expect(() => validateProtocol(implicit, true)).toThrow(/exact progression/);
+  });
+  it('bounds the lifetime early capture quota to positive safe counts through30', () => {
+    for (const earlyCaptureCount of [1, 5, 30]) {
+      const parameters = { ...earlyCaptureParameters, earlyCaptureCount };
+      expect(validateParameters(parameters, 3)).toBe(parameters);
+    }
+    for (const earlyCaptureCount of [0, -1, 31, 1.5, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER + 1,
+      null, undefined, '5', true, NaN, Infinity]) {
+      expect(() => validateParameters({ ...earlyCaptureParameters, earlyCaptureCount }, 3)).toThrow(/earlyCaptureCount/);
+    }
+  });
+  it('applies exact tail index and rational growth boundaries to version three', () => {
+    for (const fieldHpTailStartIndex of [null, 0, 79, Number.MAX_SAFE_INTEGER]) {
+      const parameters = { ...earlyCaptureParameters, fieldHpTailStartIndex };
+      expect(validateParameters(parameters, 3)).toBe(parameters);
+    }
+    for (const fieldHpTailStartIndex of [-1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '79']) {
+      expect(() => validateParameters({ ...earlyCaptureParameters, fieldHpTailStartIndex }, 3)).toThrow(/tail start index/);
+    }
+    for (const key of ['fieldHpTailNumerator', 'fieldHpTailDenominator']) {
+      for (const value of [0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1, NaN, Infinity, '100']) {
+        expect(() => validateParameters({ ...earlyCaptureParameters, [key]: value }, 3)).toThrow(/Invalid parameter fieldHpTail/);
+      }
+    }
+    for (const fieldHpTailNumerator of [99, 100, 116]) {
+      expect(() => validateParameters({ ...earlyCaptureParameters, fieldHpTailNumerator }, 3)).toThrow(/tail growth/);
+    }
+    const n = Number.MAX_SAFE_INTEGER;
+    expect(() => validateParameters({ ...earlyCaptureParameters, fieldHpNumerator: n, fieldHpDenominator: n - 1,
+      fieldHpTailNumerator: n - 1, fieldHpTailDenominator: n - 2 }, 3)).toThrow(/tail growth/);
+    const slower = { ...earlyCaptureParameters, fieldHpNumerator: n - 1, fieldHpDenominator: n - 2,
+      fieldHpTailNumerator: n, fieldHpTailDenominator: n - 1 };
+    expect(validateParameters(slower, 3)).toBe(slower);
+  });
+  it('requires the baseline capture count and disabled legacy tail for all version-three controls', () => {
+    const registered = JSON.parse(readFileSync(PROTOCOL_PATH, 'utf8'));
+    expect(registered.controls.every((control: {parameters: {earlyCaptureCount: number}}) => control.parameters.earlyCaptureCount === 1)).toBe(true);
+    for (const change of [{ earlyCaptureCount: 2 }, { earlyCaptureCount: 30 },
+      { fieldHpTailStartIndex: 0 }, { fieldHpTailNumerator: 114 }, { fieldHpTailDenominator: 101 }]) {
+      const one = structuredClone(registered);
+      Object.assign(one.controls[0].parameters, change);
+      expect(() => validateProtocol(one, true)).toThrow(/Level-only/);
+      const every = structuredClone(registered);
+      for (const control of every.controls) Object.assign(control.parameters, change);
+      expect(() => validateProtocol(every, true)).toThrow(/Level-only/);
+    }
+    const missing = structuredClone(registered);
+    delete missing.controls[0].parameters.earlyCaptureCount;
+    expect(() => validateProtocol(missing, true)).toThrow(/exact progression/);
+  });
+});

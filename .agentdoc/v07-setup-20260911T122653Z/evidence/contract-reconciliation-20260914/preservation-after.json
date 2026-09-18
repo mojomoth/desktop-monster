@@ -1,0 +1,75 @@
+{
+  "at": "2026-09-14T04:18:09.018Z",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "checkedExistingFiles": 427,
+  "unchangedExistingFiles": 423,
+  "allowedChanged": [
+    "docs/v0.7/LOOP.md",
+    "docs/v0.7/NEXT_SESSION_PROMPT.md",
+    "docs/v0.7/HANDOFF.md",
+    "docs/v0.7/ACCEPTANCE.md"
+  ],
+  "unplannedChanges": [],
+  "refs": [
+    "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+    "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+    "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803"
+  ],
+  "indexUnchanged": true,
+  "priorTaskDefinitionsChecksAndVerificationsPreserved": true,
+  "newJournalChecks": [
+    {
+      "id": "gates",
+      "exitCode": 1,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789359215271.log",
+      "sha256": "d6d4d0e8fd3a156043d002c7ff749322287324aa2ab18dc7e26ce54934a4c0e6"
+    },
+    {
+      "id": "gates",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-07-1789359333956.log",
+      "sha256": "c47777f01be024b2b6381b1c9db22702e46e52cfb357703cbb12d14dcc9e2c39"
+    }
+  ],
+  "existingElectronProcesses": [
+    {
+      "pid": 50718,
+      "ppid": 50717,
+      "pgid": 50646,
+      "elapsed": "02-22:12:27",
+      "comm": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron"
+    },
+    {
+      "pid": 50720,
+      "ppid": 50718,
+      "pgid": 50646,
+      "elapsed": "02-22:12:26",
+      "comm": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (GPU).app/Contents/MacOS/Electron Helper (GPU)"
+    },
+    {
+      "pid": 50721,
+      "ppid": 50718,
+      "pgid": 50646,
+      "elapsed": "02-22:12:26",
+      "comm": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper.app/Contents/MacOS/Electron Helper"
+    },
+    {
+      "pid": 50722,
+      "ppid": 50718,
+      "pgid": 50646,
+      "elapsed": "02-22:12:26",
+      "comm": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (Renderer).app/Contents/MacOS/Electron Helper (Renderer)"
+    },
+    {
+      "pid": 51164,
+      "ppid": 50718,
+      "pgid": 50646,
+      "elapsed": "02-22:12:04",
+      "comm": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper.app/Contents/MacOS/Electron Helper"
+    }
+  ],
+  "processesStopped": 0,
+  "personalSaveOrAuthRead": false,
+  "scope": "Current-session427 file fingerprints; initial179-file/6-originals-unknown limit unchanged. Original7check artifacts were independently hashed during inspections; no new functional Native/package run."
+}

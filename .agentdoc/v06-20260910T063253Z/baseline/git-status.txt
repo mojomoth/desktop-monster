@@ -1,0 +1,330 @@
+ M .gitignore
+ M README.md
+ M package-lock.json
+ M package.json
+ M src/core/battle.ts
+ M src/core/collection.ts
+ M src/core/engine.ts
+ M src/core/formulas.ts
+ M src/core/index.ts
+ M src/core/monsters.ts
+ M src/core/save.ts
+ M src/core/types.ts
+ M src/main/globalInput.ts
+ M src/main/identity.ts
+ M src/main/index.ts
+ M src/main/ipc.ts
+ M src/main/net.ts
+ M src/main/tray.ts
+ M src/main/window.ts
+ M src/menu/index.ts
+ M src/menu/view.ts
+ M src/preload/index.ts
+ M src/renderer/game.ts
+ M src/renderer/global.d.ts
+ M src/renderer/hud.ts
+ M src/renderer/index.ts
+ M src/renderer/input.ts
+ M src/renderer/sprites/index.ts
+ M src/renderer/sprites/monsters.ts
+ M src/server/app.ts
+ M src/server/pg.d.ts
+ M src/server/pgStore.ts
+ M src/server/store.ts
+ M src/shared/api.ts
+ M src/shared/ipc.ts
+ M static/menu.css
+ M static/menu.html
+ M static/style.css
+ M tests/battle.test.ts
+ M tests/deploy.test.ts
+ M tests/engine.test.ts
+ M tests/formulas.test.ts
+ M tests/globalInput.test.ts
+ M tests/ipc.test.ts
+ M tests/menu.test.ts
+ M tests/net.test.ts
+ M tests/packaging.test.ts
+ M tests/renderer.test.ts
+ M tests/rendererInput.test.ts
+ M tests/save.test.ts
+ M tests/server/app.test.ts
+ M tests/server/pgStore.test.ts
+ M tests/server/pvp.test.ts
+ M tests/sprites.test.ts
+ M tests/tray.test.ts
+ M tests/window.test.ts
+ M tsconfig.test.json
+?? .agentdoc/fun-e2e-20260910/VALIDATION.md
+?? .agentdoc/fun-e2e-20260910/designer-analysis.md
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.failure.txt
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/battle.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/codex.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/fresh-field.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/hero.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/level-gate.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/profile.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/ranking.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/roster.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick-2.json.screenshots/shop.png
+?? .agentdoc/fun-e2e-20260910/e2e-quick.json
+?? .agentdoc/fun-e2e-20260910/e2e-quick.json.failure.txt
+?? .agentdoc/fun-e2e-20260910/e2e.json
+?? .agentdoc/fun-e2e-20260910/e2e.json.failure.txt
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/5m-active.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/battle.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/codex.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/fresh-field.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/hero-choices.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/hero.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/level-gate.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/profile.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/ranking.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/roster.png
+?? .agentdoc/fun-e2e-20260910/e2e.json.screenshots/shop.png
+?? .agentdoc/fun-e2e-20260910/review/audit.json
+?? .agentdoc/fun-e2e-20260910/review/balance.json
+?? .agentdoc/fun-e2e-20260910/review/critic.json
+?? .agentdoc/fun-e2e-20260910/review/designer.json
+?? .agentdoc/fun-e2e-20260910/review/playtester.json
+?? .agentdoc/fun-e2e-20260910/review/prompts/1-designer.json
+?? .agentdoc/fun-e2e-20260910/review/prompts/1-designer.md
+?? .agentdoc/fun-e2e-20260910/review/prompts/2-critic.json
+?? .agentdoc/fun-e2e-20260910/review/prompts/2-critic.md
+?? .agentdoc/fun-e2e-20260910/review/prompts/3-balance.json
+?? .agentdoc/fun-e2e-20260910/review/prompts/3-balance.md
+?? .agentdoc/fun-e2e-20260910/review/prompts/4-playtester.json
+?? .agentdoc/fun-e2e-20260910/review/prompts/4-playtester.md
+?? .agentdoc/fun-e2e-20260910/review/report.md
+?? .agentdoc/fun-harness-20260910/balance-measurement.json
+?? .agentdoc/v06-20260910T063253Z/baseline/files.json
+?? .agentdoc/v06-20260910T063253Z/baseline/source.tar.gz
+?? .agentdoc/v4-fun-post-heroes-20260909/RELEASE_CHECKLIST.md
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-after.json
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-evidence.md
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-final-rerun.json
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-final-source.json
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-r5-probe.json
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-r5-probe.test.ts.txt
+?? .agentdoc/v4-fun-post-heroes-20260909/balance-r5.json
+?? .agentdoc/v4-fun-post-heroes-20260909/balance.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-evidence.md
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r2.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r3-probe.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r3-probe.test.ts.txt
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r3.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r4-probe.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r4.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic-r5.json
+?? .agentdoc/v4-fun-post-heroes-20260909/critic.json
+?? .agentdoc/v4-fun-post-heroes-20260909/designer-evidence.md
+?? .agentdoc/v4-fun-post-heroes-20260909/designer-r2.json
+?? .agentdoc/v4-fun-post-heroes-20260909/designer-r3.json
+?? .agentdoc/v4-fun-post-heroes-20260909/designer-r4.json
+?? .agentdoc/v4-fun-post-heroes-20260909/designer-r5.json
+?? .agentdoc/v4-fun-post-heroes-20260909/designer.json
+?? .agentdoc/v4-fun-post-heroes-20260909/playtest-evidence.md
+?? .agentdoc/v4-fun-post-heroes-20260909/playtest-raw-offer-actions.txt
+?? .agentdoc/v4-fun-post-heroes-20260909/playtest-raw-p1recheck.json
+?? .agentdoc/v4-fun-post-heroes-20260909/playtest-raw-stalls.json
+?? .agentdoc/v4-fun-post-heroes-20260909/playtest-raw.json
+?? .agentdoc/v4-fun-post-heroes-20260909/playtester.json
+?? .agentdoc/v4-fun-post-heroes-20260909/probe-r2.json
+?? .agentdoc/v4-fun-post-heroes-20260909/probe-r4.json
+?? .agentdoc/v4-fun-post-heroes-20260909/probe.json
+?? .agentdoc/v4-fun-post-heroes-20260909/probe.test.ts.txt
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/001-designer.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/001-designer.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/002-critic.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/002-critic.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/003-designer.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/003-designer.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/004-critic.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/004-critic.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/005-balance.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/005-balance.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/006-designer.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/006-designer.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/007-critic.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/007-critic.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/008-designer.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/008-designer.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/009-critic.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/009-critic.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/010-designer.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/010-designer.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/011-critic.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/011-critic.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/012-balance.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/012-balance.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/013-playtester.md
+?? .agentdoc/v4-fun-post-heroes-20260909/prompts/013-playtester.template.json
+?? .agentdoc/v4-fun-post-heroes-20260909/session.json
+?? .agentdoc/v5-20260910/input-code.tar.gz
+?? .agentdoc/v5-20260910/input-hashes.json
+?? .agents/skills/desktop-companion-clicker/SKILL.md
+?? .harness/v4/CHANGELOG.md
+?? .harness/v4/HARNESS.md
+?? .harness/v4/agents/balance.md
+?? .harness/v4/agents/critic.md
+?? .harness/v4/agents/designer.md
+?? .harness/v4/agents/playtester.md
+?? .harness/v4/genre-packs/desktop-companion-clicker/PATTERNS.md
+?? .harness/v4/genre-packs/desktop-companion-clicker/balance-template.md
+?? .harness/v4/genre-packs/desktop-companion-clicker/brainstorm-variant.md
+?? .harness/v4/loop/fun.mjs
+?? .harness/v4/loop/fun.test.ts
+?? .harness/v4/loop/iterate.sh
+?? .harness/v4/loop/render-hero-scenes.mjs
+?? .harness/v4/loop/render-hero-study.mjs
+?? .harness/v4/loop/render-heroes.mjs
+?? .harness/v4/reference/GAME_DESIGN_V4.md
+?? .harness/v4/reference/RELEASE_CHECKLIST.md
+?? .harness/v4/skills/desktop-companion-clicker/SKILL.md
+?? .harness/v4/vitest.config.mts
+?? .harness/v5/AUDIT.md
+?? .harness/v5/CHANGELOG.md
+?? .harness/v5/HARNESS.md
+?? .harness/v5/agents/balance.md
+?? .harness/v5/agents/critic.md
+?? .harness/v5/agents/designer.md
+?? .harness/v5/agents/playtester.md
+?? .harness/v5/genre-packs/desktop-companion-clicker/PATTERNS.md
+?? .harness/v5/genre-packs/desktop-companion-clicker/balance-template.md
+?? .harness/v5/genre-packs/desktop-companion-clicker/brainstorm-variant.md
+?? .harness/v5/genre-packs/desktop-companion-clicker/playtest-observation.md
+?? .harness/v5/loop/audit.mjs
+?? .harness/v5/loop/audit.test.ts
+?? .harness/v5/loop/e2e.mjs
+?? .harness/v5/loop/electron-e2e.cjs
+?? .harness/v5/loop/evidence.mjs
+?? .harness/v5/loop/fun.mjs
+?? .harness/v5/loop/fun.test.ts
+?? .harness/v5/loop/iterate.sh
+?? .harness/v5/loop/measure.mjs
+?? .harness/v5/loop/measure.test.ts
+?? .harness/v5/loop/render-preview.mjs
+?? .harness/v5/reference/GAME_DESIGN_V5.md
+?? .harness/v5/reference/RELEASE_CHECKLIST.md
+?? .harness/v5/skills/desktop-companion-clicker/SKILL.md
+?? .harness/v5/vitest.config.mts
+?? .playwright-mcp/console-2026-09-09T18-27-36-119Z.log
+?? .playwright-mcp/page-2026-09-09T18-27-36-955Z.yml
+?? .playwright-mcp/page-2026-09-09T18-29-13-238Z.yml
+?? .playwright-mcp/page-2026-09-09T18-31-01-520Z.yml
+?? .playwright-mcp/page-2026-09-09T18-33-24-788Z.yml
+?? docs/v0.4/HANDOFF.md
+?? docs/v0.4/HERO_JOB_STUDY.md
+?? docs/v0.4/HERO_REDESIGN.md
+?? docs/v0.4/HERO_THREE_STUDY.md
+?? docs/v0.4/NEXT_SESSION.md
+?? docs/v0.4/balance.json
+?? docs/v0.4/hero-choices.png
+?? docs/v0.4/hero-field.png
+?? docs/v0.4/hero-gallery.html
+?? docs/v0.4/hero-gallery.png
+?? docs/v0.4/hero-game-preview.html
+?? docs/v0.4/hero-job-before-detail.png
+?? docs/v0.4/hero-job-complexion.png
+?? docs/v0.4/hero-job-field.png
+?? docs/v0.4/hero-job-headgear.png
+?? docs/v0.4/hero-job-study.html
+?? docs/v0.4/hero-job-study.png
+?? docs/v0.4/hero-pvp-list.png
+?? docs/v0.4/hero-redesign-comparison.html
+?? docs/v0.4/hero-redesign-comparison.png
+?? docs/v0.4/hero-three-field.png
+?? docs/v0.4/hero-three-study.html
+?? docs/v0.4/hero-three-study.png
+?? docs/v0.4/review-session/balance-evidence.md
+?? docs/v0.4/review-session/balance.json
+?? docs/v0.4/review-session/critic-evidence.md
+?? docs/v0.4/review-session/critic.json
+?? docs/v0.4/review-session/designer-evidence.md
+?? docs/v0.4/review-session/designer.json
+?? docs/v0.4/review-session/playtest-evidence.md
+?? docs/v0.4/review-session/playtester.json
+?? docs/v0.4/review-session/prompts/001-designer.md
+?? docs/v0.4/review-session/prompts/001-designer.template.json
+?? docs/v0.4/review-session/prompts/002-critic.md
+?? docs/v0.4/review-session/prompts/002-critic.template.json
+?? docs/v0.4/review-session/prompts/003-balance.md
+?? docs/v0.4/review-session/prompts/003-balance.template.json
+?? docs/v0.4/review-session/prompts/004-playtester.md
+?? docs/v0.4/review-session/prompts/004-playtester.template.json
+?? docs/v0.4/review-session/session.json
+?? docs/v0.5/ACCEPTANCE.md
+?? docs/v0.5/BALANCE.md
+?? docs/v0.5/BASELINE.md
+?? docs/v0.5/BROWSER_QA.md
+?? docs/v0.5/HANDOFF.md
+?? docs/v0.5/IMPLEMENTATION.md
+?? docs/v0.5/RELEASE_CHECKLIST.md
+?? docs/v0.5/balance-v5.json
+?? docs/v0.5/baseline-v4.json
+?? docs/v0.5/coverage.json
+?? docs/v0.5/menu-420.png
+?? docs/v0.5/menu-codex.png
+?? docs/v0.5/menu-hero.png
+?? docs/v0.5/menu-preview.html
+?? docs/v0.5/menu-profile.png
+?? docs/v0.5/menu-shop.png
+?? docs/v0.5/planning/discovery.md
+?? docs/v0.5/planning/experience.md
+?? docs/v0.5/planning/progression.md
+?? docs/v0.5/rare-gallery.html
+?? docs/v0.5/rare-gallery.png
+?? docs/v0.5/rare-silhouettes.png
+?? docs/v0.5/review-session/balance.json
+?? docs/v0.5/review-session/critic-evidence.md
+?? docs/v0.5/review-session/critic.json
+?? docs/v0.5/review-session/designer.json
+?? docs/v0.5/review-session/playtester.json
+?? docs/v0.5/review-session/prompts/001-designer.md
+?? docs/v0.5/review-session/prompts/001-designer.template.json
+?? docs/v0.5/review-session/prompts/002-critic.md
+?? docs/v0.5/review-session/prompts/002-critic.template.json
+?? docs/v0.5/review-session/prompts/003-balance.md
+?? docs/v0.5/review-session/prompts/003-balance.template.json
+?? docs/v0.5/review-session/prompts/004-playtester.md
+?? docs/v0.5/review-session/prompts/004-playtester.template.json
+?? docs/v0.5/review-session/session.json
+?? docs/v0.5/source-hashes.json
+?? docs/v0.5/verification.json
+?? docs/v0.6/DEVELOPMENT_PLAN.md
+?? docs/v0.6/EVALUATION_PROTOCOL.json
+?? docs/v0.6/START_PROMPT.md
+?? src/core/discovery.ts
+?? src/core/economy.ts
+?? src/core/hero.ts
+?? src/core/progress.ts
+?? src/main/settings.ts
+?? src/menu/codex.ts
+?? src/menu/economy.ts
+?? src/menu/hero.ts
+?? src/menu/profile.ts
+?? src/renderer/sprites/heroAgileLooks.ts
+?? src/renderer/sprites/heroArcaneLooks.ts
+?? src/renderer/sprites/heroEvolutionStudies.ts
+?? src/renderer/sprites/heroForms.ts
+?? src/renderer/sprites/heroJobStudies.ts
+?? src/renderer/sprites/heroKnightLooks.ts
+?? src/renderer/sprites/heroLook.ts
+?? src/renderer/sprites/heroRareLooks.ts
+?? src/renderer/sprites/species/rare.ts
+?? tests/balance.test.ts
+?? tests/discoveryV5.test.ts
+?? tests/expedition.test.ts
+?? tests/hero.test.ts
+?? tests/heroArtCompatibility.test.ts
+?? tests/heroEvolutionStudies.test.ts
+?? tests/heroForms.test.ts
+?? tests/heroJobStudies.test.ts
+?? tests/heroRendering.test.ts
+?? tests/ipcV5.test.ts
+?? tests/progressV5.test.ts
+?? tests/progressionV5.test.ts
+?? tests/server/opponents.test.ts
+?? tests/server/pgTransaction.test.ts
+?? tests/settings.test.ts

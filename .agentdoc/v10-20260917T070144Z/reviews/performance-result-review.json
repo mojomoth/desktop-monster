@@ -1,0 +1,346 @@
+{
+  "version": 1,
+  "kind": "independent-performance-contract-and-evidence-review",
+  "reviewedAt": "2026-09-17T18:58:56.263142+00:00",
+  "reviewer": "/root/equipment_economy",
+  "implementedBy": [
+    "/root"
+  ],
+  "scope": "Performance observation contract, process isolation, artifact binding and raw arithmetic only. This is not approval of the reviewer-authored game core or equipment implementation.",
+  "verdict": "changes-required",
+  "performanceAcceptance": false,
+  "numericComparisonPassed": true,
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "registration": {
+    "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03-registration.json",
+    "sha256": "0794ed87ccd606dfbbe922b908fd1a5faeb41a896311d71fb546628334651e96"
+  },
+  "priorMethodReview": {
+    "path": ".agentdoc/v10-20260917T070144Z/reviews/performance-method-review.json",
+    "sha256": "d3d50b84c0864a2b072fb56b65a9b5740af9568a646073b406654b572c1d6ce8"
+  },
+  "comparison": {
+    "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/comparison.json",
+    "sha256": "f9718b891daab049241b8a25761613bf57407298674eb671f3cc49be1d365882"
+  },
+  "checks": {
+    "registrationHash0794ed87Matches": true,
+    "methodReviewUnchanged": true,
+    "currentSourceDigestMatches": true,
+    "registeredAppObserverProtocolHashesMatch": true,
+    "fiveRegisteredProfilesSelectedTogether": true,
+    "canonicalComparisonExactlyMatchesWholeBlock": true,
+    "priorActiveCompletedAndOriginalBudgetApplied": true,
+    "observedReportsHaveCorrectOrderAndDoNotOverlapEachOther": true,
+    "registeredObserverRawValidatorPassed": true,
+    "independentPythonProcessTotalsQuantilesAndFormulasMatch": true,
+    "allRawSamplesRetainedWithOnlyRegisteredWarmup": true,
+    "oldAndNewNumericalLimitsDisclosed": true,
+    "bothEarlierFailuresPreserved": true,
+    "previousOwnedAppDescendantsExitedBeforeBlock": false,
+    "noConcurrentAgentControlledElectronApp": false
+  },
+  "blockingFindings": [
+    {
+      "id": "PERF-MATCHED03-ORPHAN",
+      "severity": "blocking",
+      "finding": "The interrupted attempt02 idle observation left its packaged DesMon process PID 72888 orphaned under PPID 1. That same process and renderer/GPU/helpers remain in every matched03 boundary snapshot, including before the first baseline and after the final mixed observation.",
+      "violatedRegistrationRules": [
+        "transition.rule: previous queue and owned descendants must exit before the prospective block",
+        "rules.noAgentConcurrentWork: no agent-controlled concurrent Electron validation"
+      ],
+      "provenance": {
+        "interruptedObserverPid": 72887,
+        "orphanMainPid": 72888,
+        "orphanMainParentPid": 1,
+        "mainProcessStartedLocal": "2026-09-17 22:51:36 Asia/Seoul",
+        "readOnlyPsCommand": "ps -p 72888,72957,72958,72959 -o pid,ppid,lstart,command",
+        "mainCommandObserved": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3",
+        "idleLog": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/attempt-02/candidate-idle.json.log",
+          "sha256": "ea2f95184a5993946eced2cab1c73fc8be2792e31f62e02da9623a770429a11f",
+          "matchingLine": "V09_LOCK true /var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-Yue7H3"
+        },
+        "interruptedQueue": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/attempt-02/queue.json",
+          "sha256": "0b32c43aecf0521c56973765e8443f8b1867708463aa91e95160faeb1fdde286"
+        },
+        "boundarySnapshots": [
+          {
+            "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/system-after-baseline-active.json",
+            "sha256": "e326901039527618ef410aab76f5f8616be0aa8a398a9297aa11ed694a9d83e8",
+            "at": "2026-09-17T14:21:39.358Z",
+            "orphanProcessRows": [
+              "72888     1   1.5  65216 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+              "72957 72888   6.8  68704 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer)",
+              "72958 72888   9.2  46368 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU)",
+              "72959 72888   0.0  25616 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper"
+            ]
+          },
+          {
+            "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/system-after-baseline-idle.json",
+            "sha256": "fbdacdd06d83f30b3817416586c901d26bb68680b72e1e68846019b2b14e7231",
+            "at": "2026-09-17T14:51:41.435Z",
+            "orphanProcessRows": [
+              "72888     1   1.7  62176 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+              "72957 72888   6.7  72896 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer)",
+              "72958 72888   9.5  45680 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU)",
+              "72959 72888   0.0  25216 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper"
+            ]
+          },
+          {
+            "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/system-after-candidate-queue.json",
+            "sha256": "f098cb43da513929bf52a3fd4504ad9d122c9d35539f2722d2ef183835578c93",
+            "at": "2026-09-17T18:51:48.829Z",
+            "orphanProcessRows": [
+              "72888     1   0.0  40912 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+              "72957 72888   5.2 105616 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer)",
+              "72958 72888   7.2  35648 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU)",
+              "72959 72888   0.0  11200 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper"
+            ]
+          },
+          {
+            "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/system-before-baseline-active.json",
+            "sha256": "70842ee6ec2131190d7489dc4cf88affa104579af1cca661f56983dc23959259",
+            "at": "2026-09-17T13:51:37.528Z",
+            "orphanProcessRows": [
+              "72888     1  38.7 158512 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+              "72957 72888  33.3 108480 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer)",
+              "72958 72888  22.5  84032 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU)",
+              "72959 72888   6.9  46352 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper"
+            ]
+          },
+          {
+            "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/system-before-baseline-idle.json",
+            "sha256": "a281cfa1cbbc2ba8c546ecca17c0d95c49cda1cccf545daf8a3cc47555e42528",
+            "at": "2026-09-17T14:21:39.489Z",
+            "orphanProcessRows": [
+              "72888     1   0.8  65120 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+              "72957 72888   6.7  68480 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer)",
+              "72958 72888   9.0  46336 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU)",
+              "72959 72888   0.0  25616 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper"
+            ]
+          },
+          {
+            "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/system-before-candidate-queue.json",
+            "sha256": "04ee27aafbba3fbf91769a93a501a266c48ee9b14feb6e34cadfa1673ba912cb",
+            "at": "2026-09-17T14:51:41.584Z",
+            "orphanProcessRows": [
+              "72888     1   1.0  62176 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon",
+              "72957 72888   6.4  71984 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer)",
+              "72958 72888   8.8  45632 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU)",
+              "72959 72888   0.0  25216 /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper"
+            ]
+          }
+        ]
+      },
+      "causeInEvidenceRunner": "matched-03-run.mjs verifies the previous queue PID, observer PIDs and process IDs from the completed active report. The briefly started idle app is not in that completed active report; terminating its observer can leave this additional app alive.",
+      "impact": "Raw p95 and budget arithmetic remain correct, but the block did not satisfy its preregistered isolation/cleanup conditions. The size or direction of bias cannot be established from these observations; it must not be accepted as the registered condition-controlled performance pass.",
+      "requiredNextStep": "Preserve matched03 with this contract failure; correct owned-process cleanup and detection before any separately registered replacement observation. Do not erase previous results or rerun unchanged selection logic until a pass. This review changes no processes or existing evidence."
+    }
+  ],
+  "independentRecalculation": {
+    "implementation": "Separate Python standard-library calculation over every raw JSONL row, plus registered Node verifier rerun. No product code executed.",
+    "rawSamplesTotal": 3593,
+    "quantileRule": "sorted values[floor((n-1)*q)]",
+    "warmupMinutes": 5,
+    "observations": {
+      "baseline-active": {
+        "report": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json",
+          "sha256": "b50645e52995e0ea74b069f6eebe29308cff13e2feb21c15a0e9fbbf69575c66"
+        },
+        "raw": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json.samples.jsonl",
+          "sha256": "523e1e877acf7641052c8b605bcc9c8d01237ff0c02dd61b055dfda1e5c96c5c"
+        },
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "initialWindowSamples": 301,
+        "finalWindowSamples": 0,
+        "startedAt": "2026-09-17T13:51:38.760Z",
+        "finishedAt": "2026-09-17T14:21:38.817Z",
+        "independentlyCalculated": {
+          "cpuP95": 2.513946272046076,
+          "workingSetMiBP95": 313.609375,
+          "initialMemoryMedian": 287.4375,
+          "finalMemoryMedian": null
+        }
+      },
+      "baseline-idle": {
+        "report": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json",
+          "sha256": "d5cd3e27ad232205c2d0e4c46d8e54ae8dfdc912d01ad549a7cf36901491f321"
+        },
+        "raw": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json.samples.jsonl",
+          "sha256": "67b75bf8ef9614f236a29f320f1c71151ba20a5aa28c2df150ba924a8695ad3f"
+        },
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "initialWindowSamples": 301,
+        "finalWindowSamples": 0,
+        "startedAt": "2026-09-17T14:21:40.740Z",
+        "finishedAt": "2026-09-17T14:51:40.795Z",
+        "independentlyCalculated": {
+          "cpuP95": 2.3775078146373714,
+          "workingSetMiBP95": 336.328125,
+          "initialMemoryMedian": 290.078125,
+          "finalMemoryMedian": null
+        }
+      },
+      "candidate-active": {
+        "report": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json",
+          "sha256": "4cdcc1a72e5475f186c4925782f817ead94afcc5f3570ef70a45a56eee21db01"
+        },
+        "raw": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-active.json.samples.jsonl",
+          "sha256": "5c02a0b96c120c4bd6b3814997ab03f1cca3b1c37fef829e39f0cc41b3f4d457"
+        },
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "initialWindowSamples": 301,
+        "finalWindowSamples": 0,
+        "startedAt": "2026-09-17T14:51:42.981Z",
+        "finishedAt": "2026-09-17T15:21:43.027Z",
+        "independentlyCalculated": {
+          "cpuP95": 2.379170448768259,
+          "workingSetMiBP95": 355.359375,
+          "initialMemoryMedian": 279.84375,
+          "finalMemoryMedian": null
+        }
+      },
+      "candidate-idle": {
+        "report": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json",
+          "sha256": "2f0ab78bc9a904af0b81f6fcc631399f9f71d58cc92d1f87ef0f340411c7dfdf"
+        },
+        "raw": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/candidate-idle.json.samples.jsonl",
+          "sha256": "1f7768df06cb25da8e95ce897839e7300d3940dc6d46a213b2a771b294b6fd5c"
+        },
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "initialWindowSamples": 301,
+        "finalWindowSamples": 0,
+        "startedAt": "2026-09-17T15:21:44.792Z",
+        "finishedAt": "2026-09-17T15:51:44.850Z",
+        "independentlyCalculated": {
+          "cpuP95": 2.581700718298981,
+          "workingSetMiBP95": 380.6875,
+          "initialMemoryMedian": 305,
+          "finalMemoryMedian": null
+        }
+      },
+      "mixed": {
+        "report": {
+          "path": ".agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json",
+          "sha256": "77b9902c171e50790ef9b1017dd1e7a68100d42f94450b0fdfbfa1b5d8210ca9"
+        },
+        "raw": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/mixed.json.samples.jsonl",
+          "sha256": "ca2608794aa72a865cc3d3f1bdf3fc4dbd8841f7647bd7bb0ae90ccf6b086b86"
+        },
+        "rawSamples": 2153,
+        "stableSamples": 2094,
+        "initialWindowSamples": 359,
+        "finalWindowSamples": 360,
+        "startedAt": "2026-09-17T15:51:46.605Z",
+        "finishedAt": "2026-09-17T18:51:48.002Z",
+        "independentlyCalculated": {
+          "cpuP95": 3.2310724392649193,
+          "workingSetMiBP95": 327.140625,
+          "initialMemoryMedian": 323.171875,
+          "finalMemoryMedian": 209.0625
+        }
+      }
+    },
+    "comparisons": [
+      {
+        "profile": "active",
+        "cpu": {
+          "baseline": 2.513946272046076,
+          "candidate": 2.379170448768259,
+          "limit": 3.513946272046076,
+          "passed": true
+        },
+        "workingSetMiB": {
+          "baseline": 313.609375,
+          "candidate": 355.359375,
+          "limit": 376.33125,
+          "passed": true
+        }
+      },
+      {
+        "profile": "idle",
+        "cpu": {
+          "baseline": 2.3775078146373714,
+          "candidate": 2.581700718298981,
+          "limit": 3.3775078146373714,
+          "passed": true
+        },
+        "workingSetMiB": {
+          "baseline": 336.328125,
+          "candidate": 380.6875,
+          "limit": 403.59375,
+          "passed": true
+        }
+      }
+    ],
+    "memoryGrowth": {
+      "initialMedianMiB": 323.171875,
+      "finalMedianMiB": 209.0625,
+      "limitMiB": 387.80625,
+      "passed": true
+    }
+  },
+  "priorFailures": [
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/performance/comparison-failed-01.json",
+      "sha256": "7aee86fa0167a737818258db7e5b5f043e784821f35e28e613d7e48e5990fc75",
+      "candidateActiveRamP95MiB": 292.546875,
+      "limitMiB": 290.375,
+      "passed": false,
+      "rawQuantileAndPreservedAppHashVerified": true
+    },
+    {
+      "path": ".agentdoc/v10-20260917T070144Z/performance/attempt-02/active-verdict.json",
+      "sha256": "24060dedebcceec8940abe900e2af1538c71284a0e0f7f912d667c23931c5b1c",
+      "candidateActiveRamP95MiB": 323.5,
+      "limitMiB": 290.375,
+      "passed": false,
+      "rawQuantileAndReportHashVerified": true
+    }
+  ],
+  "limitDisclosure": {
+    "path": "docs/v0.10/PERFORMANCE_REPORT.md",
+    "oldActiveRamLimitMiB": 290.375,
+    "newActiveRamLimitMiB": 376.33125,
+    "oldIdleRamLimitMiB": 322.40625,
+    "newIdleRamLimitMiB": 403.59375,
+    "newMixedLimitMiB": 387.80625,
+    "allValuesPresentAtReview": true
+  },
+  "commandsExecuted": [
+    {
+      "command": "node .harness/v10/performance-report.mjs verify .agentdoc/v10-20260917T070144Z/performance/matched-03/comparison.json",
+      "exitCode": 0,
+      "scope": "Hashes, raw observation checks and numeric budgets only; this verifier does not reject external orphan processes."
+    },
+    {
+      "command": "Independent Python raw sample, binding, quantile and formula recalculation",
+      "exitCode": 0
+    },
+    {
+      "command": "Read-only ps of PID 72888 and known helper PIDs; matched against preserved attempt02 idle log and all six boundary snapshots",
+      "exitCode": 0
+    }
+  ],
+  "limitations": [
+    "No inference that the render optimization fixed memory regression.",
+    "Working-set sums may double-count shared pages; system compression/swap and user workload remain uncontrolled.",
+    "Raw artifact hashes bind available evidence, not independent historical capture authenticity."
+  ],
+  "mutations": "Only this new review JSON was written. Existing final/method reviews, loop journal, source, protocol, observations and live processes were not modified."
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-09-13T10:38:21.107Z",
+  "id": "V07-07",
+  "action": "operational-verification",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "commit": "8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803",
+  "deployId": "dep-daj7kjp5efls739fsiug",
+  "operationalStatus": "PASSED_WITHIN_TESTED_SCOPE",
+  "registeredAcStatusChanged": false,
+  "releaseVerified": false,
+  "humanChecks": "PENDING",
+  "session": ".agentdoc/v07-setup-20260911T122653Z/sessions/V07-07-production-v070-HANDOFF.md",
+  "sessionSha256": "11f98de8fe5cef4083a5ce87b2f9c77fca9a9d9eea61be87cf32392a76f08b64",
+  "evidence": {
+    "compatibility": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/production-v070-20260913/compatibility-after-deploy.json",
+      "sha256": "5e7eae8ac5544c419e5278ead20791f338c7b4f43f93643724683e7af82343b7"
+    },
+    "probe": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/production-v070-20260913/live-probe/report.json",
+      "sha256": "d51451fea61eac6c3c1fadc9d6d2b9a953ff1c53ac2c4dc28a22401a3fcfdee4"
+    },
+    "supplementalReview": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/production-v070-20260913/supplemental-review.json",
+      "sha256": "7d2b9d19c20911062b12ac5611bcfa405903d1f5d0db34506376c188013e703f"
+    }
+  },
+  "note": "Additional user-requested production deployment completed; original server/review failures and all task checks/statuses retained. Source/evaluator unchanged; no new formal audit, measurement, Native, smoke, package or client publication."
+}

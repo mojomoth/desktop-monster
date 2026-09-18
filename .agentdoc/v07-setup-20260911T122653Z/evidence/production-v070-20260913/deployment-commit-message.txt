@@ -1,0 +1,12 @@
+fix(V07-07): deploy verified v0.7 server compatibility
+
+Accept safe integer companion levels, validate network responses, and support
+hero/party opponent directories with exact opponent selection. Include the
+verified product build closure and matching regression tests required by
+the existing Render build contract.
+
+Validation: npm test && npm run lint && npm run typecheck (955 tests);
+clean npm ci --include=dev --ignore-scripts && npm run build on Node 20.12.2.
+Product source digest: 84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131.
+Scoped production deployment requested by user; original worktree and index
+remain unchanged. This commit does not publish a client release.

@@ -30,8 +30,30 @@ body {
 
 canvas {
   display: block;
-  width: 400px;
-  height: 260px;
+  width: 100vw;
+  height: 100vh;
   image-rendering: pixelated;
   -webkit-app-region: no-drag;
+}
+
+#field-save-status, #field-save-recovery {
+  position: absolute;
+  top: 28px;
+  left: 8px;
+  right: 8px;
+  margin: 0;
+  padding: 6px;
+  color: #fff2dd;
+  background: #442637;
+  font: 12px/1.5 monospace;
+  -webkit-app-region: no-drag;
+}
+#field-save-recovery { top: 110px; }
+#field-save-recovery button { font: inherit; }
+[hidden] { display: none !important; }
+#field-pvp-status {
+  position: absolute; top: 12%; left: 6px; right: 6px; margin: 0;
+  color: #deeed6; font: bold 3vw/1.2 monospace; text-align: center;
+  text-shadow: -1px 0 #140c1c, 1px 0 #140c1c, 0 -1px #140c1c, 0 1px #140c1c;
+  pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }

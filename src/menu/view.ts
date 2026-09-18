@@ -5,16 +5,18 @@
 // the action would succeed.
 
 import {
-  COMPANION_MAX_LEVEL,
+  COMPANION_REINCARNATION_LEVEL,
   companionPower,
+  displayNameOf,
   effectivePower,
   format,
+  heroBuffedPower,
   PARTY_SIZE,
   partyOrder,
   REBIRTH_MIN_INDEX,
   typeOf,
 } from '../core/index.js';
-import type { Companion, MonsterType, SaveFile } from '../core/index.js';
+import type { Companion, HeroRoll, MonsterType, SaveFile } from '../core/index.js';
 import type { LeaderboardResult, MatchResult, NetResult, PvpResult, Theft } from '../shared/api.js';
 
 /** One roster card, ready to paint. */
@@ -30,17 +32,13 @@ export interface RosterRow {
   starText: string;
   /** '.power' text: companionPower in letter-suffix form. */
   power: string;
-  /** Reincarnate needs max level (COMPANION_MAX_LEVEL). */
+  /** Legacy field name: reincarnation is available, not a growth cap. */
   maxLevel: boolean;
 }
 
-/** 'dragon' → 'Dragon'. The species display names in core are private. */
-const displayName = (speciesId: string): string =>
-  speciesId.charAt(0).toUpperCase() + speciesId.slice(1);
-
 /** 'Dragon Lv 7' — a card title, and the way pvpResultText names a companion. */
 const companionName = (c: { speciesId: string; level: number }): string =>
-  `${displayName(c.speciesId)} Lv ${String(c.level)}`;
+  `${displayNameOf(c.speciesId)} Lv ${String(c.level)}`;
 
 /** Numeric part of a 'cN' id — the tie-breaker (same rule as activeCompanions). */
 const idNum = (id: string): number => Number(id.replace(/\D/g, '') || 0);
@@ -61,7 +59,7 @@ export function rosterRows(save: SaveFile): RosterRow[] {
       name: companionName(c),
       starText: `★×${String(c.stars)}`,
       power: format(companionPower(c)),
-      maxLevel: c.level >= COMPANION_MAX_LEVEL,
+      maxLevel: c.level >= COMPANION_REINCARNATION_LEVEL && Number.isSafeInteger(c.stars + 1),
     }));
 }
 
@@ -73,7 +71,7 @@ export function fuseCandidates(save: SaveFile): [string, string][] {
     for (let j = i + 1; j < cs.length; j++) {
       const a = cs[i];
       const b = cs[j];
-      if (a && b && a.speciesId === b.speciesId && a.stars === b.stars) {
+      if (a && b && a.speciesId === b.speciesId && a.stars === b.stars && Number.isSafeInteger(a.stars + 1)) {
         pairs.push([a.id, b.id]);
       }
     }
@@ -84,11 +82,12 @@ export function fuseCandidates(save: SaveFile): [string, string][] {
 /** Rebirth unlocks at REBIRTH_MIN_INDEX (40) — the footer button's flag. */
 export const canRebirth = (save: SaveFile): boolean => save.monsterIndex >= REBIRTH_MIN_INDEX;
 
-/** Ids that may eat `foodId` — core's rule: any other companion on the roster. */
+/** Ids that may eat `foodId` without overflowing their resulting level. */
 export function consumeTargets(save: SaveFile, foodId: string): string[] {
   const cs = save.companions;
-  if (!cs.some((c) => c.id === foodId)) return [];
-  return cs.filter((c) => c.id !== foodId).map((c) => c.id);
+  const food = cs.find((c) => c.id === foodId);
+  if (!food) return [];
+  return cs.filter((c) => c.id !== foodId && Number.isSafeInteger(c.level + 1 + food.stars)).map((c) => c.id);
 }
 
 // ---------------------------------------------------------------- SPEC F55
@@ -111,37 +110,52 @@ export interface RankRow {
 /** The server's top, plus my own line when the top does not already hold it. */
 export function leaderboardRows(result: NetResult<LeaderboardResult>): RankRow[] {
   if (!result.ok) {
-    const name = result.error === 'cooldown' ? 'Cooldown' : 'Offline';
+    const name = result.error === 'cooldown' ? '잠시 기다려 주세요' : '서버 연결 안 됨';
     return [{ rank: '', name, deepest: '', rebirths: '' }];
   }
   const { top, me } = result.value;
-  const rows = me && !top.some((r) => r.rank === me.rank) ? [...top, me] : top;
+  const rows = me && !top.some((r) => r.rank === me.rank && r.name === me.name) ? [...top, me] : top;
   return rows.map((r) => ({
     rank: `#${String(r.rank)}`,
     name: r.name,
-    deepest: `Monster ${String(r.bestIndex)}`,
-    rebirths: `♻×${String(r.rebirths)}`,
+    deepest: result.value.metric === 'level' ? `Lv.${r.level == null ? '미등록' : format(r.level)}`
+      : result.value.metric === 'pvpWins' ? `${r.wins ?? 0}승 · ${r.losses ?? 0}패`
+      : result.value.metric === 'rebirths' ? `환생 ${r.rebirths}회` : `최고 단계 ${String(r.bestIndex)}`,
+    rebirths: result.value.metric === 'pvpWins' ? '공격·방어 합산' : `♻×${String(r.rebirths)}`,
   }));
 }
 
 /** The Battle tab's verdict line: who was stolen or lost, or how long to wait. */
 export function pvpResultText(result: NetResult<PvpResult>): string {
   if (!result.ok) {
+    if (result.error === 'busy') return '다른 작업이 진행 중입니다. 잠시 후 다시 시도하세요.';
+    if (result.error === 'storage') return '전투 결과를 저장하지 못했습니다. 다시 시도하면 같은 전투를 복구합니다.';
+    if (result.error === 'sync-required') return '서버 업데이트·동기화가 필요합니다. 잠시 후 다시 시도하세요.';
+    if (result.error === 'stale-party') return '대기 중 동료가 이동했습니다. 편성을 확인하고 다시 전투하세요.';
+    if (result.error === 'gold-conflict') return '금화가 다른 전투에서 변경되었습니다. 다시 시도해 주세요.';
+    if (result.error === 'opponent-busy') return '상대가 방어 전투 후 대기 중입니다. 잠시 후 다른 상대와 전투하세요.';
     return result.error === 'cooldown'
-      ? `Cooldown — next battle in ${String(result.retryAfterSec ?? 0)}s.`
-      : 'Offline — no battle right now.';
+      ? `다음 대전까지 ${String(result.retryAfterSec ?? 0)}초 남았습니다.`
+      : '서버에 연결할 수 없어 지금은 대전할 수 없습니다.';
   }
   const { win, opponent, stolen, lost } = result.value;
+  if (result.value.gold) {
+    const { delta, reason } = result.value.gold;
+    const protection = { transfer: '', protected: '보호 금액', 'daily-limit': '오늘의 금화 한도',
+      'pair-protection': '같은 상대 보호 시간', capacity: '금화 보관 한도', bot: '훈련 전투' }[reason];
+    return `${opponent.name}에게 ${win ? '승리' : '패배'} · 금화 ${BigInt(delta) > 0n ? '+' : ''}${delta}G${BigInt(delta) === 0n ? ` (${protection || '금화 이동 없음'})` : ''}`;
+  }
+  const history = result.value.historySaved === false ? ' 전적 저장을 완료하지 못했습니다. 자동 저장 때 다시 시도합니다.' : '';
   if (win) {
-    return stolen
-      ? `Victory over ${opponent.name} — stole ${companionName(stolen)}!`
-      : `Victory over ${opponent.name}.`;
+    return (stolen
+      ? `${opponent.name}에게 승리 · ${companionName(stolen)}을 데려왔습니다!`
+      : `${opponent.name}에게 승리했습니다.`) + history;
   }
   // v3 steals are attacker-only, so `lost` is always null — the named leg is
   // still here for the v2-shaped response the server may answer with.
-  return lost
-    ? `Defeat by ${opponent.name} — ${companionName(lost)} was stolen from you.`
-    : `Defeat by ${opponent.name}.`;
+  return (lost
+    ? `${opponent.name}에게 패배 · ${companionName(lost)}을 빼앗겼습니다.`
+    : `${opponent.name}에게 패배했습니다.`) + history;
 }
 
 // ---------------------------------------------------------------- SPEC F75
@@ -207,16 +221,17 @@ const frontOf = (party: readonly Companion[]): Companion | undefined => {
 export function partyPreview(
   myParty: readonly Companion[],
   opponentParty: readonly Companion[],
+  hero?: HeroRoll,
 ): string {
   const front = frontOf(opponentParty);
   const total = myParty.reduce((sum, c) => {
-    const power = companionPower(c);
+    const power = heroBuffedPower(companionPower(c), typeOf(c.speciesId), hero);
     return (
       sum +
       (front === undefined ? power : effectivePower(power, typeOf(c.speciesId), typeOf(front.speciesId)))
     );
   }, 0n);
-  return `Σ vs opponent: ${format(total)}`;
+  return `상대에게 적용되는 파티 힘: ${format(total)}`;
 }
 
 /** Add or drop `id` from the picked party; a full party refuses new picks. */
@@ -241,7 +256,7 @@ export function theftRows(thefts: readonly Theft[], now: number): TheftRow[] {
     const minutes = Math.floor((left % HOUR_MS) / 60_000);
     return {
       id: t.id,
-      text: `${t.thiefName} stole ${companionName(t.companion)} · ${String(hours)}h ${String(minutes)}m left`,
+      text: `${t.thiefName}에게 빼앗긴 ${companionName(t.companion)} · 회수 가능 시간 ${String(hours)}시간 ${String(minutes)}분 남음`,
     };
   });
 }
@@ -265,6 +280,6 @@ export interface BattleState {
  */
 export function battleEnabled(state: BattleState | SaveFile, cooldownUntil = 0): boolean {
   return 'companions' in state
-    ? state.companions.length > 0 && cooldownUntil <= 0
-    : state.match !== null && state.party.length > 0 && state.cooldownUntil <= 0;
+    ? cooldownUntil <= 0
+    : state.match !== null && state.cooldownUntil <= 0;
 }

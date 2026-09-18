@@ -1,0 +1,70 @@
+import {spawn} from 'node:child_process';
+import {existsSync,readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {resolve,join} from 'node:path';
+import {homedir} from 'node:os';
+import {createHash} from 'node:crypto';
+import assert from 'node:assert/strict';
+import {processTable} from './.harness/v10/performance.mjs';
+const pause=ms=>new Promise(done=>setTimeout(done,ms));
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+const dir=resolve('.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02');
+assert(!existsSync(dir),'preserve prior native evidence');mkdirSync(dir);
+const app=resolve('release/mac-arm64/DesMon.app');
+const baseline=resolve('.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app');
+const ownSave=join(homedir(),'Library/Application Support/DesMon/save.json');
+const saveHash=()=>existsSync(ownSave)?hash(readFileSync(ownSave)):null;
+const saveBefore=saveHash();
+const desmon=()=>processTable().filter(row=>row.command.includes('/DesMon.app/Contents/MacOS/DesMon'));
+assert.equal(desmon().length,0,'run sequentially without another DesMon');
+const records=[];
+for (const spec of [
+  {name:'startup-sigint',observer:'performance-v4',app,phase:'spawn',signal:'SIGINT'},
+  {name:'baseline-inspector-sigterm',observer:'performance',app:baseline,phase:'inspector',signal:'SIGTERM'},
+  {name:'queue-inspector-sigterm',observer:'performance-v4',app,phase:'inspector',signal:'SIGTERM',queue:true},
+  {name:'cleanup-write-failure',observer:'performance-v4',app,phase:'inspector',signal:'SIGTERM',writeFailure:true},
+  {name:'observing-sigterm',observer:'performance-v4',app,phase:'observing',signal:'SIGTERM'},
+]) {
+  const output=join(dir,spec.name+'.json');
+  const queueDir=join(dir,spec.name);
+  const reportPath=spec.queue?join(queueDir,'candidate-active.json'):output;
+  const args=spec.queue?['.harness/v10/run-performance.mjs',
+    '.agentdoc/v10-20260917T070144Z/performance/baseline-active-02.json',
+    '.agentdoc/v10-20260917T070144Z/performance/baseline-idle-01.json',spec.app,queueDir]:
+    ['.harness/v10/'+spec.observer+'.mjs',spec.app,reportPath,'active','30'];
+  const child=spawn(process.execPath,args,{stdio:['ignore','pipe','pipe']});
+  let stdout='',stderr='',closed=false,result;
+  child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
+  const completion=new Promise(done=>child.on('close',(code,signal)=>{closed=true;result={code,signal};done(result);}));
+  const start=Date.now();let checkpoint;
+  while(Date.now()-start<35000&&!closed) {
+    if(existsSync(reportPath+'.lifecycle.json')) {
+      const life=JSON.parse(readFileSync(reportPath+'.lifecycle.json'));
+      const log=readFileSync(reportPath+'.log','utf8');
+      const raw=readFileSync(reportPath+'.samples.jsonl','utf8');
+      const ready=spec.phase==='spawn'?life.state==='starting':spec.phase==='inspector'?
+        life.state==='starting'&&log.includes('V09_INSPECTOR_RESUMED'):
+        life.state==='observing'&&raw.trim().length>0;
+      if(ready) {checkpoint={at:new Date().toISOString(),life,processes:processTable().filter(row=>row.command.includes(life.userData)),logTail:log.slice(-1000),rawSamples:raw.trim()?raw.trim().split('\n').length:0};if(spec.writeFailure)mkdirSync(reportPath+'.lifecycle.json.tmp');child.kill(spec.signal);break;}
+    }
+    await pause(2);
+  }
+  if(!checkpoint) {child.kill('SIGTERM');await completion;throw Error('Missing checkpoint '+spec.name);}
+  const timer=setTimeout(()=>{console.error('Cancellation cleanup timeout',spec.name);},30000);
+  await completion;clearTimeout(timer);
+  writeFileSync(join(dir,spec.name+'.driver.log'),stdout+'\nSTDERR\n'+stderr);
+  const report=JSON.parse(readFileSync(reportPath));
+  const lifecycle=JSON.parse(readFileSync(reportPath+'.lifecycle.json'));
+  const after=processTable();
+  const remaining=after.filter(row=>row.command.includes(lifecycle.userData)||lifecycle.cleanup.owned.some(owned=>owned.pid===row.pid&&owned.started===row.started&&owned.command===row.command));
+  const record={...spec,requestedMinutes:30,observerOrQueuePid:child.pid,checkpoint,result,reportPath,lifecycle,remaining,
+    cleanup:report.cleanup,rawSamples:report.raw.samples,saveUnchanged:saveBefore===saveHash(),closedAt:new Date().toISOString()};
+  if(spec.queue)record.queue=JSON.parse(readFileSync(join(queueDir,'queue.json')));
+  records.push(record);writeFileSync(join(dir,'evidence.json'),JSON.stringify({purpose:'Cancellation only, not performance acceptance',records},null,2)+'\n');
+  assert.equal(result.code,1);assert.equal(report.passed,false);assert.equal(report.cancelSignal,spec.signal);
+  assert.equal(report.cleanup.state,'complete');assert.deepEqual(report.cleanup.remaining,[]);if(spec.writeFailure)assert(report.errors.some(e=>e.type==='cleanup-report'));else assert.equal(lifecycle.state,'complete');
+  assert.equal(remaining.length,0);assert(record.saveUnchanged);assert.equal(desmon().length,0);
+  if(spec.queue) {assert.equal(record.queue.state,'interrupted');assert.equal(record.queue.slots.length,1);assert.equal(record.queue.slots[0].cleanupComplete,true);}
+  console.log(JSON.stringify({case:spec.name,signal:spec.signal,phase:checkpoint.life.state,pids:report.cleanup.owned.map(row=>row.pid),samples:report.raw.samples,cleanup:report.cleanup.state,remaining:remaining.length}));
+}
+const files=['.harness/v10/performance.mjs','.harness/v10/performance-v4.mjs','.harness/v10/run-performance.mjs','.harness/v10/performance.test.mjs'];
+writeFileSync(join(dir,'summary.json'),JSON.stringify({passed:true,purpose:'Cancellation only, not performance acceptance',cases:records.map(r=>({name:r.name,report:r.reportPath,cleanup:r.cleanup.state,ownedPids:r.cleanup.owned.map(p=>p.pid)})),files:Object.fromEntries(files.map(f=>[f,hash(readFileSync(f))])),saveBefore,saveAfter:saveHash(),remainingDesMon:desmon()},null,2)+'\n');

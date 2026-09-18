@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "registeredAt": "2026-09-17T13:32:10.048Z",
+  "registeredBy": "/root",
+  "independentReviewer": "/root/equipment_economy",
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "reason": "The original baseline-active-02 overlapped virtual validation02 (07:35:28–07:48:38 UTC overlap) and separate Electron preflight (07:47:15–07:47:27 UTC). Earlier failure remains a failure. This single prospective block controls agent-owned concurrent work; it cannot control ambient user workloads or infer the cause of working-set changes.",
+  "transition": {
+    "queue": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/attempt-02/queue.json",
+      "sha256": "1d9571eccc326f088f1b72ecb41af4276e36ce5c93f07de234e4c853c01b90e4"
+    },
+    "pid": 33949,
+    "startedAt": "2026-09-17T13:21:30.987Z",
+    "rule": "Complete the currently running active30 observation and validate it against the original baseline. Then stop remaining attempt02 slots regardless of that result; preserve the queue, all partial slots and the active verdict. Begin the prospective block only after that queue and its owned descendants have exited."
+  },
+  "apps": {
+    "baseline": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Resources/app.asar",
+      "sha256": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5"
+    },
+    "candidate": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+      "sha256": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7"
+    }
+  },
+  "observers": {
+    "baseline": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.mjs",
+      "sha256": "5b143ce0441f93882595faac0ee14e02aba4190f47e66791aac3089f1932f969"
+    },
+    "candidate": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-v4.mjs",
+      "sha256": "1157aacbfa7a5f2cce722f29e71db0befbd788a79d07ee2503f4ab80463eab68"
+    }
+  },
+  "protocol": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/PERFORMANCE_PROTOCOL.json",
+    "sha256": "ce803acadae6f41863645b1a46926f6d06ba7f134cd8dc6438de56279104ae24"
+  },
+  "schedule": [
+    [
+      "baseline-active",
+      "active",
+      30
+    ],
+    [
+      "baseline-idle",
+      "idle",
+      30
+    ],
+    [
+      "candidate-active",
+      "active",
+      30
+    ],
+    [
+      "candidate-idle",
+      "idle",
+      30
+    ],
+    [
+      "mixed",
+      "mixed",
+      180
+    ]
+  ],
+  "output": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03",
+  "rules": {
+    "warmupMinutes": 5,
+    "sampleMs": 5000,
+    "unchangedBudgetFormulas": {
+      "cpu": "max(baseline p95 * 1.1, baseline p95 + 1 percentage point)",
+      "workingSet": "max(baseline p95 * 1.2, baseline p95 + 50 MiB)",
+      "mixed": "max(initial median * 1.2, initial median + 50 MiB)"
+    },
+    "oldActive": {
+      "baseline": {
+        "cpuP95": 2.6747937256889855,
+        "workingSetMiBP95": 240.375,
+        "initialMemoryMedian": 212.53125,
+        "finalMemoryMedian": null
+      },
+      "ramLimitMiB": 290.375
+    },
+    "oldIdle": {
+      "baseline": {
+        "cpuP95": 3.723818735854634,
+        "workingSetMiBP95": 268.671875,
+        "initialMemoryMedian": 250.578125,
+        "finalMemoryMedian": null
+      },
+      "ramLimitMiB": 322.40625
+    },
+    "noAgentConcurrentWork": "No agent-controlled Electron validation, gallery generation, builds, packaging, simulation or tests during the whole block. Read-only short status inspection and documentation permitted.",
+    "ambient": "Ordinary user applications are neither closed nor controlled. Record this limitation and read-only process, memory pressure, compression and swap snapshots at boundaries. No induced pressure, forced GC or cache clearing.",
+    "selection": "Exactly one complete prospective matched block; adopt its five observations together. No mixing old/new or best-of profiles. Publish both old and new numerical MiB limits. Preserve all earlier failures. If this block fails, retain failure and do not repeat unchanged code until a pass.",
+    "failures": "Stop on structural observer errors. Otherwise complete all five registered observations even if a candidate budget is already known to fail. No excluded samples, changed warmup or changed thresholds.",
+    "sourceFreeze": "No production, test, harness, protocol or package changes until all five observations finish."
+  }
+}

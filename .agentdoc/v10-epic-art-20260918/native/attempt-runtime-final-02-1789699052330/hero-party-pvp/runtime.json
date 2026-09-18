@@ -1,0 +1,2963 @@
+{
+  "version": 1,
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+  "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+  "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+  "startedAt": "2026-09-18T02:39:14.123Z",
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-GlMRO6",
+  "metadata": {
+    "version": "0.10.0",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-GlMRO6",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    }
+  },
+  "diagnostics": {
+    "permissionCalls": [],
+    "hookLoads": 0,
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/v1/pvp/events",
+        "query": {
+          "after": "0"
+        },
+        "body": null,
+        "status": 200,
+        "result": {
+          "events": [],
+          "latestSeq": 0
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/me",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "version": 9,
+          "wins": 0,
+          "losses": 0,
+          "revokedIds": [],
+          "lastMatch": null,
+          "lastReclaim": null,
+          "pvpMode": "equipment-gold-v2",
+          "gold": {
+            "revision": 1,
+            "net": "0",
+            "balance": "1000000000000000000000000000000000"
+          }
+        }
+      },
+      {
+        "method": "PUT",
+        "path": "/v1/snapshot",
+        "query": {},
+        "body": {
+          "name": "FixtureMe",
+          "protocol": "equipment-gold-v2",
+          "combat": {
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "level": 30,
+            "souls": 0,
+            "reincarnations": 0,
+            "trainingLevel": 0,
+            "loadout": {
+              "weapon": {
+                "id": "e1",
+                "templateId": "w-dagger-rare-3",
+                "enhancement": "0",
+                "roll": 100,
+                "seed": 1482449629,
+                "attempts": "0"
+              },
+              "accessories": [
+                {
+                  "id": "e2",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 396280900,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e3",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2101249537,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e4",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2612390240,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e5",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 3359081762,
+                  "attempts": "0"
+                }
+              ]
+            }
+          },
+          "level": 30,
+          "bestIndex": 1000,
+          "rebirths": 0,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c2",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c3",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c4",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c5",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            }
+          ],
+          "party": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5"
+          ],
+          "hero": {
+            "formId": "h00",
+            "buffPercent": 0
+          },
+          "gold": {
+            "revision": 1,
+            "coins": "1000000000000000000000000000000000"
+          }
+        },
+        "status": 200,
+        "result": {
+          "rank": 1,
+          "removed": [],
+          "thefts": [],
+          "gold": {
+            "revision": 2,
+            "net": "0",
+            "balance": "1000000000000000000000000000000000"
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/thefts",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "thefts": []
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/me",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "version": 9,
+          "wins": 0,
+          "losses": 0,
+          "revokedIds": [],
+          "lastMatch": null,
+          "lastReclaim": null,
+          "pvpMode": "equipment-gold-v2",
+          "gold": {
+            "revision": 2,
+            "net": "0",
+            "balance": "1000000000000000000000000000000000"
+          }
+        }
+      },
+      {
+        "method": "PUT",
+        "path": "/v1/snapshot",
+        "query": {},
+        "body": {
+          "name": "FixtureMe",
+          "protocol": "equipment-gold-v2",
+          "combat": {
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "level": 30,
+            "souls": 0,
+            "reincarnations": 0,
+            "trainingLevel": 0,
+            "loadout": {
+              "weapon": {
+                "id": "e1",
+                "templateId": "w-dagger-rare-3",
+                "enhancement": "0",
+                "roll": 100,
+                "seed": 1482449629,
+                "attempts": "0"
+              },
+              "accessories": [
+                {
+                  "id": "e2",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 396280900,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e3",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2101249537,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e4",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2612390240,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e5",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 3359081762,
+                  "attempts": "0"
+                }
+              ]
+            }
+          },
+          "level": 30,
+          "bestIndex": 1000,
+          "rebirths": 0,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c2",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c3",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c4",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c5",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            }
+          ],
+          "party": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5"
+          ],
+          "hero": {
+            "formId": "h00",
+            "buffPercent": 0
+          },
+          "gold": {
+            "revision": 2,
+            "coins": "1000000000000000000000000000000000"
+          }
+        },
+        "status": 200,
+        "result": {
+          "rank": 1,
+          "removed": [],
+          "thefts": [],
+          "gold": {
+            "revision": 3,
+            "net": "0",
+            "balance": "1000000000000000000000000000000000"
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/pvp/opponents",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "opponents": [
+            {
+              "playerId": "fixture-foe",
+              "rank": 1,
+              "name": "FixtureFoe",
+              "bestIndex": 1000,
+              "rebirths": 0,
+              "hero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "party": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                }
+              ],
+              "combat": {
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "level": 30,
+                "souls": 0,
+                "reincarnations": 0,
+                "trainingLevel": 0,
+                "loadout": {
+                  "weapon": {
+                    "id": "e1",
+                    "templateId": "w-dagger-rare-3",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 1482449629,
+                    "attempts": "0"
+                  },
+                  "accessories": [
+                    {
+                      "id": "e2",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 396280900,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e3",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 2101249537,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e4",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 2612390240,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e5",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 3359081762,
+                      "attempts": "0"
+                    }
+                  ]
+                }
+              },
+              "wins": 0,
+              "losses": 0
+            }
+          ]
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/me",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "version": 9,
+          "wins": 0,
+          "losses": 0,
+          "revokedIds": [],
+          "lastMatch": null,
+          "lastReclaim": null,
+          "pvpMode": "equipment-gold-v2",
+          "gold": {
+            "revision": 3,
+            "net": "0",
+            "balance": "1000000000000000000000000000000000"
+          }
+        }
+      },
+      {
+        "method": "PUT",
+        "path": "/v1/snapshot",
+        "query": {},
+        "body": {
+          "name": "FixtureMe",
+          "protocol": "equipment-gold-v2",
+          "combat": {
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "level": 30,
+            "souls": 0,
+            "reincarnations": 0,
+            "trainingLevel": 0,
+            "loadout": {
+              "weapon": {
+                "id": "e1",
+                "templateId": "w-dagger-rare-3",
+                "enhancement": "0",
+                "roll": 100,
+                "seed": 1482449629,
+                "attempts": "0"
+              },
+              "accessories": [
+                {
+                  "id": "e2",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 396280900,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e3",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2101249537,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e4",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2612390240,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e5",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 3359081762,
+                  "attempts": "0"
+                }
+              ]
+            }
+          },
+          "level": 30,
+          "bestIndex": 1000,
+          "rebirths": 0,
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c2",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c3",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c4",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c5",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            }
+          ],
+          "party": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5"
+          ],
+          "hero": {
+            "formId": "h00",
+            "buffPercent": 0
+          },
+          "gold": {
+            "revision": 3,
+            "coins": "1000000000000000000000000000000000"
+          }
+        },
+        "status": 200,
+        "result": {
+          "rank": 1,
+          "removed": [],
+          "thefts": [],
+          "gold": {
+            "revision": 4,
+            "net": "0",
+            "balance": "1000000000000000000000000000000000"
+          }
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/v1/pvp/match",
+        "query": {},
+        "body": {
+          "opponentId": "fixture-foe",
+          "mode": "equipment-gold-v2"
+        },
+        "status": 200,
+        "result": {
+          "matchId": "0000000000000001",
+          "seed": 7,
+          "bot": false,
+          "opponent": {
+            "playerId": "fixture-foe",
+            "name": "FixtureFoe",
+            "bestIndex": 1000,
+            "rebirths": 0,
+            "party": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              }
+            ],
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "combat": {
+              "hero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "level": 30,
+              "souls": 0,
+              "reincarnations": 0,
+              "trainingLevel": 0,
+              "loadout": {
+                "weapon": {
+                  "id": "e1",
+                  "templateId": "w-dagger-rare-3",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 1482449629,
+                  "attempts": "0"
+                },
+                "accessories": [
+                  {
+                    "id": "e2",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 396280900,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e3",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2101249537,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e4",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2612390240,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e5",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 3359081762,
+                    "attempts": "0"
+                  }
+                ]
+              }
+            }
+          },
+          "expiresAt": 1789699274910
+        }
+      },
+      {
+        "method": "POST",
+        "path": "/v1/pvp",
+        "query": {},
+        "body": {
+          "matchId": "0000000000000001",
+          "party": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5"
+          ],
+          "mode": "equipment-gold-v2"
+        },
+        "status": 200,
+        "result": {
+          "matchId": "0000000000000001",
+          "record": {
+            "wins": 1,
+            "losses": 0
+          },
+          "bot": false,
+          "seed": 7,
+          "win": true,
+          "opponent": {
+            "playerId": "fixture-foe",
+            "name": "FixtureFoe",
+            "bestIndex": 1000,
+            "rebirths": 0,
+            "party": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "slime",
+                "bossIndex": 63,
+                "level": 5,
+                "stars": 0
+              }
+            ],
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "combat": {
+              "hero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "level": 30,
+              "souls": 0,
+              "reincarnations": 0,
+              "trainingLevel": 0,
+              "loadout": {
+                "weapon": {
+                  "id": "e1",
+                  "templateId": "w-dagger-rare-3",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 1482449629,
+                  "attempts": "0"
+                },
+                "accessories": [
+                  {
+                    "id": "e2",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 396280900,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e3",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2101249537,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e4",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2612390240,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e5",
+                    "templateId": "a-ring-critical-rare-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 3359081762,
+                    "attempts": "0"
+                  }
+                ]
+              }
+            }
+          },
+          "blows": [
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c5",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "6446",
+              "ko": false,
+              "crit": true
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c5",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "6446",
+              "ko": false,
+              "crit": true
+            },
+            {
+              "side": "A",
+              "actorId": "c5",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c5",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c4",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c4",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c3",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c3",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c2",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c2",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c5",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c4",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c4",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c4",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c4",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c3",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c3",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c2",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c2",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c4",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c4",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c4",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c3",
+              "targetId": "c4",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c3",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c2",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c2",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c3",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c3",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c3",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c3",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c2",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c2",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c3",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c2",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c2",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c2",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c2",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c2",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c2",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "6446",
+              "ko": false,
+              "crit": true
+            },
+            {
+              "side": "D",
+              "actorId": "c2",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c2",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c2",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c2",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "c1",
+              "targetId": "c1",
+              "actorKind": "companion",
+              "targetKind": "companion",
+              "damage": "16665",
+              "ko": true,
+              "crit": false
+            },
+            {
+              "side": "D",
+              "actorId": "@hero",
+              "targetId": "c1",
+              "actorKind": "hero",
+              "targetKind": "companion",
+              "damage": "3223",
+              "ko": false,
+              "crit": false
+            },
+            {
+              "side": "A",
+              "actorId": "@hero",
+              "targetId": "@hero",
+              "actorKind": "hero",
+              "targetKind": "hero",
+              "damage": "6446",
+              "ko": true,
+              "crit": true
+            }
+          ],
+          "stolen": null,
+          "lost": null,
+          "ownCombat": {
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "level": 30,
+            "souls": 0,
+            "reincarnations": 0,
+            "trainingLevel": 0,
+            "loadout": {
+              "weapon": {
+                "id": "e1",
+                "templateId": "w-dagger-rare-3",
+                "enhancement": "0",
+                "roll": 100,
+                "seed": 1482449629,
+                "attempts": "0"
+              },
+              "accessories": [
+                {
+                  "id": "e2",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 396280900,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e3",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2101249537,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e4",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 2612390240,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e5",
+                  "templateId": "a-ring-critical-rare-2",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 3359081762,
+                  "attempts": "0"
+                }
+              ]
+            }
+          },
+          "ownFighters": [
+            {
+              "id": "@hero",
+              "kind": "hero",
+              "formId": "h00",
+              "hp": "4070",
+              "attack": "3223"
+            },
+            {
+              "id": "c5",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c4",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c3",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c2",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c1",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            }
+          ],
+          "opponentFighters": [
+            {
+              "id": "@hero",
+              "kind": "hero",
+              "formId": "h00",
+              "hp": "4070",
+              "attack": "3223"
+            },
+            {
+              "id": "c5",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c4",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c3",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c2",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            },
+            {
+              "id": "c1",
+              "kind": "companion",
+              "speciesId": "slime",
+              "type": "water",
+              "hp": "83325",
+              "attack": "16665"
+            }
+          ],
+          "gold": {
+            "amount": "50",
+            "delta": "50",
+            "reason": "transfer"
+          },
+          "ownParty": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c2",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c3",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c4",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            },
+            {
+              "id": "c5",
+              "speciesId": "slime",
+              "bossIndex": 63,
+              "level": 5,
+              "stars": 0
+            }
+          ],
+          "ownHero": {
+            "formId": "h00",
+            "buffPercent": 0
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/me",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "version": 9,
+          "wins": 1,
+          "losses": 0,
+          "revokedIds": [],
+          "lastMatch": {
+            "matchId": "0000000000000001",
+            "result": {
+              "matchId": "0000000000000001",
+              "record": {
+                "wins": 1,
+                "losses": 0
+              },
+              "bot": false,
+              "seed": 7,
+              "win": true,
+              "opponent": {
+                "playerId": "fixture-foe",
+                "name": "FixtureFoe",
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "party": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 63,
+                    "level": 5,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "slime",
+                    "bossIndex": 63,
+                    "level": 5,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "slime",
+                    "bossIndex": 63,
+                    "level": 5,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "slime",
+                    "bossIndex": 63,
+                    "level": 5,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "slime",
+                    "bossIndex": 63,
+                    "level": 5,
+                    "stars": 0
+                  }
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-dagger-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": [
+                      {
+                        "id": "e2",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 396280900,
+                        "attempts": "0"
+                      },
+                      {
+                        "id": "e3",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 2101249537,
+                        "attempts": "0"
+                      },
+                      {
+                        "id": "e4",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 2612390240,
+                        "attempts": "0"
+                      },
+                      {
+                        "id": "e5",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 3359081762,
+                        "attempts": "0"
+                      }
+                    ]
+                  }
+                }
+              },
+              "blows": [
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c5",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "6446",
+                  "ko": false,
+                  "crit": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c5",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "6446",
+                  "ko": false,
+                  "crit": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c4",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c4",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c5",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c4",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c4",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c4",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c4",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c4",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c4",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c4",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c4",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c3",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c3",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c3",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c2",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c2",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c2",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c2",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "6446",
+                  "ko": false,
+                  "crit": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c2",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c1",
+                  "actorKind": "companion",
+                  "targetKind": "companion",
+                  "damage": "16665",
+                  "ko": true,
+                  "crit": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "@hero",
+                  "targetId": "c1",
+                  "actorKind": "hero",
+                  "targetKind": "companion",
+                  "damage": "3223",
+                  "ko": false,
+                  "crit": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "@hero",
+                  "targetId": "@hero",
+                  "actorKind": "hero",
+                  "targetKind": "hero",
+                  "damage": "6446",
+                  "ko": true,
+                  "crit": true
+                }
+              ],
+              "stolen": null,
+              "lost": null,
+              "ownCombat": {
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "level": 30,
+                "souls": 0,
+                "reincarnations": 0,
+                "trainingLevel": 0,
+                "loadout": {
+                  "weapon": {
+                    "id": "e1",
+                    "templateId": "w-dagger-rare-3",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 1482449629,
+                    "attempts": "0"
+                  },
+                  "accessories": [
+                    {
+                      "id": "e2",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 396280900,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e3",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 2101249537,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e4",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 2612390240,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e5",
+                      "templateId": "a-ring-critical-rare-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 3359081762,
+                      "attempts": "0"
+                    }
+                  ]
+                }
+              },
+              "ownFighters": [
+                {
+                  "id": "@hero",
+                  "kind": "hero",
+                  "formId": "h00",
+                  "hp": "4070",
+                  "attack": "3223"
+                },
+                {
+                  "id": "c5",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c4",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c3",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c2",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c1",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                }
+              ],
+              "opponentFighters": [
+                {
+                  "id": "@hero",
+                  "kind": "hero",
+                  "formId": "h00",
+                  "hp": "4070",
+                  "attack": "3223"
+                },
+                {
+                  "id": "c5",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c4",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c3",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c2",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                },
+                {
+                  "id": "c1",
+                  "kind": "companion",
+                  "speciesId": "slime",
+                  "type": "water",
+                  "hp": "83325",
+                  "attack": "16665"
+                }
+              ],
+              "gold": {
+                "amount": "50",
+                "delta": "50",
+                "reason": "transfer"
+              },
+              "ownParty": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "slime",
+                  "bossIndex": 63,
+                  "level": 5,
+                  "stars": 0
+                }
+              ],
+              "ownHero": {
+                "formId": "h00",
+                "buffPercent": 0
+              }
+            }
+          },
+          "lastReclaim": null,
+          "pvpMode": "equipment-gold-v2",
+          "gold": {
+            "revision": 5,
+            "net": "50",
+            "balance": "1000000000000000000000000000000050"
+          }
+        }
+      },
+      {
+        "method": "GET",
+        "path": "/v1/thefts",
+        "query": {},
+        "body": null,
+        "status": 200,
+        "result": {
+          "thefts": []
+        }
+      }
+    ],
+    "fixtureRequests": [
+      {
+        "method": "PUT",
+        "path": "/v1/snapshot",
+        "playerId": "fixture-me",
+        "result": {
+          "status": 200,
+          "body": {
+            "rank": 1,
+            "removed": [],
+            "thefts": [],
+            "gold": {
+              "revision": 1,
+              "net": "0",
+              "balance": "1000000000000000000000000000000000"
+            }
+          }
+        }
+      },
+      {
+        "method": "PUT",
+        "path": "/v1/snapshot",
+        "playerId": "fixture-foe",
+        "result": {
+          "status": 200,
+          "body": {
+            "rank": 1,
+            "removed": [],
+            "thefts": [],
+            "gold": {
+              "revision": 1,
+              "net": "0",
+              "balance": "1000"
+            }
+          }
+        }
+      }
+    ],
+    "notificationSupported": false,
+    "dialogs": [],
+    "exports": [],
+    "fixtureAccounts": [
+      "fixture-me",
+      "fixture-foe"
+    ],
+    "errors": [],
+    "firstFrame": true,
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-GlMRO6",
+    "windows": [
+      "file:///Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+      "file:///Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+    ]
+  },
+  "errors": [],
+  "isolation": {
+    "globalHooks": false,
+    "permissionPrompts": false,
+    "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+    "notifications": false,
+    "input": "none from launcher; UI cases use native sendInputEvent",
+    "clock": "real time; one debugger pause to install read-only closure observer",
+    "data": "owned fixture directory only"
+  },
+  "packageBinding": {
+    "checked": 119,
+    "mismatches": [],
+    "passed": true
+  },
+  "finishedAt": "2026-09-18T02:39:27.220Z",
+  "exitCode": 0,
+  "signal": null,
+  "appUnchanged": true,
+  "passed": true
+}

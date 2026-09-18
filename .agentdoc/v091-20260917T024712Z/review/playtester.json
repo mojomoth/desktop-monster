@@ -1,0 +1,57 @@
+{
+  "role": "Playtester",
+  "agentId": "/root",
+  "requestId": "55fc3945-b61f-4f07-9d40-981e13266094",
+  "verdict": "pass",
+  "findings": [
+    "Designer→Critic→Balance의 실제 응답을 차례로 읽고 동의합니다. 기능 구현과 로컬 자동 검증의 PASS이며 공개 출시 승인이 아닙니다. 세 역할의 독립 근거를 Host의 저장/네트워크 통합 검사와 함께 확인했습니다.",
+    "Host가 native-06/first/defense-replay.png와 attack/attack-menu.png를 직접 열었습니다. VS 배너 아래의 한글 상대·전투 중 안내, 우측 금화, 실제 메뉴의 전투 재생 잠금 및 +50G 결과가 서로 충돌하지 않았습니다. 첫 방어 상태 950G, 전투 종료 후 같은 GameState/SaveFile 시점에서 사냥·입력이 재개되는 29개 실앱 검사와 재시작 중복 정산 방지 기록을 확인했습니다.",
+    "최종 소스 digest 76b0693d2435abf00f71d92a6590992d60617af1c8ec87d7ae005bc09a924657에서 정확히 npm test && npm run lint && npm run typecheck를 실행해 1,133개 테스트·lint·타입 검사 모두 통과했습니다. 등록한 V091-01~05 AC를 그대로 실행하고 의존성 순서대로 verify하여 5개 task가 verified입니다. 원본 실패 시도와 로그는 남아 있습니다.",
+    "100seed의 200개 사냥 궤적 및 1,200개 금화 정책행을 직접 재검증했습니다. 75G 보호, 회당 최대75G/5%, 공격자 stake, dayPeak10%/일최대250G, 동일 상대60분 보호로 결정했고 금화 보존과 부채 상환/복원 일관성을 확인했습니다.",
+    "최종 smoke/package/package:win AC도 통과했습니다. artifacts.json의 최종 Mac/Windows 앱 각각 112개 dist/static 파일이 현재 빌드와 같고 버전0.9.1, 네이티브 모듈 및 개발 steam_appid 제외를 확인했습니다. 마지막 재패키징으로 DMG 컨테이너 해시는 과거 install-02와 달라졌으나 ASAR는 그대로입니다. install-03에서 최종 DMG를 읽기 전용 마운트해 실제 native-06에서 실행한 ASAR48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5와 동일함을 확인하고 정상 분리했습니다.",
+    "기존 소스와 앱 보존 manifest를 다시 검증했습니다. CURRENT=v3 및 과거 하네스를 유지했고, 이번 변경은 changes.json에 분리했습니다. 개인 저장·인증·전역 입력·운영 PvP와 배포는 사용하지 않았습니다."
+  ],
+  "pending": [
+    "실제 PostgreSQL 신규 gold migration/트랜잭션 검사는 로컬 DB/daemon 환경 부재로 실패했으며 checks=[]입니다. 실행 가능한 로컬 환경에서 준비된 checker를 통과해야 합니다.",
+    "운영 서버 배포와 공유 DB를 사용하는 구서비스의 동시 전환이 필요합니다. 새 클라이언트의 gold-v1 기능을 운영에 반영했다고 보고하지 않습니다.",
+    "Windows11 실기기 입력/DPI/멀티모니터/설치 수명주기, 실제 Steam AppID/연결, 실제 OS 권한·알림, 사람 재미와 기존 장시간 성능 행렬은 대기입니다. 가상 시드 측정을 실제 경과 플레이로 합산하지 않습니다."
+  ],
+  "evidence": [
+    {
+      "report": "0",
+      "pointer": "/passed"
+    },
+    {
+      "report": "0",
+      "pointer": "/attempts/0/ui/screenshots/1"
+    },
+    {
+      "report": "0",
+      "pointer": "/attempts/2/ui/checks"
+    },
+    {
+      "report": "0",
+      "pointer": "/attempts/3/ui/checks"
+    },
+    {
+      "report": "1",
+      "pointer": "/summary"
+    },
+    {
+      "report": "1",
+      "pointer": "/rawHash"
+    },
+    {
+      "report": "2",
+      "pointer": "/checks"
+    },
+    {
+      "report": "2",
+      "pointer": "/error"
+    },
+    {
+      "report": "3",
+      "pointer": "/asarHash"
+    }
+  ]
+}

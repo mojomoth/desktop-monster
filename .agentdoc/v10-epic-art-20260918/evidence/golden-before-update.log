@@ -1,0 +1,64 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ❯ tests/equippedHeroCache.test.ts (4 tests | 2 failed) 14517ms
+   × bounded equipment rendering caches > preserves the pre-optimization final pixels of 57,960 equipped hero views 13493ms
+     → expected { …(2) } to deeply equal { …(2) }
+   × bounded equipment rendering caches > preserves the pre-optimization final pixels of 3,840 fever/KO composites 1013ms
+     → expected { …(2) } to deeply equal { …(2) }
+   ✓ bounded equipment rendering caches > reuses geometry across owned copies and shimmer cycles without conflating pose, flip or hit tint 1ms
+   ✓ bounded equipment rendering caches > evicts old composites when forms change instead of retaining every visited combination 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/equippedHeroCache.test.ts > bounded equipment rendering caches > preserves the pre-optimization final pixels of 57,960 equipped hero views
+AssertionError: expected { …(2) } to deeply equal { …(2) }
+
+- Expected
++ Received
+
+  {
+    "count": 57960,
+-   "sha256": "69a4c24e5b91de5185feaff59854719f547176858897f7a3949cf42dfa248bbe",
++   "sha256": "1b91162ab187c4c33f8e1473eeecde5c5abd178146e398fe9f53bbda64aaeef8",
+  }
+
+ ❯ tests/equippedHeroCache.test.ts:39:32
+     37| describe('bounded equipment rendering caches', () => {
+     38|   it('preserves the pre-optimization final pixels of 57,960 equipped h…
+     39|     expect(fingerprint(false)).toEqual({ sha256: '69a4c24e5b91de5185fe…
+       |                                ^
+     40|   }, 30000);
+     41| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/equippedHeroCache.test.ts > bounded equipment rendering caches > preserves the pre-optimization final pixels of 3,840 fever/KO composites
+AssertionError: expected { …(2) } to deeply equal { …(2) }
+
+- Expected
++ Received
+
+  {
+    "count": 3840,
+-   "sha256": "532476e5ba98d8d829d67cf2e9c5e2a20592b91561f8b4ddadec6fae35287ced",
++   "sha256": "69765b2f3bf0972e50db9de466ab6553cc430ae3822c6de148cb023a74195666",
+  }
+
+ ❯ tests/equippedHeroCache.test.ts:43:31
+     41| 
+     42|   it('preserves the pre-optimization final pixels of 3,840 fever/KO co…
+     43|     expect(fingerprint(true)).toEqual({ sha256: '532476e5ba98d8d829d67…
+       |                               ^
+     44|   }, 30000);
+     45| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  11:29:40
+   Duration  14.91s (transform 138ms, setup 0ms, collect 189ms, tests 14.52s, environment 0ms, prepare 42ms)
+

@@ -1,0 +1,14 @@
+{
+  "status": "DRAFT_ONLY_PENDING_V05",
+  "source": {
+    "path": "src/core/engine.ts",
+    "before": "b6a5e37e0e9c1deac157ca3349d0835511a64045fc5298db00ffee3cbc5f472b",
+    "after": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3"
+  },
+  "test": {
+    "path": "tests/engine.test.ts",
+    "before": "ea6f5d7c2f8274c9436466eb9715dcf412624cf20bed1afb5d39d9a44087af51",
+    "after": "041f6cb415265695ac4203477d0bef0fd7f5ff7e5ae5f65274f80e606c3850d1"
+  },
+  "preservation": "Original count1 next2=false, capture/sacrifice/restart and RNG assertions retained verbatim inside actualengine explicitcount1 isolation. Productionparameter behavior willbe separately tested in progressionV7."
+}

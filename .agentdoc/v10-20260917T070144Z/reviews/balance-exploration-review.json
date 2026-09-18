@@ -1,0 +1,466 @@
+{
+  "reviewer": "/root/backend_v10",
+  "mode": "exploration-only",
+  "candidateChecks": [
+    {
+      "id": "A",
+      "rows": 480,
+      "checks": {
+        "firstPurchase": true,
+        "weaponBenefit": false,
+        "allTiersUsed": true,
+        "processing": true
+      },
+      "firstCommonPurchaseMinutes": {
+        "p10": 24,
+        "p50": 51.5,
+        "p90": null,
+        "nonarrival": 9
+      },
+      "weaponGainPercent": {
+        "p10": 2.77,
+        "p50": 4.74,
+        "p90": 9.5,
+        "nonarrival": 0
+      },
+      "tierUsers": [
+        120,
+        119,
+        120,
+        120
+      ],
+      "maximumProcessingMsPerVirtualHour": 967.8581781187498
+    },
+    {
+      "id": "B",
+      "rows": 480,
+      "checks": {
+        "firstPurchase": true,
+        "weaponBenefit": true,
+        "allTiersUsed": true,
+        "processing": true
+      },
+      "firstCommonPurchaseMinutes": {
+        "p10": 56,
+        "p50": 80,
+        "p90": null,
+        "nonarrival": 8
+      },
+      "weaponGainPercent": {
+        "p10": 5.2,
+        "p50": 16.38,
+        "p90": 26.16,
+        "nonarrival": 0
+      },
+      "tierUsers": [
+        120,
+        113,
+        120,
+        120
+      ],
+      "maximumProcessingMsPerVirtualHour": 818.9008885437499
+    },
+    {
+      "id": "C",
+      "rows": 480,
+      "checks": {
+        "firstPurchase": true,
+        "weaponBenefit": true,
+        "allTiersUsed": true,
+        "processing": true
+      },
+      "firstCommonPurchaseMinutes": {
+        "p10": 57,
+        "p50": 70.5,
+        "p90": 100.5,
+        "nonarrival": 2
+      },
+      "weaponGainPercent": {
+        "p10": 9.21,
+        "p50": 21.11,
+        "p90": 67.63,
+        "nonarrival": 0
+      },
+      "tierUsers": [
+        120,
+        114,
+        120,
+        120
+      ],
+      "maximumProcessingMsPerVirtualHour": 865.5989117312504
+    }
+  ],
+  "bindings": {
+    ".harness/v10/balance.mjs": "f930ef050d3700e6c1576bc05cb17cfefefa5953938c95dfa23f48eae5a4ce9d",
+    "docs/v0.10/EVALUATION_PROTOCOL.json": "78ad5df5895b8bab4a9e953a529ba4438a064fb7190e4cd98cab03fa02421652",
+    "docs/v0.10/BALANCE_CANDIDATE.json": "2f4b1e031cfd934ddccc8457280bae21a50485d763e97ce781ccb83a508f7cb5",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/binding.json": "908d99e4d4741d37855e70f425d4407e6777e960d5dbd12e4b19f19619ded6a0",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/report.json": "e3d0228296a915371e14dab00401dcf7a8c49bfab1a7839f60d1573e5642e877",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-new-active.jsonl": "8f0742f653792b7e81e95829c8f68e07aa9f86a566af2e2d171779e9fde0209f",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-intermittent.jsonl": "e870a662f70adbbbe8e5fdfbdf06f91195bbfda87dab68114a6ab870d9d5aaee",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-companion-idle.jsonl": "b6b89c45e71b0c4f33d2e517fe55f94347953b11b576b960bb27de1fa85008ba",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-wealthy-save.jsonl": "4361a6341805e8beb5077137a6e1c0fd7c44bb59feb264fae5e5e528238aa6f6",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-immediate-rebirth.jsonl": "cd04cd1c8d6181dce56c1973c208455b23483a0527a42c639ab0fb21f42bcb53",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-deferred-rebirth.jsonl": "0fc632f830f6e23f238afd538530f0034855bc95de1f46ccf40e4a3427375115",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-enhance-first.jsonl": "fc57dba6be26b7ccb4c0f28c5adcb0ff3436877f667ce9ed190d7d6f34239391",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/A-collect-first.jsonl": "ebf56eb0dd21610bcbc43aaf43df2755208a7da787e777337069ddb5fdb6f205",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-new-active.jsonl": "d6a2e1d81dc5bbceed3ecbb4f0aa9d7aa3438b239a0b9c980cfc1ba393e3d536",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-intermittent.jsonl": "abacf8b82124491de71fb61da331352737a79440852546befc4a769f3012cdcb",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-companion-idle.jsonl": "824b5d7f969c88e2c7e755e5981981ab2677e51f062748bc9c1cf125648353f5",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-wealthy-save.jsonl": "976500e870a6d4e2dfeccac0c70f72d6705c4084727861c7f7ebfa4524568ad2",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-immediate-rebirth.jsonl": "cea7e46b128fd941407cb3b9a5e3720a32da7366cbb85265298abf9868d3c10c",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-deferred-rebirth.jsonl": "29a1619f89a0697b8eeb3cb9641c940c142740aca9063a96d06cf19c675898f9",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-enhance-first.jsonl": "77bc4f8598b72c917ec3fbf5f18eee7ac3463f8c0f15111d5561f181e2db5a00",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/B-collect-first.jsonl": "bbfaa84667e3e406dca83040d06905aa59b1aba8a8eeef6fd4ce7b2446a71e85",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-new-active.jsonl": "405d5104baf66909db90fa5fbad4d4f394e6c71b3eda4580a0c4f00e953c88c1",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-intermittent.jsonl": "25272997e410b079e63062c1548361792ef0104c8bf26ac1d8ab67c0ed3877ce",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-companion-idle.jsonl": "dea8842366133a791d59ebd56ad305dd3d398bb097fb724345b72bde5cd8deaa",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-wealthy-save.jsonl": "64e4a02a20d556f34487f8dde4cce4f3e983fd6ee549e0dc299ed10830d6ae72",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-immediate-rebirth.jsonl": "5d102d648e63fc5fe0c93a3073112b5f0b3535b2e4711ca33369e85e8cd0d788",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-deferred-rebirth.jsonl": "25eab3fc37b557a05415e2fb6c1b13dc745443caa47e6bf7f323aadc9cb96b7d",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-enhance-first.jsonl": "f2898c766c4fa752330e854a7ec511d0528c23d4a763acbc13555649db583c2c",
+    ".agentdoc/v10-20260917T070144Z/balance-explore-04/C-collect-first.jsonl": "321e1af9ab0909b34034dfc5ef53ea330a800a97ea66b094a3f5a39b34181806"
+  },
+  "observations": [
+    {
+      "policy": "new-active",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 13.416666666666666,
+          "users": 20
+        },
+        {
+          "p50": 5.916666666666667,
+          "users": 17
+        },
+        {
+          "p50": 55,
+          "users": 20
+        },
+        {
+          "p50": 356.75,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.004684581998057032,
+      "specificEpicZeroRange": [
+        0.8079099866307706,
+        0.8606804888799513
+      ],
+      "topWeaponTemplate": [
+        "w-staff-rare-4",
+        780.4166666666666
+      ],
+      "spending": {
+        "spent": "196902600",
+        "purchase": "43686000",
+        "enhance": "50556600",
+        "expand": "102660000",
+        "destroyed": 0,
+        "rebirthUnequips": 2556
+      }
+    },
+    {
+      "policy": "intermittent",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 25,
+          "users": 20
+        },
+        {
+          "p50": 10.666666666666666,
+          "users": 20
+        },
+        {
+          "p50": 83,
+          "users": 20
+        },
+        {
+          "p50": 255.33333333333334,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0.1,
+      "predictedEpicZeroRate": 0.22251341766486518,
+      "specificEpicZeroRange": [
+        0.872123560677539,
+        0.9099281362446832
+      ],
+      "topWeaponTemplate": [
+        "w-staff-uncommon-4",
+        612.8333333333334
+      ],
+      "spending": {
+        "spent": "36293800",
+        "purchase": "9558000",
+        "enhance": "18647800",
+        "expand": "8088000",
+        "destroyed": 0,
+        "rebirthUnequips": 6913
+      }
+    },
+    {
+      "policy": "companion-idle",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 7
+        },
+        {
+          "p50": 0,
+          "users": 7
+        },
+        {
+          "p50": 0,
+          "users": 6
+        },
+        {
+          "p50": 0,
+          "users": 8
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0.85,
+      "predictedEpicZeroRate": 0.8838489070478172,
+      "specificEpicZeroRange": [
+        0.9934093369100319,
+        0.9989560923996974
+      ],
+      "topWeaponTemplate": [
+        "w-sword-uncommon-1",
+        573.6666666666666
+      ],
+      "spending": {
+        "spent": "0",
+        "purchase": "0",
+        "enhance": "0",
+        "expand": "0",
+        "destroyed": 0,
+        "rebirthUnequips": 0
+      }
+    },
+    {
+      "policy": "wealthy-save",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 4.166666666666667,
+          "users": 20
+        },
+        {
+          "p50": 0.5,
+          "users": 18
+        },
+        {
+          "p50": 41.75,
+          "users": 20
+        },
+        {
+          "p50": 414.6666666666667,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0.05,
+      "predictedEpicZeroRate": 0.01707367817234447,
+      "specificEpicZeroRange": [
+        0.7755879648521994,
+        0.8344807172268018
+      ],
+      "topWeaponTemplate": [
+        "w-staff-uncommon-4",
+        938.4166666666666
+      ],
+      "spending": {
+        "spent": "269498200",
+        "purchase": "77881500",
+        "enhance": "58716700",
+        "expand": "132900000",
+        "destroyed": 0,
+        "rebirthUnequips": 2833
+      }
+    },
+    {
+      "policy": "immediate-rebirth",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 28.333333333333332,
+          "users": 20
+        },
+        {
+          "p50": 16.166666666666668,
+          "users": 20
+        },
+        {
+          "p50": 119.83333333333333,
+          "users": 20
+        },
+        {
+          "p50": 269.75,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0.05,
+      "predictedEpicZeroRate": 0.0530355931640296,
+      "specificEpicZeroRange": [
+        0.8415070251098132,
+        0.8869546845651086
+      ],
+      "topWeaponTemplate": [
+        "w-staff-uncommon-4",
+        648.9166666666669
+      ],
+      "spending": {
+        "spent": "40753100",
+        "purchase": "3289500",
+        "enhance": "29891600",
+        "expand": "7572000",
+        "destroyed": 0,
+        "rebirthUnequips": 9111
+      }
+    },
+    {
+      "policy": "deferred-rebirth",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 13.416666666666666,
+          "users": 20
+        },
+        {
+          "p50": 5.916666666666667,
+          "users": 17
+        },
+        {
+          "p50": 55,
+          "users": 20
+        },
+        {
+          "p50": 356.75,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.004684581998057032,
+      "specificEpicZeroRange": [
+        0.8079099866307706,
+        0.8606804888799513
+      ],
+      "topWeaponTemplate": [
+        "w-staff-rare-4",
+        780.4166666666666
+      ],
+      "spending": {
+        "spent": "196902600",
+        "purchase": "43686000",
+        "enhance": "50556600",
+        "expand": "102660000",
+        "destroyed": 0,
+        "rebirthUnequips": 2556
+      }
+    },
+    {
+      "policy": "enhance-first",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 13.166666666666666,
+          "users": 20
+        },
+        {
+          "p50": 11,
+          "users": 20
+        },
+        {
+          "p50": 59.416666666666664,
+          "users": 20
+        },
+        {
+          "p50": 350.4166666666667,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0,
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.0016796473374577382,
+      "specificEpicZeroRange": [
+        0.8030005391512225,
+        0.8568427600541435
+      ],
+      "topWeaponTemplate": [
+        "w-staff-uncommon-4",
+        809.3333333333333
+      ],
+      "spending": {
+        "spent": "227814500",
+        "purchase": "25825500",
+        "enhance": "160385000",
+        "expand": "41604000",
+        "destroyed": 47,
+        "rebirthUnequips": 2701
+      }
+    },
+    {
+      "policy": "collect-first",
+      "n": 20,
+      "minutes": 480,
+      "tierMinutes": [
+        {
+          "p50": 13.583333333333334,
+          "users": 20
+        },
+        {
+          "p50": 1.4166666666666667,
+          "users": 20
+        },
+        {
+          "p50": 71.16666666666667,
+          "users": 20
+        },
+        {
+          "p50": 336.4166666666667,
+          "users": 20
+        }
+      ],
+      "fourCopyRate": 0.02877604166666667,
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.00023030300661535768,
+      "specificEpicZeroRange": [
+        0.7959266819082244,
+        0.8515368195073043
+      ],
+      "topWeaponTemplate": [
+        "w-staff-uncommon-4",
+        830.9166666666667
+      ],
+      "spending": {
+        "spent": "185149500",
+        "purchase": "48505500",
+        "enhance": "0",
+        "expand": "136644000",
+        "destroyed": 0,
+        "rebirthUnequips": 2691
+      }
+    }
+  ],
+  "pending": [
+    "Complete held-out validation",
+    "Final report derivations and limitations"
+  ]
+}

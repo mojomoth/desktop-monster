@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "round": 6,
+  "status": "PREPARED_NOT_EXECUTED",
+  "observed": {
+    "protocolPath": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "protocolSha256": "8539a7c718049d5e51434b9157b7f7f86bc15be90d9f9cc0ff47fb2669a25a00",
+    "round": 6,
+    "parameterVersion": 3,
+    "frozenAt": "2026-09-12T06:45:14.642019+00:00",
+    "candidateIds": [
+      "candidate-r6-first63-xp141",
+      "candidate-r6-first5-63-xp142",
+      "candidate-r6-first5-63-xp143"
+    ],
+    "executionCount": 8,
+    "completedCount": 8,
+    "preregisteredArchivePresent": true
+  },
+  "batchScript": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round06-batch.py",
+    "sha256": "b8e54572d1efbd408f243aa715dd7479bc2b8b652217f7398b06ec27b1ef1fbc"
+  },
+  "registeredMeasurementSettings": {
+    "tickMs": 100,
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "seeds": {
+      "baseline": {
+        "start": 1,
+        "count": 100
+      },
+      "exploration": {
+        "start": 10001,
+        "count": 20
+      },
+      "validation": {
+        "start": 1,
+        "count": 100
+      }
+    },
+    "profiles": [
+      "active",
+      "intermittent",
+      "warm-idle",
+      "pure-idle"
+    ],
+    "policies": [
+      "free",
+      "training",
+      "lure",
+      "reroll"
+    ],
+    "inputSchedules": [
+      "uniform",
+      "burst"
+    ],
+    "managementPolicies": [
+      "none",
+      "consume-weakest",
+      "fuse-first",
+      "reincarnate-first"
+    ],
+    "menuVisitSeconds": [
+      0,
+      120,
+      600
+    ],
+    "baseline": {
+      "profile": "active",
+      "policy": "free",
+      "inputSchedule": "uniform",
+      "management": "none",
+      "menuVisitSeconds": 0
+    },
+    "targets": {
+      "firstReincarnation": {
+        "medianMinSec": 2700,
+        "medianMaxSec": 3600,
+        "deadlineSec": 5400,
+        "minimumReachedFraction": 0.9
+      },
+      "lastUnlock": {
+        "medianMinSec": 28800,
+        "medianMaxSec": 43200
+      }
+    },
+    "maximumCandidates": 3,
+    "levelControls": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "validationPolicies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      }
+    ],
+    "explorationHorizonMinutes": 120,
+    "maxArtifactBytes": 268435456,
+    "maxWorkers": 4
+  },
+  "expectedProductionTests": {
+    "files": 4,
+    "tests": 114,
+    "referenceLog": ".agentdoc/v07-setup-20260911T122653Z/evidence/early-capture-repair/focused.log",
+    "referenceLogSha256": "ddb9c3c83e468484976bc9e38244e675004c7845fc7c94fe2d3d2e8d36a6ec53"
+  },
+  "analysisExecuted": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "productSourceModified": false,
+  "evaluatorModified": false,
+  "checksPrepared": [
+    "Read reports/raw/archives/logs only after execution.endedAt; missing=NOT_STARTED and running=INCOMPLETE.",
+    "Bind exact prepared protocol and21 actual source/compiled parameters, six content rules, report/manifest/runs and all archive/log SHA.",
+    "Whole20 and conditional p10/p50/p90/worst, unreached and90min18/20 remain independent.",
+    "Compare same-experiment screening/full only, masking first events after120min and retaining records/actions through7200sec for censored firstAccepted.",
+    "Verify Host screening-full-pairing.json content/hash and same source/evaluator/build, without oldXP141 reference.",
+    "Compute integer100ms gaps and per-seed8-to12h deltas before quantiles; report six named eligibility/seen/acquired and actual rare choices.",
+    "Require8complete screenings and full12h for each screen passer;11reports/220raw only if exactly3pass.",
+    "Selection lists remain empty until all8complete and integrityPASS; rank both-goal passers using integer100ms tuple.",
+    "Compare fresh5control raw with priorRound05 same seed/policy/fixture controls; never inspect validation."
+  ],
+  "historicalAnalyzer": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round05-analysis/analyzer-execution-source.json",
+    "sha256": "fe38bccf8dffbb37f4d197b1300e1caf951a835d9316777dd9f088fbb684c163"
+  },
+  "validationSeedsAccessed": false,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false,
+  "preparationAttemptNote": "Initial in-memory transformation stopped at whitespace assertion before any artifact/source writes. This saved version uses explicit block boundaries and syntax-only Node check; no analyzer execution."
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "mode": "electron-e2e",
+  "sourceDigest": "6b1f37f7491ebb6af84d27a6054c41bf036b66a22eb2dd1dd96dff2b6bd210fb",
+  "command": "node .harness/v5/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/fun-e2e-20260910/e2e-quick.json 0 active",
+  "startedAt": "2026-09-10T04:03:24.916Z",
+  "elapsedMs": 12245.452334000001,
+  "status": "failed",
+  "checks": [],
+  "sessions": [],
+  "screenshots": [],
+  "errors": [
+    "Load failed -6: ERR_FILE_NOT_FOUND file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/static/index.html",
+    "Error: Timeout: production first painted frame\n    at until (/Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/electron-e2e.cjs:36:9)\n    at async /Users/jeongyounglee/work/repo/desktop-monster/.harness/v5/loop/electron-e2e.cjs:117:3"
+  ],
+  "bootstrap": "Production BrowserWindows, preload, renderer, IPC and save; harness lifecycle.",
+  "limitations": [
+    "No human player: enjoyment, distraction and retention remain unverified.",
+    "OS global hooks, Accessibility, tray startup, packaged app and live PvP are not exercised.",
+    "Live renderer uses production RNG and wall clock; distribution claims use separate seeded simulation.",
+    "Scripted fixtures are diagnostic setup, not naturally earned player progress."
+  ]
+}

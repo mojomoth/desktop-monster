@@ -1,0 +1,17 @@
+{
+  "state": "committed",
+  "at": "2026-09-12T04:21:26.078232+00:00",
+  "originalSha256": {
+    ".harness/v7/config.json": "55e16c4c834e4cdd6e1e8c89c68a839f3e89a92bf5940938ebb71a409dc58277",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "ea14642370a2c4ec4c87a4e7cfb7aa31b7c75385fc0bb7a87d339d00a197ec51",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "3a891374f4e0ef5c3bc4e4b1f6c272824e3a52cd89b1807b2f555df060c6cc24",
+    "docs/v0.7/DESIGN_DECISIONS.md": "d661b6feb6e5c16e9e5872486a5b34e98c9bc91714f1835e09c99f70d8ce6a6e",
+    "src/core/progression.ts": "879a23642ddc12124f1871096edece4c242d759e88a8a73d6e1a827287b43549",
+    "tests/progressionV7.test.ts": "2d958af55b6f65c7292203ded8bada08c7a20f2370a22e363f7a4649f634a48d"
+  },
+  "reason": "Register round03 field HP tail: exact numeric parameter version2 (20 fields), fresh reviews/design-round03. V01 owns progressionV7 contract-count test for production export binding; V05 owns subsequent tail implementation. No executor between config and loop writes.",
+  "afterSha256": {
+    ".harness/v7/config.json": "25486e65513c0bf72dbf415677ff3b18538ca7c19169ba325b7a41bb9abb180d",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "0d04fe01df0e3d186aeda337a4dbe7dff2829b599826a9ed6df62bada33bdb6e"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "at": "2026-09-12T17:55:25.425050+00:00",
+  "state": "version-first-applied",
+  "version": "0.7.0",
+  "originals": [
+    {
+      "source": "package.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/package.json.original.txt",
+      "sha256": "309ea3ae9598b79a55cb0759d45490775f9cbd3abfb8318505d205fea2b46407"
+    },
+    {
+      "source": "package-lock.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/package-lock.json.original.txt",
+      "sha256": "4d00439d37b6c6a959ae097bd67f690a63908a3575268d667705b3b108355139"
+    },
+    {
+      "source": "tests/packaging.test.ts",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/tests__packaging.test.ts.original.txt",
+      "sha256": "66e82a6fc609411eb41458a550a67cb318d21414e33877b8e9d5bedc92030340"
+    },
+    {
+      "source": "README.md",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/README.md.original.txt",
+      "sha256": "bf9e79b4f37ac2627ca133c2258a3516902b747970a6c80de5bf401287e85cdd"
+    },
+    {
+      "source": "docs/v0.7/DESIGN_DECISIONS.md",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/docs__v0.7__DESIGN_DECISIONS.md.original.txt",
+      "sha256": "434242525d31f05b4eea178e9b2acf98bd415ed8b0585d670668dbe1ac53dea6"
+    },
+    {
+      "source": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/docs__v0.7__EVALUATION_PROTOCOL.json.original.txt",
+      "sha256": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192"
+    },
+    {
+      "source": ".harness/v7/config.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/.harness__v7__config.json.original.txt",
+      "sha256": "ab4f9422526ea0bc3391fee7276e5562d56363f9b4762e7d70e2ae6fd7712150"
+    },
+    {
+      "source": ".agentdoc/v07-setup-20260911T122653Z/loop.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-18/.agentdoc__v07-setup-20260911T122653Z__loop.json.original.txt",
+      "sha256": "e4ed18c5deee4eaadd367b4d5734fdb8e5b9eb6a7acfb7590690b937d13bb8cf"
+    }
+  ],
+  "mutated": [
+    "package.json",
+    "package-lock.json",
+    "tests/packaging.test.ts",
+    "README.md"
+  ],
+  "after": {
+    "package.json": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a",
+    "package-lock.json": "fd7f73b6343c8e4363f42b502def8e0bcdb663061489d199e86e407b6d1e6137",
+    "tests/packaging.test.ts": "a7441869e0e0edafae2fb3c61935e097e0dc8ebbb43ef78f91a4ff966d248f25",
+    "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef"
+  },
+  "note": "ActualV06started. Versiononly first; no dependency/scripts changes. Final source/evaluator/registration freeze and freshchecks stillpending."
+}

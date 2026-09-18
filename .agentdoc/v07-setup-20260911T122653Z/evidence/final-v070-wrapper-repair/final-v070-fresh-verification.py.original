@@ -1,0 +1,47 @@
+"""Fresh final-source registered V01–04 checks; prepare V05 checks for new validation."""
+from pathlib import Path
+import hashlib
+import json
+import subprocess
+
+R = Path('.agentdoc/v07-setup-20260911T122653Z')
+review = json.loads((R / 'reviews/design-final-v070/session.json').read_text())
+assert review['status'] == 'design_review_complete'
+assert json.loads(Path('package.json').read_text())['version'] == '0.7.0'
+
+def command(*args):
+    result = subprocess.run(['node', '.harness/v7/loop/develop.mjs', args[0], str(R), *args[1:]], capture_output=True, text=True)
+    print(' '.join(args), result.returncode, flush=True)
+    if result.returncode:
+        print(result.stdout, result.stderr, flush=True)
+        raise SystemExit(result.returncode)
+
+def verify(id, description):
+    loop = json.loads((R / 'loop.json').read_text())
+    task = next(t for t in loop['tasks'] if t['id'] == id)
+    checks = {c['commandId']: c for c in task['attempts'][-1]['checks']}
+    assert set(checks) == {'gates', *[a['id'] for a in task['ac']]}
+    assert all(c['exitCode'] == 0 and c['sourceDigest'] == c['endedDigest'] == review['sourceDigest'] and c['evaluationDigest'] == c['endedEvaluationDigest'] == review['evaluationDigest'] for c in checks.values())
+    lines = [f'# {id} — final0.7 fresh verification', '', description, '', 'Source: ' + review['sourceDigest'], 'Evaluation: ' + review['evaluationDigest'], '',
+        'All registered AC and exact npm test && npm run lint && npm run typecheck passed in fresh executions on the same final source/evaluator/owned files. No test deletion/skip/weakening, no recertification of past results.']
+    lines += [f"- {key}: exit0; {c['log']}; SHA256 {c['sha256']}" for key, c in checks.items()]
+    lines += ['', 'Actual independent Designer/Critic/Balance/Host fullprompt/template review is preserved at reviews/design-final-v070. Originaltray0.6 title caused actual954PASS/1FAIL gate; actualCriticrevision→one-lineproductfix→refresh and newchecks are preserved. Package/lock fixed0.7 FIRST; gameplay21values/content/seed/targets unchanged.', '',
+        'Previous0.6 Round08validation (first2736.6sec/100by90; h70whole40596sec,eligible50/unreached50/selected0) is historical only and not final0.7 performance evidence. Finalnew100,900policytrajectories,330actualNative minutes, audit.mjs/smoke/package/livecompatibility are separate work. HumanChecks=PENDING. No commit/push/deploy.', '']
+    path = R / f'sessions/{id}-final-v070.md'
+    with path.open('x') as stream:
+        stream.write('\n'.join(lines))
+    command('verify', id, str(path))
+
+command('check', 'V07-01', 'design')
+verify('V07-01', 'Final0.7 registration and actual four-role design review complete; latest protocol/harness/gates freshly passed. Numeric adoption unchanged; additive post-observation h70-third-card diagnostic and exacttrayversion addressed.')
+for id, ac, description in [
+    ('V07-02', 'levels', 'Safe companion level roundtrip and lossless overflow, allocation safety, before/after reincarnation confirmation.'),
+    ('V07-03', 'codex', 'Actual acquisitions, legacy ACK intersection, repeated boot and first acquisition notification/goal consistency.'),
+    ('V07-04', 'directory', 'Fifty player rows with hero/party, stable keyboard focus, requested opponent IDs and stale/error handling.')]:
+    command('start', id)
+    command('check', id, ac)
+    command('check', id, 'gates')
+    verify(id, description)
+command('start', 'V07-05')
+for ac in ['progression', 'harness', 'gates']:
+    command('check', 'V07-05', ac)

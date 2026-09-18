@@ -1,0 +1,913 @@
+{
+  "version": 1,
+  "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+  "at": "2026-09-18T00:32:36.841Z",
+  "scope": "performance-result",
+  "verdict": "approved",
+  "reviewer": "/root/equipment_economy",
+  "comparison": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison.json",
+    "sha256": "717d10a3282a2ef067b03798f60c484fee7a54f567800bff1fc626fa0df6569a"
+  },
+  "isolation": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/isolation.json",
+    "sha256": "122b3cb3935626a81ea4728b06bf472d0af9c93cafa4ab0287c04e0aef311a23"
+  },
+  "performanceAcceptance": true,
+  "approvalScope": "Acceptance of the single prospectively registered matched04 performance block against its unchanged regression budgets and sampled process-isolation requirements. This does not approve my own core/economy implementation, claim a causal cache-optimization benefit, or certify all release acceptance conditions.",
+  "prospectiveSelection": {
+    "registration": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04-registration.json",
+      "sha256": "31c6e44bd7040429b2048a386bde751011b59a7ee5d4496526067cc4122b7bad"
+    },
+    "methodReview": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-method-review-04.json",
+      "sha256": "49b4be1c809f26e81ce9468aed6857aba43815cf1358f19cb511511ced126795"
+    },
+    "registeredAt": "2026-09-17T19:23:38.407Z",
+    "methodApprovedAt": "2026-09-17T19:25:00.702Z",
+    "blockStartedAt": "2026-09-17T19:25:41.915Z",
+    "isolationEndedAt": "2026-09-18T00:25:56.107Z",
+    "blockLogEndedAt": "2026-09-18T00:25:56.346Z",
+    "allFiveRegisteredSlotsIncluded": true,
+    "canonicalFilesByteEqualMatched04Originals": true,
+    "crossAttemptMixing": false,
+    "requestedTotalMinutes": 300,
+    "unchangedAppBindings": {
+      "baseline": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Resources/app.asar",
+        "sha256": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5"
+      },
+      "candidate": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+        "sha256": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7"
+      }
+    },
+    "unchangedObserverBindings": {
+      "baseline": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.mjs",
+        "sha256": "c626341277070bc677bdd750bd1ebd0647255808da010369a07d66b04f6a9773"
+      },
+      "candidate": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-v4.mjs",
+        "sha256": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345"
+      }
+    },
+    "unchangedRunnerBinding": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-isolation.mjs",
+      "sha256": "dc58dbcc427ba57968b23ea91d0dbc89d236be7b99197d4a6f826f4cec029048"
+    },
+    "unchangedProtocolBinding": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/PERFORMANCE_PROTOCOL.json",
+      "sha256": "ce803acadae6f41863645b1a46926f6d06ba7f134cd8dc6438de56279104ae24"
+    }
+  },
+  "independentComputations": {
+    "language": "Python 3 standard library; calculations independent of production performance-report.mjs and performance-isolation.mjs",
+    "allRawMetricSamples": 3592,
+    "allStableMetricSamples": 3297,
+    "allRawProcessMetrics": 17960,
+    "allProcessInventories": 3609,
+    "allProcessInventoryEntries": 17999,
+    "uniqueProcessIdentities": 29,
+    "emptyBoundaries": 10,
+    "globalMaximumInventoryGapMs": 5169.0,
+    "startCoverageGapMs": 61.0,
+    "endCoverageGapMs": 278.0,
+    "artifactHashesChecked": 61,
+    "screenshotHashesChecked": 28,
+    "largestCpuSumFloatingDifference": 8.881784197001252e-16,
+    "largestMemorySumDifferenceMiB": 0,
+    "quantileDefinition": "Sort ascending; select index floor((n-1)*q), q=.95 for p95 and q=.5 for median; no interpolated quantiles.",
+    "warmupSelection": "All raw samples retained. Statistics select elapsedMs>=300000. Memory windows are unchanged 5..35 minutes and150..180 minutes with the preexisting terminal-sample tolerance.",
+    "checks": [
+      "Every metric row has unique valid process IDs and finite nonnegative CPU/working-set values; row sums equal the raw process sums.",
+      "Every metric row has preserved save clock, no recorded errors, registered timing coverage and stable measured Browser identity. Registered verifier also checked every active/idle input phase, emitted IPC count and terminal capture interval.",
+      "Every one of3609 process inventories was inspected. Main ownership, app path, fixture marker, PID/start identity, descendant closure, recorded lifecycle and raw Browser creation time agree; no competing identity was found.",
+      "All ten before/after boundaries contain zero DesMon processes; all five lifecycle cleanup records are complete, uncancelled, remaining=[].",
+      "All registered/report/raw/lifecycle/app/observer/protocol bindings match current files. Original failed records and the previous changes-required review still match their registered hashes."
+    ]
+  },
+  "additionalVerifierChecks": [
+    {
+      "command": "node .harness/v10/performance-report.mjs verify .agentdoc/v10-20260917T070144Z/performance/comparison.json",
+      "exitCode": 0,
+      "passed": true
+    },
+    {
+      "function": "verifyIsolation(performance/isolation.json, comparison, currentSource)",
+      "passed": true,
+      "slots": 5
+    }
+  ],
+  "independentCrossCheck": {
+    "reviewer": "/root/equipment_economy/cleanup_counterexamples",
+    "scope": "Read-only process-isolation cross-check, not duplicate numeric quantile approval",
+    "allInventories": 3609,
+    "allProcessEntries": 17999,
+    "emptyBoundaries": 10,
+    "maximumGapMs": 5169,
+    "rawBrowserBindings": 3592,
+    "issues": 0
+  },
+  "slots": {
+    "baseline-active": {
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json",
+        "sha256": "1609b616323fd45fee12dc64f8fdb986afb9cb8e8f0b50bab933a03ab8e859aa"
+      },
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json.samples.jsonl",
+        "sha256": "e8bfaceeb8a141cae2c81f9caf49ad19963f1b16276495be62d61909610b3306",
+        "samples": 360
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json.lifecycle.json",
+        "sha256": "d01735701a9105ca84332988968dce32389225efc2878509e3f0954be936a6ef"
+      },
+      "requestedMinutes": 30,
+      "durationMs": 1800056.248083,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumMetricGapMs": 5024.142917,
+      "stats": {
+        "cpu": {
+          "min": 2.162336383333917,
+          "median": 3.6526523708220933,
+          "p95": 3.8554901757502416,
+          "max": 4.006830180371466
+        },
+        "workingSetMiB": {
+          "min": 308.6875,
+          "median": 321.296875,
+          "p95": 399.578125,
+          "max": 401.984375
+        }
+      },
+      "memoryWindows": {
+        "initialSamples": 301,
+        "initialMedianMiB": 321.296875,
+        "finalSamples": 0,
+        "finalMedianMiB": null
+      },
+      "input": {
+        "actual": 3551,
+        "expected": 3600,
+        "fraction": 0.9863888888888889,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797351.361333,
+            "expectedInputs": 3594.702722666,
+            "actualInputs": 3546
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 51.416541000129655,
+          "expectedInputs": 0.10283308200025931,
+          "actualInputs": 0,
+          "totalAtShutdown": 3551
+        }
+      },
+      "processInventory": {
+        "samples": 362,
+        "duringSamples": 360,
+        "processEntries": 1800,
+        "uniqueIdentities": 5,
+        "mainPid": 18060,
+        "observerPid": 18059,
+        "maximumGapMs": 5073.0,
+        "before": "2026-09-17T19:25:41.976Z",
+        "after": "2026-09-17T19:55:44.410Z",
+        "bothBoundariesEmpty": true,
+        "unexpectedIdentities": 0,
+        "knownReparentedSamples": 0
+      },
+      "cleanup": {
+        "state": "complete",
+        "remaining": [],
+        "cancelSignal": null,
+        "finishedAt": "2026-09-17T19:55:44.336Z"
+      },
+      "observerErrors": [],
+      "processExitCode": 0,
+      "processExitSignal": null
+    },
+    "baseline-idle": {
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json",
+        "sha256": "58395901e74897c164b7d85d358247a9c2afc457ff92f9101e5644d830bb9bb4"
+      },
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.samples.jsonl",
+        "sha256": "98ce8bf43c5d6f1dc6e455be14c86e56658792c035eb33b5c7acecef48a8993f",
+        "samples": 360
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.lifecycle.json",
+        "sha256": "f80f67ac174690f6814ff5611d675253a39d7b7703cccc4e3affebcd8febff27"
+      },
+      "requestedMinutes": 30,
+      "durationMs": 1800054.018083,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumMetricGapMs": 5024.394208,
+      "stats": {
+        "cpu": {
+          "min": 2.1099845451624097,
+          "median": 3.396837374545836,
+          "p95": 3.5690083972751565,
+          "max": 3.7858886053830414
+        },
+        "workingSetMiB": {
+          "min": 282.390625,
+          "median": 311.390625,
+          "p95": 388.28125,
+          "max": 391.109375
+        }
+      },
+      "memoryWindows": {
+        "initialSamples": 301,
+        "initialMedianMiB": 311.390625,
+        "finalSamples": 0,
+        "finalMedianMiB": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797380.556625,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 49.910875000059605,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      },
+      "processInventory": {
+        "samples": 362,
+        "duringSamples": 360,
+        "processEntries": 1800,
+        "uniqueIdentities": 5,
+        "mainPid": 56964,
+        "observerPid": 56963,
+        "maximumGapMs": 5071.0,
+        "before": "2026-09-17T19:55:44.549Z",
+        "after": "2026-09-17T20:25:46.543Z",
+        "bothBoundariesEmpty": true,
+        "unexpectedIdentities": 0,
+        "knownReparentedSamples": 0
+      },
+      "cleanup": {
+        "state": "complete",
+        "remaining": [],
+        "cancelSignal": null,
+        "finishedAt": "2026-09-17T20:25:46.455Z"
+      },
+      "observerErrors": [],
+      "processExitCode": 0,
+      "processExitSignal": null
+    },
+    "candidate-active": {
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json",
+        "sha256": "6629f3c5291e48f052f03ba1e7ba81a1089e942b8f8232b52e0a7169b8761da7"
+      },
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json.samples.jsonl",
+        "sha256": "f7373cf47931d5897e9a3810c794ab1f834d5317b5502e7151dec92aca9effdd",
+        "samples": 360
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json.lifecycle.json",
+        "sha256": "da362356705674f38b51d6a7a32d87cf992cd4ffbe6853b30f8564cd859f5821"
+      },
+      "requestedMinutes": 30,
+      "durationMs": 1800025.52275,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumMetricGapMs": 5015.222375,
+      "stats": {
+        "cpu": {
+          "min": 1.9840660829578738,
+          "median": 3.8387764911067217,
+          "p95": 4.046554483351938,
+          "max": 4.192401860813312
+        },
+        "workingSetMiB": {
+          "min": 270.234375,
+          "median": 292.21875,
+          "p95": 317.59375,
+          "max": 324.515625
+        }
+      },
+      "memoryWindows": {
+        "initialSamples": 301,
+        "initialMedianMiB": 292.21875,
+        "finalSamples": 0,
+        "finalMedianMiB": null
+      },
+      "input": {
+        "actual": 3548,
+        "expected": 3600,
+        "fraction": 0.9855555555555555,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797391.2181250001,
+            "expectedInputs": 3594.78243625,
+            "actualInputs": 3543
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 24.068208999931812,
+          "expectedInputs": 0.04813641799986362,
+          "actualInputs": 0,
+          "totalAtShutdown": 3548
+        }
+      },
+      "processInventory": {
+        "samples": 362,
+        "duringSamples": 360,
+        "processEntries": 1800,
+        "uniqueIdentities": 5,
+        "mainPid": 95869,
+        "observerPid": 95867,
+        "maximumGapMs": 5169.0,
+        "before": "2026-09-17T20:25:46.681Z",
+        "after": "2026-09-17T20:55:50.507Z",
+        "bothBoundariesEmpty": true,
+        "unexpectedIdentities": 0,
+        "knownReparentedSamples": 0
+      },
+      "cleanup": {
+        "state": "complete",
+        "remaining": [],
+        "cancelSignal": null,
+        "finishedAt": "2026-09-17T20:55:50.429Z"
+      },
+      "observerErrors": [],
+      "processExitCode": 0,
+      "processExitSignal": null
+    },
+    "candidate-idle": {
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json",
+        "sha256": "8258ae15a7320072e462474709167f50c92d9f2215e1266c47c70cb7ec57da05"
+      },
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json.samples.jsonl",
+        "sha256": "029de439da42e5bed54a121beab63adfdaa09da7c05a268c86522aebba5e9cef",
+        "samples": 360
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json.lifecycle.json",
+        "sha256": "04b008f788e2e7776abc9773ee1aef526651e4f1bdfc391720bcac535258ca45"
+      },
+      "requestedMinutes": 30,
+      "durationMs": 1800038.229417,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumMetricGapMs": 5016.756624999922,
+      "stats": {
+        "cpu": {
+          "min": 1.6709724550597669,
+          "median": 3.642686407869453,
+          "p95": 3.877960741372505,
+          "max": 4.088155803783017
+        },
+        "workingSetMiB": {
+          "min": 253.90625,
+          "median": 283.828125,
+          "p95": 294.96875,
+          "max": 305.5625
+        }
+      },
+      "memoryWindows": {
+        "initialSamples": 301,
+        "initialMedianMiB": 283.828125,
+        "finalSamples": 0,
+        "finalMedianMiB": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797518.34625,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 36.609875000081956,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      },
+      "processInventory": {
+        "samples": 362,
+        "duringSamples": 360,
+        "processEntries": 1800,
+        "uniqueIdentities": 5,
+        "mainPid": 35765,
+        "observerPid": 35764,
+        "maximumGapMs": 5088.0,
+        "before": "2026-09-17T20:55:50.638Z",
+        "after": "2026-09-17T21:25:52.407Z",
+        "bothBoundariesEmpty": true,
+        "unexpectedIdentities": 0,
+        "knownReparentedSamples": 0
+      },
+      "cleanup": {
+        "state": "complete",
+        "remaining": [],
+        "cancelSignal": null,
+        "finishedAt": "2026-09-17T21:25:52.300Z"
+      },
+      "observerErrors": [],
+      "processExitCode": 0,
+      "processExitSignal": null
+    },
+    "mixed": {
+      "report": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json",
+        "sha256": "13b413a0ed3fcd5e52dccce21111b02060a23dd5e90c58435e5542fa8f3dc7f8"
+      },
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.samples.jsonl",
+        "sha256": "f0e8b5ca8d3dcaeae8248b32f2589b8c5b0af7d1f33d2aae8d8c5ce7f032ff2c",
+        "samples": 2152
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.lifecycle.json",
+        "sha256": "a66a09478d53525ae548dd6ea60bf4bcd9ba8193dcead9868bcad173def58d46"
+      },
+      "requestedMinutes": 180,
+      "durationMs": 10801615.990708001,
+      "rawSamples": 2152,
+      "stableSamples": 2093,
+      "maximumMetricGapMs": 6629.1677919998765,
+      "stats": {
+        "cpu": {
+          "min": 1.9815292623211296,
+          "median": 3.893708636753856,
+          "p95": 4.165332631092766,
+          "max": 4.416005985895014
+        },
+        "workingSetMiB": {
+          "min": 255.109375,
+          "median": 301.515625,
+          "p95": 330.09375,
+          "max": 375.09375
+        }
+      },
+      "memoryWindows": {
+        "initialSamples": 359,
+        "initialMedianMiB": 303.25,
+        "finalSamples": 359,
+        "finalMedianMiB": 300
+      },
+      "input": {
+        "actual": 10650,
+        "expected": 10800,
+        "fraction": 0.9861111111111112,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 300000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 295419.014292,
+            "expectedInputs": 590.838028584,
+            "actualInputs": 582
+          },
+          {
+            "startMs": 300000,
+            "endMs": 600000,
+            "measuredFromMs": 300425.64979199995,
+            "measuredThroughMs": 595836.539,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 600000,
+            "endMs": 900000,
+            "measuredFromMs": 600843.947875,
+            "measuredThroughMs": 897776.807,
+            "expectedInputs": 593.8657182500001,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 900000,
+            "endMs": 1200000,
+            "measuredFromMs": 902783.7230829999,
+            "measuredThroughMs": 1198191.1415000001,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 1200000,
+            "endMs": 1500000,
+            "measuredFromMs": 1203200.296083,
+            "measuredThroughMs": 1495148.6266670001,
+            "expectedInputs": 583.8966611680002,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 1500000,
+            "endMs": 1800000,
+            "measuredFromMs": 1500155.3406250002,
+            "measuredThroughMs": 1795578.2585,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 1800000,
+            "endMs": 2100000,
+            "measuredFromMs": 1800586.6349580002,
+            "measuredThroughMs": 2097465.192333,
+            "expectedInputs": 593.7571147499992,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 2100000,
+            "endMs": 2400000,
+            "measuredFromMs": 2102472.213792,
+            "measuredThroughMs": 2397885.636042,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 2400000,
+            "endMs": 2700000,
+            "measuredFromMs": 2402893.56175,
+            "measuredThroughMs": 2699911.4104999998,
+            "expectedInputs": 594.0356974999997,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 2700000,
+            "endMs": 3000000,
+            "measuredFromMs": 2704917.587458,
+            "measuredThroughMs": 2995296.679125,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 3000000,
+            "endMs": 3300000,
+            "measuredFromMs": 3000299.801375,
+            "measuredThroughMs": 3297280.49125,
+            "expectedInputs": 593.9613797500003,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 3300000,
+            "endMs": 3600000,
+            "measuredFromMs": 3302286.861875,
+            "measuredThroughMs": 3597694.119625,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 3600000,
+            "endMs": 3900000,
+            "measuredFromMs": 3602699.4853749997,
+            "measuredThroughMs": 3899588.880667,
+            "expectedInputs": 593.7787905840007,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 3900000,
+            "endMs": 4200000,
+            "measuredFromMs": 3904596.463625,
+            "measuredThroughMs": 4194996.893292,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 4200000,
+            "endMs": 4500000,
+            "measuredFromMs": 4200003.989417,
+            "measuredThroughMs": 4497029.297708,
+            "expectedInputs": 594.0506165820007,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 4500000,
+            "endMs": 4800000,
+            "measuredFromMs": 4502036.402542,
+            "measuredThroughMs": 4797446.871917,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 4800000,
+            "endMs": 5100000,
+            "measuredFromMs": 4802454.132583,
+            "measuredThroughMs": 5099442.814583,
+            "expectedInputs": 593.9773640000001,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 5100000,
+            "endMs": 5400000,
+            "measuredFromMs": 5104450.517458,
+            "measuredThroughMs": 5399857.061458,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 5400000,
+            "endMs": 5700000,
+            "measuredFromMs": 5404863.223625,
+            "measuredThroughMs": 5696660.077958,
+            "expectedInputs": 583.5937086660006,
+            "actualInputs": 575
+          },
+          {
+            "startMs": 5700000,
+            "endMs": 6000000,
+            "measuredFromMs": 5701668.043625,
+            "measuredThroughMs": 5997057.784583,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 6000000,
+            "endMs": 6300000,
+            "measuredFromMs": 6002064.253958,
+            "measuredThroughMs": 6299071.929042,
+            "expectedInputs": 594.0153501680009,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 6300000,
+            "endMs": 6600000,
+            "measuredFromMs": 6304079.5675,
+            "measuredThroughMs": 6599494.872833,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 6600000,
+            "endMs": 6900000,
+            "measuredFromMs": 6604502.452708,
+            "measuredThroughMs": 6896509.342917,
+            "expectedInputs": 584.0137804179992,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 6900000,
+            "endMs": 7200000,
+            "measuredFromMs": 6901517.3174169995,
+            "measuredThroughMs": 7196893.506667,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 7200000,
+            "endMs": 7500000,
+            "measuredFromMs": 7201900.505333,
+            "measuredThroughMs": 7498839.347542,
+            "expectedInputs": 593.8776844180003,
+            "actualInputs": 586
+          },
+          {
+            "startMs": 7500000,
+            "endMs": 7800000,
+            "measuredFromMs": 7503846.694583,
+            "measuredThroughMs": 7799245.737416999,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 7800000,
+            "endMs": 8100000,
+            "measuredFromMs": 7804252.526333,
+            "measuredThroughMs": 8096247.118458,
+            "expectedInputs": 583.9891842500009,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 8100000,
+            "endMs": 8400000,
+            "measuredFromMs": 8101251.403292,
+            "measuredThroughMs": 8396658.280375,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 8400000,
+            "endMs": 8700000,
+            "measuredFromMs": 8401665.425542,
+            "measuredThroughMs": 8698612.337667,
+            "expectedInputs": 593.8938242499977,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 8700000,
+            "endMs": 9000000,
+            "measuredFromMs": 8703620.232333,
+            "measuredThroughMs": 8999007.378167,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 9000000,
+            "endMs": 9300000,
+            "measuredFromMs": 9004013.91575,
+            "measuredThroughMs": 9295831.881833,
+            "expectedInputs": 583.635932165999,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 9300000,
+            "endMs": 9600000,
+            "measuredFromMs": 9300839.752917,
+            "measuredThroughMs": 9596222.838958,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 9600000,
+            "endMs": 9900000,
+            "measuredFromMs": 9601228.761125,
+            "measuredThroughMs": 9898027.526625,
+            "expectedInputs": 593.5975309999995,
+            "actualInputs": 585
+          },
+          {
+            "startMs": 9900000,
+            "endMs": 10200000,
+            "measuredFromMs": 9903031.136375,
+            "measuredThroughMs": 10198220.377875,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          },
+          {
+            "startMs": 10200000,
+            "endMs": 10500000,
+            "measuredFromMs": 10203224.074332999,
+            "measuredThroughMs": 10495156.417167,
+            "expectedInputs": 583.8646856680028,
+            "actualInputs": 576
+          },
+          {
+            "startMs": 10500000,
+            "endMs": 10800000,
+            "measuredFromMs": 10500163.204458,
+            "measuredThroughMs": 10795525.723958,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 1611.4259580019861,
+          "expectedInputs": 3.222851916003972,
+          "actualInputs": 3,
+          "totalAtShutdown": 10653
+        }
+      },
+      "processInventory": {
+        "samples": 2161,
+        "duringSamples": 2159,
+        "processEntries": 10799,
+        "uniqueIdentities": 9,
+        "mainPid": 74722,
+        "observerPid": 74721,
+        "maximumGapMs": 5133.0,
+        "before": "2026-09-17T21:25:52.540Z",
+        "after": "2026-09-18T00:25:55.829Z",
+        "bothBoundariesEmpty": true,
+        "unexpectedIdentities": 0,
+        "knownReparentedSamples": 0
+      },
+      "cleanup": {
+        "state": "complete",
+        "remaining": [],
+        "cancelSignal": null,
+        "finishedAt": "2026-09-18T00:25:55.739Z"
+      },
+      "observerErrors": [],
+      "processExitCode": 0,
+      "processExitSignal": null
+    }
+  },
+  "recomputedComparisons": [
+    {
+      "profile": "active",
+      "cpu": {
+        "baseline": 3.8554901757502416,
+        "candidate": 4.046554483351938,
+        "limit": 4.8554901757502416,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 399.578125,
+        "candidate": 317.59375,
+        "limit": 479.49375,
+        "passed": true
+      }
+    },
+    {
+      "profile": "idle",
+      "cpu": {
+        "baseline": 3.5690083972751565,
+        "candidate": 3.877960741372505,
+        "limit": 4.569008397275157,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 388.28125,
+        "candidate": 294.96875,
+        "limit": 465.9375,
+        "passed": true
+      }
+    }
+  ],
+  "recomputedMixedGrowth": {
+    "initialMedianMiB": 303.25,
+    "finalMedianMiB": 300,
+    "limitMiB": 363.9,
+    "passed": true
+  },
+  "budgetDisclosure": {
+    "formulas": {
+      "cpu": "max(baseline p95 * 1.1, baseline p95 + 1 percentage point)",
+      "workingSet": "max(baseline p95 * 1.2, baseline p95 + 50 MiB)",
+      "mixed": "max(initial median * 1.2, initial median + 50 MiB)"
+    },
+    "originalLimitsMiB": {
+      "active": 290.375,
+      "idle": 322.40625
+    },
+    "rejectedMatched03LimitsMiB": {
+      "active": 376.33125,
+      "idle": 403.59375
+    },
+    "matched04LimitsMiB": {
+      "active": 479.49375,
+      "idle": 465.9375
+    },
+    "candidateActiveMiB": 317.59375,
+    "candidateActiveAboveOriginalLimitMiB": 27.21875,
+    "explanation": "The same registered formulas applied to a fresh prospectively fixed baseline produce higher numerical limits. This block passes those registered comparisons. The candidate active value still exceeds the original290.375MiB limit; original failures are not retroactively passes and an absolute original-memory-cap claim is unsupported."
+  },
+  "preservedPriorResults": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison-failed-01.json",
+      "sha256": "7aee86fa0167a737818258db7e5b5f043e784821f35e28e613d7e48e5990fc75"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/attempt-02/active-verdict.json",
+      "sha256": "24060dedebcceec8940abe900e2af1538c71284a0e0f7f912d667c23931c5b1c"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/comparison.json",
+      "sha256": "f9718b891daab049241b8a25761613bf57407298674eb671f3cc49be1d365882"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-result-review.json",
+      "sha256": "d1a53a0653ee68f212493f65df7c3fa57fc7f101c178cb168838e59783e82325"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/orphan-cleanup-matched03.json",
+      "sha256": "1721eedae83e4c133a82678c4c5b2ed4bd0193d08fb2ea3bd07ef3c14bf7e70d"
+    }
+  ],
+  "journalEvidence": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/sessions/host-01.md",
+    "sections": [
+      "Matched04 launch2026-09-17T19:25:41.838Z",
+      "Matched04 full block finished2026-09-18T00:25:56.346Z"
+    ],
+    "assessment": "Host recorded all competing agent tests/builds/Electron/simulation stopped through the block. Task01..09 acceptance receipts precede the block; the process records do not independently prove absence of arbitrary Node workloads."
+  },
+  "limitations": [
+    "A single fixed-order block with ordinary user applications left untouched does not control ambient load, memory reclamation, thermal or power state, or baseline-versus-candidate time order. No causal improvement from renderer caching is inferred.",
+    "CPU p95 is higher for the candidate than its same-block baseline but remains within the registered CPU budget. RAM and mixed medians are observed working-set statistics, not a battery-life or unique physical-RAM measure; shared pages can be counted more than once.",
+    "Inventories are sampled about every5seconds. Processes whose whole lifetime lies between samples, arbitrary generic Node/build jobs, and original capture authenticity are not proven absent by these records. Registration, immutable bindings and the work journal establish the available evidence boundary.",
+    "The observed process lifecycle passed without survivors. This does not eliminate uncatchable crashes, future markerless helpers, or the non-atomic ps-to-kill identity race.",
+    "Input is synthetic production IPC with observed scheduling loss (about98.6% emitted-count coverage), accepted under the unchanged registered95% coverage requirement. It is not manual global-hook, human-fun or audio-experience testing.",
+    "This review does not substitute for the independent core/backend/art reviews, Windows-hardware validation, real PostgreSQL validation, or final integration acceptance."
+  ]
+}

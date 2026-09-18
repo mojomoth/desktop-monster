@@ -1,0 +1,7 @@
+
+> desmon@0.10.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+tests/v10Review.test.ts(93,39): error TS2345: Argument of type '{ id: number; send: Mock<Procedure>; getURL: () => "file:///app/static/index.html"; }' is not assignable to parameter of type '{ id: number; send: Mock<Procedure>; getURL: () => "file:///app/static/menu.html"; }'.
+  The types returned by 'getURL()' are incompatible between these types.
+    Type '"file:///app/static/index.html"' is not assignable to type '"file:///app/static/menu.html"'.

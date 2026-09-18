@@ -1,0 +1,5713 @@
+{
+  "version": 10,
+  "selected": "C",
+  "source": {
+    "validationReportHash": "03a4c05c95017654ef9c60194781708b6baa4d758670bf4374c4f6ad647c2bdb",
+    "baselineReportHash": "389f8069ff5cdbe0945aa4b3d01c8f954dafdaeeabf4bf0431edecf32c4de1c3",
+    "raw": {
+      "new-active": "185d2a6b97dd6f414b4e7a21b8045533f623fdc51a8ea0189591a51cde67f7bb",
+      "intermittent": "42aa0b011a7313a97cf78d7c1e99b5a16a8e84f82a9439bb80396ac725851207",
+      "companion-idle": "1910acd51385c98fbfcf7f63f9b45430f19e668142fc1d4ec3b90a8461264d61",
+      "wealthy-save": "fc86e715b031f2f63dc489bd708725ec89f755846de8277b6a90abd6790b1a82",
+      "immediate-rebirth": "8e0500ff5df2375ba97b88602bd0fd78fb4064ae7c133f5076fa1502fc830a48",
+      "deferred-rebirth": "b0680b0bb30903f71a383f8701e09656896254ef8028ec97f8c0b4e6ad51243b",
+      "enhance-first": "f31df39cae95f1b23c74b3cd8e99b53d67078f1fc1c37f7ac46308de0c301d96",
+      "collect-first": "e573dbd4e2bb2df467402ea757238692da8396abcd48171310e68b143c58a2b3"
+    }
+  },
+  "definitions": {
+    "weaponContributionPointsPer1000GrossGearGold": "1000 × checkpoint weaponGainPercent / (cumulative spent − expansionSpend); includes purchase and enhancement spending on all gear, dropped gear and rebirth effects; descriptive, not causal purchase ROI. Zero spend is undefined and explicitly counted, not silently removed.",
+    "topWeaponTemplates": "Top five by pooled equipped weapon minutes; denominator is all equipped weapon minutes within this policy/horizon. Accessory template minutes were not recorded; identical four-copy uptime was recorded.",
+    "spendingFractionOfAvailableGold": "Cumulative spending / (ordinary gold income + sale proceeds + initial wealthy fixture funds). Median component amounts do not sum to a median identity."
+  },
+  "groups": [
+    {
+      "policy": "new-active",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 72,
+        "p50": 745,
+        "p90": 1519,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 1001,
+        "p50": 1272,
+        "p90": 1790,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 65.75,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 1,
+        "p90": 3,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 130000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 22
+        },
+        {
+          "p50": 0,
+          "users": 34
+        },
+        {
+          "p50": 0,
+          "users": 25
+        },
+        {
+          "p50": 0,
+          "users": 24
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 1,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 1,
+        "w-sword-epic-2": 1,
+        "w-sword-epic-3": 1,
+        "w-sword-epic-4": 1,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 1,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 1
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 42.910683519995494,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 64,
+        "p10": 0,
+        "p50": 15.514285714285714,
+        "p90": 88.23333333333333,
+        "zeroSpend": 36
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.49019607843137253,
+        "p90": 0.9433962264150944
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 97.83333333333333,
+          "share": 0.048752128233877326,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 87.16666666666667,
+          "share": 0.04343673435488559,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 83.5,
+          "share": 0.04160956770898218,
+          "players": 5
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 81.58333333333334,
+          "share": 0.04065445787135086,
+          "players": 3
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 80.58333333333334,
+          "share": 0.04015613969519538,
+          "players": 4
+        }
+      ],
+      "weaponTemplatesUsed": 58,
+      "specificEpicZeroRange": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "new-active",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 13307,
+        "p50": 95863,
+        "p90": 482568,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 262131,
+        "p50": 1251960,
+        "p90": 2983659,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 284800,
+        "p50": 1332800,
+        "p90": 2997300,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 49.5,
+        "p50": 66,
+        "p90": 90,
+        "nonarrival": 1
+      },
+      "firstCommonPurchase": {
+        "p10": 50,
+        "p50": 70,
+        "p90": null,
+        "nonarrival": 21
+      },
+      "weaponGainPercent": {
+        "p10": 8.75,
+        "p50": 19.36,
+        "p90": 40.69,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 125200,
+        "p50": 545100,
+        "p90": 1253300,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 45000,
+        "p50": 381000,
+        "p90": 1533000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 7,
+        "p50": 59,
+        "p90": 175,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 53,
+        "p50": 80,
+        "p90": 94,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 56,
+        "p50": 80,
+        "p90": 96,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 65000,
+        "p50": 1200000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0.8333333333333334,
+          "users": 99
+        },
+        {
+          "p50": 6.333333333333333,
+          "users": 82
+        },
+        {
+          "p50": 14.416666666666666,
+          "users": 95
+        },
+        {
+          "p50": 43.25,
+          "users": 96
+        }
+      ],
+      "epicZeroRate": 0.23,
+      "predictedEpicZeroRate": 0.307395575199542,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9614640285280766,
+        "w-sword-epic-2": 0.9614640285280766,
+        "w-sword-epic-3": 0.9614640285280766,
+        "w-sword-epic-4": 0.9614640285280766,
+        "w-greatsword-epic-1": 0.967441509592146,
+        "w-greatsword-epic-2": 0.967441509592146,
+        "w-greatsword-epic-3": 0.967441509592146,
+        "w-greatsword-epic-4": 0.967441509592146,
+        "w-spear-epic-1": 0.9746086058117501,
+        "w-spear-epic-2": 0.9746086058117501,
+        "w-spear-epic-3": 0.9746086058117501,
+        "w-spear-epic-4": 0.9746086058117501,
+        "w-gun-epic-1": 0.9792264418081283,
+        "w-gun-epic-2": 0.9792264418081283,
+        "w-gun-epic-3": 0.9792264418081283,
+        "w-gun-epic-4": 0.9792264418081283,
+        "w-dagger-epic-1": 0.9803321126657463,
+        "w-dagger-epic-2": 0.9803321126657463,
+        "w-dagger-epic-3": 0.9803321126657463,
+        "w-dagger-epic-4": 0.9803321126657463,
+        "w-staff-epic-1": 0.9812106943219956,
+        "w-staff-epic-2": 0.9812106943219956,
+        "w-staff-epic-3": 0.9812106943219956,
+        "w-staff-epic-4": 0.9812106943219956,
+        "w-hammer-epic-1": 0.979398550393419,
+        "w-hammer-epic-2": 0.979398550393419,
+        "w-hammer-epic-3": 0.979398550393419,
+        "w-hammer-epic-4": 0.979398550393419,
+        "w-gauntlet-epic-1": 0.9768559911750426,
+        "w-gauntlet-epic-2": 0.9768559911750426,
+        "w-gauntlet-epic-3": 0.9768559911750426,
+        "w-gauntlet-epic-4": 0.9768559911750426,
+        "a-necklace-critical-epic-1": 0.9614640285280766,
+        "a-necklace-critical-epic-2": 0.967441509592146,
+        "a-necklace-critical-epic-3": 0.9746086058117501,
+        "a-necklace-critical-epic-4": 0.9792264418081283,
+        "a-necklace-party-epic-1": 0.967441509592146,
+        "a-necklace-party-epic-2": 0.9746086058117501,
+        "a-necklace-party-epic-3": 0.9792264418081283,
+        "a-necklace-party-epic-4": 0.9803321126657463,
+        "a-ring-critical-epic-1": 0.9746086058117501,
+        "a-ring-critical-epic-2": 0.9792264418081283,
+        "a-ring-critical-epic-3": 0.9803321126657463,
+        "a-ring-critical-epic-4": 0.9812106943219956,
+        "a-ring-party-epic-1": 0.9792264418081283,
+        "a-ring-party-epic-2": 0.9803321126657463,
+        "a-ring-party-epic-3": 0.9812106943219956,
+        "a-ring-party-epic-4": 0.979398550393419,
+        "a-charm-critical-epic-1": 0.9803321126657463,
+        "a-charm-critical-epic-2": 0.9812106943219956,
+        "a-charm-critical-epic-3": 0.979398550393419,
+        "a-charm-critical-epic-4": 0.9768559911750426,
+        "a-charm-party-epic-1": 0.9812106943219956,
+        "a-charm-party-epic-2": 0.979398550393419,
+        "a-charm-party-epic-3": 0.9768559911750426,
+        "a-charm-party-epic-4": 0.9614640285280766
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 356.7453983399986,
+      "purchases": {
+        "n": 100,
+        "p10": 2,
+        "p50": 4,
+        "p90": 6
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 40500,
+        "p50": 256500,
+        "p90": 652500
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 11,
+        "p50": 22,
+        "p90": 32
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 267,
+        "p50": 697,
+        "p90": 1105
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.007583277254374159,
+        "p50": 0.02457204268058647,
+        "p90": 0.09927579963789981,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.693977640681012,
+        "p50": 0.91122822573627,
+        "p90": 0.9853962737559225
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 560.4166666666665,
+          "share": 0.060404915028922465,
+          "players": 39
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 413.83333333333326,
+          "share": 0.04460532461466602,
+          "players": 32
+        },
+        {
+          "id": "w-spear-uncommon-4",
+          "minutes": 337.25000000000006,
+          "share": 0.03635073473933819,
+          "players": 31
+        },
+        {
+          "id": "w-hammer-uncommon-4",
+          "minutes": 260.9166666666667,
+          "share": 0.028123091294506512,
+          "players": 19
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 258.0833333333333,
+          "share": 0.027817698415549874,
+          "players": 22
+        }
+      ],
+      "weaponTemplatesUsed": 118,
+      "specificEpicZeroRange": {
+        "minimum": 0.9614640285280766,
+        "maximum": 0.9812106943219956
+      }
+    },
+    {
+      "policy": "new-active",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 119277,
+        "p50": 1040795,
+        "p90": 5927195,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 3413492,
+        "p50": 9950693,
+        "p90": 22940603,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 3289000,
+        "p50": 8700600,
+        "p90": 18806100,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 49.5,
+        "p50": 66,
+        "p90": 90,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 50,
+        "p50": 70,
+        "p90": null,
+        "nonarrival": 17
+      },
+      "weaponGainPercent": {
+        "p10": 22.08,
+        "p50": 45.6,
+        "p90": 51.83,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 1524700,
+        "p50": 2657300,
+        "p90": 4449700,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 765000,
+        "p50": 3069000,
+        "p90": 12285000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 706,
+        "p50": 1254,
+        "p90": 1942,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 88,
+        "p50": 104,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 88,
+        "p50": 104,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 65000,
+        "p50": 1200000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 4.083333333333333,
+          "users": 100
+        },
+        {
+          "p50": 6.916666666666667,
+          "users": 92
+        },
+        {
+          "p50": 55,
+          "users": 100
+        },
+        {
+          "p50": 358.8333333333333,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.0012172531147593185,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.7982575931612934,
+        "w-sword-epic-2": 0.7982575931612934,
+        "w-sword-epic-3": 0.7982575931612934,
+        "w-sword-epic-4": 0.7982575931612934,
+        "w-greatsword-epic-1": 0.8032211200344892,
+        "w-greatsword-epic-2": 0.8032211200344892,
+        "w-greatsword-epic-3": 0.8032211200344892,
+        "w-greatsword-epic-4": 0.8032211200344892,
+        "w-spear-epic-1": 0.8306883210366375,
+        "w-spear-epic-2": 0.8306883210366375,
+        "w-spear-epic-3": 0.8306883210366375,
+        "w-spear-epic-4": 0.8306883210366375,
+        "w-gun-epic-1": 0.8513126077489866,
+        "w-gun-epic-2": 0.8513126077489866,
+        "w-gun-epic-3": 0.8513126077489866,
+        "w-gun-epic-4": 0.8513126077489866,
+        "w-dagger-epic-1": 0.8523123546980956,
+        "w-dagger-epic-2": 0.8523123546980956,
+        "w-dagger-epic-3": 0.8523123546980956,
+        "w-dagger-epic-4": 0.8523123546980956,
+        "w-staff-epic-1": 0.8531084476105919,
+        "w-staff-epic-2": 0.8531084476105919,
+        "w-staff-epic-3": 0.8531084476105919,
+        "w-staff-epic-4": 0.8531084476105919,
+        "w-hammer-epic-1": 0.8349208834826889,
+        "w-hammer-epic-2": 0.8349208834826889,
+        "w-hammer-epic-3": 0.8349208834826889,
+        "w-hammer-epic-4": 0.8349208834826889,
+        "w-gauntlet-epic-1": 0.8112372539367293,
+        "w-gauntlet-epic-2": 0.8112372539367293,
+        "w-gauntlet-epic-3": 0.8112372539367293,
+        "w-gauntlet-epic-4": 0.8112372539367293,
+        "a-necklace-critical-epic-1": 0.7982575931612934,
+        "a-necklace-critical-epic-2": 0.8032211200344892,
+        "a-necklace-critical-epic-3": 0.8306883210366375,
+        "a-necklace-critical-epic-4": 0.8513126077489866,
+        "a-necklace-party-epic-1": 0.8032211200344892,
+        "a-necklace-party-epic-2": 0.8306883210366375,
+        "a-necklace-party-epic-3": 0.8513126077489866,
+        "a-necklace-party-epic-4": 0.8523123546980956,
+        "a-ring-critical-epic-1": 0.8306883210366375,
+        "a-ring-critical-epic-2": 0.8513126077489866,
+        "a-ring-critical-epic-3": 0.8523123546980956,
+        "a-ring-critical-epic-4": 0.8531084476105919,
+        "a-ring-party-epic-1": 0.8513126077489866,
+        "a-ring-party-epic-2": 0.8523123546980956,
+        "a-ring-party-epic-3": 0.8531084476105919,
+        "a-ring-party-epic-4": 0.8349208834826889,
+        "a-charm-critical-epic-1": 0.8523123546980956,
+        "a-charm-critical-epic-2": 0.8531084476105919,
+        "a-charm-critical-epic-3": 0.8349208834826889,
+        "a-charm-critical-epic-4": 0.8112372539367293,
+        "a-charm-party-epic-1": 0.8531084476105919,
+        "a-charm-party-epic-2": 0.8349208834826889,
+        "a-charm-party-epic-3": 0.8112372539367293,
+        "a-charm-party-epic-4": 0.7982575931612934
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 751.4808495362496,
+      "purchases": {
+        "n": 100,
+        "p10": 7,
+        "p50": 11,
+        "p90": 15
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 648000,
+        "p50": 2272500,
+        "p90": 3717000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 108,
+        "p50": 133,
+        "p90": 151
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 2965,
+        "p50": 5077,
+        "p90": 7743
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.003892046909407487,
+        "p50": 0.007997542761705476,
+        "p90": 0.017515026296018033,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.7199781178575899,
+        "p50": 0.8711310641463521,
+        "p90": 0.9767011839658412
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-rare-4",
+          "minutes": 4094.166666666668,
+          "share": 0.09043069158403724,
+          "players": 54
+        },
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 3399.0833333333335,
+          "share": 0.07507790512968236,
+          "players": 65
+        },
+        {
+          "id": "w-gauntlet-rare-4",
+          "minutes": 2709.416666666667,
+          "share": 0.05984476033934057,
+          "players": 48
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 2471.083333333333,
+          "share": 0.054580527122765225,
+          "players": 61
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 2351.4166666666656,
+          "share": 0.05193736666856864,
+          "players": 31
+        }
+      ],
+      "weaponTemplatesUsed": 127,
+      "specificEpicZeroRange": {
+        "minimum": 0.7982575931612934,
+        "maximum": 0.8531084476105919
+      }
+    },
+    {
+      "policy": "intermittent",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 145,
+        "p50": 691,
+        "p90": 918,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 727,
+        "p50": 764,
+        "p90": 1178,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 400,
+        "p90": 700,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 25.12,
+        "p90": 115.76,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 400,
+        "p90": 700,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 110000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 20
+        },
+        {
+          "p50": 0,
+          "users": 31
+        },
+        {
+          "p50": 0,
+          "users": 23
+        },
+        {
+          "p50": 0,
+          "users": 17
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 1,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 1,
+        "w-sword-epic-2": 1,
+        "w-sword-epic-3": 1,
+        "w-sword-epic-4": 1,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 1,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 1
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 32.05060725999818,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 51,
+        "p10": 15.871428571428572,
+        "p50": 56.2125,
+        "p90": 232.325,
+        "zeroSpend": 49
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.3463203463203463,
+        "p90": 0.8053691275167785
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 105.00000000000001,
+          "share": 0.05888125613346419,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 91.5,
+          "share": 0.0513108089163045,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 88.16666666666667,
+          "share": 0.04944156268984532,
+          "players": 4
+        },
+        {
+          "id": "w-gauntlet-uncommon-2",
+          "minutes": 87,
+          "share": 0.04878732651058461,
+          "players": 3
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 76.83333333333334,
+          "share": 0.04308612551988411,
+          "players": 3
+        }
+      ],
+      "weaponTemplatesUsed": 53,
+      "specificEpicZeroRange": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "intermittent",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 503,
+        "p50": 3369,
+        "p90": 20622,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 1001,
+        "p50": 39313,
+        "p90": 188374,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 39300,
+        "p90": 239500,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 74.5,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 59
+      },
+      "firstCommonPurchase": {
+        "p10": 74.5,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 64
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 18.47,
+        "p90": 262.6,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 27900,
+        "p90": 178400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 3000,
+        "p90": 45000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 63,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 29,
+        "p90": 56,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 32,
+        "p90": 56,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 50000,
+        "p50": 965000,
+        "p90": 7195000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0.8333333333333334,
+          "users": 71
+        },
+        {
+          "p50": 0.3333333333333333,
+          "users": 61
+        },
+        {
+          "p50": 7.25,
+          "users": 63
+        },
+        {
+          "p50": 8.75,
+          "users": 62
+        }
+      ],
+      "epicZeroRate": 0.75,
+      "predictedEpicZeroRate": 0.7684145816306126,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9865538068295227,
+        "w-sword-epic-2": 0.9865538068295227,
+        "w-sword-epic-3": 0.9865538068295227,
+        "w-sword-epic-4": 0.9865538068295227,
+        "w-greatsword-epic-1": 0.9902102780985544,
+        "w-greatsword-epic-2": 0.9902102780985544,
+        "w-greatsword-epic-3": 0.9902102780985544,
+        "w-greatsword-epic-4": 0.9902102780985544,
+        "w-spear-epic-1": 0.9930764438522341,
+        "w-spear-epic-2": 0.9930764438522341,
+        "w-spear-epic-3": 0.9930764438522341,
+        "w-spear-epic-4": 0.9930764438522341,
+        "w-gun-epic-1": 0.9947836997361663,
+        "w-gun-epic-2": 0.9947836997361663,
+        "w-gun-epic-3": 0.9947836997361663,
+        "w-gun-epic-4": 0.9947836997361663,
+        "w-dagger-epic-1": 0.9954110887844864,
+        "w-dagger-epic-2": 0.9954110887844864,
+        "w-dagger-epic-3": 0.9954110887844864,
+        "w-dagger-epic-4": 0.9954110887844864,
+        "w-staff-epic-1": 0.9959020853102046,
+        "w-staff-epic-2": 0.9959020853102046,
+        "w-staff-epic-3": 0.9959020853102046,
+        "w-staff-epic-4": 0.9959020853102046,
+        "w-hammer-epic-1": 0.9957753567705828,
+        "w-hammer-epic-2": 0.9957753567705828,
+        "w-hammer-epic-3": 0.9957753567705828,
+        "w-hammer-epic-4": 0.9957753567705828,
+        "w-gauntlet-epic-1": 0.9955236762909176,
+        "w-gauntlet-epic-2": 0.9955236762909176,
+        "w-gauntlet-epic-3": 0.9955236762909176,
+        "w-gauntlet-epic-4": 0.9955236762909176,
+        "a-necklace-critical-epic-1": 0.9865538068295227,
+        "a-necklace-critical-epic-2": 0.9902102780985544,
+        "a-necklace-critical-epic-3": 0.9930764438522341,
+        "a-necklace-critical-epic-4": 0.9947836997361663,
+        "a-necklace-party-epic-1": 0.9902102780985544,
+        "a-necklace-party-epic-2": 0.9930764438522341,
+        "a-necklace-party-epic-3": 0.9947836997361663,
+        "a-necklace-party-epic-4": 0.9954110887844864,
+        "a-ring-critical-epic-1": 0.9930764438522341,
+        "a-ring-critical-epic-2": 0.9947836997361663,
+        "a-ring-critical-epic-3": 0.9954110887844864,
+        "a-ring-critical-epic-4": 0.9959020853102046,
+        "a-ring-party-epic-1": 0.9947836997361663,
+        "a-ring-party-epic-2": 0.9954110887844864,
+        "a-ring-party-epic-3": 0.9959020853102046,
+        "a-ring-party-epic-4": 0.9957753567705828,
+        "a-charm-critical-epic-1": 0.9954110887844864,
+        "a-charm-critical-epic-2": 0.9959020853102046,
+        "a-charm-critical-epic-3": 0.9957753567705828,
+        "a-charm-critical-epic-4": 0.9955236762909176,
+        "a-charm-party-epic-1": 0.9959020853102046,
+        "a-charm-party-epic-2": 0.9957753567705828,
+        "a-charm-party-epic-3": 0.9955236762909176,
+        "a-charm-party-epic-4": 0.9865538068295227
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 122.30281935999976,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 22500
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 17,
+        "p90": 67
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 125,
+        "p90": 437
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 83,
+        "p10": 0,
+        "p50": 1.1684532924961715,
+        "p90": 37.13333333333333,
+        "zeroSpend": 17
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.8206429780033841,
+        "p90": 0.9725020304407902
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 429.1666666666666,
+          "share": 0.05374716914181947,
+          "players": 15
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 285.75000000000006,
+          "share": 0.03578622193928137,
+          "players": 13
+        },
+        {
+          "id": "w-gauntlet-uncommon-2",
+          "minutes": 258.3333333333333,
+          "share": 0.03235266492031852,
+          "players": 12
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 254.25000000000003,
+          "share": 0.03184128408770704,
+          "players": 9
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 247.33333333333331,
+          "share": 0.030975067575324314,
+          "players": 4
+        }
+      ],
+      "weaponTemplatesUsed": 104,
+      "specificEpicZeroRange": {
+        "minimum": 0.9865538068295227,
+        "maximum": 0.9959020853102046
+      }
+    },
+    {
+      "policy": "intermittent",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 3699,
+        "p50": 40560,
+        "p90": 285265,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 117799,
+        "p50": 752859,
+        "p90": 4988323,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 153200,
+        "p50": 969600,
+        "p90": 5689400,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 74.5,
+        "p50": 130.5,
+        "p90": null,
+        "nonarrival": 12
+      },
+      "firstCommonPurchase": {
+        "p10": 74.5,
+        "p50": 147.5,
+        "p90": null,
+        "nonarrival": 25
+      },
+      "weaponGainPercent": {
+        "p10": 24.24,
+        "p50": 145.5,
+        "p90": 509.6,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 119500,
+        "p50": 676800,
+        "p90": 2651600,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 21000,
+        "p50": 189000,
+        "p90": 765000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 20,
+        "p50": 383,
+        "p90": 2782,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 48,
+        "p50": 72,
+        "p90": 88,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 48,
+        "p50": 72,
+        "p90": 88,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 110000,
+        "p50": 1260000,
+        "p90": 9545000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 13.166666666666666,
+          "users": 100
+        },
+        {
+          "p50": 16,
+          "users": 95
+        },
+        {
+          "p50": 91.25,
+          "users": 100
+        },
+        {
+          "p50": 254.91666666666666,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0.14,
+      "predictedEpicZeroRate": 0.1773794466074505,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.8701899089469011,
+        "w-sword-epic-2": 0.8701899089469011,
+        "w-sword-epic-3": 0.8701899089469011,
+        "w-sword-epic-4": 0.8701899089469011,
+        "w-greatsword-epic-1": 0.8755216901431262,
+        "w-greatsword-epic-2": 0.8755216901431262,
+        "w-greatsword-epic-3": 0.8755216901431262,
+        "w-greatsword-epic-4": 0.8755216901431262,
+        "w-spear-epic-1": 0.8935006390070747,
+        "w-spear-epic-2": 0.8935006390070747,
+        "w-spear-epic-3": 0.8935006390070747,
+        "w-spear-epic-4": 0.8935006390070747,
+        "w-gun-epic-1": 0.9067876573234688,
+        "w-gun-epic-2": 0.9067876573234688,
+        "w-gun-epic-3": 0.9067876573234688,
+        "w-gun-epic-4": 0.9067876573234688,
+        "w-dagger-epic-1": 0.9078455061435331,
+        "w-dagger-epic-2": 0.9078455061435331,
+        "w-dagger-epic-3": 0.9078455061435331,
+        "w-dagger-epic-4": 0.9078455061435331,
+        "w-staff-epic-1": 0.9086915421774385,
+        "w-staff-epic-2": 0.9086915421774385,
+        "w-staff-epic-3": 0.9086915421774385,
+        "w-staff-epic-4": 0.9086915421774385,
+        "w-hammer-epic-1": 0.8980211303754027,
+        "w-hammer-epic-2": 0.8980211303754027,
+        "w-hammer-epic-3": 0.8980211303754027,
+        "w-hammer-epic-4": 0.8980211303754027,
+        "w-gauntlet-epic-1": 0.8841787674200811,
+        "w-gauntlet-epic-2": 0.8841787674200811,
+        "w-gauntlet-epic-3": 0.8841787674200811,
+        "w-gauntlet-epic-4": 0.8841787674200811,
+        "a-necklace-critical-epic-1": 0.8701899089469011,
+        "a-necklace-critical-epic-2": 0.8755216901431262,
+        "a-necklace-critical-epic-3": 0.8935006390070747,
+        "a-necklace-critical-epic-4": 0.9067876573234688,
+        "a-necklace-party-epic-1": 0.8755216901431262,
+        "a-necklace-party-epic-2": 0.8935006390070747,
+        "a-necklace-party-epic-3": 0.9067876573234688,
+        "a-necklace-party-epic-4": 0.9078455061435331,
+        "a-ring-critical-epic-1": 0.8935006390070747,
+        "a-ring-critical-epic-2": 0.9067876573234688,
+        "a-ring-critical-epic-3": 0.9078455061435331,
+        "a-ring-critical-epic-4": 0.9086915421774385,
+        "a-ring-party-epic-1": 0.9067876573234688,
+        "a-ring-party-epic-2": 0.9078455061435331,
+        "a-ring-party-epic-3": 0.9086915421774385,
+        "a-ring-party-epic-4": 0.8980211303754027,
+        "a-charm-critical-epic-1": 0.9078455061435331,
+        "a-charm-critical-epic-2": 0.9086915421774385,
+        "a-charm-critical-epic-3": 0.8980211303754027,
+        "a-charm-critical-epic-4": 0.8841787674200811,
+        "a-charm-party-epic-1": 0.9086915421774385,
+        "a-charm-party-epic-2": 0.8980211303754027,
+        "a-charm-party-epic-3": 0.8841787674200811,
+        "a-charm-party-epic-4": 0.8701899089469011
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 435.51463863624986,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 2,
+        "p90": 12
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 72000,
+        "p90": 1386000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 38,
+        "p50": 200,
+        "p90": 914
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 309,
+        "p50": 1724,
+        "p90": 10247
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.007670156632321854,
+        "p50": 0.3555604785112982,
+        "p90": 2.0028797696184304,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.898266256901505,
+        "p50": 0.949638731742266,
+        "p90": 0.9872167167292102
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 2365.583333333334,
+          "share": 0.05570884684826126,
+          "players": 50
+        },
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 2171.083333333334,
+          "share": 0.05112842452311799,
+          "players": 50
+        },
+        {
+          "id": "w-staff-common-4",
+          "minutes": 1709.5,
+          "share": 0.040258262029986655,
+          "players": 42
+        },
+        {
+          "id": "w-staff-uncommon-3",
+          "minutes": 1511.9166666666665,
+          "share": 0.035605228039877534,
+          "players": 48
+        },
+        {
+          "id": "w-hammer-uncommon-4",
+          "minutes": 1402.9166666666667,
+          "share": 0.03303830755946307,
+          "players": 37
+        }
+      ],
+      "weaponTemplatesUsed": 125,
+      "specificEpicZeroRange": {
+        "minimum": 0.8701899089469011,
+        "maximum": 0.9086915421774385
+      }
+    },
+    {
+      "policy": "companion-idle",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 334,
+        "p50": 483,
+        "p90": 727,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 334,
+        "p50": 483,
+        "p90": 727,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 8.38,
+        "p90": 52.98,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 110000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 17
+        },
+        {
+          "p50": 0,
+          "users": 26
+        },
+        {
+          "p50": 0,
+          "users": 16
+        },
+        {
+          "p50": 0,
+          "users": 3
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 1,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 1,
+        "w-sword-epic-2": 1,
+        "w-sword-epic-3": 1,
+        "w-sword-epic-4": 1,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 1,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 1
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 17.413895040000803,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 0,
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "zeroSpend": 100
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 114.33333333333334,
+          "share": 0.07479692525759143,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 88,
+          "share": 0.05756964509622197,
+          "players": 3
+        },
+        {
+          "id": "w-gauntlet-uncommon-2",
+          "minutes": 87,
+          "share": 0.0569154445837649,
+          "players": 3
+        },
+        {
+          "id": "w-staff-common-2",
+          "minutes": 87,
+          "share": 0.0569154445837649,
+          "players": 3
+        },
+        {
+          "id": "w-greatsword-common-2",
+          "minutes": 77.5,
+          "share": 0.05070053971542276,
+          "players": 3
+        }
+      ],
+      "weaponTemplatesUsed": 39,
+      "specificEpicZeroRange": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "companion-idle",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 334,
+        "p50": 640,
+        "p90": 2272,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 334,
+        "p50": 640,
+        "p90": 2272,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 21.01,
+        "p90": 106.61,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 2,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 110000,
+        "p90": 7195000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 20
+        },
+        {
+          "p50": 0,
+          "users": 34
+        },
+        {
+          "p50": 0,
+          "users": 23
+        },
+        {
+          "p50": 0,
+          "users": 13
+        }
+      ],
+      "epicZeroRate": 0.99,
+      "predictedEpicZeroRate": 0.982192800103871,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9989339772350466,
+        "w-sword-epic-2": 0.9989339772350466,
+        "w-sword-epic-3": 0.9989339772350466,
+        "w-sword-epic-4": 0.9989339772350466,
+        "w-greatsword-epic-1": 0.9992887033367088,
+        "w-greatsword-epic-2": 0.9992887033367088,
+        "w-greatsword-epic-3": 0.9992887033367088,
+        "w-greatsword-epic-4": 0.9992887033367088,
+        "w-spear-epic-1": 0.9995512268953872,
+        "w-spear-epic-2": 0.9995512268953872,
+        "w-spear-epic-3": 0.9995512268953872,
+        "w-spear-epic-4": 0.9995512268953872,
+        "w-gun-epic-1": 0.9997015928539008,
+        "w-gun-epic-2": 0.9997015928539008,
+        "w-gun-epic-3": 0.9997015928539008,
+        "w-gun-epic-4": 0.9997015928539008,
+        "w-dagger-epic-1": 0.9997725328245832,
+        "w-dagger-epic-2": 0.9997725328245832,
+        "w-dagger-epic-3": 0.9997725328245832,
+        "w-dagger-epic-4": 0.9997725328245832,
+        "w-staff-epic-1": 0.9998263536654026,
+        "w-staff-epic-2": 0.9998263536654026,
+        "w-staff-epic-3": 0.9998263536654026,
+        "w-staff-epic-4": 0.9998263536654026,
+        "w-hammer-epic-1": 0.9998557250423419,
+        "w-hammer-epic-2": 0.9998557250423419,
+        "w-hammer-epic-3": 0.9998557250423419,
+        "w-hammer-epic-4": 0.9998557250423419,
+        "w-gauntlet-epic-1": 0.9998801641328356,
+        "w-gauntlet-epic-2": 0.9998801641328356,
+        "w-gauntlet-epic-3": 0.9998801641328356,
+        "w-gauntlet-epic-4": 0.9998801641328356,
+        "a-necklace-critical-epic-1": 0.9989339772350466,
+        "a-necklace-critical-epic-2": 0.9992887033367088,
+        "a-necklace-critical-epic-3": 0.9995512268953872,
+        "a-necklace-critical-epic-4": 0.9997015928539008,
+        "a-necklace-party-epic-1": 0.9992887033367088,
+        "a-necklace-party-epic-2": 0.9995512268953872,
+        "a-necklace-party-epic-3": 0.9997015928539008,
+        "a-necklace-party-epic-4": 0.9997725328245832,
+        "a-ring-critical-epic-1": 0.9995512268953872,
+        "a-ring-critical-epic-2": 0.9997015928539008,
+        "a-ring-critical-epic-3": 0.9997725328245832,
+        "a-ring-critical-epic-4": 0.9998263536654026,
+        "a-ring-party-epic-1": 0.9997015928539008,
+        "a-ring-party-epic-2": 0.9997725328245832,
+        "a-ring-party-epic-3": 0.9998263536654026,
+        "a-ring-party-epic-4": 0.9998557250423419,
+        "a-charm-critical-epic-1": 0.9997725328245832,
+        "a-charm-critical-epic-2": 0.9998263536654026,
+        "a-charm-critical-epic-3": 0.9998557250423419,
+        "a-charm-critical-epic-4": 0.9998801641328356,
+        "a-charm-party-epic-1": 0.9998263536654026,
+        "a-charm-party-epic-2": 0.9998557250423419,
+        "a-charm-party-epic-3": 0.9998801641328356,
+        "a-charm-party-epic-4": 0.9989339772350466
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 32.895056880000226,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 0,
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "zeroSpend": 100
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 444.08333333333337,
+          "share": 0.06071135617936566,
+          "players": 4
+        },
+        {
+          "id": "w-gauntlet-uncommon-2",
+          "minutes": 357,
+          "share": 0.04880605176813707,
+          "players": 3
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 335.16666666666663,
+          "share": 0.04582118118847976,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 316.4166666666667,
+          "share": 0.04325783813343055,
+          "players": 3
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 308.25,
+          "share": 0.04214135982500911,
+          "players": 3
+        }
+      ],
+      "weaponTemplatesUsed": 58,
+      "specificEpicZeroRange": {
+        "minimum": 0.9989339772350466,
+        "maximum": 0.9998801641328356
+      }
+    },
+    {
+      "policy": "companion-idle",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 334,
+        "p50": 3363,
+        "p90": 1062960,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 334,
+        "p50": 3363,
+        "p90": 1062960,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 104.86,
+        "p90": 416,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 46,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 2,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 110000,
+        "p90": 28795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 24
+        },
+        {
+          "p50": 0,
+          "users": 40
+        },
+        {
+          "p50": 0,
+          "users": 45
+        },
+        {
+          "p50": 2.1666666666666665,
+          "users": 52
+        }
+      ],
+      "epicZeroRate": 0.85,
+      "predictedEpicZeroRate": 0.8373180532784513,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9908574336245505,
+        "w-sword-epic-2": 0.9908574336245505,
+        "w-sword-epic-3": 0.9908574336245505,
+        "w-sword-epic-4": 0.9908574336245505,
+        "w-greatsword-epic-1": 0.9936915444330262,
+        "w-greatsword-epic-2": 0.9936915444330262,
+        "w-greatsword-epic-3": 0.9936915444330262,
+        "w-greatsword-epic-4": 0.9936915444330262,
+        "w-spear-epic-1": 0.995877629301665,
+        "w-spear-epic-2": 0.995877629301665,
+        "w-spear-epic-3": 0.995877629301665,
+        "w-spear-epic-4": 0.995877629301665,
+        "w-gun-epic-1": 0.997145868059975,
+        "w-gun-epic-2": 0.997145868059975,
+        "w-gun-epic-3": 0.997145868059975,
+        "w-gun-epic-4": 0.997145868059975,
+        "w-dagger-epic-1": 0.9977128330649809,
+        "w-dagger-epic-2": 0.9977128330649809,
+        "w-dagger-epic-3": 0.9977128330649809,
+        "w-dagger-epic-4": 0.9977128330649809,
+        "w-staff-epic-1": 0.9981429789050681,
+        "w-staff-epic-2": 0.9981429789050681,
+        "w-staff-epic-3": 0.9981429789050681,
+        "w-staff-epic-4": 0.9981429789050681,
+        "w-hammer-epic-1": 0.9983108932972827,
+        "w-hammer-epic-2": 0.9983108932972827,
+        "w-hammer-epic-3": 0.9983108932972827,
+        "w-hammer-epic-4": 0.9983108932972827,
+        "w-gauntlet-epic-1": 0.998461304989288,
+        "w-gauntlet-epic-2": 0.998461304989288,
+        "w-gauntlet-epic-3": 0.998461304989288,
+        "w-gauntlet-epic-4": 0.998461304989288,
+        "a-necklace-critical-epic-1": 0.9908574336245505,
+        "a-necklace-critical-epic-2": 0.9936915444330262,
+        "a-necklace-critical-epic-3": 0.995877629301665,
+        "a-necklace-critical-epic-4": 0.997145868059975,
+        "a-necklace-party-epic-1": 0.9936915444330262,
+        "a-necklace-party-epic-2": 0.995877629301665,
+        "a-necklace-party-epic-3": 0.997145868059975,
+        "a-necklace-party-epic-4": 0.9977128330649809,
+        "a-ring-critical-epic-1": 0.995877629301665,
+        "a-ring-critical-epic-2": 0.997145868059975,
+        "a-ring-critical-epic-3": 0.9977128330649809,
+        "a-ring-critical-epic-4": 0.9981429789050681,
+        "a-ring-party-epic-1": 0.997145868059975,
+        "a-ring-party-epic-2": 0.9977128330649809,
+        "a-ring-party-epic-3": 0.9981429789050681,
+        "a-ring-party-epic-4": 0.9983108932972827,
+        "a-charm-critical-epic-1": 0.9977128330649809,
+        "a-charm-critical-epic-2": 0.9981429789050681,
+        "a-charm-critical-epic-3": 0.9983108932972827,
+        "a-charm-critical-epic-4": 0.998461304989288,
+        "a-charm-party-epic-1": 0.9981429789050681,
+        "a-charm-party-epic-2": 0.9983108932972827,
+        "a-charm-party-epic-3": 0.998461304989288,
+        "a-charm-party-epic-4": 0.9908574336245505
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 82.93735646500008,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 232
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 0,
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "zeroSpend": 100
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 1756.5833333333333,
+          "share": 0.05035594839942668,
+          "players": 10
+        },
+        {
+          "id": "w-gun-rare-4",
+          "minutes": 1562.4166666666665,
+          "share": 0.04478977544194936,
+          "players": 6
+        },
+        {
+          "id": "w-gauntlet-uncommon-2",
+          "minutes": 1358.0833333333335,
+          "share": 0.038932154801720034,
+          "players": 4
+        },
+        {
+          "id": "w-spear-common-3",
+          "minutes": 1312.8333333333335,
+          "share": 0.03763497372193026,
+          "players": 4
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 1271.25,
+          "share": 0.0364429049211658,
+          "players": 5
+        }
+      ],
+      "weaponTemplatesUsed": 85,
+      "specificEpicZeroRange": {
+        "minimum": 0.9908574336245505,
+        "maximum": 0.998461304989288
+      }
+    },
+    {
+      "policy": "wealthy-save",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 27111,
+        "p50": 205930,
+        "p90": 656700,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 11059,
+        "p50": 284473,
+        "p90": 926645,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 762900,
+        "p50": 1078900,
+        "p90": 1641100,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 0.5,
+        "p50": 0.5,
+        "p90": 0.5,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 0.5,
+        "p50": 0.5,
+        "p90": 1.5,
+        "nonarrival": 7
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 16.51,
+        "p90": 37.02,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 100800,
+        "p50": 241100,
+        "p90": 501600,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 21000,
+        "p90": 189000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 4,
+        "p90": 13,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 18,
+        "p50": 40,
+        "p90": 68,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 48,
+        "p90": 72,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 5000,
+        "p50": 25000,
+        "p90": 455000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0.16666666666666666,
+          "users": 92
+        },
+        {
+          "p50": 0,
+          "users": 48
+        },
+        {
+          "p50": 1.4166666666666667,
+          "users": 82
+        },
+        {
+          "p50": 19.333333333333332,
+          "users": 94
+        }
+      ],
+      "epicZeroRate": 0.72,
+      "predictedEpicZeroRate": 0.7171513723203286,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.983014558744981,
+        "w-sword-epic-2": 0.983014558744981,
+        "w-sword-epic-3": 0.983014558744981,
+        "w-sword-epic-4": 0.983014558744981,
+        "w-greatsword-epic-1": 0.9889791984343391,
+        "w-greatsword-epic-2": 0.9889791984343391,
+        "w-greatsword-epic-3": 0.9889791984343391,
+        "w-greatsword-epic-4": 0.9889791984343391,
+        "w-spear-epic-1": 0.9928735424583871,
+        "w-spear-epic-2": 0.9928735424583871,
+        "w-spear-epic-3": 0.9928735424583871,
+        "w-spear-epic-4": 0.9928735424583871,
+        "w-gun-epic-1": 0.9950760067061634,
+        "w-gun-epic-2": 0.9950760067061634,
+        "w-gun-epic-3": 0.9950760067061634,
+        "w-gun-epic-4": 0.9950760067061634,
+        "w-dagger-epic-1": 0.996050823765217,
+        "w-dagger-epic-2": 0.996050823765217,
+        "w-dagger-epic-3": 0.996050823765217,
+        "w-dagger-epic-4": 0.996050823765217,
+        "w-staff-epic-1": 0.9967910162404989,
+        "w-staff-epic-2": 0.9967910162404989,
+        "w-staff-epic-3": 0.9967910162404989,
+        "w-staff-epic-4": 0.9967910162404989,
+        "w-hammer-epic-1": 0.9969654917103492,
+        "w-hammer-epic-2": 0.9969654917103492,
+        "w-hammer-epic-3": 0.9969654917103492,
+        "w-hammer-epic-4": 0.9969654917103492,
+        "w-gauntlet-epic-1": 0.9970182582728693,
+        "w-gauntlet-epic-2": 0.9970182582728693,
+        "w-gauntlet-epic-3": 0.9970182582728693,
+        "w-gauntlet-epic-4": 0.9970182582728693,
+        "a-necklace-critical-epic-1": 0.983014558744981,
+        "a-necklace-critical-epic-2": 0.9889791984343391,
+        "a-necklace-critical-epic-3": 0.9928735424583871,
+        "a-necklace-critical-epic-4": 0.9950760067061634,
+        "a-necklace-party-epic-1": 0.9889791984343391,
+        "a-necklace-party-epic-2": 0.9928735424583871,
+        "a-necklace-party-epic-3": 0.9950760067061634,
+        "a-necklace-party-epic-4": 0.996050823765217,
+        "a-ring-critical-epic-1": 0.9928735424583871,
+        "a-ring-critical-epic-2": 0.9950760067061634,
+        "a-ring-critical-epic-3": 0.996050823765217,
+        "a-ring-critical-epic-4": 0.9967910162404989,
+        "a-ring-party-epic-1": 0.9950760067061634,
+        "a-ring-party-epic-2": 0.996050823765217,
+        "a-ring-party-epic-3": 0.9967910162404989,
+        "a-ring-party-epic-4": 0.9969654917103492,
+        "a-charm-critical-epic-1": 0.996050823765217,
+        "a-charm-critical-epic-2": 0.9967910162404989,
+        "a-charm-critical-epic-3": 0.9969654917103492,
+        "a-charm-critical-epic-4": 0.9970182582728693,
+        "a-charm-party-epic-1": 0.9967910162404989,
+        "a-charm-party-epic-2": 0.9969654917103492,
+        "a-charm-party-epic-3": 0.9970182582728693,
+        "a-charm-party-epic-4": 0.983014558744981
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 374.0410125600013,
+      "purchases": {
+        "n": 100,
+        "p10": 5,
+        "p50": 7,
+        "p90": 8
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 540000,
+        "p50": 810000,
+        "p90": 1044000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 4,
+        "p50": 9,
+        "p90": 12
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 19,
+        "p50": 150,
+        "p90": 322
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.014036728447542935,
+        "p90": 0.03389632557721678,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.5620096122133675,
+        "p50": 0.8453545188167702,
+        "p90": 0.9698728924957439
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 164.75,
+          "share": 0.05863858816550496,
+          "players": 16
+        },
+        {
+          "id": "w-spear-rare-4",
+          "minutes": 146.25,
+          "share": 0.05205398190716298,
+          "players": 13
+        },
+        {
+          "id": "w-hammer-uncommon-4",
+          "minutes": 140.33333333333331,
+          "share": 0.04994809432003558,
+          "players": 13
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 133.58333333333331,
+          "share": 0.04754560284739729,
+          "players": 10
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 130.41666666666666,
+          "share": 0.04641850808245587,
+          "players": 14
+        }
+      ],
+      "weaponTemplatesUsed": 94,
+      "specificEpicZeroRange": {
+        "minimum": 0.983014558744981,
+        "maximum": 0.9970182582728693
+      }
+    },
+    {
+      "policy": "wealthy-save",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 34955,
+        "p50": 246857,
+        "p90": 1042163,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 947791,
+        "p50": 2672447,
+        "p90": 5533669,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 2070900,
+        "p50": 3699000,
+        "p90": 6159100,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 0.5,
+        "p50": 0.5,
+        "p90": 0.5,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 0.5,
+        "p50": 0.5,
+        "p90": 1.5,
+        "nonarrival": 7
+      },
+      "weaponGainPercent": {
+        "p10": 9.41,
+        "p50": 22.31,
+        "p90": 45.12,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 700500,
+        "p50": 1259100,
+        "p90": 1875400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 381000,
+        "p50": 765000,
+        "p90": 3069000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 112,
+        "p50": 220,
+        "p90": 378,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 79,
+        "p50": 88,
+        "p90": 103,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 80,
+        "p50": 88,
+        "p90": 104,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 5000,
+        "p50": 25000,
+        "p90": 455000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0.9166666666666666,
+          "users": 100
+        },
+        {
+          "p50": 0.16666666666666666,
+          "users": 73
+        },
+        {
+          "p50": 20.75,
+          "users": 100
+        },
+        {
+          "p50": 87.66666666666667,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0.07,
+      "predictedEpicZeroRate": 0.09960924223489993,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9359353517003558,
+        "w-sword-epic-2": 0.9359353517003558,
+        "w-sword-epic-3": 0.9359353517003558,
+        "w-sword-epic-4": 0.9359353517003558,
+        "w-greatsword-epic-1": 0.9417446418138937,
+        "w-greatsword-epic-2": 0.9417446418138937,
+        "w-greatsword-epic-3": 0.9417446418138937,
+        "w-greatsword-epic-4": 0.9417446418138937,
+        "w-spear-epic-1": 0.9523731631897473,
+        "w-spear-epic-2": 0.9523731631897473,
+        "w-spear-epic-3": 0.9523731631897473,
+        "w-spear-epic-4": 0.9523731631897473,
+        "w-gun-epic-1": 0.9596873765838677,
+        "w-gun-epic-2": 0.9596873765838677,
+        "w-gun-epic-3": 0.9596873765838677,
+        "w-gun-epic-4": 0.9596873765838677,
+        "w-dagger-epic-1": 0.960815061767354,
+        "w-dagger-epic-2": 0.960815061767354,
+        "w-dagger-epic-3": 0.960815061767354,
+        "w-dagger-epic-4": 0.960815061767354,
+        "w-staff-epic-1": 0.9617124793694317,
+        "w-staff-epic-2": 0.9617124793694317,
+        "w-staff-epic-3": 0.9617124793694317,
+        "w-staff-epic-4": 0.9617124793694317,
+        "w-hammer-epic-1": 0.9572300038879237,
+        "w-hammer-epic-2": 0.9572300038879237,
+        "w-hammer-epic-3": 0.9572300038879237,
+        "w-hammer-epic-4": 0.9572300038879237,
+        "w-gauntlet-epic-1": 0.9511507904584633,
+        "w-gauntlet-epic-2": 0.9511507904584633,
+        "w-gauntlet-epic-3": 0.9511507904584633,
+        "w-gauntlet-epic-4": 0.9511507904584633,
+        "a-necklace-critical-epic-1": 0.9359353517003558,
+        "a-necklace-critical-epic-2": 0.9417446418138937,
+        "a-necklace-critical-epic-3": 0.9523731631897473,
+        "a-necklace-critical-epic-4": 0.9596873765838677,
+        "a-necklace-party-epic-1": 0.9417446418138937,
+        "a-necklace-party-epic-2": 0.9523731631897473,
+        "a-necklace-party-epic-3": 0.9596873765838677,
+        "a-necklace-party-epic-4": 0.960815061767354,
+        "a-ring-critical-epic-1": 0.9523731631897473,
+        "a-ring-critical-epic-2": 0.9596873765838677,
+        "a-ring-critical-epic-3": 0.960815061767354,
+        "a-ring-critical-epic-4": 0.9617124793694317,
+        "a-ring-party-epic-1": 0.9596873765838677,
+        "a-ring-party-epic-2": 0.960815061767354,
+        "a-ring-party-epic-3": 0.9617124793694317,
+        "a-ring-party-epic-4": 0.9572300038879237,
+        "a-charm-critical-epic-1": 0.960815061767354,
+        "a-charm-critical-epic-2": 0.9617124793694317,
+        "a-charm-critical-epic-3": 0.9572300038879237,
+        "a-charm-critical-epic-4": 0.9511507904584633,
+        "a-charm-party-epic-1": 0.9617124793694317,
+        "a-charm-party-epic-2": 0.9572300038879237,
+        "a-charm-party-epic-3": 0.9511507904584633,
+        "a-charm-party-epic-4": 0.9359353517003558
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 671.9946868999984,
+      "purchases": {
+        "n": 100,
+        "p10": 7,
+        "p50": 10,
+        "p90": 12
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 828000,
+        "p50": 1174500,
+        "p90": 1926000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 29,
+        "p50": 38,
+        "p90": 46
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 786,
+        "p50": 1331,
+        "p90": 1935
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.003751522533495737,
+        "p50": 0.010617786829599457,
+        "p90": 0.020874917827048346,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.8253687926072809,
+        "p50": 0.9339788080256599,
+        "p90": 0.9838189744404261
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 1082.3333333333333,
+          "share": 0.09168431455597914,
+          "players": 49
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 702.1666666666665,
+          "share": 0.05948044613864183,
+          "players": 28
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 679.5833333333331,
+          "share": 0.057567414937173524,
+          "players": 45
+        },
+        {
+          "id": "w-dagger-rare-4",
+          "minutes": 563.75,
+          "share": 0.04775518847945788,
+          "players": 30
+        },
+        {
+          "id": "w-sword-rare-4",
+          "minutes": 537.9166666666667,
+          "share": 0.04556685020471554,
+          "players": 26
+        }
+      ],
+      "weaponTemplatesUsed": 121,
+      "specificEpicZeroRange": {
+        "minimum": 0.9359353517003558,
+        "maximum": 0.9617124793694317
+      }
+    },
+    {
+      "policy": "wealthy-save",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 258573,
+        "p50": 1716363,
+        "p90": 5273431,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 4538856,
+        "p50": 12226127,
+        "p90": 23614341,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 5453800,
+        "p50": 12275300,
+        "p90": 20820100,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 0.5,
+        "p50": 0.5,
+        "p90": 0.5,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 0.5,
+        "p50": 0.5,
+        "p90": 1.5,
+        "nonarrival": 6
+      },
+      "weaponGainPercent": {
+        "p10": 22.56,
+        "p50": 45.12,
+        "p90": 51.84,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 1598800,
+        "p50": 2942300,
+        "p90": 4987600,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 1533000,
+        "p50": 6141000,
+        "p90": 12285000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 866,
+        "p50": 1455,
+        "p90": 2085,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 96,
+        "p50": 112,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 96,
+        "p50": 112,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 5000,
+        "p50": 25000,
+        "p90": 455000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 4,
+          "users": 100
+        },
+        {
+          "p50": 0.5,
+          "users": 79
+        },
+        {
+          "p50": 74.58333333333333,
+          "users": 100
+        },
+        {
+          "p50": 394.75,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.0011963996234026434,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.7731424493417997,
+        "w-sword-epic-2": 0.7731424493417997,
+        "w-sword-epic-3": 0.7731424493417997,
+        "w-sword-epic-4": 0.7731424493417997,
+        "w-greatsword-epic-1": 0.7779411192382786,
+        "w-greatsword-epic-2": 0.7779411192382786,
+        "w-greatsword-epic-3": 0.7779411192382786,
+        "w-greatsword-epic-4": 0.7779411192382786,
+        "w-spear-epic-1": 0.8082170540588146,
+        "w-spear-epic-2": 0.8082170540588146,
+        "w-spear-epic-3": 0.8082170540588146,
+        "w-spear-epic-4": 0.8082170540588146,
+        "w-gun-epic-1": 0.8311194712064492,
+        "w-gun-epic-2": 0.8311194712064492,
+        "w-gun-epic-3": 0.8311194712064492,
+        "w-gun-epic-4": 0.8311194712064492,
+        "w-dagger-epic-1": 0.8320959329525899,
+        "w-dagger-epic-2": 0.8320959329525899,
+        "w-dagger-epic-3": 0.8320959329525899,
+        "w-dagger-epic-4": 0.8320959329525899,
+        "w-staff-epic-1": 0.8328732686680494,
+        "w-staff-epic-2": 0.8328732686680494,
+        "w-staff-epic-3": 0.8328732686680494,
+        "w-staff-epic-4": 0.8328732686680494,
+        "w-hammer-epic-1": 0.812338622013534,
+        "w-hammer-epic-2": 0.812338622013534,
+        "w-hammer-epic-3": 0.812338622013534,
+        "w-hammer-epic-4": 0.812338622013534,
+        "w-gauntlet-epic-1": 0.7857106886906222,
+        "w-gauntlet-epic-2": 0.7857106886906222,
+        "w-gauntlet-epic-3": 0.7857106886906222,
+        "w-gauntlet-epic-4": 0.7857106886906222,
+        "a-necklace-critical-epic-1": 0.7731424493417997,
+        "a-necklace-critical-epic-2": 0.7779411192382786,
+        "a-necklace-critical-epic-3": 0.8082170540588146,
+        "a-necklace-critical-epic-4": 0.8311194712064492,
+        "a-necklace-party-epic-1": 0.7779411192382786,
+        "a-necklace-party-epic-2": 0.8082170540588146,
+        "a-necklace-party-epic-3": 0.8311194712064492,
+        "a-necklace-party-epic-4": 0.8320959329525899,
+        "a-ring-critical-epic-1": 0.8082170540588146,
+        "a-ring-critical-epic-2": 0.8311194712064492,
+        "a-ring-critical-epic-3": 0.8320959329525899,
+        "a-ring-critical-epic-4": 0.8328732686680494,
+        "a-ring-party-epic-1": 0.8311194712064492,
+        "a-ring-party-epic-2": 0.8320959329525899,
+        "a-ring-party-epic-3": 0.8328732686680494,
+        "a-ring-party-epic-4": 0.812338622013534,
+        "a-charm-critical-epic-1": 0.8320959329525899,
+        "a-charm-critical-epic-2": 0.8328732686680494,
+        "a-charm-critical-epic-3": 0.812338622013534,
+        "a-charm-critical-epic-4": 0.7857106886906222,
+        "a-charm-party-epic-1": 0.8328732686680494,
+        "a-charm-party-epic-2": 0.812338622013534,
+        "a-charm-party-epic-3": 0.7857106886906222,
+        "a-charm-party-epic-4": 0.7731424493417997
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 888.5894230200001,
+      "purchases": {
+        "n": 100,
+        "p10": 12,
+        "p50": 17,
+        "p90": 21
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 1881000,
+        "p50": 3348000,
+        "p90": 5310000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 130,
+        "p50": 151,
+        "p90": 169
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 3561,
+        "p50": 5915,
+        "p90": 8299
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.003172724868093163,
+        "p50": 0.006158771348385914,
+        "p90": 0.010507564413693396,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.7254325316578648,
+        "p50": 0.8763683191527141,
+        "p90": 0.9724359398308385
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-rare-4",
+          "minutes": 4626.5,
+          "share": 0.09678380974462587,
+          "players": 48
+        },
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 4185.833333333334,
+          "share": 0.08756530789064013,
+          "players": 56
+        },
+        {
+          "id": "w-sword-rare-4",
+          "minutes": 3088.7499999999995,
+          "share": 0.06461493404273493,
+          "players": 36
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 2980.916666666667,
+          "share": 0.06235912061628683,
+          "players": 30
+        },
+        {
+          "id": "w-gauntlet-rare-4",
+          "minutes": 2479.5833333333335,
+          "share": 0.05187150579904433,
+          "players": 44
+        }
+      ],
+      "weaponTemplatesUsed": 128,
+      "specificEpicZeroRange": {
+        "minimum": 0.7731424493417997,
+        "maximum": 0.8328732686680494
+      }
+    },
+    {
+      "policy": "immediate-rebirth",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 212,
+        "p50": 1001,
+        "p90": 2672,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 1001,
+        "p50": 1272,
+        "p90": 3229,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 10.45,
+        "p90": 98.14,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 1,
+        "p90": 4,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 45000,
+        "p50": 315000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 25
+        },
+        {
+          "p50": 0,
+          "users": 35
+        },
+        {
+          "p50": 0,
+          "users": 26
+        },
+        {
+          "p50": 0,
+          "users": 26
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 0.9994674014988543,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9999102074119613,
+        "w-sword-epic-2": 0.9999102074119613,
+        "w-sword-epic-3": 0.9999102074119613,
+        "w-sword-epic-4": 0.9999102074119613,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 0.9999102074119613,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 0.9999102074119613
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 42.28625154000377,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 66,
+        "p10": 0,
+        "p50": 18.864285714285714,
+        "p90": 129.05,
+        "zeroSpend": 34
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.36003600360036003,
+        "p90": 0.8844561535566429
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 92.75,
+          "share": 0.049245608601389323,
+          "players": 5
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 88.58333333333334,
+          "share": 0.0470333171098624,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 87.16666666666667,
+          "share": 0.04628113800274325,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 83.75,
+          "share": 0.044467058979691165,
+          "players": 5
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 65,
+          "share": 0.03451174726782001,
+          "players": 4
+        }
+      ],
+      "weaponTemplatesUsed": 60,
+      "specificEpicZeroRange": {
+        "minimum": 0.9999102074119613,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "immediate-rebirth",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 2146,
+        "p50": 10110,
+        "p90": 31809,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 57232,
+        "p50": 84812,
+        "p90": 229987,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 67100,
+        "p50": 119300,
+        "p90": 295600,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 44,
+        "p50": 70.5,
+        "p90": null,
+        "nonarrival": 41
+      },
+      "firstCommonPurchase": {
+        "p10": 44,
+        "p50": 73.5,
+        "p90": null,
+        "nonarrival": 45
+      },
+      "weaponGainPercent": {
+        "p10": 73.5,
+        "p50": 235.2,
+        "p90": 418,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 47800,
+        "p50": 87300,
+        "p90": 234800,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 9000,
+        "p50": 21000,
+        "p90": 93000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 1,
+        "p50": 11,
+        "p90": 84,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 35,
+        "p50": 48,
+        "p90": 58,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 40,
+        "p50": 48,
+        "p90": 64,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 210000,
+        "p50": 805000,
+        "p90": 3115000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 3.9166666666666665,
+          "users": 100
+        },
+        {
+          "p50": 6.833333333333333,
+          "users": 91
+        },
+        {
+          "p50": 24.333333333333332,
+          "users": 100
+        },
+        {
+          "p50": 37.416666666666664,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0.55,
+      "predictedEpicZeroRate": 0.5555780788305431,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9759223890156935,
+        "w-sword-epic-2": 0.9759223890156935,
+        "w-sword-epic-3": 0.9759223890156935,
+        "w-sword-epic-4": 0.9759223890156935,
+        "w-greatsword-epic-1": 0.9821206122447705,
+        "w-greatsword-epic-2": 0.9821206122447705,
+        "w-greatsword-epic-3": 0.9821206122447705,
+        "w-greatsword-epic-4": 0.9821206122447705,
+        "w-spear-epic-1": 0.9871514805391023,
+        "w-spear-epic-2": 0.9871514805391023,
+        "w-spear-epic-3": 0.9871514805391023,
+        "w-spear-epic-4": 0.9871514805391023,
+        "w-gun-epic-1": 0.9902490315834762,
+        "w-gun-epic-2": 0.9902490315834762,
+        "w-gun-epic-3": 0.9902490315834762,
+        "w-gun-epic-4": 0.9902490315834762,
+        "w-dagger-epic-1": 0.9914120804844815,
+        "w-dagger-epic-2": 0.9914120804844815,
+        "w-dagger-epic-3": 0.9914120804844815,
+        "w-dagger-epic-4": 0.9914120804844815,
+        "w-staff-epic-1": 0.9923355931066473,
+        "w-staff-epic-2": 0.9923355931066473,
+        "w-staff-epic-3": 0.9923355931066473,
+        "w-staff-epic-4": 0.9923355931066473,
+        "w-hammer-epic-1": 0.9921260603468066,
+        "w-hammer-epic-2": 0.9921260603468066,
+        "w-hammer-epic-3": 0.9921260603468066,
+        "w-hammer-epic-4": 0.9921260603468066,
+        "w-gauntlet-epic-1": 0.9917068374398554,
+        "w-gauntlet-epic-2": 0.9917068374398554,
+        "w-gauntlet-epic-3": 0.9917068374398554,
+        "w-gauntlet-epic-4": 0.9917068374398554,
+        "a-necklace-critical-epic-1": 0.9759223890156935,
+        "a-necklace-critical-epic-2": 0.9821206122447705,
+        "a-necklace-critical-epic-3": 0.9871514805391023,
+        "a-necklace-critical-epic-4": 0.9902490315834762,
+        "a-necklace-party-epic-1": 0.9821206122447705,
+        "a-necklace-party-epic-2": 0.9871514805391023,
+        "a-necklace-party-epic-3": 0.9902490315834762,
+        "a-necklace-party-epic-4": 0.9914120804844815,
+        "a-ring-critical-epic-1": 0.9871514805391023,
+        "a-ring-critical-epic-2": 0.9902490315834762,
+        "a-ring-critical-epic-3": 0.9914120804844815,
+        "a-ring-critical-epic-4": 0.9923355931066473,
+        "a-ring-party-epic-1": 0.9902490315834762,
+        "a-ring-party-epic-2": 0.9914120804844815,
+        "a-ring-party-epic-3": 0.9923355931066473,
+        "a-ring-party-epic-4": 0.9921260603468066,
+        "a-charm-critical-epic-1": 0.9914120804844815,
+        "a-charm-critical-epic-2": 0.9923355931066473,
+        "a-charm-critical-epic-3": 0.9921260603468066,
+        "a-charm-critical-epic-4": 0.9917068374398554,
+        "a-charm-party-epic-1": 0.9923355931066473,
+        "a-charm-party-epic-2": 0.9921260603468066,
+        "a-charm-party-epic-3": 0.9917068374398554,
+        "a-charm-party-epic-4": 0.9759223890156935
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 234.171528940001,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 4500,
+        "p90": 18000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 23,
+        "p50": 36,
+        "p90": 75
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 172,
+        "p50": 230,
+        "p90": 560
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.5331479421579532,
+        "p50": 1.8916734033953113,
+        "p90": 4.213938411669368,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.8412018005526642,
+        "p50": 0.931640451636394,
+        "p90": 0.978110950841765
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 361.5,
+          "share": 0.038902689469011466,
+          "players": 25
+        },
+        {
+          "id": "w-hammer-uncommon-4",
+          "minutes": 341.1666666666667,
+          "share": 0.03671452528495457,
+          "players": 24
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 337.0833333333333,
+          "share": 0.03627509887094314,
+          "players": 28
+        },
+        {
+          "id": "w-spear-common-3",
+          "minutes": 285,
+          "share": 0.03067017012079742,
+          "players": 32
+        },
+        {
+          "id": "w-staff-common-4",
+          "minutes": 273.33333333333326,
+          "share": 0.02941466608076477,
+          "players": 22
+        }
+      ],
+      "weaponTemplatesUsed": 109,
+      "specificEpicZeroRange": {
+        "minimum": 0.9759223890156935,
+        "maximum": 0.9923355931066473
+      }
+    },
+    {
+      "policy": "immediate-rebirth",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 13933,
+        "p50": 85065,
+        "p90": 404380,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 276253,
+        "p50": 1990060,
+        "p90": 4224804,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 367600,
+        "p50": 2248400,
+        "p90": 4414000,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 44,
+        "p50": 70.5,
+        "p90": null,
+        "nonarrival": 11
+      },
+      "firstCommonPurchase": {
+        "p10": 44,
+        "p50": 73.5,
+        "p90": null,
+        "nonarrival": 29
+      },
+      "weaponGainPercent": {
+        "p10": 50.87,
+        "p50": 299.6,
+        "p90": 654,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 251600,
+        "p50": 1659500,
+        "p90": 3102500,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 93000,
+        "p50": 381000,
+        "p90": 765000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 109,
+        "p50": 1138,
+        "p90": 2545,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 64,
+        "p50": 80,
+        "p90": 88,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 64,
+        "p50": 80,
+        "p90": 88,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 210000,
+        "p50": 805000,
+        "p90": 3305000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 24.333333333333332,
+          "users": 100
+        },
+        {
+          "p50": 13,
+          "users": 98
+        },
+        {
+          "p50": 106.08333333333333,
+          "users": 100
+        },
+        {
+          "p50": 287.4166666666667,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0.06,
+      "predictedEpicZeroRate": 0.0632317188145387,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.8172607363175974,
+        "w-sword-epic-2": 0.8172607363175974,
+        "w-sword-epic-3": 0.8172607363175974,
+        "w-sword-epic-4": 0.8172607363175974,
+        "w-greatsword-epic-1": 0.8224514884755174,
+        "w-greatsword-epic-2": 0.8224514884755174,
+        "w-greatsword-epic-3": 0.8224514884755174,
+        "w-greatsword-epic-4": 0.8224514884755174,
+        "w-spear-epic-1": 0.8468297754796543,
+        "w-spear-epic-2": 0.8468297754796543,
+        "w-spear-epic-3": 0.8468297754796543,
+        "w-spear-epic-4": 0.8468297754796543,
+        "w-gun-epic-1": 0.8652113083469485,
+        "w-gun-epic-2": 0.8652113083469485,
+        "w-gun-epic-3": 0.8652113083469485,
+        "w-gun-epic-4": 0.8652113083469485,
+        "w-dagger-epic-1": 0.8662281388297218,
+        "w-dagger-epic-2": 0.8662281388297218,
+        "w-dagger-epic-3": 0.8662281388297218,
+        "w-dagger-epic-4": 0.8662281388297218,
+        "w-staff-epic-1": 0.8670358659822008,
+        "w-staff-epic-2": 0.8670358659822008,
+        "w-staff-epic-3": 0.8670358659822008,
+        "w-staff-epic-4": 0.8670358659822008,
+        "w-hammer-epic-1": 0.8510991047645604,
+        "w-hammer-epic-2": 0.8510991047645604,
+        "w-hammer-epic-3": 0.8510991047645604,
+        "w-hammer-epic-4": 0.8510991047645604,
+        "w-gauntlet-epic-1": 0.8304917343833997,
+        "w-gauntlet-epic-2": 0.8304917343833997,
+        "w-gauntlet-epic-3": 0.8304917343833997,
+        "w-gauntlet-epic-4": 0.8304917343833997,
+        "a-necklace-critical-epic-1": 0.8172607363175974,
+        "a-necklace-critical-epic-2": 0.8224514884755174,
+        "a-necklace-critical-epic-3": 0.8468297754796543,
+        "a-necklace-critical-epic-4": 0.8652113083469485,
+        "a-necklace-party-epic-1": 0.8224514884755174,
+        "a-necklace-party-epic-2": 0.8468297754796543,
+        "a-necklace-party-epic-3": 0.8652113083469485,
+        "a-necklace-party-epic-4": 0.8662281388297218,
+        "a-ring-critical-epic-1": 0.8468297754796543,
+        "a-ring-critical-epic-2": 0.8652113083469485,
+        "a-ring-critical-epic-3": 0.8662281388297218,
+        "a-ring-critical-epic-4": 0.8670358659822008,
+        "a-ring-party-epic-1": 0.8652113083469485,
+        "a-ring-party-epic-2": 0.8662281388297218,
+        "a-ring-party-epic-3": 0.8670358659822008,
+        "a-ring-party-epic-4": 0.8510991047645604,
+        "a-charm-critical-epic-1": 0.8662281388297218,
+        "a-charm-critical-epic-2": 0.8670358659822008,
+        "a-charm-critical-epic-3": 0.8510991047645604,
+        "a-charm-critical-epic-4": 0.8304917343833997,
+        "a-charm-party-epic-1": 0.8670358659822008,
+        "a-charm-party-epic-2": 0.8510991047645604,
+        "a-charm-party-epic-3": 0.8304917343833997,
+        "a-charm-party-epic-4": 0.8172607363175974
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 541.5706478087503,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 2,
+        "p90": 6
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 76500,
+        "p90": 594000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 86,
+        "p50": 495,
+        "p90": 1084
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 666,
+        "p50": 4489,
+        "p90": 9448
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.036836106678823796,
+        "p50": 0.19872867179658749,
+        "p90": 0.7407784278809463,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.8947067402956439,
+        "p50": 0.9520279163675605,
+        "p90": 0.9849252574698698
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 3125.8333333333326,
+          "share": 0.06927591798440504,
+          "players": 61
+        },
+        {
+          "id": "w-spear-uncommon-4",
+          "minutes": 1896.8333333333337,
+          "share": 0.042038348311411046,
+          "players": 64
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 1861.166666666666,
+          "share": 0.04124788995637702,
+          "players": 57
+        },
+        {
+          "id": "w-staff-common-4",
+          "minutes": 1808.6666666666667,
+          "share": 0.04008436480761204,
+          "players": 41
+        },
+        {
+          "id": "w-staff-rare-4",
+          "minutes": 1486.9166666666665,
+          "share": 0.03295361782446653,
+          "players": 38
+        }
+      ],
+      "weaponTemplatesUsed": 125,
+      "specificEpicZeroRange": {
+        "minimum": 0.8172607363175974,
+        "maximum": 0.8670358659822008
+      }
+    },
+    {
+      "policy": "deferred-rebirth",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 72,
+        "p50": 745,
+        "p90": 1519,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 1001,
+        "p50": 1272,
+        "p90": 1790,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 65.75,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 1,
+        "p90": 3,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 130000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 22
+        },
+        {
+          "p50": 0,
+          "users": 34
+        },
+        {
+          "p50": 0,
+          "users": 25
+        },
+        {
+          "p50": 0,
+          "users": 24
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 1,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 1,
+        "w-sword-epic-2": 1,
+        "w-sword-epic-3": 1,
+        "w-sword-epic-4": 1,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 1,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 1
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 43.082596679997756,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 64,
+        "p10": 0,
+        "p50": 15.514285714285714,
+        "p90": 88.23333333333333,
+        "zeroSpend": 36
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.49019607843137253,
+        "p90": 0.9433962264150944
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 97.83333333333333,
+          "share": 0.048752128233877326,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 87.16666666666667,
+          "share": 0.04343673435488559,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 83.5,
+          "share": 0.04160956770898218,
+          "players": 5
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 81.58333333333334,
+          "share": 0.04065445787135086,
+          "players": 3
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 80.58333333333334,
+          "share": 0.04015613969519538,
+          "players": 4
+        }
+      ],
+      "weaponTemplatesUsed": 58,
+      "specificEpicZeroRange": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "deferred-rebirth",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 13307,
+        "p50": 95863,
+        "p90": 482568,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 262131,
+        "p50": 1251960,
+        "p90": 2983659,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 284800,
+        "p50": 1332800,
+        "p90": 2997300,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 49.5,
+        "p50": 66,
+        "p90": 90,
+        "nonarrival": 1
+      },
+      "firstCommonPurchase": {
+        "p10": 50,
+        "p50": 70,
+        "p90": null,
+        "nonarrival": 21
+      },
+      "weaponGainPercent": {
+        "p10": 8.75,
+        "p50": 19.36,
+        "p90": 40.69,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 125200,
+        "p50": 545100,
+        "p90": 1253300,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 45000,
+        "p50": 381000,
+        "p90": 1533000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 7,
+        "p50": 59,
+        "p90": 175,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 53,
+        "p50": 80,
+        "p90": 94,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 56,
+        "p50": 80,
+        "p90": 96,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 65000,
+        "p50": 1200000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0.8333333333333334,
+          "users": 99
+        },
+        {
+          "p50": 6.333333333333333,
+          "users": 82
+        },
+        {
+          "p50": 14.416666666666666,
+          "users": 95
+        },
+        {
+          "p50": 43.25,
+          "users": 96
+        }
+      ],
+      "epicZeroRate": 0.23,
+      "predictedEpicZeroRate": 0.307395575199542,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9614640285280766,
+        "w-sword-epic-2": 0.9614640285280766,
+        "w-sword-epic-3": 0.9614640285280766,
+        "w-sword-epic-4": 0.9614640285280766,
+        "w-greatsword-epic-1": 0.967441509592146,
+        "w-greatsword-epic-2": 0.967441509592146,
+        "w-greatsword-epic-3": 0.967441509592146,
+        "w-greatsword-epic-4": 0.967441509592146,
+        "w-spear-epic-1": 0.9746086058117501,
+        "w-spear-epic-2": 0.9746086058117501,
+        "w-spear-epic-3": 0.9746086058117501,
+        "w-spear-epic-4": 0.9746086058117501,
+        "w-gun-epic-1": 0.9792264418081283,
+        "w-gun-epic-2": 0.9792264418081283,
+        "w-gun-epic-3": 0.9792264418081283,
+        "w-gun-epic-4": 0.9792264418081283,
+        "w-dagger-epic-1": 0.9803321126657463,
+        "w-dagger-epic-2": 0.9803321126657463,
+        "w-dagger-epic-3": 0.9803321126657463,
+        "w-dagger-epic-4": 0.9803321126657463,
+        "w-staff-epic-1": 0.9812106943219956,
+        "w-staff-epic-2": 0.9812106943219956,
+        "w-staff-epic-3": 0.9812106943219956,
+        "w-staff-epic-4": 0.9812106943219956,
+        "w-hammer-epic-1": 0.979398550393419,
+        "w-hammer-epic-2": 0.979398550393419,
+        "w-hammer-epic-3": 0.979398550393419,
+        "w-hammer-epic-4": 0.979398550393419,
+        "w-gauntlet-epic-1": 0.9768559911750426,
+        "w-gauntlet-epic-2": 0.9768559911750426,
+        "w-gauntlet-epic-3": 0.9768559911750426,
+        "w-gauntlet-epic-4": 0.9768559911750426,
+        "a-necklace-critical-epic-1": 0.9614640285280766,
+        "a-necklace-critical-epic-2": 0.967441509592146,
+        "a-necklace-critical-epic-3": 0.9746086058117501,
+        "a-necklace-critical-epic-4": 0.9792264418081283,
+        "a-necklace-party-epic-1": 0.967441509592146,
+        "a-necklace-party-epic-2": 0.9746086058117501,
+        "a-necklace-party-epic-3": 0.9792264418081283,
+        "a-necklace-party-epic-4": 0.9803321126657463,
+        "a-ring-critical-epic-1": 0.9746086058117501,
+        "a-ring-critical-epic-2": 0.9792264418081283,
+        "a-ring-critical-epic-3": 0.9803321126657463,
+        "a-ring-critical-epic-4": 0.9812106943219956,
+        "a-ring-party-epic-1": 0.9792264418081283,
+        "a-ring-party-epic-2": 0.9803321126657463,
+        "a-ring-party-epic-3": 0.9812106943219956,
+        "a-ring-party-epic-4": 0.979398550393419,
+        "a-charm-critical-epic-1": 0.9803321126657463,
+        "a-charm-critical-epic-2": 0.9812106943219956,
+        "a-charm-critical-epic-3": 0.979398550393419,
+        "a-charm-critical-epic-4": 0.9768559911750426,
+        "a-charm-party-epic-1": 0.9812106943219956,
+        "a-charm-party-epic-2": 0.979398550393419,
+        "a-charm-party-epic-3": 0.9768559911750426,
+        "a-charm-party-epic-4": 0.9614640285280766
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 339.0738716900019,
+      "purchases": {
+        "n": 100,
+        "p10": 2,
+        "p50": 4,
+        "p90": 6
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 40500,
+        "p50": 256500,
+        "p90": 652500
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 11,
+        "p50": 22,
+        "p90": 32
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 267,
+        "p50": 697,
+        "p90": 1105
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.007583277254374159,
+        "p50": 0.02457204268058647,
+        "p90": 0.09927579963789981,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.693977640681012,
+        "p50": 0.91122822573627,
+        "p90": 0.9853962737559225
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 560.4166666666665,
+          "share": 0.060404915028922465,
+          "players": 39
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 413.83333333333326,
+          "share": 0.04460532461466602,
+          "players": 32
+        },
+        {
+          "id": "w-spear-uncommon-4",
+          "minutes": 337.25000000000006,
+          "share": 0.03635073473933819,
+          "players": 31
+        },
+        {
+          "id": "w-hammer-uncommon-4",
+          "minutes": 260.9166666666667,
+          "share": 0.028123091294506512,
+          "players": 19
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 258.0833333333333,
+          "share": 0.027817698415549874,
+          "players": 22
+        }
+      ],
+      "weaponTemplatesUsed": 118,
+      "specificEpicZeroRange": {
+        "minimum": 0.9614640285280766,
+        "maximum": 0.9812106943219956
+      }
+    },
+    {
+      "policy": "deferred-rebirth",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 119277,
+        "p50": 1040795,
+        "p90": 5927195,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 3413492,
+        "p50": 9950693,
+        "p90": 22940603,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 3289000,
+        "p50": 8700600,
+        "p90": 18806100,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 49.5,
+        "p50": 66,
+        "p90": 90,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 50,
+        "p50": 70,
+        "p90": null,
+        "nonarrival": 17
+      },
+      "weaponGainPercent": {
+        "p10": 22.08,
+        "p50": 45.6,
+        "p90": 51.83,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 1524700,
+        "p50": 2657300,
+        "p90": 4449700,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 765000,
+        "p50": 3069000,
+        "p90": 12285000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 706,
+        "p50": 1254,
+        "p90": 1942,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 88,
+        "p50": 104,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 88,
+        "p50": 104,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 65000,
+        "p50": 1200000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 4.083333333333333,
+          "users": 100
+        },
+        {
+          "p50": 6.916666666666667,
+          "users": 92
+        },
+        {
+          "p50": 55,
+          "users": 100
+        },
+        {
+          "p50": 358.8333333333333,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.0012172531147593185,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.7982575931612934,
+        "w-sword-epic-2": 0.7982575931612934,
+        "w-sword-epic-3": 0.7982575931612934,
+        "w-sword-epic-4": 0.7982575931612934,
+        "w-greatsword-epic-1": 0.8032211200344892,
+        "w-greatsword-epic-2": 0.8032211200344892,
+        "w-greatsword-epic-3": 0.8032211200344892,
+        "w-greatsword-epic-4": 0.8032211200344892,
+        "w-spear-epic-1": 0.8306883210366375,
+        "w-spear-epic-2": 0.8306883210366375,
+        "w-spear-epic-3": 0.8306883210366375,
+        "w-spear-epic-4": 0.8306883210366375,
+        "w-gun-epic-1": 0.8513126077489866,
+        "w-gun-epic-2": 0.8513126077489866,
+        "w-gun-epic-3": 0.8513126077489866,
+        "w-gun-epic-4": 0.8513126077489866,
+        "w-dagger-epic-1": 0.8523123546980956,
+        "w-dagger-epic-2": 0.8523123546980956,
+        "w-dagger-epic-3": 0.8523123546980956,
+        "w-dagger-epic-4": 0.8523123546980956,
+        "w-staff-epic-1": 0.8531084476105919,
+        "w-staff-epic-2": 0.8531084476105919,
+        "w-staff-epic-3": 0.8531084476105919,
+        "w-staff-epic-4": 0.8531084476105919,
+        "w-hammer-epic-1": 0.8349208834826889,
+        "w-hammer-epic-2": 0.8349208834826889,
+        "w-hammer-epic-3": 0.8349208834826889,
+        "w-hammer-epic-4": 0.8349208834826889,
+        "w-gauntlet-epic-1": 0.8112372539367293,
+        "w-gauntlet-epic-2": 0.8112372539367293,
+        "w-gauntlet-epic-3": 0.8112372539367293,
+        "w-gauntlet-epic-4": 0.8112372539367293,
+        "a-necklace-critical-epic-1": 0.7982575931612934,
+        "a-necklace-critical-epic-2": 0.8032211200344892,
+        "a-necklace-critical-epic-3": 0.8306883210366375,
+        "a-necklace-critical-epic-4": 0.8513126077489866,
+        "a-necklace-party-epic-1": 0.8032211200344892,
+        "a-necklace-party-epic-2": 0.8306883210366375,
+        "a-necklace-party-epic-3": 0.8513126077489866,
+        "a-necklace-party-epic-4": 0.8523123546980956,
+        "a-ring-critical-epic-1": 0.8306883210366375,
+        "a-ring-critical-epic-2": 0.8513126077489866,
+        "a-ring-critical-epic-3": 0.8523123546980956,
+        "a-ring-critical-epic-4": 0.8531084476105919,
+        "a-ring-party-epic-1": 0.8513126077489866,
+        "a-ring-party-epic-2": 0.8523123546980956,
+        "a-ring-party-epic-3": 0.8531084476105919,
+        "a-ring-party-epic-4": 0.8349208834826889,
+        "a-charm-critical-epic-1": 0.8523123546980956,
+        "a-charm-critical-epic-2": 0.8531084476105919,
+        "a-charm-critical-epic-3": 0.8349208834826889,
+        "a-charm-critical-epic-4": 0.8112372539367293,
+        "a-charm-party-epic-1": 0.8531084476105919,
+        "a-charm-party-epic-2": 0.8349208834826889,
+        "a-charm-party-epic-3": 0.8112372539367293,
+        "a-charm-party-epic-4": 0.7982575931612934
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 713.9238276062504,
+      "purchases": {
+        "n": 100,
+        "p10": 7,
+        "p50": 11,
+        "p90": 15
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 648000,
+        "p50": 2272500,
+        "p90": 3717000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 108,
+        "p50": 133,
+        "p90": 151
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 2965,
+        "p50": 5077,
+        "p90": 7743
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.003892046909407487,
+        "p50": 0.007997542761705476,
+        "p90": 0.017515026296018033,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.7199781178575899,
+        "p50": 0.8711310641463521,
+        "p90": 0.9767011839658412
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-rare-4",
+          "minutes": 4094.166666666668,
+          "share": 0.09043069158403724,
+          "players": 54
+        },
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 3399.0833333333335,
+          "share": 0.07507790512968236,
+          "players": 65
+        },
+        {
+          "id": "w-gauntlet-rare-4",
+          "minutes": 2709.416666666667,
+          "share": 0.05984476033934057,
+          "players": 48
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 2471.083333333333,
+          "share": 0.054580527122765225,
+          "players": 61
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 2351.4166666666656,
+          "share": 0.05193736666856864,
+          "players": 31
+        }
+      ],
+      "weaponTemplatesUsed": 127,
+      "specificEpicZeroRange": {
+        "minimum": 0.7982575931612934,
+        "maximum": 0.8531084476105919
+      }
+    },
+    {
+      "policy": "enhance-first",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 72,
+        "p50": 745,
+        "p90": 1519,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 1001,
+        "p50": 1272,
+        "p90": 1790,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 65.75,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 600,
+        "p90": 1400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 1,
+        "p90": 3,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 130000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 22
+        },
+        {
+          "p50": 0,
+          "users": 34
+        },
+        {
+          "p50": 0,
+          "users": 25
+        },
+        {
+          "p50": 0,
+          "users": 24
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 1,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 1,
+        "w-sword-epic-2": 1,
+        "w-sword-epic-3": 1,
+        "w-sword-epic-4": 1,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 1,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 1
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 41.556729979997236,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 64,
+        "p10": 0,
+        "p50": 15.514285714285714,
+        "p90": 88.23333333333333,
+        "zeroSpend": 36
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0.49019607843137253,
+        "p90": 0.9433962264150944
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 97.83333333333333,
+          "share": 0.048752128233877326,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 87.16666666666667,
+          "share": 0.04343673435488559,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 83.5,
+          "share": 0.04160956770898218,
+          "players": 5
+        },
+        {
+          "id": "w-sword-common-2",
+          "minutes": 81.58333333333334,
+          "share": 0.04065445787135086,
+          "players": 3
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 80.58333333333334,
+          "share": 0.04015613969519538,
+          "players": 4
+        }
+      ],
+      "weaponTemplatesUsed": 58,
+      "specificEpicZeroRange": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "enhance-first",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 18544,
+        "p50": 62166,
+        "p90": 260509,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 262131,
+        "p50": 1223995,
+        "p90": 2983659,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 307800,
+        "p50": 1292400,
+        "p90": 3045800,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 49.5,
+        "p50": 67,
+        "p90": 90.5,
+        "nonarrival": 3
+      },
+      "firstCommonPurchase": {
+        "p10": 50,
+        "p50": 70.5,
+        "p90": null,
+        "nonarrival": 23
+      },
+      "weaponGainPercent": {
+        "p10": 8.87,
+        "p50": 19.35,
+        "p90": 40.33,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 210300,
+        "p50": 798900,
+        "p90": 2044700,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 45000,
+        "p50": 381000,
+        "p90": 765000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 7,
+        "p50": 71,
+        "p90": 187,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 53,
+        "p50": 75,
+        "p90": 88,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 56,
+        "p50": 80,
+        "p90": 88,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 65000,
+        "p50": 1200000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0.8333333333333334,
+          "users": 99
+        },
+        {
+          "p50": 6.583333333333333,
+          "users": 82
+        },
+        {
+          "p50": 17.166666666666668,
+          "users": 96
+        },
+        {
+          "p50": 42.75,
+          "users": 96
+        }
+      ],
+      "epicZeroRate": 0.24,
+      "predictedEpicZeroRate": 0.3071000196336713,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9614963357308506,
+        "w-sword-epic-2": 0.9614963357308506,
+        "w-sword-epic-3": 0.9614963357308506,
+        "w-sword-epic-4": 0.9614963357308506,
+        "w-greatsword-epic-1": 0.9674740150408501,
+        "w-greatsword-epic-2": 0.9674740150408501,
+        "w-greatsword-epic-3": 0.9674740150408501,
+        "w-greatsword-epic-4": 0.9674740150408501,
+        "w-spear-epic-1": 0.9746339198342487,
+        "w-spear-epic-2": 0.9746339198342487,
+        "w-spear-epic-3": 0.9746339198342487,
+        "w-spear-epic-4": 0.9746339198342487,
+        "w-gun-epic-1": 0.9792479322418486,
+        "w-gun-epic-2": 0.9792479322418486,
+        "w-gun-epic-3": 0.9792479322418486,
+        "w-gun-epic-4": 0.9792479322418486,
+        "w-dagger-epic-1": 0.9803542436257432,
+        "w-dagger-epic-2": 0.9803542436257432,
+        "w-dagger-epic-3": 0.9803542436257432,
+        "w-dagger-epic-4": 0.9803542436257432,
+        "w-staff-epic-1": 0.9812333395371734,
+        "w-staff-epic-2": 0.9812333395371734,
+        "w-staff-epic-3": 0.9812333395371734,
+        "w-staff-epic-4": 0.9812333395371734,
+        "w-hammer-epic-1": 0.979423357417481,
+        "w-hammer-epic-2": 0.979423357417481,
+        "w-hammer-epic-3": 0.979423357417481,
+        "w-hammer-epic-4": 0.979423357417481,
+        "w-gauntlet-epic-1": 0.9768851952876152,
+        "w-gauntlet-epic-2": 0.9768851952876152,
+        "w-gauntlet-epic-3": 0.9768851952876152,
+        "w-gauntlet-epic-4": 0.9768851952876152,
+        "a-necklace-critical-epic-1": 0.9614963357308506,
+        "a-necklace-critical-epic-2": 0.9674740150408501,
+        "a-necklace-critical-epic-3": 0.9746339198342487,
+        "a-necklace-critical-epic-4": 0.9792479322418486,
+        "a-necklace-party-epic-1": 0.9674740150408501,
+        "a-necklace-party-epic-2": 0.9746339198342487,
+        "a-necklace-party-epic-3": 0.9792479322418486,
+        "a-necklace-party-epic-4": 0.9803542436257432,
+        "a-ring-critical-epic-1": 0.9746339198342487,
+        "a-ring-critical-epic-2": 0.9792479322418486,
+        "a-ring-critical-epic-3": 0.9803542436257432,
+        "a-ring-critical-epic-4": 0.9812333395371734,
+        "a-ring-party-epic-1": 0.9792479322418486,
+        "a-ring-party-epic-2": 0.9803542436257432,
+        "a-ring-party-epic-3": 0.9812333395371734,
+        "a-ring-party-epic-4": 0.979423357417481,
+        "a-charm-critical-epic-1": 0.9803542436257432,
+        "a-charm-critical-epic-2": 0.9812333395371734,
+        "a-charm-critical-epic-3": 0.979423357417481,
+        "a-charm-critical-epic-4": 0.9768851952876152,
+        "a-charm-party-epic-1": 0.9812333395371734,
+        "a-charm-party-epic-2": 0.979423357417481,
+        "a-charm-party-epic-3": 0.9768851952876152,
+        "a-charm-party-epic-4": 0.9614963357308506
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 324.6341097450002,
+      "purchases": {
+        "n": 100,
+        "p10": 1,
+        "p50": 3,
+        "p90": 5
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 9000,
+        "p50": 148500,
+        "p90": 387000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 11,
+        "p50": 21,
+        "p90": 31
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 267,
+        "p50": 681,
+        "p90": 1101
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.006443466927337895,
+        "p50": 0.02151810584958217,
+        "p90": 0.09345509893455099,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.8392303066540506,
+        "p50": 0.938924621510906,
+        "p90": 0.9850030004959724
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 464.33333333333326,
+          "share": 0.05002738397723089,
+          "players": 34
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 392.24999999999994,
+          "share": 0.04226110846748488,
+          "players": 32
+        },
+        {
+          "id": "w-hammer-uncommon-4",
+          "minutes": 269.16666666666663,
+          "share": 0.02900008080517871,
+          "players": 21
+        },
+        {
+          "id": "w-spear-uncommon-4",
+          "minutes": 266.83333333333337,
+          "share": 0.028748686915845898,
+          "players": 26
+        },
+        {
+          "id": "w-spear-common-3",
+          "minutes": 262.0833333333333,
+          "share": 0.028236920783989795,
+          "players": 24
+        }
+      ],
+      "weaponTemplatesUsed": 118,
+      "specificEpicZeroRange": {
+        "minimum": 0.9614963357308506,
+        "maximum": 0.9812333395371734
+      }
+    },
+    {
+      "policy": "enhance-first",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 20788,
+        "p50": 257989,
+        "p90": 1478217,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 3555341,
+        "p50": 9872652,
+        "p90": 22946556,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 3775400,
+        "p50": 10014800,
+        "p90": 22163400,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 49.5,
+        "p50": 67,
+        "p90": 90.5,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 50,
+        "p50": 70.5,
+        "p90": null,
+        "nonarrival": 19
+      },
+      "weaponGainPercent": {
+        "p10": 17.46,
+        "p50": 41.21,
+        "p90": 58.75,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 3115800,
+        "p50": 7135100,
+        "p90": 16160400,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 381000,
+        "p50": 1533000,
+        "p90": 3069000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 721,
+        "p50": 1270,
+        "p90": 2040,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 2,
+        "p90": 4,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 80,
+        "p50": 96,
+        "p90": 104,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 80,
+        "p50": 96,
+        "p90": 104,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 65000,
+        "p50": 1200000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 4.083333333333333,
+          "users": 100
+        },
+        {
+          "p50": 12.75,
+          "users": 92
+        },
+        {
+          "p50": 67.33333333333333,
+          "users": 100
+        },
+        {
+          "p50": 348.9166666666667,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.0011149834924033142,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.7969975101769277,
+        "w-sword-epic-2": 0.7969975101769277,
+        "w-sword-epic-3": 0.7969975101769277,
+        "w-sword-epic-4": 0.7969975101769277,
+        "w-greatsword-epic-1": 0.80195325178685,
+        "w-greatsword-epic-2": 0.80195325178685,
+        "w-greatsword-epic-3": 0.80195325178685,
+        "w-greatsword-epic-4": 0.80195325178685,
+        "w-spear-epic-1": 0.8295739155621553,
+        "w-spear-epic-2": 0.8295739155621553,
+        "w-spear-epic-3": 0.8295739155621553,
+        "w-spear-epic-4": 0.8295739155621553,
+        "w-gun-epic-1": 0.8503198147721354,
+        "w-gun-epic-2": 0.8503198147721354,
+        "w-gun-epic-3": 0.8503198147721354,
+        "w-gun-epic-4": 0.8503198147721354,
+        "w-dagger-epic-1": 0.8513189453382304,
+        "w-dagger-epic-2": 0.8513189453382304,
+        "w-dagger-epic-3": 0.8513189453382304,
+        "w-dagger-epic-4": 0.8513189453382304,
+        "w-staff-epic-1": 0.8521141121518273,
+        "w-staff-epic-2": 0.8521141121518273,
+        "w-staff-epic-3": 0.8521141121518273,
+        "w-staff-epic-4": 0.8521141121518273,
+        "w-hammer-epic-1": 0.8338010583270968,
+        "w-hammer-epic-2": 0.8338010583270968,
+        "w-hammer-epic-3": 0.8338010583270968,
+        "w-hammer-epic-4": 0.8338010583270968,
+        "w-gauntlet-epic-1": 0.8099568975743746,
+        "w-gauntlet-epic-2": 0.8099568975743746,
+        "w-gauntlet-epic-3": 0.8099568975743746,
+        "w-gauntlet-epic-4": 0.8099568975743746,
+        "a-necklace-critical-epic-1": 0.7969975101769277,
+        "a-necklace-critical-epic-2": 0.80195325178685,
+        "a-necklace-critical-epic-3": 0.8295739155621553,
+        "a-necklace-critical-epic-4": 0.8503198147721354,
+        "a-necklace-party-epic-1": 0.80195325178685,
+        "a-necklace-party-epic-2": 0.8295739155621553,
+        "a-necklace-party-epic-3": 0.8503198147721354,
+        "a-necklace-party-epic-4": 0.8513189453382304,
+        "a-ring-critical-epic-1": 0.8295739155621553,
+        "a-ring-critical-epic-2": 0.8503198147721354,
+        "a-ring-critical-epic-3": 0.8513189453382304,
+        "a-ring-critical-epic-4": 0.8521141121518273,
+        "a-ring-party-epic-1": 0.8503198147721354,
+        "a-ring-party-epic-2": 0.8513189453382304,
+        "a-ring-party-epic-3": 0.8521141121518273,
+        "a-ring-party-epic-4": 0.8338010583270968,
+        "a-charm-critical-epic-1": 0.8513189453382304,
+        "a-charm-critical-epic-2": 0.8521141121518273,
+        "a-charm-critical-epic-3": 0.8338010583270968,
+        "a-charm-critical-epic-4": 0.8099568975743746,
+        "a-charm-party-epic-1": 0.8521141121518273,
+        "a-charm-party-epic-2": 0.8338010583270968,
+        "a-charm-party-epic-3": 0.8099568975743746,
+        "a-charm-party-epic-4": 0.7969975101769277
+      },
+      "fourCopyRate": 0.00023958333333333335,
+      "processingMsPerVirtualHour": 682.0051093124998,
+      "purchases": {
+        "n": 100,
+        "p10": 4,
+        "p50": 8,
+        "p90": 12
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 184500,
+        "p50": 1035000,
+        "p90": 2889000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 112,
+        "p50": 134,
+        "p90": 150
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 3024,
+        "p50": 4985,
+        "p90": 7741
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.0011873807318461315,
+        "p50": 0.0048197937836779595,
+        "p90": 0.013426909225228554,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.9117703339082119,
+        "p50": 0.9619131705336719,
+        "p90": 0.9969169108360173
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-rare-4",
+          "minutes": 3354.083333333333,
+          "share": 0.07407973201796364,
+          "players": 45
+        },
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 3212.0000000000014,
+          "share": 0.07094161819921965,
+          "players": 67
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 2488.499999999999,
+          "share": 0.054962084959140095,
+          "players": 37
+        },
+        {
+          "id": "w-sword-rare-4",
+          "minutes": 2447.7500000000005,
+          "share": 0.05406206287270855,
+          "players": 30
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 2419.5833333333326,
+          "share": 0.05343996171685194,
+          "players": 62
+        }
+      ],
+      "weaponTemplatesUsed": 126,
+      "specificEpicZeroRange": {
+        "minimum": 0.7969975101769277,
+        "maximum": 0.8521141121518273
+      }
+    },
+    {
+      "policy": "collect-first",
+      "minutes": 30,
+      "n": 100,
+      "coins": {
+        "p10": 1001,
+        "p50": 1272,
+        "p90": 1734,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 1001,
+        "p50": 1272,
+        "p90": 1734,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "firstCommonPurchase": {
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "nonarrival": 100
+      },
+      "weaponGainPercent": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 77.77,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 0,
+        "p50": 1,
+        "p90": 3,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 24,
+        "p50": 24,
+        "p90": 24,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 35000,
+        "p50": 130000,
+        "p90": 1795000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 0,
+          "users": 23
+        },
+        {
+          "p50": 0,
+          "users": 34
+        },
+        {
+          "p50": 0,
+          "users": 26
+        },
+        {
+          "p50": 0,
+          "users": 24
+        }
+      ],
+      "epicZeroRate": 1,
+      "predictedEpicZeroRate": 1,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 1,
+        "w-sword-epic-2": 1,
+        "w-sword-epic-3": 1,
+        "w-sword-epic-4": 1,
+        "w-greatsword-epic-1": 1,
+        "w-greatsword-epic-2": 1,
+        "w-greatsword-epic-3": 1,
+        "w-greatsword-epic-4": 1,
+        "w-spear-epic-1": 1,
+        "w-spear-epic-2": 1,
+        "w-spear-epic-3": 1,
+        "w-spear-epic-4": 1,
+        "w-gun-epic-1": 1,
+        "w-gun-epic-2": 1,
+        "w-gun-epic-3": 1,
+        "w-gun-epic-4": 1,
+        "w-dagger-epic-1": 1,
+        "w-dagger-epic-2": 1,
+        "w-dagger-epic-3": 1,
+        "w-dagger-epic-4": 1,
+        "w-staff-epic-1": 1,
+        "w-staff-epic-2": 1,
+        "w-staff-epic-3": 1,
+        "w-staff-epic-4": 1,
+        "w-hammer-epic-1": 1,
+        "w-hammer-epic-2": 1,
+        "w-hammer-epic-3": 1,
+        "w-hammer-epic-4": 1,
+        "w-gauntlet-epic-1": 1,
+        "w-gauntlet-epic-2": 1,
+        "w-gauntlet-epic-3": 1,
+        "w-gauntlet-epic-4": 1,
+        "a-necklace-critical-epic-1": 1,
+        "a-necklace-critical-epic-2": 1,
+        "a-necklace-critical-epic-3": 1,
+        "a-necklace-critical-epic-4": 1,
+        "a-necklace-party-epic-1": 1,
+        "a-necklace-party-epic-2": 1,
+        "a-necklace-party-epic-3": 1,
+        "a-necklace-party-epic-4": 1,
+        "a-ring-critical-epic-1": 1,
+        "a-ring-critical-epic-2": 1,
+        "a-ring-critical-epic-3": 1,
+        "a-ring-critical-epic-4": 1,
+        "a-ring-party-epic-1": 1,
+        "a-ring-party-epic-2": 1,
+        "a-ring-party-epic-3": 1,
+        "a-ring-party-epic-4": 1,
+        "a-charm-critical-epic-1": 1,
+        "a-charm-critical-epic-2": 1,
+        "a-charm-critical-epic-3": 1,
+        "a-charm-critical-epic-4": 1,
+        "a-charm-party-epic-1": 1,
+        "a-charm-party-epic-2": 1,
+        "a-charm-party-epic-3": 1,
+        "a-charm-party-epic-4": 1
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 41.13854004000899,
+      "purchases": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 0,
+        "p10": null,
+        "p50": null,
+        "p90": null,
+        "zeroSpend": 100
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-spear-common-3",
+          "minutes": 107.16666666666666,
+          "share": 0.05340309787799511,
+          "players": 5
+        },
+        {
+          "id": "w-dagger-uncommon-1",
+          "minutes": 85.75,
+          "share": 0.042730783605332015,
+          "players": 4
+        },
+        {
+          "id": "w-dagger-common-2",
+          "minutes": 80.58333333333334,
+          "share": 0.040156139695195395,
+          "players": 5
+        },
+        {
+          "id": "w-greatsword-uncommon-2",
+          "minutes": 74.91666666666667,
+          "share": 0.037332336696981036,
+          "players": 3
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 72,
+          "share": 0.035878908683194224,
+          "players": 4
+        }
+      ],
+      "weaponTemplatesUsed": 59,
+      "specificEpicZeroRange": {
+        "minimum": 1,
+        "maximum": 1
+      }
+    },
+    {
+      "policy": "collect-first",
+      "minutes": 120,
+      "n": 100,
+      "coins": {
+        "p10": 24866,
+        "p50": 157301,
+        "p90": 728049,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 285565,
+        "p50": 1384116,
+        "p90": 3413900,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 234000,
+        "p50": 1098000,
+        "p90": 2977500,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 45.5,
+        "p50": 60.5,
+        "p90": 83,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 46.5,
+        "p50": 60.5,
+        "p90": null,
+        "nonarrival": 11
+      },
+      "weaponGainPercent": {
+        "p10": 8.01,
+        "p50": 16.95,
+        "p90": 34.54,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 189000,
+        "p50": 765000,
+        "p90": 1533000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 18,
+        "p50": 117,
+        "p90": 253,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 67,
+        "p50": 88,
+        "p90": 96,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 72,
+        "p50": 88,
+        "p90": 96,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 50000,
+        "p50": 815000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 2.5833333333333335,
+          "users": 100
+        },
+        {
+          "p50": 5.916666666666667,
+          "users": 82
+        },
+        {
+          "p50": 13.833333333333334,
+          "users": 99
+        },
+        {
+          "p50": 48.666666666666664,
+          "users": 96
+        }
+      ],
+      "epicZeroRate": 0.23,
+      "predictedEpicZeroRate": 0.29132727044662887,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.9604102382200308,
+        "w-sword-epic-2": 0.9604102382200308,
+        "w-sword-epic-3": 0.9604102382200308,
+        "w-sword-epic-4": 0.9604102382200308,
+        "w-greatsword-epic-1": 0.9664003487233992,
+        "w-greatsword-epic-2": 0.9664003487233992,
+        "w-greatsword-epic-3": 0.9664003487233992,
+        "w-greatsword-epic-4": 0.9664003487233992,
+        "w-spear-epic-1": 0.9737059099390709,
+        "w-spear-epic-2": 0.9737059099390709,
+        "w-spear-epic-3": 0.9737059099390709,
+        "w-spear-epic-4": 0.9737059099390709,
+        "w-gun-epic-1": 0.9784789613014452,
+        "w-gun-epic-2": 0.9784789613014452,
+        "w-gun-epic-3": 0.9784789613014452,
+        "w-gun-epic-4": 0.9784789613014452,
+        "w-dagger-epic-1": 0.9796213998904082,
+        "w-dagger-epic-2": 0.9796213998904082,
+        "w-dagger-epic-3": 0.9796213998904082,
+        "w-dagger-epic-4": 0.9796213998904082,
+        "w-staff-epic-1": 0.980532746300595,
+        "w-staff-epic-2": 0.980532746300595,
+        "w-staff-epic-3": 0.980532746300595,
+        "w-staff-epic-4": 0.980532746300595,
+        "w-hammer-epic-1": 0.9786518866873606,
+        "w-hammer-epic-2": 0.9786518866873606,
+        "w-hammer-epic-3": 0.9786518866873606,
+        "w-hammer-epic-4": 0.9786518866873606,
+        "w-gauntlet-epic-1": 0.9760010170883895,
+        "w-gauntlet-epic-2": 0.9760010170883895,
+        "w-gauntlet-epic-3": 0.9760010170883895,
+        "w-gauntlet-epic-4": 0.9760010170883895,
+        "a-necklace-critical-epic-1": 0.9604102382200308,
+        "a-necklace-critical-epic-2": 0.9664003487233992,
+        "a-necklace-critical-epic-3": 0.9737059099390709,
+        "a-necklace-critical-epic-4": 0.9784789613014452,
+        "a-necklace-party-epic-1": 0.9664003487233992,
+        "a-necklace-party-epic-2": 0.9737059099390709,
+        "a-necklace-party-epic-3": 0.9784789613014452,
+        "a-necklace-party-epic-4": 0.9796213998904082,
+        "a-ring-critical-epic-1": 0.9737059099390709,
+        "a-ring-critical-epic-2": 0.9784789613014452,
+        "a-ring-critical-epic-3": 0.9796213998904082,
+        "a-ring-critical-epic-4": 0.980532746300595,
+        "a-ring-party-epic-1": 0.9784789613014452,
+        "a-ring-party-epic-2": 0.9796213998904082,
+        "a-ring-party-epic-3": 0.980532746300595,
+        "a-ring-party-epic-4": 0.9786518866873606,
+        "a-charm-critical-epic-1": 0.9796213998904082,
+        "a-charm-critical-epic-2": 0.980532746300595,
+        "a-charm-critical-epic-3": 0.9786518866873606,
+        "a-charm-critical-epic-4": 0.9760010170883895,
+        "a-charm-party-epic-1": 0.980532746300595,
+        "a-charm-party-epic-2": 0.9786518866873606,
+        "a-charm-party-epic-3": 0.9760010170883895,
+        "a-charm-party-epic-4": 0.9604102382200308
+      },
+      "fourCopyRate": 0,
+      "processingMsPerVirtualHour": 358.3986425100014,
+      "purchases": {
+        "n": 100,
+        "p10": 2,
+        "p50": 4,
+        "p90": 7
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 49500,
+        "p50": 288000,
+        "p90": 810000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 11,
+        "p50": 20,
+        "p90": 30
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 283,
+        "p50": 710,
+        "p90": 1179
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.013256410256410256,
+        "p50": 0.06095238095238095,
+        "p90": 0.3277777777777778,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.6878805635525209,
+        "p50": 0.8498788692499711,
+        "p90": 0.9732494176057709
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 506.0833333333333,
+          "share": 0.054114019924081755,
+          "players": 39
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 420.25,
+          "share": 0.044936111061607824,
+          "players": 32
+        },
+        {
+          "id": "w-gauntlet-common-4",
+          "minutes": 308.25,
+          "share": 0.03296027658474863,
+          "players": 26
+        },
+        {
+          "id": "w-staff-common-4",
+          "minutes": 262.5,
+          "share": 0.028068362055138733,
+          "players": 24
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 260.75000000000006,
+          "share": 0.027881239641437815,
+          "players": 16
+        }
+      ],
+      "weaponTemplatesUsed": 114,
+      "specificEpicZeroRange": {
+        "minimum": 0.9604102382200308,
+        "maximum": 0.980532746300595
+      }
+    },
+    {
+      "policy": "collect-first",
+      "minutes": 480,
+      "n": 100,
+      "coins": {
+        "p10": 232208,
+        "p50": 1940264,
+        "p90": 8679297,
+        "nonarrival": 0
+      },
+      "income": {
+        "p10": 2739983,
+        "p50": 10849691,
+        "p90": 24993325,
+        "nonarrival": 0
+      },
+      "spent": {
+        "p10": 2730000,
+        "p50": 8323500,
+        "p90": 15138000,
+        "nonarrival": 0
+      },
+      "firstPurchase": {
+        "p10": 45.5,
+        "p50": 60.5,
+        "p90": 83,
+        "nonarrival": 0
+      },
+      "firstCommonPurchase": {
+        "p10": 46.5,
+        "p50": 60.5,
+        "p90": 130,
+        "nonarrival": 9
+      },
+      "weaponGainPercent": {
+        "p10": 8.79,
+        "p50": 28.79,
+        "p90": 34.88,
+        "nonarrival": 0
+      },
+      "enhanceSpend": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "expansionSpend": {
+        "p10": 1533000,
+        "p50": 6141000,
+        "p90": 12285000,
+        "nonarrival": 0
+      },
+      "tempDestroyed": {
+        "p10": 667,
+        "p50": 1438,
+        "p90": 2203,
+        "nonarrival": 0
+      },
+      "enhanceDestroyed": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "nonarrival": 0
+      },
+      "bag": {
+        "p10": 96,
+        "p50": 112,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "capacity": {
+        "p10": 96,
+        "p50": 112,
+        "p90": 120,
+        "nonarrival": 0
+      },
+      "weaponlessLongestMs": {
+        "p10": 55000,
+        "p50": 815000,
+        "p90": 3620000,
+        "nonarrival": 0
+      },
+      "tierMinutes": [
+        {
+          "p50": 5.583333333333333,
+          "users": 100
+        },
+        {
+          "p50": 8.583333333333334,
+          "users": 92
+        },
+        {
+          "p50": 70.16666666666667,
+          "users": 100
+        },
+        {
+          "p50": 340.25,
+          "users": 100
+        }
+      ],
+      "epicZeroRate": 0,
+      "predictedEpicZeroRate": 0.002094258535213785,
+      "predictedSpecificEpicZeroRates": {
+        "w-sword-epic-1": 0.7937215177081614,
+        "w-sword-epic-2": 0.7937215177081614,
+        "w-sword-epic-3": 0.7937215177081614,
+        "w-sword-epic-4": 0.7937215177081614,
+        "w-greatsword-epic-1": 0.798672315385987,
+        "w-greatsword-epic-2": 0.798672315385987,
+        "w-greatsword-epic-3": 0.798672315385987,
+        "w-greatsword-epic-4": 0.798672315385987,
+        "w-spear-epic-1": 0.8266203863684295,
+        "w-spear-epic-2": 0.8266203863684295,
+        "w-spear-epic-3": 0.8266203863684295,
+        "w-spear-epic-4": 0.8266203863684295,
+        "w-gun-epic-1": 0.8476468517404976,
+        "w-gun-epic-2": 0.8476468517404976,
+        "w-gun-epic-3": 0.8476468517404976,
+        "w-gun-epic-4": 0.8476468517404976,
+        "w-dagger-epic-1": 0.8486364632621427,
+        "w-dagger-epic-2": 0.8486364632621427,
+        "w-dagger-epic-3": 0.8486364632621427,
+        "w-dagger-epic-4": 0.8486364632621427,
+        "w-staff-epic-1": 0.8494320096713709,
+        "w-staff-epic-2": 0.8494320096713709,
+        "w-staff-epic-3": 0.8494320096713709,
+        "w-staff-epic-4": 0.8494320096713709,
+        "w-hammer-epic-1": 0.8308336833148902,
+        "w-hammer-epic-2": 0.8308336833148902,
+        "w-hammer-epic-3": 0.8308336833148902,
+        "w-hammer-epic-4": 0.8308336833148902,
+        "w-gauntlet-epic-1": 0.8066364016409894,
+        "w-gauntlet-epic-2": 0.8066364016409894,
+        "w-gauntlet-epic-3": 0.8066364016409894,
+        "w-gauntlet-epic-4": 0.8066364016409894,
+        "a-necklace-critical-epic-1": 0.7937215177081614,
+        "a-necklace-critical-epic-2": 0.798672315385987,
+        "a-necklace-critical-epic-3": 0.8266203863684295,
+        "a-necklace-critical-epic-4": 0.8476468517404976,
+        "a-necklace-party-epic-1": 0.798672315385987,
+        "a-necklace-party-epic-2": 0.8266203863684295,
+        "a-necklace-party-epic-3": 0.8476468517404976,
+        "a-necklace-party-epic-4": 0.8486364632621427,
+        "a-ring-critical-epic-1": 0.8266203863684295,
+        "a-ring-critical-epic-2": 0.8476468517404976,
+        "a-ring-critical-epic-3": 0.8486364632621427,
+        "a-ring-critical-epic-4": 0.8494320096713709,
+        "a-ring-party-epic-1": 0.8476468517404976,
+        "a-ring-party-epic-2": 0.8486364632621427,
+        "a-ring-party-epic-3": 0.8494320096713709,
+        "a-ring-party-epic-4": 0.8308336833148902,
+        "a-charm-critical-epic-1": 0.8486364632621427,
+        "a-charm-critical-epic-2": 0.8494320096713709,
+        "a-charm-critical-epic-3": 0.8308336833148902,
+        "a-charm-critical-epic-4": 0.8066364016409894,
+        "a-charm-party-epic-1": 0.8494320096713709,
+        "a-charm-party-epic-2": 0.8308336833148902,
+        "a-charm-party-epic-3": 0.8066364016409894,
+        "a-charm-party-epic-4": 0.7937215177081614
+      },
+      "fourCopyRate": 0.002109375,
+      "processingMsPerVirtualHour": 713.1359704125003,
+      "purchases": {
+        "n": 100,
+        "p10": 8,
+        "p50": 13,
+        "p90": 17
+      },
+      "purchaseSpend": {
+        "n": 100,
+        "p10": 1183500,
+        "p50": 2178000,
+        "p90": 3780000
+      },
+      "rebirthUnequips": {
+        "n": 100,
+        "p10": 113,
+        "p50": 131,
+        "p90": 148
+      },
+      "eligibleAttempts": {
+        "n": 100,
+        "p10": 2694,
+        "p50": 5331,
+        "p90": 8145
+      },
+      "weaponContributionPointsPer1000GrossGearGold": {
+        "n": 100,
+        "p10": 0.0036781609195402297,
+        "p50": 0.009617486338797814,
+        "p90": 0.02547591960561244,
+        "zeroSpend": 0
+      },
+      "spendingFractionOfAvailableGold": {
+        "n": 100,
+        "p10": 0.6200090128203495,
+        "p50": 0.801471476044616,
+        "p90": 0.9562820278746387
+      },
+      "topWeaponTemplates": [
+        {
+          "id": "w-staff-uncommon-4",
+          "minutes": 3698.999999999999,
+          "share": 0.08158554001621114,
+          "players": 67
+        },
+        {
+          "id": "w-staff-rare-4",
+          "minutes": 2946.416666666666,
+          "share": 0.06498648144438086,
+          "players": 46
+        },
+        {
+          "id": "w-sword-rare-4",
+          "minutes": 2654.416666666667,
+          "share": 0.058546098182760534,
+          "players": 43
+        },
+        {
+          "id": "w-gauntlet-uncommon-4",
+          "minutes": 2540.0000000000014,
+          "share": 0.0560225119332729,
+          "players": 64
+        },
+        {
+          "id": "w-greatsword-rare-4",
+          "minutes": 1923.3333333333333,
+          "share": 0.04242124591272762,
+          "players": 41
+        }
+      ],
+      "weaponTemplatesUsed": 125,
+      "specificEpicZeroRange": {
+        "minimum": 0.7937215177081614,
+        "maximum": 0.8494320096713709
+      }
+    }
+  ]
+}

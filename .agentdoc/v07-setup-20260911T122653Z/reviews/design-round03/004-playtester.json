@@ -1,0 +1,126 @@
+{
+  "requestId": "1984dc6f8d5456db8bf86933db8901add0fc1f0555f48a82195a0035e69d6f1f",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "9c391fccc7d830fd3da382c0e45da5727f0939c9115a08fbbd55a17d4ac031f4",
+  "evaluationDigest": "2e858ae487fed58a3efd3ed7539ea84b5b746b7f920b9b210f91739a0187307f",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "Host Playtester로 실제 발급004 prompt/template 전체를 읽고 세 독립 보고서를 순서대로 대조했다. 출력에서 줄여진 Critic 구간은 원래002 응답과 prompt 구간을 따로 읽었다. 현재 control-l17의 등록 protocol, harness132, canonical916/lint/typecheck는 새 빌드의 같은 S/E에서 통과했다. 활성 HP tail은 아직 구현하지 않았고 이번 승인은 그 구현·탐색 검증 시나리오의 설계 승인이다. Round02 XP141 첫 목표 PASS와 실제12h h70 FAIL을 보존하며 새 후보 채택/성공으로 옮기지 않는다. 세 후보의 첫 기록 대응, 후기정체/과속, 최종0.7 Native 및 운영호환은 미확인이다. humanChecks=PENDING; commit/push/deploy 없음.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "Round03 exact20 parameters, unadopted3tails,6IDs/goals/seed separation."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "Frozen complete design and late-stall risks, future tail implementation and natural verification."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "Currentdisabledcontrol-l17 export; no activecandidate claimed."
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "note": "Existingexactcompanion115 separatedfromfield; active tail stillfutureV05."
+    },
+    {
+      "path": ".harness/v7/loop/config.mjs",
+      "note": "Strictversioned17/20keys andBigInttailratio boundary; currentofficialpathbindingretained."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "Actualengine/productionbinding, populationquantiles, structuralvsphaseacceptance andall9policies."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round02-analysis/final-analysis.json",
+      "note": "Preservedindependent180rawanalysis: noeligibleboth, XP141actual12hFAIL."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/prefix-reference.json",
+      "note": "Frozen20first-event/actionrecords fornewcandidatepairing; not fullattacktrace."
+    },
+    {
+      "path": ".harness/v7/loop/e2e-matrix.mjs",
+      "note": "Actualsequential9short+180long, PGID/resume andartifactverification."
+    },
+    {
+      "path": ".harness/v7/loop/electron-e2e.cjs",
+      "note": "Actualnaturalobservation/menuvisit/fixtureordering forfinalexecution."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789187425146.log",
+      "note": "Freshcanonical916producttests/lint/typecheckPASS; earlierstaledistfailure retained."
+    },
+    {
+      "path": ".harness/v7/loop/server-check.mjs",
+      "note": "Separatelocalhighlevelroundtrip andactualproductionSHA sourcecorrespondence, noautomaticdeploy."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "동료의 양의 안전 정수 레벨과 모든 저장/서버/응답 경계, overflow 무손실을 다시 확인한다. Lv>=10 환생은 Lv1/별+1이고 힘 비율2/level을 표시한 뒤 확인하며 대상 변경은 무효화한다. 필드 tail 변경은 동료115/100의 정확한 힘에 영향을 주면 안 된다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "실제 선택/영구컬렉션 영웅과 speciesKills>0 몬스터만 공개한다. 카드·이름·aria·개수·알림·ACK·목표의 공유판정 및 레거시 교집합을 유지한다. seen60 자격과 실제도감획득은 구분한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "각50행의 영웅·동료파티와 실제playerId 선택/preview/battle을 연결한다. 안정된DOM/포커스, 삭제/오류/만료의 stale preview 차단을 최종소스에서 관찰한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Lv16–20 대조와 L17XP1.41/tail111·108·105의 정확20개 수치를실행전에등록했다. 첫72처치는index79이전이지만 새실행을해야통과다. 전체p50 45–60분과18/20이90분내, 채택뒤90/100이90분내를 고정한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "왕관용dragon3,뿌리거인환생3,h58 water100/reefknight2/1500킬,h62환생5/seen60/6000킬,starvoid환생10/16000킬,최종h70실제영웅10종/30000킬을유지한다. 후기정체와과속을함께보고하며 자격과실제선택은별도다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "기존유효한열린offer와문턱/획득이력·서버transferID를보존한다. 과거17키근거와새20키실행을분리한다. 패키지0.7.0고정뒤같은최종소스에서모든근거를새로만든다."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "Lv9 거부와 Lv10/11/250/MAX_SAFE 왕복, 소모/융합/환생 overflow, 확인/취소/대상변경을 실행한다.",
+      "expected": "재료/상태 무손실, 실제전후레벨·별·bigint힘 일치, 잘못된응답거절.",
+      "evidencePlan": "등록 levels AC+canonical gates, 최종0.7 실제 Native의 격리fixture 진단과 직접 연 PNG; 자연관측 후 진단."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "등장/제안만 있는 레거시를 반복부팅한 뒤 실제첫선택/처치와 ACK/재부팅을 실행한다.",
+      "expected": "미획득은실루엣/숨김이름이며 첫실제획득에 동시갱신; 실제보유영웅의 ACK 보존, 과거처치추정없음.",
+      "evidencePlan": "등록 codex AC+gates와 최종Native접근성/카드/알림/목표 PNG 및 저장/재시작원본."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "실제 Tab/ShiftTab/Enter/Space와 mouseDown/up으로50명 중지정상대를선택하고 자동저장·순위재정렬·행퇴출·만료·오류를 발생시킨다.",
+      "expected": "요청ID=응답ID=선택행이며 nonbot. 포커스는같은버튼에유지, 행퇴출이면새로고침으로이동. 낡은대상으로전투없음.",
+      "evidencePlan": "directory AC+gates, 최종Native신뢰입력이벤트·요청/응답·선택DOM 및 PNG. 과거 PNG의재정렬전 compositor프레임한계는 유지."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "실제생산소스에각8실험을적용하고 exploration10001–10020×120분을실행한다. 후보의최초7시각/기록/첫선택ID·레벨·시각을 고정prefix-reference와비교한다.",
+      "expected": "새실행과기존기록의정확한쌍이 일치하고 전체분모20의두첫기준을모두통과해야12h승급. CLI ID만바꾸거나구조verify exit0만으로승급불가.",
+      "evidencePlan": "source/eval/protocol/build/raw/log 해시와 prefix-comparison.json. 원본에없는전체공격/처치trace를검증했다고쓰지않는다."
+    },
+    {
+      "id": "long-progression",
+      "action": "V05에서한번의bigint나눗셈tail공식과경계/일반분모/큰깊이/동료힘을검사한다. 선별통과안만같은20seed12h를실행하고2/4/8/10/12h진행/공백을읽는다.",
+      "expected": "h70자격전체p50 8–12h와첫기준둘다통과한안만 고정tie-break로선택.105도과속/정원고착을실제로검사. h70실제선택미도달과미도달null을그대로보고.",
+      "evidencePlan": "registeredprogression AC+gates, 정확HP80=673834(tail108),HP81=768732(111)/687872(105) 회귀. 후보100seed12h,release9정책각100seed12h,별도audit.mjs네역할."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "최종0.7에서9개5/15/30분×3프로필과별도연속180분active를순차관측하고10분마다실제메뉴환생을선택한다. localhighlevelcapture/livebuild대응,smoke,실제package를확인한다.",
+      "expected": "330분이상의독립실제자연관측과원본해시/정확ID/포커스/저장재시작검증. fixture와시간가속은자연관측중없음. 로컬PASS만으로운영호환인증하지않으며humanPENDING.",
+      "evidencePlan": "격리save·합성입력·모의네트워크. 프로세스/PGID확인후한Native만실행; 동시빌드없음. 실제app/dmg검사,서버의검증된소스대응,원본실패와보고서보존. 기존패키지앱/메타데이터는사전보존완료."
+    }
+  ],
+  "humanChecks": "PENDING: actual human observation has not run"
+}

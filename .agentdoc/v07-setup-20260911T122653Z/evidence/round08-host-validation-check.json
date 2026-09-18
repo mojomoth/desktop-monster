@@ -1,0 +1,504 @@
+{
+  "at": "2026-09-12T17:50:00.555802+00:00",
+  "scope": "Independent Host calculation from completed100raw, exact100ms integerquantiles; no optimization. Readiness/offers/accepted and eligibility/visibility/acquisition distinct.",
+  "report": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate-round08.json",
+    "sha256": "e7b607b205ec26557685bd1db0d80d46f5102d29a428fad1a7c3e2a6569d75c0"
+  },
+  "first": {
+    "firstKillSec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 4.0,
+        "p50": 4.5,
+        "p90": 5.0,
+        "worst": 5.0
+      },
+      "conditional": {
+        "p10": 4.0,
+        "p50": 4.5,
+        "p90": 5.0,
+        "worst": 5.0
+      }
+    },
+    "firstRewardSec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 4.0,
+        "p50": 4.5,
+        "p90": 5.0,
+        "worst": 5.0
+      },
+      "conditional": {
+        "p10": 4.0,
+        "p50": 4.5,
+        "p90": 5.0,
+        "worst": 5.0
+      }
+    },
+    "firstLevelSec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 14.5,
+        "p50": 15.5,
+        "p90": 16.5,
+        "worst": 17.0
+      },
+      "conditional": {
+        "p10": 14.5,
+        "p50": 15.5,
+        "p90": 16.5,
+        "worst": 17.0
+      }
+    },
+    "firstCaptureSec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 35.5,
+        "p50": 50.5,
+        "p90": 192.5,
+        "worst": 2783.0
+      },
+      "conditional": {
+        "p10": 35.5,
+        "p50": 50.5,
+        "p90": 192.5,
+        "worst": 2783.0
+      }
+    },
+    "firstReadySec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 1698.4,
+        "p50": 2736.6,
+        "p90": 3539.5,
+        "worst": 3723.3
+      },
+      "conditional": {
+        "p10": 1698.4,
+        "p50": 2736.6,
+        "p90": 3539.5,
+        "worst": 3723.3
+      }
+    },
+    "firstOpenSec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 1698.4,
+        "p50": 2736.6,
+        "p90": 3539.5,
+        "worst": 3723.3
+      },
+      "conditional": {
+        "p10": 1698.4,
+        "p50": 2736.6,
+        "p90": 3539.5,
+        "worst": 3723.3
+      }
+    },
+    "firstAcceptedSec": {
+      "samples": 100,
+      "reached": 100,
+      "unreached": 0,
+      "population": {
+        "p10": 1698.4,
+        "p50": 2736.6,
+        "p90": 3539.5,
+        "worst": 3723.3
+      },
+      "conditional": {
+        "p10": 1698.4,
+        "p50": 2736.6,
+        "p90": 3539.5,
+        "worst": 3723.3
+      }
+    }
+  },
+  "by90": 100,
+  "denominator": 100,
+  "firstReadyOpenAcceptedEqual": true,
+  "content": {
+    "crownwyrm": {
+      "eligibleMonster": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 2537.5,
+          "p50": 4044.1,
+          "p90": 5275.9,
+          "worst": 7242.6
+        },
+        "conditional": {
+          "p10": 2537.5,
+          "p50": 4044.1,
+          "p90": 5275.9,
+          "worst": 7242.6
+        }
+      },
+      "seenMonster": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 2538.8,
+          "p50": 4052.3,
+          "p90": 5275.9,
+          "worst": 7269.6
+        },
+        "conditional": {
+          "p10": 2538.8,
+          "p50": 4052.3,
+          "p90": 5275.9,
+          "worst": 7269.6
+        }
+      },
+      "killedMonster": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 2538.8,
+          "p50": 4053.3,
+          "p90": 5276.0,
+          "worst": 7272.6
+        },
+        "conditional": {
+          "p10": 2538.8,
+          "p50": 4053.3,
+          "p90": 5276.0,
+          "worst": 7272.6
+        }
+      },
+      "capturedMonster": {
+        "samples": 100,
+        "reached": 21,
+        "unreached": 79,
+        "population": {
+          "p10": 4437.0,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 3066.1,
+          "p50": 4440.5,
+          "p90": 5643.8,
+          "worst": 6633.7
+        }
+      }
+    },
+    "rootcolossus": {
+      "eligibleMonster": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 2621.4,
+          "p50": 3872.2,
+          "p90": 4950.2,
+          "worst": 6065.0
+        },
+        "conditional": {
+          "p10": 2621.4,
+          "p50": 3872.2,
+          "p90": 4950.2,
+          "worst": 6065.0
+        }
+      },
+      "seenMonster": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 2623.5,
+          "p50": 3873.0,
+          "p90": 4952.8,
+          "worst": 6065.0
+        },
+        "conditional": {
+          "p10": 2623.5,
+          "p50": 3873.0,
+          "p90": 4952.8,
+          "worst": 6065.0
+        }
+      },
+      "killedMonster": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 2623.5,
+          "p50": 3873.2,
+          "p90": 4953.0,
+          "worst": 6065.1
+        },
+        "conditional": {
+          "p10": 2623.5,
+          "p50": 3873.2,
+          "p90": 4953.0,
+          "worst": 6065.1
+        }
+      },
+      "capturedMonster": {
+        "samples": 100,
+        "reached": 22,
+        "unreached": 78,
+        "population": {
+          "p10": 4274.3,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 2930.2,
+          "p50": 4416.4,
+          "p90": 5512.4,
+          "worst": 5935.9
+        }
+      }
+    },
+    "h58": {
+      "eligibleHero": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "population": {
+          "p10": 3974.6,
+          "p50": 5607.5,
+          "p90": 7953.6,
+          "worst": 13426.0
+        },
+        "conditional": {
+          "p10": 3974.6,
+          "p50": 5607.5,
+          "p90": 7953.6,
+          "worst": 13426.0
+        }
+      },
+      "seenHero": {
+        "samples": 100,
+        "reached": 98,
+        "unreached": 2,
+        "population": {
+          "p10": 4884.8,
+          "p50": 7456.2,
+          "p90": 21885.5,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 4884.8,
+          "p50": 7453.5,
+          "p90": 20529.4,
+          "worst": 30717.4
+        }
+      },
+      "chosenHero": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "population": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        }
+      }
+    },
+    "h62": {
+      "eligibleHero": {
+        "samples": 100,
+        "reached": 81,
+        "unreached": 19,
+        "population": {
+          "p10": 6655.5,
+          "p50": 16582.3,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 6560.4,
+          "p50": 13401.8,
+          "p90": 34608.9,
+          "worst": 43049.5
+        }
+      },
+      "seenHero": {
+        "samples": 100,
+        "reached": 80,
+        "unreached": 20,
+        "population": {
+          "p10": 6784.8,
+          "p50": 17649.4,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 6590.6,
+          "p50": 13636.0,
+          "p90": 35500.5,
+          "worst": 39745.5
+        }
+      },
+      "chosenHero": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "population": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        }
+      }
+    },
+    "starvoid": {
+      "eligibleMonster": {
+        "samples": 100,
+        "reached": 67,
+        "unreached": 33,
+        "population": {
+          "p10": 10923.5,
+          "p50": 31037.5,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 10521.5,
+          "p50": 23365.5,
+          "p90": 36631.7,
+          "worst": 42267.8
+        }
+      },
+      "seenMonster": {
+        "samples": 100,
+        "reached": 67,
+        "unreached": 33,
+        "population": {
+          "p10": 10923.9,
+          "p50": 31037.5,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 10522.2,
+          "p50": 23365.5,
+          "p90": 36632.4,
+          "worst": 42268.5
+        }
+      },
+      "killedMonster": {
+        "samples": 100,
+        "reached": 67,
+        "unreached": 33,
+        "population": {
+          "p10": 10923.9,
+          "p50": 31040.5,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 10522.2,
+          "p50": 23365.7,
+          "p90": 36632.5,
+          "worst": 42268.8
+        }
+      },
+      "capturedMonster": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "population": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        }
+      }
+    },
+    "h70": {
+      "eligibleHero": {
+        "samples": 100,
+        "reached": 50,
+        "unreached": 50,
+        "population": {
+          "p10": 17441.5,
+          "p50": 40596.0,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 14841.7,
+          "p50": 20933.6,
+          "p90": 34739.3,
+          "worst": 40596.0
+        }
+      },
+      "seenHero": {
+        "samples": 100,
+        "reached": 50,
+        "unreached": 50,
+        "population": {
+          "p10": 17555.4,
+          "p50": 40692.5,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": 15063.0,
+          "p50": 21271.6,
+          "p90": 34841.4,
+          "worst": 40692.5
+        }
+      },
+      "chosenHero": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "population": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "worst": null
+        }
+      }
+    }
+  },
+  "goalsPassed": true
+}

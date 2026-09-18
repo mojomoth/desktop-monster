@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-09-12T23:49:15.777969+00:00",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "running": {
+    "key": "180-active",
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/180-active-1789253244141.json",
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/180-active-1789253244141.json.log",
+    "pid": 94057,
+    "processGroupId": 94057,
+    "startedAt": "2026-09-12T22:47:24.144Z"
+  },
+  "relevantProcesses": [
+    {
+      "pid": 5265,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (Renderer).app/Contents/MacOS/Electron Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-jQPwS7 --app-path=/Users/jeongyounglee/work/repo/desktop-monster --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=6 --time-ticks-at-unix-epoch=-1788757594294140 --launch-time-ticks=496253667130 --shared-files --field-trial-handle=1718379636,r,2958004185562365830,15342721467099273797,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708991934122588 --seatbelt-client=57"
+    },
+    {
+      "pid": 50718,
+      "pgid": 50646,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    },
+    {
+      "pid": 94057,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/.nvm/versions/node/v20.12.2/bin/node /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/180-active-1789253244141.json 180 active"
+    },
+    {
+      "pid": 94158,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/.nvm/versions/node/v20.12.2/bin/node /Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/cli.js /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/electron-e2e.cjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/180-active-1789253244141.json 180 active"
+    },
+    {
+      "pid": 94159,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/electron-e2e.cjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/180-active-1789253244141.json 180 active"
+    },
+    {
+      "pid": 94167,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (GPU).app/Contents/MacOS/Electron Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-jQPwS7 --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,2958004185562365830,15342721467099273797,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=32"
+    },
+    {
+      "pid": 94168,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper.app/Contents/MacOS/Electron Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-jQPwS7 --shared-files --field-trial-handle=1718379636,r,2958004185562365830,15342721467099273797,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=32"
+    },
+    {
+      "pid": 94170,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (Renderer).app/Contents/MacOS/Electron Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-jQPwS7 --app-path=/Users/jeongyounglee/work/repo/desktop-monster --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757594294140 --launch-time-ticks=495652916326 --shared-files --field-trial-handle=1718379636,r,2958004185562365830,15342721467099273797,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=52"
+    },
+    {
+      "pid": 94174,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper.app/Contents/MacOS/Electron Helper --type=utility --utility-sub-type=audio.mojom.AudioService --lang=ko --service-sandbox-type=audio --message-loop-type-ui --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-jQPwS7 --shared-files --field-trial-handle=1718379636,r,2958004185562365830,15342721467099273797,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990997080739 --seatbelt-client=54"
+    }
+  ],
+  "runnerProcesses": [
+    {
+      "pid": 25832,
+      "pgid": 25832,
+      "command": "node .harness/v7/loop/e2e-matrix.mjs run .agentdoc/v07-setup-20260911T122653Z/evidence/native"
+    },
+    {
+      "pid": 94057,
+      "pgid": 94057,
+      "command": "/Users/jeongyounglee/.nvm/versions/node/v20.12.2/bin/node /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/180-active-1789253244141.json 180 active"
+    }
+  ],
+  "user50718Alive": true,
+  "oneNativeRunner": true,
+  "measurementRunnerCount": 0,
+  "scope": "Read-only process/source check; the stdout-only Python checkpoint observer is not a Native or measure runner."
+}

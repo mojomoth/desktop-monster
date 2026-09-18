@@ -1,0 +1,303 @@
+{
+  "at": "2026-09-12T07:16:36.157671+00:00",
+  "status": "ALL_SCREENING_FAILED_NO_ADOPTION",
+  "round": 6,
+  "process": {
+    "execSession": 17554,
+    "pid": 63107,
+    "pgid": 63107,
+    "exitCode": 0,
+    "ended": true
+  },
+  "trials": [
+    {
+      "id": "candidate-r6-first5-63-xp142",
+      "executionSha256": "0e0e57fe76dfd0e42b8bed878b0461e1cd182bde7907bd27e56e89687fcde379",
+      "reportSha256": "8a0634b831b3e43f37c9c2c3edcb7e80d4b65d5d1cb41d72cfe39c31b93ded4b",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": 2320.3,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": true,
+            "reached": 20,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:13:31.849020+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "candidate-r6-first5-63-xp143",
+      "executionSha256": "e38a567d8c416ba18d50cc19ca932b493369ff16c86edf0b1b6beb441bce545d",
+      "reportSha256": "d478e4f885c2b7ac86874dc0e03468ec3129d39a0b6ced68af9a1e69616d693c",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": 2266.5,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": true,
+            "reached": 20,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:13:46.157929+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "candidate-r6-first63-xp141",
+      "executionSha256": "456834705c3cc456c67de7819ba375119d4084700363ff130f835d91734bdc20",
+      "reportSha256": "e2a9a335987166135374ce8f623e9a3dca4ebf77cb78e6eed745cfd0014046aa",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": 2650.5,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": true,
+            "reached": 19,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:13:17.691026+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "control-l16",
+      "executionSha256": "bf642b4fd1aa94f34fea37ea6df423068fb78277f22307216e24e083ff4684b0",
+      "reportSha256": "c091a4458afd2b30d7a6ad2d39cfb7efc05eecf5906d3bd89f62d14519d94983",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": 813.6,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": true,
+            "reached": 20,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:12:28.870723+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "control-l17",
+      "executionSha256": "7b60aa6f83d302a9f375f947294ff7ebab85d6da80614f348fb3df8f93ab29aa",
+      "reportSha256": "4a3cd2da40b8283f890a7f04db82f55106429f6121e4e65221e4c71e6eab1287",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": 1636.5,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": true,
+            "reached": 20,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:12:40.020101+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "control-l18",
+      "executionSha256": "9ec42376229c471a8ba7b1dc5a6641699c769450761b9d5b109df7e99dbc7e45",
+      "reportSha256": "23355ed631eacefbeb4124e24adbf97c0ce21dbc00b6b17881e10d71da3b9bd4",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": 4976.5,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": false,
+            "reached": 12,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:12:49.044912+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "control-l19",
+      "executionSha256": "a66b30fa2188955a61d0d0d696d2592f874a6bb0a7fd40428a1b22731e4fae8b",
+      "reportSha256": "83f07205da65cfead51cffc79cda4055b14b0b13c309eed9b1777affd7de49ab",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": null,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": false,
+            "reached": 5,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:12:57.290739+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    },
+    {
+      "id": "control-l20",
+      "executionSha256": "5c1f3bddb1439ac5b508ecaac33342e3cad1206365e3e7ce93b3ad63de7ef79b",
+      "reportSha256": "125e3af2ebcec8f959a5763773300407b4aa2560feb68495039c72efd433e34e",
+      "targets": {
+        "status": "FAIL",
+        "passed": false,
+        "samples": 20,
+        "checks": [
+          {
+            "id": "first-reincarnation-median",
+            "passed": false,
+            "observedSec": null,
+            "minSec": 2700,
+            "maxSec": 3600
+          },
+          {
+            "id": "first-reincarnation-deadline",
+            "passed": false,
+            "reached": 1,
+            "samples": 20,
+            "deadlineSec": 5400,
+            "minimumFraction": 0.9
+          }
+        ],
+        "skipped": [
+          "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+        ],
+        "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+      },
+      "endedAt": "2026-09-12T07:13:05.493325+00:00",
+      "long": {
+        "status": "NOT_EXECUTED",
+        "reason": "Screening goals failed."
+      }
+    }
+  ],
+  "note": "Batch execution completed; all8structuralverify/114producttests passed, goals failed. No full12h executed. IndependentBalanceintegrityanalysis pending. No validation1\u2013100run thisround, no candidate.jsonoverwrite."
+}

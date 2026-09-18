@@ -1,0 +1,155 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 7,
+  "startedAt": "2026-09-12T08:04:19.772087+00:00",
+  "experimentKind": "candidate",
+  "experiment": {
+    "id": "candidate-r7-prefix1154",
+    "hypothesis": "Hold Round06B L17/XP1.42/count5/depth63 and tail79/10475per10000, compare field prefix1154/1000 to slow the tooearly central first journey while testing whether the20/20deadline tail persists. Prefix also raises tail anchor and changes relative companion power; actual timing/RNG not assumed monotonic. No new mechanic or waits; all6content conditions/goals/policies/seeds unchanged. New120min and qualifying12h required.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.42,
+      "fieldHpNumerator": 1154,
+      "fieldHpDenominator": 1000,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": 63,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 10475,
+      "fieldHpTailDenominator": 10000,
+      "earlyCaptureCount": 5
+    }
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/protocol.preregistered.json",
+    "sha256": "196f351031a385164fa68b0821606538c1d230b2b3b6c6c292deb01bec3048c1"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/evaluation.tar.gz",
+    "sha256": "d27a051c87a3ae42997727a02de38d7446e145afe41dda2349f43705edc4de1b"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T08:04:19.870936+00:00",
+      "endedAt": "2026-09-12T08:04:23.655917+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/production-tests.log",
+      "sha256": "eca32a4a40bbb2681d133c0474d86318de5abe0794e194c840a06cb20d092294"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r7-prefix1154",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T08:04:23.656609+00:00",
+      "endedAt": "2026-09-12T08:04:32.232054+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/screening.log",
+      "sha256": "c8902fcc0895214d69d457bf9b0e728af5975e9281eb73e522206647d3ac95c0"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/screening.json"
+      ],
+      "startedAt": "2026-09-12T08:04:32.232934+00:00",
+      "endedAt": "2026-09-12T08:04:32.353655+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/screening-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/production-source.tar.gz",
+    "sha256": "9ddbbdea97f790a9a33b8a6e07b850027d7c19d8ac48c6342d2e6f27937939f5"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/screening.json",
+    "sha256": "cea299d1fdfd1f3290c64f78d97b04bf8db350c1449b01df793d969cdd18d90f",
+    "sourceDigest": "4c1fdeb54d0cd70a1378ca3c80f953e79cbe0669e867c0682cb7ca9c99084eae",
+    "evaluationDigest": "c12f36f481ed2bbf4896ecafa787cf1929856ff24202267db2f4cec3b56b7002",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r7-prefix1154",
+      "parametersSha256": "72a72aa625624f5104b37fd8da8ec210ea80622335679a4b90231b1c5288a178",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": false,
+          "observedSec": 2280.3,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 20,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "495cf9ca1d06351b51a357813b7a9646892bc514276b0b2a2524caf4a425003e",
+    "buildSha256": "38831559a72b06b4020b711058a78d27561f628949217dc47bc94bdf9beec380"
+  },
+  "full-12h": {
+    "status": "NOT_EXECUTED",
+    "reason": "Screening goals failed."
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-07/candidate-r7-prefix1154/compiled-build.tar.gz",
+    "sha256": "e327eb43d221a716f030babd2039fa150e220061c5fca0e3b5c1cb5ac1be1343"
+  },
+  "endedAt": "2026-09-12T08:04:32.439284+00:00"
+}

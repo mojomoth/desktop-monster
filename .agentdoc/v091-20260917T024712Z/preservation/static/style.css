@@ -1,0 +1,53 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  /* Drag regions swallow mousedown — fallback input needs clicks, so only
+     the 24-px top strip below is draggable. */
+  -webkit-app-region: no-drag;
+}
+
+.drag-handle {
+  /* Overlays the top of the canvas (2026-09-06): the 400x260 window holds the
+     whole 200x130 canvas at 2x, so the handle must not push it down and clip
+     the ground strip + type badges off the bottom. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  -webkit-app-region: drag;
+}
+
+.drag-handle:hover {
+  /* Subtle grip hint so the only draggable strip is discoverable. */
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  image-rendering: pixelated;
+  -webkit-app-region: no-drag;
+}
+
+#field-save-status, #field-save-recovery {
+  position: absolute;
+  top: 28px;
+  left: 8px;
+  right: 8px;
+  margin: 0;
+  padding: 6px;
+  color: #fff2dd;
+  background: #442637;
+  font: 12px/1.5 monospace;
+  -webkit-app-region: no-drag;
+}
+#field-save-recovery { top: 110px; }
+#field-save-recovery button { font: inherit; }
+[hidden] { display: none !important; }

@@ -1,0 +1,38 @@
+src/menu/codex.ts(263,19): error TS2345: Argument of type '{ progress: Progress; version: 4; coins: string; equipment?: EquipmentState; monsterEpicBossId?: string; pvpGoldNet?: string | undefined; pvpGoldDebt?: string | undefined; ... 15 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+src/menu/codex.ts(276,98): error TS2345: Argument of type '{ progress: Progress; version: 4; coins: string; equipment?: EquipmentState; monsterEpicBossId?: string; pvpGoldNet?: string | undefined; pvpGoldDebt?: string | undefined; ... 15 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+src/menu/codex.ts(277,88): error TS2345: Argument of type '{ progress: Progress; version: 4; coins: string; equipment?: EquipmentState; monsterEpicBossId?: string; pvpGoldNet?: string | undefined; pvpGoldDebt?: string | undefined; ... 15 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+src/menu/codex.ts(278,84): error TS2345: Argument of type '{ progress: Progress; version: 4; coins: string; equipment?: EquipmentState; monsterEpicBossId?: string; pvpGoldNet?: string | undefined; pvpGoldDebt?: string | undefined; ... 15 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+src/menu/equipment.ts(119,83): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'Pick<GameState, "hero" | "level" | "progress" | "equipment" | "souls">'.
+  Types of property 'progress' are incompatible.
+    Type 'SavedProgress | undefined' is not assignable to type 'Progress | undefined'.
+      Type 'SavedProgress' is not assignable to type 'Progress | undefined'.
+        Type 'SavedProgress' is not assignable to type 'Progress'.
+          Types of property 'goldSpent' are incompatible.
+            Type 'string' is not assignable to type 'bigint'.
+src/menu/hero.ts(60,77): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'Pick<GameState, "hero" | "level" | "progress" | "equipment" | "souls">'.
+  Types of property 'progress' are incompatible.
+    Type 'SavedProgress | undefined' is not assignable to type 'Progress | undefined'.
+      Type 'SavedProgress' is not assignable to type 'Progress | undefined'.
+        Type 'SavedProgress' is not assignable to type 'Progress'.
+          Types of property 'goldSpent' are incompatible.
+            Type 'string' is not assignable to type 'bigint'.

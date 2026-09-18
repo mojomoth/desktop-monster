@@ -1,0 +1,137 @@
+{
+  "kind": "partial-native-observation-only",
+  "agent": "/root",
+  "completedNaturalMinutes": 45,
+  "finalMatrixComplete": false,
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "runs": [
+    {
+      "key": "5-active",
+      "originalSha256": "583727d5ee2c0a0a7b1ef251c366263f742d10480297f8436815f97e480a27b4",
+      "elapsedMs": 300166.794458,
+      "inputs": 578,
+      "end": {
+        "level": 14,
+        "kills": 47,
+        "coins": 560,
+        "companions": 2,
+        "reincarnations": 0,
+        "playTimeMs": 297626.3000000357,
+        "seenMonsters": 39,
+        "acquiredHeroes": 0,
+        "defeatedSpecies": 38
+      },
+      "checks": 43,
+      "allPassed": true,
+      "errors": [],
+      "naturalScreenshot": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/5-active-1789243942697.json.screenshots/5m-active.png",
+        "sha256": "6975d04ee207bccc3be78c1102004645a6fafc52ba4bb9caa56308e0c6e35210"
+      },
+      "hostDirectlyViewed": true
+    },
+    {
+      "key": "5-idle",
+      "originalSha256": "e105975c1235132af0d510923c94ed92eaaced3d4efae810e5e5f1a304ef6f7e",
+      "elapsedMs": 300176.916709,
+      "inputs": 0,
+      "end": {
+        "level": 1,
+        "kills": 0,
+        "coins": 0,
+        "companions": 0,
+        "reincarnations": 0,
+        "playTimeMs": 300281.40000003576,
+        "seenMonsters": 1,
+        "acquiredHeroes": 0,
+        "defeatedSpecies": 0
+      },
+      "checks": 43,
+      "allPassed": true,
+      "errors": [],
+      "naturalScreenshot": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/5-idle-1789244275863.json.screenshots/5m-idle.png",
+        "sha256": "99ca72a6a3803c6173407f179ae620656bd2f5e5968e8d726fce5411d990da58"
+      },
+      "hostDirectlyViewed": true
+    },
+    {
+      "key": "5-intermittent",
+      "originalSha256": "981a7faf4b85e489fd1fe43ce50c2fbbc7c0f81e91f4672da5731b2f81b2aab2",
+      "elapsedMs": 300176.58675,
+      "inputs": 146,
+      "end": {
+        "level": 11,
+        "kills": 29,
+        "coins": 223,
+        "companions": 2,
+        "reincarnations": 0,
+        "playTimeMs": 300217.30000002385,
+        "seenMonsters": 27,
+        "acquiredHeroes": 0,
+        "defeatedSpecies": 26
+      },
+      "checks": 43,
+      "allPassed": true,
+      "errors": [],
+      "naturalScreenshot": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/5-intermittent-1789244608843.json.screenshots/5m-intermittent.png",
+        "sha256": "35c2d143f7e3f226972981f7c50bcf4d2b8df443e57c2239f475fe281a34fe29"
+      },
+      "hostDirectlyViewed": true
+    },
+    {
+      "key": "15-active",
+      "originalSha256": "681974110d069eb3275961efecded0ac86befc1bb33b992bf2c1ccd78da33310",
+      "elapsedMs": 900183.624583,
+      "inputs": 1745,
+      "end": {
+        "level": 15,
+        "kills": 63,
+        "coins": 1001,
+        "companions": 5,
+        "reincarnations": 0,
+        "playTimeMs": 900205.4,
+        "seenMonsters": 51,
+        "acquiredHeroes": 0,
+        "defeatedSpecies": 50
+      },
+      "checks": 43,
+      "allPassed": true,
+      "errors": [],
+      "naturalScreenshot": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/15-active-1789244941459.json.screenshots/15m-active.png",
+        "sha256": "fc44897da8d107e0b3a18c86bc711a9a02d5b73a38dce90311147ba01b632d24"
+      },
+      "hostDirectlyViewed": true
+    },
+    {
+      "key": "15-idle",
+      "originalSha256": "3f5258f11084076d6f421351e93da91370b43993332aa5823594f8b25ed4677a",
+      "elapsedMs": 900174.451208,
+      "inputs": 0,
+      "end": {
+        "level": 1,
+        "kills": 0,
+        "coins": 0,
+        "companions": 0,
+        "reincarnations": 0,
+        "playTimeMs": 900272.4000000119,
+        "seenMonsters": 1,
+        "acquiredHeroes": 0,
+        "defeatedSpecies": 0
+      },
+      "checks": 43,
+      "allPassed": true,
+      "errors": [],
+      "naturalScreenshot": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/15-idle-1789245874386.json.screenshots/15m-idle.png",
+        "sha256": "159e851e2419df59940641d530d94a0dc563585d477f2af04c4157b0384d8756"
+      },
+      "hostDirectlyViewed": true
+    }
+  ],
+  "visualNotes": "Host directly opened each first five natural endpoint PNG via view_image. Visible level/kill/coin/party correspond to end records:5active Lv14/47/560/two;5idle Lv1/0/0/none;5intermittent Lv11/29/223/two;15active Lv15/63/1001/five party icons;15idle Lv1/0/0/none. These endpoint screenshots do not substitute for real timing or 180-minute menu interaction; all are before subsequent diagnostic fixtures.",
+  "humanChecks": "PENDING"
+}

@@ -1,0 +1,304 @@
+src/main/coordinator.ts(56,47): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/coordinator.ts(63,27): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/coordinator.ts(270,74): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/ipc.ts(343,38): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/server/app.ts(227,39): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/server/gold.ts(27,47): error TS2322: Type 'string | number' is not assignable to type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/server/gold.ts(28,41): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/server/gold.ts(37,23): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(37,73): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(45,12): error TS2365: Operator '<=' cannot be applied to types 'string | number' and 'number'.
+src/server/gold.ts(45,45): error TS2365: Operator '<=' cannot be applied to types 'string | number' and 'number'.
+src/server/gold.ts(49,64): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(52,5): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(52,30): error TS2365: Operator '+=' cannot be applied to types 'string | number' and 'number'.
+src/server/gold.ts(54,88): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+tests/balance.test.ts(81,172): error TS2322: Type 'number | bigint' is not assignable to type 'number'.
+  Type 'bigint' is not assignable to type 'number'.
+tests/balance.test.ts(84,58): error TS2322: Type 'bigint' is not assignable to type 'number'.
+tests/balance.test.ts(176,84): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/balance.test.ts(195,85): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/balance.test.ts(196,11): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/balance.test.ts(201,11): error TS2322: Type 'bigint' is not assignable to type 'number'.
+tests/balance.test.ts(208,11): error TS2322: Type 'bigint' is not assignable to type 'number'.
+tests/codexV7.test.ts(64,31): error TS2322: Type '{ seenHeroes: string[]; seenMonsters: ("dragon" | "slime" | "reefknight" | "bat" | "golem" | "ghost" | "dawnfinch" | "kilnbeetle" | "crownwyrm" | "cinderhare" | "duelphoenix" | "furnaceox" | ... 122 more ... | "cindercoil")[]; ... 12 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; seenMonsters: ("dragon" | "slime" | "reefknight" | "bat" | "golem" | "ghost" | "dawnfinch" | "kilnbeetle" | "crownwyrm" | "cinderhare" | "duelphoenix" | "furnaceox" | ... 122 more ... | "cindercoil")[]; ... 12 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(88,12): error TS2345: Argument of type '{ level: number; progress: Progress; hero: { equipped: { formId: string; buffPercent: number; }; collection: { formId: string; buffPercent: number; }[]; choices: { formId: string; buffPercent: number; }[]; reincarnations: number; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 19 more ...;...' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(90,41): error TS2345: Argument of type '{ level: number; progress: Progress; hero: { equipped: { formId: string; buffPercent: number; }; collection: { formId: string; buffPercent: number; }[]; choices: { formId: string; buffPercent: number; }[]; reincarnations: number; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 19 more ...;...' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(108,31): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(128,94): error TS2322: Type '{ seenHeroes: string[]; seenMonsters: string[]; playTimeMs: number; speciesKills: Record<string, number>; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; seenMonsters: string[]; playTimeMs: number; speciesKills: Record<string, number>; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(138,25): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(142,25): error TS2322: Type '{ speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(154,25): error TS2322: Type '{ codex: { acknowledgedMonsters: string[]; acknowledgedHeroes: string[]; goal: DiscoveryGoal | null; }; speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; ... 9 more ...; legacyHistory: boolean; }' is not assignable to type 'SavedProgress'.
+  Type '{ codex: { acknowledgedMonsters: string[]; acknowledgedHeroes: string[]; goal: DiscoveryGoal | null; }; speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; ... 9 more ...; legacyHistory: boolean; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(174,12): error TS2345: Argument of type '{ progress: Progress; version: 4; coins: string; equipment?: EquipmentState; monsterEpicBossId?: string; pvpGoldNet?: string; pvpGoldDebt?: string; ... 15 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(182,12): error TS2345: Argument of type '{ progress: Progress; version: 4; coins: string; equipment?: EquipmentState; monsterEpicBossId?: string; pvpGoldNet?: string; pvpGoldDebt?: string; ... 15 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type 'Progress' is not assignable to type 'SavedProgress'.
+      Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(193,31): error TS2322: Type '{ heroCounts: { h51: number; }; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ heroCounts: { h51: number; }; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/codexV7.test.ts(197,31): error TS2322: Type '{ seenHeroes: string[]; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/collection.test.ts(42,28): error TS2345: Argument of type '{ version: 2 | 4; level: number; xp: number; killCount: number; coins: string | number; items: Record<string, number>; monsterIndex: number; monsterHp: string; companions: Companion[]; ... 13 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to parameter of type 'SaveInput | null | undefined'.
+  Type '{ version: 2 | 4; level: number; xp: number; killCount: number; coins: string | number; items: Record<string, number>; monsterIndex: number; monsterHp: string; companions: Companion[]; ... 13 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to type 'SaveFileV2 | SaveFileV4'.
+    Type '{ version: 2 | 4; level: number; xp: number; killCount: number; coins: string | number; items: Record<string, number>; monsterIndex: number; monsterHp: string; companions: Companion[]; ... 13 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to type 'SaveFileV4'.
+      Types of property 'version' are incompatible.
+        Type '2 | 4' is not assignable to type '4'.
+          Type '2' is not assignable to type '4'.
+tests/discoveryV5.test.ts(9,49): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/discoveryV5.test.ts(23,23): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/discoveryV5.test.ts(68,57): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/goldV91.test.ts(7,50): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/goldV91.test.ts(17,52): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/goldV91.test.ts(44,52): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/goldV91.test.ts(49,52): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/goldV91.test.ts(52,46): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+tests/hero.test.ts(10,78): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/hero.test.ts(115,42): error TS2365: Operator '-' cannot be applied to types 'number' and 'bigint'.
+tests/hero.test.ts(120,46): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/heroArtCompatibility.test.ts(33,26): error TS2322: Type '3' is not assignable to type '4'.
+tests/heroArtCompatibility.test.ts(33,73): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/heroArtCompatibility.test.ts(66,38): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+tests/heroMenuReadiness.test.ts(20,38): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/hud-v09.test.ts(30,97): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/hud-v09.test.ts(61,33): error TS2345: Argument of type '{ coins: number; killCount: number; level: number; hero?: HeroProgress; progress?: Progress; xp: number; equipment?: EquipmentState; ... 13 more ...; fever: { active: boolean; remainingMs: number; }; }' is not assignable to parameter of type 'Readonly<GameState>'.
+  Types of property 'coins' are incompatible.
+    Type 'number' is not assignable to type 'bigint'.
+tests/ipcV5.test.ts(83,55): error TS2345: Argument of type '{ hero: { collection: { formId: string; buffPercent: number; }[]; equipped: HeroRoll; reincarnations: number; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 21 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to parameter of type 'SaveInput'.
+  Type '{ hero: { collection: { formId: string; buffPercent: number; }[]; equipped: HeroRoll; reincarnations: number; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 21 more ...; monsterSpeciesId?: SpeciesId; }' is not assignable to type 'SaveFileV4'.
+    Types of property 'progress' are incompatible.
+      Type '{ seenHeroes: string[]; seenMonsters: string[]; codex: { acknowledgedHeroes: string[]; acknowledgedMonsters: string[]; goal: null; }; playTimeMs: number; speciesKills: Record<string, number>; heroCounts: Record<string, number>; ... 8 more ...; legacyHistory: boolean; }' is not assignable to type 'SavedProgress'.
+        Type '{ seenHeroes: string[]; seenMonsters: string[]; codex: { acknowledgedHeroes: string[]; acknowledgedMonsters: string[]; goal: null; }; playTimeMs: number; speciesKills: Record<string, number>; heroCounts: Record<string, number>; ... 8 more ...; legacyHistory: boolean; }' is not assignable to type '{ goldSpent: string; }'.
+          Types of property 'goldSpent' are incompatible.
+            Type 'bigint' is not assignable to type 'string'.
+tests/measurementV8.test.ts(36,3): error TS2322: Type '{ speciesKills: { reefknight: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: core.ReincarnationRecord[]; ... 8 more ...; codex?: core.CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ speciesKills: { reefknight: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: core.ReincarnationRecord[]; ... 8 more ...; codex?: core.CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/menu.test.ts(919,75): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/menu.test.ts(1004,31): error TS2322: Type '{ speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/menu.test.ts(1051,46): error TS2322: Type '{ killCount: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ killCount: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/menu.test.ts(1088,48): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/menu.test.ts(1104,31): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/menu.test.ts(1128,37): error TS2322: Type '{ shopSerial: number; speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ shopSerial: number; speciesKills: { dragon: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/menu.test.ts(1128,47): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/menu.test.ts(1142,84): error TS2322: Type '{ playTimeMs: number; pvpWins: number; pvpLosses: number; goldSpent: number; legacyHistory: boolean; heroCounts: { h06: number; }; reincarnationHistory: { number: number; formId: string; level: number; playTimeMs: number; buffPercent: number; stacks: number; }[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ playTimeMs: number; pvpWins: number; pvpLosses: number; goldSpent: number; legacyHistory: boolean; heroCounts: { h06: number; }; reincarnationHistory: { number: number; formId: string; level: number; playTimeMs: number; buffPercent: number; stacks: number; }[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'number' is not assignable to type 'string'.
+tests/menu.test.ts(1203,48): error TS2322: Type '{ seenHeroes: string[]; seenMonsters: string[]; heroCounts: { h01: number; h02: number; h03: number; h04: number; }; speciesKills: { slime: number; dragon: number; }; playTimeMs: number; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; seenMonsters: string[]; heroCounts: { h01: number; h02: number; h03: number; h04: number; }; speciesKills: { slime: number; dragon: number; }; playTimeMs: number; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/onlineV9.test.ts(96,56): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+tests/onlineV91.test.ts(60,65): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/progressionV5.test.ts(21,91): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/progressionV5.test.ts(171,5): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/progressionV5.test.ts(212,33): error TS2345: Argument of type '{ coins: number; level: number; hero?: HeroProgress; progress?: Progress; xp: number; killCount: number; equipment?: EquipmentState; ... 13 more ...; fever: { active: boolean; remainingMs: number; }; }' is not assignable to parameter of type 'Readonly<GameState>'.
+  Types of property 'coins' are incompatible.
+    Type 'number' is not assignable to type 'bigint'.
+tests/progressionV7.test.ts(30,71): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV5.test.ts(19,74): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/progressV5.test.ts(97,52): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV5.test.ts(136,79): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV5.test.ts(148,65): error TS2322: Type '{ lureRemaining: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ lureRemaining: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV5.test.ts(152,7): error TS2322: Type '{ lureRemaining: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ lureRemaining: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV5.test.ts(162,81): error TS2322: Type '{ lureRemaining: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ lureRemaining: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV5.test.ts(174,7): error TS2322: Type '{ rareMisses: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ rareMisses: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV6.test.ts(10,83): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/progressV6.test.ts(62,108): error TS2322: Type '{ seenHeroes: string[]; seenMonsters: string[]; heroCounts: { h01: number; }; speciesKills: { slime: number; }; playTimeMs: number; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; seenMonsters: string[]; heroCounts: { h01: number; }; speciesKills: { slime: number; }; playTimeMs: number; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV6.test.ts(116,96): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/progressV6.test.ts(117,34): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV6.test.ts(145,79): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV7.test.ts(31,7): error TS2322: Type '{ codex: { acknowledgedHeroes: string[]; acknowledgedMonsters: string[]; goal: { kind: "monster"; id: string; }; }; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; ... 10 more ...; legacyHistory: boolean; }' is not assignable to type 'SavedProgress'.
+  Type '{ codex: { acknowledgedHeroes: string[]; acknowledgedMonsters: string[]; goal: { kind: "monster"; id: string; }; }; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; ... 10 more ...; legacyHistory: boolean; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV7.test.ts(49,59): error TS2322: Type '{ seenHeroes: string[]; seenMonsters: string[]; codex: { acknowledgedHeroes: string[]; acknowledgedMonsters: string[]; goal: null; }; playTimeMs: number; speciesKills: Record<string, number>; heroCounts: Record<string, number>; ... 8 more ...; legacyHistory: boolean; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; seenMonsters: string[]; codex: { acknowledgedHeroes: string[]; acknowledgedMonsters: string[]; goal: null; }; playTimeMs: number; speciesKills: Record<string, number>; heroCounts: Record<string, number>; ... 8 more ...; legacyHistory: boolean; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV7.test.ts(68,47): error TS2322: Type '{ heroCounts: { h01: number; }; speciesKills: { slime: number; }; reincarnationHistory: { number: number; formId: string; level: number; playTimeMs: number; buffPercent: number; stacks: number; }[]; seenHeroes: string[]; ... 10 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ heroCounts: { h01: number; }; speciesKills: { slime: number; }; reincarnationHistory: { number: number; formId: string; level: number; playTimeMs: number; buffPercent: number; stacks: number; }[]; seenHeroes: string[]; ... 10 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/progressV7.test.ts(79,47): error TS2322: Type '{ heroCounts: { h01: number; h02: number; }; speciesKills: { slime: number; ghost: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ heroCounts: { h01: number; h02: number; }; speciesKills: { slime: number; ghost: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/pvpAbuseV91.test.ts(168,72): error TS2365: Operator '+' cannot be applied to types 'string | number' and 'string | number'.
+tests/pvpAbuseV91.test.ts(255,48): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+tests/pvpAbuseV91.test.ts(259,40): error TS2365: Operator '+' cannot be applied to types 'number' and 'string | number'.
+tests/pvpAbuseV91.test.ts(264,53): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+tests/recoveryV9.test.ts(102,5): error TS2356: An arithmetic operand must be of type 'any', 'number', 'bigint' or an enum type.
+tests/recoveryV9.test.ts(117,5): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/renderer.test.ts(330,54): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(340,38): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(351,45): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/renderer.test.ts(355,45): error TS2322: Type 'number' is not assignable to type 'bigint'.
+tests/replayV91.test.ts(34,40): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/replayV91.test.ts(185,61): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/save.test.ts(14,3): error TS2322: Type '3' is not assignable to type '4'.
+tests/save.test.ts(18,3): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/save.test.ts(251,11): error TS2322: Type '{ version: 2; coins: string; progress?: SavedProgress | undefined; equipment?: EquipmentState | undefined; monsterEpicBossId?: string | undefined; ... 16 more ...; monsterSpeciesId?: "dragon" | ... 134 more ... | undefined; }' is not assignable to type 'SaveFileV2'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+tests/server/companionLevelsV7.test.ts(84,66): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+tests/server/companionLevelsV7.test.ts(103,66): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+tests/server/companionLevelsV7.test.ts(105,85): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+tests/share.test.ts(48,5): error TS2322: Type '{ seenHeroes: string[]; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+  Type '{ seenHeroes: string[]; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/share.test.ts(67,86): error TS2322: Type '{ progress: { speciesKills: { [k: string]: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }; ... 21 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'Readonly<SaveFileV4>'.
+  Types of property 'progress' are incompatible.
+    Type '{ speciesKills: { [k: string]: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+      Type '{ speciesKills: { [k: string]: number; }; playTimeMs: number; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 8 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(23,69): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(23,84): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(51,44): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+tests/trainingPreview.test.ts(51,44): error TS2365: Operator '-' cannot be applied to types 'string' and 'bigint'.
+tests/trainingPreview.test.ts(60,22): error TS2345: Argument of type 'SaveFileV4 | { souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number | undefined; }; ... 20 more ...; monsterSpeciesId?: "dragon" | ... 134 more ... | undefined; }' is not assignable to parameter of type 'SaveFileV4'.
+  Type '{ souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 20 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'SaveFileV4'.
+    Types of property 'progress' are incompatible.
+      Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+        Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+          Types of property 'goldSpent' are incompatible.
+            Type 'bigint' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(61,35): error TS2345: Argument of type 'SaveFileV4 | { souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number | undefined; }; ... 20 more ...; monsterSpeciesId?: "dragon" | ... 134 more ... | undefined; }' is not assignable to parameter of type 'SaveInput | null | undefined'.
+  Type '{ souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 20 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'SaveInput | null | undefined'.
+    Type '{ souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 20 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'SaveFileV4'.
+      Types of property 'progress' are incompatible.
+        Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+          Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+            Types of property 'goldSpent' are incompatible.
+              Type 'bigint' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(63,26): error TS2345: Argument of type 'SaveFileV4 | { souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number | undefined; }; ... 20 more ...; monsterSpeciesId?: "dragon" | ... 134 more ... | undefined; }' is not assignable to parameter of type 'SaveFileV4'.
+  Type '{ souls: number; hero: { reincarnations: number; equipped: HeroRoll; collection: HeroRoll[]; choices: HeroRoll[]; deferRemainingMs: number; offerSerial: number; offerLevel?: number; }; ... 20 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'SaveFileV4'.
+    Types of property 'progress' are incompatible.
+      Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+        Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+          Types of property 'goldSpent' are incompatible.
+            Type 'bigint' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(72,42): error TS2322: Type 'number' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(78,20): error TS2345: Argument of type '{ progress: { trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }; ... 21 more ...; monsterSpeciesId?: SpeciesId | undef...' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+      Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.
+tests/trainingPreview.test.ts(79,68): error TS2345: Argument of type '{ progress: { trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }; ... 21 more ...; monsterSpeciesId?: SpeciesId | undef...' is not assignable to parameter of type 'SaveFileV4'.
+  Types of property 'progress' are incompatible.
+    Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type 'SavedProgress'.
+      Type '{ trainingLevel: number; playTimeMs: number; speciesKills: Record<string, number>; seenMonsters: string[]; seenHeroes: string[]; heroCounts: Record<string, number>; reincarnationHistory: ReincarnationRecord[]; ... 7 more ...; codex?: CodexProgress; }' is not assignable to type '{ goldSpent: string; }'.
+        Types of property 'goldSpent' are incompatible.
+          Type 'bigint' is not assignable to type 'string'.

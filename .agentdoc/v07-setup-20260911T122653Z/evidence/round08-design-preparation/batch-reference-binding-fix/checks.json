@@ -1,0 +1,33 @@
+{
+  "at": "2026-09-12T17:15:27.301839+00:00",
+  "kind": "pre-execution-reference-binding-check",
+  "scope": "Execute only actual batch prefix/sha functions and read-only guard block against original completed R07 report and in-memory corrupted preparation/reference data. No candidate/engine/build/measurement execution; original files untouched.",
+  "batchSha256": "0fae96a8d0c3073e158a1afc1fc1cee97faaa73b1ba2481bbecc97739a484e76",
+  "checks": [
+    {
+      "case": "original",
+      "accepted": true,
+      "expected": true,
+      "passed": true
+    },
+    {
+      "case": "tampered-prepared-prefix",
+      "accepted": false,
+      "expected": false,
+      "passed": true
+    },
+    {
+      "case": "substituted-reference",
+      "accepted": false,
+      "expected": false,
+      "passed": true
+    },
+    {
+      "case": "false-file-hash",
+      "accepted": false,
+      "expected": false,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

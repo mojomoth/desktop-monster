@@ -1,0 +1,38 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/renderer.test.ts (104 tests) 114ms
+ ❯ tests/hud-v09.test.ts (3 tests | 1 failed) 179ms
+   ✓ v0.9 HUD readability > clears the old top-left readout while preserving the head labels, XP and counters in the full frame 13ms
+   × v0.9 HUD readability > fits maximum currencies at 2× below the drag strip with the same right margin 4ms
+     → expected 1 to be 2 // Object.is equality
+   ✓ v0.9 HUD readability > keeps the existing normal/critical damage lane clear of counters throughout its rise 162ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/hud-v09.test.ts > v0.9 HUD readability > fits maximum currencies at 2× below the drag strip with the same right margin
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/hud-v09.test.ts:53:27
+     51|     const right = canvas();
+     52|     drawCounters(right.ctx, state, 200);
+     53|     expect(COUNTER_SCALE).toBe(2);
+       |                           ^
+     54|     expect(COUNTER_TOP).toBe(24);
+     55|     expect(COIN_COUNTER_Y).toBe(38);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 106 passed (107)
+   Start at  19:27:03
+   Duration  680ms (transform 261ms, setup 0ms, collect 597ms, tests 294ms, environment 0ms, prepare 82ms)
+

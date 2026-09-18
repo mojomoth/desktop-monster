@@ -25,6 +25,7 @@ const read = (rel: string): string => readFileSync(join(process.cwd(), rel), 'ut
 function fakeClient(me: LeaderboardResponse['me']): NetClient & { uploads: Snapshot[] } {
   const uploads: Snapshot[] = [];
   return {
+    opponents: async () => ({ ok: true, value: { opponents: [] } }),
     uploads,
     register: (name: string): Promise<NetResult<RegisterResponse>> =>
       Promise.resolve({ ok: true, value: { playerId: `p-${name}`, token: `t-${name}` } }),
@@ -58,7 +59,9 @@ describe('deploy probe (F50)', () => {
       rank: 3,
     });
     expect(client.uploads).toEqual([
-      { name: 'probe-ab12', bestIndex: 0, rebirths: 0, companions: [], party: [] },
+      { name: 'probe-ab12', bestIndex: 0, rebirths: 0, companions: [], party: [], level: 1,
+        protocol: 'equipment-gold-v2', combat: { hero: { formId: 'h00', buffPercent: 0 }, level: 1,
+          souls: 0, reincarnations: 0, trainingLevel: 0, loadout: { weapon: null, accessories: [] } } },
     ]);
   });
 

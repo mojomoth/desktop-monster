@@ -6,20 +6,25 @@ import { randomUUID } from 'node:crypto';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { app, Menu, nativeImage, Notification, shell, systemPreferences, Tray } from 'electron';
+import { app, Menu, nativeImage, Notification, systemPreferences, Tray } from 'electron';
 import type { BrowserWindow } from 'electron';
 import type { Theft } from '../shared/api.js';
 import { SimulatedInputDriver } from '../core/index.js';
 import { IPC } from '../shared/ipc.js';
-import { getCurrentInputMode, startGlobalInput } from './globalInput.js';
+import { getCurrentInputMode, onceGlobalInput, startGlobalInput } from './globalInput.js';
 import { readIdentity, writeIdentity } from './identity.js';
-import { ACCESSIBILITY_SETTINGS_URL, registerIpcHandlers, sendToAll } from './ipc.js';
+import { getSaveStatus, flushProgressBeforeQuit, registerIpcHandlers, sendToAll, requestProgressReset } from './ipc.js';
+import { initializeSteam } from './steam.js';
 import { showMenuWindow } from './menuWindow.js';
 import type { NetSession } from './net.js';
 import { createTheftWatcher } from './thefts.js';
-import { setupTray } from './tray.js';
+import { createDefenseWatcher } from './defense.js';
+import { setupTray, type TrayController } from './tray.js';
 import { encodeTrayIconPng } from './trayIcon.js';
-import { createOverlayWindow } from './window.js';
+import { applyOverlayScale, createOverlayWindow } from './window.js';
+import { readSettings, updateSettings } from './settings.js';
+import { readSaveFileResult } from './persistence.js';
+import type { SettingsResult } from '../shared/ipc.js';
 
 const isSmoke = Boolean(process.env.SMOKE);
 
@@ -60,13 +65,7 @@ const hoursLeft = (reclaimUntil: number): number =>
  * carries it on to the menu. A failed reclaim is silent — the inbox in the
  * menu is the place that explains why.
  */
-function reclaimAndApply(session: NetSession, theftId: string): void {
-  void session.reclaim(theftId).then((res) => {
-    if (res.ok) {
-      sendToAll(IPC.ACTION, { type: 'addCompanion', companion: res.value.companion });
-    }
-  });
-}
+function reclaimAndApply(session: NetSession, theftId: string): void { void session.reclaim(theftId); }
 
 /**
  * Native notification for one theft, click → reclaim. The whole body is
@@ -80,7 +79,7 @@ function makeNotifier(session: NetSession): (t: Theft) => void {
       const speciesName = species.charAt(0).toUpperCase() + species.slice(1);
       const n = new Notification({
         title: 'DesMon',
-        body: `${t.thiefName} stole your ${speciesName} Lv ${String(t.companion.level)}! Click to reclaim (${String(hoursLeft(t.reclaimUntil))}h left).`,
+        body: `${t.thiefName}에게 ${speciesName} Lv ${String(t.companion.level)} 동료를 빼앗겼습니다. 눌러 회수하세요 · 회수 기한 ${String(hoursLeft(t.reclaimUntil))}시간 남음.`,
       });
       n.on('click', () => {
         reclaimAndApply(session, t.id);
@@ -116,56 +115,104 @@ if (!app.requestSingleInstanceLock()) {
   }
 
   void app.whenReady().then(() => {
+    if (process.platform === 'win32') app.setAppUserModelId('dev.desmon.app');
+    const steam = initializeSteam({ appId: process.env.DESMON_STEAM_APP_ID, smoke: isSmoke });
+    if (steam.state !== 'disabled') console.log('STEAM_STATUS', steam.state);
     app.dock?.hide(); // BEFORE window creation: accessory app, no dock icon
 
     let smokeWin: BrowserWindow | null = null;
     let smokeStarted = false;
 
-    // Register BEFORE the window loads, so early invokes resolve.
-    const session = isSmoke
-      ? registerIpcHandlers({
-          onFirstFrame: () => {
-            // SMOKE_OK may only follow the renderer's first painted frame.
-            if (smokeWin === null || smokeStarted) {
-              return;
-            }
-            smokeStarted = true;
-            runSmokeSequence(smokeWin);
-          },
-        })
-      : registerIpcHandlers();
-
+    const directory = app.getPath('userData');
+    const initialSave = readSaveFileResult(directory);
+    const legacySave = initialSave.kind === 'loaded';
+    let preferences = readSettings(directory, legacySave);
+    const runtime: { tray?: TrayController; win?: BrowserWindow } = {};
+    let settingsError = false;
+    const refreshTray = (): void => { runtime.tray?.refresh(getCurrentInputMode()); };
+    const changeSettings = (patch: unknown): SettingsResult => {
+      const result = updateSettings(directory, patch, legacySave);
+      settingsError = !result.ok;
+      if (result.ok) {
+        preferences = result.settings;
+        if (runtime.win && !runtime.win.isDestroyed()) {
+          applyOverlayScale(runtime.win, preferences.gameScale);
+          runtime.win.webContents.setAudioMuted(preferences.muted);
+        }
+        sendToAll(IPC.SETTINGS_CHANGED, preferences);
+      }
+      refreshTray();
+      return result;
+    };
+    // Persist the fresh-install choice before its first automatic progress save.
+    const startupError = initialSave.kind === 'missing' && !isSmoke && !changeSettings(preferences).ok
+      ? 'settings-write' : undefined;
+    const globalInput = onceGlobalInput(() => startGlobalInput({
+      isTrustedAccessibilityClient: (prompt) => systemPreferences.isTrustedAccessibilityClient(prompt),
+      onInput: (payload) => { runtime.win?.webContents.send(IPC.INPUT, payload); },
+      onModeChange: (payload) => { sendToAll(IPC.INPUT_MODE, payload); refreshTray(); },
+    }));
+    let startDefense = (): void => {};
+    const session = registerIpcHandlers({
+      initialSave,
+      startupError,
+      getSettings: () => ({ ...preferences }),
+      updateSettings: changeSettings,
+      onSaveStatus: refreshTray,
+      connectGlobalInput: () => {
+        if (isSmoke || getSaveStatus().state === 'load-error') return { ok: false, mode: getCurrentInputMode() };
+        const result = changeSettings({ welcomeSeen: true, globalInputRequested: true });
+        if (result.ok) globalInput.start();
+        return { ok: result.ok, mode: getCurrentInputMode() };
+      },
+      onFirstFrame: () => {
+        if (!isSmoke) startDefense();
+        if (!isSmoke || smokeWin === null || smokeStarted) return;
+        smokeStarted = true;
+        runSmokeSequence(smokeWin);
+      },
+    });
     const win = createOverlayWindow();
+    runtime.win = win;
+    applyOverlayScale(win, preferences.gameScale);
+    win.webContents.setAudioMuted(preferences.muted);
     smokeWin = win;
-
-    // Tray (SPEC F23): 16×16 pixel-matrix icon PNG-encoded in code, menu
-    // rebuilt on every input-mode change. setupTray holds the module-scope
-    // reference that keeps the icon from being garbage-collected.
-    const tray = setupTray({
+    const openMenu = (guide = false): void => {
+      if (guide && !changeSettings({ welcomeSeen: false }).ok) return;
+      const menu = showMenuWindow();
+      if (!preferences.welcomeSeen) menu.once('closed', () => {
+        if (!preferences.welcomeSeen) changeSettings({ welcomeSeen: true });
+      });
+    };
+    runtime.tray = setupTray({
+      title: `DesMon v${app.getVersion()}`,
+      getGameScale: () => preferences.gameScale,
+      getSettings: () => preferences,
+      getSaveStatus,
+      getSettingsError: () => settingsError,
       createTray: () => new Tray(nativeImage.createFromBuffer(encodeTrayIconPng())),
       buildMenu: (template) => Menu.buildFromTemplate(template),
       getInputMode: getCurrentInputMode,
       actions: {
-        openAccessibilitySettings: () => {
-          void shell.openExternal(ACCESSIBILITY_SETTINGS_URL);
-        },
-        openCollection: () => {
-          showMenuWindow(); // SPEC F52: the tray item is the ONLY opener
-        },
-        resetProgress: () => {
-          win.webContents.send(IPC.RESET);
-        },
-        quit: () => {
-          app.quit();
-        },
+        setGameScale: (scale) => { changeSettings({ gameScale: scale }); },
+        setMuted: (muted) => { changeSettings({ muted }); },
+        setScreenShake: (screenShake) => { changeSettings({ screenShake }); },
+        showWelcome: () => { openMenu(true); },
+        openAccessibilitySettings: () => { openMenu(true); },
+        openCollection: () => { openMenu(); },
+        resetProgress: () => { void requestProgressReset(); },
+        quit: () => { app.quit(); },
       },
     });
+    if (!isSmoke && (getSaveStatus().state === 'load-error' || !preferences.welcomeSeen)) openMenu();
 
     if (!isSmoke) {
+      const defense = session.pollIncoming ? createDefenseWatcher({ poll: () => session.pollIncoming!(), setInterval, clearInterval }) : null;
+      startDefense = () => defense?.start();
       // Theft watcher (SPEC F74): SMOKE never starts it, so a smoke run stays
       // offline. No notification support → no watcher at all: there would be
       // nothing to show, so there is nothing to poll for either.
-      const watcher = Notification.isSupported()
+      const watcher = getSaveStatus().state !== 'load-error' && Notification.isSupported()
         ? createTheftWatcher({
             session,
             notify: makeNotifier(session),
@@ -179,22 +226,18 @@ if (!app.requestSingleInstanceLock()) {
         : null;
       watcher?.start();
 
-      // SMOKE=1 bypasses global input ENTIRELY: no Accessibility prompt and
-      // no native hook (starting it without the grant crashes the process).
-      const globalInput = startGlobalInput({
-        isTrustedAccessibilityClient: (prompt) =>
-          systemPreferences.isTrustedAccessibilityClient(prompt),
-        onInput: (payload) => {
-          win.webContents.send(IPC.INPUT, payload);
-        },
-        onModeChange: (payload) => {
-          win.webContents.send(IPC.INPUT_MODE, payload);
-          tray.refresh(payload); // SPEC F23: rebuild the menu on mode change
-        },
+      // Permission is requested only after the fresh user chooses global input.
+      if (getSaveStatus().state !== 'load-error' && preferences.globalInputRequested) globalInput.start();
+      let quitting = false;
+      app.on('before-quit', event => {
+        if (quitting) return;
+        event.preventDefault();
+        void flushProgressBeforeQuit().then(saved => { if (saved) { quitting = true; app.quit(); } });
       });
       app.on('will-quit', () => {
         globalInput.stop(); // uIOhook.stop() + cancel the grant poll
         watcher?.stop();
+        defense?.stop();
       });
     }
   });

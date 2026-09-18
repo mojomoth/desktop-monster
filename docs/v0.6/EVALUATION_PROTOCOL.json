@@ -1,0 +1,312 @@
+{
+  "version": 2,
+  "status": "frozen-before-execution",
+  "applicationVersion": "0.6.0",
+  "baselineSourceDigest": "6b1f37f7491ebb6af84d27a6054c41bf036b66a22eb2dd1dd96dff2b6bd210fb",
+  "purpose": "v0.6 baseline production source에서 시작 세이브와 방문 규칙을 생성·해시 고정했다. 결과를 보기 전에 version 2로 확정했으며 게임 기본 포획 처리는 변경하지 않는다.",
+  "seeds": {
+    "first": 1,
+    "last": 100,
+    "rng": "production mulberry32"
+  },
+  "checkpointsMinutes": [
+    5,
+    15,
+    30
+  ],
+  "recordBeforeExecution": [
+    "sourceDigest",
+    "buildHashes",
+    "fixtureHashes",
+    "inputSchedule",
+    "heroChoicePolicy",
+    "companionManagementPolicy",
+    "purchasePolicy"
+  ],
+  "legacyBaseline": {
+    "preserveCanonicalMeasurement": true,
+    "profiles": [
+      "active",
+      "warm-idle",
+      "intermittent"
+    ],
+    "warmIdleOnboardingSeconds": 120,
+    "heroChoice": "기존 즉시 첫 후보 선택 정책을 그대로 기록한다.",
+    "freshIdleControl": {
+      "companions": 0,
+      "inputs": 0,
+      "menuVisits": 0,
+      "seeds": {
+        "first": 1,
+        "last": 100
+      },
+      "fixture": "fresh",
+      "checkpointsMinutes": [
+        5,
+        15,
+        30
+      ],
+      "heroChoice": "none",
+      "purchases": "none",
+      "expectedProgress": "Current design: zero kills/input and no automatic growth. Keep every zero and unreached sample; separate from 120-second warm-idle.",
+      "preserveLegacySingleSeed": true
+    }
+  },
+  "captureExperiment": {
+    "variants": [
+      "current-release",
+      "existing-management-only",
+      "one-pending-keep-first"
+    ],
+    "fixtures": [
+      "fresh",
+      "full-roster-fixed"
+    ],
+    "fixtureStatus": "fixed-before-execution",
+    "managementIntervalsSeconds": [
+      null,
+      120,
+      600
+    ],
+    "nullMeans": "관리하지 않음",
+    "stage1": {
+      "hero": "after every tick, if heroReady: heroOffer then first choice heroChoose immediately; no reroll",
+      "companions": "only at interval multiples, independent of hero choice visits"
+    },
+    "stage2": {
+      "hero": "only at companion visit: if heroReady, heroOffer and choose first; no hero actions when interval is null",
+      "order": "tick → scheduled shared menu open → hero action if ready → companion tab and management → menu close"
+    },
+    "evaluationTypes": [
+      "fire",
+      "water",
+      "wind",
+      "earth",
+      "dark"
+    ],
+    "metrics": [
+      "effectivePartyPowerByType",
+      "candidateLosses",
+      "releasedCount",
+      "soulsReceived",
+      "soulsPending",
+      "soulDelaySeconds",
+      "visits",
+      "clicks",
+      "savedCandidateLosses"
+    ],
+    "zeroTolerance": [
+      "automaticDeletionOfOwnedCompanions",
+      "forcedWindows",
+      "duplicateSettlement",
+      "candidateLossOnReload"
+    ],
+    "comparator": "existing-management-only with the same 600-second visit schedule",
+    "managementRuleStatus": "fixed-before-execution",
+    "adoptionRule": "100개 seed 각각에서5속성 파티 공격력 합이 모두 기준 이상이고 최소 한 seed·속성이 개선되며, 후보 손실·클릭 수는 각 seed에서 기준 이하일 때만 구현 검토. 영혼 지연 등 교환 비용이 있으면 자동 채택하지 않음. 2분 관리에서만 이득이면 방치 개선으로 채택하지 않음.",
+    "requiredComparisonReport": [
+      "pairedDifferencesBySeedAndType",
+      "improvedSeedCounts",
+      "regressedSeedCounts",
+      "p10p50p90ByType",
+      "candidateLossDifferencePerSeed",
+      "clickDifferencePerSeed"
+    ],
+    "failureRoute": "포획 상태 변경을 v0.6에서 제외하고 필수 UI 개선으로 출시 후보 생성",
+    "stateCases": [
+      "empty",
+      "three-consecutive-captures",
+      "roster-space-created",
+      "replacement-target-missing",
+      "accept",
+      "reject",
+      "duplicate-request",
+      "save-failure",
+      "restart"
+    ],
+    "fixtureRecords": {
+      "fresh": {
+        "path": ".agentdoc/v06-20260910T063253Z/baseline/fixtures/fresh.json",
+        "sha256": "f68288dc69529578c06305daac83bbd2faf14c0ebd2040f459df676f39dc75a1",
+        "companions": 0,
+        "level": 1,
+        "monsterIndex": 0,
+        "coins": 0,
+        "souls": 0,
+        "releasedCount": 0
+      },
+      "full-roster-fixed": {
+        "path": ".agentdoc/v06-20260910T063253Z/baseline/fixtures/full-roster-fixed.json",
+        "sha256": "b2385fd75a659c201d805a2a86fc7e0f1b7f83c1c5dc410434566298f5f11240",
+        "companions": 30,
+        "level": 11,
+        "monsterIndex": 28,
+        "coins": 10147,
+        "souls": 62,
+        "releasedCount": 0
+      }
+    },
+    "fixtureGeneration": {
+      "seed": 60006,
+      "sourceDigest": "6b1f37f7491ebb6af84d27a6054c41bf036b66a22eb2dd1dd96dff2b6bd210fb",
+      "policy": "baseline production createEngine; fresh toSave immediately; full: two keyboard attacks then tick(1000), immediate first hero choice, no purchases or companion actions; stop after first whole-second step with exactly 30 companions",
+      "fullRosterElapsedSeconds": 921,
+      "fullRosterHeroChoices": 8
+    },
+    "inputSchedule": {
+      "profile": "active",
+      "durationSeconds": 1800,
+      "tickMs": 1000,
+      "perSecond": "seconds 1..1800: keyboard attack twice at same engine time, then tick(1000); existing canonical cadence retained",
+      "checkpointSeconds": [
+        300,
+        900,
+        1800
+      ],
+      "checkpointOrder": "after tick, hero choice and any visit at this boundary; checkpoints share a trajectory"
+    },
+    "rng": "Every row reloads the exact fixture bytes and creates production mulberry32(seed). Same-seed rows may consume RNG differently after policy actions; never claim identical subsequent capture draws.",
+    "purchasePolicy": "none",
+    "managementRules": {
+      "visitTimes": "positive multiples of interval through and including 1800s; no time-zero or unscheduled final settlement; null means no companion visits",
+      "target": "Among current owned companions choose minimum production companionPower; equal values use existing roster order, matching current full-roster shortcut.",
+      "space": "existing-management-only and one-pending-keep-first: if roster has 30 at visit, explicitly sacrifice the selected target once using production action, creating exactly one slot. At most one owned sacrifice per visit. Never pre-clear additional slots. current-release visits perform no roster action.",
+      "pending": "Keep first excess captured candidate outside roster; additional excess captures use unchanged release branch. At a visit, compare pre-management 5-type party sums against post-space roster plus candidate. Accept only when all five are >= and at least one is >; otherwise reject and settle by current release parity. Candidate acceptance uses empty slot; no automatic replacement. Never replace a pending candidate with a later capture.",
+      "hero": "stage1 immediate first-offer choice has its own counted visit even if it coincides with companion visit; stage2 bundles it in scheduled visit",
+      "clicks": {
+        "openMenu": 1,
+        "companionTab": 1,
+        "closeMenu": 1,
+        "sacrificeOwned": 1,
+        "acceptPending": 1,
+        "rejectPending": 1,
+        "heroTab": 1,
+        "heroOffer": 1,
+        "heroChoose": 1
+      },
+      "clickAccounting": "Each companion visit costs open+companionTab+close = 3, even without a state change. Stage1 standalone ready hero costs open+heroTab+heroOffer+heroChoose+close = 5. Stage2 adds heroTab+heroOffer+heroChoose = 3 only when ready, sharing open/close. Counting is minimum scripted action count, not measured human attention, search, confirmation, or reading time."
+    },
+    "metricDefinitions": {
+      "effectivePartyPowerByType": "production activeCompanions(roster, enemyType, hero.equipped), summed production effectivePower(heroBuffedPower(companionPower(c), typeOf(c.speciesId), hero.equipped), typeOf(c.speciesId), enemyType); bigint decimal strings, not DPS/PvP outcome",
+      "candidateLosses": "At capture draw, mark useful if adding the candidate to roster increases top-5 sum in at least one of the five enemy types. Count useful draws finalized as releases; do not count kept or still-pending as irreversible loss. Record pending useful opportunity unavailable at checkpoint separately.",
+      "captures": "Capture draw outcomes partition into ever-owned captures, finalized releases, and current pending; later explicitly sacrificed owned captures remain ever-owned and are separately counted.",
+      "souls": "Record initial souls, sacrifice souls, hero-choice soul changes, release souls, terminal souls and releasedCount parity. Pending carries one unpaid release unit: floor((releasedCount+1)/RELEASES_PER_SOUL)-floor(releasedCount/RELEASES_PER_SOUL) is presently payable soul if rejected. Report pending units even when parity yields zero.",
+      "delay": "For pending candidates record capturedAtSec, resolvedAtSec/null, outcome, and elapsed pending seconds at each checkpoint. Pending soul-unit-seconds and maximum wait retained; unaccepted candidate not silently settled at end.",
+      "automaticDeletionOfOwnedCompanions": "0 by adapter: deletions only from explicitly logged visit sacrifice actions. This simulated policy does not establish shipped atomic persistence/UI correctness."
+    },
+    "implementationBoundary": "Measurement-only vm evaluates production compiled engine with one fail-closed exact branch hook for excess capture, preserving all other formulas/RNG/timing/actions. Instrumented current-release must equal original engine events/save under replay. Pending sidecar and settlement logic are experimental only; no default game fields or behavior are changed.",
+    "adoptionScope": "Evaluate 30-minute paired rows at interval 600 for each fixture and both stages separately; every 100-seed group must satisfy predeclared per-seed/per-type power/loss/click tests. Report 120 and null controls without substituting them. Any increased soul delay or unresolved exchange cost prevents automatic adoption and requires human review; no human data means conditional exclusion."
+  },
+  "feverExperiment": {
+    "inputsPerMinute": 120,
+    "uniformOffsetsMs": {
+      "start": 0,
+      "step": 500,
+      "count": 120
+    },
+    "burstOffsetsMs": {
+      "groupStarts": [
+        0,
+        10000,
+        20000,
+        30000,
+        40000,
+        50000
+      ],
+      "withinGroupStep": 100,
+      "withinGroupCount": 20
+    },
+    "repeatMinutes": 30,
+    "otherPolicies": "same frozen fresh fixture, seed1..100, immediate first hero choice, management none, purchase none",
+    "metrics": [
+      "inputCount",
+      "feverStarts",
+      "kills",
+      "discoveries",
+      "reincarnations",
+      "inputConcentration"
+    ],
+    "decision": "같은 총입력량의 전략 차이를 기록한다. 측정만으로 피버 수치를 변경하지 않는다.",
+    "fixture": "fresh",
+    "tickMs": 100,
+    "timeOrder": "At modeled times 0,100,...,1799900ms, deliver any scheduled input before tick(100); inspect ready hero immediately after tick and choose first. Thirty full minutes, exactly 3600 inputs per pattern. No companion management or purchases.",
+    "inputConcentration": "Maximum inputs in each fixed 1000ms bin and share of bins containing inputs; scheduled count verified exactly 3600."
+  },
+  "statistics": {
+    "percentile": "reached 값을 정렬한 뒤 floor((n-1)*q); 미도달 수와 최대를 함께 표시",
+    "comparison": "동일 seed별 차이를 먼저 계산하며 설정 불일치 비교는 거부",
+    "rawRetention": true,
+    "checkpointsAreIndependentSessions": false,
+    "currency": [
+      "income",
+      "spent",
+      "balance",
+      "minimumBalance",
+      "unaffordableSeconds"
+    ],
+    "pairingKeys": [
+      "sourceDigest",
+      "protocolSha256",
+      "fixtureSha256",
+      "seed",
+      "minutes",
+      "stage",
+      "managementIntervalSeconds",
+      "inputSchedule",
+      "heroChoicePolicy",
+      "purchasePolicy"
+    ],
+    "bigint": "Power totals/deltas are exact decimal bigint strings. Quantiles sort with bigint comparisons; never round through Number."
+  },
+  "realE2E": {
+    "minutes": [
+      5,
+      15,
+      30
+    ],
+    "profiles": [
+      "active",
+      "idle",
+      "intermittent"
+    ],
+    "requiredRuns": 9,
+    "missingRunVerdict": "미완료; 기술 검증·출시 완료로 체크하지 않는다.",
+    "minimumObservationMinutes": 150,
+    "execution": "동일 데스크탑에서 순차 실행; 현재 runner의 신규 시작/무메뉴 정책을 기록; 새 UI 선택은 별도 journey",
+    "matrixSupport": "V06-01 구현 예정; 원본9개·해시·소스·시간·실패를 검증하며 기존 단일 파일 감사도 유지"
+  },
+  "humanObservation": {
+    "status": "PENDING",
+    "proposedParticipants": 5,
+    "minutesPerParticipant": 30,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30
+    ],
+    "exploratoryTargets": {
+      "explainNextGoalWithoutHelp": "4/5",
+      "voluntaryRecheckWithSpecificReason": "3/5"
+    },
+    "interruptionBudget": "참가자별 시작 전에 합의·기록; 중단 요청과 이탈 표본도 보존",
+    "claimLimit": "작은 탐색의 가설 지지이며 일반적인 재미·유지율 검증이 아니다."
+  },
+  "releaseSourceFreeze": "V06-09에서 package/lock의0.6.0 버전을 먼저 반영한 뒤 최종 측정·E2E·감사. V06-10에서 버전을 다시 변경하지 않으며 지문 대상 변경 시 재검증한다.",
+  "changeControl": "실험 결과를 본 뒤 조건을 수정하면 이유와 새 protocol version을 기록하고 새 실행으로 비교한다.",
+  "frozenAt": "2026-09-10T06:36:05.020Z",
+  "fixtureManifest": ".agentdoc/v06-20260910T063253Z/baseline/fixtures/manifest.json",
+  "fixtureManifestSha256": "e826580429b80856a65f5e026041b63ee6eb30d43bfbd6a8a026cacfc495d4bf",
+  "changeHistory": [
+    {
+      "version": 1,
+      "status": "planned-not-executed",
+      "reason": "계획 작성시 미생성 fixture와 미정 방문 규칙을 표시함"
+    },
+    {
+      "version": 2,
+      "at": "2026-09-10T06:36:05.020Z",
+      "reason": "측정 전에 baseline 원본에서 fixture 생성; 방문 대상·공간확보·정산·클릭·입력시간·seed pairing·fresh-idle 통계를 구체화",
+      "previousResultsUsed": false
+    }
+  ]
+}

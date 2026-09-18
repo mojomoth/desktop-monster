@@ -1,0 +1,237 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 4,
+  "startedAt": "2026-09-12T05:25:14.305967+00:00",
+  "experimentKind": "candidate",
+  "experiment": {
+    "id": "candidate-r4-tail1040",
+    "hypothesis": "Preserve L17/XP1.41 first journey through index79; exact field-only 1040/1000 afterward further relieves deep HP growth. Round03 tail105 improved later activity but h70 reached only5/20. Keep all content requirements, companion115/100, policy and timers. Both population goals remain unproven for this candidate.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.41,
+      "fieldHpNumerator": 115,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": null,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 1040,
+      "fieldHpTailDenominator": 1000
+    }
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/protocol.preregistered.json",
+    "sha256": "400885723f0628bf6d9dee9c2b647a23086118fe48229cc62aa8cb9926520def"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/evaluation.tar.gz",
+    "sha256": "457c41b6131aa654f45c8e49ff7891d74350cc6b4e1806636fffaf3fc5f14470"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T05:25:14.402861+00:00",
+      "endedAt": "2026-09-12T05:25:18.092322+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/production-tests.log",
+      "sha256": "51e266d2958c4c77fc1bd4d49fbe09707d0ddd89fa013a6f93faf348fe3febf5"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r4-tail1040",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T05:25:18.093122+00:00",
+      "endedAt": "2026-09-12T05:25:26.527871+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/screening.log",
+      "sha256": "1adb92633cf1a06bfa64f81087b0eec86834dfc177ee90c842c958ff79e44087"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/screening.json"
+      ],
+      "startedAt": "2026-09-12T05:25:26.529052+00:00",
+      "endedAt": "2026-09-12T05:25:26.654901+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/screening-verify.log",
+      "sha256": "27bbc6939dc87f7364f6350bd0c7902f4eae5854cb1966fe460c655b72e973cf"
+    },
+    {
+      "label": "full-12h",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/full-12h.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r4-tail1040",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4"
+      ],
+      "startedAt": "2026-09-12T05:25:26.684849+00:00",
+      "endedAt": "2026-09-12T05:27:19.171012+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/full-12h.log",
+      "sha256": "6cf9358fd92afded051bd43bbf371136b5cd74c43b875f8f81a6771e7df41788"
+    },
+    {
+      "label": "full-12h-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/full-12h.json"
+      ],
+      "startedAt": "2026-09-12T05:27:19.172650+00:00",
+      "endedAt": "2026-09-12T05:27:19.315603+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/full-12h-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/production-source.tar.gz",
+    "sha256": "e2091d55c83ea10df5106920f6b06088024f667dd61991e83d86443d197fce76"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/screening.json",
+    "sha256": "15c7ff9171a1be7ebed0f764414f076c89d46c1199c75e208770bef2c2c4b057",
+    "sourceDigest": "36af153bc1a06d77ca43d55b888bd541eeebaaf874a96ae166703f98974f4b6d",
+    "evaluationDigest": "a3130d216e55d5f37ee980368ba74b2d0e01bb0dc2dc3358f5561e6bbac04c7e",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r4-tail1040",
+      "parametersSha256": "92cf27918d4df0bca3f487ae1c3372e4a841a79de007a3347975faa9c68ae687",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "PASS",
+      "passed": true,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2902.6,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 18,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "fda8f1d8c63c9f09e4d2c4b4cae12dc1a516edd426a1825dddb32bc9319d355c",
+    "buildSha256": "b6bb20a08d1eb983b271d7b46729ba09329b8c9d386275218864f2165acb0d67"
+  },
+  "prefixComparison": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/prefix-comparison.json",
+    "sha256": "25f38f8b80b99dd20d074da5810903bf2d8d2a65b8c7c8c9cd634915f130255f",
+    "passed": true
+  },
+  "full-12h": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/full-12h.json",
+    "sha256": "17ed48a80137f6b037c95913dedefe8cd5f0f77ea1dd29b1bc08c8d87b812b92",
+    "sourceDigest": "36af153bc1a06d77ca43d55b888bd541eeebaaf874a96ae166703f98974f4b6d",
+    "evaluationDigest": "a3130d216e55d5f37ee980368ba74b2d0e01bb0dc2dc3358f5561e6bbac04c7e",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r4-tail1040",
+      "parametersSha256": "92cf27918d4df0bca3f487ae1c3372e4a841a79de007a3347975faa9c68ae687",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2902.6,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 18,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        },
+        {
+          "id": "last-unlock-median",
+          "passed": false,
+          "observedSec": 24101.5,
+          "minSec": 28800,
+          "maxSec": 43200,
+          "registered": true
+        }
+      ],
+      "skipped": [],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "6356082fe8e3aa3878ee8cdb0c65075ff3d0a9da8fe6e835185698994428a338",
+    "buildSha256": "b6bb20a08d1eb983b271d7b46729ba09329b8c9d386275218864f2165acb0d67"
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-04/candidate-r4-tail1040/compiled-build.tar.gz",
+    "sha256": "a0c0c0556172c14de99c964cd7db1d5bdaacd1fbf2a583d21761a596cac4b02d"
+  },
+  "endedAt": "2026-09-12T05:27:19.408406+00:00"
+}

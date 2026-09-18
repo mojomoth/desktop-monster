@@ -1,0 +1,189 @@
+{
+  "role": "Balance",
+  "agentId": "/root/balance",
+  "requestId": "e58d46fe-b0a4-4b4f-a64b-84b754179670",
+  "reports": {
+    "0": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/native-06/native.json",
+      "hash": "492f2844af25ee439423271427f5a8fbb4f488bada4a1d861badf611814094b4"
+    },
+    "1": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/balance-01.json",
+      "hash": "45d502b42b519d433c246741234fe76b5364f748cb11ce0bbad5d43b62229c03"
+    },
+    "2": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/postgres-01.json",
+      "hash": "5442bb0d7ba4132edfd44aee840837bc472aaf50e95fbf9f30e1da51d981a8e4"
+    },
+    "3": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/install-02.json",
+      "hash": "0fc0512baa99441b588f3b79a39a20e1b3d0a67795588139e9738ab28400784c"
+    }
+  },
+  "priorReviews": [
+    {
+      "role": "Designer",
+      "agentId": "/root/designer",
+      "requestId": "54c715ea-e27c-40f2-ae12-156ef6ccabda",
+      "verdict": "pass",
+      "findings": [
+        "Designer 검토 범위에서 차단할 UI 문제가 없습니다. native-06은 DMG에서 복사한 실제 설치본으로 4회 부팅, 29개 필수 검사, 11개 PNG를 생성했고 verifier V091_NATIVE_UI_OK를 직접 확인했습니다. 모든 소유 앱은 exit 0/no signal로 종료했으며 각 실행의 112개 dist/static 파일이 작업 소스의 빌드와 일치합니다.",
+        "native-06/first/{hunting-before,defense-replay,hunting-resumed}.png, interrupt/quit-during-replay.png, restart/{defense-replay,hunting-resumed}.png, attack/{attack-menu,defense-replay,hunting-resumed}.png를 직접 열어 검수했습니다. 시작 VS 배너, 한글 PvP 상태줄, 우측 처치수/금화 및 머리 위 READY/LV/XP가 읽히고 서로 겹치지 않습니다. 상태줄은 실제 400×260 화면에서 y31.1875..45.578125로 배너 하단 28px과 카운터 상단 48px 사이에 있습니다.",
+        "Notification.isSupported=false인 실제 앱에서 방어 이벤트가 각각 4,951ms와 4,937ms에 도착했고 'PvP 발생 · 상대 FixtureFoe와 전투 중'이 표시됐습니다. 양쪽 c1..c5 ID가 같은 파티에서도 서버의 viewer 기준 A/D 변환과 당시 파티 스냅샷을 검증했습니다.",
+        "실제 재생 중 native 키보드·마우스 이벤트가 전달돼도 전체 SaveFile 및 GameState가 동일했습니다. HP, 몬스터 index, playTime, 피버 상태를 포함한 비교이며, 재생 종료 전환 순간에도 중단 상태가 정확히 유지됐습니다. 이후 사냥 시간과 공격이 재개되고 상태줄이 사라지는 것을 데이터와 이미지로 확인했습니다.",
+        "방어 금화는 1,000G에서 950G로 한 번만 정산되고 동료 roster가 유지됐습니다. 재생 도중 종료한 격리 데이터를 그대로 다시 부팅했을 때 동일한 pending replay 하나와 950G가 복구됐고, 재생 완료 후 durable queue가 제거됐습니다.",
+        "실제 메뉴의 FixtureFoe 전투 버튼 한 번으로 gold-v1 match/PvP가 각각 한 번 요청됐습니다. attack-menu.png에서 '전투 재생 중…' 버튼 잠금 안내와 '승리 · 금화 +50G' 결과를 확인했고, 필드에는 1.05A(1,050G)가 표시됩니다. 공격 재생도 사냥 상태를 보존하고 종료 후 정상 복귀했습니다. 추가 제품 또는 하네스 수정은 필요하지 않습니다."
+      ],
+      "pending": [
+        "이 판정은 합성 레벨·파티와 두 격리 계정, 실제 macOS Electron 설치본, production createApp/MemoryStore의 검증 범위입니다. 실제 전역 입력 권한, OS 알림 표시, Windows 실기기 및 운영 서버 네트워크 검증을 수행했다는 뜻은 아닙니다.",
+        "postgres-01.json은 로컬 PostgreSQL 연결 ECONNREFUSED로 checks가 비어 있고 passed=false입니다. 실제 PostgreSQL 영속성 검증은 미완료이며 Designer UI pass로 대체되지 않습니다. 재시작 시 일시적인 연출 pool 복구는 기존 저장 형식 범위로 제한됩니다."
+      ],
+      "evidence": [
+        {
+          "report": "0",
+          "pointer": "/attempts/0/ui/checks/2"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/0/ui/checks/3"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/0/ui/checks/6"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/0/ui/screenshots"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/1/ui/checks/6"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/1/ui/screenshots/2"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/2/ui/checks"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/2/ui/screenshots"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/3/ui/checks"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/3/ui/screenshots"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/0/runtime/packageBinding"
+        },
+        {
+          "report": "3",
+          "pointer": "/asarHash"
+        },
+        {
+          "report": "2",
+          "pointer": "/error"
+        }
+      ]
+    },
+    {
+      "role": "Critic",
+      "agentId": "/root/critic",
+      "requestId": "a25880c8-1b24-4c0e-b121-ed0b4eb424b2",
+      "verdict": "pass",
+      "findings": [
+        "Designer의 선행 응답을 직접 읽고 현재 소스와 증거를 독립 검토했습니다. audit의 네 보고서 및 Designer 응답 해시가 일치하며, 현재 source digest는 76b0693d2435abf00f71d92a6590992d60617af1c8ec87d7ae005bc09a924657입니다. 최종 정확한 gates 명령의 before/after digest 및 로그 해시도 일치합니다. V091-05-gates-1789615495005.log에서 78개 파일·1,133개 테스트와 lint/typecheck 성공, smoke-01.log에서 SMOKE_OK를 확인했습니다. 검토 범위에서 미해결 P0/P1은 발견하지 못했습니다.",
+        "본인이 작성한 독립 pvpAbuseV91 8개 테스트는 실제 createApp/MemoryStore에서 금화 필드 검증, 동시 CAS, 약탈 이후 stale 업로드, 중복 요청·재시작 영수증, 동시 공격, 패배한 공격자 정산, 양방향 1시간 보호, 방어 60초·미확인 이벤트 5개 제한, ACK 인증·순번 보존, 0/75/MAX_SAFE 잔액 및 일일 한도를 검증합니다. 최종 gates에서도 8개가 모두 통과했습니다. 새 전투의 companion 이동은 없고 기존 확정 영수증 복구 경로는 별도로 유지됩니다.",
+        "검토 중 발견한 opponent-busy 확정 거절 후 pendingBattle 잠금, 미완료 공격이 방어 폴링을 막는 문제, 이벤트 순번 누락·중복 ID, 지연 영수증의 공식 전적 회귀는 최종 소스에서 해결됐습니다. onlineV91 10개 테스트에는 실제 서버를 통한 자동 복구·오프라인 capture 방지·지연 응답 경쟁·잘못된 이벤트 무변경 검사가 포함됩니다. net.session.pvp의 절대 전적은 기존 값보다 감소하지 않고, prefetched 응답은 현재 pending matchId가 일치할 때만 적용됩니다.",
+        "금화 정산의 save 내 net/debt와 복구 메타데이터의 최신 금화 상태·defenseCursor·재생 대기열이 분리돼 있습니다. 금화 commit 및 대기열/cursor commit 이후에 서버 ACK를 보내며, 재생 완료는 금화를 다시 적용하지 않고 대기열만 제거합니다. restore는 외부 cursor/대기열을 되돌리지 않고 저장 당시 net 기준으로 차액을 재계산하며 reset은 미정산 debt를 보존합니다. RecoveryStore의 metadata 사전 검증과 save/recovery rename 실패 후 원자 복구 검사를 확인했고 최종 recoveryV9 21개 테스트가 통과했습니다.",
+        "native-06 검증기를 직접 실행해 V091_NATIVE_UI_OK를 확인했습니다. 필수 29개 검사·4개 부팅·11개 PNG·각 112개 패키지 파일 연결과 정상 종료가 확인됐습니다. 설치 DMG 해시 및 설치본 ASAR 48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5가 현재 보고서와 네 번의 실제 앱 실행에 일치합니다. first/defense-replay.png, attack/attack-menu.png, restart/hunting-resumed.png를 직접 열어 상태줄·배너 분리, 전투 중 버튼 잠금과 금화 결과, 재시작 후 950G와 사냥 복귀를 확인했습니다. 실제 관측은 4,951ms/4,937ms 방어 전달, 재생 중 입력 차단·전체 SaveFile/GameState 보존, 종료 후 사냥과 입력 재개를 포함합니다.",
+        "balance-01 검증기를 직접 실행해 V091_BALANCE_VERIFIED를 확인했습니다. 100개 seed·두 정책의 30분 가상 PvE 200행과 합성 금화 정책 1,200행을 합한 1,400행이며, 일반 PvE 결과·RNG 사용·이벤트의 보존과 금화 합계·부채 상환·한도·반대 방향 보호 검증을 확인했습니다. 이는 실제 사람의 재미나 장시간 네이티브 성능 측정과 구분되는 경제·회귀 증거입니다."
+      ],
+      "pending": [
+        "postgres-01.json은 ECONNREFUSED 127.0.0.1:63922, checks=[], passed=false입니다. 실제 PostgreSQL의 신규 금화 컬럼·트랜잭션·재시작 검증은 수행되지 못했으며 MemoryStore/정적 SQL 검토 또는 이전 버전의 PostgreSQL 성공으로 대체할 수 없습니다. 로컬 검토 pass는 운영 출시 준비 완료 판정이 아닙니다.",
+        "운영 서비스 배포·네트워크 검증 및 공유 DB를 사용하는 기존 v2/v3 서비스의 동료 약탈 중단·전환은 미완료입니다. 신규 gold-v1 API의 426 제한만으로 별도 구 서비스의 이전 약탈 handler까지 차단된다고 주장할 수 없습니다.",
+        "Windows 실기기 설치·실행·입력 검증, Steam AppID/SDK·Steamworks 연결과 출시 검증, 실제 전역 입력 권한 및 OS 알림 검증은 이 실제 macOS 격리 앱 증거에 포함되지 않습니다. 사람의 플레이 평가와 v0.9.1 장시간 성능 측정도 미완료입니다.",
+        "로컬 PvE 금화 획득은 자기보고 방식이므로 이 검증은 정직한 클라이언트의 중복 정산·복원·동시성 일관성을 보장하는 범위입니다. 수정 세이브나 다계정 금화 공급의 완전한 부정행위 방지를 증명하지 않습니다. 앱이 실행 중일 때의 정확한 사냥 상태 보존과 달리, 재시작은 기존 SaveFile에 저장되는 상태만 복구하며 일시적인 연출 pool까지 영속화하지 않습니다."
+      ],
+      "evidence": [
+        {
+          "report": "0",
+          "pointer": "/passed"
+        },
+        {
+          "report": "0",
+          "pointer": "/sources"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/0/ui/checks"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/1/ui/checks/6"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/2/ui/checks"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/3/ui/checks"
+        },
+        {
+          "report": "0",
+          "pointer": "/attempts/0/runtime/packageBinding"
+        },
+        {
+          "report": "1",
+          "pointer": "/rows"
+        },
+        {
+          "report": "1",
+          "pointer": "/interpretation"
+        },
+        {
+          "report": "1",
+          "pointer": "/passed"
+        },
+        {
+          "report": "2",
+          "pointer": "/checks"
+        },
+        {
+          "report": "2",
+          "pointer": "/error"
+        },
+        {
+          "report": "3",
+          "pointer": "/asarHash"
+        },
+        {
+          "report": "3",
+          "pointer": "/dmgHash"
+        }
+      ]
+    }
+  ],
+  "template": {
+    "role": "Balance",
+    "agentId": "/root/balance",
+    "requestId": "e58d46fe-b0a4-4b4f-a64b-84b754179670",
+    "verdict": "pass|blocked",
+    "findings": [],
+    "pending": [],
+    "evidence": [
+      {
+        "report": "0",
+        "pointer": "/passed"
+      }
+    ]
+  }
+}

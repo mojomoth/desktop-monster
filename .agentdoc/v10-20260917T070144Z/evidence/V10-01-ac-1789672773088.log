@@ -1,0 +1,170 @@
+TAP version 13
+# Subtest: held-out denominator, distinct tuples, seed ranges and exact huge-wallet conservation are enforced
+ok 1 - held-out denominator, distinct tuples, seed ranges and exact huge-wallet conservation are enforced
+  ---
+  duration_ms: 2.749583
+  ...
+# Subtest: non-arrival remains in unconditional percentiles and cannot turn an unsuccessful policy into a pass
+ok 2 - non-arrival remains in unconditional percentiles and cannot turn an unsuccessful policy into a pass
+  ---
+  duration_ms: 0.528042
+  ...
+# Subtest: a never-used level tier and processing budget breach reject selection
+ok 3 - a never-used level tier and processing budget breach reject selection
+  ---
+  duration_ms: 0.294292
+  ...
+# Subtest: registered selection-only source change is accepted, but forged summary and non-parameter compile changes are rejected
+ok 4 - registered selection-only source change is accepted, but forged summary and non-parameter compile changes are rejected
+  ---
+  duration_ms: 275.501292
+  ...
+# Subtest: directory package identity includes file content and symlink destination without following cycles
+ok 5 - directory package identity includes file content and symlink destination without following cycles
+  ---
+  duration_ms: 2.768375
+  ...
+# Subtest: same-version installer with an older payload or changed native file cannot match the verified app
+ok 6 - same-version installer with an older payload or changed native file cannot match the verified app
+  ---
+  duration_ms: 3.71075
+  ...
+# Subtest: only latest canonical gates and exact source-bound task AC are accepted; final task is non-circular
+ok 7 - only latest canonical gates and exact source-bound task AC are accepted; final task is non-circular
+  ---
+  duration_ms: 6.906792
+  ...
+# Subtest: independent review requires author separation, current source and explicit external limitations
+ok 8 - independent review requires author separation, current source and explicit external limitations
+  ---
+  duration_ms: 7.001375
+  ...
+# Subtest: process inventory fails closed on parser loss and includes reparented helpers without treating other Electron apps as DesMon
+ok 9 - process inventory fails closed on parser loss and includes reparented helpers without treating other Electron apps as DesMon
+  ---
+  duration_ms: 1.232917
+  ...
+# Subtest: isolation rejects the surviving app, helper-only boundaries and unexpected mid-observation apps
+ok 10 - isolation rejects the surviving app, helper-only boundaries and unexpected mid-observation apps
+  ---
+  duration_ms: 0.39525
+  ...
+# Subtest: isolation binds launch, exact app identity, ownership, cadence, and completed cleanup
+ok 11 - isolation binds launch, exact app identity, ownership, cadence, and completed cleanup
+  ---
+  duration_ms: 0.627125
+  ...
+# Subtest: a known helper may reparent during cleanup, but a never-observed orphan cannot establish ownership
+ok 12 - a known helper may reparent during cleanup, but a never-observed orphan cannot establish ownership
+  ---
+  duration_ms: 0.21925
+  ...
+# Subtest: numeric pass alone cannot approve performance, and result review binds completed isolation evidence
+ok 13 - numeric pass alone cannot approve performance, and result review binds completed isolation evidence
+  ---
+  duration_ms: 1.377958
+  ...
+# Subtest: complete isolation verification binds all five reports and rejects inter-slot gaps, Browser PID mismatch and changed lifecycle artifacts
+ok 14 - complete isolation verification binds all five reports and rejects inter-slot gaps, Browser PID mismatch and changed lifecycle artifacts
+  ---
+  duration_ms: 14.544583
+  ...
+# Subtest: v10 keeps the registered full durations and budgets; missing/short evidence fails
+ok 15 - v10 keeps the registered full durations and budgets; missing/short evidence fails
+  ---
+  duration_ms: 1.410333
+  ...
+# Subtest: only the exact initial save can precede periodic clock persistence, within the unchanged lag limit
+ok 16 - only the exact initial save can precede periodic clock persistence, within the unchanged lag limit
+  ---
+  duration_ms: 13.463625
+  ...
+# Subtest: terminal capture inputs follow the measured schedule and remain outside the 180-minute result
+ok 17 - terminal capture inputs follow the measured schedule and remain outside the 180-minute result
+  ---
+  duration_ms: 57.856375
+  ...
+# Subtest: only the BigInt JSON boundary differs between the observers
+ok 18 - only the BigInt JSON boundary differs between the observers
+  ---
+  duration_ms: 0.776625
+  ...
+# Subtest: observer cancellation records the first signal and keeps handling repeated signals until disposal
+ok 19 - observer cancellation records the first signal and keeps handling repeated signals until disposal
+  ---
+  duration_ms: 0.22025
+  ...
+# Subtest: cleanup follows owned descendants across groups and reparenting without signalling another fixture
+ok 20 - cleanup follows owned descendants across groups and reparenting without signalling another fixture
+  ---
+  duration_ms: 1.060625
+  ...
+# Subtest: startup cancellation escalates only the exact owned identities when TERM is ignored
+ok 21 - startup cancellation escalates only the exact owned identities when TERM is ignored
+  ---
+  duration_ms: 0.192125
+  ...
+# Subtest: cleanup recognizes a reparented helper by exact fixture path and does not signal a reused PID
+ok 22 - cleanup recognizes a reparented helper by exact fixture path and does not signal a reused PID
+  ---
+  duration_ms: 0.198166
+  ...
+# Subtest: surviving owned processes fail cleanup with their exact identities recorded
+ok 23 - surviving owned processes fail cleanup with their exact identities recorded
+  ---
+  duration_ms: 0.164709
+  ...
+# Subtest: a crashed main before first scan does not hide its fixture-owned Crashpad process
+ok 24 - a crashed main before first scan does not hide its fixture-owned Crashpad process
+  ---
+  duration_ms: 0.189708
+  ...
+# Subtest: a helper PID reused after its parent is killed is checked again before signalling
+ok 25 - a helper PID reused after its parent is killed is checked again before signalling
+  ---
+  duration_ms: 0.121875
+  ...
+# Subtest: queue signals only its observer and waits for close after exit and cleanup report
+ok 26 - queue signals only its observer and waits for close after exit and cleanup report
+  ---
+  duration_ms: 0.245458
+  ...
+# Subtest: queue still signals and awaits its observer when spawn/interrupt status persistence fails
+ok 27 - queue still signals and awaits its observer when spawn/interrupt status persistence fails
+  ---
+  duration_ms: 0.1605
+  ...
+# Subtest: latest failure, stale source, changed log or artifact rejects earlier success
+ok 28 - latest failure, stale source, changed log or artifact rejects earlier success
+  ---
+  duration_ms: 2.375167
+  ...
+# Subtest: configuration rejects unknown dependencies, duplicate IDs and cycles
+ok 29 - configuration rejects unknown dependencies, duplicate IDs and cycles
+  ---
+  duration_ms: 0.17275
+  ...
+# Subtest: invalidation preserves attempts and reopens only affected descendants
+ok 30 - invalidation preserves attempts and reopens only affected descendants
+  ---
+  duration_ms: 1.152959
+  ...
+# Subtest: ownership prevents parent/child overlaps and required artifact omissions
+ok 31 - ownership prevents parent/child overlaps and required artifact omissions
+  ---
+  duration_ms: 0.075583
+  ...
+# Subtest: changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+ok 32 - changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+  ---
+  duration_ms: 0.342625
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 510.448709

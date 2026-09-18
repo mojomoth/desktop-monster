@@ -1,0 +1,1718 @@
+{
+  "note": "round-5 balance probe (temporary instrumentation, deleted after the run). before = src/core with (1) the A3 soul award removed so a full-roster draw has no state effect (pre-A3 pacing) and (2) rollHeroChoices reverted to the pre-A5 form (slot 0 = unseen within the top rank, no keepTop fallback). Validated: this build reproduces docs/v0.4/balance.json p10/p50/p90 for kills/reincarnations/collected/coins in all 9 scenarios with 0 mismatches. companionReleased in the before build is observation-only and equals the number of draws the pre-round build voided in silence (C28).",
+  "seeds": "1..100",
+  "marks": [
+    5,
+    15,
+    30,
+    60
+  ],
+  "before": [
+    {
+      "profile": "active",
+      "minutes": 5,
+      "samples": 100,
+      "kills": {
+        "p10": 145,
+        "p50": 147,
+        "p90": 148,
+        "min": 144,
+        "max": 148,
+        "mean": 146.76
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "coins": {
+        "p10": 1937,
+        "p50": 1979,
+        "p90": 1998,
+        "min": 1919,
+        "max": 1998,
+        "mean": 1973.03
+      },
+      "souls": {
+        "p10": 9,
+        "p50": 9,
+        "p90": 9,
+        "min": 9,
+        "max": 9,
+        "mean": 9
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 3,
+        "p50": 6,
+        "p90": 8,
+        "min": 1,
+        "max": 12,
+        "mean": 5.96
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "active",
+      "minutes": 15,
+      "samples": 100,
+      "kills": {
+        "p10": 521,
+        "p50": 528,
+        "p90": 535,
+        "min": 518,
+        "max": 544,
+        "mean": 527.96
+      },
+      "reincarnations": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "collected": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "coins": {
+        "p10": 9112,
+        "p50": 9426,
+        "p90": 9784,
+        "min": 9036,
+        "max": 10106,
+        "mean": 9456.6
+      },
+      "souls": {
+        "p10": 50,
+        "p50": 51,
+        "p90": 52,
+        "min": 50,
+        "max": 53,
+        "mean": 51.11
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 8,
+        "mean": 0.13
+      },
+      "companions": {
+        "p10": 17,
+        "p50": 21,
+        "p90": 26,
+        "min": 12,
+        "max": 30,
+        "mean": 21.58
+      },
+      "offers": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 4
+    },
+    {
+      "profile": "active",
+      "minutes": 30,
+      "samples": 100,
+      "kills": {
+        "p10": 1222,
+        "p50": 1238,
+        "p90": 1255,
+        "min": 1210,
+        "max": 1266,
+        "mean": 1238.26
+      },
+      "reincarnations": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "collected": {
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "min": 14,
+        "max": 14,
+        "mean": 14
+      },
+      "coins": {
+        "p10": 25020,
+        "p50": 25671,
+        "p90": 26360,
+        "min": 24530,
+        "max": 26754,
+        "mean": 25677.1
+      },
+      "souls": {
+        "p10": 134,
+        "p50": 135,
+        "p90": 137,
+        "min": 132,
+        "max": 138,
+        "mean": 135.23
+      },
+      "released": {
+        "p10": 15,
+        "p50": 22,
+        "p90": 28,
+        "min": 8,
+        "max": 43,
+        "mean": 21.77
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "offers": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "unseenFirstCardRatio": 0.9333333333333335,
+      "fullRosters": 100
+    },
+    {
+      "profile": "active",
+      "minutes": 60,
+      "samples": 100,
+      "kills": {
+        "p10": 2687,
+        "p50": 2713,
+        "p90": 2745,
+        "min": 2673,
+        "max": 2768,
+        "mean": 2715.1
+      },
+      "reincarnations": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "collected": {
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "min": 14,
+        "max": 14,
+        "mean": 14
+      },
+      "coins": {
+        "p10": 61457,
+        "p50": 62682,
+        "p90": 64079,
+        "min": 60975,
+        "max": 65200,
+        "mean": 62775.83
+      },
+      "souls": {
+        "p10": 306,
+        "p50": 310,
+        "p90": 312,
+        "min": 305,
+        "max": 315,
+        "mean": 309.65
+      },
+      "released": {
+        "p10": 71,
+        "p50": 83,
+        "p90": 94,
+        "min": 62,
+        "max": 111,
+        "mean": 82.71
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "offers": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "unseenFirstCardRatio": 0.46666666666666673,
+      "fullRosters": 100
+    },
+    {
+      "profile": "idle",
+      "minutes": 5,
+      "samples": 100,
+      "kills": {
+        "p10": 81,
+        "p50": 95,
+        "p90": 108,
+        "min": 76,
+        "max": 115,
+        "mean": 95.56
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "coins": {
+        "p10": 665,
+        "p50": 852,
+        "p90": 1068,
+        "min": 630,
+        "max": 1165,
+        "mean": 870.03
+      },
+      "souls": {
+        "p10": 7,
+        "p50": 8,
+        "p90": 8,
+        "min": 7,
+        "max": 8,
+        "mean": 7.71
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 2,
+        "p50": 4,
+        "p90": 6,
+        "min": 1,
+        "max": 9,
+        "mean": 3.9
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "idle",
+      "minutes": 15,
+      "samples": 100,
+      "kills": {
+        "p10": 95,
+        "p50": 243,
+        "p90": 307,
+        "min": 84,
+        "max": 333,
+        "mean": 217.14
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "min": 2,
+        "max": 7,
+        "mean": 5.48
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "min": 2,
+        "max": 7,
+        "mean": 5.48
+      },
+      "coins": {
+        "p10": 853,
+        "p50": 2032,
+        "p90": 3103,
+        "min": 675,
+        "max": 3645,
+        "mean": 1979.37
+      },
+      "souls": {
+        "p10": 8,
+        "p50": 23,
+        "p90": 29,
+        "min": 7,
+        "max": 31,
+        "mean": 19.96
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 2,
+        "p50": 9,
+        "p90": 14,
+        "min": 1,
+        "max": 17,
+        "mean": 8.35
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "min": 2,
+        "max": 7,
+        "mean": 5.48
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "idle",
+      "minutes": 30,
+      "samples": 100,
+      "kills": {
+        "p10": 156,
+        "p50": 496,
+        "p90": 663,
+        "min": 92,
+        "max": 726,
+        "mean": 451.45
+      },
+      "reincarnations": {
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "min": 2,
+        "max": 15,
+        "mean": 11.87
+      },
+      "collected": {
+        "p10": 4,
+        "p50": 14,
+        "p90": 14,
+        "min": 2,
+        "max": 14,
+        "mean": 11.4
+      },
+      "coins": {
+        "p10": 1287,
+        "p50": 4262,
+        "p90": 7197,
+        "min": 754,
+        "max": 8671,
+        "mean": 4259
+      },
+      "souls": {
+        "p10": 13,
+        "p50": 49,
+        "p90": 68,
+        "min": 7,
+        "max": 75,
+        "mean": 44.74
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 4,
+        "mean": 0.11
+      },
+      "companions": {
+        "p10": 3,
+        "p50": 18,
+        "p90": 27,
+        "min": 1,
+        "max": 30,
+        "mean": 16.95
+      },
+      "offers": {
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "min": 2,
+        "max": 15,
+        "mean": 11.87
+      },
+      "unseenFirstCardRatio": 0.9686666666666666,
+      "fullRosters": 5
+    },
+    {
+      "profile": "idle",
+      "minutes": 60,
+      "samples": 100,
+      "kills": {
+        "p10": 364,
+        "p50": 1089,
+        "p90": 1369,
+        "min": 122,
+        "max": 1513,
+        "mean": 1003.03
+      },
+      "reincarnations": {
+        "p10": 11,
+        "p50": 29,
+        "p90": 30,
+        "min": 3,
+        "max": 30,
+        "mean": 25.7
+      },
+      "collected": {
+        "p10": 11,
+        "p50": 14,
+        "p90": 14,
+        "min": 3,
+        "max": 14,
+        "mean": 13.44
+      },
+      "coins": {
+        "p10": 2900,
+        "p50": 10159,
+        "p90": 15753,
+        "min": 987,
+        "max": 19445,
+        "mean": 10139.13
+      },
+      "souls": {
+        "p10": 34,
+        "p50": 111,
+        "p90": 145,
+        "min": 10,
+        "max": 165,
+        "mean": 104.5
+      },
+      "released": {
+        "p10": 0,
+        "p50": 11,
+        "p90": 24,
+        "min": 0,
+        "max": 39,
+        "mean": 11.6
+      },
+      "companions": {
+        "p10": 12,
+        "p50": 30,
+        "p90": 30,
+        "min": 2,
+        "max": 30,
+        "mean": 26.76
+      },
+      "offers": {
+        "p10": 11,
+        "p50": 29,
+        "p90": 30,
+        "min": 3,
+        "max": 30,
+        "mean": 25.7
+      },
+      "unseenFirstCardRatio": 0.5692608043869941,
+      "fullRosters": 74
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 5,
+      "samples": 100,
+      "kills": {
+        "p10": 113,
+        "p50": 120,
+        "p90": 124,
+        "min": 108,
+        "max": 132,
+        "mean": 119.51
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "coins": {
+        "p10": 1139,
+        "p50": 1291,
+        "p90": 1353,
+        "min": 1037,
+        "max": 1617,
+        "mean": 1278.04
+      },
+      "souls": {
+        "p10": 8,
+        "p50": 8,
+        "p90": 8,
+        "min": 8,
+        "max": 9,
+        "mean": 8.1
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 3,
+        "p50": 4,
+        "p90": 7,
+        "min": 1,
+        "max": 10,
+        "mean": 4.72
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 15,
+      "samples": 100,
+      "kills": {
+        "p10": 427,
+        "p50": 436,
+        "p90": 451,
+        "min": 410,
+        "max": 469,
+        "mean": 438.13
+      },
+      "reincarnations": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "collected": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "coins": {
+        "p10": 6159,
+        "p50": 6472,
+        "p90": 6957,
+        "min": 5621,
+        "max": 7470,
+        "mean": 6510.23
+      },
+      "souls": {
+        "p10": 41,
+        "p50": 42,
+        "p90": 44,
+        "min": 40,
+        "max": 46,
+        "mean": 42.26
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 14,
+        "p50": 18,
+        "p90": 23,
+        "min": 9,
+        "max": 25,
+        "mean": 17.62
+      },
+      "offers": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 30,
+      "samples": 100,
+      "kills": {
+        "p10": 1029,
+        "p50": 1049,
+        "p90": 1068,
+        "min": 1002,
+        "max": 1086,
+        "mean": 1049.7
+      },
+      "reincarnations": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "collected": {
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "min": 14,
+        "max": 14,
+        "mean": 14
+      },
+      "coins": {
+        "p10": 17830,
+        "p50": 18614,
+        "p90": 19277,
+        "min": 16955,
+        "max": 19920,
+        "mean": 18582.72
+      },
+      "souls": {
+        "p10": 112,
+        "p50": 114,
+        "p90": 117,
+        "min": 108,
+        "max": 121,
+        "mean": 114.23
+      },
+      "released": {
+        "p10": 6,
+        "p50": 13,
+        "p90": 21,
+        "min": 0,
+        "max": 26,
+        "mean": 13.38
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 28,
+        "max": 30,
+        "mean": 29.98
+      },
+      "offers": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "unseenFirstCardRatio": 0.9333333333333335,
+      "fullRosters": 99
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 60,
+      "samples": 100,
+      "kills": {
+        "p10": 2308,
+        "p50": 2343,
+        "p90": 2376,
+        "min": 2282,
+        "max": 2416,
+        "mean": 2343.03
+      },
+      "reincarnations": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "collected": {
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "min": 14,
+        "max": 14,
+        "mean": 14
+      },
+      "coins": {
+        "p10": 45643,
+        "p50": 47143,
+        "p90": 48554,
+        "min": 44579,
+        "max": 50321,
+        "mean": 47184.31
+      },
+      "souls": {
+        "p10": 262,
+        "p50": 267,
+        "p90": 272,
+        "min": 258,
+        "max": 277,
+        "mean": 267.04
+      },
+      "released": {
+        "p10": 56,
+        "p50": 67,
+        "p90": 77,
+        "min": 44,
+        "max": 85,
+        "mean": 67.2
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "offers": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "unseenFirstCardRatio": 0.46666666666666673,
+      "fullRosters": 100
+    }
+  ],
+  "after": [
+    {
+      "profile": "active",
+      "minutes": 5,
+      "samples": 100,
+      "kills": {
+        "p10": 145,
+        "p50": 147,
+        "p90": 148,
+        "min": 144,
+        "max": 148,
+        "mean": 146.76
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "coins": {
+        "p10": 1937,
+        "p50": 1979,
+        "p90": 1998,
+        "min": 1919,
+        "max": 1998,
+        "mean": 1973.03
+      },
+      "souls": {
+        "p10": 9,
+        "p50": 9,
+        "p90": 9,
+        "min": 9,
+        "max": 9,
+        "mean": 9
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 3,
+        "p50": 6,
+        "p90": 8,
+        "min": 1,
+        "max": 12,
+        "mean": 5.96
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "active",
+      "minutes": 15,
+      "samples": 100,
+      "kills": {
+        "p10": 521,
+        "p50": 528,
+        "p90": 535,
+        "min": 518,
+        "max": 544,
+        "mean": 527.97
+      },
+      "reincarnations": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "collected": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "coins": {
+        "p10": 9112,
+        "p50": 9426,
+        "p90": 9790,
+        "min": 9036,
+        "max": 10106,
+        "mean": 9456.88
+      },
+      "souls": {
+        "p10": 50,
+        "p50": 51,
+        "p90": 52,
+        "min": 50,
+        "max": 55,
+        "mean": 51.17
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 8,
+        "mean": 0.13
+      },
+      "companions": {
+        "p10": 17,
+        "p50": 21,
+        "p90": 26,
+        "min": 12,
+        "max": 30,
+        "mean": 21.58
+      },
+      "offers": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 4
+    },
+    {
+      "profile": "active",
+      "minutes": 30,
+      "samples": 100,
+      "kills": {
+        "p10": 1223,
+        "p50": 1240,
+        "p90": 1256,
+        "min": 1211,
+        "max": 1268,
+        "mean": 1240.42
+      },
+      "reincarnations": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "collected": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "coins": {
+        "p10": 25118,
+        "p50": 25782,
+        "p90": 26360,
+        "min": 24560,
+        "max": 26849,
+        "mean": 25754.82
+      },
+      "souls": {
+        "p10": 142,
+        "p50": 145,
+        "p90": 150,
+        "min": 138,
+        "max": 157,
+        "mean": 145.88
+      },
+      "released": {
+        "p10": 15,
+        "p50": 21,
+        "p90": 29,
+        "min": 7,
+        "max": 42,
+        "mean": 21.61
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "offers": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 100
+    },
+    {
+      "profile": "active",
+      "minutes": 60,
+      "samples": 100,
+      "kills": {
+        "p10": 2703,
+        "p50": 2727,
+        "p90": 2754,
+        "min": 2682,
+        "max": 2776,
+        "mean": 2728.32
+      },
+      "reincarnations": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "collected": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "coins": {
+        "p10": 62234,
+        "p50": 63251,
+        "p90": 64378,
+        "min": 61273,
+        "max": 65432,
+        "mean": 63333.38
+      },
+      "souls": {
+        "p10": 346,
+        "p50": 352,
+        "p90": 358,
+        "min": 338,
+        "max": 366,
+        "mean": 352.24
+      },
+      "released": {
+        "p10": 73,
+        "p50": 83,
+        "p90": 95,
+        "min": 61,
+        "max": 111,
+        "mean": 83.77
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "offers": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 100
+    },
+    {
+      "profile": "idle",
+      "minutes": 5,
+      "samples": 100,
+      "kills": {
+        "p10": 81,
+        "p50": 95,
+        "p90": 108,
+        "min": 76,
+        "max": 115,
+        "mean": 95.56
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "coins": {
+        "p10": 665,
+        "p50": 852,
+        "p90": 1068,
+        "min": 630,
+        "max": 1165,
+        "mean": 870.03
+      },
+      "souls": {
+        "p10": 7,
+        "p50": 8,
+        "p90": 8,
+        "min": 7,
+        "max": 8,
+        "mean": 7.71
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 2,
+        "p50": 4,
+        "p90": 6,
+        "min": 1,
+        "max": 9,
+        "mean": 3.9
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "idle",
+      "minutes": 15,
+      "samples": 100,
+      "kills": {
+        "p10": 95,
+        "p50": 243,
+        "p90": 307,
+        "min": 84,
+        "max": 333,
+        "mean": 217.14
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "min": 2,
+        "max": 7,
+        "mean": 5.48
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "min": 2,
+        "max": 7,
+        "mean": 5.48
+      },
+      "coins": {
+        "p10": 853,
+        "p50": 2032,
+        "p90": 3103,
+        "min": 675,
+        "max": 3645,
+        "mean": 1979.37
+      },
+      "souls": {
+        "p10": 8,
+        "p50": 23,
+        "p90": 29,
+        "min": 7,
+        "max": 31,
+        "mean": 19.96
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 2,
+        "p50": 9,
+        "p90": 14,
+        "min": 1,
+        "max": 17,
+        "mean": 8.35
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "min": 2,
+        "max": 7,
+        "mean": 5.48
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "idle",
+      "minutes": 30,
+      "samples": 100,
+      "kills": {
+        "p10": 156,
+        "p50": 496,
+        "p90": 665,
+        "min": 92,
+        "max": 725,
+        "mean": 451.52
+      },
+      "reincarnations": {
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "min": 2,
+        "max": 15,
+        "mean": 11.87
+      },
+      "collected": {
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "min": 2,
+        "max": 15,
+        "mean": 11.87
+      },
+      "coins": {
+        "p10": 1287,
+        "p50": 4264,
+        "p90": 7197,
+        "min": 754,
+        "max": 8656,
+        "mean": 4260.27
+      },
+      "souls": {
+        "p10": 13,
+        "p50": 49,
+        "p90": 68,
+        "min": 7,
+        "max": 75,
+        "mean": 44.79
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 4,
+        "mean": 0.11
+      },
+      "companions": {
+        "p10": 3,
+        "p50": 18,
+        "p90": 27,
+        "min": 1,
+        "max": 30,
+        "mean": 16.96
+      },
+      "offers": {
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "min": 2,
+        "max": 15,
+        "mean": 11.87
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 5
+    },
+    {
+      "profile": "idle",
+      "minutes": 60,
+      "samples": 100,
+      "kills": {
+        "p10": 364,
+        "p50": 1084,
+        "p90": 1371,
+        "min": 122,
+        "max": 1511,
+        "mean": 1001.1
+      },
+      "reincarnations": {
+        "p10": 11,
+        "p50": 29,
+        "p90": 30,
+        "min": 3,
+        "max": 30,
+        "mean": 25.7
+      },
+      "collected": {
+        "p10": 11,
+        "p50": 29,
+        "p90": 30,
+        "min": 3,
+        "max": 30,
+        "mean": 25.7
+      },
+      "coins": {
+        "p10": 2900,
+        "p50": 10159,
+        "p90": 15772,
+        "min": 987,
+        "max": 19405,
+        "mean": 10083.33
+      },
+      "souls": {
+        "p10": 34,
+        "p50": 116,
+        "p90": 157,
+        "min": 10,
+        "max": 181,
+        "mean": 109.56
+      },
+      "released": {
+        "p10": 0,
+        "p50": 11,
+        "p90": 25,
+        "min": 0,
+        "max": 39,
+        "mean": 11.39
+      },
+      "companions": {
+        "p10": 12,
+        "p50": 30,
+        "p90": 30,
+        "min": 2,
+        "max": 30,
+        "mean": 26.75
+      },
+      "offers": {
+        "p10": 11,
+        "p50": 29,
+        "p90": 30,
+        "min": 3,
+        "max": 30,
+        "mean": 25.7
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 76
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 5,
+      "samples": 100,
+      "kills": {
+        "p10": 113,
+        "p50": 120,
+        "p90": 124,
+        "min": 108,
+        "max": 132,
+        "mean": 119.51
+      },
+      "reincarnations": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "collected": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "coins": {
+        "p10": 1139,
+        "p50": 1291,
+        "p90": 1353,
+        "min": 1037,
+        "max": 1617,
+        "mean": 1278.04
+      },
+      "souls": {
+        "p10": 8,
+        "p50": 8,
+        "p90": 8,
+        "min": 8,
+        "max": 9,
+        "mean": 8.1
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 3,
+        "p50": 4,
+        "p90": 7,
+        "min": 1,
+        "max": 10,
+        "mean": 4.72
+      },
+      "offers": {
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "min": 2,
+        "max": 2,
+        "mean": 2
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 15,
+      "samples": 100,
+      "kills": {
+        "p10": 427,
+        "p50": 436,
+        "p90": 451,
+        "min": 410,
+        "max": 469,
+        "mean": 438.13
+      },
+      "reincarnations": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "collected": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "coins": {
+        "p10": 6159,
+        "p50": 6472,
+        "p90": 6957,
+        "min": 5621,
+        "max": 7470,
+        "mean": 6510.23
+      },
+      "souls": {
+        "p10": 41,
+        "p50": 42,
+        "p90": 44,
+        "min": 40,
+        "max": 46,
+        "mean": 42.26
+      },
+      "released": {
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "min": 0,
+        "max": 0,
+        "mean": 0
+      },
+      "companions": {
+        "p10": 14,
+        "p50": 18,
+        "p90": 23,
+        "min": 9,
+        "max": 25,
+        "mean": 17.62
+      },
+      "offers": {
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "min": 7,
+        "max": 7,
+        "mean": 7
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 0
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 30,
+      "samples": 100,
+      "kills": {
+        "p10": 1030,
+        "p50": 1050,
+        "p90": 1068,
+        "min": 1002,
+        "max": 1087,
+        "mean": 1050.31
+      },
+      "reincarnations": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "collected": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "coins": {
+        "p10": 17870,
+        "p50": 18664,
+        "p90": 19236,
+        "min": 16955,
+        "max": 20030,
+        "mean": 18613.93
+      },
+      "souls": {
+        "p10": 115,
+        "p50": 121,
+        "p90": 126,
+        "min": 111,
+        "max": 130,
+        "mean": 120.86
+      },
+      "released": {
+        "p10": 6,
+        "p50": 13,
+        "p90": 21,
+        "min": 0,
+        "max": 25,
+        "mean": 13.5
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 28,
+        "max": 30,
+        "mean": 29.98
+      },
+      "offers": {
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "min": 15,
+        "max": 15,
+        "mean": 15
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 99
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 60,
+      "samples": 100,
+      "kills": {
+        "p10": 2315,
+        "p50": 2353,
+        "p90": 2385,
+        "min": 2289,
+        "max": 2427,
+        "mean": 2351.5
+      },
+      "reincarnations": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "collected": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "coins": {
+        "p10": 46049,
+        "p50": 47635,
+        "p90": 49127,
+        "min": 44827,
+        "max": 50731,
+        "mean": 47606.29
+      },
+      "souls": {
+        "p10": 294,
+        "p50": 303,
+        "p90": 309,
+        "min": 288,
+        "max": 315,
+        "mean": 302.37
+      },
+      "released": {
+        "p10": 59,
+        "p50": 67,
+        "p90": 81,
+        "min": 46,
+        "max": 85,
+        "mean": 68.24
+      },
+      "companions": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "offers": {
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "min": 30,
+        "max": 30,
+        "mean": 30
+      },
+      "unseenFirstCardRatio": 1,
+      "fullRosters": 100
+    }
+  ]
+}

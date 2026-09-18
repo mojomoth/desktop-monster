@@ -1,0 +1,79 @@
+{"at":"2026-09-13T10:30:13.698Z","start":{"expectedDeployedSha":"8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803","scriptSha256":"bdd64fb30baed84e1a96b2ecddad1d90cd85e432d12a5e88348b7d1728b9299a"}}
+{"at":"2026-09-13T10:30:14.018Z","request":{"route":"GET /healthz","owner":null,"startedAt":"2026-09-13T10:30:13.712Z","status":200,"endedAt":"2026-09-13T10:30:14.018Z"}}
+{"at":"2026-09-13T10:30:14.025Z","check":{"id":"health-exact-deployed-sha","passed":true,"observedSha":"8f89f1ab1922cf5adb7171aa04d64b4eaa7a2803"}}
+{"at":"2026-09-13T10:30:14.521Z","request":{"route":"POST /v1/players","owner":null,"startedAt":"2026-09-13T10:30:14.079Z","status":201,"endedAt":"2026-09-13T10:30:14.520Z"}}
+{"at":"2026-09-13T10:30:14.522Z","check":{"id":"register-1","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:14.523Z","check":{"id":"credential-shape-1","passed":true}}
+{"at":"2026-09-13T10:30:14.523Z","account":{"label":"synthetic-1","playerId":"8ae6b4f5-8444-4162-9aa3-3b728d67c9e2","name":"v7p-16a7d315-a"}}
+{"at":"2026-09-13T10:30:14.690Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-1","startedAt":"2026-09-13T10:30:14.524Z","status":200,"endedAt":"2026-09-13T10:30:14.690Z"}}
+{"at":"2026-09-13T10:30:14.692Z","check":{"id":"upload-levels-1-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:14.692Z","check":{"id":"upload-levels-1","passed":true,"removedCount":0,"theftCount":0}}
+{"at":"2026-09-13T10:30:14.859Z","request":{"route":"POST /v1/players","owner":null,"startedAt":"2026-09-13T10:30:14.693Z","status":201,"endedAt":"2026-09-13T10:30:14.859Z"}}
+{"at":"2026-09-13T10:30:14.860Z","check":{"id":"register-2","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:14.861Z","check":{"id":"credential-shape-2","passed":true}}
+{"at":"2026-09-13T10:30:14.861Z","account":{"label":"synthetic-2","playerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","name":"v7p-18d64758-b"}}
+{"at":"2026-09-13T10:30:15.017Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:14.861Z","status":200,"endedAt":"2026-09-13T10:30:15.017Z"}}
+{"at":"2026-09-13T10:30:15.019Z","check":{"id":"upload-levels-2-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:15.019Z","check":{"id":"upload-levels-2","passed":true,"removedCount":0,"theftCount":0}}
+{"at":"2026-09-13T10:30:15.215Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:15.020Z","status":200,"endedAt":"2026-09-13T10:30:15.215Z"}}
+{"at":"2026-09-13T10:30:15.218Z","check":{"id":"b-high-level-db-roundtrip-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:15.220Z","check":{"id":"b-high-level-db-roundtrip","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:15.373Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-2","startedAt":"2026-09-13T10:30:15.220Z","status":200,"endedAt":"2026-09-13T10:30:15.373Z"}}
+{"at":"2026-09-13T10:30:15.373Z","check":{"id":"a-high-level-db-roundtrip-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:15.373Z","check":{"id":"a-high-level-db-roundtrip","passed":true,"targetPlayerId":"8ae6b4f5-8444-4162-9aa3-3b728d67c9e2","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:15.540Z","request":{"route":"GET /v1/pvp/opponents","owner":"synthetic-1","startedAt":"2026-09-13T10:30:15.374Z","status":200,"endedAt":"2026-09-13T10:30:15.540Z"}}
+{"at":"2026-09-13T10:30:15.543Z","check":{"id":"synthetic-1-directory-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:15.543Z","check":{"id":"synthetic-1-directory","passed":true,"validatedRowCount":50,"ownedTargetVisible":false,"ownedTargetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","ownedTargetHighLevelsVerified":false,"limit":"Top 50 only; score-0 synthetic visibility is not guaranteed; no ranking boost."}}
+{"at":"2026-09-13T10:30:15.737Z","request":{"route":"GET /v1/pvp/opponents","owner":"synthetic-2","startedAt":"2026-09-13T10:30:15.543Z","status":200,"endedAt":"2026-09-13T10:30:15.737Z"}}
+{"at":"2026-09-13T10:30:15.740Z","check":{"id":"synthetic-2-directory-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:15.740Z","check":{"id":"synthetic-2-directory","passed":true,"validatedRowCount":50,"ownedTargetVisible":false,"ownedTargetPlayerId":"8ae6b4f5-8444-4162-9aa3-3b728d67c9e2","ownedTargetHighLevelsVerified":false,"limit":"Top 50 only; score-0 synthetic visibility is not guaranteed; no ranking boost."}}
+{"at":"2026-09-13T10:30:15.891Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:15.741Z","status":400,"endedAt":"2026-09-13T10:30:15.891Z"}}
+{"at":"2026-09-13T10:30:15.892Z","check":{"id":"reject-unsafe-integer","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:16.042Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:15.893Z","status":200,"endedAt":"2026-09-13T10:30:16.042Z"}}
+{"at":"2026-09-13T10:30:16.044Z","check":{"id":"no-loss-after-unsafe-integer-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:16.045Z","check":{"id":"no-loss-after-unsafe-integer","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:16.264Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:16.045Z","status":400,"endedAt":"2026-09-13T10:30:16.263Z"}}
+{"at":"2026-09-13T10:30:16.266Z","check":{"id":"reject-fraction","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:16.416Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:16.266Z","status":200,"endedAt":"2026-09-13T10:30:16.416Z"}}
+{"at":"2026-09-13T10:30:16.417Z","check":{"id":"no-loss-after-fraction-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:16.417Z","check":{"id":"no-loss-after-fraction","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:16.570Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:16.417Z","status":400,"endedAt":"2026-09-13T10:30:16.570Z"}}
+{"at":"2026-09-13T10:30:16.572Z","check":{"id":"reject-zero","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:16.786Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:16.573Z","status":200,"endedAt":"2026-09-13T10:30:16.786Z"}}
+{"at":"2026-09-13T10:30:16.787Z","check":{"id":"no-loss-after-zero-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:16.788Z","check":{"id":"no-loss-after-zero","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:16.944Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:16.788Z","status":400,"endedAt":"2026-09-13T10:30:16.944Z"}}
+{"at":"2026-09-13T10:30:16.945Z","check":{"id":"reject-negative","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:17.098Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:16.945Z","status":200,"endedAt":"2026-09-13T10:30:17.098Z"}}
+{"at":"2026-09-13T10:30:17.100Z","check":{"id":"no-loss-after-negative-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:17.101Z","check":{"id":"no-loss-after-negative","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:17.311Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:17.102Z","status":400,"endedAt":"2026-09-13T10:30:17.311Z"}}
+{"at":"2026-09-13T10:30:17.313Z","check":{"id":"reject-string","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:17.467Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:17.313Z","status":200,"endedAt":"2026-09-13T10:30:17.467Z"}}
+{"at":"2026-09-13T10:30:17.467Z","check":{"id":"no-loss-after-string-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:17.467Z","check":{"id":"no-loss-after-string","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:17.618Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:17.467Z","status":400,"endedAt":"2026-09-13T10:30:17.618Z"}}
+{"at":"2026-09-13T10:30:17.619Z","check":{"id":"reject-null","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:17.836Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:17.620Z","status":200,"endedAt":"2026-09-13T10:30:17.836Z"}}
+{"at":"2026-09-13T10:30:17.837Z","check":{"id":"no-loss-after-null-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:17.837Z","check":{"id":"no-loss-after-null","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:17.993Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:17.838Z","status":400,"endedAt":"2026-09-13T10:30:17.993Z"}}
+{"at":"2026-09-13T10:30:17.997Z","check":{"id":"reject-positive-infinity-json-literal","passed":true,"status":400}}
+{"at":"2026-09-13T10:30:18.149Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:17.997Z","status":200,"endedAt":"2026-09-13T10:30:18.149Z"}}
+{"at":"2026-09-13T10:30:18.151Z","check":{"id":"no-loss-after-positive-infinity-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:18.151Z","check":{"id":"no-loss-after-positive-infinity","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[11,250,9007199254740991],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:18.361Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-1","startedAt":"2026-09-13T10:30:18.151Z","status":200,"endedAt":"2026-09-13T10:30:18.361Z"}}
+{"at":"2026-09-13T10:30:18.363Z","check":{"id":"synthetic-1-cleanup-upload-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:18.363Z","check":{"id":"synthetic-1-cleanup-upload","passed":true,"removedCount":0,"theftCount":0}}
+{"at":"2026-09-13T10:30:18.517Z","request":{"route":"PUT /v1/snapshot","owner":"synthetic-2","startedAt":"2026-09-13T10:30:18.363Z","status":200,"endedAt":"2026-09-13T10:30:18.517Z"}}
+{"at":"2026-09-13T10:30:18.518Z","check":{"id":"synthetic-2-cleanup-upload-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:18.518Z","check":{"id":"synthetic-2-cleanup-upload","passed":true,"removedCount":0,"theftCount":0}}
+{"at":"2026-09-13T10:30:18.667Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-2","startedAt":"2026-09-13T10:30:18.519Z","status":200,"endedAt":"2026-09-13T10:30:18.667Z"}}
+{"at":"2026-09-13T10:30:18.668Z","check":{"id":"synthetic-1-cleanup-db-empty-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:18.668Z","check":{"id":"synthetic-1-cleanup-db-empty","passed":true,"targetPlayerId":"8ae6b4f5-8444-4162-9aa3-3b728d67c9e2","bot":false,"levels":[],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:18.885Z","request":{"route":"POST /v1/pvp/match","owner":"synthetic-1","startedAt":"2026-09-13T10:30:18.669Z","status":200,"endedAt":"2026-09-13T10:30:18.885Z"}}
+{"at":"2026-09-13T10:30:18.887Z","check":{"id":"synthetic-2-cleanup-db-empty-client","passed":true,"error":null,"status":null}}
+{"at":"2026-09-13T10:30:18.887Z","check":{"id":"synthetic-2-cleanup-db-empty","passed":true,"targetPlayerId":"a23267dc-a2a5-45ae-9ab2-a4aa108298a7","bot":false,"levels":[],"exactCompanionsHeroNameScores":true}}
+{"at":"2026-09-13T10:30:19.032Z","request":{"route":"GET /healthz","owner":null,"startedAt":"2026-09-13T10:30:18.887Z","status":200,"endedAt":"2026-09-13T10:30:19.032Z"}}
+{"at":"2026-09-13T10:30:19.034Z","check":{"id":"health-end-same-sha","passed":true}}
+{"at":"2026-09-13T10:30:19.039Z","complete":{"status":"PASS","endedAt":"2026-09-13T10:30:19.039Z"}}

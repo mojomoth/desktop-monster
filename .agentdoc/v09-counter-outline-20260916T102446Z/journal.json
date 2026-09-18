@@ -1,0 +1,94 @@
+{
+  "version": 9,
+  "change": "compact outlined counters without background panel",
+  "writer": "/root",
+  "finishedAt": "2026-09-16T10:39:00.510Z",
+  "status": "implementation-and-automated-verification-complete",
+  "sourceDigest": "df633b4928330528220d26129b775aee27980b21273ef45182283be9e0aa4cce",
+  "roles": [
+    "/root/designer",
+    "/root/critic",
+    "/root/balance",
+    "/root"
+  ],
+  "productFiles": [
+    "src/renderer/hud.ts",
+    "src/renderer/game.ts"
+  ],
+  "testFiles": [
+    "tests/hud-v09.test.ts"
+  ],
+  "gates": {
+    "command": "npm test && npm run lint && npm run typecheck",
+    "startedAt": "2026-09-16T10:32:55.559Z",
+    "endedAt": "2026-09-16T10:33:08.267Z",
+    "before": "df633b4928330528220d26129b775aee27980b21273ef45182283be9e0aa4cce",
+    "after": "df633b4928330528220d26129b775aee27980b21273ef45182283be9e0aa4cce",
+    "exitCode": 0,
+    "log": ".agentdoc/v09-counter-outline-20260916T102446Z/gates.log",
+    "logSha256": "2054246e3b2d9a66fabab2d90a46f868a5e29cb9ae99c818f2c4b710acbe64d2"
+  },
+  "commands": [
+    {
+      "command": "npx vitest run tests/hud-v09.test.ts tests/renderer.test.ts",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-counter-outline-20260916T102446Z/target-02.log",
+      "sha256": "35777458b90421e6cd8248724df2b6888fa6157c2c961858216e4fa1d8fadb68"
+    },
+    {
+      "command": "npm run smoke && npm run package",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-counter-outline-20260916T102446Z/macos-build.log",
+      "sha256": "b245469b690aed753bb525d8dd15bee64c8178ff6d61bfce54bc1c4903fd155b"
+    },
+    {
+      "command": "npm run package:win",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-counter-outline-20260916T102446Z/windows-build.log",
+      "sha256": "3d57394498ba01dafeffa6bbcc144539142a4e2a8ac88369cd6d6e6063481ca5"
+    },
+    {
+      "command": "node .harness/v9/counter-ui.mjs release/mac-arm64/DesMon.app .agentdoc/v09-counter-outline-20260916T102446Z/native",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-counter-outline-20260916T102446Z/native.log",
+      "sha256": "3735ea1fcd53064d95ed8b8fa2d6aeb7ad9e4341603a0845acc736b9af010d78"
+    }
+  ],
+  "summary": {
+    "testFiles": 73,
+    "tests": 1071,
+    "targetTests": 107,
+    "nativeChecks": 5,
+    "nativeCases": 10,
+    "pngs": 5,
+    "coreFilesUnchanged": 20,
+    "macPayloadFiles": 109,
+    "windowsPayloadFiles": 109
+  },
+  "evidence": {
+    ".agentdoc/v09-counter-outline-20260916T102446Z/gates.json": "2f37d3bba0e7772866b765be62bbac70e35c4bf0caf2a10797f8cea1a66d7676",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/gates.log": "2054246e3b2d9a66fabab2d90a46f868a5e29cb9ae99c818f2c4b710acbe64d2",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/target-01.log": "82d3c922bb448c562c09cc822a66f24069ae3b23371213f9a3771245cee529e6",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/target-02.log": "35777458b90421e6cd8248724df2b6888fa6157c2c961858216e4fa1d8fadb68",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/macos-build.log": "b245469b690aed753bb525d8dd15bee64c8178ff6d61bfce54bc1c4903fd155b",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/windows-build.log": "3d57394498ba01dafeffa6bbcc144539142a4e2a8ac88369cd6d6e6063481ca5",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/artifacts.json": "ed39ba120a7a8d4054f234d86c42418166929df0af39fe3f5d7eff0c31e8adf7",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/core-unchanged.json": "4d1bcc57eb3ed8481c257497d7c3ca3769f5a60e830aaf12656fa2d7e290c876",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/native/counter-ui.json": "4de53a427e4a7c8df24e729a4c19ad13dbb6f3c91e0c3e07f05bac4e9b527c8c",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/reviews/designer.md": "3b2853a64f4b3ab6fa1ad2b374dc3f12c70cd1dd734187a0dca8bba2ca6a7eb1",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/reviews/critic.md": "56a632778a9ed0fa27d56b0acb61557dd73bd7e93d3c7f8abb72f51daf73e43a",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/reviews/balance.md": "96f0bc170d5de6088724e8cb4c8a711771f0691d295d5e1ae4b07e6233442dc6",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/reviews/playtester.md": "0ca97bbb812a359abe997fbea49a8b906f58aabf19cde894cb4f585a9a9fd34b",
+    ".agentdoc/v09-counter-outline-20260916T102446Z/preservation/manifest.json": "061307696aa2f53cb87e656f03d14c74b23efbcc30c85b718512f6fbcd6a439e",
+    "docs/v0.9/COUNTER_OUTLINE_UPDATE.md": "31eaf84a12c52f06a7e81015e34bac992bdada4080945449983e266df899f30c",
+    "README.md": "914462089bd36bab01a37b76cd12cb2109bd0a4b94d9c1232f99049c58ecf5f0"
+  },
+  "DESMON_SKIP_NET": 1,
+  "releaseReady": false,
+  "externalPending": [
+    "Windows native/CI execution",
+    "Steam AppID initialization",
+    "production deployment/migration",
+    "human validation"
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "requestId": "f777b258006aa6c394629778fa9e641552bb0d91f6ebc1d874cd5228a548bd94",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "049ffeb79248985d0167b5a751b46ccfdc102fbe02ca5815686b21d5a9d439f1",
+  "evaluationDigest": "2fffd6a21a63d6c95c7ee9090f140c936a31854ad14ba831e828e91dea7f087e",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "Host Playtester로 실제004 전체 prompt/template과 세 역할 응답을 읽고 Round05 탐색 검증 시나리오를 승인한다. 원본을 대조한 Round04 실패를 유지하며 세 새 비율은 아직 미측정·미채택이다. 현재 source control-l17과 후보별 실제 적용을 구분한다. Critic이 찾은 Native 준비 관측 누락을 코드에서 직접 확인했으며 최종 자연 관측 전에 소유권 등록·수정·회귀검증하겠다. 이 승인은 새 성능·최종 제품·사람 재미 인증이 아니다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "현재 Host 계약과 단계/실제 역할/검증/보존 요구를 읽었다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "실제 등록 AC,정책과330분 Native 계약을 읽었다."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "현재 정확20값/3후보/6콘텐츠/미채택과20·100분리 기준."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round04-analysis/final-analysis.json",
+      "note": "기존 동결24d9ac... 분석은 모든220raw 검증과 세과속FAIL이며 새성공의근거로 쓰지 않는다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round05-batch.py",
+      "note": "Host가 읽은 실제생산적용·검사·원본보존·실행계획. 아직미실행."
+    },
+    {
+      "path": ".harness/v7/loop/electron-e2e.cjs",
+      "note": "준비표본이 방문선택후 기록되는minor를 직접 읽었다. 최종자연관측전에수정한다."
+    },
+    {
+      "path": ".harness/v7/loop/e2e-matrix.mjs",
+      "note": "실제18방문·연속180분·10개원본과330분검증경로를읽었고 준비누락거부추가가 필요하다."
+    },
+    {
+      "path": "tests/packaging.test.ts",
+      "note": "명시적0.6.0기대값과README산출물경로가있어 V06소유권등록후0.7.0정확기대값으로갱신한다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "Lv11·250·MAX_SAFE를 저장/서버/응답 전 경로에서 정확히 유지하고 overflow 전에 상태/재료를 보존한다. Lv9 거절, Lv10 이상 Lv1·별+1 및2/level 힘 비율을 전후 수치로 보여 별도 확인·취소·대상 변경 무효화를 검증한다. 필드 tail은 동료115/100 힘을 바꾸지 않는다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "실제 영웅 선택/영구 컬렉션과 speciesKills>0의 공개 집합을 카드·명칭·설명·aria·알림·ACK·목표에 공유한다. 레거시 반복 부팅과 첫 획득 알림, collection-only ACK 보존을 포함하며 seen/보유 동료만으로 종별 처치를 추정하지 않는다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50개 행 각각 영웅과5인 파티·순위·승패를 유지한다. 실제 요청ID와 응답ID·선택 강조·Tab/Enter/Space·DOM 및 포커스 보존을 확인하고 삭제/만료/오류 시 오래된 preview와 전투를 차단한다. 삭제 행 포커스는 새로고침 버튼으로 간다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "등록 L16–20 대조와 L17/XP1.41/tail10425·10450·10475 per10000을 실제 production으로 개별 적용한다. 탐색20개의 전체 firstAccepted p50 2700–3600초 및5400초 이내18/20을 모두 요구한다. 첫7시각 및 기록된 콘텐츠/선택 prefix만 비교하며 전체 공격 trace를 주장하지 않는다. 채택 후 별도 검증은90/100을 요구한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "여섯 기존 콘텐츠 조건과 최종h70=실제선택영웅10종+총30000킬을 유지한다. 선별 통과안만 같은20seed12h에서 전체 자격 p50 28800–43200초를 확인하고 실제 제시/선택·처치·포획 및 미도달을 별도 보고한다. Round04의 세 과속 실패와 비단조 반례는 새 결과로 재인증하지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "등록 AC와 canonical gates를 같은 소스에서 새로 실행한 뒤만 verified다. V06에서 package/lock0.7.0을 먼저 고정하고 명시적 버전 테스트·문서 경로를 갱신한다. 최종 고레벨 서버 왕복·운영 빌드 대응과 실제 패키지를 별도로 확인한다. 기존 사용자 저장/앱·dirty파일·v5/CURRENTv3를 보존하고 자동 commit/push/deploy는 없다."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "단위 AC에서 Lv11/250/MAX 저장→JSON→서버→match/PvP/탈취/회수 응답을 왕복한다. 자연 관측 뒤 진단 fixture로 Lv9거절/Lv10+환생 preview·취소·동일대상 변경/삭제·중복클릭을 실제 메뉴에서 수행한다.",
+      "expected": "모든 정수/힘 정확, overflow 시 재료와 상태 동일. 전후힘 감소를 강화로 표현하지 않고 확인 없이는 환생하지 않는다.",
+      "evidencePlan": "fresh V02 levels+canonical gates; 최종0.7 Native JSON·실제PNG와 packaged restart. 과거0.6 attempt02는 역사적41항목0분진단으로 유지."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "선택/제시만 된 영웅과 처치/등장만 된 몬스터를 구분하는 레거시를 두 번 부팅하고 실제 첫 선택·처치→알림→ACK→목표를 따라간다.",
+      "expected": "공유 획득집합과 카드/이름/설명/aria/카운트/알림 일치, 반복부팅에서 허위ACK가 되살아나지 않으며 collection-only ACK는 보존.",
+      "evidencePlan": "fresh V03 codex+canonical gates; 최종 진단 PNG를 직접 열어 실루엣/이름/원색을 확인하고 IPC/save 원본과 대조."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "50명 각각의 영웅/파티를 읽고 Enter와Space로 두 다른 지정 상대를 선택한다. 주기 갱신·행 재정렬·51번째 상위행 진입으로 선택행 삭제·만료·오류를 수행한다.",
+      "expected": "요청/응답ID 동일한 상대만 preview/전투. 동일 DOM·키보드 포커스 유지, 삭제행은 새로고침 포커스, 낡은 preview 전투 불가.",
+      "evidencePlan": "fresh V04 directory+canonical gates 및 최종 Native trusted 키 이벤트/요청응답/활성DOM/PNG. 재정렬 직전 compositor PNG는 재정렬 완료 증거로 쓰지 않는다."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "모든8안을 새 production 적용·94테스트·explicit candidate/control CLI로10001–10020 각각120분 측정한다. 후보 prefix20를 대조하고 선별통과만12h, 모든완료후 규칙대로채택한다.",
+      "expected": "미도달을null로 남긴 전체p50/90분분모 충족, 준비·제시·선택을 구분한다. 채택 후에만1–100 검증, 실패원본을보존하고 검증seed로 후보를 최적화하지 않는다.",
+      "evidencePlan": "round05-batch.py의 immutable source/eval/build/raw/commandSHA+실제 종료표지와 독립 Balance 분석. 최종 Native 전 R05-NATIVE-FIRST-READY-OBSERVATION 수정: 방문 전 실제 준비 기록, 누락/첫선택후 준비 시각 거부 경계 회귀."
+    },
+    {
+      "id": "long-progression",
+      "action": "선별통과20seed12h에서 모든6ID 자격/제시/실제선택 및2/4/8/10/12h를 기록한다. 최종소스에서9정책 각각100seed12h와 실제5/15/30분×3 및 별도180분active를 실행한다.",
+      "expected": "최종h70 전체p508–12h와 첫목표 둘다통과해야채택. 같은seed8→12h 증가와 일반50종 소진을 전투정체와 구분하며 희귀실제선택0을 숨기지 않는다. 180분은18회 실제메뉴방문, 합산단기대체불가.",
+      "evidencePlan": "정수100ms 차감과 전체/조건부분위수·worst/미도달. 최종 자연관측330분 원본, 순차Native/격리save/합성입력, fixture는 자연관측뒤. 별도 audit.mjs 실제네역할 결과감사."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "최종0.7.0 package/lock 및 직접 버전기대값/README 경로 고정 후 stale review와 영향AC를 새로 실행한다. 고레벨 서버 로컬왕복 및 운영빌드 대응을 확인하고 smoke와 실제.app/.dmg를 생성·검사한다.",
+      "expected": "같은최종소스/S/E/산출물 결합과 실제저장재시작이 검증된다. healthz SHA만으로호환PASS하지않고 운영미확인이면PENDING. 사람관찰없으면humanChecksPENDING.",
+      "evidencePlan": "V06/V07 등록AC·canonical gates, 새 fun review 및 audit, smoke로그·packagecheck실제PNG/해시·servercompatibility원본. 실행중PID/PGID확인 후만런치; 사용자프로세스와save는보존."
+    }
+  ],
+  "humanChecks": "PENDING: 실제 사람의 재미·업무 방해·선호 관찰 없음. 설계 검토 및 합성 입력은 사람의 플레이 검증이 아니다."
+}

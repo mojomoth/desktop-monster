@@ -1,3 +1,4 @@
+import { modernSnapshot } from './v10-fixture.js';
 // T40/T60 — POST /v1/pvp (SPEC F45/F69, SERVER_ARCHITECTURE_V3 §3). handle()
 // is called directly with a MemoryStore, a counter clock and a queue of seeds:
 // no sockets, no timers, no DB, no wall clock. Every fight is the two-step v3
@@ -5,11 +6,11 @@
 // pinned here against the shared implementation, never re-derived.
 
 import { describe, expect, it } from 'vitest';
-import { mulberry32, pvpParty, resolvePvp, ROSTER_CAP, simulateBattle } from '../../src/core/index.js';
+import { pvpParty, ROSTER_CAP, simulateHeroicBattle } from '../../src/core/index.js';
 import { BOT_NAME, createApp, matches, PVP_COOLDOWN_MS } from '../../src/server/app.js';
 import { MemoryStore } from '../../src/server/store.js';
 import type { ApiRequest, ApiResponse } from '../../src/server/http.js';
-import { MATCH_TTL_MS, RECLAIM_WINDOW_MS } from '../../src/shared/api.js';
+import { MATCH_TTL_MS } from '../../src/shared/api.js';
 import type {
   ApiError,
   Companion,
@@ -38,7 +39,9 @@ function setup(seeds: number[] = [0]) {
     randomSeed: () => seeds[Math.min(drawn++, seeds.length - 1)] ?? 0,
   });
   const call = (req: Call): Promise<ApiResponse> =>
-    app.handle({ query: {}, auth: null, body: null, ip: '1.2.3.4', ...req });
+    app.handle({ query: {}, auth: null, body: null, ip: '1.2.3.4', ...req,
+      ...(req.method === 'PUT' && req.path === '/v1/snapshot' && req.body && typeof req.body === 'object' ? { body: modernSnapshot(req.body) } : {}),
+      ...(req.method === 'POST' && req.path.startsWith('/v1/pvp') ? { body: { mode: 'equipment-gold-v2', ...req.body as object } } : {}) });
   return { store, call, advance: (ms: number) => (clock += ms) };
 }
 
@@ -70,7 +73,7 @@ async function player(
     method: 'PUT',
     path: '/v1/snapshot',
     auth: me.token,
-    body: { name, bestIndex, rebirths: 0, companions, party },
+    body: { name, bestIndex, rebirths: 0, companions, party, gold: { revision: 0, coins: 1000 } },
   });
   expect(put.status).toBe(200);
   return me;
@@ -97,12 +100,12 @@ describe('POST /v1/pvp', () => {
     const { call, advance } = setup([2, 3]);
     await player(call, 'low', 1);
     const mid = await player(call, 'mid', 5);
-    await player(call, 'high', 9);
+    const high = await player(call, 'high', 9);
 
     const even = body<PvpResponse>(await fight(call, mid.token));
     expect(even.seed).toBe(2);
     expect(even.bot).toBe(false);
-    expect(even.opponent).toEqual({ name: 'high', bestIndex: 9, rebirths: 0, party: [] });
+    expect(even.opponent).toEqual({ playerId: high.playerId, name: 'high', bestIndex: 9, rebirths: 0, party: [], combat: modernSnapshot({}).combat });
 
     advance(PVP_COOLDOWN_MS);
     const odd = body<PvpResponse>(await fight(call, mid.token));
@@ -126,16 +129,21 @@ describe('POST /v1/pvp', () => {
 
     const res = await fight(call, me.token);
     expect(res.status).toBe(200);
+    const expectedBattle = simulateHeroicBattle([comp('c1')], [], { attacker: modernSnapshot({}).combat!, defender: modernSnapshot({}).combat! }, 11);
     expect(body<PvpResponse>(res)).toEqual({
+      matchId: '0000000000000002',
+      record: { wins: 0, losses: 0 },
       bot: true,
       seed: 11,
       win: true,
-      opponent: { name: BOT_NAME, bestIndex: 7, rebirths: 0, party: [] },
-      blows: [],
+      opponent: { name: BOT_NAME, bestIndex: 7, rebirths: 0, party: [], combat: modernSnapshot({}).combat },
+      ownCombat: modernSnapshot({}).combat, ownFighters: expectedBattle.attackerFighters, opponentFighters: expectedBattle.defenderFighters,
+      blows: expectedBattle.blows.map(b => ({ ...b, damage: String(b.damage) })),
       stolen: null,
       lost: null,
+      ownParty: [comp('c1')], gold: { amount: '0', delta: '0', reason: 'bot' },
     });
-    // A bot match writes nothing but the cooldown stamp.
+    // A bot match writes the cooldown and retry result, without changing records or ownership.
     const row = await store.getById(me.playerId);
     expect(row?.snapshot?.companions).toEqual([comp('c1')]);
     expect(row?.stolenIds).toEqual([]);
@@ -143,61 +151,35 @@ describe('POST /v1/pvp', () => {
     expect(BOT_NAME).toBe('Training Dummy');
   });
 
-  it('winner gains the stolen companion under a fresh id and the loser stolenIds grows', async () => {
-    // Seed 7 passes the 15% steal roll (mulberry32(7) → 0.0117).
+  it('winner receives exactly the loser gold while both rosters stay intact', async () => {
     const { store, call } = setup([7]);
     const me = await player(call, 'raider', 1, [titan('c1')]);
     const foe = await player(call, 'victim', 9, [comp('d1', { speciesId: 'bat' })]);
-
     const res = body<PvpResponse>(await fight(call, me.token));
-    expect(res.win).toBe(true);
-    expect(res.opponent.name).toBe('victim');
-    expect(res.stolen).toEqual({ ...comp('d1', { speciesId: 'bat' }), id: 's7' });
-    expect(res.lost).toBeNull();
-
-    expect((await store.getById(me.playerId))?.snapshot?.companions).toEqual([
-      titan('c1'),
-      { ...comp('d1', { speciesId: 'bat' }), id: 's7' },
-    ]);
-    const loser = await store.getById(foe.playerId);
-    expect(loser?.snapshot?.companions).toEqual([]);
-    // The ORIGINAL id is remembered, so the defender learns on its next upload.
-    expect(loser?.stolenIds).toEqual(['d1']);
-    const reupload = await call({
-      method: 'PUT',
-      path: '/v1/snapshot',
-      auth: foe.token,
-      body: { name: 'victim', bestIndex: 9, rebirths: 0, companions: [comp('d1', { speciesId: 'bat' })] },
-    });
-    expect(body<SnapshotResponse>(reupload).removed).toEqual(['d1']);
+    expect(res).toMatchObject({ win: true, stolen: null, lost: null, gold: { amount: '50', delta: '50', reason: 'transfer' } });
+    expect((await store.getById(me.playerId))?.snapshot?.companions).toEqual([titan('c1')]);
+    expect(await store.getById(me.playerId)).toMatchObject({ goldAccount: { balance: '1050', net: '50' } });
+    expect(await store.getById(foe.playerId)).toMatchObject({ goldAccount: { balance: '950', net: '-50' }, stolenIds: [], revokedIds: [] });
+    const reupload = await call({ method: 'PUT', path: '/v1/snapshot', auth: foe.token,
+      body: { name: 'victim', bestIndex: 9, rebirths: 0, companions: [comp('d1', { speciesId: 'bat' })] } });
+    expect(body<SnapshotResponse>(reupload).removed).toEqual([]);
+    expect((await store.getById(foe.playerId))?.goldAccount?.balance).toBe('950');
   });
 
-  it('a steal writes a theft record with a 24 hour reclaim window on the loser', async () => {
-    // Seed 7 steals, and its second draw picks member 0 of the defender party.
+  it('stores a defender-normalized replay instead of a companion theft record', async () => {
     const { store, call } = setup([7]);
     const me = await player(call, 'raider', 1, [titan('c1')]);
     const foe = await player(call, 'victim', 9, [comp('d1'), comp('d2')], ['d1', 'd2']);
-
     const res = body<PvpResponse>(await fight(call, me.token));
-    expect(res.stolen).toEqual({ ...comp('d1'), id: 's7' });
-
     const loser = await store.getById(foe.playerId);
-    expect(loser?.thefts).toEqual([
-      {
-        id: 't7',
-        companion: comp('d1'),
-        transferredId: 's7',
-        thiefId: me.playerId,
-        thiefName: 'raider',
-        at: T0,
-        reclaimUntil: T0 + RECLAIM_WINDOW_MS,
-      },
-    ]);
-    expect(RECLAIM_WINDOW_MS).toBe(24 * 60 * 60 * 1000);
-    // The victim loses it from the roster AND from its stored party.
-    expect(loser?.snapshot?.companions).toEqual([comp('d2')]);
-    expect(loser?.snapshot?.party).toEqual(['d2']);
-    // The thief keeps no theft record of its own.
+    expect(loser?.thefts).toEqual([]);
+    expect(loser?.snapshot?.companions).toEqual([comp('d1'), comp('d2')]);
+    expect(loser?.snapshot?.party).toEqual(['d1', 'd2']);
+    expect(loser?.goldAccount?.events).toHaveLength(1);
+    expect(loser?.goldAccount?.events[0]?.presentation).toEqual({ battleId: res.matchId + '-D', role: 'defense',
+      ownParty: [comp('d1'), comp('d2')], ownCombat: res.opponent.combat, replay: { opponentName: 'raider', opponentParty: [titan('c1')],
+        opponentCombat: res.ownCombat, ownFighters: res.opponentFighters, opponentFighters: res.ownFighters,
+        blows: res.blows.map(b => ({ ...b, side: b.side === 'A' ? 'D' : 'A' })) }, won: false, goldDelta: '-50' });
     expect((await store.getById(me.playerId))?.thefts).toEqual([]);
   });
 
@@ -212,7 +194,8 @@ describe('POST /v1/pvp', () => {
     expect(res.stolen).toBeNull();
     expect(res.lost).toBeNull();
 
-    // Only the attacker can steal (F37): a loss writes nothing but the cooldown.
+    expect(res.gold).toEqual({ amount: '50', delta: '-50', reason: 'transfer' });
+    // Losing still cannot move a companion.
     const mine = await store.getById(me.playerId);
     expect(mine?.snapshot?.companions).toEqual([comp('c1')]);
     expect(mine?.stolenIds).toEqual([]);
@@ -264,7 +247,7 @@ describe('POST /v1/pvp', () => {
       }),
     );
     expect(res.opponent.party).toEqual(match.opponent.party);
-    const expected = simulateBattle(mine, match.opponent.party);
+    const expected = simulateHeroicBattle(mine, match.opponent.party, { attacker: modernSnapshot({}).combat!, defender: match.opponent.combat! }, match.seed);
     expect(res.win).toBe(expected.attackerWon);
     expect(res.blows.length).toBeGreaterThan(0);
     expect(res.blows).toEqual(expected.blows.map((b) => ({ ...b, damage: String(b.damage) })));
@@ -284,10 +267,12 @@ describe('POST /v1/pvp', () => {
     expect(unknown.status).toBe(410);
     expect(unknown.body).toEqual({ error: 'match_expired' });
 
-    // A match belongs to whoever asked for it; a foreign caller kills it.
+    // A foreign caller cannot spend or cancel someone else's pending match.
     const mine = await preview(call, me.token);
     expect((await send(other.token, mine.matchId)).status).toBe(410);
-    expect(matches.has(mine.matchId)).toBe(false);
+    expect(matches.has(mine.matchId)).toBe(true);
+    expect((await send(me.token, mine.matchId)).status).toBe(200);
+    advance(PVP_COOLDOWN_MS);
 
     // …and it dies of old age one millisecond past MATCH_TTL_MS.
     const fresh = await preview(call, me.token);
@@ -354,7 +339,7 @@ describe('POST /v1/pvp', () => {
     expect((await fight(call, me.token)).status).toBe(200);
   });
 
-  it('verdict equals core resolvePvp with mulberry32(seed)', async () => {
+  it('verdict equals core heroic simulation with the committed seed', async () => {
     const seed = 123_456_801;
     const { call } = setup([seed]);
     const roster = [comp('c1', { level: 4 }), comp('c2', { bossIndex: 24, stars: 1 })];
@@ -363,25 +348,32 @@ describe('POST /v1/pvp', () => {
     await player(call, 'them', 9, theirs);
 
     // The parties are core's too: the automatic pick on both sides.
-    const expected = resolvePvp(
+    const expected = simulateHeroicBattle(
       pvpParty(roster, []),
       pvpParty(theirs, []),
-      mulberry32(seed),
-      roster.length,
+      { attacker: modernSnapshot({}).combat!, defender: modernSnapshot({}).combat! }, seed,
     );
     const res = body<PvpResponse>(await fight(call, me.token));
     expect(res.seed).toBe(seed);
     expect(res.win).toBe(expected.attackerWon);
     expect(res.blows).toEqual(expected.blows.map((b) => ({ ...b, damage: String(b.damage) })));
-    expect(expected.moved).not.toBeNull();
-    expect(res.stolen).toEqual({ ...expected.moved, id: `s${seed}` });
+    expect(res.ownCombat).toEqual(modernSnapshot({}).combat);
+    expect(res.stolen).toBeNull();
+    expect(res.gold).toEqual({ amount: '50', delta: '50', reason: 'transfer' });
     expect(res.lost).toBeNull();
-    // The powers are presentation-only and never go on the wire.
+    // Initial fighter powers are preserved on the wire for accurate replay.
     expect(Object.keys(res).sort()).toEqual([
       'blows',
       'bot',
+      'gold',
       'lost',
+      'matchId',
       'opponent',
+      'opponentFighters',
+      'ownCombat',
+      'ownFighters',
+      'ownParty',
+      'record',
       'seed',
       'stolen',
       'win',

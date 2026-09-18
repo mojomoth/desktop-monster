@@ -1,0 +1,126 @@
+{
+  "requestId": "752e708d8fe5f3a5b0c86745a43511ef33bcab4fe300f773a41880012456589a",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "f7b0f57f757c031f03da8e7ded52178522b198bfd5d6ee4836978d835faea5e0",
+  "evaluationDigest": "b146423a49d3cb5b762dd5d49c8ce4847f71c433a45762dc6d51eaf907d66788",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "Host Playtester가 발급된004 전체485줄 prompt/template과 실제 앞선3역할 응답을 읽고 Round06 설계·검증 시나리오를 승인한다. 현재21키 control-l17의 새protocol/harness142/gates922는PASS지만 안전할당 수정과count5엔진은미구현이다. 기존 실패100seed와원본을보존하고 새숫자는exploration-only Designer출처로제한했다. 새탐색·최종Native·출시·사람재미를인증하지않는다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "v7 Host실행계약,독립4ID,같은소스 AC/gates,330분실제관측과결과audit분리를적용했다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "현재소유권/의존성,21키새설계AC경로와새candidate-round06.json출력,9정책/10Native조합."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "현재정확등록8안/21키/6성과조건/초기영구할당구간/안전수정과selection=null을확인했다. 후보수치는독립탐색제안으로등록했다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "PvP/레거시조기quota소진과MAX소진표지,정원30무보장/1draw,무료경로와같은후보새첫기록대응을확인했다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재생산control-l17/21키이며채택또는확장보장소비를뜻하지않는다."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "직접++와counter1보장은아직남아있어후속V02/V05실제수정과검증이필요하다."
+    },
+    {
+      "path": "src/core/save.ts",
+      "note": "모든ID숫자보정의큰ID반례는정적발견이다. 기존ID를그대로보존하고안전상한처리를추가할예정이다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/allocator-safety-preparation/README.md",
+      "note": "검토한save/collection/테스트초안은미적용이다. 실제외부ID보존과lost제거전로컬오류거부를새회귀로검증한다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/allocator-engine-preparation/inputs.json",
+      "note": "Host별도engine가드와8개경계회귀초안은미적용이며제품성공근거가아니다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/native-readiness-repair/repair.json",
+      "note": "최초준비관측은표본/방문전/선택직전최초값이며정확한엔진전이시각과구분한다. 실제최종Native관측은대기중이다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789195658017.log",
+      "note": "현재S f7b0f57f/E b146423a에서새하네스142/142PASS,과거결과재인증아님."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789195664494.log",
+      "note": "동일현재입력의새canonical922제품테스트와lint/typecheckPASS. 설계/성능/출시검증과구분한다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "Lv9거부/Lv10이상Lv1·별+1,전후정확힘2/level표시;안전경계거부시재료/동료무손실이며잘못된응답도거부한다. V02새등록AC+canonical,최종소스Native진단의실제메뉴/IPC/PNG를분리해기록한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "공개카드/이름/설명/aria/개수/알림/ACK가공유획득집합과일치한다. 일반총킬/보유동료로종별이력을추정하지않는다. V03새AC/gates와최종자연관측후별도진단;화면이미지를직접열고JSON상태와대조한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "선택/미리보기/요청상대ID가일치하고포커스유지;삭제행은새로고침으로이동하며오래된미리보기전투가차단된다. V04새AC/gates와최종Nativetrustedkey/activeElement/requestID로그·직접검사PNG;재정렬완료는확정된DOM증거로판정한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "전체p502700–3600초/90분18of20,채택후별도90of100을동시요구한다. 준비·제시·선택/조건부·전체·미도달을분리;새시간제한없음. V05생산21키binding/새회귀/탐색원본과새candidate-round06.json;최종Native자연시계/최초관측준비/실제18방문·선택은별도검증한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "h70고유선택10종+30000킬전체자격p5028800–43200초;희귀실제선택0이나카탈로그소진/느린파티를숨기지않고등록tuple로만채택한다. 완료된각execution/원시20개/hash와독립분석;최종9정책100개12h와네역할audit를별도로실행한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "원래ID/동료를보존하고unsafe/duplicate로컬발급은명단/재료변경전거부;외부s/r는MAX에서도보존하며quota를되돌리지않는다. 운영SHA만으로호환PASS금지. V02실제수정/새AC/gates,최종로컬서버왕복+읽기전용운영빌드대응근거;실제운영호환미입증이면PENDING·클라이언트출시미검증유지."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "Lv9/10/11/250/MAX동료저장·재시작,consume/fuse/환생overflow와두단계확인중대상변경/삭제/중복행동을실행한다.",
+      "expected": "Lv9거부/Lv10이상Lv1·별+1,전후정확힘2/level표시;안전경계거부시재료/동료무손실이며잘못된응답도거부한다.",
+      "evidencePlan": "V02새등록AC+canonical,최종소스Native진단의실제메뉴/IPC/PNG를분리해기록한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "등장/제시만있는레거시와실제선택/종별처치저장을반복부팅하고,첫실제획득과ACK전후도감/목표/알림을확인한다.",
+      "expected": "공개카드/이름/설명/aria/개수/알림/ACK가공유획득집합과일치한다. 일반총킬/보유동료로종별이력을추정하지않는다.",
+      "evidencePlan": "V03새AC/gates와최종자연관측후별도진단;화면이미지를직접열고JSON상태와대조한다."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "50명각행의영웅/5인파티를보고지정상대를Enter/Space로선택,주기갱신/재정렬/삭제/만료/응답불일치와오프라인을실행한다.",
+      "expected": "선택/미리보기/요청상대ID가일치하고포커스유지;삭제행은새로고침으로이동하며오래된미리보기전투가차단된다.",
+      "evidencePlan": "V04새AC/gates와최종Nativetrustedkey/activeElement/requestID로그·직접검사PNG;재정렬완료는확정된DOM증거로판정한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "등록5대조/3후보각20개exploration120분을실제생산값으로실행하고통과안12h첫기록을짝짓는다. 최종Native180분은10분마다실제메뉴에서준비된환생을선택한다.",
+      "expected": "전체p502700–3600초/90분18of20,채택후별도90of100을동시요구한다. 준비·제시·선택/조건부·전체·미도달을분리;새시간제한없음.",
+      "evidencePlan": "V05생산21키binding/새회귀/탐색원본과새candidate-round06.json;최종Native자연시계/최초관측준비/실제18방문·선택은별도검증한다."
+    },
+    {
+      "id": "long-progression",
+      "action": "첫목표통과안만같은20seed12h로여섯콘텐츠자격/제시/실제획득과2/4/8/10/12h,각seed8→12h활동/획득공백을측정한다.",
+      "expected": "h70고유선택10종+30000킬전체자격p5028800–43200초;희귀실제선택0이나카탈로그소진/느린파티를숨기지않고등록tuple로만채택한다.",
+      "evidencePlan": "완료된각execution/원시20개/hash와독립분석;최종9정책100개12h와네역할audit를별도로실행한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "r9007199254740992/거대한cID·MAX-1마지막발급/MAX소진·기존cID충돌·PvPlost와외부전송·저장반복을실행하고Lv11/250/MAX서버왕복을확인한다.",
+      "expected": "원래ID/동료를보존하고unsafe/duplicate로컬발급은명단/재료변경전거부;외부s/r는MAX에서도보존하며quota를되돌리지않는다. 운영SHA만으로호환PASS금지.",
+      "evidencePlan": "V02실제수정/새AC/gates,최종로컬서버왕복+읽기전용운영빌드대응근거;실제운영호환미입증이면PENDING·클라이언트출시미검증유지."
+    }
+  ],
+  "humanChecks": "PENDING: actual human observation has not run"
+}

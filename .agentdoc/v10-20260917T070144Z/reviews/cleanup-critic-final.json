@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-17T19:21:10.490Z",
+  "reviewer": {
+    "id": "/root/equipment_economy/cleanup_counterexamples",
+    "role": "Critic",
+    "independentOfImplementation": true,
+    "implementationFilesEdited": []
+  },
+  "scope": "Independent final review of performance observer and queue cancellation/ownership cleanup fixes, deterministic tests, and five existing native cancellation records. No performance-result, gameplay, isolation-gate, or release approval.",
+  "verdict": "approved_with_limits",
+  "blockingFindings": [],
+  "sourceHashes": {
+    ".harness/v10/performance.mjs": "c626341277070bc677bdd750bd1ebd0647255808da010369a07d66b04f6a9773",
+    ".harness/v10/performance-v4.mjs": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+    ".harness/v10/run-performance.mjs": "7e942ba3e6718ab89fc54decdf806bd4d9ff41469eb90cec22f9b44634561fd1",
+    ".harness/v10/performance.test.mjs": "4dd2e18087a008bd5fbfadfc3393875cc6f869becdc85635d7ef7dc84e57a66c"
+  },
+  "counterexamples": [
+    {
+      "id": "persistence-exception-bypasses-cleanup",
+      "status": "resolved_for_reviewed_paths",
+      "source": [
+        ".harness/v10/run-performance.mjs:16",
+        ".harness/v10/run-performance.mjs:22",
+        ".harness/v10/run-performance.mjs:27",
+        ".harness/v10/performance.mjs:239"
+      ],
+      "assessment": "Queue callbacks now record failures while still signalling and awaiting observer close; close listeners are registered before onSpawn. Observer lifecycle persistence errors are caught independently of process cleanup; asynchronous log-write errors are contained. Both observer files have identical cleanup logic.",
+      "validation": "Deterministic spawn/interrupt persistence failure test passed. Native cleanup-write-failure injected EISDIR at the lifecycle temporary path; report recorded two cleanup-report errors, cleanup completed, and independent process check found no remaining owned processes. The lifecycle file appropriately remained stale at starting because writes failed."
+    },
+    {
+      "id": "helper-orphaned-before-first-scan",
+      "status": "resolved_for_fixture_marked_native_helpers_and_crashpad",
+      "source": [
+        ".harness/v10/performance.mjs:54",
+        ".harness/v10/performance.test.mjs:131"
+      ],
+      "assessment": "Ownership recognizes exact fixture --user-data-dir and --database=<fixture>/Crashpad markers inside the selected app bundle. Existing deterministic test covers a Crashpad process already reparented to PID 1. Native records show user-data-dir on all observed GPU, network, renderer, and audio helpers.",
+      "validation": "Crashpad orphan test passed; five native cancellation postchecks reported no survivors. Unknown markerless helpers remain an explicit limit below."
+    },
+    {
+      "id": "pid-reuse-between-signals",
+      "status": "resolved_for_reuse_visible_before_per_signal_revalidation",
+      "source": [
+        ".harness/v10/performance.mjs:64",
+        ".harness/v10/performance.test.mjs:142"
+      ],
+      "assessment": "Every signal re-reads the process table and requires the same PID/start/command identity. The prior injected case replacing helper PID after killing its parent is now skipped.",
+      "validation": "Deterministic parent-kill/helper-reuse test passed and retained the unrelated replacement. A final kernel scheduling window remains below."
+    }
+  ],
+  "validation": {
+    "deterministic": {
+      "command": "node --test .harness/v10/performance.test.mjs",
+      "executedByReviewer": true,
+      "exitCode": 0,
+      "tests": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    "observerParity": "A direct diff and test confirm the sole observer difference is the candidate BigInt JSON fixture boundary; cleanup code is identical.",
+    "nativeEvidence": {
+      "executedByReviewer": false,
+      "reviewedExistingRecords": true,
+      "directory": ".agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02",
+      "summarySha256": "3f49692b00e7120eff696a283a210084c1700799557c8f35bd12962c1ff711f3",
+      "evidenceSha256": "865e852384a6ea588701cdca08b462fd62ce21ba9da71f9c4048ff7cd67270ed",
+      "driverPath": ".agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02.mjs.txt",
+      "driverSha256": "f43fc8b90f18ee319b9affbeaab10ad0adeb69badc484d7ca21158d10510db0b",
+      "sourceHashesMatchCurrent": true,
+      "caseCount": 5,
+      "cases": [
+        {
+          "name": "startup-sigint",
+          "phase": "spawn",
+          "signal": "SIGINT",
+          "observer": ".harness/v10/performance-v4.mjs",
+          "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+          "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+          "exitCode": 1,
+          "performancePassed": false,
+          "cleanupState": "complete",
+          "ownedProcessCount": 1,
+          "remaining": [],
+          "rawSamples": 0,
+          "personalSaveUnchanged": true,
+          "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/startup-sigint.json",
+          "reportSha256": "3a09225f85b8238036b56bd870b36935c405669b40373270f35bd96429e362c1",
+          "cleanupFinishedAt": "2026-09-17T19:14:09.563Z",
+          "closedAt": "2026-09-17T19:14:09.629Z",
+          "lifecycleFileState": "complete",
+          "cleanupReportErrors": 0
+        },
+        {
+          "name": "baseline-inspector-sigterm",
+          "phase": "inspector",
+          "signal": "SIGTERM",
+          "observer": ".harness/v10/performance.mjs",
+          "observerHash": "c626341277070bc677bdd750bd1ebd0647255808da010369a07d66b04f6a9773",
+          "appHash": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5",
+          "exitCode": 1,
+          "performancePassed": false,
+          "cleanupState": "complete",
+          "ownedProcessCount": 4,
+          "remaining": [],
+          "rawSamples": 0,
+          "personalSaveUnchanged": true,
+          "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/baseline-inspector-sigterm.json",
+          "reportSha256": "ec608858a67595198cba6ac0bbda101ba29c40838d0127ca43a08e79b3827032",
+          "cleanupFinishedAt": "2026-09-17T19:14:11.022Z",
+          "closedAt": "2026-09-17T19:14:11.088Z",
+          "lifecycleFileState": "complete",
+          "cleanupReportErrors": 0
+        },
+        {
+          "name": "queue-inspector-sigterm",
+          "phase": "inspector",
+          "signal": "SIGTERM",
+          "observer": ".harness/v10/performance-v4.mjs",
+          "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+          "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+          "exitCode": 1,
+          "performancePassed": false,
+          "cleanupState": "complete",
+          "ownedProcessCount": 4,
+          "remaining": [],
+          "rawSamples": 0,
+          "personalSaveUnchanged": true,
+          "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json",
+          "reportSha256": "1bdc630a84312478fb544c7dccae5a2e2a2dec1825f6f57cb6900c86f242ce31",
+          "cleanupFinishedAt": "2026-09-17T19:14:12.295Z",
+          "closedAt": "2026-09-17T19:14:12.375Z",
+          "lifecycleFileState": "complete",
+          "cleanupReportErrors": 0
+        },
+        {
+          "name": "cleanup-write-failure",
+          "phase": "inspector",
+          "signal": "SIGTERM",
+          "observer": ".harness/v10/performance-v4.mjs",
+          "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+          "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+          "exitCode": 1,
+          "performancePassed": false,
+          "cleanupState": "complete",
+          "ownedProcessCount": 4,
+          "remaining": [],
+          "rawSamples": 0,
+          "personalSaveUnchanged": true,
+          "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/cleanup-write-failure.json",
+          "reportSha256": "519761a8da761e0e4b09a0a7266378f260ddeaf643dfa25537d99f021ad42ea2",
+          "cleanupFinishedAt": "2026-09-17T19:14:13.367Z",
+          "closedAt": "2026-09-17T19:14:13.431Z",
+          "lifecycleFileState": "starting",
+          "cleanupReportErrors": 2
+        },
+        {
+          "name": "observing-sigterm",
+          "phase": "observing",
+          "signal": "SIGTERM",
+          "observer": ".harness/v10/performance-v4.mjs",
+          "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+          "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+          "exitCode": 1,
+          "performancePassed": false,
+          "cleanupState": "complete",
+          "ownedProcessCount": 5,
+          "remaining": [],
+          "rawSamples": 1,
+          "personalSaveUnchanged": true,
+          "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/observing-sigterm.json",
+          "reportSha256": "0134c9e16b4d8df3fcd1429549d4584830c14a67330ae8f0006f49cd78075a9e",
+          "cleanupFinishedAt": "2026-09-17T19:14:24.685Z",
+          "closedAt": "2026-09-17T19:14:24.749Z",
+          "lifecycleFileState": "complete",
+          "cleanupReportErrors": 0
+        }
+      ],
+      "personalSaveBefore": "f69823213a50cbe289dbc0023a92de6799fef3da107b57b2c3dd67af3d80c11c",
+      "personalSaveAfter": "f69823213a50cbe289dbc0023a92de6799fef3da107b57b2c3dd67af3d80c11c",
+      "remainingDesMon": []
+    }
+  },
+  "unresolvedResidualsAndLimits": [
+    {
+      "id": "non-atomic-pid-validation",
+      "blocking": false,
+      "detail": "ps identity validation and process.kill are separate operations. PID reuse after the last revalidation cannot be excluded. ps lstart is second-resolution, so identical-command PID reuse within one second can also alias an owned identity. This is risk reduction, not an atomic ownership guarantee."
+    },
+    {
+      "id": "unseen-markerless-orphan",
+      "blocking": false,
+      "detail": "An arbitrary helper orphaned before the first cleanup scan, with neither fixture user-data-dir nor fixture Crashpad database marker and no previously recorded identity, is not discoverable by this implementation. The current native records establish markers for observed helper types; they do not prove coverage of every future helper or a different Electron version."
+    },
+    {
+      "id": "process-table-failure",
+      "blocking": false,
+      "detail": "If ps fails or cannot provide a process table during cleanup, the observer reports cleanup failure and falls back to signalling its direct child. It cannot verify or guarantee descendant cleanup under that environmental failure."
+    },
+    {
+      "id": "native-evidence-bounds",
+      "blocking": false,
+      "detail": "Native evidence covers startup SIGINT, baseline inspector SIGTERM, queue inspector SIGTERM, lifecycle write failure, and candidate observing SIGTERM after one sample. Native runs did not force PID reuse, an already orphaned Crashpad, TERM-resistant helpers, or a co-running unrelated user app; those identity/noninterference cases rely on deterministic tests."
+    },
+    {
+      "id": "uncatchable-termination",
+      "blocking": false,
+      "detail": "The reviewed cooperative cancellation path handles SIGINT/SIGTERM. SIGKILL of the observer, a runtime crash, or machine failure cannot execute its finally cleanup."
+    }
+  ],
+  "conclusion": "The three reviewed counterexamples are addressed for the current app and supported cancellation paths. The available deterministic and native evidence supports accepting this cleanup fix with the stated limits. It does not establish the registered 30/30/180-minute performance acceptance or overall task completion."
+}

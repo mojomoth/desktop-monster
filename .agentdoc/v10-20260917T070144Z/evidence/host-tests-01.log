@@ -1,0 +1,509 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/equipmentMenuV10.test.ts (3 tests) 12ms
+ ❯ tests/recoveryV9.test.ts (21 tests | 3 failed) 24ms
+   ✓ v0.9 durable reset checkpoints > restores a verified legacy checkpoint without rest, preserving a 0 ms defer and valid offers 4ms
+   ✓ v0.9 durable reset checkpoints > restores a verified legacy checkpoint without rest, preserving a 30000 ms defer and valid offers 1ms
+   ✓ v0.9 durable reset checkpoints > keeps progress/identity/settings intact when checkpoint write fails 0ms
+   ✓ v0.9 durable reset checkpoints > keeps progress/identity/settings intact when checkpoint rename fails 0ms
+   ✓ v0.9 durable reset checkpoints > keeps progress/identity/settings intact when checkpoint read fails 1ms
+   ✓ v0.9 durable reset checkpoints > retains the latest five verified checkpoints without age expiry and preserves corrupt evidence 1ms
+   ✓ v0.9 durable reset checkpoints > rejects changed checkpoint contents and unsafe identifiers without changing the current save 1ms
+   × v0.9 durable reset checkpoints > restores the selected progression quota with non-rewinding IDs and backs up the replaced progress 7ms
+     → expected { Object (version, level, ...) } to match object { level: 40, coins: 137, …(2) }
+(14 matching properties omitted from actual)
+   × v0.9 save and metadata commit journal > restores gold settlement, cursor and pending replay together after a save.json rename failure 2ms
+     → expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+   × v0.9 save and metadata commit journal > restores gold settlement, cursor and pending replay together after a recovery.json rename failure 1ms
+     → expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+   ✓ v0.9 save and metadata commit journal > rejects duplicate or malformed replay metadata before writing a durable operation 1ms
+   ✓ v0.9 save and metadata commit journal > replays an authenticated legacy journal and normalizes rest on the subsequent load 1ms
+   ✓ v0.9 save and metadata commit journal > refuses corrupted operation metadata {"highWater":0} before replacing valid progress 0ms
+   ✓ v0.9 save and metadata commit journal > refuses corrupted operation metadata {"reconcilePending":"yes"} before replacing valid progress 0ms
+   ✓ v0.9 save and metadata commit journal > keeps an uncommitted journal write failure from changing progress 0ms
+   ✓ v0.9 save and metadata commit journal > keeps an uncommitted journal rename failure from changing progress 0ms
+   ✓ v0.9 save and metadata commit journal > replays interrupted write save.json.tmp on reopen and commits matching metadata exactly once 0ms
+   ✓ v0.9 save and metadata commit journal > replays interrupted rename save.json on reopen and commits matching metadata exactly once 0ms
+   ✓ v0.9 save and metadata commit journal > replays interrupted write recovery.json.tmp on reopen and commits matching metadata exactly once 0ms
+   ✓ v0.9 save and metadata commit journal > replays interrupted rename recovery.json on reopen and commits matching metadata exactly once 0ms
+   ✓ v0.9 save and metadata commit journal > does not rewind later saved gameplay when committed journal cleanup failed 0ms
+ ❯ tests/ipc.test.ts (61 tests | 2 failed) 28ms
+   ✓ v0.9 main-owned companion IPC > rejects malformed and well-formed menu-forged ownership and battle results 3ms
+   ✓ v0.9 main-owned companion IPC > drops missing/malformed confirmations and relays an exact safe-integer snapshot 1ms
+   ✓ shared IPC channels (src/shared/ipc.ts) > defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-window and the net channels 0ms
+   ✓ shared IPC channels (src/shared/ipc.ts) > uses unique, desmon:-prefixed channel names 1ms
+   ✓ preload bridge (src/preload/index.ts) > exposes window.desmon via contextBridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onInput on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onInputMode on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onReset on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes getInputMode on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes loadState on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes saveState on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onSaveFailed on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes openAccessibilitySettings on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes reportFirstFrame on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes moveWindowBy on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes getIdentity on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes setName on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes getLeaderboard on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes pvpOpponents on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes pvpMatch on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes pvp on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes thefts on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes reclaim on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onAction on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes sendAction on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes onStateChanged on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > exposes reportMenuReady on the bridge 0ms
+   ✓ preload bridge (src/preload/index.ts) > inlines every shared channel literal (sandboxed preload cannot require shared/ipc) 1ms
+   ✓ preload bridge (src/preload/index.ts) > value-imports only electron — a relative runtime require would crash the sandboxed preload 0ms
+   ✓ preload bridge (src/preload/index.ts) > returns unsubscribe functions from the on* subscriptions 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.GET_INPUT_MODE 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.LOAD_STATE 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.SAVE_STATE 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.OPEN_ACCESSIBILITY_SETTINGS 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.GET_IDENTITY 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.SET_NAME 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.LEADERBOARD 1ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.PVP_OPPONENTS 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.PVP_MATCH 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.PVP 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.THEFTS 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.RECLAIM 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > registers an invoke handler for IPC.MENU_ACTION 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > listens for the renderer first-frame report 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > moves the SENDING window on validated move-window deltas (T21) 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > serves the live input mode from the T04 global-input state machine 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > persists under the userData directory via the persistence module 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > opens the macOS Accessibility pane deep link 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > builds ONE net session, pinned offline under SMOKE (T43) 0ms
+   × main IPC handlers (src/main/ipc.ts) > parses the untrusted renderer save before handing it to the net session 11ms
+     → expected 'ipcMain.handle(IPC.SAVE_STATE, (event…' to contain 'const parsed = parseSave(data);'
+   ✓ main IPC handlers (src/main/ipc.ts) > validates the net payload shapes at the IPC trust boundary 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > releases official ownership and PvP progress only from the durable coordinator (v9) 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > relays over every window except the sender, statelessly (F51) 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > the save-state handler relays the written save to every other window as state-changed 0ms
+   × main IPC handlers (src/main/ipc.ts) > menu-action validates local actions and rejects server-owned actions before forwarding 4ms
+     → expected 'ipcMain.handle(IPC.MENU_ACTION, async…' to contain 'if (action !== null &&'
+   ✓ main IPC handlers (src/main/ipc.ts) > narrows the untrusted menu payload against the whole CollectionAction union 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > rejects legacy match requests while routing thefts and reclaim through the coordinator 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > rejects valid and malformed legacy PvP payloads without calling the network 1ms
+   ✓ main IPC handlers (src/main/ipc.ts) > narrowAction accepts setPvpParty and a validated pvpResult replay and drops malformed replays 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > menu-ready answers the sender with the current save 0ms
+   ✓ main IPC handlers (src/main/ipc.ts) > is registered at startup by src/main/index.ts 0ms
+ ❯ tests/menu.test.ts (63 tests | 2 failed) 246ms
+   ✓ menu view-model > rosterRows lists companions with power in letter-suffix format sorted by power 3ms
+   ✓ menu view-model > fuse candidates are pairs of the same species and stars 1ms
+   ✓ menu view-model > excludes companion growth that would overflow without hiding safe boundary growth 0ms
+   ✓ menu page > rebirth button is enabled only from monster index 40 4ms
+   ✓ menu page > menu page paints each companion card with the species sprite 2ms
+   ✓ menu page > menu page reports ready and renders every state-changed save 1ms
+   ✓ menu page > card buttons send consume, fuse, reincarnate and sacrifice actions 3ms
+   ✓ menu page > tabs show one panel at a time 2ms
+   ✓ v0.7 companion reincarnation confirmation > previews Lv10 and sends its exact snapshot only after confirmation 1ms
+   ✓ v0.7 companion reincarnation confirmation > previews Lv11 and sends its exact snapshot only after confirmation 1ms
+   ✓ v0.7 companion reincarnation confirmation > previews Lv250 and sends its exact snapshot only after confirmation 1ms
+   ✓ v0.7 companion reincarnation confirmation > previews Lv9007199254740991 and sends its exact snapshot only after confirmation 0ms
+   ✓ v0.7 companion reincarnation confirmation > preserves the mounted confirmation during unrelated save changes 1ms
+   ✓ v0.7 companion reincarnation confirmation > cancels without sending and rejects an old confirmation after reopening 1ms
+   ✓ v0.7 companion reincarnation confirmation > invalidates confirmation after a target id change, even if the old values return 0ms
+   ✓ v0.7 companion reincarnation confirmation > invalidates confirmation after a target level change, even if the old values return 0ms
+   ✓ v0.7 companion reincarnation confirmation > invalidates confirmation after a target stars change, even if the old values return 0ms
+   ✓ v0.7 companion reincarnation confirmation > invalidates confirmation after a target species change, even if the old values return 5ms
+   ✓ v0.7 companion reincarnation confirmation > invalidates confirmation after a target boss depth change, even if the old values return 1ms
+   ✓ v0.7 companion reincarnation confirmation > invalidates confirmation after a target deletion change, even if the old values return 0ms
+   ✓ v0.7 companion reincarnation confirmation > disables an overflowing consume target while allowing it to feed another companion 1ms
+   ✓ menu ranking and battle > leaderboard rows render rank, name, deepest monster and rebirths 1ms
+   ✓ menu ranking and battle > offline or failed results render an Offline row 1ms
+   ✓ menu ranking and battle > pvp result text names the stolen or lost companion and the cooldown 0ms
+   × menu ranking and battle > battle button is disabled with no companions or during cooldown 6ms
+     → expected true to be false // Object.is equality
+   ✓ menu ranking and battle > a successful pvp is forwarded to the game as a pvpResult action 2ms
+   ✓ menu ranking and battle > a successful battle forwards removeCompanions then pvpResult with the replay to the game 1ms
+   ✓ menu ranking and battle > an expired match clears the opponent panel 1ms
+   ✓ menu ranking and battle > a successful reclaim forwards addCompanion to the game and refreshes the inbox 2ms
+   ✓ menu ranking and battle > roster cards show a type badge and a PvP mark for party members 0ms
+   ✓ menu ranking and battle > the party editor picks, auto-fills and saves the pvp party 6ms
+   ✓ menu ranking and battle > the name field shows the identity and setName caps it at 16 characters 1ms
+   ✓ battle tab view (v3, F75) > opponent rows render the previewed party in party order with type badges 0ms
+   ✓ battle tab view (v3, F75) > party preview sums effective power against the opponent front member type 0ms
+   ✓ battle tab view (v3, F75) > togglePick adds and removes ids and never exceeds 5 0ms
+   ✓ battle tab view (v3, F75) > theft rows render the thief, the companion and the time left from the injected now 0ms
+   × battle tab view (v3, F75) > battle button is enabled only with a live match, a non-empty party and no cooldown 1ms
+     → expected true to be false // Object.is equality
+   ✓ v0.4 hero choices and opponent directory binding > centers the novice and unknown fallback on the same preview floor as evolved forms 2ms
+   ✓ v0.4 hero choices and opponent directory binding > shows actual art and rolled buffs for three choices and sends a serial-bound selection 44ms
+   ✓ v0.4 hero choices and opponent directory binding > opens a list with hero, party and win/loss record, then previews the selected player 7ms
+   ✓ v0.4 hero choices and opponent directory binding > keeps an empty or failed directory actionable and never silently starts a random match 5ms
+   ✓ v0.5 shop, codices and player history > keeps all 70 heroes in one codex and masks undiscovered art even after requirements are met 7ms
+   ✓ v0.5 shop, codices and player history > keeps art, open cards and an edited name through five-second updates and codex switches 10ms
+   ✓ v0.5 shop, codices and player history > shows time AND progress conditions and reveals monsters only after a kill 11ms
+   ✓ v0.5 shop, codices and player history > offers free equipment only for owned heroes and uses the collected stacked buff 9ms
+   ✓ v0.5 shop, codices and player history > previews repeat rewards and changing level thresholds including an old pending offer 9ms
+   ✓ v0.5 shop, codices and player history > shows exact shop effects and shortfalls, keeps buttons mounted and sends serial-bound purchases 5ms
+   ✓ v0.5 shop, codices and player history > prices eligible lure purchases using reincarnations and shows exact remaining charges 6ms
+   ✓ v0.5 shop, codices and player history > shows persisted time, lifetime totals and reverse chronological hero history without replacing open details 4ms
+   ✓ v0.5 shop, codices and player history > saves names offline, explains rejected characters and preserves typing against delayed identity 4ms
+   ✓ v0.5 shop, codices and player history > keeps the battle verdict and warns only when official history could not be persisted 0ms
+   ✓ v0.6 explicit discovery acknowledgement and optional goal > acknowledges only previewed IDs, never on open or before persisted state arrives 9ms
+   ✓ v0.6 explicit discovery acknowledgement and optional goal > keeps a selected undiscovered goal through eligibility changes and discovery until explicit clear 14ms
+   ✓ v0.6 explicit discovery acknowledgement and optional goal > keeps a write error across state snapshots and only clears it on an explicit saved status 4ms
+   ✓ v0.6 capped hero discovery guidance > keeps a chosen goal but does not promise another offer at the reincarnation cap 5ms
+   ✓ v0.8 menu setup and persistent save status > skips the inline welcome with a window-only preference and honors it on a new menu 9ms
+   ✓ v0.8 menu setup and persistent save status > requests input once while pending and distinguishes permission wait from a live global connection 4ms
+   ✓ v0.8 menu setup and persistent save status > keeps the saved toggle state and reports a failed settings write 4ms
+   ✓ v0.8 menu setup and persistent save status > restores a pre-existing write error and ignores an older ready lookup after a live error 10ms
+   ✓ v0.8 menu setup and persistent save status > shows only recovery controls after invalid JSON and sends no gameplay action 1ms
+   ✓ v0.8 menu setup and persistent save status > shows only recovery controls after settings-write and sends no gameplay action 0ms
+   ✓ v0.8 menu setup and persistent save status > does not overwrite newer live preferences or input state with an older request response 4ms
+   ✓ v0.8 menu setup and persistent save status > keeps reset consequences and repeated-hero effects outside collapsed rules 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/ipc.test.ts > main IPC handlers (src/main/ipc.ts) > parses the untrusted renderer save before handing it to the net session
+AssertionError: expected 'ipcMain.handle(IPC.SAVE_STATE, (event…' to contain 'const parsed = parseSave(data);'
+
+- Expected
++ Received
+
+- const parsed = parseSave(data);
++ ipcMain.handle(IPC.SAVE_STATE, (event, data: unknown, generation: unknown): boolean => {
++     if (blocked()) return false;
++     if (!event.sender.getURL().endsWith('/static/index.html') || typeof generation !== 'number') return false;
++     // The renderer's save is untrusted input: parse it, never cast it. The
++     // session uploads in the background and its result is deliberately
++     // dropped — main never pushes roster changes at the game window.
++     let parsed: SaveFile;
++     try { parsed = parseSave(data); } catch {
++       setSaveStatus({ state: 'write-error', reason: 'invalid-state' });
++       sendToAll(IPC.SAVE_FAILED, undefined); return false;
++     }
++     Object.assign(parsed, withOfficialRecord(parsed));
++     if (coordinator && (typeof generation !== 'number' || !coordinator.save(parsed, generation))) {
++       if (saveStatus.state === 'write-error') sendToAll(IPC.SAVE_FAILED, undefined);
++       return false;
++     }
++     if (!coordinator && !writeSaveFile(app.getPath('userData'), parsed)) {
++       setSaveStatus({ state: 'write-error' });
++       sendToAll(IPC.SAVE_FAILED, undefined);
++       return false;
++     }
++     if (saveStatus.state !== 'ready') setSaveStatus({ state: 'ready' });
++     latestSave = parsed;
++     if (!coordinator) session.onSave(parsed);
++     // …but the OTHER window (the menu) is showing a save it did not write.
++     sendToOthers(event.sender, IPC.STATE_CHANGED, parsed);
++     return true;
++   });
++
++   // Menu → game relay (SPEC F51). Unknown/malformed actions are ignored.
++   ipcMain.handle(IPC.MENU_ACTION, async (event, payload: unknown): Promise<void> => {
++     if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');
++     if (coordinatorBlocked() || coordinator?.pending || confirming) return;
++     let action = narrowAction(payload);
++     if (action === null || ['addCompanion', 'removeCompanions', 'pvpResult'].includes(action.type)) return;
++     if (action.type === 'heroEquip' || action.type === 'heroChoose' || action.type === 'rebirth') {
++       const change = action;
++       const current = coordinator?.latest ?? parseSave(latestSave);
++       if (change.type === 'heroEquip' && current.hero?.equipped.formId === change.formId) return;
++       const target = change.type === 'rebirth' ? current.hero?.equipped.formId ?? 'h00' : change.formId;
++       const offer = change.type === 'heroChoose' ? change.offerSerial : undefined;
++       let expected = heroChangeWarning(current.equipment, target, offer);
++       confirming = true;
++       try {
++         for (;;) {
++           const state = coordinator?.latest ?? parseSave(latestSave);
++           if (state.equipment?.temporary.length) {
++             const reply = await dialog.showMessageBox({ type: 'warning', title: '임시 장비 소멸 확인',
++               message: '영웅을 변경하면 아래 임시 장비가 사라집니다.',
++               detail: state.equipment.temporary.map(equipmentName).join('\n'),
++               buttons: ['취소', '장비 삭제 후 변경'], defaultId: 0, cancelId: 0, noLink: true });
++             if (reply.response !== 1 || coordinatorBlocked() || coordinator?.pending) return;
++           }
++           const live = coordinator?.latest ?? parseSave(latestSave);
++           const next = heroChangeWarning(live.equipment, target, offer);
++           if (next.heroChangeSerial !== expected.heroChangeSerial) return;
++           if (JSON.stringify(next) !== JSON.stringify(expected)) { expected = next; continue; }
++           action = { ...change, equipmentConfirmation: expected };
++           break;
++         }
++       } finally { confirming = false; }
++     } else if (action.type === 'equipmentEnhance') {
++       const state = coordinator?.latest ?? parseSave(latestSave);
++       const itemId = action.itemId;
++       const item = state.equipment && equipmentItems(state.equipment).find(item => item.id === itemId);
++       if (!item || state.equipment?.revision !== action.revision) return;
++       if (BigInt(item.enhancement) >= 5n) {
++         confirming = true;
++         try {
++           const reply = await dialog.showMessageBox({ type: 'warning', title: '장비 강화',
++             message: `${equipmentName(item)} 강화에 실패하면 장비가 파괴됩니다.`,
++             detail: '확인한 확률과 비용으로 강화를 진행합니다. 장비 상태가 바뀌면 이 요청은 취소됩니다.',
++             buttons: ['취소', '강화'], defaultId: 0, cancelId: 0, noLink: true });
++           if (reply.response !== 1 || coordinatorBlocked() || coordinator?.pending) return;
++         } finally { confirming = false; }
++       }
++     }
++     sendToOthers(event.sender, IPC.ACTION, action);
++   });
++
++   ipcMain.handle(IPC.GET_IDENTITY, (): IdentityPayload => session.identity());
++
++   ipcMain.handle(IPC.SET_NAME, (_event, payload: unknown): IdentityPayload => {
++     if (blocked()) return session.identity();
++     const { name } = (payload as Partial<SetNamePayload> | null | undefined) ?? {};
++     return session.setName(name);
++   });
++
++   ipcMain.handle(IPC.LEADERBOARD, (_event, p: unknown): Promise<NetResult<LeaderboardResult>> => {
++     if (blocked()) return Promise.resolve({ ok: false, error: 'offline' });
++     const { n } = (p as Partial<LeaderboardQueryPayload> | null | undefined) ?? {};
++     const count =
++       typeof n === 'number' && Number.isFinite(n)
++         ? Math.min(Math.max(Math.trunc(n), 1), LEADERBOARD_MAX)
++         : LEADERBOARD_DEFAULT;
++     const { metric } = (p as Partial<LeaderboardQueryPayload> | null | undefined) ?? {};
++     const selected = metric && ['level', 'pvpWins', 'bestIndex', 'rebirths'].includes(metric) ? metric : undefined;
++     return coordinator ? coordinator.leaderboard(count, selected) : session.leaderboard(count, selected);
++   });
++
++   // v3 (T67) step 1: the opponent preview the player picks a party against.
++   ipcMain.handle(IPC.PVP_OPPONENTS, (): Promise<NetResult<OpponentListResult>> => blocked()
++     ? Promise.resolve({ ok: false, error: 'offline' }) : coordinator ? coordinator.opponents() : session.opponents());
++   // v9 reserves all online mutations for the durable coordinator. Older IPC
++   // entrypoints remain registered to reject stale renderer calls explicitly.
++   ipcMain.handle(IPC.PVP_MATCH, (): Promise<NetResult<MatchResult>> =>
++     Promise.resolve({ ok: false, error: blocked() ? 'offline' : 'sync-required' }));
++   ipcMain.handle(IPC.PVP, (): Promise<NetResult<PvpResult>> =>
++     Promise.resolve({ ok: false, error: blocked() ? 'offline' : 'sync-required' }));
++
++   ipcMain.handle(IPC.THEFTS, (): Promise<NetResult<TheftsResult>> => blocked()
++     ? Promise.resolve({ ok: false, error: 'offline' }) : coordinator ? coordinator.thefts() : session.thefts());
++
++   ipcMain.handle(IPC.RECLAIM, (_event, p: unknown): Promise<NetResult<ReclaimResult>> => {
++     if (blocked()) return Promise.resolve({ ok: false, error: 'offline' });
++     const { theftId } = (p as Partial<ReclaimPayload> | null | undefined) ?? {};
++     return typeof theftId === 'string'
++       ? coordinator ? coordinator.reclaim(theftId) : session.reclaim(theftId)
++       : Promise.resolve({ ok: false, error: 'network' });
++   });
++
++   ipcMain.handle(IPC.OPEN_ACCESSIBILITY_SETTINGS, async (): Promise<void> => {
++     await shell.openExternal(ACCESSIBILITY_SETTINGS_URL);
++   });
++
++   // The menu's single boot path: answer the SENDER with the save on disk.
++   ipcMain.on(IPC.MENU_READY, (event) => {
++     event.sender.send(IPC.SAVE_STATUS, getSaveStatus());
++     event.sender.send(IPC.PVP_PLAYBACK, coordinator?.replaying ?? false);
++     if (blocked()) return;
++     event.sender.send(IPC.STATE_CHANGED, withOfficialRecord(parseSave(latestSave)));
++   });
++
++   ipcMain.on(IPC.FIRST_FRAME, () => {
++     options.onFirstFrame?.();
++   });
++
++   // Whole-window drag (SPEC Assumption 10): the renderer streams cursor
++   // deltas while a drag is in flight; moving the window that SENT the event
++   // keeps this handler stateless. Deltas are validated — a compromised
++   // renderer must not be able to throw the window to NaN-land.
++   ipcMain.on(IPC.MOVE_WINDOW, (event, payload: unknown) => {
++     const win = BrowserWindow.fromWebContents(event.sender);
++     if (win === null) {
++       return;
++     }
++     const delta = payload as Partial<MoveWindowPayload> | null | undefined;
++     const dx = typeof delta?.dx === 'number' && Number.isFinite(delta.dx) ? Math.round(delta.dx) : 0;
++     const dy = typeof delta?.dy === 'number' && Number.isFinite(delta.dy) ? Math.round(delta.dy) : 0;
++     if (dx === 0 && dy === 0) {
++       return;
++     }
++     const [x = 0, y = 0] = win.getPosition();
++     win.setPosition(x + dx, y + dy);
++   });
++
++   // Notification clicks share the same durable mutation boundary as the menu.
++   return coordinator ? { ...session, reclaim: id => coordinator!.reclaim(id), thefts: () => coordinator!.thefts(),
++     pollIncoming: () => blocked() ? Promise.resolve({ ok: false, error: 'offline' }) : coordinator!.pollIncoming() } : session;
++ }
++
+
+ ❯ tests/ipc.test.ts:253:25
+    251|     const saveHandler = mainIpcTs.slice(mainIpcTs.indexOf('ipcMain.han…
+    252|     expect(saveHandler.indexOf('writeSaveFile')).toBeLessThan(saveHand…
+    253|     expect(saveHandler).toContain('const parsed = parseSave(data);');
+       |                         ^
+    254|     expect(saveHandler).toContain('session.onSave(parsed)');
+    255|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/ipc.test.ts > main IPC handlers (src/main/ipc.ts) > menu-action validates local actions and rejects server-owned actions before forwarding
+AssertionError: expected 'ipcMain.handle(IPC.MENU_ACTION, async…' to contain 'if (action !== null &&'
+
+- Expected
++ Received
+
+- if (action !== null &&
++ ipcMain.handle(IPC.MENU_ACTION, async (event, payload: unknown): Promise<void> => {
++     if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');
++     if (coordinatorBlocked() || coordinator?.pending || confirming) return;
++     let action = narrowAction(payload);
++     if (action === null || ['addCompanion', 'removeCompanions', 'pvpResult'].includes(action.type)) return;
++     if (action.type === 'heroEquip' || action.type === 'heroChoose' || action.type === 'rebirth') {
++       const change = action;
++       const current = coordinator?.latest ?? parseSave(latestSave);
++       if (change.type === 'heroEquip' && current.hero?.equipped.formId === change.formId) return;
++       const target = change.type === 'rebirth' ? current.hero?.equipped.formId ?? 'h00' : change.formId;
++       const offer = change.type === 'heroChoose' ? change.offerSerial : undefined;
++       let expected = heroChangeWarning(current.equipment, target, offer);
++       confirming = true;
++       try {
++         for (;;) {
++           const state = coordinator?.latest ?? parseSave(latestSave);
++           if (state.equipment?.temporary.length) {
++             const reply = await dialog.showMessageBox({ type: 'warning', title: '임시 장비 소멸 확인',
++               message: '영웅을 변경하면 아래 임시 장비가 사라집니다.',
++               detail: state.equipment.temporary.map(equipmentName).join('\n'),
++               buttons: ['취소', '장비 삭제 후 변경'], defaultId: 0, cancelId: 0, noLink: true });
++             if (reply.response !== 1 || coordinatorBlocked() || coordinator?.pending) return;
++           }
++           const live = coordinator?.latest ?? parseSave(latestSave);
++           const next = heroChangeWarning(live.equipment, target, offer);
++           if (next.heroChangeSerial !== expected.heroChangeSerial) return;
++           if (JSON.stringify(next) !== JSON.stringify(expected)) { expected = next; continue; }
++           action = { ...change, equipmentConfirmation: expected };
++           break;
++         }
++       } finally { confirming = false; }
++     } else if (action.type === 'equipmentEnhance') {
++       const state = coordinator?.latest ?? parseSave(latestSave);
++       const itemId = action.itemId;
++       const item = state.equipment && equipmentItems(state.equipment).find(item => item.id === itemId);
++       if (!item || state.equipment?.revision !== action.revision) return;
++       if (BigInt(item.enhancement) >= 5n) {
++         confirming = true;
++         try {
++           const reply = await dialog.showMessageBox({ type: 'warning', title: '장비 강화',
++             message: `${equipmentName(item)} 강화에 실패하면 장비가 파괴됩니다.`,
++             detail: '확인한 확률과 비용으로 강화를 진행합니다. 장비 상태가 바뀌면 이 요청은 취소됩니다.',
++             buttons: ['취소', '강화'], defaultId: 0, cancelId: 0, noLink: true });
++           if (reply.response !== 1 || coordinatorBlocked() || coordinator?.pending) return;
++         } finally { confirming = false; }
++       }
++     }
++     sendToOthers(event.sender, IPC.ACTION, action);
++   });
++
++   
+
+ ❯ tests/ipc.test.ts:315:21
+    313|     // Unknown/malformed actions are dropped. Valid mutations during p…
+    314|     // receive an explicit busy error so the menu cannot claim they su…
+    315|     expect(handler).toContain('if (action !== null &&');
+       |                     ^
+    316|     expect(handler).toContain("!['addCompanion', 'removeCompanions', '…
+    317|     expect(handler).toContain("if (coordinator?.replaying) throw Error…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/menu.test.ts > menu ranking and battle > battle button is disabled with no companions or during cooldown
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/menu.test.ts:633:44
+    631|   it('battle button is disabled with no companions or during cooldown'…
+    632|     vi.useFakeTimers({ now: 0 });
+    633|     expect(battleEnabled(saveWith([]), 0)).toBe(false);
+       |                                            ^
+    634|     expect(battleEnabled(saveWith(COMPANIONS), 2)).toBe(false);
+    635|     expect(battleEnabled(saveWith(COMPANIONS), 0)).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/menu.test.ts > battle tab view (v3, F75) > battle button is enabled only with a live match, a non-empty party and no cooldown
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ tests/menu.test.ts:889:74
+    887|     expect(battleEnabled({ match: MATCH, party: ['c1'], cooldownUntil:…
+    888|     expect(battleEnabled({ match: null, party: ['c1'], cooldownUntil: …
+    889|     expect(battleEnabled({ match: MATCH, party: [], cooldownUntil: 0 }…
+       |                                                                          ^
+    890|     expect(battleEnabled({ match: MATCH, party: ['c1'], cooldownUntil:…
+    891|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/recoveryV9.test.ts > v0.9 durable reset checkpoints > restores the selected progression quota with non-rewinding IDs and backs up the replaced progress
+AssertionError: expected { Object (version, level, ...) } to match object { level: 40, coins: 137, …(2) }
+(14 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "coins": 137,
++   "coins": "137",
+    "earlyCaptureUsed": 5,
+    "level": 40,
+    "nextCompanionId": 1000,
+  }
+
+ ❯ tests/recoveryV9.test.ts:135:57
+    133|     expect(d.read('save.json')).toEqual(candidate);
+    134|     expect(d.open().state).toMatchObject({ highWater: 1000, reconcileP…
+    135|     expect(d.open().restoreCandidate(beforeRestore.id)).toMatchObject(…
+       |                                                         ^
+    136|     expect(d.read('identity.json')).toEqual({ token: 'test-identity' }…
+    137|     expect(d.read('settings.json')).toEqual({ gameScale: 1.5 });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/recoveryV9.test.ts > v0.9 save and metadata commit journal > restores gold settlement, cursor and pending replay together after a save.json rename failure
+ FAIL  tests/recoveryV9.test.ts > v0.9 save and metadata commit journal > restores gold settlement, cursor and pending replay together after a recovery.json rename failure
+AssertionError: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+
+- Expected
++ Received
+
+@@ -1,8 +1,8 @@
+  {
+    "bestIndex": 0,
+-   "coins": 112,
++   "coins": "112",
+    "companions": [],
+    "earlyCaptureUsed": 5,
+    "items": {},
+    "killCount": 0,
+    "level": 40,
+
+ ❯ tests/recoveryV9.test.ts:153:33
+    151|     expect(store.unfinished).toBe(true);
+    152|     const recovered = d.open();
+    153|     expect(d.read('save.json')).toEqual(next);
+       |                                 ^
+    154|     expect(recovered.state).toMatchObject(patch);
+    155|     expect(d.open().state).toEqual(recovered.state);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  7 failed | 141 passed (148)
+   Start at  16:22:12
+   Duration  862ms (transform 489ms, setup 0ms, collect 952ms, tests 309ms, environment 0ms, prepare 211ms)
+

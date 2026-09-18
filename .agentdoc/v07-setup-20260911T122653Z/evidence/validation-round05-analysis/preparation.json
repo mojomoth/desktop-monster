@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "independent-adopted-candidate-validation-preparation",
+  "agentId": "/root/balance",
+  "status": "PREPARED_AWAITING_COMPLETE_EXECUTION",
+  "executionPath": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/execution.json",
+  "reportPath": ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate.json",
+  "expectedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r5-tail10475"
+  },
+  "expectedProtocolSha256": "44d3a06a12308a6a5a90bc97e983af51bdaceb3a441c1144ac91d7f340b135f1",
+  "expectedSourceDigest": "3e563b2dd99f4755644bff3f74dd33d5def260c605c27f2a771609264ab7a8be",
+  "expectedEvaluationDigest": "c230862f43dd51266a53cf924c95c22d60d4983bc93f82dc6d44f4116e77b8b3",
+  "expectedAppVersion": "0.6.0",
+  "gate": "Read execution metadata only until endedAt exists; then require complete100 seeds1–100 before any raw statistical analysis.",
+  "checks": [
+    "One12h canonical active/free/uniform/none/immediate policy;100ms tick,1s content observation; fresh isolated initial save.",
+    "Bind adopted20 parameters and6content IDs to exact protocol, source/evaluator/compiled archive and report/manifest/seed files/log SHA.",
+    "Recompute full-population and conditional firstReady/firstOpen/firstAccepted andh70 eligible/seen/chosen p10/p50/p90/worst, unreached and full100 denominator.",
+    "Require firstAccepted populationp50 2700–3600seconds AND>=90/100 by5400seconds; finalh70 eligibility populationp50 28800–43200seconds.",
+    "Report actual rare chosen independently, all6milestones, economy and exactbigint conservation, same-seed later progress.",
+    "No pairing validation seeds1–100 with exploration10001–10020; no numerical tuning or next-candidate proposal from validation raw.",
+    "Preserve target failure as failure and keep validation success distinct from final0.7.0 release evidence."
+  ],
+  "rawFilesRead": false,
+  "analysisExecuted": false,
+  "measurementExecuted": false,
+  "productOrEvaluatorEdited": false,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false
+}

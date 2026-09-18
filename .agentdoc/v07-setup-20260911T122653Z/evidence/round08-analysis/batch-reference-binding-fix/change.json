@@ -1,0 +1,38 @@
+{
+  "at": "2026-09-12T17:15:36.180291+00:00",
+  "agentId": "/root/balance",
+  "kind": "prepared-batch-reference-binding-update",
+  "status": "PREPARED_NOT_EXECUTED",
+  "reason": "Host bound prepared prefixes to official registered R07 report path/SHA, experimentID and seed10001–10020, then recomputed prefixes from original runs before any new trial. Independent analyzer already recomputes original reference prefixes; no analyzer or numerical change.",
+  "changedFields": [
+    "batchScript.sha256"
+  ],
+  "before": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/batch-reference-binding-fix/preparation.before.original.json",
+    "sha256": "9acfe2de87827d46939ca6a9ba7f8c3967fba34d941e86b2ff6144f066186620"
+  },
+  "after": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/preparation.json",
+    "sha256": "9792cf6791490e9abacdef61d928dbfae816cd579c29ccc7de3f7b4059cf0db5"
+  },
+  "batchBefore": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/batch-reference-binding-fix/batch.before.original.txt",
+    "sha256": "e98b8908ae999a1ae3180a842038d09158208ec913bc77bace577ce94d83087b"
+  },
+  "batchAfter": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round08-batch.py",
+    "sha256": "0fae96a8d0c3073e158a1afc1fc1cee97faaa73b1ba2481bbecc97739a484e76"
+  },
+  "analyzerUnchanged": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/analyzer-source.json",
+    "sha256": "0eca671c1238f8015861a097284edb0f4890221a0c4371d7abc2a194f814e802"
+  },
+  "formalResponseUnchanged": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-round08/003-balance.json",
+    "sha256": "22b509551e2d029cf914ac590bce1e50c726d23d8da16a50803fc5e8924f1c2c"
+  },
+  "analysisExecuted": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "validationSeedsAccessed": false
+}

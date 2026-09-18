@@ -1,0 +1,22 @@
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ .harness/v7/loop/config.test.ts (3 tests) 2ms
+ ✓ .harness/v7/loop/package-check.test.ts (3 tests) 5ms
+ ✓ .harness/v7/loop/evidence.test.ts (3 tests) 32ms
+ ✓ .harness/v7/loop/e2e-matrix.test.ts (32 tests) 26ms
+ ✓ .harness/v7/loop/e2e.test.ts (11 tests) 19ms
+ ✓ .harness/v7/loop/develop.test.ts (9 tests) 460ms
+   ✓ v7 phased development journal > CLI records an actual failed registered check, rejects changed logs and resumes the same journal  432ms
+ ✓ .harness/v7/loop/fun.test.ts (11 tests) 856ms
+   ✓ v7 executable CLI > archives the issued prompt, preserves rejected state, and resumes accepted reports from disk  491ms
+ ✓ .harness/v7/loop/measure.test.ts (10 tests) 1022ms
+   ✓ v7 measurement contract > recomputes complete raw seed evidence and rejects duplicate/missing/forged results  307ms
+ ✓ .harness/v7/loop/audit.test.ts (10 tests) 1293ms
+   ✓ evidence-first game audit > resumes the CLI from disk and preserves an audit after a rejected submission  668ms
+
+ Test Files  9 passed (9)
+      Tests  92 passed (92)
+   Start at  21:47:37
+   Duration  1.64s (transform 452ms, setup 0ms, collect 1.05s, tests 3.71s, environment 1ms, prepare 625ms)
+

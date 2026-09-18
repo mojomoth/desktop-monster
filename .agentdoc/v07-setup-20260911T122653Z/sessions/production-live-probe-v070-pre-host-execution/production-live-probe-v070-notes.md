@@ -1,0 +1,27 @@
+# Production probe preparation — /root/balance
+
+Status: **PREPARED, NOT EXECUTED**. No network requests, account registration, deployment, gameplay, build, or repository gates were run by this preparation. Only the new script's `node --check` and file-scoped ESLint were executed; both exited 0. Host owns deployment and the actual probe invocation after review.
+
+Script: `sessions/production-live-probe-v070.mjs` (14,669 bytes), SHA-256 `49a26fd675581f60e27f133d7903bde6ce765099f782f7ffadb438a1967a68db`.
+
+```sh
+node .agentdoc/v07-setup-20260911T122653Z/sessions/production-live-probe-v070.mjs --execute --expected-sha DEPLOYED_40_HEX_SHA --out .agentdoc/v07-setup-20260911T122653Z/evidence/production-live-probe-v070-attempt01
+```
+
+Replace the SHA placeholder with the actual reviewed deployment SHA. The output directory must not exist; it is created exclusively under this run's evidence. The fixed origin is `https://desmon-server-v3.onrender.com`. The initial `/healthz` must exactly match the expected SHA before any write. No write retries or resumed credentials are supported. Allow the request and cleanup sequence to finish; each request has a 30-second timeout. A cold-start timeout creates no accounts when it occurs during initial health verification. Do not rebuild or edit source/compiled files while this probe runs: their beginning/end literal hashes are compared.
+
+The script imports the existing compiled `createNetClient`, without creating a `NetSession` or reading identity/save files. It records actual source and all compiled JavaScript hashes, plus its own SHA. Health SHA correspondence to the reviewed deployment/build remains Host's separate deployment evidence; this probe does not independently inspect remote source or issue SQL.
+
+Two fresh random `v7p-…` accounts each upload precisely three companions at levels 11, 250, and 9007199254740991, with explicit three-member party and h00 hero. Both scores remain zero. Each account previews only the other freshly created ID using `POST /v1/pvp/match`; the real client and probe compare exact returned ID, non-bot status, companions including safe integer levels, hero, name, and scores. The server's `getById` reads the stored snapshot, so this is API/DB-through-server roundtrip evidence.
+
+The second account then attempts levels MAX_SAFE_INTEGER+1, 1.5, 0, -1, string `"11"`, null, and raw JSON number `1e400`. Each must return HTTP 400. A new owned-ID preview after every rejection must reproduce the entire known companion party, hero, name, and scores unchanged. The overflowing JSON literal is sent as a raw JSON string, so it does not collapse to null through `JSON.stringify(Infinity)`.
+
+Both directory calls use the real client's full nested response validator. Evidence records validated row count and whether the owned synthetic target appears; it never records real-player names, IDs, parties, or response bodies. The directory only exposes the first 50 ranked opponents, so visibility of a score-zero synthetic account is not guaranteed. Absence remains explicit and does not become a claim that a high-level synthetic directory row was observed. The probe does not inflate scores to force visibility.
+
+A route allowlist excludes battle execution (`POST /v1/pvp`), theft inbox, and reclaim. Match requests must contain exactly one specified opponentId from this invocation's other account. Authorization is accepted only from the two freshly returned tokens; redirects are rejected. Raw bodies, headers, errors, credentials, and real-player payloads are never logged. Tokens remain in memory and are not saved to disk. Registration is attempted at most twice; a timeout after server-side registration may leave an unidentified account and is reported conservatively without retrying.
+
+In `finally`, each known account independently uploads an empty roster, empty party, unchanged synthetic name/h00, and zero scores. With both accounts registered, the other account's specified preview verifies each empty DB snapshot. An existing empty snapshot is still a valid match target (HTTP 200), not `opponent_missing`. There is no player deletion API, so **two synthetic account rows remain** after a complete run; cleanup is roster/score cleanup, not account deletion. Unfought previews expire after 120 seconds and are pruned lazily. A process kill or network outage can interrupt cleanup; the sanitized event journal and report distinguish attempted registration, known accounts, empty-upload result, and DB readback instead of claiming cleanup succeeded. No existing personal credentials are available for recovery.
+
+Artifacts are append-only sanitized `events.ndjson`, final `report.json`, and `SHA256SUMS`, with exclusive output creation and private file permissions. Each request records only route, synthetic-owner label, status, and timestamps. Final status fails on functional errors, cleanup failure, changed local hashes, or changed ending health SHA. Match preview is not proof of actual PvP battle/theft/reclaim behavior; those paths remain outside this bounded live probe.
+
+Read sources: `src/server/app.ts`, `http.ts`, `pgStore.ts`, `probe.ts`, `src/shared/api.ts`, `src/main/net.ts`, `identity.ts`, `src/core/collection.ts`, `hero.ts`; no personal save/auth files were read. Existing product, tests, harness, protocol, reviews, and frozen evidence were not modified.

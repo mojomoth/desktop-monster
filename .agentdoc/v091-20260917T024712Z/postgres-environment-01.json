@@ -1,0 +1,57 @@
+{
+  "version": 91,
+  "status": "PENDING_ENVIRONMENT",
+  "at": "2026-09-17T03:20:04.218Z",
+  "observations": [
+    {
+      "command": "command -v postgres",
+      "result": "not found"
+    },
+    {
+      "directory": "/opt/homebrew/opt/libpq/bin",
+      "version": "17.3",
+      "result": "initdb and pg_ctl exist; postgres server executable absent"
+    },
+    {
+      "command": "pg_isready -h 127.0.0.1 -p 63922 -d desmon_v091 -U postgres -t 2",
+      "exitCode": 2,
+      "result": "no response"
+    },
+    {
+      "command": "open -a Docker",
+      "exitCode": 0
+    },
+    {
+      "command": "docker ps --format ...",
+      "result": "no daemon response within 8 seconds"
+    },
+    {
+      "command": "curl --unix-socket /Users/jeongyounglee/.docker/run/docker.sock --max-time 3 http://localhost/_ping",
+      "exitCode": 28,
+      "result": "timed out after 3011ms, 0 bytes"
+    },
+    {
+      "path": "/Applications/Postgres.app/Contents/Versions/latest/bin/postgres",
+      "exists": false
+    }
+  ],
+  "actualAttempt": {
+    "report": "postgres-01.json",
+    "passed": false,
+    "checks": [],
+    "schema": null,
+    "error": "Error: connect ECONNREFUSED 127.0.0.1:63922\n    at /Users/jeongyounglee/work/repo/desktop-monster/node_modules/pg-pool/index.js:45:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v91/postgres-check.mjs:119:22"
+  },
+  "dataSafety": "No database was created, deleted, migrated or written. The checker requires matching current-owner and session database comment before creating a fresh schema. No production connection or new dependency.",
+  "ownershipMarkerRequired": "desmon-v091-check:v091-20260917T024712Z",
+  "files": {
+    "postgres-01.json": "5442bb0d7ba4132edfd44aee840837bc472aaf50e95fbf9f30e1da51d981a8e4",
+    "postgres-01.jsonl": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "postgres-01.log": "afe28ee231363de9517f8539014bc879ad21ced068c70a97558518093e5667df"
+  },
+  "harness": {
+    "path": ".harness/v91/postgres-check.mjs",
+    "sha256": "ad80ea55d864d37dd871fc93a80f87becb3ea253cf39cf44fac5858da8695bd9",
+    "syntax": "node --check passed"
+  }
+}

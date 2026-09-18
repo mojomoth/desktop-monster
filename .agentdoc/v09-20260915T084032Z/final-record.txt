@@ -1,0 +1,57 @@
+(async()=>{
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert/strict'),{spawnSync}=require('child_process');
+const {digest,verified,ROOT,GATES}=await import('./.harness/v9/run.mjs');
+const dir='.agentdoc/v09-20260915T084032Z',journalPath=dir+'/v9-journal.json';
+const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const read=p=>JSON.parse(fs.readFileSync(p));
+const journal=read(journalPath),config=read('.harness/v9/config.json'),source=digest();
+const gates=journal.tasks.flatMap(t=>t.checks.filter(c=>c.id==='gates'));
+function impact(id,seen=new Set()){
+  if(seen.has(id))return [];seen.add(id);const t=config.tasks.find(t=>t.id===id);
+  return [...t.files,'tests','.harness/v9',...t.dependencies.flatMap(d=>impact(d,seen))];
+}
+const checks=journal.tasks.map(t=>{
+  const current=digest(ROOT,impact(t.id));assert.ok(verified([...t.checks,...gates],current,source),t.id);
+  return {id:t.id,ac:t.checks.findLast(c=>c.id==='ac'&&c.before===current&&c.after===current&&c.exitCode===0),
+    gates:gates.findLast(c=>c.before===source&&c.after===source&&c.exitCode===0)};
+});
+assert.equal(GATES,'npm test && npm run lint && npm run typecheck');
+const preserved=read(dir+'/preservation/manifest.json');
+for(const [p,sha] of Object.entries(preserved))assert.equal(hash(dir+'/preservation/source/'+p),sha,p);
+assert.equal(fs.readFileSync('.harness/CURRENT','utf8').trim(),'v3');
+const artifacts=read(dir+'/artifacts-verified.json');assert.ok(artifacts.passed);
+for(const a of artifacts.artifacts)assert.equal(hash(a.path),a.sha256,a.path);
+const proofPaths=['native-05/native.json','visual-02/visual.json','core-regression-2.json','postgres-03.json',
+  'performance-02/comparison.json','artifacts-verified.json','final-native.log','final-visual.log','final-regression.log','final-performance.log','final-verifier-tests.log',
+  'final-artifacts-02.log','final-dmg-mount.log','final-dmg-detach.log','performance-verifier-initial-save.json','performance-verifier-closeout.json',
+  'reviews/designer-native-01.md','reviews/critic-implementation-05.md','reviews/balance-implementation-final.md',
+  'reviews/critic-performance-verifier-01.md','reviews/critic-performance-closeout-01.md','reviews/critic-final-evidence-preflight.md'];
+const comparison=read(dir+'/performance-02/comparison.json');assert.ok(comparison.passed);
+const pending=['Windows CI execution and Windows 11 hardware input/DPI/multi-monitor/install-update-uninstall lifecycle',
+  'Real DesMon Steam AppID/DepotID, partner SDK, initialization and Steam installation',
+  'Production server rollout/shared database migration and old-service PvP upgrade or shutdown',
+  'Historical v0.8 human observation checks'];
+const record={version:9,at:new Date().toISOString(),agentId:'/root',sourceDigest:source,
+  outcome:{implementation:'complete',automatedVerification:'passed',externalVerification:'pending',releaseReady:false},
+  preserved:{files:Object.keys(preserved).length,currentHarness:'v3',manifest:dir+'/preservation/manifest.json',sha256:hash(dir+'/preservation/manifest.json')},
+  checks,evidence:Object.fromEntries(proofPaths.map(p=>[dir+'/'+p,hash(dir+'/'+p)])),
+  summary:{unitTests:1063,testFiles:73,coreRegressionCases:200,nativeUiChecks:29,nativePngs:8,visualCases:410,
+    performanceObservationMinutes:300,mixedSamples:comparison.observations.mixed.rawSamples,mixedInput:comparison.observations.mixed.input,
+    comparisons:comparison.comparisons,memoryGrowth:comparison.memoryGrowth,macBundleEntries:artifacts.macBundle.entries,windowsPayloadFiles:artifacts.windowsPayload.checked},
+  pending,reviewOrder:journal.reviewOrder,
+  notes:['Original performance queue comparison failure and both verifier correction records are retained; corrected comparison independently reviewed and verified.',
+    'Original final-artifacts check included server files excluded by package.json; corrected check follows the declared bundle contents. Both evaluator sources/logs retained.',
+    'Synthetic input, isolated saves and injected server used for native checks. No production accounts, global OS hooks, public deployment or git commit/push.',
+    'Full final DMG app bundle matched the separately installed, runtime-tested app; Windows payload matches all 109 packaged workspace files.'],
+  evaluator:{path:dir+'/final-record.txt',sha256:hash(dir+'/final-record.txt')}};
+fs.writeFileSync(dir+'/final-evidence.json',JSON.stringify(record,null,2)+'\n',{flag:'wx'});
+journal.reviewOrder.push({role:'Playtester',agentId:'/root',report:dir+'/final-evidence.json',sha256:hash(dir+'/final-evidence.json'),decision:'accepted automated scope; external verification pending; release held'});
+journal.playtester={agentId:'/root',status:'passed',report:dir+'/final-evidence.json'};
+journal.completion={...record.outcome,pending};
+fs.writeFileSync(journalPath+'.tmp',JSON.stringify(journal,null,2)+'\n');fs.renameSync(journalPath+'.tmp',journalPath);
+for(const t of config.tasks){const r=spawnSync(process.execPath,['.harness/v9/run.mjs','verify',dir,t.id],{encoding:'utf8'});assert.equal(r.status,0,t.id+': '+r.stderr);}
+const final=read(journalPath);assert.ok(final.tasks.every(t=>t.status==='verified'));
+fs.writeFileSync(dir+'/completion-receipt.json',JSON.stringify({version:9,at:new Date().toISOString(),sourceDigest:digest(),tasks:final.tasks.map(t=>({id:t.id,status:t.status})),
+  journal:{path:journalPath,sha256:hash(journalPath)},report:{path:dir+'/final-evidence.json',sha256:hash(dir+'/final-evidence.json')},outcome:record.outcome},null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({passed:true,tasks:final.tasks.length,sourceDigest:source,report:dir+'/final-evidence.json',outcome:record.outcome}));
+})().catch(error=>{console.error(error);process.exitCode=1;});

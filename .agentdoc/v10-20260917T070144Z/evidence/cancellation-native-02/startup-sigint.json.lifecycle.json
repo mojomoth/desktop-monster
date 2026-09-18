@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "observerPid": 2431,
+  "childPid": 2432,
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-UdyUmU",
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "startedAt": "2026-09-17T19:14:08.904Z",
+  "state": "complete",
+  "cancelSignal": "SIGINT",
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 2432,
+        "ppid": 2431,
+        "pgid": 2428,
+        "started": "Fri Sep 18 04:14:08 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-UdyUmU"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 2432,
+        "signal": "SIGTERM",
+        "at": "2026-09-17T19:14:09.388Z"
+      }
+    ],
+    "finishedAt": "2026-09-17T19:14:09.563Z"
+  }
+}

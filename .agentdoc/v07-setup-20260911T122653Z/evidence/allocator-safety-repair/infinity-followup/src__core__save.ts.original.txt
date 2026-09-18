@@ -1,0 +1,300 @@
+// Save schema & tolerant parsing — SPEC F10/F29, Assumptions 7/21. Pure
+// TypeScript, zero imports of electron/DOM/node. The app must never fail to
+// boot because of a bad save: parseSave() NEVER throws — junk, missing and
+// wrong-typed fields fall back per-field to DEFAULT_SAVE values. Disk always
+// holds v3; older files are migrated on the way in (upgradeSave).
+
+import { bigField } from './bignum.js';
+import { monsterMaxHp } from './formulas.js';
+import { isSpeciesId, SPECIES_IDS } from './monsters.js';
+import type { SpeciesId } from './monsters.js';
+import { heroForm, parseHeroProgress } from './hero.js';
+import type { HeroProgress } from './hero.js';
+import { discoveryContext, parseProgress } from './progress.js';
+import type { Progress } from './progress.js';
+
+/** Roster cap (GAME_DESIGN_V2 §2/§3); collection.ts owns the gameplay copy. */
+const ROSTER_CAP = 30;
+
+/** PvP party cap (GAME_DESIGN_V3 §3/§4); collection.ts owns the gameplay copy. */
+const PARTY_CAP = 5;
+
+/** A captured boss (GAME_DESIGN_V2 §2). Ids are minted from nextCompanionId. */
+export interface Companion {
+  /** 'c1', 'c2' … — deterministic, never a uuid. */
+  id: string;
+  /** SpeciesId of the captured boss. */
+  speciesId: string;
+  /** Global monster index it was captured at → base power. */
+  bossIndex: number;
+  /** Positive safe integer; no gameplay level cap. */
+  level: number;
+  stars: number;
+}
+
+/** Legacy save shape (v1). Accepted as input, never written. */
+export interface SaveFileV1 {
+  version: 1;
+  level: number;
+  /** XP into the current level. */
+  xp: number;
+  killCount: number;
+  coins: number;
+  /** Trinket id → count (positive integers only). */
+  items: Record<string, number>;
+  /** 0-based global index of the monster that was on screen. */
+  monsterIndex: number;
+  monsterHp: number;
+}
+
+/**
+ * Persisted save-file schema, version 2. The engine's toSave() emits exactly
+ * this shape; createEngine(save) resumes from it (SPEC F11/F29).
+ */
+export interface SaveFileV2 {
+  version: 2;
+  level: number;
+  /** XP into the current level. */
+  xp: number;
+  killCount: number;
+  coins: number;
+  /** Trinket id → count (positive integers only). */
+  items: Record<string, number>;
+  /** 0-based global index of the monster that was on screen. */
+  monsterIndex: number;
+  /** Decimal digits, ≥ '1' — HP is unbounded (SPEC F30). */
+  monsterHp: string;
+  /** Captured bosses, at most ROSTER_CAP entries. */
+  companions: Companion[];
+  nextCompanionId: number;
+  souls: number;
+  rebirths: number;
+  /** Deepest monsterIndex ever reached. */
+  bestIndex: number;
+}
+
+/**
+ * Persisted save-file schema, version 3: v2 plus the manually picked PvP-only
+ * party (GAME_DESIGN_V3 §3). Empty = the auto party is used.
+ */
+export interface SaveFileV3 extends Omit<SaveFileV2, 'version'> {
+  version: 3;
+  /** Randomly selected current species; absent in legacy saves. */
+  monsterSpeciesId?: SpeciesId;
+  /** Companion ids, at most PARTY_CAP, all present in `companions`. */
+  pvpParty: string[];
+  /** Additive v0.4 extension; v1–v3 saves retain their progress unchanged. */
+  hero?: HeroProgress;
+  /** Additive v0.5 progress and v0.6 codex UI state; legacy fields keep their meanings. */
+  progress?: Progress;
+  /** Additive v0.4 extension; absent in older saves and read as 0. */
+  releasedCount?: number;
+}
+
+/** The current schema. */
+export type SaveFile = SaveFileV3;
+
+/** Fresh-game values; also the per-field fallback for junk input. */
+export const DEFAULT_SAVE: Readonly<SaveFileV3> = Object.freeze({
+  version: 3 as const,
+  level: 1,
+  xp: 0,
+  killCount: 0,
+  coins: 0,
+  items: Object.freeze({}) as Record<string, number>,
+  monsterIndex: 0,
+  monsterHp: String(monsterMaxHp(0)),
+  companions: Object.freeze([] as Companion[]) as Companion[],
+  nextCompanionId: 1,
+  souls: 0,
+  rebirths: 0,
+  bestIndex: 0,
+  pvpParty: Object.freeze([] as string[]) as string[],
+  releasedCount: 0,
+});
+
+/**
+ * Migrate a well-formed save to v3. v1 had no roster, souls or best depth;
+ * v2 had no PvP party.
+ */
+export function upgradeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): SaveFileV3 {
+  if (save.version === 3) return { ...save, releasedCount: save.releasedCount ?? 0 };
+  if (save.version === 2) return { ...save, version: 3, pvpParty: [], releasedCount: 0 };
+  return {
+    version: 3,
+    level: save.level,
+    xp: save.xp,
+    killCount: save.killCount,
+    coins: save.coins,
+    items: { ...save.items },
+    monsterIndex: save.monsterIndex,
+    monsterHp: String(Math.max(1, Math.floor(save.monsterHp))),
+    companions: [],
+    nextCompanionId: 1,
+    souls: 0,
+    rebirths: 0,
+    bestIndex: save.monsterIndex,
+    pvpParty: [],
+    releasedCount: 0,
+  };
+}
+
+/**
+ * Stable JSON: fixed top-level key order, items keys sorted, companions in
+ * array order with fixed key order. Serializing the same logical save always
+ * yields byte-identical text. Older input is upgraded first.
+ */
+export function serializeSave(save: SaveFileV1 | SaveFileV2 | SaveFileV3): string {
+  const v3 = upgradeSave(save);
+  const items: Record<string, number> = {};
+  for (const id of Object.keys(v3.items).sort()) {
+    items[id] = v3.items[id] ?? 0;
+  }
+  return JSON.stringify({
+    version: 3,
+    level: v3.level,
+    xp: v3.xp,
+    killCount: v3.killCount,
+    coins: v3.coins,
+    items,
+    monsterIndex: v3.monsterIndex,
+    monsterSpeciesId: v3.monsterSpeciesId,
+    monsterHp: v3.monsterHp,
+    companions: v3.companions.map((c) => ({
+      id: c.id,
+      speciesId: c.speciesId,
+      bossIndex: c.bossIndex,
+      level: c.level,
+      stars: c.stars,
+    })),
+    nextCompanionId: v3.nextCompanionId,
+    souls: v3.souls,
+    rebirths: v3.rebirths,
+    bestIndex: v3.bestIndex,
+    pvpParty: v3.pvpParty,
+    releasedCount: v3.releasedCount ?? 0,
+    hero: parseHeroProgress(v3.hero),
+    progress: parseProgress(v3.progress),
+  });
+}
+
+/** Finite number → floored int clamped to `min`; anything else → fallback. */
+function intField(value: unknown, fallback: number, min: number): number {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return fallback;
+  return Math.max(min, Math.floor(value));
+}
+
+/** Integer in [min, max] — the companion fields have no fallback, they drop. */
+function isInt(value: unknown, min: number, max = Number.MAX_SAFE_INTEGER): value is number {
+  return typeof value === 'number' && Number.isInteger(value) && value >= min && value <= max;
+}
+
+/** Keep only entries whose count is a finite number that floors to ≥ 1. */
+function itemsField(value: unknown): Record<string, number> {
+  const items: Record<string, number> = {};
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return items;
+  }
+  for (const [id, count] of Object.entries(value)) {
+    if (typeof count === 'number' && Number.isFinite(count) && Math.floor(count) >= 1) {
+      items[id] = Math.floor(count);
+    }
+  }
+  return items;
+}
+
+/**
+ * Keep only fully valid companions (GAME_DESIGN_V2 §2): a bad entry is
+ * dropped, it never defaults — a half-made companion would be worse than
+ * none. Duplicate ids: first wins. At most ROSTER_CAP kept.
+ */
+function companionsField(value: unknown): Companion[] {
+  const kept: Companion[] = [];
+  if (!Array.isArray(value)) return kept;
+  const seen = new Set<string>();
+  for (const raw of value) {
+    if (kept.length >= ROSTER_CAP) break;
+    if (typeof raw !== 'object' || raw === null) continue;
+    const c = raw as Record<string, unknown>;
+    const id = c['id'];
+    const speciesId = c['speciesId'];
+    if (typeof id !== 'string' || id === '' || seen.has(id)) continue;
+    if (typeof speciesId !== 'string' || !(SPECIES_IDS as readonly string[]).includes(speciesId)) {
+      continue;
+    }
+    if (!isInt(c['bossIndex'], 0) || !isInt(c['level'], 1) || !isInt(c['stars'], 0)) continue;
+    seen.add(id);
+    kept.push({ id, speciesId, bossIndex: c['bossIndex'], level: c['level'], stars: c['stars'] });
+  }
+  return kept;
+}
+
+/**
+ * Keep only ids that are really on the parsed roster (a party pointing at a
+ * consumed companion would resurrect it), deduped first-wins, PARTY_CAP kept.
+ */
+function pvpPartyField(value: unknown, companions: Companion[]): string[] {
+  if (!Array.isArray(value)) return [];
+  const ids = new Set(companions.map((c) => c.id));
+  return [...new Set(value.filter((id): id is string => typeof id === 'string' && ids.has(id)))]
+    .slice(0, PARTY_CAP);
+}
+
+/**
+ * Tolerant parse of untrusted save data (SPEC F10/F29). Accepts anything —
+ * pre-parsed JSON values (what main's load-state hands over) or raw JSON
+ * text — and NEVER throws. Every invalid field independently falls back to
+ * its DEFAULT_SAVE value; the input `version` is ignored (the shape decides)
+ * and the output is always v3. Range clamping beyond that (e.g. monsterHp vs
+ * the monster's maxHp) is the engine's job. Always returns fresh objects.
+ */
+export function parseSave(raw: unknown): SaveFileV3 {
+  let value: unknown = raw;
+  if (typeof value === 'string') {
+    try {
+      value = JSON.parse(value);
+    } catch {
+      value = null;
+    }
+  }
+  const record: Record<string, unknown> =
+    typeof value === 'object' && value !== null && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : {};
+  const companions = companionsField(record['companions']);
+  const initialHero = parseHeroProgress(record['hero']);
+  const progress = parseProgress(record['progress']);
+  const hero = parseHeroProgress(initialHero, discoveryContext({
+    killCount: intField(record['killCount'], 0, 0), hero: initialHero, progress, companions,
+    ...(typeof record['monsterSpeciesId'] === 'string' ? { monsterSpeciesId: record['monsterSpeciesId'] } : {}),
+  }, heroForm(initialHero?.equipped.formId ?? '')?.type));
+  const species = record['monsterSpeciesId'];
+  // Keep every ID's digit repair; MAX is the exhausted local allocator sentinel.
+  let nextCompanionId = Math.min(Number.MAX_SAFE_INTEGER,
+    intField(record['nextCompanionId'], DEFAULT_SAVE.nextCompanionId, 1));
+  for (const c of companions) {
+    const digits = Number(c.id.replace(/\D/g, '') || 0);
+    const afterId = digits >= Number.MAX_SAFE_INTEGER ? Number.MAX_SAFE_INTEGER : digits + 1;
+    nextCompanionId = Math.max(nextCompanionId, afterId);
+  }
+  return {
+    version: 3,
+    level: intField(record['level'], DEFAULT_SAVE.level, 1),
+    xp: intField(record['xp'], DEFAULT_SAVE.xp, 0),
+    killCount: intField(record['killCount'], DEFAULT_SAVE.killCount, 0),
+    coins: intField(record['coins'], DEFAULT_SAVE.coins, 0),
+    items: itemsField(record['items']),
+    monsterIndex: intField(record['monsterIndex'], DEFAULT_SAVE.monsterIndex, 0),
+    ...(typeof species === 'string' && isSpeciesId(species) ? { monsterSpeciesId: species } : {}),
+    monsterHp: (bigField(record['monsterHp']) ?? DEFAULT_SAVE.monsterHp).replace(/^0$/, '1'),
+    companions,
+    nextCompanionId,
+    souls: intField(record['souls'], DEFAULT_SAVE.souls, 0),
+    rebirths: intField(record['rebirths'], DEFAULT_SAVE.rebirths, 0),
+    bestIndex: intField(record['bestIndex'], DEFAULT_SAVE.bestIndex, 0),
+    pvpParty: pvpPartyField(record['pvpParty'], companions),
+    releasedCount: intField(record['releasedCount'], 0, 0),
+    ...(hero ? { hero } : {}),
+    ...(progress ? { progress } : {}),
+  };
+}

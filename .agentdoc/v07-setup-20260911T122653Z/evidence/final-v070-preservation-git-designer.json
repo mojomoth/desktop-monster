@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/designer",
+  "purpose": "Locate the six supplied initial-preservation SHA-256 values in immutable local Git file blobs; no restoration or product audit.",
+  "startedAt": "2026-09-13T02:32:27.055926+00:00",
+  "endedAt": "2026-09-13T02:32:29.002915+00:00",
+  "headCommitObserved": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+  "targetSource": "Exact six paths and SHA-256 values supplied by Host; original 179-entry manifest was not re-read in this bounded Git-only task.",
+  "scope": {
+    "gitMutations": false,
+    "network": false,
+    "buildOrTest": false,
+    "currentWorktreeContentRead": false,
+    "archivesOrContractsRead": false,
+    "sourceRestored": false,
+    "writes": [
+      ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-preservation-git-designer.json",
+      ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-preservation-git-designer.md"
+    ]
+  },
+  "objectScan": {
+    "enumerationCommand": [
+      "git",
+      "--no-replace-objects",
+      "cat-file",
+      "--batch-all-objects",
+      "--batch-check=%(objectname) %(objecttype) %(objectsize)"
+    ],
+    "objectCounts": {
+      "tree": 2834,
+      "blob": 1968,
+      "commit": 630,
+      "tag": 1
+    },
+    "allBlobCount": 1968,
+    "allBlobBytes": 60029364,
+    "enumerationSha256": "77d3a16e93493addc4ee02dd8b1d4b5d9989cf2f49b6f40281a3994abcd7b1a6",
+    "enumerationStableBeforeAfter": true,
+    "sha1ObjectIdentityVerifiedForEveryBlob": true,
+    "sha256ComputedFromRawBlobBytes": true,
+    "matchedTargets": 0
+  },
+  "results": [
+    {
+      "path": "tests/expedition.test.ts",
+      "requestedOriginalSha256": "44ee1c22c53d78f6a225f107e9ad0a0b3a6a8d1ae066d158beafb6722199df10",
+      "status": "NOT_FOUND_IN_LOCAL_GIT_BLOBS",
+      "blobMatches": [],
+      "pathHistoryCommitCount": 0,
+      "pathHistoryUniqueBlobCount": 0,
+      "pathHistoryVersions": [],
+      "pathAbsentAtHistoryCommit": []
+    },
+    {
+      "path": "tests/hero.test.ts",
+      "requestedOriginalSha256": "49cbde0f159db2140ec25f40fa482fd5821bce3b0ed47e3310d50a49dda28fca",
+      "status": "NOT_FOUND_IN_LOCAL_GIT_BLOBS",
+      "blobMatches": [],
+      "pathHistoryCommitCount": 0,
+      "pathHistoryUniqueBlobCount": 0,
+      "pathHistoryVersions": [],
+      "pathAbsentAtHistoryCommit": []
+    },
+    {
+      "path": "tests/heroMenuReadiness.test.ts",
+      "requestedOriginalSha256": "a48744ec91c974edffaf0b76b895ace6881b3911edefc4e827392a498a1b3732",
+      "status": "NOT_FOUND_IN_LOCAL_GIT_BLOBS",
+      "blobMatches": [],
+      "pathHistoryCommitCount": 0,
+      "pathHistoryUniqueBlobCount": 0,
+      "pathHistoryVersions": [],
+      "pathAbsentAtHistoryCommit": []
+    },
+    {
+      "path": "tests/ipc.test.ts",
+      "requestedOriginalSha256": "8845abd33efc82bf383a39eb2cfb70b12235159658339fa72106d1a575e11ea0",
+      "status": "NOT_FOUND_IN_LOCAL_GIT_BLOBS",
+      "blobMatches": [],
+      "pathHistoryCommitCount": 6,
+      "pathHistoryUniqueBlobCount": 6,
+      "pathHistoryVersions": [
+        {
+          "commit": "18656ea050675a3f8f38dbcd0ce3e9ca6a06920a",
+          "gitBlob": "ae63250057e8a3bda09c4d9e58a3a87976aa46f8",
+          "bytes": 13718,
+          "sha256": "971e1ece8587e2bdc84c9d5a12f8b21b4751898fb4a2bfdd95694d99c377b5b5",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "70ce805be58d9171994feb93b04e67aa750c0859",
+          "gitBlob": "f861b2105568bbbb14c96923da78b4893e91c8b6",
+          "bytes": 10277,
+          "sha256": "27ac282b47bfb4afba3ef587b5d2cb1220c1c69de1073c0a2e6e73042ace1a4e",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "c6f7d2d9206c78df1bf6218ff44aec6560d26382",
+          "gitBlob": "b4dda5f1d4d93b7d1638a292cc07623f030d8477",
+          "bytes": 6326,
+          "sha256": "2dfd6df8944f5b7981fb45368c45fb6392c219e8efb6215353c37918058ef41e",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "e4bbbe4f0c479390e38f38bac7b899bbd70d08e3",
+          "gitBlob": "3db8b27b132991223b4c2ba3fdab996d131d91e0",
+          "bytes": 4632,
+          "sha256": "8da6198e4250aa9fe46520ede9710b6e61d8beb46b0d1f7fa2ef7701125c5b93",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "66cf6f52df913d35f2adf6f516ac050ac90e8aa8",
+          "gitBlob": "7b844a643c91887677080fcc1687d2fa249c2178",
+          "bytes": 4206,
+          "sha256": "4626b7b10d95f4ee915a0e2af48c4e083f48c568679ec1ed2f1f8803c717b730",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "f86ea9173bd2ff66ee66317fecd7e4c97fd543f4",
+          "gitBlob": "3fffba6cbb74109257a4f8645eb7798848848664",
+          "bytes": 4037,
+          "sha256": "364feb55c70243849810c0dbef5b31ec998edde36a4180e14d120d4926143559",
+          "matchesRequestedOriginal": false
+        }
+      ],
+      "pathAbsentAtHistoryCommit": []
+    },
+    {
+      "path": "tests/menu.test.ts",
+      "requestedOriginalSha256": "f8249f15f43f2b9e732d5677de456a5d210895dd3e4eafcaeea264259e43a43f",
+      "status": "NOT_FOUND_IN_LOCAL_GIT_BLOBS",
+      "blobMatches": [],
+      "pathHistoryCommitCount": 7,
+      "pathHistoryUniqueBlobCount": 7,
+      "pathHistoryVersions": [
+        {
+          "commit": "e9ce2c8dae95054432d46ac50cb2c8cdab26105a",
+          "gitBlob": "c8d49f5ee6a273e011009f20aaf9f520741552b5",
+          "bytes": 30207,
+          "sha256": "7aba50886412c83520272b74f29ff9a3ba2e021ee19399a5a1455a1d3ea2f9ce",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "db209fccc305fcd0f0e9d5686e2847e2f88887ba",
+          "gitBlob": "1ea01d67031b1b87b752941acc2f346fc7bd737e",
+          "bytes": 30207,
+          "sha256": "f5e88ed778e91ac8408448b1dbcd5d99c0b4f3c913a1730e1606545028677b76",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "29336be615660a2efbc21680a00558857d13a56f",
+          "gitBlob": "e011eecf478ee77a04f771b2b8613ec295b92ccb",
+          "bytes": 30207,
+          "sha256": "fc1764520c1705b0bf27acd190b80df86c3e8ea15d8234d7c8d81f751138f638",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "23a46fa519299611d7c7f4dce25c3e7ea8594045",
+          "gitBlob": "54e83fe9f11056664fc2c5d359cd03bc509b848d",
+          "bytes": 22277,
+          "sha256": "da6bf2003233c146de5304440273fd252cb468fb662ccfbeef2eab22d92831df",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "534aa3f8fae84e2268636661a88a6854721c5a5e",
+          "gitBlob": "1e16bf3fb58b7f8ea83a3eab32d167caa7589871",
+          "bytes": 18178,
+          "sha256": "1b3be906d471ee453291d97cacbd0ad21a7503d120f8e1478c5d044f1e913ff1",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "150294009d14904da4d451594f530bcce692d18f",
+          "gitBlob": "0a269ddb4f83b9c26e8924617db1afeb14748920",
+          "bytes": 18170,
+          "sha256": "bfc7aad908f171b6fa644a13e8eb1bfed47400a6582f0f0fa5c783cd1f67601d",
+          "matchesRequestedOriginal": false
+        },
+        {
+          "commit": "6eb4a82f0a39053975e0d19b3315388ae59ad06c",
+          "gitBlob": "b303c61338b2bf10dc4375893585f55c713dc254",
+          "bytes": 9679,
+          "sha256": "5849064562ae0f73aee1315db920100eef856dfbda221791ef904849719b8d15",
+          "matchesRequestedOriginal": false
+        }
+      ],
+      "pathAbsentAtHistoryCommit": []
+    },
+    {
+      "path": "tests/progressV6.test.ts",
+      "requestedOriginalSha256": "358647f6232febd6c0f2d19a6115625b09752e499074b00220048b702406898a",
+      "status": "NOT_FOUND_IN_LOCAL_GIT_BLOBS",
+      "blobMatches": [],
+      "pathHistoryCommitCount": 0,
+      "pathHistoryUniqueBlobCount": 0,
+      "pathHistoryVersions": [],
+      "pathAbsentAtHistoryCommit": []
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "-s",
+        "--format=%H",
+        "HEAD"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 41,
+      "stdoutSha256": "4334acd5f055d1ce8cdffca0a2cbe3e24bb182634f113158d82bb1894f9139f2",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "cat-file",
+        "--batch-all-objects",
+        "--batch-check=%(objectname) %(objecttype) %(objectsize)"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 275531,
+      "stdoutSha256": "77d3a16e93493addc4ee02dd8b1d4b5d9989cf2f49b6f40281a3994abcd7b1a6",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "cat-file",
+        "--batch"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 60131768,
+      "stdoutSha256": "cff2fb19de4ba36e149ad39229bf209633c8b9cdeb24fc8e3a4d4e6d74ee8b52",
+      "stderr": "",
+      "stdinDescription": "All blob OIDs, one per line, in preceding enumeration order.",
+      "stdinBytes": 80688,
+      "stdinSha256": "44062c1ee40136d7ef6d8a472ccd24192137a15374f740a0fedb40b82b6f8cf7"
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/expedition.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/hero.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/heroMenuReadiness.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 246,
+      "stdoutSha256": "05d20d75ff79d276fd62dbcda893a56aa1b7e5c72ae40463d57955500961799b",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "18656ea050675a3f8f38dbcd0ce3e9ca6a06920a:tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 13718,
+      "stdoutSha256": "971e1ece8587e2bdc84c9d5a12f8b21b4751898fb4a2bfdd95694d99c377b5b5",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "70ce805be58d9171994feb93b04e67aa750c0859:tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 10277,
+      "stdoutSha256": "27ac282b47bfb4afba3ef587b5d2cb1220c1c69de1073c0a2e6e73042ace1a4e",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "c6f7d2d9206c78df1bf6218ff44aec6560d26382:tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 6326,
+      "stdoutSha256": "2dfd6df8944f5b7981fb45368c45fb6392c219e8efb6215353c37918058ef41e",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "e4bbbe4f0c479390e38f38bac7b899bbd70d08e3:tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 4632,
+      "stdoutSha256": "8da6198e4250aa9fe46520ede9710b6e61d8beb46b0d1f7fa2ef7701125c5b93",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "66cf6f52df913d35f2adf6f516ac050ac90e8aa8:tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 4206,
+      "stdoutSha256": "4626b7b10d95f4ee915a0e2af48c4e083f48c568679ec1ed2f1f8803c717b730",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "f86ea9173bd2ff66ee66317fecd7e4c97fd543f4:tests/ipc.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 4037,
+      "stdoutSha256": "364feb55c70243849810c0dbef5b31ec998edde36a4180e14d120d4926143559",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 287,
+      "stdoutSha256": "01296546341edf357d62edd130ec84f4b7a83be85704d2a2673b4aa75ffcd0aa",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "e9ce2c8dae95054432d46ac50cb2c8cdab26105a:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 30207,
+      "stdoutSha256": "7aba50886412c83520272b74f29ff9a3ba2e021ee19399a5a1455a1d3ea2f9ce",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "db209fccc305fcd0f0e9d5686e2847e2f88887ba:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 30207,
+      "stdoutSha256": "f5e88ed778e91ac8408448b1dbcd5d99c0b4f3c913a1730e1606545028677b76",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "29336be615660a2efbc21680a00558857d13a56f:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 30207,
+      "stdoutSha256": "fc1764520c1705b0bf27acd190b80df86c3e8ea15d8234d7c8d81f751138f638",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "23a46fa519299611d7c7f4dce25c3e7ea8594045:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 22277,
+      "stdoutSha256": "da6bf2003233c146de5304440273fd252cb468fb662ccfbeef2eab22d92831df",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "534aa3f8fae84e2268636661a88a6854721c5a5e:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 18178,
+      "stdoutSha256": "1b3be906d471ee453291d97cacbd0ad21a7503d120f8e1478c5d044f1e913ff1",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "150294009d14904da4d451594f530bcce692d18f:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 18170,
+      "stdoutSha256": "bfc7aad908f171b6fa644a13e8eb1bfed47400a6582f0f0fa5c783cd1f67601d",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "6eb4a82f0a39053975e0d19b3315388ae59ad06c:tests/menu.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 9679,
+      "stdoutSha256": "5849064562ae0f73aee1315db920100eef856dfbda221791ef904849719b8d15",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/progressV6.test.ts"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "cat-file",
+        "--batch-all-objects",
+        "--batch-check=%(objectname) %(objecttype) %(objectsize)"
+      ],
+      "exitCode": 0,
+      "stdoutBytes": 275531,
+      "stdoutSha256": "77d3a16e93493addc4ee02dd8b1d4b5d9989cf2f49b6f40281a3994abcd7b1a6",
+      "stderr": ""
+    }
+  ],
+  "preliminaryCommands": [
+    {
+      "argv": [
+        "git",
+        "log",
+        "--all",
+        "--reflog",
+        "--format=%H",
+        "--",
+        "tests/expedition.test.ts",
+        "tests/hero.test.ts",
+        "tests/heroMenuReadiness.test.ts",
+        "tests/ipc.test.ts",
+        "tests/menu.test.ts",
+        "tests/progressV6.test.ts"
+      ],
+      "exitCode": 0,
+      "distinctCommitCount": 13
+    },
+    {
+      "argv": [
+        "git",
+        "cat-file",
+        "--batch-all-objects",
+        "--batch-check=%(objectname) %(objecttype) %(objectsize)"
+      ],
+      "exitCode": 0,
+      "blobCount": 1968,
+      "blobBytes": 60029364,
+      "enumerationSha256": "77d3a16e93493addc4ee02dd8b1d4b5d9989cf2f49b6f40281a3994abcd7b1a6"
+    },
+    {
+      "argv": [
+        "git",
+        "cat-file",
+        "--batch"
+      ],
+      "exitCode": 0,
+      "stdinDescription": "All 1968 blob OIDs from preliminary enumeration; raw SHA-256 compared to six targets. No matches."
+    }
+  ],
+  "limitations": [
+    "NOT_FOUND means no exact byte hash among local blobs visible to git cat-file at this scan. It does not assert current file absence, deletion, or loss of a user edit.",
+    "Uncommitted working-tree edits need not have entered Git as blobs. Earlier uncommitted state may instead be covered by the separate archive/contracts investigation owned by Balance.",
+    "--batch-all-objects covers locally available loose/packed and otherwise unreachable blobs (and any locally configured alternate object stores), not remote objects or already pruned objects. No fetch or recovery was attempted.",
+    "Git replacement resolution was disabled for the conclusive scan; each raw blob also revalidated its stored SHA-1 identity. No decoding, newline conversion, whitespace normalization or fuzzy comparison was used.",
+    "Path-filtered git log --all --reflog is supplemental provenance and may simplify path history; the all-blob search does not rely on path names or reachability. Other clones, backups, stash source files outside local objects, filesystem snapshots and archive contents were not inspected.",
+    "Reports record hash-search scope and cannot independently establish that the original supplied manifest is accurate. No source was copied back or modified."
+  ]
+}

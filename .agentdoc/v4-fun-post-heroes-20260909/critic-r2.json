@@ -1,0 +1,79 @@
+{
+  "requestId": "6e53e7a9fbd555bb08f5779a5fa89de97a2b0a2de28bcb78f70e2f57399081bc",
+  "round": 2,
+  "role": "critic",
+  "agent": "ab86c2fee8b8e8d80 (critic-r2, Agent tool general-purpose)",
+  "decision": "pass",
+  "summary": "C1~C7을 전부 독립 재현으로 검증했고 남은 것은 minor 5건뿐이라 통과시킨다. 먼저 디자이너 데이터를 믿지 않고 1회용 계측 2개(실행 후 삭제, git status 원상)를 돌려 probe-r2를 재현했다 — seed 1..100 active 30분 처치 1,222/1,238/1,255, collected 14(min=max), 환생 15, fullRosterBossKills 46/63/75, bestIndex 93, souls 135, 시작 souls +10 = 1,291(+4.37%) / +20 = 1,317(+6.47%)까지 전부 일치했다. [C1] 지표 재정의는 측정 포기가 아니다: 수집은 heroChoose에서만 자라고(hero.ts:176-183) 성공 수락이 HERO_REST_MS를 재장전하며(hero.ts:184) heroReady가 잠그므로(hero.ts:62-63) '수집 <= 환생 = floor(경과/120s)'는 코드가 강제하는 상한이고, 새 H3(min(50, reincarnations) + 불변식 2개)은 라운드 1에서 내가 요구한 통과 조건과 문언까지 같다. '14->20종'도 삭제됐다. [C2] rollHeroChoices를 직접 읽어 unseen 필터가 세 슬롯 전부에 걸리고 i!==0 제약이 슬롯 0 전용이며 슬롯당 rng.next()가 정확히 2회임을 확인했다. 다만 '회귀가 구조적으로 0, 이후 draw가 비트 단위로 동일'은 반증된다 — 스트림 길이는 보존되지만 슬롯 0의 form이 바뀌면 장착 버프가 동료 피해에 들어가(engine.ts:278) 처치 타이밍이 어긋난다. 실험으로 크기를 쟀다(오퍼는 그대로, 선택만 첫 카드->첫 미수집으로 바꾼 등가 섭동): 처치 p50 1,238->1,239, seed별 Δ는 -0.16%~+0.16%, 동일 seed 70/100, collected 14->15. 크기가 무시할 수준이라 H4를 위협하지 않으므로 C2는 해소로 보고 문언만 C10으로 남긴다. [C3] H2의 p10>=8/p50>=18을 원시 데이터 재집계로 확인했다 — seed별 fullRosterBossKills에 0.35 draw를 적용한 파생 분포가 min 7 / p10 13 / p50 21 / p90 31, mean 21.6이라 목표는 보수적이고 달성 가능하며 H1의 before '약 22건'도 확인된다. 표시(H2b)를 보상에서 분리한 것도 옳다. [C4] '시작 souls +N 주입'이 '점진 +11'의 상한인지 반증을 시도했고 상한임을 확인했다. 점진 지급을 실제로 구현해(만석 보스 킬마다 독립 0.35 draw, 2건마다 souls+1을 toSave/createEngine으로 주입, 재생성 편향은 souls를 더하지 않는 sham 대조군으로 제거) 측정한 결과 처치 p50 base 1,237 / sham 1,236 / gradual 1,238 = +0.08%, 지급량 p50 10, 최종 souls 146이다. 즉 디자이너가 예산으로 쓴 +4.3%는 약 50배 과대한 상한이며(souls가 (1+souls) 승수라 souls가 작은 초반 레버리지가 압도적인데 방생은 만석 이후에만 발생), 시작 +10의 최종 souls 150 > 점진 146이라 모든 t에서 대조군 >= 점진이 성립해 상한 논증도 유효하다. '+11은 ±5% 안'은 참이고 여유는 주장보다 훨씬 크다(그 부작용은 C12). releasedCount는 parseSave의 화이트리스트 intField 파싱(save.ts:172/241-)이라 구버전 세이브가 그대로 로드되고 신뢰 경계를 넓히지 않으며, battle.ts가 souls를 읽지 않아 PvP 목록/실전 불일치도 생기지 않는다. 원클릭 최약체 정리는 이미 확인창 없는 1클릭으로 존재하는 sacrifice(menu/index.ts:325-327, collection.ts:215-218)를 재사용할 뿐이고 필드가 아니라 사용자가 연 메뉴 안이라 새 손실 표면이 아니다. [C5] 좌표를 직접 계산해 우상단 카운터(x>=170), 머리 위 REBIRTH READY(x[55,106)이지만 y≈72라 y 분리), LEVEL UP! 배너(x[64,136))와의 교집합 0을 확인했다 — 다만 같은 배너 슬롯이 그리는 'VS <닉네임>'(game.ts:857, NICK_RE 최대 16자)은 x_left = 89-4L이라 닉 8자 이상에서 새 박스와 y=20 한 행이 겹친다(C9). [C6][C7] 한계 3종이 ID로 명시됐고 fullRosterBossKills 개명과 seed 1..100 통일도 확인했다. 새로 찾은 것은 C8이다 — GAME_DESIGN_V4.md:44의 '최고 해금 단계의 외형을 최소 하나 보장'이 A5' 구현안에서 15번째 오퍼부터 깨지는데(슬롯 0/1/2 모두 하위 등급 미수집을 우선) 디자이너는 '계약 미접촉'이라고만 적었고 tests/hero.test.ts:41은 collection이 비어 있어 이를 잡지 못한다. 실피해는 거의 없어(그 시점엔 최고 등급 전량 보유, rank는 순수 시각) minor다. 공격 재실행에서 무너진 것은 없다: 장착 외형을 바꿔도 처치 Δ<=0.16%라 숫자로 항상 우월한 외형이 없고, 3속성 상이 강제와 미수집 우선은 유지되며, 무료 보류 30초/골드 재굴림식/roll 10-25/offerSerial 방어/parseHeroProgress의 재로드 차단은 전부 미접촉이고, 추가 표시는 오버레이 렌더와 사용자가 연 메뉴뿐이라 포커스 강탈이 없다. 사람이 느끼는 재미와 업무 방해는 여전히 PENDING이며 시뮬레이션은 페이스만 증명한다.",
+  "evidence": [
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/critic-evidence.md",
+      "note": "'## 라운드 2' 섹션을 이어붙였다(라운드 1 원문 보존). 디자이너 프로브 재현표, C1~C7 각각의 검증 근거, A5' 등가 섭동 실험(처치 Δ -0.16%~+0.16%), C4 점진 지급 실험(base/sham/gradual/시작+10/+20), 픽셀 좌표 재계산과 VS 배너 반례, 공격 8종 재실행 결과."
+    },
+    {
+      "path": ".agentdoc/v4-fun-post-heroes-20260909/probe-r2.json",
+      "note": "디자이너 원시 프로브. 내 독립 실행이 처치 1,222/1,238/1,255, collected 14, 환생 15, fullRosterBossKills 46/63/75, 시작 souls +10/+20 감도까지 전부 재현해 수치의 신뢰성을 확인했다."
+    },
+    {
+      "path": "src/core/hero.ts",
+      "note": "rollHeroChoices:130-143(슬롯당 rng.next() 2회, unseen 필터 3슬롯 공통, i!==0 제약은 슬롯 0), heroChoose:176-189(수집 증가·rest 재장전·영혼 일괄 지급), heroAttackPower:73-74((1+souls) 선형 승수 = C4 상한 논증의 근거), parseHeroProgress:91-126(재로드 추가 뽑기 차단), HERO_FORMS:39-49(rank는 순수 시각)."
+    },
+    {
+      "path": "src/core/engine.ts",
+      "note": "applyDamage의 포획 분기 187 — `killed.boss && rng.next() < CAPTURE_CHANCE && companions.length < ROSTER_CAP`. draw가 boss 분기 안에서만 소비되므로 A3' 구현 시 이 위치를 유지해야 RNG 스트림이 보존된다(C11). 동료 피해 278행이 heroBuffedPower(equipped)를 쓰는 것이 A5' 섭동이 0이 아닌 이유다."
+    },
+    {
+      "path": "src/core/save.ts",
+      "note": "intField:172와 parseSave:241- 화이트리스트 파싱 — releasedCount 같은 기본값 0의 가산 정수 필드는 구버전 세이브를 그대로 로드하고 신뢰 경계를 넓히지 않음을 확인했다."
+    },
+    {
+      "path": "src/renderer/hud.ts",
+      "note": "HUD_MARGIN:28 / COUNTER_TOP:30 / drawMeter:40-59 / drawLevelHud:79-93 / drawCounters:115-133 / BANNER_Y:321 / drawBanner:354-361 — C5 픽셀 예산과 비겹침을 좌표식으로 재계산한 출처. 배너 x = (200 - textWidth*2)/2가 C9 반례의 근거다."
+    },
+    {
+      "path": ".harness/v4/reference/GAME_DESIGN_V4.md",
+      "note": "44행 '최고 해금 단계의 외형을 최소 하나 보장하고 가능한 후보 내에서 미수집 외형을 우선한다' — A5'가 15번째 오퍼부터 이 무조건 보장을 깨는데 수정안에 언급이 없다(C8)."
+    }
+  ],
+  "findings": [
+    {
+      "id": "C8",
+      "severity": "minor",
+      "problem": "A5'의 구현안(슬롯 0 풀 = topUnseen -> 전등급 미수집 -> 최고등급)이 승인된 GAME_DESIGN_V4.md:44의 '최고 해금 단계의 외형을 최소 하나 보장' 절을 15번째 오퍼부터 깬다. rank5 10종을 다 모으면 슬롯 0은 하위 등급 미수집을 뽑고, 슬롯 1/2도 unseen 필터(hero.ts:136-137)로 하위 등급을 우선하므로 오퍼 전체에 최고 등급이 0장인 상태가 가능하다. designer-r2.json은 '계약 미접촉'과 '초반 14회는 규칙 유지'만 적었을 뿐 15회 이후 보장이 사라진다는 사실을 밝히지 않았고, tests/hero.test.ts:41의 choices[0].rank === 5 단언은 collection이 빈 상태로 돌아 이 회귀를 잡지 못한다. 실피해는 거의 없다 — 그 시점에는 최고 등급을 전부 보유하고 rank는 순수 시각이며 재장착은 메뉴에서 무료다.",
+      "fix": "둘 중 하나를 명시한다. (a) 보장을 슬롯 0이 아닌 슬롯 1 또는 2로 옮겨 '오퍼에 최고 등급 1장 + 첫 카드는 미수집'을 동시에 만족시킨다(A5'의 이득은 그대로), 또는 (b) 문서 절을 '최고 등급에 미수집이 남아 있는 동안'의 조건부 보장으로 개정한다고 수정안에 적는다. 통과 조건: 선택한 쪽이 designer 문서와 H3 불변식에 문장으로 남고, 미수집이 남은 구간에서 rank 보장을 확인하는 테스트가 hero.test.ts:41과 별도로 추가될 것."
+    },
+    {
+      "id": "C9",
+      "severity": "minor",
+      "problem": "C5의 '기존 UI 6종과 교집합 0'이 배너의 다른 텍스트를 빠뜨렸다. 같은 배너 슬롯이 PvP 리플레이에서 `VS ${opponentName}`을 그리고(src/renderer/game.ts:857) 닉네임 상한은 NICK_RE = ^[A-Za-z0-9_-]{1,16}$ (src/shared/api.ts:112)이라 최대 19글자다. drawBanner의 x = (200 - textWidth*BANNER_SCALE)/2에서 x_left = 89 - 4L(L=닉 길이)이므로 L>=8이면 x_left<60이 되어 새 박스 x[2,60)와 겹치고, 배너 y[20,30)와 박스 y[16,21)의 교집합이 y=20 한 행 남는다. 게다가 drawLevelHud/drawCounters/drawBanner는 scene 분기 밖에서 무조건 호출되므로(game.ts:1081-1086) PvP 리플레이 중에도 새 게이지가 함께 그려진다.",
+      "fix": "H7의 비겹침 단언을 '최장 배너 텍스트(VS + 16자)'로 확장하고, 게이지/숫자 박스를 y[15,20)으로 1px 올리거나(FONT_H=5 기준) 배너와 겹치는 프레임에서 상시 HUD를 숨기는 규칙 중 하나를 고른다. 통과 조건: 렌더 테스트가 LEVEL UP!/VICTORY!/DEFEAT/FEVER!/VS+16자 전부에 대해 교집합 0을 단언할 것."
+    },
+    {
+      "id": "C10",
+      "severity": "minor",
+      "problem": "'슬롯당 rng.next() 호출 수가 같으므로 이후 draw가 비트 단위로 동일하고 처치/드랍/포획 회귀가 구조적으로 0'이라는 문장이 사실이 아니다. 스트림 길이는 보존되지만 슬롯 0에서 뽑히는 form이 바뀌면 장착 버프가 동료 피해에 반영되고(engine.ts:278의 heroBuffedPower(..., state.hero?.equipped)) 처치 타이밍이 달라져 같은 값이 다른 이벤트에 소비된다. 내가 A5'와 동일한 종류의 섭동(오퍼는 그대로, 선택만 첫 카드->첫 미수집. heroChoose는 RNG를 소비하지 않는다)으로 seed 1..100을 돌린 결과 30분 처치 p50 1,238->1,239, seed별 Δ min -2 / max +2(-0.16%~+0.16%), 동일 seed 70/100이었다. 크기는 무해하지만 '0이므로 재측정 불필요'로 읽히면 H4의 after 측정이 생략될 수 있다.",
+      "fix": "문장을 '슬롯당 RNG 소비량이 불변이므로 회귀 기여가 작다(실측 |Δ| <= 0.2%)'로 바꾸고, H4의 after를 A5' 적용 후 seed 1..100으로 실제로 재측정한다고 명시한다. 통과 조건: '구조적으로 0'/'비트 단위 동일' 표현이 사라지고 H4 after 측정이 면제 대상이 아닐 것."
+    },
+    {
+      "id": "C11",
+      "severity": "minor",
+      "problem": "A3'의 구현 위치가 RNG 스트림을 옮기기 쉬운 자리다. 현재 포획 분기는 `killed.boss && rng.next() < CAPTURE_CHANCE && state.companions.length < ROSTER_CAP`(src/core/engine.ts:187)이라 draw는 보스 킬에서만, 그리고 로스터 검사보다 먼저 소비된다. 방생 이벤트를 만들려고 draw 결과를 변수로 빼면서 조건을 `const drew = rng.next() < CAPTURE_CHANCE`처럼 보스 여부 밖으로 올리면 일반 몬스터 킬마다 draw가 하나씩 더 소비되어 이후 모든 페이스가 어긋나고 H4(처치 1,238 ±5%)가 통째로 무너진다. 수정안에는 이 순서 계약이 적혀 있지 않다.",
+      "fix": "A3'의 계약에 'draw는 보스 킬 분기 안에서, 로스터 용량 검사보다 먼저, 킬당 정확히 1회'를 명문화하고 H4에 'A3' 적용 전후 동일 seed의 처치 수 분포가 방생 영혼 효과(+0.1% 수준)를 제외하면 일치'라는 회귀 단언을 넣는다. 통과 조건: 순서 계약이 문장으로 남고 이를 검사하는 테스트(보스가 아닌 킬에서 rng 소비량 불변)가 존재할 것."
+    },
+    {
+      "id": "C12",
+      "severity": "minor",
+      "problem": "확정한 환산값이 잘못된 상한에 눌려 과도하게 보수적이다. 나는 점진 지급을 실제로 구현해 측정했고(만석 보스 킬마다 독립 0.35 draw, 2건마다 souls +1을 toSave/createEngine으로 주입, 재생성 자체의 편향은 souls를 더하지 않는 sham 대조군으로 제거) 30분 처치 p50이 base 1,237 / sham 1,236 / gradual 1,238로 +0.08%에 그쳤다. 디자이너가 예산으로 쓴 '시작 souls +10 = +4.3%'는 souls가 (1+souls) 승수라 souls가 작은 초반에 레버리지가 압도적인 데서 오는 약 50배 과대한 상한이다. 그 결과 draw당 +1(+22 영혼, 실측으로는 +0.2% 수준)이 근거 없이 기각되어, 안티패턴 6('수집 실패의 침묵')을 고치겠다는 보상이 필요 이상으로 얇아졌다.",
+      "fix": "환산값을 재검토한다 — 상한 대조군이 아니라 점진 지급 자체를 seed 1..100으로 측정해 draw당 +1(또는 2건당 1 + 소액 골드/트링킷)의 실제 회귀를 확인하고, 그 값이 ±5% 안이면 더 두꺼운 보상을 택한다. 이번 라운드에 2건당 1을 유지하더라도 '상한 대조군은 점진 지급의 약 50배 과대 추정'이라는 사실을 근거 문서에 남긴다. 통과 조건: 환산값 선택의 근거가 점진 지급 실측치와 함께 기록될 것."
+    }
+  ],
+  "verified": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+    "C6",
+    "C7"
+  ]
+}

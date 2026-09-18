@@ -62,7 +62,7 @@ describe('packaging config safety (F26, package.json build)', () => {
     expect(pkg.scripts['package']).not.toContain('--win');
   });
 
-  it('windows nsis target is present as config only', () => {
+  it('windows nsis target remains present', () => {
     expect(pkg.build.win.target).toEqual([{ target: 'nsis', arch: ['x64'] }]);
     expect(pkg.build.nsis).toBeTruthy();
   });
@@ -92,8 +92,10 @@ describe('README operator docs (F27)', () => {
     expect(readme).toContain('Reset Progress');
   });
 
-  it('documents that the Windows target is config-only', () => {
-    expect(readme.toLowerCase()).toContain('config only');
+  it('documents Windows build and native verification commands', () => {
+    expect(readme).toContain('npm run package:win');
+    expect(readme).toContain('npm run smoke:win');
+    expect(readme).toContain('Windows 11 x64');
   });
 
   it('names the exact packaged artifacts the AC checks for (kept in sync with version)', () => {
@@ -109,12 +111,16 @@ describe('README operator docs (F27)', () => {
     expect(readme).toContain('A\u2013Z notation');
   });
 
-  it('documents the v3 gameplay: type chart, party of 5, replay, steal and reclaim', () => {
-    for (const topic of ['type chart', 'party', 'replay', 'reclaim', 'notification']) {
+  it('documents party battles, gold transfers, defensive replay and legacy reclaim', () => {
+    for (const topic of ['type chart', 'party', 'replay', 'reclaim', 'notification', 'gold', 'defense', 'offline']) {
       expect(readme.toLowerCase()).toContain(topic);
     }
-    expect(readme).toContain('Find opponent');
+    expect(readme).toContain('Opponent list');
+    expect(readme).toContain('wins/losses');
     expect(readme).toContain('24 hours');
+    expect(readme).toContain('75G');
+    expect(readme).toContain('250G');
+    expect(readme).toContain('Companions stay with their owners.');
     expect(readme).toContain('400'); // overlay window width (F76 / T72; 400×260 since 2026-09-04)
   });
 
@@ -142,7 +148,7 @@ describe('version bump (F76; was F57)', () => {
       version: string;
       packages: Record<string, { version?: string }>;
     };
-    expect(pkg.version).toBe('0.3.0');
+    expect(pkg.version).toBe('0.10.0');
     expect(lock.version).toBe(pkg.version);
     expect(lock.packages['']?.version).toBe(pkg.version);
   });

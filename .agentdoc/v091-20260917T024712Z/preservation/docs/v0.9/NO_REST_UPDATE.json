@@ -1,0 +1,50 @@
+{
+  "version": "0.9.0",
+  "changeId": "no-left-hud-no-rebirth-rest",
+  "session": ".agentdoc/v09-no-rest-20260916T095321Z",
+  "approved": "2026-09-16",
+  "productionParameters": {
+    "heroMinLevel": 17,
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailNumerator": 10450,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroLevelStepEvery": 2,
+    "heroLevelStepCap": 6,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "xpRewardBase": 5,
+    "xpRewardPerIndex": 3,
+    "bossXpMultiplier": 5,
+    "bossHpMultiplier": 5
+  },
+  "changes": [
+    "Remove the top-left expedition HUD entirely",
+    "Remove successful reincarnation rest; ignore legacy restRemainingMs on load and omit it on new saves"
+  ],
+  "preserved": [
+    "heroDefer 30000ms",
+    "level prerequisites and reincarnation cap",
+    "rewards and offer serial validation",
+    "save schema version 3",
+    "hero-head level/XP and top-right counters"
+  ],
+  "verification": {
+    "gates": "npm test && npm run lint && npm run typecheck",
+    "coreCases": 200,
+    "native": "isolated production Electron UI and restart/restore checks",
+    "package": [
+      "macOS smoke + DMG",
+      "Windows installer/unpacked"
+    ]
+  },
+  "historicalEvidence": ".agentdoc/v09-20260915T084032Z"
+}

@@ -1,0 +1,219 @@
+{
+  "experiment": {
+    "kind": "candidate",
+    "id": "candidate-r2-xp141",
+    "hypothesis": "Lv17 control reached20/20 by90min but median27.275min was early. Raise only XP growth to1.41 to approach45\u201360min; preserve115/100 field,35% capture, no guarantee. Tail and12h eligibility remain unproven.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.41,
+      "fieldHpNumerator": 115,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": null,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5
+    }
+  },
+  "startedAt": "2026-09-12T04:14:16.171140+00:00",
+  "protocolFileSha256": "3a891374f4e0ef5c3bc4e4b1f6c272824e3a52cd89b1807b2f555df060c6cc24",
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/evaluation.tar.gz",
+    "sha256": "8c4e96688e4317c45652384dd955604ae027e4e6a800f3b22eb2d2bb97868895"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T04:14:16.264810+00:00",
+      "endedAt": "2026-09-12T04:14:19.798828+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/production-tests.log",
+      "sha256": "f8b839080a6ee0f457129036ae3222e5c5f3a08778d118e95baa3cf8b4bca6e1"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r2-xp141",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T04:14:19.799618+00:00",
+      "endedAt": "2026-09-12T04:14:26.128510+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/screening.log",
+      "sha256": "bbd188993efab18bb0cbb96b758ee8042f0f013467b8fec5c2121e195cdb1dbb"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/screening.json"
+      ],
+      "startedAt": "2026-09-12T04:14:26.129065+00:00",
+      "endedAt": "2026-09-12T04:14:26.245609+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/screening-verify.log",
+      "sha256": "27bbc6939dc87f7364f6350bd0c7902f4eae5854cb1966fe460c655b72e973cf"
+    },
+    {
+      "label": "full-12h",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/full-12h.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r2-xp141",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4"
+      ],
+      "startedAt": "2026-09-12T04:14:26.254513+00:00",
+      "endedAt": "2026-09-12T04:15:03.147017+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/full-12h.log",
+      "sha256": "97cec44852673d32c2cbcb27396fe212ef3780a033d8ba3ecb77b2861f3012f7"
+    },
+    {
+      "label": "full-12h-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/full-12h.json"
+      ],
+      "startedAt": "2026-09-12T04:15:03.148331+00:00",
+      "endedAt": "2026-09-12T04:15:03.274489+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/full-12h-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/production-source.tar.gz",
+    "sha256": "85f3d50b6616546af302dfab8461d02f29350c9f407233e57e3c1f5f8c2ba439"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/screening.json",
+    "sha256": "1969b3e402cfb4c1570648d1908f662d1ac6d55c16ede295a30c898de528157b",
+    "sourceDigest": "cbb97a13023f9327fd06e90bc166cb3b4f0f2fe10fc0a61b96394603e5d5e6b5",
+    "evaluationDigest": "659e1bf05b0d7f319a835ad9b8f90cadaa85944cb59149f225bfa752004cffce",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r2-xp141",
+      "parametersSha256": "f6f4dc08b81c50a09a79ed60c2b292e939b92e7adc667833e63b5ab37bf754fc",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "PASS",
+      "passed": true,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2902.6,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 18,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "buildSha256": "dfa275f88c8d6e65c2239836a6270db4c30ae4f6c1b457a36170512019e287cc",
+    "rawSha256": "22073735000ca7beeb4bc41961bda350b66b63e782a3c5de566a601e7b330cde"
+  },
+  "full-12h": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/full-12h.json",
+    "sha256": "07fc650cd60757317f85894e55e60e29afe16be610a43c26898770b122fa1ef3",
+    "sourceDigest": "cbb97a13023f9327fd06e90bc166cb3b4f0f2fe10fc0a61b96394603e5d5e6b5",
+    "evaluationDigest": "659e1bf05b0d7f319a835ad9b8f90cadaa85944cb59149f225bfa752004cffce",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r2-xp141",
+      "parametersSha256": "f6f4dc08b81c50a09a79ed60c2b292e939b92e7adc667833e63b5ab37bf754fc",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2902.6,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 18,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        },
+        {
+          "id": "last-unlock-median",
+          "passed": false,
+          "observedSec": null,
+          "minSec": 28800,
+          "maxSec": 43200,
+          "registered": true
+        }
+      ],
+      "skipped": [],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "buildSha256": "dfa275f88c8d6e65c2239836a6270db4c30ae4f6c1b457a36170512019e287cc",
+    "rawSha256": "020849a8e4c3aff0de252dc7ddbc4f63a3406b641b0eebf99042d74442afae67"
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/candidate-r2-xp141/compiled-build.tar.gz",
+    "sha256": "3a711b7313e208a7c6e58cd433349da6a8ef213270f92773b28399681bc2ab1b"
+  },
+  "endedAt": "2026-09-12T04:15:03.363930+00:00"
+}

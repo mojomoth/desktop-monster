@@ -1,0 +1,400 @@
+{
+  "version": 9,
+  "createdAt": "2026-09-15T08:46:31.999Z",
+  "tasks": [
+    {
+      "id": "V09-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v9",
+        "docs/v0.9"
+      ],
+      "ac": "node --test .harness/v9/run.test.mjs",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node --test .harness/v9/run.test.mjs",
+          "startedAt": "2026-09-15T09:34:52.866Z",
+          "endedAt": "2026-09-15T09:34:52.973Z",
+          "before": "d9bb14458b489cd5ab41591750023dd6126f5df475240ec281a66d9683a945f3",
+          "after": "d9bb14458b489cd5ab41591750023dd6126f5df475240ec281a66d9683a945f3",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-01-ac-1789464892866.log",
+          "logHash": "239465ae2c470dcf3c6648c632dbb27928571ef7e46d1f19badd039cb8070754"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v9/run.test.mjs",
+          "startedAt": "2026-09-15T14:44:28.627Z",
+          "endedAt": "2026-09-15T14:44:28.714Z",
+          "before": "6a6ad29ccb20b050b99b0a08368e8373c23239786a699b1763756c957240d82c",
+          "after": "6a6ad29ccb20b050b99b0a08368e8373c23239786a699b1763756c957240d82c",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-01-ac-1789483468627.log",
+          "logHash": "c2a7935f6ab2ce112483d30496c8ee5c436be4822271c4e884077619faa46711"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:08.674Z"
+    },
+    {
+      "id": "V09-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V09-01"
+      ],
+      "files": [
+        "src/server",
+        "src/core",
+        "src/shared/api.ts"
+      ],
+      "ac": "npx vitest run tests/server tests/progressionV7.test.ts tests/save.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/server tests/progressionV7.test.ts tests/save.test.ts",
+          "startedAt": "2026-09-15T09:35:41.552Z",
+          "endedAt": "2026-09-15T09:35:43.090Z",
+          "before": "178fd3098ba9677c6610ed5b07cbb8cf82d0c48ac4ae83a6ce6b536bac154a04",
+          "after": "178fd3098ba9677c6610ed5b07cbb8cf82d0c48ac4ae83a6ce6b536bac154a04",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-02-ac-1789464941552.log",
+          "logHash": "b862138afa53b790d5c98fe812c2c39c8114f64f3cf1a6255e747fb554fcbbd4"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/server tests/progressionV7.test.ts tests/save.test.ts",
+          "startedAt": "2026-09-15T14:44:28.775Z",
+          "endedAt": "2026-09-15T14:44:30.119Z",
+          "before": "befc900377354b228c52602e4e5c1d412871ffdfcdf2d0e44ee5e47e2593e71d",
+          "after": "befc900377354b228c52602e4e5c1d412871ffdfcdf2d0e44ee5e47e2593e71d",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-02-ac-1789483468775.log",
+          "logHash": "ff9f76e4e0e8fa66021240d00fd39502ac663be6e6da6730de4f7c210ab5ea41"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:08.738Z"
+    },
+    {
+      "id": "V09-03",
+      "owner": "Host",
+      "dependencies": [
+        "V09-02"
+      ],
+      "files": [
+        "src/main",
+        "src/preload",
+        "src/shared/ipc.ts",
+        "src/renderer/index.ts"
+      ],
+      "ac": "npx vitest run tests/recoveryV9.test.ts tests/onlineV9.test.ts tests/ipc.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/recoveryV9.test.ts tests/onlineV9.test.ts tests/ipc.test.ts",
+          "startedAt": "2026-09-15T09:36:35.007Z",
+          "endedAt": "2026-09-15T09:36:36.375Z",
+          "before": "b0351be2b732c0e05b3b5b1b9aea82ba7fae2212ba54dea14c8756576286e5b4",
+          "after": "b0351be2b732c0e05b3b5b1b9aea82ba7fae2212ba54dea14c8756576286e5b4",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-03-ac-1789464995007.log",
+          "logHash": "b162317fe0db7bf268b413cfea08de98a472893c1cb0d60f1631a5228fdfe523"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/recoveryV9.test.ts tests/onlineV9.test.ts tests/ipc.test.ts",
+          "startedAt": "2026-09-15T14:44:30.189Z",
+          "endedAt": "2026-09-15T14:44:31.138Z",
+          "before": "cf4ceb7ad027395f1ccacc3a8ac3733ed1e401b2ab7ac55d053c287bc2eb0e94",
+          "after": "cf4ceb7ad027395f1ccacc3a8ac3733ed1e401b2ab7ac55d053c287bc2eb0e94",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-03-ac-1789483470189.log",
+          "logHash": "4bef122aaa8ce18d216bcea78605a8c2f78aaf5547884ef9ffe13abdeab6f3f6"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:08.813Z"
+    },
+    {
+      "id": "V09-04",
+      "owner": "Host",
+      "dependencies": [
+        "V09-03"
+      ],
+      "files": [
+        "src/menu/index.ts",
+        "src/menu/view.ts",
+        "static/menu.html",
+        "static/menu.css"
+      ],
+      "ac": "npx vitest run tests/menu.test.ts tests/pvpDirectoryV7.test.ts tests/menuV9.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/pvpDirectoryV7.test.ts tests/menuV9.test.ts",
+          "startedAt": "2026-09-15T09:36:36.453Z",
+          "endedAt": "2026-09-15T09:36:37.685Z",
+          "before": "d0be7b3af9c8c76c42ff6397b05f24dbaf7dff70d33044184727306e9284252d",
+          "after": "d0be7b3af9c8c76c42ff6397b05f24dbaf7dff70d33044184727306e9284252d",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-04-ac-1789464996453.log",
+          "logHash": "697278e15a7fe37573f134567a63206f373193dcffaf8b5f35b70f471ec27f9e"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/pvpDirectoryV7.test.ts tests/menuV9.test.ts",
+          "startedAt": "2026-09-15T14:44:31.209Z",
+          "endedAt": "2026-09-15T14:44:32.283Z",
+          "before": "eb67d50eac541298764201b44f4d3168e825a4f3be6234ce9125422233cb3753",
+          "after": "eb67d50eac541298764201b44f4d3168e825a4f3be6234ce9125422233cb3753",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-04-ac-1789483471209.log",
+          "logHash": "fd2df1a2b0e0a0ed62e6d4c18a506fc111f1acd988068fe390842ee5427c6b9a"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:08.891Z"
+    },
+    {
+      "id": "V09-05",
+      "owner": "Designer",
+      "dependencies": [
+        "V09-01"
+      ],
+      "files": [
+        "src/renderer/game.ts",
+        "src/renderer/hud.ts",
+        "src/renderer/effects.ts",
+        "src/renderer/particles.ts"
+      ],
+      "ac": "npx vitest run tests/renderer.test.ts tests/effects.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/renderer.test.ts tests/effects-v09.test.ts tests/hud-v09.test.ts",
+          "startedAt": "2026-09-15T09:36:37.753Z",
+          "endedAt": "2026-09-15T09:36:39.009Z",
+          "before": "07a6153eea3e5b4d5b3a0a62f489e6fb7e0305ea0d8c41ea482e7c0886bce897",
+          "after": "07a6153eea3e5b4d5b3a0a62f489e6fb7e0305ea0d8c41ea482e7c0886bce897",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-05-ac-1789464997753.log",
+          "logHash": "28890fabec09a739dfc8d57d9bc54dd909ba6adfdd658eb33112f25ebc5b264a"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/renderer.test.ts tests/effects-v09.test.ts tests/hud-v09.test.ts",
+          "startedAt": "2026-09-15T14:44:32.353Z",
+          "endedAt": "2026-09-15T14:44:33.449Z",
+          "before": "f1172ee86765777d3139ad3a8564df0fe61f945e1dae106f959c10d8545bf086",
+          "after": "f1172ee86765777d3139ad3a8564df0fe61f945e1dae106f959c10d8545bf086",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-05-ac-1789483472353.log",
+          "logHash": "e5d02302710084133e789a5cbd98f61a6689ff6ce14a2b0661737a994df5a21c"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:08.957Z"
+    },
+    {
+      "id": "V09-06",
+      "owner": "Designer/Host",
+      "dependencies": [
+        "V09-04",
+        "V09-05"
+      ],
+      "files": [
+        "src/menu/share.ts",
+        "src/menu/shareUi.ts",
+        "src/main/share.ts"
+      ],
+      "ac": "npx vitest run tests/shareV9.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/shareV9.test.ts tests/share.test.ts tests/shareUiV9.test.ts",
+          "startedAt": "2026-09-15T09:36:39.084Z",
+          "endedAt": "2026-09-15T09:36:40.190Z",
+          "before": "4404ba38e9e849a9adb1a49dc2c9015127a01ac4d647e32ebdbfd660b8fe6391",
+          "after": "4404ba38e9e849a9adb1a49dc2c9015127a01ac4d647e32ebdbfd660b8fe6391",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-06-ac-1789464999084.log",
+          "logHash": "56e2cdafdfa24370ca8b6a5cb0e5b2e94ac9f313413d83735a4274be73296a03"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/shareV9.test.ts tests/share.test.ts tests/shareUiV9.test.ts",
+          "startedAt": "2026-09-15T14:44:33.522Z",
+          "endedAt": "2026-09-15T14:44:34.445Z",
+          "before": "69f6dfb08402a09a020b34eb3c5347d165d57348fabd6cb36d8b46befd88315b",
+          "after": "69f6dfb08402a09a020b34eb3c5347d165d57348fabd6cb36d8b46befd88315b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-06-ac-1789483473522.log",
+          "logHash": "f7e34416c23589737152079daed8e78df2e5e2700bd4c2ab3736dcf8f3080ca7"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:09.062Z"
+    },
+    {
+      "id": "V09-07",
+      "owner": "Host",
+      "dependencies": [
+        "V09-03"
+      ],
+      "files": [
+        "package.json",
+        "package-lock.json",
+        "src/main/steam.ts",
+        "scripts",
+        ".github"
+      ],
+      "ac": "npx vitest run tests/platformV9.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/platformV9.test.ts",
+          "startedAt": "2026-09-15T09:36:40.282Z",
+          "endedAt": "2026-09-15T09:36:41.058Z",
+          "before": "54ccbe4989468a74fc342e71049130c8634d4c7b939b1486b32bc9291ce31d0f",
+          "after": "54ccbe4989468a74fc342e71049130c8634d4c7b939b1486b32bc9291ce31d0f",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-07-ac-1789465000282.log",
+          "logHash": "9d7fefa198483430c1e53f2f27cc6aa2f484d707995c312fd489ef1a94d73552"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/platformV9.test.ts",
+          "startedAt": "2026-09-15T14:44:34.523Z",
+          "endedAt": "2026-09-15T14:44:35.197Z",
+          "before": "20b4d4bb787ce708fd047f79b89af785d1ef0990d1775816434e4cbe6602a1b8",
+          "after": "20b4d4bb787ce708fd047f79b89af785d1ef0990d1775816434e4cbe6602a1b8",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-07-ac-1789483474523.log",
+          "logHash": "0dd6f18af7d790b769a32d13e20f089f6f3ce9b1f3effae46ab562b894fbfe4d"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:09.142Z"
+    },
+    {
+      "id": "V09-08",
+      "owner": "Host/Critic",
+      "dependencies": [
+        "V09-02",
+        "V09-03",
+        "V09-04",
+        "V09-05",
+        "V09-06",
+        "V09-07"
+      ],
+      "files": [
+        "src",
+        "static",
+        "tests",
+        "package.json",
+        "package-lock.json"
+      ],
+      "ac": "npm run smoke && npm run package",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "startedAt": "2026-09-15T09:33:33.911Z",
+          "endedAt": "2026-09-15T09:33:47.192Z",
+          "before": "5d35b4812e1cc9a447ccafb37f4f61fc911cb9fbbf56dbbb767da8cf538574eb",
+          "after": "5d35b4812e1cc9a447ccafb37f4f61fc911cb9fbbf56dbbb767da8cf538574eb",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789464813911.log",
+          "logHash": "81a6c5a375694814d0dc9b53245985a590bc0e0013b54aa0ef093e895f566472"
+        },
+        {
+          "id": "ac",
+          "command": "npm run smoke && npm run package",
+          "startedAt": "2026-09-15T09:35:39.451Z",
+          "endedAt": "2026-09-15T09:36:07.719Z",
+          "before": "50f361c9a279ed055bd32354bb05a2b8c097a67225bb13394a65b4cd8d7f48e9",
+          "after": "50f361c9a279ed055bd32354bb05a2b8c097a67225bb13394a65b4cd8d7f48e9",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-ac-1789464939451.log",
+          "logHash": "51854a04c015af0d02859b03f4dd391319f6f7141bb6f8b79461f0e72bcdfb05"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "startedAt": "2026-09-15T14:43:41.907Z",
+          "endedAt": "2026-09-15T14:43:54.265Z",
+          "before": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+          "after": "00a556ca5f97c159e24f90eb22c62a926b7204470b56214b04fb370b2b225b9c",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-gates-1789483421907.log",
+          "logHash": "681a49714b5c4fbb11316855faa63e04dcbc7410db50d61fa0009ac21092ab2d"
+        },
+        {
+          "id": "ac",
+          "command": "npm run smoke && npm run package",
+          "startedAt": "2026-09-15T14:44:35.462Z",
+          "endedAt": "2026-09-15T14:45:02.753Z",
+          "before": "44a267cec5c6dd0434b4f088019377770c34639d4f9dec615f279e6d31b23c11",
+          "after": "44a267cec5c6dd0434b4f088019377770c34639d4f9dec615f279e6d31b23c11",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/V09-08-ac-1789483475462.log",
+          "logHash": "bc8658fa181697957fb8105043e2e50836032096caaeeb073f85db93f7294d00"
+        }
+      ],
+      "verifiedAt": "2026-09-15T14:49:09.307Z"
+    }
+  ],
+  "executionNotes": [
+    "AC02/AC08 commands briefly overlapped; restored verified immutable AC02 receipt after AC08 journal write. Subsequent checks run sequentially."
+  ],
+  "reviewOrder": [
+    {
+      "role": "Designer",
+      "agentId": "/root/designer",
+      "report": ".agentdoc/v09-20260915T084032Z/reviews/designer-native-01.md",
+      "sha256": "e1005e5d3a2c8d67576eb84dd8f1f43fd45dd71c028f1823f6eeffdecbec1ebd",
+      "decision": "accepted within documented scope"
+    },
+    {
+      "role": "Critic",
+      "agentId": "/root/critic",
+      "report": ".agentdoc/v09-20260915T084032Z/reviews/critic-implementation-05.md",
+      "sha256": "9f9f9446fd87c1d19e52fdf8773455958a3f3ca264881d056fbec9acd90e9915",
+      "decision": "accepted within documented scope"
+    },
+    {
+      "role": "Balance",
+      "agentId": "/root/balance",
+      "report": ".agentdoc/v09-20260915T084032Z/reviews/balance-implementation-final.md",
+      "sha256": "7cef1fda41dac15d2275c8a19e426714fb31137162bb244d04f02c4688a4eaf7",
+      "decision": "accepted within documented scope"
+    },
+    {
+      "role": "Playtester",
+      "agentId": "/root",
+      "report": ".agentdoc/v09-20260915T084032Z/final-evidence.json",
+      "sha256": "80d90754195e7923be15ca43681613d8aaa5b7c4c9edbf69647d7f60f2335ed9",
+      "decision": "accepted automated scope; external verification pending; release held"
+    }
+  ],
+  "playtester": {
+    "agentId": "/root",
+    "status": "passed",
+    "report": ".agentdoc/v09-20260915T084032Z/final-evidence.json"
+  },
+  "completion": {
+    "implementation": "complete",
+    "automatedVerification": "passed",
+    "externalVerification": "pending",
+    "releaseReady": false,
+    "pending": [
+      "Windows CI execution and Windows 11 hardware input/DPI/multi-monitor/install-update-uninstall lifecycle",
+      "Real DesMon Steam AppID/DepotID, partner SDK, initialization and Steam installation",
+      "Production server rollout/shared database migration and old-service PvP upgrade or shutdown",
+      "Historical v0.8 human observation checks"
+    ]
+  }
+}

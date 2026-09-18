@@ -1,0 +1,498 @@
+{
+  "kind": "supplemental-read-only-deployed-source-mapping",
+  "reviewerAgentId": "/root/critic",
+  "createdAt": "2026-09-13T01:55:39.868118+00:00",
+  "formalAuditJudgment": null,
+  "capture": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/server/compatibility.json",
+    "sha256": "9eeb9ad2554c1aea54100a354557ced0d91d9b2596476bedbdfa4ab3433241c4",
+    "capturedAt": "2026-09-13T01:52:43.754Z",
+    "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+    "liveStatus": "PENDING",
+    "healthOk": true,
+    "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+    "reasonVerbatim": "Compared every tested server/core/shared/client file, package manifests and compiler settings against the actual health commit; no deployment performed.",
+    "originalUnchangedAfterComparison": true
+  },
+  "method": {
+    "comparison": "Every report.sources entry compared independently against raw git show <reportedCommit>:<path> bytes using SHA-256; absent paths independently identified from git ls-tree; no early exit on mismatch. Git blob OIDs also recorded and are not SHA-256 content hashes.",
+    "inputMapCount": 35,
+    "examinedCount": 35,
+    "localCommitExists": true,
+    "currentSourceReadCount": 35,
+    "currentSourcesAllMatchCapture": true,
+    "networkRequests": 0,
+    "buildsTestsNativeOrDeployments": 0,
+    "distOrReleaseAccess": false,
+    "gitShowBlobReadCount": 30,
+    "treeConfirmedAbsentPathCount": 5
+  },
+  "counts": {
+    "MATCH": 13,
+    "MISMATCH": 17,
+    "MISSING": 5,
+    "ERROR": 0
+  },
+  "pathsByStatus": {
+    "MATCH": [
+      "src/core/bignum.ts",
+      "src/core/fever.ts",
+      "src/core/fsm.ts",
+      "src/core/input.ts",
+      "src/core/loot.ts",
+      "src/core/rng.ts",
+      "src/core/types-chart.ts",
+      "src/server/http.ts",
+      "src/server/index.ts",
+      "src/server/probe.ts",
+      "src/shared/serverUrl.ts",
+      "tsconfig.main.json",
+      "tsconfig.base.json"
+    ],
+    "MISMATCH": [
+      "src/core/battle.ts",
+      "src/core/collection.ts",
+      "src/core/engine.ts",
+      "src/core/formulas.ts",
+      "src/core/index.ts",
+      "src/core/monsters.ts",
+      "src/core/save.ts",
+      "src/core/types.ts",
+      "src/server/app.ts",
+      "src/server/pg.d.ts",
+      "src/server/pgStore.ts",
+      "src/server/store.ts",
+      "src/shared/api.ts",
+      "src/shared/ipc.ts",
+      "src/main/net.ts",
+      "package.json",
+      "package-lock.json"
+    ],
+    "MISSING": [
+      "src/core/discovery.ts",
+      "src/core/economy.ts",
+      "src/core/hero.ts",
+      "src/core/progress.ts",
+      "src/core/progression.ts"
+    ],
+    "ERROR": []
+  },
+  "files": [
+    {
+      "path": "src/core/battle.ts",
+      "captureSha256": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "1149a046298497a7d9dacd529731a3d3eb2eb17dd5b4bebb64de6a74d6272288",
+      "deployedGitBlobOid": "5dae3029c454bc8b25d2c3768e44cf7a67e0f30d",
+      "deployedBytes": 2533
+    },
+    {
+      "path": "src/core/bignum.ts",
+      "captureSha256": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "deployedGitBlobOid": "5fd918f39d8fd61d53403f31e6c77594b51999b8",
+      "deployedBytes": 1585
+    },
+    {
+      "path": "src/core/collection.ts",
+      "captureSha256": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "5bd191d014eaf9ef641f59bfe1d468e0d0686e7bf91f898b8ca77503890f6338",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "c78576b60d0d13a4c953884145b2567dda249bbdb7250da00bcac2a0403e702f",
+      "deployedGitBlobOid": "b2554cf781d647bd3d1b051b24b34fd3195e0c65",
+      "deployedBytes": 10756
+    },
+    {
+      "path": "src/core/discovery.ts",
+      "captureSha256": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+      "currentMatchesCapture": true,
+      "status": "MISSING",
+      "reason": "Path is absent from reported commit tree",
+      "deployedBlobSha256": null,
+      "deployedGitBlobOid": null
+    },
+    {
+      "path": "src/core/economy.ts",
+      "captureSha256": "846acc7adf6842d1f8603df242559b551d7025fd4379cd6bb0afe26d7bd9c59a",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "846acc7adf6842d1f8603df242559b551d7025fd4379cd6bb0afe26d7bd9c59a",
+      "currentMatchesCapture": true,
+      "status": "MISSING",
+      "reason": "Path is absent from reported commit tree",
+      "deployedBlobSha256": null,
+      "deployedGitBlobOid": null
+    },
+    {
+      "path": "src/core/engine.ts",
+      "captureSha256": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "6004cb3f98c2cb7451d60d156b37f3d367ad3b31f6db9bc14cd8a8a0346dacd3",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "7d4ae4886eed42cf5af0e9cd3e69b60ffec2d4b96a081cde351e159bcfed6e69",
+      "deployedGitBlobOid": "26fa86fb0e1a103c7351166f84486952fefddd98",
+      "deployedBytes": 12222
+    },
+    {
+      "path": "src/core/fever.ts",
+      "captureSha256": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "deployedGitBlobOid": "8a4e1c4ca2d52ebd7e990f1e66abe2422b851499",
+      "deployedBytes": 2351
+    },
+    {
+      "path": "src/core/formulas.ts",
+      "captureSha256": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "85a1aa4fa203286c6081eaeafe34eda66f6934a9bd2060d25582831d50f550d4",
+      "deployedGitBlobOid": "d5f27757d7ba13dd0a7b44d02b9ab9c4ec5ccf80",
+      "deployedBytes": 1059
+    },
+    {
+      "path": "src/core/fsm.ts",
+      "captureSha256": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+      "deployedGitBlobOid": "9cdeb910a90cf2cb8d1a1755f4c365e3160dcafe",
+      "deployedBytes": 4442
+    },
+    {
+      "path": "src/core/hero.ts",
+      "captureSha256": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+      "currentMatchesCapture": true,
+      "status": "MISSING",
+      "reason": "Path is absent from reported commit tree",
+      "deployedBlobSha256": null,
+      "deployedGitBlobOid": null
+    },
+    {
+      "path": "src/core/index.ts",
+      "captureSha256": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "9532ba5db985791d28357165726b693b5063dbe0624ba91a221926650fb0e61e",
+      "deployedGitBlobOid": "7e92d2cf67785804c1f448abd4d854edd0ce852a",
+      "deployedBytes": 1861
+    },
+    {
+      "path": "src/core/input.ts",
+      "captureSha256": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "deployedGitBlobOid": "ad1516efa28593e5e22fc174398e523bf9c2886a",
+      "deployedBytes": 3512
+    },
+    {
+      "path": "src/core/loot.ts",
+      "captureSha256": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "deployedGitBlobOid": "add15518df18f6f0b4ecc91a72540879a3b49161",
+      "deployedBytes": 2266
+    },
+    {
+      "path": "src/core/monsters.ts",
+      "captureSha256": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "7f602ff772819f355565ebc6e80a713b1a56319e74ddee1b47fef3dc6de119b8",
+      "deployedGitBlobOid": "3a204d70d6244a5a3d17678cea5d1c66cfbe1ff4",
+      "deployedBytes": 13920
+    },
+    {
+      "path": "src/core/progress.ts",
+      "captureSha256": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+      "currentMatchesCapture": true,
+      "status": "MISSING",
+      "reason": "Path is absent from reported commit tree",
+      "deployedBlobSha256": null,
+      "deployedGitBlobOid": null
+    },
+    {
+      "path": "src/core/progression.ts",
+      "captureSha256": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+      "currentMatchesCapture": true,
+      "status": "MISSING",
+      "reason": "Path is absent from reported commit tree",
+      "deployedBlobSha256": null,
+      "deployedGitBlobOid": null
+    },
+    {
+      "path": "src/core/rng.ts",
+      "captureSha256": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "deployedGitBlobOid": "da76dff8f0062db171af84f4ea6d25a12168bdc0",
+      "deployedBytes": 755
+    },
+    {
+      "path": "src/core/save.ts",
+      "captureSha256": "e3ac4241ad02888394b436f9a7c037768c6fc4711b0dbe15e0e46ab0c276c6ac",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "e3ac4241ad02888394b436f9a7c037768c6fc4711b0dbe15e0e46ab0c276c6ac",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "0c530c869232a893d608513e232a1cad2010e5ff0d9fdc5546f5863973ffc75f",
+      "deployedGitBlobOid": "da84efb9b0f7f42f42ed9eb67fb3dff2584a592b",
+      "deployedBytes": 9810
+    },
+    {
+      "path": "src/core/types-chart.ts",
+      "captureSha256": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "deployedGitBlobOid": "ee8a5c0e849323932aabf62a50ed3512700dd686",
+      "deployedBytes": 1682
+    },
+    {
+      "path": "src/core/types.ts",
+      "captureSha256": "ba26337369373b313c50dfaf4168cc4495a5c65f210ca77e974696f7b01c6d64",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "ba26337369373b313c50dfaf4168cc4495a5c65f210ca77e974696f7b01c6d64",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "1c4ead8af55d45ff63a69cb511b75c041c9401a6a3cce773e879a376654faa81",
+      "deployedGitBlobOid": "c951840c3718d7ad205aab5557713e79ddf25a18",
+      "deployedBytes": 3276
+    },
+    {
+      "path": "src/server/app.ts",
+      "captureSha256": "a0327efb4b135a395cd929f8cbfd5c8badfdd49755b0ddc4e35fd2b63e08349a",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "a0327efb4b135a395cd929f8cbfd5c8badfdd49755b0ddc4e35fd2b63e08349a",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "9e29aeff3a30d99b395b60cb93ab39743b86ad56f74f18531ba2383541f373a4",
+      "deployedGitBlobOid": "3fb35a119160e033aaa6bb75a0c213351b50e7e7",
+      "deployedBytes": 17862
+    },
+    {
+      "path": "src/server/http.ts",
+      "captureSha256": "5fe51cf7cd00283383616a858878175e337abede7084bdbc09af0de4774168a3",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "5fe51cf7cd00283383616a858878175e337abede7084bdbc09af0de4774168a3",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "5fe51cf7cd00283383616a858878175e337abede7084bdbc09af0de4774168a3",
+      "deployedGitBlobOid": "815cd4a7540379055a44962a4ed78a3286c5a2e6",
+      "deployedBytes": 3720
+    },
+    {
+      "path": "src/server/index.ts",
+      "captureSha256": "792de7673b8fdc9630a4a3350ad1a7a55caa529ae6c808858980b938a97af09b",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "792de7673b8fdc9630a4a3350ad1a7a55caa529ae6c808858980b938a97af09b",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "792de7673b8fdc9630a4a3350ad1a7a55caa529ae6c808858980b938a97af09b",
+      "deployedGitBlobOid": "5aefe4a1066e71e63e7d9a857274e4fa1c8bc61b",
+      "deployedBytes": 1408
+    },
+    {
+      "path": "src/server/pg.d.ts",
+      "captureSha256": "80ebb37a3080e0e1da36e2862a36122377805eceb774a3396ad5fa3684dbcd76",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "80ebb37a3080e0e1da36e2862a36122377805eceb774a3396ad5fa3684dbcd76",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "475f9cbd01eddfe6d2fa397208967bc1fabdbce9fcf3bff3217248be72eb7efa",
+      "deployedGitBlobOid": "84671772f3aa8361f3977955d3b9e00e184f6072",
+      "deployedBytes": 332
+    },
+    {
+      "path": "src/server/pgStore.ts",
+      "captureSha256": "60f4c16ae35f92ed1558a9626eee937a9586f01ccd7bfe7f0687f831dd094004",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "60f4c16ae35f92ed1558a9626eee937a9586f01ccd7bfe7f0687f831dd094004",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "8fa7c256b1940d742b83f76b8aadf90e03309ffb883e08ad1af4b9e34f7686b3",
+      "deployedGitBlobOid": "9a64de556d664f9fd53e22fffb25dda99dcf231b",
+      "deployedBytes": 4904
+    },
+    {
+      "path": "src/server/probe.ts",
+      "captureSha256": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee",
+      "deployedGitBlobOid": "39e1c39978eb17cee771e045d7f43f65424dfd0a",
+      "deployedBytes": 2817
+    },
+    {
+      "path": "src/server/store.ts",
+      "captureSha256": "ea01c23c5d4d40425987deddb74bee5f6b0db805b4392072387792b52ea270c4",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "ea01c23c5d4d40425987deddb74bee5f6b0db805b4392072387792b52ea270c4",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "ea6905fe5becf0d968a24d08018c93efd6999618c026ba2fd1d376c3cf9d900f",
+      "deployedGitBlobOid": "dd0710c2714a11696b2fa3a02ec7b166a7459892",
+      "deployedBytes": 4433
+    },
+    {
+      "path": "src/shared/api.ts",
+      "captureSha256": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "02147c8063801acecac8c19d1d0db8502de6f9f2e6f4126970f60a931bc67736",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "6c402e82cb2ec83f9affc454ca234ffdcf43ddcc59665ef7fa7c48e040f6d110",
+      "deployedGitBlobOid": "f99ed23a46c119268b7e65a494f6b93213ac28be",
+      "deployedBytes": 4886
+    },
+    {
+      "path": "src/shared/ipc.ts",
+      "captureSha256": "569928268a1e2f2de96ae363a3e35b4cbe3e43348bcd6703be5bb1cf90eb2209",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "569928268a1e2f2de96ae363a3e35b4cbe3e43348bcd6703be5bb1cf90eb2209",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "e773d5988c95134edf0771129d388592d78324bd22d60ccfe374777a2ceb91a3",
+      "deployedGitBlobOid": "86113fbab742a2c2b410cc351f1e2d711e23d800",
+      "deployedBytes": 4430
+    },
+    {
+      "path": "src/shared/serverUrl.ts",
+      "captureSha256": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+      "deployedGitBlobOid": "b620fd2cab674620abbcebe17b145b727ebe6bde",
+      "deployedBytes": 292
+    },
+    {
+      "path": "src/main/net.ts",
+      "captureSha256": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "10ff700c6b4415467ed305c40222532799cfe3ee5815cc6f13f69c8cd31787fa",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "f4d87bda79b8d17899fd1f7da82edee6278e41396e77c215757a005e0e028401",
+      "deployedGitBlobOid": "8d96ddd19362463d867650ea926e1292d0de2e3f",
+      "deployedBytes": 9133
+    },
+    {
+      "path": "package.json",
+      "captureSha256": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "dc62306c5f6ca6a92bd4bcba87a841718cbb0591975c8951ce586fc50bd8c7ca",
+      "deployedGitBlobOid": "8abfd4ad38bbef21475f65cf914e13083d8cda6c",
+      "deployedBytes": 1829
+    },
+    {
+      "path": "package-lock.json",
+      "captureSha256": "fd7f73b6343c8e4363f42b502def8e0bcdb663061489d199e86e407b6d1e6137",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "fd7f73b6343c8e4363f42b502def8e0bcdb663061489d199e86e407b6d1e6137",
+      "currentMatchesCapture": true,
+      "status": "MISMATCH",
+      "deployedBlobSha256": "341a091d283bf37c74c85c2216e2056c2654fe82c9955e835dd6d2ffaa0d9304",
+      "deployedGitBlobOid": "8a68767482f8f8aa693ef255916f32a1f164f3d6",
+      "deployedBytes": 229447
+    },
+    {
+      "path": "tsconfig.main.json",
+      "captureSha256": "f1574ffb55c29deb86fe0444ddaa44dcf30e9718d3ceab16e4c2a69d19a41a39",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "f1574ffb55c29deb86fe0444ddaa44dcf30e9718d3ceab16e4c2a69d19a41a39",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "f1574ffb55c29deb86fe0444ddaa44dcf30e9718d3ceab16e4c2a69d19a41a39",
+      "deployedGitBlobOid": "11c7bb510ddededc756a2d5ca4eb5c95e6406b55",
+      "deployedBytes": 283
+    },
+    {
+      "path": "tsconfig.base.json",
+      "captureSha256": "fe0bda403d82ba522293477fac999d4c75c06466bf46321ed5ba83ec6a6073c7",
+      "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+      "currentSourceSha256": "fe0bda403d82ba522293477fac999d4c75c06466bf46321ed5ba83ec6a6073c7",
+      "currentMatchesCapture": true,
+      "status": "MATCH",
+      "deployedBlobSha256": "fe0bda403d82ba522293477fac999d4c75c06466bf46321ed5ba83ec6a6073c7",
+      "deployedGitBlobOid": "ad195daab7879b4b82f7d1cce9ac0fb26011ec46",
+      "deployedBytes": 224
+    }
+  ],
+  "priorStaticContract": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/server-readonly-preflight/deployed-contract-static.md",
+    "sha256": "f64d11f255b2061568ca09ee9139e9e65849e860ef149f5cb922071501cabd98",
+    "reportedCommit": "28270992518dc5bfc9c1f89f700c0491eaf8d1ed",
+    "sameCommit": true,
+    "expectedBlobs": {
+      "src/server/app.ts": "9e29aeff3a30d99b395b60cb93ab39743b86ad56f74f18531ba2383541f373a4",
+      "src/shared/api.ts": "6c402e82cb2ec83f9affc454ca234ffdcf43ddcc59665ef7fa7c48e040f6d110"
+    },
+    "findings": "Same reported commit and blob bytes underpin the prior static Lv10 upper bound, absent PvP directory route, ignored requested opponentId, and missing opponent ID/hero response findings."
+  },
+  "limitations": [
+    "This is complete comparison of the 35-entry capture source map, not all repository files or deployed build artifacts.",
+    "The frozen helper uses Array.every and short-circuits at first mismatch; its generic capture reason does not attest that every path was visited.",
+    "The reported commit and local blobs are not an attestation of the deployed binary or runtime HTTP/DB behavior. No endpoint was queried in this follow-up.",
+    "No compatibility status, task status, or formal audit verdict is changed by this factual report."
+  ],
+  "helperObservation": {
+    "path": ".harness/v7/loop/server-check.mjs",
+    "lines": [
+      22,
+      24,
+      26,
+      74,
+      75
+    ],
+    "mechanism": "Array.every returns false on the first unequal/missing blob; capture uses a fixed generic reason string.",
+    "firstMappedPath": "src/core/battle.ts",
+    "firstMappedStatus": "MISMATCH",
+    "implication": "For this ordered map and reported commit, the helper's equality loop stops at src/core/battle.ts. The generic 'Compared every' reason is not evidence of 35 completed comparisons. This supplemental report performs all 35 classifications independently."
+  }
+}

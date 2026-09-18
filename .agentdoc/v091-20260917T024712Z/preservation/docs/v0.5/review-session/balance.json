@@ -1,0 +1,123 @@
+{
+  "requestId": "b64747bfa9971b41750a680b8f9507848327cabbe3c7cc62ca37ccce45be93ab",
+  "round": 1,
+  "role": "balance",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "V4 기반 실제엔진100seed 비교 및 골드3정책 검증 통과.독립계획/비평 뒤 구현을 통합한 root가 실제코드수치를수집했다.외부계정사용량한도로후속자식실행불가였으며 별도밸런스에이전트의완료를주장하지않는다.",
+  "evidence": [
+    {
+      "path": "docs/v0.5/BALANCE.md",
+      "note": "명령/100독립seed/18시나리오/정책/백분위/경제/해석한계"
+    },
+    {
+      "path": "docs/v0.5/balance-v5.json",
+      "note": "실제엔진1800시점 원시값 및요약,baseline별도보존"
+    },
+    {
+      "path": "docs/v0.5/verification.json",
+      "note": "744검사+lint+typecheck/build/selftest통과와미검증분리"
+    },
+    {
+      "path": "tests/progressionV5.test.ts",
+      "note": "레벨/반복/골드/레어후보수학의결정적검사"
+    },
+    {
+      "path": "tests/progressV5.test.ts",
+      "note": "미끼/pity/발견/이관/기록의엔진통합검사"
+    },
+    {
+      "path": "tests/ipcV5.test.ts",
+      "note": "가짜renderer전적거부및main절대기록복구"
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "gold",
+      "assessment": "훈련/미끼/재굴림 실제 엔진100seed경로.1800시점 유입-지출=잔액; 부족/중복/최대/미끼20회 무변경 경계 통과."
+    },
+    {
+      "id": "reincarnation-levels",
+      "assessment": "12,13,13,14,14,15,15,16,16,17,17,18 고정 수식과상한/레거시제안/120초휴식/30초보류 경계 통과.첫환생중앙값79초."
+    },
+    {
+      "id": "repeat-stacks",
+      "assessment": "최고raw+반복stack엄격증가와비연속재선택,장착무증가,기존25raw재선택,서버결과/replay공통계산을검증."
+    },
+    {
+      "id": "rare-heroes",
+      "assessment": "h51..h70정확20종;각조건경계·모든레어후보도달·하위/소유일반도달·세속성불변검증.희귀도추가전투배율없음."
+    },
+    {
+      "id": "rare-monsters",
+      "assessment": "기존105순서보존+레어30종.시간/영웅/처치/PvP오프라인대안/골드조건,12번째보장,미끼20회소모와미달무소모검증."
+    },
+    {
+      "id": "codices",
+      "assessment": "브라우저70/135카드,실제등장전실루엣/이름숨김,무료조건진행.50개신규canvas실루엣불투명RGB단색검증.사람인지도PENDING."
+    },
+    {
+      "id": "profile-history",
+      "assessment": "활성시간/총처치/환생/영웅별횟수와최근100기록,101회이후조건유지,이름오프라인저장실패복구와입력보존검증."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "구형50외형/105종저장불변,새필드파서방어/복사,공식PvP단일집계/재시작복구/비봇만집계/main-onlyIPC.운영배포PENDING."
+    }
+  ],
+  "seed": 1,
+  "samples": 100,
+  "metrics": [
+    {
+      "name": "active-first-offer",
+      "unit": "seconds",
+      "p10": 76,
+      "p50": 79,
+      "p90": 81,
+      "min": 74,
+      "max": 84
+    },
+    {
+      "name": "free-active-30-kills",
+      "unit": "kills",
+      "p10": 1225,
+      "p50": 1239,
+      "p90": 1257,
+      "min": 700,
+      "max": 2000
+    },
+    {
+      "name": "free-active-30-reincarnations",
+      "unit": "count",
+      "p10": 15,
+      "p50": 15,
+      "p90": 15,
+      "min": 10,
+      "max": 15
+    },
+    {
+      "name": "first-slot-new-standard",
+      "unit": "ratio",
+      "p10": 1,
+      "p50": 1,
+      "p90": 1,
+      "min": 1,
+      "max": 1
+    },
+    {
+      "name": "gold-conservation-error",
+      "unit": "gold",
+      "p10": 0,
+      "p50": 0,
+      "p90": 0,
+      "min": 0,
+      "max": 0
+    }
+  ],
+  "economy": {
+    "sources": "처치코인/보스5배기존공식.무료active30분유입중앙값25732골드(857.73/분);개별1800시점잔액보존확인.",
+    "sinks": "훈련75*(L+1)^2상한10,미끼75+25*min(100,R)20회,재굴림50+25*min(100,R).active30분지출중앙값훈련21375/미끼16500/재굴림3375.상점중복/부족/최대시무변경.",
+    "freePath": "0골드에서도후보3명확인/수락또는30초보류무료.도감조건정보무료.PvP조건에처치대안.첫후보무료경로30분중앙값15환생/1239처치.동료없는처음부터방치는정지하므로warm-idle과분리."
+  }
+}

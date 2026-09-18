@@ -1,3 +1,6 @@
+import { modernSnapshot } from './v10-fixture.js';
+import { createHash } from 'node:crypto';
+import { currentGold } from '../../src/server/gold.js';
 // T39 — createApp + MemoryStore (SPEC F44, SERVER_ARCHITECTURE §2–§4).
 // handle() is called directly with an injected MemoryStore, a counter clock
 // and a mulberry32-driven id/token source: no sockets, no timers, no DB, no
@@ -39,8 +42,17 @@ function setup(store: Store = new MemoryStore(), seed = 7) {
     randomBytesHex: (n) => draw().padStart(n * 2, '0'),
     randomSeed: () => Math.floor(rng.next() * 0xffffffff),
   });
-  const call = (req: Call): Promise<ApiResponse> =>
-    app.handle({ query: {}, auth: null, body: null, ip: '1.2.3.4', ...req });
+  const call = async (req: Call): Promise<ApiResponse> => {
+    if (req.path === '/v1/pvp/match' && req.auth) {
+      const row = await store.getByToken(createHash('sha256').update(req.auth).digest('hex'));
+      if (row?.snapshot) for (const player of await store.top(50)) {
+        if (player.snapshot) await store.putSnapshot(player.id, modernSnapshot(player.snapshot));
+        if (!player.goldAccount) await store.setGoldAccount(player.id, { ...currentGold(null, clock), enrolled: true });
+      }
+    }
+    return app.handle({ query: {}, auth: null, body: null, ip: '1.2.3.4', ...req,
+      ...(req.path === '/v1/pvp/match' ? { body: { mode: 'equipment-gold-v2', ...req.body as object } } : {}) });
+  };
   return { store, call, advance: (ms: number) => (clock += ms) };
 }
 
@@ -185,7 +197,7 @@ describe('createApp', () => {
     expect((await upload(snap('greedy', -1, 0))).status).toBe(400);
     expect((await upload(snap('greedy', 2_147_483_648, 0))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 1.5))).status).toBe(400);
-    expect((await upload(snap('greedy', 1, 0, [comp('c1', { level: 11 })]))).status).toBe(400);
+    expect((await upload(snap('greedy', 1, 0, [comp('c1', { level: Number.MAX_SAFE_INTEGER + 1 })]))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 0, [comp('c1', { level: 0 })]))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 0, [comp('c1', { speciesId: 'wyrm' })]))).status).toBe(400);
     expect((await upload(snap('greedy', 1, 0, [comp('C-1!')]))).status).toBe(400);
@@ -305,6 +317,7 @@ describe('createApp', () => {
       throw new Error('store is down');
     };
     const broken: Store = {
+      transaction: boom,
       createPlayer: boom,
       getByToken: boom,
       getById: boom,
@@ -312,6 +325,11 @@ describe('createApp', () => {
       setStolenIds: boom,
       setLastPvpAt: boom,
       setThefts: boom,
+      recordBattle: boom,
+      setLastMatch: boom,
+      setLastReclaim: boom,
+      setGoldAccount: boom,
+      allocateTransferId: boom,
       rank: boom,
       top: boom,
       neighbor: boom,
@@ -328,7 +346,7 @@ describe('createApp', () => {
     const me = await join(call, 'seeker');
     const rival = await join(call, 'rival');
     const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
-      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: modernSnapshot(s) });
     const roster = [1, 2, 3, 4, 5, 6].map((n) => comp(`d${n}`, { level: n }));
     await put(me.token, snap('seeker', 5, 0, [comp('c1')]));
     await put(rival.token, snap('rival', 9, 0, roster));
@@ -341,12 +359,15 @@ describe('createApp', () => {
     expect(auto.expiresAt).toBe(T0 + MATCH_TTL_MS);
     // No stored party → the PARTY_SIZE_MAX strongest by raw power, strongest first.
     expect(auto.opponent).toEqual({
+      combat: modernSnapshot({}).combat,
+      playerId: rival.playerId,
       name: 'rival',
       bestIndex: 9,
       rebirths: 0,
       party: [6, 5, 4, 3, 2].map((n) => comp(`d${n}`, { level: n })),
     });
     expect(matches.get(auto.matchId)).toEqual({
+      opponentCombat: modernSnapshot({}).combat,
       matchId: auto.matchId,
       playerId: me.playerId,
       opponentId: rival.playerId,
@@ -371,7 +392,7 @@ describe('createApp', () => {
       await lonely.call({ method: 'POST', path: '/v1/pvp/match', auth: solo.token }),
     );
     expect(bot.bot).toBe(true);
-    expect(bot.opponent).toEqual({ name: BOT_NAME, bestIndex: 3, rebirths: 0, party: [] });
+    expect(bot.opponent).toEqual({ name: BOT_NAME, bestIndex: 3, rebirths: 0, party: [], combat: modernSnapshot({}).combat });
     expect(matches.get(bot.matchId)?.opponentId).toBeNull();
 
     // The trust boundary is the same as /v1/pvp's, minus the cooldown.
@@ -465,7 +486,7 @@ describe('createApp', () => {
     const victim = await join(call, 'victim');
     const thief = await join(call, 'thief');
     const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
-      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: modernSnapshot(s) });
     const take = (theftId: unknown, auth?: string): Promise<ApiResponse> =>
       call({ method: 'POST', path: '/v1/reclaim', body: { theftId }, ...(auth === undefined ? {} : { auth }) });
 
@@ -475,10 +496,10 @@ describe('createApp', () => {
 
     const res = await take('t7', victim.token);
     expect(res.status).toBe(200);
-    expect(body<ReclaimResponse>(res).companion).toEqual(comp('r7'));
+    expect(body<ReclaimResponse>(res).companion).toEqual(comp('r8'));
     expect((await store.getById(victim.playerId))?.snapshot?.companions).toEqual([
       comp('c2'),
-      comp('r7'),
+      comp('r8'),
     ]);
     const robbed = await store.getById(thief.playerId);
     expect(robbed?.snapshot?.companions).toEqual([comp('d1')]);
@@ -486,8 +507,9 @@ describe('createApp', () => {
     expect(robbed?.stolenIds).toEqual(['s7']);
     expect((await store.getById(victim.playerId))?.thefts).toEqual([]);
 
-    // The record is spent; an unknown or absent id is not mine either.
-    expect((await take('t7', victim.token)).status).toBe(404);
+    // The movement is spent; a response retry returns the original receipt.
+    expect(await take('t7', victim.token)).toEqual(res);
+    expect((await store.getById(victim.playerId))?.snapshot?.companions).toEqual([comp('c2'), comp('r8')]);
     expect((await take(undefined, victim.token)).status).toBe(404);
     expect((await take('t7')).status).toBe(401);
 
@@ -498,7 +520,7 @@ describe('createApp', () => {
     await store.setThefts(victim.playerId, [stolen('t8', { thiefId: thief.playerId })]);
     const capped = await take('t8', victim.token);
     expect(capped.status).toBe(200);
-    expect(body<ReclaimResponse>(capped).companion.id).toBe('r8');
+    expect(body<ReclaimResponse>(capped).companion.id).toBe('r9');
     expect((await store.getById(victim.playerId))?.snapshot?.companions).toEqual(full);
     expect((await store.getById(thief.playerId))?.snapshot?.companions).toEqual([]);
   });
@@ -508,7 +530,7 @@ describe('createApp', () => {
     const victim = await join(call, 'victim');
     const thief = await join(call, 'thief');
     const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
-      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: modernSnapshot(s) });
     const take = (theftId: string): Promise<ApiResponse> =>
       call({ method: 'POST', path: '/v1/reclaim', auth: victim.token, body: { theftId } });
 
@@ -539,7 +561,7 @@ describe('createApp', () => {
     const victim = await join(call, 'victim');
     const thief = await join(call, 'thief');
     const put = (auth: string, s: Snapshot): Promise<ApiResponse> =>
-      call({ method: 'PUT', path: '/v1/snapshot', auth, body: s });
+      call({ method: 'PUT', path: '/v1/snapshot', auth, body: modernSnapshot(s) });
     const take = (theftId: string): Promise<ApiResponse> =>
       call({ method: 'POST', path: '/v1/reclaim', auth: victim.token, body: { theftId } });
 
@@ -613,10 +635,16 @@ describe('MemoryStore', () => {
     expect(await store.getByToken('h-e')).toEqual({
       id: 'e',
       name: 'e',
+      goldAccount: null,
+      revokedIds: [],
+      lastMatch: null,
+      lastReclaim: null,
       snapshot: null,
       stolenIds: [],
       lastPvpAt: null,
       thefts: [],
+      wins: 0,
+      losses: 0,
     });
     await store.setLastPvpAt('e', 1234);
     expect((await store.getById('e'))?.lastPvpAt).toBe(1234);

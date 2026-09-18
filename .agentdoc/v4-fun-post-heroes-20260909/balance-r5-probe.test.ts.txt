@@ -1,0 +1,73 @@
+// TEMPORARY round-5 balance probe. Deleted after the run; not part of the suite.
+import { writeFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+import * as after from '../src/core/index.js';
+import * as before from '../.tmp-r5/core/index.js';
+
+type Profile = 'active' | 'idle' | 'intermittent';
+type Core = typeof after;
+
+function run(core: Core, profile: Profile, seed: number, endSec: number, marks: number[]) {
+  const engine = core.createEngine(null, core.mulberry32(seed));
+  const rows: any[] = [];
+  let released = 0, unseenFirstCards = 0, offers = 0, firstOfferSec: number | null = null;
+  for (let sec = 1; sec <= endSec; sec++) {
+    const inputs = sec <= 120 || profile === 'active' || (profile === 'intermittent' && sec % 60 < 15) ? 2 : 0;
+    for (let i = 0; i < inputs; i++) {
+      released += engine.attack('keyboard').filter((e) => e.type === 'companionReleased').length;
+    }
+    released += engine.tick(1000).filter((e) => e.type === 'companionReleased').length;
+    const state = engine.getState();
+    if (core.heroReady(state.level, state.hero)) {
+      firstOfferSec ??= sec;
+      engine.apply({ type: 'heroOffer' });
+      const hero = engine.getState().hero!;
+      offers++;
+      if (!hero.collection.some((r) => r.formId === hero.choices[0]!.formId)) unseenFirstCards++;
+      engine.apply({ type: 'heroChoose', formId: hero.choices[0]!.formId, offerSerial: hero.offerSerial });
+    }
+    if (marks.includes(sec)) {
+      const c = engine.getState();
+      rows.push({ minutes: sec / 60, profile, seed, kills: c.killCount, firstOfferSec,
+        reincarnations: c.hero?.reincarnations ?? 0, collected: c.hero?.collection.length ?? 0,
+        coins: c.coins, companions: c.companions.length, souls: c.souls, released, offers,
+        unseenFirstCardRatio: offers === 0 ? 1 : unseenFirstCards / offers });
+    }
+  }
+  return rows;
+}
+
+const q = (v: number[]) => { const s = [...v].sort((a, b) => a - b);
+  return { p10: s[Math.floor((s.length - 1) * .1)]!, p50: s[Math.floor((s.length - 1) * .5)]!,
+    p90: s[Math.floor((s.length - 1) * .9)]!, min: s[0]!, max: s[s.length - 1]!,
+    mean: s.reduce((a, b) => a + b, 0) / s.length }; };
+
+function summarize(rows: any[], profile: Profile, minutes: number) {
+  const r = rows.filter((x) => x.profile === profile && x.minutes === minutes);
+  return { profile, minutes, samples: r.length, kills: q(r.map((x) => x.kills)),
+    reincarnations: q(r.map((x) => x.reincarnations)), collected: q(r.map((x) => x.collected)),
+    coins: q(r.map((x) => x.coins)), souls: q(r.map((x) => x.souls)),
+    released: q(r.map((x) => x.released)), companions: q(r.map((x) => x.companions)),
+    offers: q(r.map((x) => x.offers)),
+    unseenFirstCardRatio: r.reduce((s, x) => s + x.unseenFirstCardRatio, 0) / r.length,
+    fullRosters: r.filter((x) => x.companions === 30).length };
+}
+
+describe('r5 probe', () => {
+  it('C27 60-minute collection (after) and C28 before silent-discard count', () => {
+    const seeds = Array.from({ length: 100 }, (_, i) => i + 1);
+    const profiles: Profile[] = ['active', 'idle', 'intermittent'];
+    // C28: reconstruct the pre-round build (silent void, pre-A5' roll) and check
+    // it reproduces docs/v0.4/balance.json before counting the voided draws.
+    const beforeRows = profiles.flatMap((p) => seeds.flatMap((s) => run(before as Core, p, s, 3600, [300, 900, 1800, 3600])));
+    const afterRows: any[] = [];
+    const report = {
+      note: 'temporary round-5 probe; before = src/core with the A3 soul award removed and rollHeroChoices reverted to pre-A5',
+      seeds: '1..100',
+      before: profiles.flatMap((p) => [5, 15, 30, 60].map((m) => summarize(beforeRows, p, m))),
+      after: profiles.flatMap((p) => [5, 15, 30, 60].map((m) => summarize(afterRows, p, m))),
+    };
+    writeFileSync('/tmp/r5-probe-before.json', JSON.stringify(report, null, 2) + '\n');
+    expect(beforeRows.length).toBe(1200);
+  }, 600_000);
+});

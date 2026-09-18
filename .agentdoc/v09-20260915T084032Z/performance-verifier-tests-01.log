@@ -1,0 +1,20 @@
+TAP version 13
+# Subtest: v9 keeps the registered full durations and budgets; missing/short evidence fails
+ok 1 - v9 keeps the registered full durations and budgets; missing/short evidence fails
+  ---
+  duration_ms: 1.70375
+  ...
+# Subtest: only the exact initial save can precede periodic clock persistence, within the unchanged lag limit
+ok 2 - only the exact initial save can precede periodic clock persistence, within the unchanged lag limit
+  ---
+  duration_ms: 17.462834
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 80.187

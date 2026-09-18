@@ -1,0 +1,89 @@
+[
+  {
+    "service": {
+      "autoDeploy": "yes",
+      "autoDeployTrigger": "commit",
+      "branch": "v3",
+      "buildFilter": {
+        "ignoredPaths": [],
+        "paths": [
+          "src/server/app.ts",
+          "src/server/http.ts",
+          "src/server/index.ts",
+          "src/server/pg.d.ts",
+          "src/server/pgStore.ts",
+          "src/server/probe.ts",
+          "src/server/store.ts",
+          "src/core/battle.ts",
+          "src/core/bignum.ts",
+          "src/core/collection.ts",
+          "src/core/engine.ts",
+          "src/core/fever.ts",
+          "src/core/formulas.ts",
+          "src/core/fsm.ts",
+          "src/core/index.ts",
+          "src/core/input.ts",
+          "src/core/loot.ts",
+          "src/core/monsters.ts",
+          "src/core/rng.ts",
+          "src/core/save.ts",
+          "src/core/types-chart.ts",
+          "src/core/types.ts",
+          "src/shared/api.ts",
+          "src/shared/ipc.ts",
+          "src/shared/serverUrl.ts",
+          "package.json",
+          "package-lock.json",
+          "tsconfig.main.json",
+          ".node-version"
+        ]
+      },
+      "createdAt": "2026-09-03T12:37:13.285209Z",
+      "dashboardUrl": "https://dashboard.render.com/web/srv-dacmju6k1f9s73csi2v0",
+      "id": "srv-dacmju6k1f9s73csi2v0",
+      "name": "desmon-server-v3",
+      "notifyOnFail": "default",
+      "ownerId": "tea-d0fqcok9c44c73bj1ehg",
+      "repo": "https://github.com/mojomoth/desktop-monster",
+      "rootDir": ".",
+      "serviceDetails": {
+        "buildPlan": "starter",
+        "cache": {
+          "profile": "no-cache"
+        },
+        "env": "node",
+        "envSpecificDetails": {
+          "buildCommand": "npm ci --include=dev --ignore-scripts && npm run build",
+          "startCommand": "npm run start:server"
+        },
+        "healthCheckPath": "/healthz",
+        "ipAllowList": [
+          {
+            "cidrBlock": "0.0.0.0/0",
+            "description": "everywhere"
+          }
+        ],
+        "maintenanceMode": {
+          "enabled": false,
+          "uri": ""
+        },
+        "numInstances": 1,
+        "openPorts": [],
+        "plan": "free",
+        "previews": {
+          "generation": "off"
+        },
+        "pullRequestPreviewsEnabled": "no",
+        "region": "oregon",
+        "runtime": "node",
+        "sshAddress": "srv-dacmju6k1f9s73csi2v0@ssh.oregon.render.com",
+        "url": "https://desmon-server-v3.onrender.com"
+      },
+      "slug": "desmon-server-v3",
+      "suspended": "not_suspended",
+      "suspenders": [],
+      "type": "web_service",
+      "updatedAt": "2026-09-08T16:38:41.65862Z"
+    }
+  }
+]

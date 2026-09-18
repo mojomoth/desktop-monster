@@ -1,0 +1,15 @@
+{
+  "status": "interrupted-for-ac-phase-fix",
+  "command": "node .harness/v7/loop/measure.mjs run .agentdoc/v07-setup-20260911T122653Z/evidence/baseline.json --phase baseline --seed 1 --seeds 100 --workers 4 --protocol docs/v0.7/EVALUATION_PROTOCOL.json",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "0453d115dfaa9b708e8bdf223d64052b9978783f9c9289e9914d93a1b6e2084e",
+  "buildDigest": "b27ddc464df0e739f9af6a0af9af6ccebe88ce7de28615e26ba11b4b9bab54f4",
+  "simulation": {
+    "seeds": 100,
+    "hoursPerSeed": 12,
+    "tickMs": 100
+  },
+  "note": "Deterministic engine simulation, not 1,200 hours of human or native Electron observation. Replaces interrupted attempt01 retained alongside.",
+  "reason": "Independent review found candidate task AC could accept baseline or exploration evidence. Tighten registered phase-specific AC before freezing final evaluator.",
+  "completedSeeds": 36
+}

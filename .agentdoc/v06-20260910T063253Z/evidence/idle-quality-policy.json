@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-09-10T09:35:54.796228+00:00",
+  "kind": "native-idle-quality-review",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "53fc0326a4ad1a742b775f3bdf887a072de0927e1d811af3431e116663d9e080",
+  "originalPath": ".agentdoc/v06-20260910T063253Z/evidence/final-matrix-03/30-idle-1789030534754.json",
+  "originalSha256": "5a9061829fe39d4fb79685494d7f63b1816317c9d9a2ccbfa55e4d9d099d205b",
+  "review": ".agentdoc/v06-20260910T063253Z/reviews/idle-anomaly-critic.md",
+  "reviewSha256": "70c7c8917e84cf5c0f56d8eb23140d14fc4f68a5cc3f6cd15e18b40722e6d2ba",
+  "knownMismatch": "synthetic inputs 0 but kills/coins 0→1 with companions 0",
+  "cause": "UNCONFIRMED: fallback window inputs bypass the synthetic sender counter; original raw has no event/focus history",
+  "retryLimit": 1,
+  "rerun": "after current 30-intermittent and parent exit, preserve aggregate/state and original bytes; remove only rejected 30-idle selection; resume unchanged matrix CLI for missing combination",
+  "acceptanceBeforeRerun": {
+    "existingMatrixVerify": true,
+    "realElapsedMsAtLeast": 1800000,
+    "syntheticInputs": 0,
+    "everyStartTimelineEnd": {
+      "level": 1,
+      "kills": 0,
+      "coins": 0,
+      "companions": 0,
+      "reincarnations": 0,
+      "seenMonsters": 1
+    }
+  },
+  "repeatMismatch": "Do not rerun until lucky zero. Hold release evidence and investigate with new instrumentation/version if needed.",
+  "limitation": "Even zero progress does not prove absence of all fallback input; raw lacks HP/XP/event trace. Keep original anomaly in final handoff.",
+  "userInputConfirmation": "PENDING; no answer is not evidence of no input."
+}

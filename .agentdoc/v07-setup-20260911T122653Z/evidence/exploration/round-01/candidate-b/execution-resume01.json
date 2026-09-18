@@ -1,0 +1,141 @@
+{
+  "experiment": {
+    "kind": "candidate",
+    "id": "candidate-b",
+    "parameters": {
+      "heroMinLevel": 18,
+      "xpBase": 20,
+      "xpGrowth": 1.4,
+      "fieldHpNumerator": 114,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": null,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5
+    }
+  },
+  "startedAt": "2026-09-12T03:41:22.207084+00:00",
+  "protocolFileSha256": "ea808fb8b7d7f023ede597b7cae164bae4499dde78a4ebf232cfdadc67cb4b8b",
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T03:41:22.328970+00:00",
+      "endedAt": "2026-09-12T03:41:26.478520+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/production-tests-resume01.log",
+      "sha256": "2a8e5a7404c0c9c0df344eeb955af75231cde59356cd439bc0483d44931df51d"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-b",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T03:41:26.479244+00:00",
+      "endedAt": "2026-09-12T03:41:33.079983+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/screening-resume01.log",
+      "sha256": "b5772fe6bf5ecf44237e5a54962f6e03abf59fa6bcfa73a8e70ed048084663a3"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/screening.json"
+      ],
+      "startedAt": "2026-09-12T03:41:33.086707+00:00",
+      "endedAt": "2026-09-12T03:41:33.204824+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/screening-verify-resume01.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/evaluation.tar.gz",
+    "sha256": "ac73f4f991f8bcb252c0a2e6b2938f1f415aad0717c1a069ad3ff2659c7a458f"
+  },
+  "repair": "Registered field114 changes which enemy is alive when window5000 is booked. Original failed test/log/source retained; exact two-curve ID sequence and5010 carry damage/HP now tested. No scheduler source change.",
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/production-source-resume01.tar.gz",
+    "sha256": "b6ca76e74b25740a7211c8802e8fb8476bc49deb9870129c249eadb5074850f4"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/screening.json",
+    "sha256": "85b132ffca52f3c79c9992394f0d192f2663dc9e301e426212633c081740892b",
+    "sourceDigest": "ebdf707d7d5a4a15910dd111e946ccb75449ac8112696167bf80b79e74580fa8",
+    "evaluationDigest": "9f8a6c2a026ee2945145e2e9780c246135351da803de95f315f98f49653b31ef",
+    "buildSha256": "de3b66323e7da24a50fd2beffc8c3997845a93209c7695472c2c6e1ae6294f88",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-b",
+      "parametersSha256": "a1b5e60d7095abd643b7378a5a7e69356eeca0fbac336e74e1f5063b21889622",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "rawSha256": "339632c2117eab356cfc18d1d0d6a1661495dee1a345ae15fa4b87b740df34e7",
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": false,
+          "observedSec": 2429.7,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": false,
+          "reached": 16,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    }
+  },
+  "full-12h": {
+    "status": "NOT_EXECUTED",
+    "reason": "Registered screening criteria failed"
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/candidate-b/compiled-build-resume01.tar.gz",
+    "sha256": "fb418cb0d962746727c2f8dbbd98dc7d1281331a5203b8d5444e35b14458ddf4"
+  },
+  "endedAt": "2026-09-12T03:41:33.266040+00:00"
+}

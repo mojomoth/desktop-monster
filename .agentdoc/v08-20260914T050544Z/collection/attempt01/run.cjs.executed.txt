@@ -1,0 +1,45 @@
+// Approved detached orchestration; evaluator and product files remain unchanged.
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawn, execFileSync } = require('node:child_process');
+const root = path.resolve(__dirname, '../../../..');
+const evaluator = path.join(root, '.harness/v8/measure.mjs');
+const exploration = path.join(__dirname, 'exploration.json');
+const validation = path.join(__dirname, 'validation.json');
+const freeze = path.join(__dirname, 'freeze.json');
+const eventPath = path.join(__dirname, 'events.ndjson');
+const stamp = () => new Date().toISOString();
+const event = row => fs.appendFileSync(eventPath, JSON.stringify({ at: stamp(), ...row }) + '\n');
+const write = (name, row) => fs.writeFileSync(path.join(__dirname, name), JSON.stringify(row, null, 2) + '\n', { flag: 'wx' });
+async function runStage(id, args) {
+  const logPath = path.join(__dirname, `${id}.log`), log = fs.openSync(logPath, 'wx');
+  const child = spawn(process.execPath, [evaluator, ...args], { cwd: root, stdio: ['ignore', log, log] });
+  const started = { id, supervisorPid: process.pid, pid: child.pid, startedAt: stamp(), command: [process.execPath, evaluator, ...args], logPath };
+  write(`${id}.start.json`, started); event({ stageStarted: started });
+  await new Promise((resolveStage, rejectStage) => {
+    child.once('error', rejectStage);
+    child.once('exit', (code, signal) => {
+      fs.closeSync(log);
+      const ended = { ...started, endedAt: stamp(), code, signal };
+      write(`${id}.exit.json`, ended); event({ stageEnded: ended });
+      if (code === 0) resolveStage(); else rejectStage(new Error(`${id} exited ${code}, signal ${signal}`));
+    });
+  });
+}
+(async () => {
+  const fingerprint = JSON.parse(execFileSync(process.execPath, [evaluator, 'fingerprint'], { cwd: root, encoding: 'utf8' }));
+  write('binding.json', { supervisorPid: process.pid, startedAt: stamp(), workers: 2, fingerprint });
+  const stages = [
+    ['01-exploration-run', ['run', exploration, '--seed-set', 'exploration', '--workers', '2']],
+    ['02-exploration-verify', ['verify', exploration]],
+    ['03-evaluator-freeze', ['freeze', exploration, freeze]],
+    ['04-validation-run', ['run', validation, '--seed-set', 'validation', '--workers', '2', '--freeze', freeze]],
+    ['05-validation-verify', ['verify', validation]],
+  ];
+  for (const [id, args] of stages) await runStage(id, args);
+  const complete = { status: 'PASS', completedAt: stamp(), supervisorPid: process.pid, exploration, validation, freeze };
+  write('completion.json', complete); event({ complete });
+})().catch(error => {
+  const complete = { status: 'FAIL', completedAt: stamp(), supervisorPid: process.pid, error: String(error) };
+  write('completion.json', complete); event({ complete }); process.exitCode = 1;
+});

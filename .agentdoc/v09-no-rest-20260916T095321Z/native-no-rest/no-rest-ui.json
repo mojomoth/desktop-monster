@@ -1,0 +1,1648 @@
+{
+  "version": 9,
+  "startedAt": "2026-09-16T10:06:45.744Z",
+  "passed": true,
+  "sourceUnchanged": true,
+  "sources": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/battle.ts": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/collection.ts": "1172c916d297e01175698ddd08c4ef8e9f40db1e244788dd4ac41aa123bd8521",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/discovery.ts": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/economy.ts": "846acc7adf6842d1f8603df242559b551d7025fd4379cd6bb0afe26d7bd9c59a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/engine.ts": "4bf2a500b7fa7453286cd0d8bb3ef1f71df269213e1191837b6d94de601dd26c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/formulas.ts": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/fsm.ts": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/hero.ts": "e807a4493f2105743e5777a5f48b8286680626d70b031685a18aa84740037306",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/index.ts": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/monsters.ts": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/progress.ts": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/progression.ts": "e3586f6ec68e15b49e7bb641ed0e1147ab71dd6c70fb3c957af54fb88093f695",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/save.ts": "fc639fe4425f5b8fefc9032871f0ce0a158142cc68c478ddc09d0fb5fed8d676",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/types.ts": "caed1dfeff1d2ed3b8b6d19fb442511a92d0056e68af9e5f5d11731308145c02",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/coordinator.ts": "393a9b2845a1100f3d5483938981f16c8cf0477a597a513862143428faf66b12",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/globalInput.ts": "3f1b441951dcf47e7368bf9cba7675f79d2dbcc108fd27d5349fee452ac59bf4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/identity.ts": "f174db37997c7fdf69bfa937b13670eec4a65b31ac9c65c12dec0565219fb751",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/index.ts": "7008edeb8786b55dad44ca9c557ffee216021135a418262189849d57358da2ff",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/ipc.ts": "30a956d1901d754496baada2ba924eac276adf0db643807595d95402b5dfb1be",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/menuWindow.ts": "f7a8d75319d63926211952bde49d230350b8cae848ac722de9e957a1f8fd5296",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/net.ts": "8abcf838db6eede03dbce332feac4369165818f0f736c638ddc633c5a3827dd6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/persistence.ts": "1a71170f5a5014223b2fb76fea8d40262257aa5baeb1e5dd8c626b7910e64b9c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/recovery.ts": "03379d5d987e988b95ef37934046f0d8d96aa40d6e9b92f026dd2ba40d32c675",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/settings.ts": "975843bc32c3e6a0ce16667285e1a4c3b27dc2ab7d7e54910aceffc3c10f06f0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/share.ts": "5a00bb8661b009aa173b43efc79837444e0179aa98128de8aac2fe23f2f5f553",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/steam.ts": "260ea5484f37174c40cd0dccb3d8b18f48a0cf3a41555d8dd70a908f2dfa4c45",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/thefts.ts": "34e2bb647d905e85cf244f6889e978ed11ef87f672c99744f38ba20c71d929aa",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/tray.ts": "a7998de880c803e6f87d9a3b092db983b0ec49821fdfce125f7813dc0689204e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/trayIcon.ts": "e8541876935edff7eb0d917a5cf6750191b729aed5f080bbc93b751414eaf1bb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/window.ts": "3591781c68bac7f2f4a1c2647c7e36225d80f2985669a7bdeaac5d70b1b7cc25",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/codex.ts": "e5e514459fe677cd80c0559ab025228de3d674c75c350cab31591843f20b5309",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/economy.ts": "12c47b3245d97364b97ca03dd5d2b7697cc5b6c8e403f215b4d4c26483a6a220",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/hero.ts": "c017db3e1c33b5d6a2352f15aa15d4043e2189487570fea453af0090f0c311d9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/index.ts": "1b136b34293344e496c46085d70e0981985a4c606aabaa0ab6cb6ec8b0a8ff2b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/profile.ts": "83337d33ee0590710b2f78ef88808e35ff08a22e3e984e787323c179c4b9dbe8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/recoveryUi.ts": "6eb097249ae0a30f2c801036593fa6e8eb3ffdc74a7a72b15eeebb42f60efefb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/share.ts": "4241df742536c765b233d6911b2411353eef0d06548a4ef995005df451664970",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/shareUi.ts": "2b931f3b51db91558fa343f8e0960bd51277217f00c2dcbd526ad5dfe059d73e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/view.ts": "3dcdb9836d51053742e433b3e424b55e6d870bad5a4117eea4b23a8104581433",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/preload/index.ts": "6301739331112222b52bd31bc11dd25c38de22eed692e138e86ca06196cee6da",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/anim.ts": "2d70b60ff614d65ec04ac8eb46ccdb25765ffc22229066fc5b5baccd993d64a4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/audio.ts": "4bd87a82cc4fc23d8a2caa0752ccec7e02d7e11e14ef2c57eb766e93ae362f78",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/drag.ts": "3508bb714990d586a11a9d70f77b7ee2737c86293b325da7d7887f100f134fc4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/effects.ts": "421d56e65fc803643080a37f1e89d090714f937c4a2b77826342186caa4a61d5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/game.ts": "8e950556bfedf9e2b4b1f36779b7d444b2df2c932ba3ad43d7bd071ce4f90d3d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/global.d.ts": "9c8effcf04d4eafee857aab577dc0daaf071b17283575d1b64f55f50eeef8801",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/hud.ts": "3bb1f39a06016c1d143a0187118663d0dc16e8241c039a0b09fc162c41361d39",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/index.ts": "d8cab869c68c5a55f7aac265c2cdbe513f5650f14b2f78f9c9e2b1db1972170f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/input.ts": "7cae155c97b06b4e9136c36fea3603e1ef1a7f46bc5ff7fb3db5b137ea5a25c6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/aura.ts": "4ff9f07919ef85a11bd20cf44072f5b1685e3c889dfb87fa9e5e2a1eb89a5cc0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/boss.ts": "adce81ccf723a8d5a9653dd4600906064c1c2789367188d6036520e981f078d9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/companion.ts": "ec04aaefb5adf5b57359f9546e1cef8456143976614368a1dbe3f2f53e86adad",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/font.ts": "39b1ccd019fa1a5512ef2711c324bf431f558ed5db2e6f807f186bc9c7c63e37",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/hero.ts": "2ccc263954b7374a2492a677737142b3ecaeefd102cb7dc96ca503cbb1ddff1c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroAgileLooks.ts": "0cd5da7908bc042f0adf8eb5ccd15f33aeabffcb192247c2b7456d1b5950d033",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroArcaneLooks.ts": "7969d7fa4817644d31a5783918a7e5a3e22fec560720511f3516148370e4e208",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroEvolutionStudies.ts": "1afca4420849a609181b914f9f7c8229d311b44e290b97ecc8b1e67ee05632e3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroForms.ts": "6880bd9fe7dbfff957b5f2deb5f4e56292bebb9f01442fdac4d552a8c89ca5ce",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroJobStudies.ts": "28b7e4aebded38788ca39d837dd04f5c09e1bdf3a0f4b136aab73c067fe58d0d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroKnightLooks.ts": "00476819d25a649ac249a6a0dde3c06b74da2c56c91dd70139446c152f5f7cc8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroLook.ts": "8f850fc00feeed86df33c6c71b0b1d507477a7dfb19515455df1194e1e4f5db4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroRareLooks.ts": "622d65fd06ee3194a9c31cda128114210cbd3738d23e43f8c98d307bdf5e7708",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/index.ts": "af415f79f316dbe031d1d0da6181fda5be9800edbf83b02074e5e2559b992cab",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/items.ts": "45eaa25e7da57c894950e12c111380a010cfceb15033d07c6e282ca1a41548c9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/monsters.ts": "ebdd0442e6dc8bb42417d584b6ab2e9b8e2beb1c65fbe371bef59f5e760c5987",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/palette.ts": "25014b3496ad4d8c1360bf14f850215158bb1644762902e5d7a0e3bf77b95df3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/party.ts": "36de0b0de6f807cb4b93210a2a3eb2c1e4b2008cabe71086eb8877fe6fa6b52d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/dark.ts": "44ad085949960d0d0e1d6fb293dd278c851c25ab1f1dcb6e3200356639ef38f3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/earth.ts": "8d54a781d953e87980f7d5dcc36602bc8b8d6eed6be4f6c42aca1fa1b5ca95f4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/fire.ts": "5d3347e1b1241580f138e28189ffb13004fc2e6fca5fa8b8543b51fecb971a6c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/rare.ts": "ce9e7a287591e2115b6428dd7d023649a1ef7afa4cbf09447b23d250d7e748fb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/water.ts": "e5e1ce02c7d2ba463d67e084839e6e4510489e449f0dd1381748b349703eca8b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/wind.ts": "18a9f4d80a97cf8ce5a758d8d1738fcf1f36c301eec5f63bedcf89acbe08e6e6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/sprite.ts": "759c6f783310e32ec1b9ffb6b1fd90ff952113250de6eb72492dd9816d55e7d2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/app.ts": "5ad8e7012281f6fd35a0e4425eca9f3ad147b666fa0eef92c07bf129ee83c6fc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/http.ts": "5fe51cf7cd00283383616a858878175e337abede7084bdbc09af0de4774168a3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/index.ts": "792de7673b8fdc9630a4a3350ad1a7a55caa529ae6c808858980b938a97af09b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/pg.d.ts": "80ebb37a3080e0e1da36e2862a36122377805eceb774a3396ad5fa3684dbcd76",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/pgStore.ts": "d28348168b56fce4507904eddcb256015b26aa0d2531b8357aff2b901ffb9e12",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/probe.ts": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/store.ts": "cfb3d5f2c60d0215b3606bb1eac836e529f793974466e5b22e908b93abf8a74f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/shared/api.ts": "23e178f8491a807fd54eb2226bf6c7cdc8fa0b8376e4d83b0f61db6b92785f4d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/shared/ipc.ts": "deef380336646520ce2bf170078eda38046d22ee3196d5d034c25d4e039091e1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/shared/serverUrl.ts": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/index.html": "980aa0ed8d6713f3bac0ead622343754877f575910211cb0325d23319b1577b0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/menu.css": "868b23f521a5af860cc658791521c9ab7a8ed4010f755684d175200a6b05f957",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/menu.html": "740c07b9b94e2046eb68317f079e9c9b7d9ba865755ce35b3a640f80ec9fa077",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/style.css": "687cb945d5c20debb38c8be87c86411f970010394a78e08b85cd7db441deed89",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/battle.js": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/collection.js": "94d4976355e7bc60021cefe53ea51f95199c298c6b9cb373b2a7b24cee022ec3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/discovery.js": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/economy.js": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/engine.js": "69a33b88c34a8dc2a16edab710e6580896e6f1865a34f1548dfd4b76dd2746f7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/formulas.js": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/fsm.js": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/hero.js": "052d493ca2b6915c71b6baa694737ae1d1076f58998c9fc958ef0eaa2a2403f1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/index.js": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/monsters.js": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/progress.js": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/progression.js": "fb216a86394692406e6b21f4470d30fc950472b36852d1d29c69ef68ebe9b684",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/save.js": "e2138f438aabccda19b3134a9a4f09dbf199870609f60b4f8369c3c51e38cf4a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/coordinator.js": "b4cf6f770fb0cec7027ea5beaca56d4a4198bb972de80dcabefe7963b2b20fa7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/globalInput.js": "6cf971e0f802f84e83dfa05c46f6efbaad824722e539e4fde716a14fb27d7755",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/identity.js": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/index.js": "f7961ee5f599753270ffc0487706fb9685f6875f2ec90c7ad13bdd5e8f6f66c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/ipc.js": "0ade5e1e7428c14a12609466aa6f1f9aa608e0a0d3d70dca06a28d85caf79126",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/menuWindow.js": "b61efe9a40cb30c30a9884b3ac6e5767f49e731eb55c253839def3b289d695cc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/net.js": "42664310ec8bb835064cb40f212265b89a70e900a17556c2faf79d2504262683",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/persistence.js": "215a2440559e5e9381920ca106883880bd9ede495650678a18996ff6117669ee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/recovery.js": "33ba0cd180317244896675be2ac383fcdbf08da5bb55a86efcfe5817d3b84c26",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/settings.js": "7fc9778c1f0970692f0dcf17e50967f42c98c0c0a7adf174c09785eac24563ed",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/share.js": "217bc55104c488c2008fe0029b4dcd8ee426f1e0b564b0ff99e659f6d5611d0d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/steam.js": "4a921bc8436c3c6a1dc5059e318561cd816279de0d91767f6b481f21a0c69c44",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/thefts.js": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/tray.js": "d365a12ad86da165ee7fba3d931de40f87d33ebddbd5935502ced87a784e4391",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/trayIcon.js": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/window.js": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/preload/index.js": "7ddb55f3ee7db9f93d3ecc729021290a6409c09cb85806dfe26b3c6c7c001146",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/app.js": "094c5321885ff3d5dd33ebee9917565c969d08b92d50fbb62a586ce47b202519",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/http.js": "347278e2633e4007c19ca83d659f58ee9570ba0323139905eec7c1f816df7a96",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/index.js": "dc3787713261ba792d65d7749fd87a240d71e3a1a663e1616910dfd5935cb389",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/pgStore.js": "256b3bfa669e0002afcd86ea5849f211afb442eb1341f63478c1158efa45b2f5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/probe.js": "3a07d24995a703a7d693881dca1a2e205e3719508450f6c17734abf0d220d5d8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/store.js": "fc11f5ffe085071f6f1ae4e4b468ba924007150f2bb1d747c6966d71b9596f63",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/shared/api.js": "542c3ed95f879fd1a3042563759d0427b1ee9df6268c75a924a0cd9ed54177d9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/shared/ipc.js": "9078cedc54e665296145672406115731f59928e7ca60ba81eaf3a931fe1b96e1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/shared/serverUrl.js": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/battle.js": "27f3f9d7b1687eabaed3efc3b0a80885c33d3bdf2d5ce60beff09c0c6c1acce2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/bignum.js": "e24643874acb8bd0148f884c7bb81773af9d0b2793fcdc77d9b4075d5e7d9591",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/collection.js": "8975841e107e48544d85c57710b2489141af7742d64b4be793a3818105dc99c7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/discovery.js": "8490780042434225d1f2c67aaaa88fd504b55d79f2d73360f41e9deb887b48aa",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/economy.js": "917672800b74fb4318bce2b019200ebc791b6d978db2a7488da20376832f0b13",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/engine.js": "a1dbca236a554ec10494df51676191b496bc77335d6b928cce58def93271cc81",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/fever.js": "1cd6bd92c1f4f2e4139a9ac881668bcc38a165be2beabf122d23355d0590d3c7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/formulas.js": "8626285b36d8f8c9c04d30496ea21e319ed33dfaf42dc28adf4e95edb9e15ccc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/fsm.js": "7ec11d978f26bf849c909c97fd12e50398ff0de3535031867e8d7231d23f477b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/hero.js": "0edb0812075722fcd8a81e6b85b81d461dbb5f25d0a36c3f95ee04cf33a1809f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/index.js": "71d081338aa250e61995420e40068b49f3511fdca143d689bdb70a59ce641a84",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/input.js": "7ecb7492a3c4d9f22ec7d6326a614540d4b6458e095c0bb537039e87c2a7139c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/loot.js": "db287e6729d57c151509851ff9ac65c27082d79b3a759404f42f5e5ef7c903ac",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/monsters.js": "651216db19afe364fce689016c01bdc818ea97ccbde8c9be9be279b80513df9d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/progress.js": "d2013b8e36f8f0896b18b582961ca752f55ebb5ef14cd86e693222d4953a87bc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/progression.js": "656d35632821e2148915f95678b9820ff1a7a3a61f5988364d7e9e4c19e45205",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/rng.js": "7883a0dc8f39c2738fcb501327f8d1033dacbf14af581d0c68b51e77f63e8f20",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/save.js": "110835a58518153c937606e011ea5cd321752ab71b7de57ec78bbf30a5cb3e22",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/types-chart.js": "994cbf0449da652a181bc5f0e1e45493957c2b1087d762c0664595f93afc40fa",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/types.js": "d7d8ab94373e2a9d4f67050a2d37c3a74d082dcf009b82f190d09c087ffca3cf",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/codex.js": "13afae84e6e5230e441a913f137bff72bf7b1117c47f86405aa99f6da33ec371",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/economy.js": "b8c09c98d15cd508ee6a7479d3b90885095a2ce3b9979ee25724165309d8a707",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/hero.js": "52bb3f63d9e3f9bc8a36510c6fb65703b23eef12eccd47a2b3dafa58cb761218",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/index.js": "7d2aee99586b6ebf05a7f7416123753971fbf3e312630b009b512312da0460a6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/profile.js": "f143b7ab86f34ca4d832c254acd71ba4520a2c4589636379c3d7f8d4e85927c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/recoveryUi.js": "419c780d61943536fb8a49ad4938027d8592f72bcf582e8a64abcc25b6c959cd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/share.js": "0ac9185c6ce96831d259e003aea8c1837a21c7063b94764975d72f2d775b53c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/shareUi.js": "a982c34417cdad9994d11edad89d797bd588b3b20db12407a064e4bf76066e2a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/view.js": "095d3eed23a424f8c53ec077dc2aecbeea9c1d34d121fbe9b1309490e660dead",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/anim.js": "2003f5881f65e0b8d54927176c5dc56700eefd12b4e4ecfd8f7f1497381e7838",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/audio.js": "ae1716831b61d4b8a2c2b3f9d1796473cac36376664bde86b122708bd22df38b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/drag.js": "ed4f4bbddb732781080905286961fe6e5d256f4a676ea5b3d89cfe39d294a364",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/effects.js": "260211ac7498a2aa73ddabaa8254d25c86470e626726add3579fe95d36006fd6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/game.js": "cf0ec22d9a05c946157157121abeadb52a11c785716d952d603a7e53a90d5f64",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/hud.js": "2343b8140bb803e536b7a453f037554268fc2a6b95e19c2a2f6f422c4a8fcb3e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/index.js": "503652a89a17882c0f78039f32f8df739c2f387db599d20d725a916b4bed8bfe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/input.js": "92b925d4cdb12fe505e9e91916b9ef5a441cbbb293c5825bfa802680e99669ee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/aura.js": "5b7810453e62a4ffe2b2b2388c16a7b3b40e24f4f0ca24ee9be1a3904ee523c6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/boss.js": "9b00221a6640c12cd21fe8b49902f74acd41e1e4631a58024aca12243fb8800f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/companion.js": "1c643e3b20ebe271c3f1e4f53c3cbd5b5cd17348374ae6badb90adf161c4f180",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/font.js": "583678e7dc39232618f295ebacb64a782f738d9411afcf77e83cbb9d7de3658d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/hero.js": "0087b8be810d3d70ae205fa2d3708921b9003d654a524309fd1ceed4d9274b0a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroAgileLooks.js": "d39beca5fa3ec11061a8b23767ef704fea2abb709cd2dddcbb772992404b3f99",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroArcaneLooks.js": "2cb5797eeec89783ddf21e619d866a7d243b0beb0749f559fd0b0ef616fb228e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroEvolutionStudies.js": "e7642dd0ed6ab33c896bb1aeb34524647d93449f941274797387253682d054fd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroForms.js": "a75dec563a95b673878400578f845ebfa00ee6f92a5d4d1622f06be27ecc2e22",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroJobStudies.js": "c4bfc7102b72a7302b13d90da903ab3a70283b04e9bda3dd8ae9e53ff28c85a9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroKnightLooks.js": "f1c8a02ce61df860a9c7e64d8d525c9ed97c06b2ae3c0bab72e8235eafded63b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroLook.js": "bd48b4d7f6469ed4a727b0f5011a879357b024b3bd85ff01709d68ff0b32fd63",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroRareLooks.js": "6964d2184be0ea39ebeeb32a5c90f732849d8e2f458822cade72f651ad4585f6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/index.js": "775be0fc4c895f691afcde691694abb2d4b61a6e3477e5fab6d4ac5ad10170f2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/items.js": "dcdadffa35a5e1ba2bf102692deae197f3a21a124c1bd2dcc072ff5d1c29c827",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/monsters.js": "cb08247512bafb3b8471f63bf509c653a22f8a5dedf210dc1b83467e400acec4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/palette.js": "5e68267b39a18e3c7604dae20335ad1985dafcbe53442c739b3c53fd00b13cf7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/party.js": "88625cc2643e7e532274395d59f4c8a1788ff0f37d7b46d82064874da2243491",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/dark.js": "0c7fbed99f9b349677e9824495ba0b76554ed731d6de9e2c2269e064045e5e3a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/earth.js": "a8842f7688d92a117656d805dd81633060c1cc98146e8e6d7969a85700445344",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/fire.js": "35b35f2d295116c3d9fad3c8003c4f867184a854b978884565d39a8f7723ca00",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/rare.js": "bbb78c3fb353f43b1339080401932ef8aef326e259b2d9652207f2de298fb0da",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/water.js": "ad901958db17274513e6cac932f33a69e955ee1057ac0cfff2abfc39aede00e4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/wind.js": "a706931e63107e61436e8e0e2f31fafe2785980dfeba2a0c8ffaba02659b2449",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/sprite.js": "404297be69882c310c0fd4515f827127256bc6b37745a0f70e994fd042027d31",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/shared/api.js": "63b6099c09f2e7419550a761dcffb91e0af1b9027b866b3c1d3704c5163cb010",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/shared/ipc.js": "7f151ea510f9d6f1ce37152e8f0a612347f6abb39123b0434bb9a713da7f1a5c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/shared/serverUrl.js": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v9/no-rest-ui.mjs": "ca77fd052d9077fd55880fb046707b1bca8a2765cc148a6ada1ad160355efe40",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v9/runtime.mjs": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/package-check.mjs": "f7b1d8fbd531d00b9c729250639c8390ceef865984e79dd546e382328fd7a5c7"
+  },
+  "artifacts": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/deferred/field-hud.png": "6d0530267696bd53b95870be98dcf6aa998a7b20ada7599abaaa11f7bcfbef08",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/deferred/hero-deferred-later.png": "e1769b9b83b3f42d1f71c2913ad05e05d055f3eab92c338256023a0e38c6fd88",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/deferred/hero-deferred-start.png": "ee399779013562e159f18043a2fa0d4b9eeee394d2c75b94db6abe07fd1d5e19",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/deferred/runtime-start.json": "7366951e856b40cfed1094a60be6890216f7bdb5e8af26542e0ee45d6c43ba6a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/deferred/runtime.json": "bc7ec5cd2417e75d6ff78b12dfb91ae3a1baeea767cc3b0336b64022ec11f30e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/deferred/runtime.log": "bf6535379a1ac625697f60e4edd196cf622c8dffb3fb84d44969795d39cd5439",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/field-hud.png": "d29773134143a18684660c785d7ebd0e4c0584d63c16ee856330025ada0d9267",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/hero-after-choice.png": "58b0e9cacebf375eb77d4000c4468614cee8714e361bd5a7f22b2ff8f670bc24",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/hero-legacy-ready.png": "0b44bbc8d11c0829e0e9a6051df19f252e01065527a4e44ae3842a79ce0080a1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/hero-restored.png": "673bcad1d4183ea4bf52dda1d307ba28f98c1665d8c2621ccbf6a6bf47474586",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/restored-checkpoint.png": "1967660aa3139fe5c99073e711fc18381e30fe904e6641966031f8c7feeea8a0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/runtime-start.json": "a810729a4e0e7aaf84bd44abd5796a6ef585f4972c963e56dcc8e255c61d0899",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/runtime.json": "64fa8ed13b4d5ade660be04d17d843f8cea0c27155c53a42bd6117cf8dbb40a8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/first/runtime.log": "6ba1fc83936de9b2c2d8a6561e2810bd70ad0d09dd2f69e4751c7f7908faf710",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/fixtures.json": "509a490103f7e3319c46916edf834f54856333afed6d1927eb52f75f77b7cf04",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/restart/field-hud.png": "1ee1dd4a941aa8e9ef58d5c93108f1ca800c3a4bda3629e35a49c66e5f73c575",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/restart/hero-restarted.png": "b5aa6dae4ab34904b2d70a1178a3eadd0a44f8c03b8fce90bace31707896c532",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/restart/runtime-start.json": "31ab9685b853a0dd034cd7906dddbc0f6b2775e79d2964513f7846a6a88c09f1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/restart/runtime.json": "1a77f4b017f6d62eb813d278039b347be18bc57e25d8d87d10cbb64e933d4fa3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/restart/runtime.log": "47c192fc7b79561045f29f5869d6ff331d9df2d5c2d87af1ee79f70aa010e43b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/.v09-isolated": "531902eadcf4d4af6508c6c74bc50a80be201b722926f2bbf5a2202ebd572f9c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Code Cache/js/index": "fbcfe23a2ecb82b7100c50811691dde0a33aa3da8d176be9882a9db485dc0f2d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Code Cache/js/index-dir/the-real-index": "9e2c9f0687aa28cc85a89176621032bbc4d3f0551549dc61a3766278c2f12960",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Code Cache/wasm/index": "fbcfe23a2ecb82b7100c50811691dde0a33aa3da8d176be9882a9db485dc0f2d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Code Cache/wasm/index-dir/the-real-index": "f7abb68a25409b6f55b06fb80330ca40cbb6b795f736ba54095fa84613194560",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DIPS": "a7d5c6f01abfccd641d513ddd9eceb6d371370a04c9f6604f2d28e56aefbb859",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnGraphiteCache/data_0": "d6a5fe39cd672781b256e0e3102f7022635f1d4bb7cfcc90a80fffe4d0f3877e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnGraphiteCache/data_1": "b1e963d702392fb7224786e7d56d43973e9b9efd1b89c17814d7c558ffc0cdec",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnGraphiteCache/data_2": "ec1702806f4cc7c42a82fc2b38e89835fde7c64bb32060e0823c9077ca92efb7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnGraphiteCache/data_3": "e09f42c398d688dce168570291f1f92d079987deda3099a34adb9e8c0522b30c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnGraphiteCache/index": "4dac0b6cf0d07b19713e33d0ce567e5626b9c3b4d1f5fce5d980a82a2768dc61",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnWebGPUCache/data_0": "d6a5fe39cd672781b256e0e3102f7022635f1d4bb7cfcc90a80fffe4d0f3877e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnWebGPUCache/data_1": "b1e963d702392fb7224786e7d56d43973e9b9efd1b89c17814d7c558ffc0cdec",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnWebGPUCache/data_2": "ec1702806f4cc7c42a82fc2b38e89835fde7c64bb32060e0823c9077ca92efb7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnWebGPUCache/data_3": "e09f42c398d688dce168570291f1f92d079987deda3099a34adb9e8c0522b30c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/DawnWebGPUCache/index": "aa3028f78d8f2d68c829fc9d2810b53a126a2bbbf0570ffb76bff9c942eec5bf",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/GPUCache/data_0": "d6a5fe39cd672781b256e0e3102f7022635f1d4bb7cfcc90a80fffe4d0f3877e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/GPUCache/data_1": "b1e963d702392fb7224786e7d56d43973e9b9efd1b89c17814d7c558ffc0cdec",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/GPUCache/data_2": "ec1702806f4cc7c42a82fc2b38e89835fde7c64bb32060e0823c9077ca92efb7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/GPUCache/data_3": "e09f42c398d688dce168570291f1f92d079987deda3099a34adb9e8c0522b30c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/GPUCache/index": "fb31f6c24ae4e4def81fb1b1fb9bc8eab82020707a7a8feadf66dcf89bcd4f9c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Local Storage/leveldb/000003.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Local Storage/leveldb/CURRENT": "0f1bad70c7bd1e0a69562853ec529355462fcd0423263a3d39d6d0d70b780443",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Local Storage/leveldb/LOCK": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Local Storage/leveldb/LOG": "10cdc467aa3608eb46b3b4000c93e3d283be8902098744375ded7f0666318342",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Local Storage/leveldb/LOG.old": "757d0d05a55932367cb87cb93cd0928ba3200a4519db67203878e2a706fc2345",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Local Storage/leveldb/MANIFEST-000001": "f9d31b278e215eb0d0e9cd709edfa037e828f36214ab7906f612160fead4b2b4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Network Persistent State": "e1b77550222c2451772c958e44026abe518a2c8766862f331765788ddd196377",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Preferences": "d68b55406a805f3e29efaecee6e075e3ddd8c7d785ee442a4373952f66f0cb84",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Session Storage/000003.log": "b10c1ba416a632cd57232c81a5c2e8ee76a716e0737d10eabe1d430bec50739d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Session Storage/CURRENT": "0f1bad70c7bd1e0a69562853ec529355462fcd0423263a3d39d6d0d70b780443",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Session Storage/LOCK": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Session Storage/LOG": "0b7bdc75cb81f211b0bcd5ffe42f55dd626e5bba921f9fdb1c5303d125217ca5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Session Storage/LOG.old": "a1e3b1cfd97b21a93d67a13054e268ca349f528261583b55f827b2de60e60cfe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Session Storage/MANIFEST-000001": "f9d31b278e215eb0d0e9cd709edfa037e828f36214ab7906f612160fead4b2b4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Shared Dictionary/cache/index": "fbcfe23a2ecb82b7100c50811691dde0a33aa3da8d176be9882a9db485dc0f2d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Shared Dictionary/cache/index-dir/the-real-index": "79f0291f648a6cbd6ff4b36371f13f3a78cb7baf7f94909beb7100d267c7f4c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Shared Dictionary/db": "9dfba1d139c9933668e58e9c7777804c8ae01b2942dcc2dfaaa65ac139853a59",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Shared Dictionary/db-journal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Trust Tokens": "fe03fb82cfe74a64c7094c810f9e8167c3b61c254c27569cc6b7db5ed84b0b18",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/Trust Tokens-journal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/checkpoints/87a71db3-eefd-41d5-9a19-03dd08d1e08f.json": "78ec03fc4aa7bbc4f33540c5eaa560cb79f6cbb017fdfcfe7b430c80a0c0a466",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/checkpoints/legacy-rest-point.json": "1dd76b43299f7af579521a52ca5b13368f721e29413006916b66a458e7cfc9b2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/fixture-server.json": "53890703dc8165b9353d6d690eacce46909d0ca21befc9f803828908929ea8c8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/identity.json": "62f5e87c9bd327684b5f4968071775d9e1f7d506eea8361c18d78c2b0909ad4a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/recovery.json": "acfcc348d94c30c8e90ab140989daa2bfea7c2b77efa110c64cf0289e256e7fe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/save.json": "ed56d2d530a47f408f026656248ce59979970af9f5438dffed95a78cccac2e4b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data/settings.json": "4ac2f69e004b3d4aa47ed60c4ed6c0020564f1dfbc8e214d96f1300939ec3ec4"
+  },
+  "attempts": [
+    {
+      "phase": "first",
+      "startedAt": "2026-09-16T10:06:45.771Z",
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app",
+        "appHash": "c4dafbd5bcbbccb1f60ac0fed69e1664e5b945bbab7d6570a93b481799aa9875",
+        "launcherHash": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+        "startedAt": "2026-09-16T10:06:45.772Z",
+        "userData": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data",
+        "metadata": {
+          "version": "0.9.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [],
+          "dialogs": [
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "진행 복원",
+                "message": "선택한 백업 시점으로 돌아갈까요?",
+                "detail": "백업 이후의 로컬 진행은 선택한 시점으로 교체됩니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+                "buttons": [
+                  "취소",
+                  "백업으로 복원"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 1
+            }
+          ],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher",
+          "clock": "real time",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 109,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-16T10:06:48.637Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      },
+      "errors": [],
+      "finishedAt": "2026-09-16T10:06:48.638Z"
+    },
+    {
+      "phase": "restart",
+      "startedAt": "2026-09-16T10:06:48.638Z",
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app",
+        "appHash": "c4dafbd5bcbbccb1f60ac0fed69e1664e5b945bbab7d6570a93b481799aa9875",
+        "launcherHash": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+        "startedAt": "2026-09-16T10:06:48.639Z",
+        "userData": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data",
+        "metadata": {
+          "version": "0.9.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [],
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/user-data",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher",
+          "clock": "real time",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 109,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-16T10:06:50.603Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      },
+      "errors": [],
+      "finishedAt": "2026-09-16T10:06:50.604Z"
+    },
+    {
+      "phase": "deferred",
+      "startedAt": "2026-09-16T10:06:50.604Z",
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app",
+        "appHash": "c4dafbd5bcbbccb1f60ac0fed69e1664e5b945bbab7d6570a93b481799aa9875",
+        "launcherHash": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+        "startedAt": "2026-09-16T10:06:50.606Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-AS9Ghl",
+        "metadata": {
+          "version": "0.9.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-AS9Ghl",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [],
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-AS9Ghl",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher",
+          "clock": "real time",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 109,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-16T10:06:56.383Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      },
+      "errors": [],
+      "finishedAt": "2026-09-16T10:06:56.384Z"
+    }
+  ],
+  "checks": [
+    {
+      "phase": "first",
+      "name": "legacy-rest-normalized-in-main-and-menu",
+      "passed": true,
+      "details": {
+        "loaded": {
+          "version": 3,
+          "level": 18,
+          "xp": 3,
+          "killCount": 98,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 40,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "collection": [],
+            "reincarnations": 1,
+            "choices": [
+              {
+                "formId": "h01",
+                "buffPercent": 10
+              },
+              {
+                "formId": "h02",
+                "buffPercent": 15
+              },
+              {
+                "formId": "h03",
+                "buffPercent": 20
+              }
+            ],
+            "deferRemainingMs": 0,
+            "offerSerial": 9,
+            "offerLevel": 18
+          },
+          "progress": {
+            "playTimeMs": 279.2,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03"
+            ],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": true,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "menu": {
+          "save": {
+            "version": 3,
+            "level": 18,
+            "xp": 3,
+            "killCount": 98,
+            "coins": 1234567,
+            "items": {},
+            "monsterIndex": 0,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "10",
+            "companions": [],
+            "nextCompanionId": 1,
+            "earlyCaptureUsed": 0,
+            "souls": 0,
+            "rebirths": 0,
+            "bestIndex": 40,
+            "pvpParty": [],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 1,
+              "choices": [
+                {
+                  "formId": "h01",
+                  "buffPercent": 10
+                },
+                {
+                  "formId": "h02",
+                  "buffPercent": 15
+                },
+                {
+                  "formId": "h03",
+                  "buffPercent": 20
+                }
+              ],
+              "deferRemainingMs": 0,
+              "offerSerial": 9,
+              "offerLevel": 18
+            },
+            "progress": {
+              "playTimeMs": 279.2,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime"
+              ],
+              "seenHeroes": [
+                "h01",
+                "h02",
+                "h03"
+              ],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": true,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "text": "여행의 시작 · 수습 영웅Lv.18 · 공격력 342환생하면 동료 버프가 열립니다환생 1회 · 영웅 0/70 · 중첩 0골드 1234567현재 Lv.18 / 다음 환생 Lv.18다음 생의 영웅을 고르세요Lv.1 · 첫 몬스터부터 다시 시작합니다.동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득새벽 검사일반 · ★ · 불불 동료 공격력 +20%첫 획득 · 중첩 0환생새벽 창술사일반 · ★ · 물물 동료 공격력 +30%첫 획득 · 중첩 0환생새벽 거너일반 · ★ · 바람바람 동료 공격력 +40%첫 획득 · 중첩 0환생보류 · 플레이 30초 후 무료 재도전75 골드로 다시 뽑기환생 규칙 자세히수락 후에는 Lv.18에 도달하면 다시 환생할 수 있습니다.낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.",
+          "choices": [
+            {
+              "id": "h01",
+              "disabled": false
+            },
+            {
+              "id": "h02",
+              "disabled": false
+            },
+            {
+              "id": "h03",
+              "disabled": false
+            }
+          ],
+          "offer": []
+        }
+      }
+    },
+    {
+      "phase": "first",
+      "name": "native-canvas-removed-HUD-and-preserved-head-counters",
+      "passed": true,
+      "details": {
+        "width": 200,
+        "height": 130,
+        "removed": 0,
+        "level": 37,
+        "ready": 116,
+        "xp": 160,
+        "kills": 172,
+        "coins": 160,
+        "xpFrame": [
+          133,
+          149,
+          161,
+          255
+        ]
+      }
+    },
+    {
+      "phase": "first",
+      "name": "native-choice-resets-level-without-rest",
+      "passed": true,
+      "details": {
+        "chosen": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 98,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "vorrow",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 1,
+          "rebirths": 1,
+          "bestIndex": 40,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h02",
+              "buffPercent": 15
+            },
+            "collection": [
+              {
+                "formId": "h02",
+                "buffPercent": 15
+              }
+            ],
+            "reincarnations": 2,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 9
+          },
+          "progress": {
+            "playTimeMs": 591.8,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime",
+              "vorrow"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03"
+            ],
+            "heroCounts": {
+              "h02": 1
+            },
+            "reincarnationHistory": [
+              {
+                "number": 2,
+                "formId": "h02",
+                "level": 18,
+                "playTimeMs": 591.8,
+                "buffPercent": 15,
+                "stacks": 0
+              }
+            ],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 1,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": true,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "chosenUi": {
+          "save": {
+            "version": 3,
+            "level": 1,
+            "xp": 0,
+            "killCount": 98,
+            "coins": 1234567,
+            "items": {},
+            "monsterIndex": 0,
+            "monsterSpeciesId": "vorrow",
+            "monsterHp": "10",
+            "companions": [],
+            "nextCompanionId": 1,
+            "earlyCaptureUsed": 0,
+            "souls": 1,
+            "rebirths": 1,
+            "bestIndex": 40,
+            "pvpParty": [],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h02",
+                "buffPercent": 15
+              },
+              "collection": [
+                {
+                  "formId": "h02",
+                  "buffPercent": 15
+                }
+              ],
+              "reincarnations": 2,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 9
+            },
+            "progress": {
+              "playTimeMs": 591.8,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "vorrow"
+              ],
+              "seenHeroes": [
+                "h01",
+                "h02",
+                "h03"
+              ],
+              "heroCounts": {
+                "h02": 1
+              },
+              "reincarnationHistory": [
+                {
+                  "number": 2,
+                  "formId": "h02",
+                  "level": 18,
+                  "playTimeMs": 591.8,
+                  "buffPercent": 15,
+                  "stacks": 0
+                }
+              ],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 1,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": true,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "text": "새벽 창술사Lv.1 · 공격력 3물 동료 공격력 +30%환생 2회 · 영웅 1/70 · 중첩 0골드 1234567현재 Lv.1 / 다음 환생 Lv.18새로운 모습으로 환생Lv.1 · 첫 몬스터부터 다시 시작합니다.동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득Lv.18에 환생 해금환생 규칙 자세히수락 후에는 Lv.19에 도달하면 다시 환생할 수 있습니다.낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.",
+          "choices": [],
+          "offer": [
+            {
+              "text": "Lv.18에 환생 해금",
+              "disabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phase": "first",
+      "name": "new-save-omits-rest",
+      "passed": true,
+      "details": {
+        "saved": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 98,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "vorrow",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 1,
+          "rebirths": 1,
+          "bestIndex": 40,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h02",
+              "buffPercent": 15
+            },
+            "collection": [
+              {
+                "formId": "h02",
+                "buffPercent": 15
+              }
+            ],
+            "reincarnations": 2,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 9
+          },
+          "progress": {
+            "playTimeMs": 591.8,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime",
+              "vorrow"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03"
+            ],
+            "heroCounts": {
+              "h02": 1
+            },
+            "reincarnationHistory": [
+              {
+                "number": 2,
+                "formId": "h02",
+                "level": 18,
+                "playTimeMs": 591.8,
+                "buffPercent": 15,
+                "stacks": 0
+              }
+            ],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 1,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": true,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "phase": "first",
+      "name": "raw-hash-verified-legacy-checkpoint-listed",
+      "passed": true,
+      "details": {
+        "list": [
+          {
+            "id": "legacy-rest-point",
+            "at": 1789553205770,
+            "reason": "reset",
+            "level": 18,
+            "bestIndex": 40,
+            "companions": 0
+          }
+        ],
+        "checkpointOriginalHash": "1dd76b43299f7af579521a52ca5b13368f721e29413006916b66a458e7cfc9b2"
+      }
+    },
+    {
+      "phase": "first",
+      "name": "restored-choice-promise-normalized-and-original-checkpoint-unchanged",
+      "passed": true,
+      "details": {
+        "restored": {
+          "version": 3,
+          "level": 18,
+          "xp": 3,
+          "killCount": 98,
+          "coins": 34567,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 40,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "collection": [],
+            "reincarnations": 1,
+            "choices": [
+              {
+                "formId": "h01",
+                "buffPercent": 10
+              },
+              {
+                "formId": "h02",
+                "buffPercent": 15
+              },
+              {
+                "formId": "h03",
+                "buffPercent": 20
+              }
+            ],
+            "deferRemainingMs": 0,
+            "offerSerial": 29,
+            "offerLevel": 18
+          },
+          "progress": {
+            "playTimeMs": 0,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03"
+            ],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": true,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "phase": "first",
+      "name": "restore-used-native-confirmation",
+      "passed": true,
+      "details": {
+        "dialog": {
+          "kind": "message",
+          "options": {
+            "type": "warning",
+            "title": "진행 복원",
+            "message": "선택한 백업 시점으로 돌아갈까요?",
+            "detail": "백업 이후의 로컬 진행은 선택한 시점으로 교체됩니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+            "buttons": [
+              "취소",
+              "백업으로 복원"
+            ],
+            "defaultId": 0,
+            "cancelId": 0,
+            "noLink": true
+          },
+          "response": 1
+        }
+      }
+    },
+    {
+      "phase": "first",
+      "name": "restored-menu-ready-without-rest-label",
+      "passed": true,
+      "details": {
+        "restoredUi": {
+          "save": {
+            "version": 3,
+            "level": 18,
+            "xp": 3,
+            "killCount": 98,
+            "coins": 34567,
+            "items": {},
+            "monsterIndex": 0,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "10",
+            "companions": [],
+            "nextCompanionId": 1,
+            "earlyCaptureUsed": 0,
+            "souls": 0,
+            "rebirths": 0,
+            "bestIndex": 40,
+            "pvpParty": [],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 1,
+              "choices": [
+                {
+                  "formId": "h01",
+                  "buffPercent": 10
+                },
+                {
+                  "formId": "h02",
+                  "buffPercent": 15
+                },
+                {
+                  "formId": "h03",
+                  "buffPercent": 20
+                }
+              ],
+              "deferRemainingMs": 0,
+              "offerSerial": 29,
+              "offerLevel": 18
+            },
+            "progress": {
+              "playTimeMs": 0,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime"
+              ],
+              "seenHeroes": [
+                "h01",
+                "h02",
+                "h03"
+              ],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": true,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "text": "여행의 시작 · 수습 영웅Lv.18 · 공격력 342환생하면 동료 버프가 열립니다환생 1회 · 영웅 0/70 · 중첩 0골드 34567현재 Lv.18 / 다음 환생 Lv.18다음 생의 영웅을 고르세요Lv.1 · 첫 몬스터부터 다시 시작합니다.동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득새벽 검사일반 · ★ · 불불 동료 공격력 +20%첫 획득 · 중첩 0환생새벽 창술사일반 · ★ · 물물 동료 공격력 +30%첫 획득 · 중첩 0환생새벽 거너일반 · ★ · 바람바람 동료 공격력 +40%첫 획득 · 중첩 0환생보류 · 플레이 30초 후 무료 재도전75 골드로 다시 뽑기환생 규칙 자세히수락 후에는 Lv.18에 도달하면 다시 환생할 수 있습니다.낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.",
+          "choices": [
+            {
+              "id": "h01",
+              "disabled": false
+            },
+            {
+              "id": "h02",
+              "disabled": false
+            },
+            {
+              "id": "h03",
+              "disabled": false
+            }
+          ],
+          "offer": []
+        }
+      }
+    },
+    {
+      "phase": "restart",
+      "name": "normalized-restoration-persists-with-choice-serial",
+      "passed": true,
+      "details": {
+        "loaded": {
+          "version": 3,
+          "level": 18,
+          "xp": 3,
+          "killCount": 98,
+          "coins": 34567,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 40,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "collection": [],
+            "reincarnations": 1,
+            "choices": [
+              {
+                "formId": "h01",
+                "buffPercent": 10
+              },
+              {
+                "formId": "h02",
+                "buffPercent": 15
+              },
+              {
+                "formId": "h03",
+                "buffPercent": 20
+              }
+            ],
+            "deferRemainingMs": 0,
+            "offerSerial": 29,
+            "offerLevel": 18
+          },
+          "progress": {
+            "playTimeMs": 174.60000007152559,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03"
+            ],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": true,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "menu": {
+          "save": {
+            "version": 3,
+            "level": 18,
+            "xp": 3,
+            "killCount": 98,
+            "coins": 34567,
+            "items": {},
+            "monsterIndex": 0,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "10",
+            "companions": [],
+            "nextCompanionId": 1,
+            "earlyCaptureUsed": 0,
+            "souls": 0,
+            "rebirths": 0,
+            "bestIndex": 40,
+            "pvpParty": [],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 1,
+              "choices": [
+                {
+                  "formId": "h01",
+                  "buffPercent": 10
+                },
+                {
+                  "formId": "h02",
+                  "buffPercent": 15
+                },
+                {
+                  "formId": "h03",
+                  "buffPercent": 20
+                }
+              ],
+              "deferRemainingMs": 0,
+              "offerSerial": 29,
+              "offerLevel": 18
+            },
+            "progress": {
+              "playTimeMs": 174.60000007152559,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime"
+              ],
+              "seenHeroes": [
+                "h01",
+                "h02",
+                "h03"
+              ],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": true,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "text": "여행의 시작 · 수습 영웅Lv.18 · 공격력 342환생하면 동료 버프가 열립니다환생 1회 · 영웅 0/70 · 중첩 0골드 34567현재 Lv.18 / 다음 환생 Lv.18다음 생의 영웅을 고르세요Lv.1 · 첫 몬스터부터 다시 시작합니다.동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득새벽 검사일반 · ★ · 불불 동료 공격력 +20%첫 획득 · 중첩 0환생새벽 창술사일반 · ★ · 물물 동료 공격력 +30%첫 획득 · 중첩 0환생새벽 거너일반 · ★ · 바람바람 동료 공격력 +40%첫 획득 · 중첩 0환생보류 · 플레이 30초 후 무료 재도전75 골드로 다시 뽑기환생 규칙 자세히수락 후에는 Lv.18에 도달하면 다시 환생할 수 있습니다.낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.",
+          "choices": [
+            {
+              "id": "h01",
+              "disabled": false
+            },
+            {
+              "id": "h02",
+              "disabled": false
+            },
+            {
+              "id": "h03",
+              "disabled": false
+            }
+          ],
+          "offer": []
+        },
+        "disk": {
+          "version": 3,
+          "level": 18,
+          "xp": 3,
+          "killCount": 98,
+          "coins": 34567,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 40,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "collection": [],
+            "reincarnations": 1,
+            "choices": [
+              {
+                "formId": "h01",
+                "buffPercent": 10
+              },
+              {
+                "formId": "h02",
+                "buffPercent": 15
+              },
+              {
+                "formId": "h03",
+                "buffPercent": 20
+              }
+            ],
+            "deferRemainingMs": 0,
+            "offerSerial": 29,
+            "offerLevel": 18
+          },
+          "progress": {
+            "playTimeMs": 174.60000007152559,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02",
+              "h03"
+            ],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": true,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "checkpointOriginalHash": "1dd76b43299f7af579521a52ca5b13368f721e29413006916b66a458e7cfc9b2"
+      }
+    },
+    {
+      "phase": "restart",
+      "name": "native-canvas-removed-HUD-and-preserved-head-counters",
+      "passed": true,
+      "details": {
+        "width": 200,
+        "height": 130,
+        "removed": 0,
+        "level": 37,
+        "ready": 116,
+        "xp": 160,
+        "kills": 172,
+        "coins": 164,
+        "xpFrame": [
+          133,
+          149,
+          161,
+          255
+        ]
+      }
+    },
+    {
+      "phase": "deferred",
+      "name": "legacy-rest-removed-but-defer-still-blocks",
+      "passed": true,
+      "details": {
+        "before": {
+          "save": {
+            "version": 3,
+            "level": 18,
+            "xp": 3,
+            "killCount": 98,
+            "coins": 1234567,
+            "items": {},
+            "monsterIndex": 0,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "10",
+            "companions": [],
+            "nextCompanionId": 1,
+            "earlyCaptureUsed": 0,
+            "souls": 0,
+            "rebirths": 0,
+            "bestIndex": 40,
+            "pvpParty": [],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 1,
+              "choices": [],
+              "deferRemainingMs": 29828,
+              "offerSerial": 39
+            },
+            "progress": {
+              "playTimeMs": 172.00000007152556,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": true,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "text": "여행의 시작 · 수습 영웅Lv.18 · 공격력 342환생하면 동료 버프가 열립니다환생 1회 · 영웅 0/70 · 중첩 0골드 1234567현재 Lv.18 / 다음 환생 Lv.18새로운 모습으로 환생Lv.1 · 첫 몬스터부터 다시 시작합니다.동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득무료 재도전까지 플레이 30초 · Lv.18 필요환생 규칙 자세히수락 후에는 Lv.18에 도달하면 다시 환생할 수 있습니다.낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.",
+          "choices": [],
+          "offer": [
+            {
+              "text": "무료 재도전까지 플레이 30초 · Lv.18 필요",
+              "disabled": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phase": "deferred",
+      "name": "native-canvas-removed-HUD-and-preserved-head-counters",
+      "passed": true,
+      "details": {
+        "width": 200,
+        "height": 130,
+        "removed": 0,
+        "level": 37,
+        "ready": 0,
+        "xp": 160,
+        "kills": 172,
+        "coins": 160,
+        "xpFrame": [
+          133,
+          149,
+          161,
+          255
+        ]
+      }
+    },
+    {
+      "phase": "deferred",
+      "name": "real-time-defer-countdown-continues",
+      "passed": true,
+      "details": {
+        "elapsedWallMs": 4637,
+        "before": 29828,
+        "after": {
+          "save": {
+            "version": 3,
+            "level": 18,
+            "xp": 3,
+            "killCount": 98,
+            "coins": 1234567,
+            "items": {},
+            "monsterIndex": 0,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "10",
+            "companions": [],
+            "nextCompanionId": 1,
+            "earlyCaptureUsed": 0,
+            "souls": 0,
+            "rebirths": 0,
+            "bestIndex": 40,
+            "pvpParty": [],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 1,
+              "choices": [],
+              "deferRemainingMs": 24987,
+              "offerSerial": 39
+            },
+            "progress": {
+              "playTimeMs": 5013.000000071525,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": true,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "text": "여행의 시작 · 수습 영웅Lv.18 · 공격력 342환생하면 동료 버프가 열립니다환생 1회 · 영웅 0/70 · 중첩 0골드 1234567현재 Lv.18 / 다음 환생 Lv.18새로운 모습으로 환생Lv.1 · 첫 몬스터부터 다시 시작합니다.동료·골드·훈련·발견·기록 유지 · 영혼과 영구 공격력 +25% 획득무료 재도전까지 플레이 25초 · Lv.18 필요환생 규칙 자세히수락 후에는 Lv.18에 도달하면 다시 환생할 수 있습니다.낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.",
+          "choices": [],
+          "offer": [
+            {
+              "text": "무료 재도전까지 플레이 25초 · Lv.18 필요",
+              "disabled": true
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "isolation": "Synthetic level/legacy save fixtures in owned directories. Real time and production RNG, renderer, preload, IPC, coordinator and recovery. Native menu mouse input; no personal save, global hook or production network.",
+  "finishedAt": "2026-09-16T10:06:56.400Z"
+}

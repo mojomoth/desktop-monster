@@ -1,0 +1,155 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 6,
+  "startedAt": "2026-09-12T07:13:31.849797+00:00",
+  "experimentKind": "candidate",
+  "experiment": {
+    "id": "candidate-r6-first5-63-xp143",
+    "hypothesis": "Same first-five depth63 guarantee with previously explored XP1.43; compare actual first journey without assuming timing monotonicity. All remaining19 parameters identical between candidates. Tail10475 fixed from Round05 exploration. Full roster uses ordinary35% release, no forced release; preserve one RNG draw per boss. Unmeasured hypothesis.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.43,
+      "fieldHpNumerator": 115,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": 63,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 10475,
+      "fieldHpTailDenominator": 10000,
+      "earlyCaptureCount": 5
+    }
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/protocol.preregistered.json",
+    "sha256": "8539a7c718049d5e51434b9157b7f7f86bc15be90d9f9cc0ff47fb2669a25a00"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/evaluation.tar.gz",
+    "sha256": "002522601713610da2fd7f343a5913f94fb638a86c0b63eaa177dfa2b150dabf"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T07:13:31.948153+00:00",
+      "endedAt": "2026-09-12T07:13:35.600801+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/production-tests.log",
+      "sha256": "aba5027fef29bc151846a30a10e6d14b7ac63e478d298ec67c6171b32a4848fc"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r6-first5-63-xp143",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T07:13:35.601710+00:00",
+      "endedAt": "2026-09-12T07:13:45.948122+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/screening.log",
+      "sha256": "c75fc74ce98eda7bf575efc12ab2257ab3b9ef0e6f8af06ebcb3922992138454"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/screening.json"
+      ],
+      "startedAt": "2026-09-12T07:13:45.948835+00:00",
+      "endedAt": "2026-09-12T07:13:46.071109+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/screening-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/production-source.tar.gz",
+    "sha256": "83dd09d3ff98ed10c8d8acb21beb6de347bc7856aef456c96b2dcc6e97713bc6"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/screening.json",
+    "sha256": "d478e4f885c2b7ac86874dc0e03468ec3129d39a0b6ced68af9a1e69616d693c",
+    "sourceDigest": "e6678d2ff5cfb99afd6b77d3d82fd9228e2155d4a9e6d8194be17ecdeead9803",
+    "evaluationDigest": "b146423a49d3cb5b762dd5d49c8ce4847f71c433a45762dc6d51eaf907d66788",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r6-first5-63-xp143",
+      "parametersSha256": "c4f0ded2c95e3d0f19c50099196159e1274f4f3c1dff39a261fb108b226ee1f5",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": false,
+          "observedSec": 2266.5,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 20,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "0781e70dbee7731a89bdd58d80477b5caca8a9fb85cbf7b381d1577b630fc6a7",
+    "buildSha256": "b93dd840f14c51895e11418b8d0e35ea900cb778a8b62fd90e52a1b4af25fcc1"
+  },
+  "full-12h": {
+    "status": "NOT_EXECUTED",
+    "reason": "Screening goals failed."
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-06/candidate-r6-first5-63-xp143/compiled-build.tar.gz",
+    "sha256": "a824402bb9bd621873b446c59fc6bdbc8d16ecd931e51fad1e6eb9f17b4889ba"
+  },
+  "endedAt": "2026-09-12T07:13:46.157929+00:00"
+}

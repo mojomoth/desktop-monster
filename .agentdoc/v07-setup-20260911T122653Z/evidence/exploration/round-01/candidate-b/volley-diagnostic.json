@@ -1,0 +1,331 @@
+{
+  "parameters": {
+    "heroMinLevel": 18,
+    "xpBase": 20,
+    "xpGrowth": 1.4,
+    "fieldHpNumerator": 114,
+    "fieldHpDenominator": 100,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": null,
+    "heroLevelStepEvery": 2,
+    "heroLevelStepCap": 6,
+    "heroRestMs": 120000,
+    "heroDeferMs": 30000,
+    "xpRewardBase": 5,
+    "xpRewardPerIndex": 3,
+    "bossXpMultiplier": 5,
+    "bossHpMultiplier": 5
+  },
+  "trace": [
+    {
+      "ms": 1000,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c2",
+        "speciesId": "bat",
+        "damage": "6",
+        "effectiveness": "super"
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 1000,
+      "event": {
+        "type": "monsterKilled",
+        "monster": {
+          "index": 0,
+          "speciesId": "slime",
+          "name": "Slime Lv.1",
+          "maxHp": "10",
+          "tier": 0,
+          "boss": false,
+          "type": "water"
+        },
+        "xpGained": 5
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 1000,
+      "event": {
+        "type": "monsterSpawned",
+        "monster": {
+          "index": 1,
+          "speciesId": "bat",
+          "name": "Bat Lv.1",
+          "maxHp": "11",
+          "tier": 0,
+          "boss": false,
+          "type": "wind"
+        }
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 1270,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c1",
+        "speciesId": "slime",
+        "damage": "2",
+        "effectiveness": "weak"
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 1610,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c3",
+        "speciesId": "ghost",
+        "damage": "4",
+        "effectiveness": "super"
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 1940,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c4",
+        "speciesId": "golem",
+        "damage": "1",
+        "effectiveness": "weak"
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 2070,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c2",
+        "speciesId": "bat",
+        "damage": "3",
+        "effectiveness": "normal"
+      },
+      "monster": "bat"
+    },
+    {
+      "ms": 2340,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c1",
+        "speciesId": "slime",
+        "damage": "2",
+        "effectiveness": "weak"
+      },
+      "monster": "ghost"
+    },
+    {
+      "ms": 2340,
+      "event": {
+        "type": "monsterKilled",
+        "monster": {
+          "index": 1,
+          "speciesId": "bat",
+          "name": "Bat Lv.1",
+          "maxHp": "11",
+          "tier": 0,
+          "boss": false,
+          "type": "wind"
+        },
+        "xpGained": 8
+      },
+      "monster": "ghost"
+    },
+    {
+      "ms": 2340,
+      "event": {
+        "type": "monsterSpawned",
+        "monster": {
+          "index": 2,
+          "speciesId": "ghost",
+          "name": "Ghost Lv.1",
+          "maxHp": "12",
+          "tier": 0,
+          "boss": false,
+          "type": "dark"
+        }
+      },
+      "monster": "ghost"
+    },
+    {
+      "ms": 2400,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c3",
+        "speciesId": "ghost",
+        "damage": "2",
+        "effectiveness": "normal"
+      },
+      "monster": "ghost"
+    },
+    {
+      "ms": 3010,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c4",
+        "speciesId": "golem",
+        "damage": "2",
+        "effectiveness": "super"
+      },
+      "monster": "ghost"
+    },
+    {
+      "ms": 3200,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c1",
+        "speciesId": "slime",
+        "damage": "8",
+        "effectiveness": "super"
+      },
+      "monster": "golem"
+    },
+    {
+      "ms": 3200,
+      "event": {
+        "type": "monsterKilled",
+        "monster": {
+          "index": 2,
+          "speciesId": "ghost",
+          "name": "Ghost Lv.1",
+          "maxHp": "12",
+          "tier": 0,
+          "boss": false,
+          "type": "dark"
+        },
+        "xpGained": 11
+      },
+      "monster": "golem"
+    },
+    {
+      "ms": 3200,
+      "event": {
+        "type": "monsterSpawned",
+        "monster": {
+          "index": 3,
+          "speciesId": "golem",
+          "name": "Golem Lv.1",
+          "maxHp": "14",
+          "tier": 0,
+          "boss": false,
+          "type": "earth"
+        }
+      },
+      "monster": "golem"
+    },
+    {
+      "ms": 3210,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c2",
+        "speciesId": "bat",
+        "damage": "6",
+        "effectiveness": "super"
+      },
+      "monster": "golem"
+    },
+    {
+      "ms": 3470,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c3",
+        "speciesId": "ghost",
+        "damage": "1",
+        "effectiveness": "weak"
+      },
+      "monster": "golem"
+    },
+    {
+      "ms": 3940,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c4",
+        "speciesId": "golem",
+        "damage": "1",
+        "effectiveness": "normal"
+      },
+      "monster": "golem"
+    },
+    {
+      "ms": 4000,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c2",
+        "speciesId": "bat",
+        "damage": "6",
+        "effectiveness": "super"
+      },
+      "monster": "dragon"
+    },
+    {
+      "ms": 4000,
+      "event": {
+        "type": "monsterKilled",
+        "monster": {
+          "index": 3,
+          "speciesId": "golem",
+          "name": "Golem Lv.1",
+          "maxHp": "14",
+          "tier": 0,
+          "boss": false,
+          "type": "earth"
+        },
+        "xpGained": 14
+      },
+      "monster": "dragon"
+    },
+    {
+      "ms": 4000,
+      "event": {
+        "type": "monsterSpawned",
+        "monster": {
+          "index": 4,
+          "speciesId": "dragon",
+          "name": "Dragon Lv.1",
+          "maxHp": "16",
+          "tier": 0,
+          "boss": false,
+          "type": "fire"
+        }
+      },
+      "monster": "dragon"
+    },
+    {
+      "ms": 4270,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c1",
+        "speciesId": "slime",
+        "damage": "8",
+        "effectiveness": "super"
+      },
+      "monster": "dragon"
+    },
+    {
+      "ms": 4540,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c3",
+        "speciesId": "ghost",
+        "damage": "4",
+        "effectiveness": "super"
+      },
+      "monster": "dragon"
+    },
+    {
+      "ms": 5010,
+      "event": {
+        "type": "companionAttack",
+        "companionId": "c4",
+        "speciesId": "golem",
+        "damage": "1",
+        "effectiveness": "weak"
+      },
+      "monster": "dragon"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-09-12T18:10:09.430Z",
+  "kind": "final-v070-input-freeze-after-actual-review-revision",
+  "version": "0.7.0",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "files": {
+    "package.json": "bafe3965bcc46eb2b61dc07f1a89283561619f676032a77dcccd34a32a3c073a",
+    "package-lock.json": "fd7f73b6343c8e4363f42b502def8e0bcdb663061489d199e86e407b6d1e6137",
+    "src/main/tray.ts": "c178ac674092d0b587a4e6fea8804e3b6f5ff0b49253bc6c245b9d3692486d30",
+    "tests/tray.test.ts": "cd423afd4a045d85517327922f9e6c670a1b858f0c734e9767b8e4710d06159b",
+    "tests/packaging.test.ts": "a7441869e0e0edafae2fb3c61935e097e0dc8ebbb43ef78f91a4ff966d248f25",
+    "README.md": "f046d5ad2866b7b55905564af664b8009dc8d2fc12976843e3c02f11fd3486ef",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+    "docs/v0.7/DESIGN_DECISIONS.md": "1dcb8e9a821f9b11d8f9ebd04d1c4d26b786a0c8f5f209c2d6bd54ad487e2c00",
+    ".harness/v7/config.json": "3497ab47888310d7d5875fe611077d2c40ec0fa32a2d7084b1c604fa5bc27379",
+    ".harness/v7/loop/e2e.mjs": "b442c80b180b2c9eab1b18e1f8d82b6c9ea605468427ede74d0f8392e3402d42",
+    ".harness/v7/loop/e2e-matrix.test.ts": "da63052d7e91a3d1d1efd62996b1ec27523296e49e36e63238ec4931b6ef32e9",
+    ".harness/v7/loop/journey.cjs": "d8d31b4d14890b85e2f97a3c28041c416a21a6159a7b67e69c7b9c815a7ab581"
+  },
+  "previousFreeze": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-freeze.json",
+  "review": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070",
+  "round": 2,
+  "resolution": "C070-VERSION-FREEZE-GATE actualveto thenone-lineproducttitlefix, originaltestsunchanged, actualfunrefresh. AllnewAC/gates/measurement/Nativepending.",
+  "selectedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r8-tail10450"
+  },
+  "humanChecks": "PENDING"
+}

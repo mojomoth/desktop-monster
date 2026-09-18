@@ -1,0 +1,52 @@
+{
+  "version": 10,
+  "kind": "independent-preserved-baseline",
+  "agentId": "/root/harness_critic",
+  "clock": "virtual",
+  "tickMs": 100,
+  "observationMs": 1000,
+  "seeds": {
+    "first": 50001,
+    "count": 100
+  },
+  "checkpointsMs": [
+    1800000,
+    7200000,
+    28800000
+  ],
+  "policies": [
+    {
+      "id": "active-no-rebirth",
+      "inputEveryMs": 500,
+      "visitEveryMs": null,
+      "fixture": "fresh"
+    },
+    {
+      "id": "active-immediate",
+      "inputEveryMs": 500,
+      "visitEveryMs": 1000,
+      "fixture": "fresh"
+    },
+    {
+      "id": "active-10m-visits",
+      "inputEveryMs": 500,
+      "visitEveryMs": 600000,
+      "fixture": "fresh"
+    },
+    {
+      "id": "returning-idle-10m-visits",
+      "inputEveryMs": null,
+      "visitEveryMs": 600000,
+      "fixture": "five-initial-companions"
+    }
+  ],
+  "heroChoice": "first offered form; no rerolls",
+  "purchases": "none",
+  "companionManagement": "none",
+  "boundaries": [
+    "Not native Electron or human play",
+    "No direct comparison of active and idle as equivalent starting states",
+    "No-rebirth intentionally measures delayed progression; immediate is an optimistic menu bot",
+    "Checkpoints from a trajectory are correlated; 3 observations do not mean 3 independent runs"
+  ]
+}

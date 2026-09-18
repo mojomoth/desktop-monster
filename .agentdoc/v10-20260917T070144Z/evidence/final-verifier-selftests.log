@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: held-out denominator, distinct tuples, seed ranges and exact huge-wallet conservation are enforced
+ok 1 - held-out denominator, distinct tuples, seed ranges and exact huge-wallet conservation are enforced
+  ---
+  duration_ms: 3.161625
+  ...
+# Subtest: non-arrival remains in unconditional percentiles and cannot turn an unsuccessful policy into a pass
+ok 2 - non-arrival remains in unconditional percentiles and cannot turn an unsuccessful policy into a pass
+  ---
+  duration_ms: 0.558917
+  ...
+# Subtest: a never-used level tier and processing budget breach reject selection
+ok 3 - a never-used level tier and processing budget breach reject selection
+  ---
+  duration_ms: 0.306916
+  ...
+# Subtest: registered selection-only source change is accepted, but forged summary and non-parameter compile changes are rejected
+ok 4 - registered selection-only source change is accepted, but forged summary and non-parameter compile changes are rejected
+  ---
+  duration_ms: 303.212875
+  ...
+# Subtest: directory package identity includes file content and symlink destination without following cycles
+ok 5 - directory package identity includes file content and symlink destination without following cycles
+  ---
+  duration_ms: 2.398042
+  ...
+# Subtest: only latest canonical gates and exact source-bound task AC are accepted; final task is non-circular
+ok 6 - only latest canonical gates and exact source-bound task AC are accepted; final task is non-circular
+  ---
+  duration_ms: 8.054042
+  ...
+# Subtest: independent review requires author separation, current source and explicit external limitations
+ok 7 - independent review requires author separation, current source and explicit external limitations
+  ---
+  duration_ms: 6.545708
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 548.305083

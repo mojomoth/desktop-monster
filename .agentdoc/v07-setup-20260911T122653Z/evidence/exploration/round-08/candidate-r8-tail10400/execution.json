@@ -1,0 +1,247 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 8,
+  "startedAt": "2026-09-12T17:24:11.487940+00:00",
+  "experimentKind": "candidate",
+  "experiment": {
+    "id": "candidate-r8-tail10400",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.42,
+      "fieldHpNumerator": 1153,
+      "fieldHpDenominator": 1000,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 10400,
+      "fieldHpTailDenominator": 10000,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": 63,
+      "earlyCaptureCount": 5,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5
+    },
+    "hypothesis": "Keep observed R07 prefix1153/1000, L17 XP1.42 count5/depth63 first path; compare only exact field tail10400/10000 afterindex79. Relieve late kill shortfall without assuming temporal monotonicity; population h70 may remain unreached or become too early. Requires fresh screening and full12h, unchanged companion115/100 and sixcontent goals."
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/protocol.preregistered.json",
+    "sha256": "1a0fec2ab785046134b46b7a77d60e622bd95685339e9c69f3a16eeedeb1f694"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/evaluation.tar.gz",
+    "sha256": "1316bc380d484485110b53c9996d212acc4f33da5eb79bfbe83367bf7e067e79"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T17:24:11.590424+00:00",
+      "endedAt": "2026-09-12T17:24:15.380424+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/production-tests.log",
+      "sha256": "572282ebe68ceea599752477df53b5eb36eb6afa1705e2f28134bb367a8f2d9b"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r8-tail10400",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T17:24:15.381171+00:00",
+      "endedAt": "2026-09-12T17:24:25.102919+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening.log",
+      "sha256": "2ad5f0b50901a662fd4c9ff3f6aa2f625a084e3b838ab41a8d4ed6356eac500c"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening.json"
+      ],
+      "startedAt": "2026-09-12T17:24:25.105093+00:00",
+      "endedAt": "2026-09-12T17:24:25.227415+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening-verify.log",
+      "sha256": "27bbc6939dc87f7364f6350bd0c7902f4eae5854cb1966fe460c655b72e973cf"
+    },
+    {
+      "label": "full-12h",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/full-12h.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r8-tail10400",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4"
+      ],
+      "startedAt": "2026-09-12T17:24:25.270534+00:00",
+      "endedAt": "2026-09-12T17:26:13.310977+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/full-12h.log",
+      "sha256": "eaa9a70be7390d792d8561111cec99e8b5f084cdc38f7cb78e6230287d6779da"
+    },
+    {
+      "label": "full-12h-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/full-12h.json"
+      ],
+      "startedAt": "2026-09-12T17:26:13.312431+00:00",
+      "endedAt": "2026-09-12T17:26:13.482206+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/full-12h-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/production-source.tar.gz",
+    "sha256": "e00d801d8da0725ed0a35a047456815c4fac9a855a601f363780df56fd3931f3"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening.json",
+    "sha256": "304970b81ffe18695e34bcc47452441514b1d22a2a96413df7f98e118f71839a",
+    "sourceDigest": "48df3f7598aac71cf315c526b27b779ccabb93da598ff676360891b69626a9b1",
+    "evaluationDigest": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10400",
+      "parametersSha256": "73e1e874dd0709049324e92866d2dc2f6082129029627006254e7eff44ead55d",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "PASS",
+      "passed": true,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2878.7,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 20,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "ecfc79dff0d28cfde03ee45c2801c1b88d0408a7be4db293eee036a21db26f71",
+    "buildSha256": "ef9d6484b24fe4cabb1a129ecc32c69cb0ce8fc83c3edad85d1bf6799e0059a2"
+  },
+  "prefixReference": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/prefix-reference.json",
+    "sha256": "16da47c49762747b8c854a046b3442c7e8a67ccfcb795f3c478b5e63cdaae721"
+  },
+  "historicalPrefixPairing": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/round07-first-pairing.json",
+    "sha256": "7a66d7a800fb05b5fea0fe5ebcbefb6011cb7e45a2349916e9028abce32b4cba",
+    "passed": true
+  },
+  "full-12h": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/full-12h.json",
+    "sha256": "a039beb9ec4987de25db0409cc2b08fe553a34a8fd7f37723fed5635c74a1e7b",
+    "sourceDigest": "48df3f7598aac71cf315c526b27b779ccabb93da598ff676360891b69626a9b1",
+    "evaluationDigest": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r8-tail10400",
+      "parametersSha256": "73e1e874dd0709049324e92866d2dc2f6082129029627006254e7eff44ead55d",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2878.7,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 20,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        },
+        {
+          "id": "last-unlock-median",
+          "passed": false,
+          "observedSec": 24451,
+          "minSec": 28800,
+          "maxSec": 43200,
+          "registered": true
+        }
+      ],
+      "skipped": [],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "0110317da4f92a58497241ced17418e6feea86e609a164b81e5ae4e979e6e7c8",
+    "buildSha256": "ef9d6484b24fe4cabb1a129ecc32c69cb0ce8fc83c3edad85d1bf6799e0059a2"
+  },
+  "screeningFullPairing": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening-full-pairing.json",
+    "sha256": "f7b3920c3ef1d788f1dc4c10aef7e55071d2608c04aa666c5070c37da655921e",
+    "passed": true
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/compiled-build.tar.gz",
+    "sha256": "3e97776eccd5cbb0c7aba0645d5a53b9d8b5255bebd805cc4d8c66c90d8f6746"
+  },
+  "endedAt": "2026-09-12T17:26:13.621345+00:00"
+}

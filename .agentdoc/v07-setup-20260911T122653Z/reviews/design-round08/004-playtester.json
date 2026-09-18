@@ -1,0 +1,126 @@
+{
+  "requestId": "31ce03d1a8bfd8c738cac9230f2ee189d36e5179c43c8de30b092e502eafa10d",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "5b839be72a8ee0f35bf38d6e8fd260189f2a3934f45b289efa11d08455a26df6",
+  "evaluationDigest": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff",
+  "agent": "/root",
+  "decision": "pass",
+  "summary": "발급된439줄 전체 prompt·template와 실제 세 역할 응답, 현재 설계 변경 및 원본근거를 읽고 Round08 검증 설계를 승인한다. 첫경로/후기tail을 분리하지만 새성능은 미확인이다. 실행 전 참조 binding 틈은 원본재계산·부정입력 검사·Critic 재검토로 닫았고, 설계·분석·출시를 구분한다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "실제역할·Host 계약·단계별검증을 적용."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "현재AC·두목표·20/100분모·Native330분/9정책."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "R08정확21키/세tail/6조건·공식R07참조SHA·선택null."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "R07완료실패와후기분산, 두기록비교·두공백, 기존UI/저장계약."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/V07-01-1789232460479.log",
+      "note": "현재S5b839be7/E2c357339에서 실제955테스트/lint/typecheck PASS. 성능·최종출시근거는 아니다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round08-batch.py",
+      "note": "실제생산별새114검사/측정, 공식R07원본재계산과동일후보screen/full20쌍 분리. 아직미실행."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/batch-reference-binding-fix/checks.json",
+      "note": "원본수용·준비prefix변조/참조교체/거짓SHA거부의actual4data-only검사 PASS. 엔진실행 아님."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-design-preparation/batch-reference-binding-fix/critic-review.md",
+      "note": "추가읽기전용Critic 확인에서참조연결틈닫힘, 실제batch성과는미검증."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round07-analysis/README.md",
+      "note": "8/9/180독립원본검산완료·1153firstPASS/lateFAIL; 전체와조건부·h70선택0보존."
+    },
+    {
+      "path": ".harness/v7/loop/electron-e2e.cjs",
+      "note": "최종실제메뉴/준비관측·합성입력·자연관측후fixture분리."
+    },
+    {
+      "path": ".harness/v7/loop/e2e-matrix.mjs",
+      "note": "9개+연속180분·실제elapsed/첫선택앞준비관측/프로세스재개검증."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round07-resume-preservation.json",
+      "note": "재개시36v5/CURRENT변경0·기존179파일누락0·사용자Electron보존."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "필드tail완화와동료115/100은분리된다. 양의안전정수레벨과증가전overflow거부, Lv10이상→Lv1/별+1의실제힘감소및expected확인은현재AC와최종Native로검증한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "실제영웅선택/영구컬렉션·speciesKills>0과카드/개수/이름/설명/aria/알림/ACK/목표를공유한다. 레거시획득추정없이허위ACK를제거하고seen해금은보존한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "50행영웅/동료파티와정확playerId선택,안정된행·키보드/포커스·stale매치보호를유지한다. 과거0.6진단은최종인증이아니다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "같은1153prefix/L17XP1.42/count5/depth63에서tail만79뒤에바뀐다. index74까지첫경로불변은가설이며새20seed목표와기록비교를생략하지않는다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "R07h70미도달12개는10종조건충족·3만킬부족이며8도달중6조기다. tail완화가빠른표본만가속할가능성을포함하여전체p50과공백을보고한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "영구할당표지의레거시/외부소진과MAX안전거절을유지한다. 고레벨저장/모든응답왕복과운영서버빌드대응은별도근거가필요하다."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "자연관측뒤격리진단에서Lv9거절/Lv11환생확인·취소·대상변경과Lv250/MAX왕복·overflow를실행한다.",
+      "expected": "확인전Lv11→1·별0→1·힘11→2를표시하고stale/overflow면명단과재료그대로다.",
+      "evidencePlan": "새levels AC·동일소스게이트,최종0.7.0 PNG직접열람/IPC/save/재시작."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "등장/제시만있는레거시를반복부팅하고실제첫선택·종첫처치→ACK→재시작한다.",
+      "expected": "획득전실루엣과획득후공개·알림·목표동시변경,collection-only ACK보존. 보유동료/총킬로종별처치추정없음.",
+      "evidencePlan": "새codex AC와최종자연관측후별도legacyfixture·DOM/aria·PNG·저장JSON."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "50명목록에서Tab/Enter/Space로특정상대선택후재정렬·삭제·만료·오류를발생시킨다.",
+      "expected": "요청/응답/전투ID일치,행존재시포커스유지·삭제시새로고침으로이동,이전preview전투불가.",
+      "evidencePlan": "새directory AC와최종Native신뢰키입력·mock요청로그·현재PNG. stalecompositor그림으로재정렬완료주장금지."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "새8안120분생산측정후각후보를공식R07원본20개와비교하고,통과안screen/full20개를별도로비교한다. 최종180분은10분마다실제메뉴선택한다.",
+      "expected": "전체firstAccepted p5045–60분과90분내18/20·채택검증90/100. ready/open/accepted·조건부·미도달분리;실제Native준비는관측시각이다.",
+      "evidencePlan": "새원본/source/build/protocol/SHA·두pairingJSON. 변경된준비값으로참조를바꿀수없도록원본재계산,최종실제메뉴/선택기록."
+    },
+    {
+      "id": "long-progression",
+      "action": "선별통과안의새12h에서6콘텐츠자격/제시/실제획득,2/4/8/10/12h및동일seed8→12h활동과두신규공백을계산한다.",
+      "expected": "h70전체p508–12h만목표판정,선택0/미도달/조건부분포숨김없음. all8완료뒤두목표통과안만등록정수tuple로판정한다.",
+      "evidencePlan": "Balance독립원본감사와Host수치검산·후기명단/힘/처치/환생·제시/획득공백. 최종9정책각100×12h및별도audit.mjs4역."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "Lv11/250/MAX 저장·업로드·목록·match/PvP/탈취/회수와잘못된응답,로컬중복/unsafe/Infinity복구를검증한다.",
+      "expected": "외부s/r ID와기존명단보존·무손실거부. 운영healthSHA만으로호환인정하지않고입증없으면PENDING,자동배포없음.",
+      "evidencePlan": "새등록AC·게이트,최종server-check로컬왕복+readonly운영소스대응. 격리save/mocknetwork,기존사용자앱/자료보존."
+    }
+  ],
+  "humanChecks": "PENDING: 사람 관찰 없음. package/lock0.7.0 먼저고정한 최종AC/330분Native/9정책/audit/smoke/package/서버호환은아직미완료다."
+}

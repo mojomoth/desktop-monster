@@ -1,0 +1,110 @@
+{
+  "requestId": "3a238cfa8443d9b56a13c0e2f5dd1ee8111b4abc02a68d8372ecbb3dafbd5371",
+  "round": 2,
+  "role": "designer",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "e870a52ee83514ec2ba426a48d61270a9f826539fd20b4e01d110cfdeb6417a9",
+  "agent": "/root/designer",
+  "decision": "pass",
+  "summary": "공식 프로토콜 우회 반려를 반영한 비교 전략을 제안한다. nonbaseline run/resume/verify의 공식 realpath·현재 스냅샷 결박과 회귀 테스트를 읽고 해당 경계 테스트 5개를 직접 실행해 통과를 확인했다. selectedExperiment 명칭, 환생 expected 스냅샷의 IPC/core 책임, 지정 PvP 응답 ID 계약과 메뉴·IPC AC가 문서에 반영됐다. Lv16–20 대조와 A/B/C 및 콘텐츠 수치는 그대로이며 아직 미채택·미측정이다. 이 pass는 설계 검토이고 기능·성장 목표·Native·서버 호환·출시 성공 선언이 아니다.",
+  "evidence": [
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "readMeasurementProtocol의 공식 realpath 검증, validateOfficialProtocolSnapshot의 embedded/hash/current 비교, run의 빌드 전·후 및 completed resume 검사, seed manifest binding, CLI verify의 공식 스냅샷 검사를 확인했다. historical compare의 구조 검증은 별도로 유지된다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.test.ts",
+      "note": "official protocol execution boundary 5개 테스트를 직접 실행해 exit0: 동일 내용 copy 거절/공식 symlink 허용, copied validation·위조 hash 거절, CLI 조기 거절·출력 미생성, completed resume 원본 보존, CLI verify 거절·historical 구조비교 보존. 명령: node node_modules/vitest/vitest.mjs run --config .harness/v7/vitest.config.mts .harness/v7/loop/measure.test.ts -t \"official protocol execution boundary\". 이 선택 실행에서 나머지22개는 미실행이며 전체 게이트 통과 주장으로 쓰지 않는다."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "공식 exploration/selectedExperiment:null, 5대조/3후보와17개 성장 매개변수, 6개 named 조건 및 final h70, 사전 채택 순서가 유지된다. 아직 validation seed 실행 권한을 선택한 상태가 아니다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "selectedExperiment로 문서 명칭 수정, expected의 IPC형식/core동일상태 검증, optional PvpOpponent.playerId와 지정 선택의 정확 ID 필수, 강화된 levels AC와 소유권을 확인했다. 무료 경로와 미도달·상태 구분을 유지한다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "V07-02의 tests/menu.test.ts 및 main/ipc.ts/tests/ipc.test.ts 소유권과 npx vitest run tests/companionLevelsV7.test.ts tests/menu.test.ts tests/ipc.test.ts 등록 AC를 확인했다. 기존 게이트와 seed/정책/Native 계약이 유지된다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/setup-result.md",
+      "note": "이 요약과 앞서 직접 읽은 baseline.json의 첫 성공 p50 78.5초 및2시간이후 콘텐츠증가0은 과거 v0.6 관측이다. 2라운드 후보 성공 근거로 재인증하지 않는다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "양의 안전 정수 레벨과 증가 overflow 무손실을 모든 경계에 적용한다. Lv>=10 환생은 Lv1/별+1·기존 힘을 유지하며 전후 bigint 힘을 확인받는다. UI는 speciesId/bossIndex/level/stars 스냅샷을 expected로 전송하고 대상 변경·삭제 시 확인을 무효화한다. IPC는 형식, core는 형식과 현재 값 일치를 검증한다. legacy/측정의 expected 생략 호환은 유지한다. 구현과 등록 AC는 후속이다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅 실제 선택 이력/영구 collection 및 speciesKills>0를 공개·이름·설명·접근성·알림·ACK·목표의 공유 판정으로 사용한다. seen*는 추첨/해금 이력으로 보존한다. 레거시 미획득 공개/ACK를 제거하여 이후 첫 선택/처치를 새 알림으로 만들고 보유 동료/PvP획득/등장만으로 처치를 추정하지 않는다. 필드·후보·PvP 원화는 유지한다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "기존50명 행의 영웅·이름·순위·승패·동료파티를 재사용하고 안정 DOM, 선택 강조, Tab/Enter/Space 및 주기 갱신 포커스를 검증한다. PvpOpponent.playerId는 타입상 optional이지만 지정 선택의 실제 응답은 정확 ID 일치가 필수다. 누락·불일치·삭제·만료는 성공 처리하지 않으며 봇/random/legacy 호환과 재시도 경로를 유지한다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Lv16–20 대조와 Lv18의 A XP1.42/B fieldHP114/100/C 최초 index>=23 보스포획 보장을 공식 등록으로 비교한다. 기존120초휴식/30초보류 외 새 시간제한은 없다. 탐색10001–10020에서120분 첫성공 전체p5045–60분과18/20의90분내 성공을 먼저 확인한다. 공식 선택 동결 후에만 검증1–100에서p5045–60분·90/100을 평가한다. copied protocol로 validation seed를 조기 실행하는 경계가 수정됐다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm dragon3, rootcolossus 환생3, h58 water100/reefknight2/총1500, h62 환생5/seenMonsters60/총6000, starvoid 환생10/총16000, final h70 uniqueHeroes10/총30000을 유지한다. 마지막 자격 전체p508–12시간은 미검증이다. 무료 first-card 정책의 h70 실제 선택 미도달과 자격을 구분하고2시간 남은 단계·이후 새 콘텐츠·공백/최악정체를 보고한다. 스택/일반레벨을 해금으로 세지 않는다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "고레벨 저장·업로드·응답·탈취·회수·재시작 및 malformed/overflow 거절을 검증한다. B는 기존 동료 기반HP115/100과 PvP힘을 보존한다. 기존 열린 영웅 제안은 보존하고 새 후보 요구만L+6 범위로 바꾼다. 0.7.0 package/lock 고정 후 실제 서버 호환·9정책100seed12h·Native9개+연속180분·4역audit·smoke·package가 필요하고 사람 관찰은PENDING이다."
+    }
+  ],
+  "alternatives": [
+    {
+      "name": "5대조+3후보 사전등록 비교",
+      "tradeoff": "선택 전략. 같은 탐색 seed/콘텐츠로 원인을 분리하고 두 목표 통과 후 고정 tie-break로 채택한다. 실험 비용이 들지만 미측정 후보를 미리 승자로 정하지 않는다."
+    },
+    {
+      "name": "Lv16–20 대조만 비교",
+      "tradeoff": "레벨 문턱만 바꾸는 최소변경이다. XP·HP·초기 포획 꼬리의 영향을 분리할 자료가 부족하다."
+    },
+    {
+      "name": "A XP 후보 중심",
+      "tradeoff": "XP1.42가 성장 시간을 늘리는지 검증한다. 후반 정체도 늘 수 있어 Lv18 대조가 필요하다."
+    },
+    {
+      "name": "B HP 후보 중심",
+      "tradeoff": "필드HP114/100으로 처치 정체를 완화한다. 첫환생이 빨라질 수 있고 기존 동료 기반HP를 분리해야 한다."
+    },
+    {
+      "name": "C 포획 후보 중심",
+      "tradeoff": "nextCompanionId===1/index>=23에서 기존RNG1회를 유지하며 첫포획을 보장한다. 45–60분 중앙값 자체를 보장하지 않는다."
+    }
+  ],
+  "choice": "5대조+3후보 사전등록 비교",
+  "hypotheses": [
+    {
+      "metric": "첫 환생 성공 전체 p50와90분 deadline",
+      "target": "기준 active/free/uniform/none/immediate:2700–3600초, 탐색18/20 및검증90/100이5400초내 성공. 준비/열기/성공·조건부분위수·미도달을 구분한다."
+    },
+    {
+      "metric": "final h70 자격 및 실제 획득",
+      "target": "12시간에서 자격 전체p5028800–43200초. 제시·선택·처치와 공백은 별도 기록하며 미도달을0이나 성공으로 바꾸지 않는다."
+    },
+    {
+      "metric": "실험 채택과 공식 프로토콜 경계",
+      "target": "공식 파일에서만 채택 후 validation 실행. 두 목표 통과안 중 firstAccepted p50의3150초거리→final p50의36000초거리→firstAccepted p90→ID사전순. 모두 실패하면 새등록/원본으로 재측정하며 검증seed로 튜닝하지 않는다."
+    },
+    {
+      "metric": "UI 획득·확인·지정 상대 일치",
+      "target": "처치/선택 없는 도감 공개0, 미획득 레거시ACK 제거, 동료환생 미확인/변경상태 요청 거절, 지정 상대ID 불일치 성공0. 등록 기능AC와 실제 격리UI 검증에서 확인하며 현재 구현성공은 미평가다."
+    }
+  ],
+  "resolves": [
+    {
+      "id": "P07-OFFICIAL-PROTOCOL-BYPASS",
+      "change": "measure.mjs는 nonbaseline 경로를 공식 PROTOCOL_PATH의 realpath로 제한하고 현재 공식 JSON 스냅샷과 embedded protocol/hash를 대조한다. run은 빌드 전/후, completed resume는 기존 원본 수용 전, CLI verify는 인증 전에 검사한다. 부분 seed 재개도 protocolSha256을 포함한 manifest/binding 일치를 요구한다. copy/위조 selection/hash·CLIrun·resume·verify 거절과 historical 구조비교 보존의 5개 회귀 테스트를 직접 실행해 통과했다. 과거 baseline/compare를 구조적으로 읽는 기능은 새 후보 인증과 분리한다."
+    }
+  ]
+}

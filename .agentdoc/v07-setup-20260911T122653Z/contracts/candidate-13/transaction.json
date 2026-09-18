@@ -1,0 +1,39 @@
+{
+  "at": "2026-09-12T06:42:04.818891+00:00",
+  "status": "committed",
+  "originals": {
+    ".harness/v7/config.json": "35b186ffc90ae24ed10d9a8c8d46e746101890d73eaed20d493788ab0d4b897e",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "7647886246397b8754660fd8e1b5c9db2ff00d435a718eed1e91df3f9c7b8849",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "44d3a06a12308a6a5a90bc97e983af51bdaceb3a441c1144ac91d7f340b135f1",
+    "docs/v0.7/DESIGN_DECISIONS.md": "294caca0159b4d4e57e1d4fed1faecedf5fcc3df277207693fed81d2523d18fe",
+    "src/core/progression.ts": "2ce99f01df6440d3d0891543fcaff78bbab04701881a2b7b5a5894135d9019a3",
+    "tests/progressionV7.test.ts": "f69e3b088b990ef9a5e0ea9034aac131c122dcddf695d9e88f63f24486fd09a0",
+    ".harness/v7/loop/config.mjs": "dd8ba9c05ef8a1221fa19bf025812098c53f20d9b01b176c434754ce11d5d91d",
+    ".harness/v7/loop/config.test.ts": "b5dbfcf59bf33f2c92f677110be7b5e4c9e6984e923ccb18e5ccff1b6b219510"
+  },
+  "new": {
+    ".harness/v7/config.json": "7741572a2ff5fe3f1b9869a65083728e31d5765e22835f47dfa98dfb231201ec",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "1ffa1152169194f07ef899714600363afcfd2de075933478cee308ed26070338",
+    "docs/v0.7/EVALUATION_PROTOCOL.json": "869ea6a91f13fd307558d90023d67189d16014c6594e92f5c3a78f93755b03da",
+    "src/core/progression.ts": "822477db7a8695d07ac7838b92f48aceb89f78cf81cbcb3274b9327584f86c7e"
+  },
+  "ownership": {
+    "host": [
+      "config.json",
+      "loop.json",
+      "EVALUATION_PROTOCOL.json",
+      "src/core/progression.ts",
+      "tests/progressionV7.test.ts",
+      "journal"
+    ],
+    "balance": [
+      ".harness/v7/loop/config.mjs",
+      ".harness/v7/loop/config.test.ts"
+    ],
+    "designer": [
+      "docs/v0.7/DESIGN_DECISIONS.md"
+    ],
+    "critic": "read-only"
+  },
+  "note": "No executor called between synchronized config/loop writes. V01running; V05 mechanic remains pending dependent verification."
+}

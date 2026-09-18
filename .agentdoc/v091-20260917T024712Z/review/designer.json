@@ -1,0 +1,33 @@
+{
+  "role": "Designer",
+  "agentId": "/root/designer",
+  "requestId": "54c715ea-e27c-40f2-ae12-156ef6ccabda",
+  "verdict": "pass",
+  "findings": [
+    "Designer 검토 범위에서 차단할 UI 문제가 없습니다. native-06은 DMG에서 복사한 실제 설치본으로 4회 부팅, 29개 필수 검사, 11개 PNG를 생성했고 verifier V091_NATIVE_UI_OK를 직접 확인했습니다. 모든 소유 앱은 exit 0/no signal로 종료했으며 각 실행의 112개 dist/static 파일이 작업 소스의 빌드와 일치합니다.",
+    "native-06/first/{hunting-before,defense-replay,hunting-resumed}.png, interrupt/quit-during-replay.png, restart/{defense-replay,hunting-resumed}.png, attack/{attack-menu,defense-replay,hunting-resumed}.png를 직접 열어 검수했습니다. 시작 VS 배너, 한글 PvP 상태줄, 우측 처치수/금화 및 머리 위 READY/LV/XP가 읽히고 서로 겹치지 않습니다. 상태줄은 실제 400×260 화면에서 y31.1875..45.578125로 배너 하단 28px과 카운터 상단 48px 사이에 있습니다.",
+    "Notification.isSupported=false인 실제 앱에서 방어 이벤트가 각각 4,951ms와 4,937ms에 도착했고 'PvP 발생 · 상대 FixtureFoe와 전투 중'이 표시됐습니다. 양쪽 c1..c5 ID가 같은 파티에서도 서버의 viewer 기준 A/D 변환과 당시 파티 스냅샷을 검증했습니다.",
+    "실제 재생 중 native 키보드·마우스 이벤트가 전달돼도 전체 SaveFile 및 GameState가 동일했습니다. HP, 몬스터 index, playTime, 피버 상태를 포함한 비교이며, 재생 종료 전환 순간에도 중단 상태가 정확히 유지됐습니다. 이후 사냥 시간과 공격이 재개되고 상태줄이 사라지는 것을 데이터와 이미지로 확인했습니다.",
+    "방어 금화는 1,000G에서 950G로 한 번만 정산되고 동료 roster가 유지됐습니다. 재생 도중 종료한 격리 데이터를 그대로 다시 부팅했을 때 동일한 pending replay 하나와 950G가 복구됐고, 재생 완료 후 durable queue가 제거됐습니다.",
+    "실제 메뉴의 FixtureFoe 전투 버튼 한 번으로 gold-v1 match/PvP가 각각 한 번 요청됐습니다. attack-menu.png에서 '전투 재생 중…' 버튼 잠금 안내와 '승리 · 금화 +50G' 결과를 확인했고, 필드에는 1.05A(1,050G)가 표시됩니다. 공격 재생도 사냥 상태를 보존하고 종료 후 정상 복귀했습니다. 추가 제품 또는 하네스 수정은 필요하지 않습니다."
+  ],
+  "pending": [
+    "이 판정은 합성 레벨·파티와 두 격리 계정, 실제 macOS Electron 설치본, production createApp/MemoryStore의 검증 범위입니다. 실제 전역 입력 권한, OS 알림 표시, Windows 실기기 및 운영 서버 네트워크 검증을 수행했다는 뜻은 아닙니다.",
+    "postgres-01.json은 로컬 PostgreSQL 연결 ECONNREFUSED로 checks가 비어 있고 passed=false입니다. 실제 PostgreSQL 영속성 검증은 미완료이며 Designer UI pass로 대체되지 않습니다. 재시작 시 일시적인 연출 pool 복구는 기존 저장 형식 범위로 제한됩니다."
+  ],
+  "evidence": [
+    { "report": "0", "pointer": "/attempts/0/ui/checks/2" },
+    { "report": "0", "pointer": "/attempts/0/ui/checks/3" },
+    { "report": "0", "pointer": "/attempts/0/ui/checks/6" },
+    { "report": "0", "pointer": "/attempts/0/ui/screenshots" },
+    { "report": "0", "pointer": "/attempts/1/ui/checks/6" },
+    { "report": "0", "pointer": "/attempts/1/ui/screenshots/2" },
+    { "report": "0", "pointer": "/attempts/2/ui/checks" },
+    { "report": "0", "pointer": "/attempts/2/ui/screenshots" },
+    { "report": "0", "pointer": "/attempts/3/ui/checks" },
+    { "report": "0", "pointer": "/attempts/3/ui/screenshots" },
+    { "report": "0", "pointer": "/attempts/0/runtime/packageBinding" },
+    { "report": "3", "pointer": "/asarHash" },
+    { "report": "2", "pointer": "/error" }
+  ]
+}

@@ -1,0 +1,193 @@
+// Real engine, injected RNG/clock, no wall time or input hooks. A simulation
+// measures pacing; it cannot certify that a human finds the game enjoyable.
+import { writeFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+import { createEngine, heroReady, mulberry32, RARE_MONSTERS, heroAttackPower, trainedHeroPower } from '../src/core/index.js';
+
+import type { GameEvent } from '../src/core/types.js';
+
+type Profile = 'active' | 'idle' | 'intermittent';
+type Policy = 'free' | 'training' | 'lure' | 'reroll';
+interface Sample { income: number; heroDps: number; companionDps: number; heroDamagePercent: number; level: number; monsterHp: string; heroHit: string; policy: Policy; spent: number; training: number; rareSeen: number; minutes: number; profile: Profile; seed: number; kills: number; firstOfferSec: number | null;
+  reincarnations: number; collected: number; coins: number; companions: number; longestKillGapSec: number;
+  /** v0.4 expedition payoff: full-roster releases, and how many were the first card unseen. */
+  released: number; souls: number; unseenFirstCards: number; offers: number }
+
+function simulate(profile: Profile, seed: number, policy: Policy = 'free'): Sample[] {
+  const engine = createEngine(null, mulberry32(seed));
+  const result: Sample[] = [];
+  let firstOfferSec: number | null = null;
+  let lastKill = 0;
+  let longestKillGapSec = 0;
+  let released = 0;
+  let unseenFirstCards = 0;
+  let offers = 0;
+  let income = 0;
+  let heroDamage = 0n;
+  let companionDamage = 0n;
+  const measure = (events: GameEvent[]): void => {
+    for (const event of events) {
+      if (event.type === 'attack') heroDamage += event.damage;
+      if (event.type === 'companionAttack') companionDamage += event.damage;
+      if (event.type === 'itemDropped') income += event.drops.reduce((n, d) => n + (d.item.kind === 'coin' ? d.amount : 0), 0);
+    }
+  };
+  for (let sec = 1; sec <= 1800; sec++) {
+    // All profiles get a two-minute onboarding. Idle then stops input;
+    // intermittent works 15 seconds per minute; active inputs twice a second.
+    const inputs = sec <= 120 || profile === 'active' || (profile === 'intermittent' && sec % 60 < 15) ? 2 : 0;
+    let killed = false;
+    for (let i = 0; i < inputs; i++) {
+      const hit = engine.attack('keyboard');
+      measure(hit);
+      killed = hit.some((e) => e.type === 'monsterKilled') || killed;
+      released += hit.filter((e) => e.type === 'companionReleased').length;
+    }
+    // Do not short-circuit engine steps when an earlier input killed.
+    const events = engine.tick(1000);
+    measure(events);
+    killed = events.some((e) => e.type === 'monsterKilled') || killed;
+    released += events.filter((e) => e.type === 'companionReleased').length;
+    if (killed) {
+      longestKillGapSec = Math.max(longestKillGapSec, sec - lastKill);
+      lastKill = sec;
+    }
+    const state = engine.getState();
+    if (heroReady(state.level, state.hero)) {
+      firstOfferSec ??= sec;
+      engine.apply({ type: 'heroOffer' });
+      let hero = engine.getState().hero!;
+      if (policy === 'reroll') {
+        engine.apply({ type: 'heroReroll', offerSerial: hero.offerSerial });
+        hero = engine.getState().hero!;
+      }
+      // Always choose the first card; the free policy exactly matches the V4
+      // baseline. Paid reroll adds one replacement before that selection.
+      offers++;
+      if (!hero.collection.some((r) => r.formId === hero.choices[0]!.formId)) unseenFirstCards++;
+      engine.apply({ type: 'heroChoose', formId: hero.choices[0]!.formId, offerSerial: hero.offerSerial });
+    }
+    if (policy === 'training' || policy === 'lure') {
+      engine.apply({ type: 'shopBuy', item: policy, shopSerial: state.progress?.shopSerial ?? 0 });
+    }
+    if ([300, 900, 1800].includes(sec)) {
+      const current = engine.getState();
+      result.push({ income, heroDps: Number(heroDamage) / sec, companionDps: Number(companionDamage) / sec,
+        heroDamagePercent: Number(heroDamage) / Number(heroDamage + companionDamage) * 100,
+        level: current.level, monsterHp: String(current.monster.maxHp),
+        heroHit: String(trainedHeroPower(heroAttackPower(current.level, current.souls, current.hero?.reincarnations ?? 0), current.progress?.trainingLevel ?? 0)), policy, spent: current.progress?.goldSpent ?? 0, training: current.progress?.trainingLevel ?? 0,
+        rareSeen: RARE_MONSTERS.filter((m) => current.progress?.seenMonsters.includes(m.id)).length, minutes: sec / 60, profile, seed, kills: current.killCount,
+        firstOfferSec, reincarnations: current.hero?.reincarnations ?? 0,
+        collected: current.hero?.collection.length ?? 0, coins: current.coins,
+        companions: current.companions.length,
+        longestKillGapSec: Math.max(longestKillGapSec, sec - lastKill),
+        released, souls: current.souls, unseenFirstCards, offers });
+    }
+  }
+  return result;
+}
+
+describe('v0.5 deterministic pacing and gold policy playtest', () => {
+  it('checks 100 seeds across active, warm-idle and intermittent play at 5/15/30 minutes', async () => {
+    const samples: Sample[] = [];
+    for (const profile of ['active', 'idle', 'intermittent'] as const) {
+      for (let seed = 1; seed <= 100; seed++) {
+        samples.push(...simulate(profile, seed));
+        // Let Vitest deliver worker RPC updates during this CPU-heavy batch;
+        // gameplay time remains exclusively the injected 1000 ms engine tick.
+        if (seed % 25 === 0) {
+          if (process.env.DESMON_BALANCE_REPORT) process.stdout.write(`${profile}: ${seed}/100 seeds\n`);
+          await new Promise<void>((resolve) => setImmediate(resolve));
+        }
+      }
+    }
+    for (const policy of ['training', 'lure', 'reroll'] as const) {
+      for (let seed = 1; seed <= 100; seed++) {
+        samples.push(...simulate('active', seed, policy));
+        if (seed % 25 === 0) await new Promise<void>((resolve) => setImmediate(resolve));
+      }
+      if (process.env.DESMON_BALANCE_REPORT) process.stdout.write(`${policy}: 100/100 seeds\n`);
+    }
+    const quantiles = (values: number[]) => {
+      const sorted = [...values].sort((a, b) => a - b);
+      return { p10: sorted[Math.floor((sorted.length - 1) * .1)]!, p50: sorted[Math.floor((sorted.length - 1) * .5)]!, p90: sorted[Math.floor((sorted.length - 1) * .9)]! };
+    };
+    const scenarios = (['free', 'training', 'lure', 'reroll'] as const).flatMap((policy) =>
+      (policy === 'free' ? ['active', 'idle', 'intermittent'] : ['active']).flatMap((profile) => [5, 15, 30].map((minutes) => {
+      const rows = samples.filter((s) => s.policy === policy && s.profile === profile && s.minutes === minutes);
+      return { policy, profile, minutes, samples: rows.length,
+        spent: quantiles(rows.map((r) => r.spent)), training: quantiles(rows.map((r) => r.training)),
+        rareSeen: quantiles(rows.map((r) => r.rareSeen)),
+        income: quantiles(rows.map((r) => r.income)), heroDps: quantiles(rows.map((r) => r.heroDps)),
+        companionDps: quantiles(rows.map((r) => r.companionDps)), heroDamagePercent: quantiles(rows.map((r) => r.heroDamagePercent)),
+        firstOfferReached: rows.filter((r) => r.firstOfferSec !== null).length,
+        firstOfferSec: quantiles(rows.flatMap((r) => r.firstOfferSec === null ? [] : [r.firstOfferSec])),
+        kills: quantiles(rows.map((r) => r.kills)), reincarnations: quantiles(rows.map((r) => r.reincarnations)),
+        collected: quantiles(rows.map((r) => r.collected)), coins: quantiles(rows.map((r) => r.coins)),
+        longestKillGapSec: quantiles(rows.map((r) => r.longestKillGapSec)),
+        released: quantiles(rows.map((r) => r.released)), souls: quantiles(rows.map((r) => r.souls)),
+        unseenFirstCardRatio: rows.reduce((sum, r) => sum + (r.offers === 0 ? 1 : r.unseenFirstCards / r.offers), 0) / rows.length,
+        fullRosters: rows.filter((r) => r.companions === 30).length };
+    })));
+    const report = { version: '0.5.0', kind: 'simulated-not-human', seeds: '1..100',
+      inputModel: '2 inputs/s; 120s onboarding, then idle=0/s; intermittent=15s/min; free=first offer; training/lure=buy whenever eligible and affordable; reroll=once per offer then first; no companion management',
+      damageModel: 'Cumulative emitted attack damage (includes overkill), divided by active engine seconds; not effective removed HP. Current level/HP/base trained hit saved per sample.',
+      scenarios, rawSamples: samples };
+    if (process.env.DESMON_BALANCE_REPORT) writeFileSync(process.env.DESMON_BALANCE_REPORT, JSON.stringify(report, null, 2) + '\n');
+    expect(samples).toHaveLength(1800);
+    expect(samples.every((s) => s.income - s.spent === s.coins)).toBe(true);
+    expect(samples.every((s) => s.coins >= 0 && s.collected <= 50 && s.companions <= 30)).toBe(true);
+    const active = scenarios.find((s) => s.policy === 'free' && s.profile === 'active' && s.minutes === 5)!;
+    expect(active.firstOfferReached).toBe(100);
+    expect(active.firstOfferSec.p90).toBeLessThanOrEqual(300);
+    for (const profile of ['active', 'idle', 'intermittent']) {
+      const early = scenarios.find((s) => s.policy === 'free' && s.profile === profile && s.minutes === 5)!;
+      const late = scenarios.find((s) => s.policy === 'free' && s.profile === profile && s.minutes === 30)!;
+      expect(late.kills.p50).toBeGreaterThan(early.kills.p50);
+      expect(late.reincarnations.p50).toBeGreaterThan(early.reincarnations.p50);
+    }
+    // Prospective v0.5 budgets replace v0.4's fixed-L12 cadence; declared in
+    // GAME_DESIGN_V5.md before measurement, with the raw v0.4 baseline retained.
+    const active30 = scenarios.find((s) => s.policy === 'free' && s.profile === 'active' && s.minutes === 30)!;
+    expect(active.firstOfferSec.p50).toBeGreaterThanOrEqual(74);
+    expect(active.firstOfferSec.p50).toBeLessThanOrEqual(84);
+    expect(active30.kills.p10).toBeGreaterThanOrEqual(700);
+    expect(active30.kills.p90).toBeLessThanOrEqual(2000);
+    expect(active30.reincarnations.p10).toBeGreaterThanOrEqual(10);
+    expect(active30.reincarnations.p90).toBeLessThanOrEqual(15);
+    // H1/H2 — a full roster no longer eats captures in silence, and H3 — the
+    // first card is always an unseen form while the binder is incomplete.
+    expect(active30.fullRosters).toBe(100);
+    expect(active30.released.p10).toBeGreaterThanOrEqual(8);
+    expect(active30.released.p50).toBeGreaterThanOrEqual(18);
+    expect(active30.unseenFirstCardRatio).toBe(1);
+    // The binder used to stall at 14 forms. It now tracks the reincarnation
+    // count exactly, which is the ceiling the 120s rest imposes.
+    expect(samples.every((s) => s.collected === Math.min(50, s.reincarnations))).toBe(true);
+    expect(active30.collected.p10).toBe(active30.reincarnations.p10);
+    expect(active30.collected.p50).toBe(active30.reincarnations.p50);
+    const latePolicies = scenarios.filter((s) => s.profile === 'active' && s.minutes === 30);
+    expect(latePolicies.find((s) => s.policy === 'free')!.spent.p90).toBe(0);
+    for (const policy of latePolicies.filter((s) => s.policy !== 'free')) expect(policy.spent.p10).toBeGreaterThan(0);
+    expect(latePolicies.find((s) => s.policy === 'training')!.training.p10).toBeGreaterThan(0);
+    expect(latePolicies.find((s) => s.policy === 'lure')!.rareSeen.p50).toBeGreaterThan(active30.rareSeen.p50);
+  }, 120_000);
+});
+
+
+it('distinguishes a new pure-idle stall from a returning save with naturally captured companions', () => {
+  const pureIdle = createEngine(null, mulberry32(1));
+  pureIdle.tick(1_800_000);
+  expect(pureIdle.toSave().killCount).toBe(0);
+  expect(pureIdle.toSave().progress?.playTimeMs).toBe(1_800_000);
+  const onboarding = createEngine(null, mulberry32(1));
+  for (let sec = 0; sec < 120; sec++) {
+    onboarding.attack('keyboard'); onboarding.attack('keyboard'); onboarding.tick(1000);
+  }
+  const source = onboarding.toSave();
+  expect(source.companions.length).toBeGreaterThan(0);
+  const returning = createEngine(source, mulberry32(2));
+  returning.tick(300_000);
+  expect(returning.toSave().killCount).toBeGreaterThan(source.killCount);
+  expect(returning.toSave().progress?.playTimeMs).toBe(420_000);
+});

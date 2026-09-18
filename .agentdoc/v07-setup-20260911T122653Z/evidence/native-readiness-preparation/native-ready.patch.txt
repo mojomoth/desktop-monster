@@ -1,0 +1,124 @@
+--- .harness/v7/loop/e2e.mjs
++++ .harness/v7/loop/e2e.mjs
+@@ -29,6 +29,11 @@
+ }
+ export const menuVisitSchedule = minutes => minutes === CONFIG.native.longJourney.minutes
+   ? Array.from({ length: minutes * 60_000 / MENU_VISIT_MS }, (_, index) => (index + 1) * MENU_VISIT_MS) : [];
++
++/** Sample before consuming a ready offer; later reincarnations cannot replace the first observation. */
++export function recordFirstReadiness(observation, ready, elapsedMs) {
++  if (ready && observation.firstReadyElapsedMs === null) observation.firstReadyElapsedMs = elapsedMs;
++}
+ 
+ /** A crash leaves the last whole checkpoint, never a truncated original JSON. */
+ export function writeRunCheckpoint(file, report) {
+--- .harness/v7/loop/electron-e2e.cjs
++++ .harness/v7/loop/electron-e2e.cjs
+@@ -24,7 +24,8 @@
+   limitations: ['No human player: enjoyment, distraction and retention remain unverified.',
+     'OS global hooks, Accessibility, tray startup, packaged app and live PvP are not exercised.',
+     'Live renderer uses production RNG and wall clock; distribution claims use separate seeded simulation.',
+-    'Scripted fixtures are diagnostic setup, not naturally earned player progress.'],
++    'Scripted fixtures are diagnostic setup, not naturally earned player progress.',
++    'firstReadyElapsedMs is observed at 30-second samples and before menu choices, not an exact engine transition timestamp.'],
+ };
+ const pause = (ms) => new Promise((done) => setTimeout(done, ms));
+ let activeObservation;
+@@ -118,7 +119,7 @@
+ });
+ 
+ app.whenReady().then(async () => {
+-  const { menuVisitSchedule, writeRunCheckpoint } = await import('./e2e.mjs');
++  const { menuVisitSchedule, writeRunCheckpoint, recordFirstReadiness } = await import('./e2e.mjs');
+   persist = () => writeRunCheckpoint(output, report);
+   checkpoint();
+   app.dock?.hide();
+@@ -166,6 +167,7 @@
+     checkpoint();
+     const visit = async scheduledAtMs => {
+       const before = await flush();
++      recordFirstReadiness(observation, core.heroReady(before.level, before.hero), performance.now() - sessionStart);
+       await openMenu();
+       await click(menu, '#tab-hero');
+       const step = { scheduledAtMs, elapsedMs: performance.now() - sessionStart,
+@@ -180,6 +182,9 @@
+         readyChoice = true;
+       }
+       if (readyChoice) {
++        // Opening the menu can reveal readiness reached since the pre-visit sample.
++        const readyState = await flush();
++        recordFirstReadiness(observation, core.heroReady(readyState.level, readyState.hero), performance.now() - sessionStart);
+         await click(menu, '#hero .hero-choice button:not(:disabled)');
+         await until(async () => (await readState()).hero?.reincarnations === step.reincarnationsBefore + 1, 'natural hero selection');
+         const after = await flush();
+@@ -209,7 +214,7 @@
+       }
+       if (now >= nextSample) {
+         const sampled = await readState();
+-        if (observation.firstReadyElapsedMs === null && core.heroReady(sampled.level, sampled.hero)) observation.firstReadyElapsedMs = elapsed;
++        recordFirstReadiness(observation, core.heroReady(sampled.level, sampled.hero), performance.now() - sessionStart);
+         observation.timeline.push({ elapsedMs: performance.now() - sessionStart, ...summary(sampled) });
+         observation.end = summary(sampled);
+         checkpoint();
+--- .harness/v7/loop/e2e-matrix.mjs
++++ .harness/v7/loop/e2e-matrix.mjs
+@@ -78,6 +78,8 @@
+       check(session.start.reincarnations===0&&session.end.reincarnations===session.menuVisits.at(-1).reincarnationsAfter,
+         'Continuous journey start/end do not match menu history');
+       check(session.firstReincarnationElapsedMs===firstSelected.completedAtMs,'First reincarnation time must match the first completed selection');
++      check(finite(session.firstReadyElapsedMs)&&session.firstReadyElapsedMs>=0&&
++        session.firstReadyElapsedMs<=firstSelected.completedAtMs,'Missing or late first readiness observation');
+     }
+     check(Array.isArray(run.checks)&&run.checks.length>0&&run.checks.every(c=>object(c)&&typeof c.id==='string'&&c.id.trim()&&c.details!==undefined)&&
+       new Set(run.checks.map(c=>c.id)).size===run.checks.length,'Missing or duplicate checks');
+--- .harness/v7/loop/e2e.test.ts
++++ .harness/v7/loop/e2e.test.ts
+@@ -9,7 +9,7 @@
+ // @ts-expect-error native harness CommonJS module has no declaration file
+ import journey from './journey.cjs';
+ // @ts-expect-error executable Node harness has no declaration file
+-import { menuVisitSchedule, parseRunArguments, writeRunCheckpoint } from './e2e.mjs';
++import { menuVisitSchedule, parseRunArguments, writeRunCheckpoint, recordFirstReadiness } from './e2e.mjs';
+ 
+ describe('native run selection and real-time menu schedule', () => {
+   it('sends the actual Enter/Space character between native keydown and keyup without adding a Tab character', () => {
+@@ -22,6 +22,16 @@
+     expect(journey.nativeKeyEvents('Tab',['shift'])).toEqual([
+       {type:'keyDown',keyCode:'Tab',modifiers:['shift']},{type:'keyUp',keyCode:'Tab',modifiers:['shift']},
+     ]);
++  });
++  it('retains readiness observed at the selecting visit when adjacent samples see no ready offer', () => {
++    const observation = {firstReadyElapsedMs: null};
++    recordFirstReadiness(observation, false, 570000);
++    expect(observation.firstReadyElapsedMs).toBeNull();
++    recordFirstReadiness(observation, false, 600000); // Not ready when the visit starts.
++    recordFirstReadiness(observation, true, 600150); // Ready in the opened menu, before choosing.
++    recordFirstReadiness(observation, false, 600400); // Choice reset the level before the next sample.
++    recordFirstReadiness(observation, true, 1200000); // A later reincarnation must not replace it.
++    expect(observation.firstReadyElapsedMs).toBe(600150);
+   });
+   it('keeps diagnostics separate and accepts the three-hour active journey', () => {
+     expect(parseRunArguments(['run.json','0'])).toEqual({output:'run.json',minutes:'0',profile:'active'});
+--- .harness/v7/loop/e2e-matrix.test.ts
++++ .harness/v7/loop/e2e-matrix.test.ts
+@@ -13,7 +13,7 @@
+     files.set(screenshot, Buffer.from(`pixels${i}`));
+     const run = {mode:'electron-e2e',sourceDigest:digest,evaluationDigest:digest,startedAt:new Date(now).toISOString(),elapsedMs:minutes*60000+100,status:'passed',completion:'completed',
+       sessions:[{minutes,profile,mode:'real-time',completion:'completed',elapsedMs:minutes*60000,inputs:profile==='idle'?0:100,start:{reincarnations:0},end:{reincarnations:minutes===180?18:0},timeline:[{elapsedMs:minutes*60000}],
+-        journeyPolicy:minutes===180?'menu-reincarnation-10m':'observe-only',firstReincarnationElapsedMs:minutes===180?600000:null,
++        journeyPolicy:minutes===180?'menu-reincarnation-10m':'observe-only',firstReadyElapsedMs:minutes===180?600000:null,firstReincarnationElapsedMs:minutes===180?600000:null,
+         menuVisits:menuVisitSchedule(minutes).map((scheduledAtMs:number,index:number)=>({scheduledAtMs,elapsedMs:scheduledAtMs,completedAtMs:scheduledAtMs,
+           action:'selected',formId:'h01',reincarnationsBefore:index,reincarnationsAfter:index+1}))}],
+       screenshots:[{path:screenshot,sha256:sha256(files.get(screenshot))}],
+@@ -80,6 +80,11 @@
+     ['journeyPolicy','observe-only',/menu policy/],
+     ['menuVisits',[],/menu visits/],
+     ['firstReincarnationElapsedMs',null,/never completed/],
++    ['firstReadyElapsedMs',null,/readiness observation/],
++    ['firstReadyElapsedMs',undefined,/readiness observation/],
++    ['firstReadyElapsedMs','600000',/readiness observation/],
++    ['firstReadyElapsedMs',-1,/readiness observation/],
++    ['firstReadyElapsedMs',600001,/readiness observation/],
+   ])('rejects missing continuous native play evidence %s', (field,value,message) => {
+     const f=fixture();const run=JSON.parse(f.files.get('/case/9.json')!.toString());run.sessions[0][field]=value;
+     f.files.set('/case/9.json',Buffer.from(JSON.stringify(run)));f.records[9].sha256=sha256(f.files.get('/case/9.json'));

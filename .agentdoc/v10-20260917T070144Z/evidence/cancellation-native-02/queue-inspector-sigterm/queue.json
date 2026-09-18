@@ -1,0 +1,34 @@
+{
+  "version": 10,
+  "pid": 2508,
+  "source": "434e1df45b83eba8b7cfadfce1c85600e9370b1d1a8ce8cc4919f11f21e07b2a",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "baselineActive": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/baseline-active-02.json",
+  "baselineIdle": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/baseline-idle-01.json",
+  "startedAt": "2026-09-17T19:14:11.221Z",
+  "state": "interrupted",
+  "slots": [
+    {
+      "slot": "candidate-active",
+      "args": [
+        ".harness/v10/performance-v4.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json",
+        "active",
+        "30"
+      ],
+      "startedAt": "2026-09-17T19:14:11.222Z",
+      "state": "failed",
+      "pid": 2509,
+      "endedAt": "2026-09-17T19:14:12.303Z",
+      "exitCode": 1,
+      "signal": null,
+      "cleanupComplete": true,
+      "lifecyclePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json.lifecycle.json",
+      "sourceUnchanged": true,
+      "appUnchanged": true
+    }
+  ],
+  "signal": "SIGTERM",
+  "endedAt": "2026-09-17T19:14:12.314Z"
+}

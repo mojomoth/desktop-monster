@@ -1,0 +1,552 @@
+{
+  "version": 1,
+  "profile": "idle",
+  "requestedMinutes": 30,
+  "startedAt": "2026-09-17T19:55:45.616Z",
+  "finishedAt": "2026-09-17T20:25:45.678Z",
+  "observationMs": 1800054.018083,
+  "inputCount": 0,
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+  "appHash": "48edf20b1908f09eb2316f11db8b8c18db37be73633cf1073d1e46ccac36dbb5",
+  "observerHash": "c626341277070bc677bdd750bd1ebd0647255808da010369a07d66b04f6a9773",
+  "checks": {
+    "duration": true,
+    "metrics": true,
+    "samples": true,
+    "progress": true,
+    "inputs": true,
+    "errors": true,
+    "appUnchanged": true,
+    "observerUnchanged": true
+  },
+  "exitCode": 0,
+  "exitSignal": null,
+  "lifecyclePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.lifecycle.json",
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 56964,
+        "ppid": 56963,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:44 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9"
+      },
+      {
+        "pid": 56965,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper (GPU).app/Contents/MacOS/DesMon Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=37"
+      },
+      {
+        "pid": 56966,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=37"
+      },
+      {
+        "pid": 56967,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper (Renderer).app/Contents/MacOS/DesMon Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --app-path=/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Resources/app.asar --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757595908280 --launch-time-ticks=917349461408 --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=57"
+      },
+      {
+        "pid": 57160,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:48 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Frameworks/DesMon Helper.app/Contents/MacOS/DesMon Helper --type=utility --utility-sub-type=audio.mojom.AudioService --lang=ko --service-sandbox-type=audio --message-loop-type-ui --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9 --shared-files --field-trial-handle=1718379636,r,7442636855865190354,3493316517337844190,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990997080739 --seatbelt-client=58"
+      },
+      {
+        "pid": 56965,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "(DesMon Helper (G)"
+      },
+      {
+        "pid": 56966,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:45 2026",
+        "command": "(DesMon Helper)"
+      },
+      {
+        "pid": 57160,
+        "ppid": 56964,
+        "pgid": 56963,
+        "started": "Fri Sep 18 04:55:48 2026",
+        "command": "(DesMon Helper)"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 56964,
+        "signal": "SIGTERM",
+        "at": "2026-09-17T20:25:46.088Z"
+      }
+    ],
+    "finishedAt": "2026-09-17T20:25:46.455Z"
+  },
+  "cancelSignal": null,
+  "lastObserved": {
+    "source": "last-sample",
+    "elapsedMs": 1800004.107208,
+    "inputs": 0,
+    "save": {
+      "version": 3,
+      "level": 13,
+      "xp": 28,
+      "killCount": 37,
+      "coins": 359,
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {
+        "slime_gel": 2,
+        "crown": 1,
+        "gem": 2,
+        "sword_shard": 3
+      },
+      "monsterIndex": 37,
+      "monsterSpeciesId": "ghost",
+      "monsterHp": "1317",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c6",
+          "speciesId": "golem",
+          "bossIndex": 15,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 7,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 37,
+      "pvpParty": [],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 1795011.5999999524,
+        "speciesKills": {
+          "slime": 1,
+          "thornhare": 1,
+          "clubprawn": 1,
+          "unblink": 1,
+          "cindercoil": 1,
+          "cyclonarch": 1,
+          "kraulk": 2,
+          "quarryback": 1,
+          "bristlehog": 1,
+          "helmdelver": 2,
+          "chimbrel": 1,
+          "slushmaw": 1,
+          "wickmoth": 1,
+          "hooklure": 1,
+          "fanjack": 1,
+          "golem": 1,
+          "steamfin": 1,
+          "millox": 1,
+          "sopwit": 1,
+          "murkin": 1,
+          "wickerhusk": 1,
+          "hexweaver": 1,
+          "gyrodillo": 1,
+          "skreave": 1,
+          "lantessa": 1,
+          "scorchbriar": 1,
+          "terrakin": 2,
+          "gallowplate": 1,
+          "ghost": 1,
+          "moonmoth": 1,
+          "matchling": 1,
+          "chirrgrit": 1,
+          "glidefin": 1,
+          "mournbell": 1
+        },
+        "seenMonsters": [
+          "slime",
+          "thornhare",
+          "clubprawn",
+          "unblink",
+          "cindercoil",
+          "cyclonarch",
+          "kraulk",
+          "quarryback",
+          "bristlehog",
+          "helmdelver",
+          "chimbrel",
+          "slushmaw",
+          "wickmoth",
+          "hooklure",
+          "fanjack",
+          "golem",
+          "steamfin",
+          "millox",
+          "sopwit",
+          "murkin",
+          "wickerhusk",
+          "hexweaver",
+          "gyrodillo",
+          "skreave",
+          "lantessa",
+          "scorchbriar",
+          "terrakin",
+          "gallowplate",
+          "ghost",
+          "moonmoth",
+          "matchling",
+          "chirrgrit",
+          "glidefin",
+          "mournbell"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": 0,
+        "rareMisses": 5,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    }
+  },
+  "machine": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "25.2.0",
+    "cpu": "Apple M2 Pro",
+    "logicalCpus": 12
+  },
+  "metadata": {
+    "version": "0.9.1",
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app/Contents/Resources/app.asar",
+    "runtime": {
+      "node": "22.22.1",
+      "acorn": "8.15.0",
+      "ada": "2.9.2",
+      "amaro": "1.1.5",
+      "ares": "1.34.6",
+      "brotli": "1.0.9",
+      "cjs_module_lexer": "2.2.0",
+      "cldr": "44.1",
+      "icu": "74.2",
+      "llhttp": "9.3.0",
+      "modules": "140",
+      "napi": "10",
+      "nbytes": "0.1.1",
+      "ncrypto": "0.0.1",
+      "nghttp2": "1.64.0",
+      "openssl": "0.0.0",
+      "simdjson": "4.2.4",
+      "simdutf": "7.3.3",
+      "sqlite": "3.51.2",
+      "tz": "2025b",
+      "undici": "6.23.0",
+      "unicode": "15.1",
+      "uv": "1.51.0",
+      "uvwasi": "0.0.23",
+      "v8": "14.2.231.22-electron.0",
+      "zlib": "1.3.1",
+      "zstd": "1.5.8",
+      "electron": "39.8.10",
+      "chrome": "142.0.7444.265"
+    },
+    "fixture": {
+      "version": 3,
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": 0,
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {},
+      "monsterIndex": 0,
+      "monsterHp": "10",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 0,
+      "pvpParty": [],
+      "releasedCount": 0
+    }
+  },
+  "isolation": {
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-GNyHh9",
+    "globalHooks": false,
+    "osPermissionPrompts": false,
+    "network": "offline",
+    "input": "synthetic production IPC",
+    "time": "real wall time; no engine ticks injected"
+  },
+  "raw": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.samples.jsonl",
+    "sha256": "98ce8bf43c5d6f1dc6e455be14c86e56658792c035eb33b5c7acecef48a8993f",
+    "samples": 360
+  },
+  "screenshots": [
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.start.png",
+      "sha256": "b6c20801903bf994735d4ff8ce38bc24f0123431966cd1e8eee296cb2b40351e"
+    },
+    {
+      "name": "end",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.end.png",
+      "sha256": "93ad91a04c506c3de216bc8ade4ecd908f9a09ff922e34484a1602274f20d113"
+    }
+  ],
+  "errors": [],
+  "finalSave": {
+    "version": 3,
+    "level": 13,
+    "xp": 28,
+    "killCount": 37,
+    "coins": 359,
+    "pvpGoldNet": "0",
+    "pvpGoldDebt": "0",
+    "items": {
+      "slime_gel": 2,
+      "crown": 1,
+      "gem": 2,
+      "sword_shard": 3
+    },
+    "monsterIndex": 37,
+    "monsterSpeciesId": "ghost",
+    "monsterHp": "1237",
+    "companions": [
+      {
+        "id": "c1",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c2",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c3",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c4",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c5",
+        "speciesId": "slime",
+        "bossIndex": 7,
+        "level": 1,
+        "stars": 0
+      },
+      {
+        "id": "c6",
+        "speciesId": "golem",
+        "bossIndex": 15,
+        "level": 1,
+        "stars": 0
+      }
+    ],
+    "nextCompanionId": 7,
+    "earlyCaptureUsed": 5,
+    "souls": 0,
+    "rebirths": 0,
+    "bestIndex": 37,
+    "pvpParty": [],
+    "releasedCount": 0,
+    "progress": {
+      "playTimeMs": 1800000.0999999524,
+      "speciesKills": {
+        "slime": 1,
+        "thornhare": 1,
+        "clubprawn": 1,
+        "unblink": 1,
+        "cindercoil": 1,
+        "cyclonarch": 1,
+        "kraulk": 2,
+        "quarryback": 1,
+        "bristlehog": 1,
+        "helmdelver": 2,
+        "chimbrel": 1,
+        "slushmaw": 1,
+        "wickmoth": 1,
+        "hooklure": 1,
+        "fanjack": 1,
+        "golem": 1,
+        "steamfin": 1,
+        "millox": 1,
+        "sopwit": 1,
+        "murkin": 1,
+        "wickerhusk": 1,
+        "hexweaver": 1,
+        "gyrodillo": 1,
+        "skreave": 1,
+        "lantessa": 1,
+        "scorchbriar": 1,
+        "terrakin": 2,
+        "gallowplate": 1,
+        "ghost": 1,
+        "moonmoth": 1,
+        "matchling": 1,
+        "chirrgrit": 1,
+        "glidefin": 1,
+        "mournbell": 1
+      },
+      "seenMonsters": [
+        "slime",
+        "thornhare",
+        "clubprawn",
+        "unblink",
+        "cindercoil",
+        "cyclonarch",
+        "kraulk",
+        "quarryback",
+        "bristlehog",
+        "helmdelver",
+        "chimbrel",
+        "slushmaw",
+        "wickmoth",
+        "hooklure",
+        "fanjack",
+        "golem",
+        "steamfin",
+        "millox",
+        "sopwit",
+        "murkin",
+        "wickerhusk",
+        "hexweaver",
+        "gyrodillo",
+        "skreave",
+        "lantessa",
+        "scorchbriar",
+        "terrakin",
+        "gallowplate",
+        "ghost",
+        "moonmoth",
+        "matchling",
+        "chirrgrit",
+        "glidefin",
+        "mournbell"
+      ],
+      "seenHeroes": [],
+      "heroCounts": {},
+      "reincarnationHistory": [],
+      "pvpWins": 0,
+      "pvpLosses": 0,
+      "goldSpent": 0,
+      "rareMisses": 5,
+      "trainingLevel": 0,
+      "lureRemaining": 0,
+      "shopSerial": 0,
+      "legacyHistory": false,
+      "codex": {
+        "acknowledgedHeroes": [],
+        "acknowledgedMonsters": [],
+        "goal": null
+      }
+    }
+  },
+  "summary": {
+    "cpuP95": 3.5690083972751565,
+    "workingSetMiBP95": 388.28125,
+    "initialMemoryMedian": 311.390625,
+    "finalMemoryMedian": null
+  },
+  "passed": true
+}

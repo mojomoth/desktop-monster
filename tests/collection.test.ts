@@ -3,7 +3,7 @@ import {
   activeCompanions,
   applyCollection,
   autoParty,
-  COMPANION_MAX_LEVEL,
+  COMPANION_REINCARNATION_LEVEL,
   companionPower,
   createEngine,
   DEFAULT_SAVE,
@@ -17,7 +17,6 @@ import {
   resolvePvp,
   ROSTER_CAP,
   simulateBattle,
-  STEAL_CHANCE,
   TYPE_ORDER,
 } from '../src/core/index.js';
 import type {
@@ -40,7 +39,7 @@ const comp = (id: string, patch: Partial<Companion> = {}): Companion => ({
 
 /** Build state through the engine so new GameState fields need no edit here. */
 function stateWith(save: Partial<SaveFileV2>): GameState {
-  return { ...createEngine({ ...DEFAULT_SAVE, ...save }).getState() };
+  return { ...createEngine({ ...DEFAULT_SAVE, ...save, version: 2, coins: save.coins ?? 0 }).getState() };
 }
 
 const ids = (cs: readonly Companion[]): string[] => cs.map((c) => c.id);
@@ -129,7 +128,7 @@ describe('companion power and party selection (SPEC F32/F61, Assumptions 24/44)'
 });
 
 describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
-  it('consume adds 1 plus food stars levels, caps at 10 and removes the food', () => {
+  it('consume adds 1 plus food stars levels beyond 10 and removes the food', () => {
     const base = stateWith({
       companions: [comp('c1', { level: 3 }), comp('c2', { stars: 2 })],
       nextCompanionId: 3,
@@ -141,13 +140,13 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(base.companions.map((c) => c.id)).toEqual(['c1', 'c2']);
     expect(base.companions[0]?.level).toBe(3);
 
-    const capped = stateWith({
+    const uncapped = stateWith({
       companions: [comp('c1', { level: 9 }), comp('c2', { stars: 4 })],
       nextCompanionId: 3,
     });
     expect(
-      ok(applyCollection(capped, { type: 'consume', targetId: 'c1', foodId: 'c2' })).state.companions[0]?.level,
-    ).toBe(COMPANION_MAX_LEVEL);
+      ok(applyCollection(uncapped, { type: 'consume', targetId: 'c1', foodId: 'c2' })).state.companions[0]?.level,
+    ).toBe(14);
 
     expect(applyCollection(base, { type: 'consume', targetId: 'c1', foodId: 'c1' })).toHaveProperty('error');
     expect(applyCollection(base, { type: 'consume', targetId: 'c1', foodId: 'c9' })).toHaveProperty('error');
@@ -181,9 +180,9 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(applyCollection(base, { type: 'fuse', aId: 'c1', bId: 'c9' })).toHaveProperty('error');
   });
 
-  it('reincarnate needs max level and resets to level 1 with stars+1', () => {
+  it('reincarnate needs level 10 and resets to level 1 with stars+1', () => {
     const base = stateWith({
-      companions: [comp('c1', { level: COMPANION_MAX_LEVEL, stars: 2 }), comp('c2', { level: 9 })],
+      companions: [comp('c1', { level: COMPANION_REINCARNATION_LEVEL, stars: 2 }), comp('c2', { level: 9 })],
       nextCompanionId: 3,
     });
     const { state, events } = ok(applyCollection(base, { type: 'reincarnate', id: 'c1' }));
@@ -191,7 +190,7 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(state.companions[0]?.level).toBe(1);
     expect(state.companions[0]?.stars).toBe(3);
     expect(events).toEqual([]);
-    expect(base.companions[0]?.level).toBe(COMPANION_MAX_LEVEL);
+    expect(base.companions[0]?.level).toBe(COMPANION_REINCARNATION_LEVEL);
 
     expect(applyCollection(base, { type: 'reincarnate', id: 'c2' })).toHaveProperty('error');
     expect(applyCollection(base, { type: 'reincarnate', id: 'c9' })).toHaveProperty('error');
@@ -241,7 +240,7 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     // Kept across the prestige (Assumption 5).
     expect(state.companions.map((c) => c.id)).toEqual(['c1', 'c2']);
     expect(state.items).toEqual({ gem: 2 });
-    expect(state.coins).toBe(88);
+    expect(state.coins).toBe(88n);
     expect(state.killCount).toBe(120);
     expect(state.bestIndex).toBe(41);
     expect(state.nextCompanionId).toBe(3);
@@ -289,17 +288,17 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(base.companions).toHaveLength(2);
   });
 
-  it('pvpResult adds the stolen companion with a re-minted id and removes the lost one', () => {
+  it('pvpResult preserves the server transfer id and removes the lost one', () => {
     const base = stateWith({ companions: [comp('c1'), comp('c2')], nextCompanionId: 3 });
     const stolen = comp('s12345', { speciesId: 'golem', bossIndex: 31, level: 6, stars: 2 });
     const { state, events } = ok(
       applyCollection(base, { type: 'pvpResult', won: true, stolen, lostId: 'c1' }),
     );
-    expect(state.companions.map((c) => c.id)).toEqual(['c2', 'c3']);
-    expect(state.companions[1]).toEqual({ ...stolen, id: 'c3' });
+    expect(state.companions.map((c) => c.id)).toEqual(['c2', stolen.id]);
+    expect(state.companions[1]).toEqual(stolen);
     expect(state.nextCompanionId).toBe(4);
     expect(events).toEqual([
-      { type: 'pvpResolved', won: true, stolen: { ...stolen, id: 'c3' }, lostId: 'c1' },
+      { type: 'pvpResolved', won: true, stolen, lostId: 'c1' },
     ]);
 
     // A loss: nothing gained, the lost one goes; unknown lostId is ignored.
@@ -364,25 +363,24 @@ describe('resolvePvp (SPEC F37/F62, Assumption 34)', () => {
   const replay = (a: readonly Companion[], d: readonly Companion[]): unknown =>
     simulateBattle(a, d).blows;
 
-  it('resolvePvp wins by the deterministic battle and moves one random defender to the attacker on the steal roll', () => {
+  it('resolvePvp keeps the deterministic verdict and roster independent of former steal rolls', () => {
     const attacker = roster(3, 'a');
     const defender = roster(3, 'd');
 
     // Evenly matched, but the attacker swings first — so it always wins.
     const stolen = resolvePvp(attacker, defender, seq(0.1499, 0.5));
     expect(stolen.attackerWon).toBe(true);
-    expect(stolen.moved).toBe(defender[1]); // floor(0.5 * 3)
+    expect(stolen.moved).toBeNull();
     expect(stolen.blows).toEqual(replay(attacker, defender));
 
-    // Same battle, same victim draw: only the steal roll changed the loot.
+    // Changing the former loot roll cannot affect the result.
     const empty = resolvePvp(attacker, defender, seq(0.15, 0.5));
     expect(empty.attackerWon).toBe(true);
     expect(empty.moved).toBeNull();
     expect(empty.blows).toEqual(stolen.blows);
   });
 
-  it('resolvePvp steals only on a win with the 15 percent roll and draws exactly 2 rng values', () => {
-    expect(STEAL_CHANCE).toBe(0.15);
+  it('resolvePvp never steals and does not consume loot randomness', () => {
     const attacker = roster(1, 'a');
     const outcome = (
       a: readonly Companion[],
@@ -394,15 +392,15 @@ describe('resolvePvp (SPEC F37/F62, Assumption 34)', () => {
       return { moved: r.moved, won: r.attackerWon, draws: rng.draws };
     };
 
-    // A win: the roll alone decides, and 0.15 itself is outside the window.
+    // Former success/failure rolls now have identical ownership behavior.
     expect(outcome(attacker, roster(1, 'd'), 0.1499)).toEqual({
       won: true,
-      moved: roster(1, 'd')[0],
-      draws: 2,
+      moved: null,
+      draws: 0,
     });
-    expect(outcome(attacker, roster(1, 'd'), 0.15)).toEqual({ won: true, moved: null, draws: 2 });
+    expect(outcome(attacker, roster(1, 'd'), 0.15)).toEqual({ won: true, moved: null, draws: 0 });
     // A loss: the luckiest roll in the world still steals nothing.
-    expect(outcome(attacker, roster(3, 'd'), 0)).toEqual({ won: false, moved: null, draws: 2 });
+    expect(outcome(attacker, roster(3, 'd'), 0)).toEqual({ won: false, moved: null, draws: 0 });
   });
 
   it('a losing attacker never loses a companion', () => {
@@ -438,16 +436,16 @@ describe('resolvePvp (SPEC F37/F62, Assumption 34)', () => {
       blows: simulateBattle(full, defender).blows,
     });
 
-    // One slot free → the same draws steal the defender's companion.
-    expect(resolvePvp(full.slice(1), defender, seq(0.01, 0)).moved).toBe(defender[0]);
+    // A free slot also cannot revive the removed theft rule.
+    expect(resolvePvp(full.slice(1), defender, seq(0.01, 0)).moved).toBeNull();
 
     // The server passes the real roster size, which the party does not know.
     const party = roster(1, 'a');
     expect(resolvePvp(party, defender, seq(0.01, 0), ROSTER_CAP).moved).toBeNull();
-    expect(resolvePvp(party, defender, seq(0.01, 0), ROSTER_CAP - 1).moved).toBe(defender[0]);
+    expect(resolvePvp(party, defender, seq(0.01, 0), ROSTER_CAP - 1).moved).toBeNull();
   });
 
-  it('resolvePvp is reproducible from its seed and draws exactly 2 rng values', () => {
+  it('resolvePvp is reproducible without consuming RNG', () => {
     const attacker = roster(2, 'a');
     const defender = roster(4, 'd');
     const run = (): { attackerWon: boolean; moved: Companion | null; draws: number } => {
@@ -457,15 +455,15 @@ describe('resolvePvp (SPEC F37/F62, Assumption 34)', () => {
     };
 
     expect(run()).toEqual(run());
-    expect(run().draws).toBe(2);
+    expect(run().draws).toBe(0);
 
-    // The victim draw is consumed even when there is nobody to steal.
+    // Empty parties also leave the caller RNG untouched.
     const empty = counting(mulberry32(7));
     resolvePvp(attacker, [], empty);
-    expect(empty.draws).toBe(2);
+    expect(empty.draws).toBe(0);
   });
 
-  it('resolvePvp steal rate over 10000 seeded wins is within 13 to 17 percent', () => {
+  it('resolvePvp leaves companions untouched over 10000 seeded wins', () => {
     const attacker = roster(3, 'a');
     const defender = roster(1, 'd');
     const rng = mulberry32(1234);
@@ -477,8 +475,6 @@ describe('resolvePvp (SPEC F37/F62, Assumption 34)', () => {
       if (r.moved) steals += 1;
     }
 
-    // p = STEAL_CHANCE = 0.15; 10000 trials stay well inside +/- 2 points.
-    expect(steals / 10000).toBeGreaterThan(0.13);
-    expect(steals / 10000).toBeLessThan(0.17);
+    expect(steals).toBe(0);
   });
 });

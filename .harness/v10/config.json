@@ -1,0 +1,173 @@
+{
+  "version": 10,
+  "productVersion": "0.10.0",
+  "tasks": [
+    {
+      "id": "V10-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v10",
+        "docs/v0.10",
+        "eslint.config.mjs"
+      ],
+      "ac": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs"
+    },
+    {
+      "id": "V10-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V10-01"
+      ],
+      "files": [
+        "src/core/battle.ts",
+        "src/core/hero.ts",
+        "src/core/progress.ts",
+        "src/core/bignum.ts",
+        "src/core/collection.ts",
+        "src/core/input.ts",
+        "src/core/monsters.ts",
+        "src/core/loot.ts",
+        "src/core/gold.ts",
+        "src/core/engine.ts",
+        "src/core/types.ts",
+        "src/core/rng.ts",
+        "src/core/discovery.ts",
+        "src/core/index.ts",
+        "src/core/fever.ts",
+        "src/core/economy.ts",
+        "src/core/types-chart.ts",
+        "src/core/progression.ts",
+        "src/core/formulas.ts",
+        "src/core/save.ts",
+        "src/core/equipment.ts",
+        "tests/equipmentV10.test.ts",
+        "tests/save.test.ts",
+        "tests/engine.test.ts",
+        "docs/v0.10/BALANCE_CANDIDATE.json"
+      ],
+      "ac": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts"
+    },
+    {
+      "id": "V10-03",
+      "owner": "Designer",
+      "dependencies": [
+        "V10-01"
+      ],
+      "files": [
+        "src/renderer/sprites",
+        "src/renderer/game.ts",
+        "src/renderer/hud.ts",
+        "src/renderer/anim.ts",
+        "src/renderer/effects.ts",
+        "src/core/fsm.ts"
+      ],
+      "ac": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts"
+    },
+    {
+      "id": "V10-04",
+      "owner": "Host",
+      "dependencies": [
+        "V10-02"
+      ],
+      "files": [
+        "src/server",
+        "src/shared/api.ts",
+        "src/main/net.ts"
+      ],
+      "ac": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts"
+    },
+    {
+      "id": "V10-05",
+      "owner": "Host",
+      "dependencies": [
+        "V10-02",
+        "V10-03"
+      ],
+      "files": [
+        "src/main/ipc.ts",
+        "src/main/coordinator.ts",
+        "src/main/recovery.ts",
+        "src/main/persistence.ts",
+        "src/shared/ipc.ts",
+        "src/preload",
+        "src/renderer/index.ts",
+        "src/renderer/global.d.ts",
+        "src/menu",
+        "static"
+      ],
+      "ac": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts"
+    },
+    {
+      "id": "V10-06",
+      "owner": "Host",
+      "dependencies": [
+        "V10-02",
+        "V10-03",
+        "V10-04",
+        "V10-05"
+      ],
+      "files": [
+        "src",
+        "tests",
+        "static",
+        "scripts",
+        "package.json",
+        "package-lock.json"
+      ],
+      "ac": "npm run build"
+    },
+    {
+      "id": "V10-07",
+      "owner": "Balance",
+      "dependencies": [
+        "V10-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v10/balance-verify.mjs {runDir}/balance/final.json",
+      "artifacts": [
+        "{runDir}/balance/final.json"
+      ]
+    },
+    {
+      "id": "V10-08",
+      "owner": "Host",
+      "dependencies": [
+        "V10-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v10/runtime.mjs {runDir}/native/final.json",
+      "artifacts": [
+        "{runDir}/native/final.json"
+      ]
+    },
+    {
+      "id": "V10-09",
+      "owner": "Host",
+      "dependencies": [
+        "V10-07",
+        "V10-08"
+      ],
+      "files": [],
+      "ac": "npm run smoke && npm run package && npm run package:win"
+    },
+    {
+      "id": "V10-10",
+      "owner": "Critic",
+      "dependencies": [
+        "V10-09"
+      ],
+      "files": [],
+      "ac": "node .harness/v10/final-check.mjs {runDir}",
+      "artifacts": [
+        "{runDir}/performance/comparison.json",
+        "{runDir}/performance/isolation.json",
+        "{runDir}/reviews/performance-result-final.json",
+        "{runDir}/reviews/final.json",
+        "{runDir}/native/gallery-final.json",
+        "docs/v0.10/EQUIPMENT_CATALOG.json",
+        "docs/v0.10/CATALOG.md"
+      ]
+    }
+  ]
+}

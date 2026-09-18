@@ -1,0 +1,33 @@
+{
+  "version": 10,
+  "protocol": "equipment-economy-1",
+  "candidate": "BALANCE_CANDIDATE.json",
+  "explorationSeeds": {"first": 10001, "count": 20},
+  "heldOutSeeds": {"first": 50001, "count": 100},
+  "horizonsMinutes": [30, 120, 480],
+  "policies": ["new-active", "intermittent", "companion-idle", "wealthy-save", "immediate-rebirth", "deferred-rebirth", "enhance-first", "collect-first"],
+  "measure": ["gold-income", "first-purchase-minutes", "purchases", "enhancement-spend", "expansion-spend", "attack-gain-per-gold", "high-tier-equipped-minutes", "four-copy-concentration", "rebirth-unequips", "temporary-destructions", "enhancement-destructions", "epic-zero-acquisitions"],
+  "hardGates": {
+    "negativeWallets": 0,
+    "duplicateInstances": 0,
+    "invalidLoadouts": 0,
+    "gearDropsOnNormalMonsters": 0,
+    "nonDecreasingRiskyEnhancementChance": 0,
+    "enhancementCostRatioMinimum": 2,
+    "expansionCostRatio": 2,
+    "epicShopOffers": 0,
+    "ordinaryIncomeMultiplier": 1,
+    "maxProcessingMsPerVirtualHour": 10000
+  },
+  "selection": {
+    "rule": "Compare at least three registered candidate prices, level/power and probability settings on exploration seeds; select a Pareto candidate, then evaluate held-out seeds once. Any changed rule invalidates the evidence and requires a new version and run.",
+    "firstCommonPurchaseActiveMedianMinutes": {"minimum": 10, "maximum": 120},
+    "activeMedianWeaponAttackGainAfterTwoHoursMinimumPercent": 5,
+    "highTierUse": "Report each tier by immediate/deferred rebirth policy; a tier with zero use by all progression policies rejects the tier schedule.",
+    "concentration": "Report top template and same-template four-copy rates; no hidden cap or forced diversity.",
+    "epics": "Report exact independent long-tail non-acquisition estimates and observed held-out zero-acquisition rate; no pity or focused rerolls.",
+    "humanFun": "Cannot be certified by agent simulation. Record whether human playtesting occurred."
+  },
+  "runtime": {"activeMinutes": 30, "idleMinutes": 30, "mixedMinutes": 180, "cpuP95": "max(baseline*1.1, baseline+1 percentage point)", "memoryP95": "max(baseline*1.2, baseline+50MiB)"},
+  "sourceBinding": "Hash source, this protocol and candidate before every run; keep failed attempts and require latest valid receipts."
+}

@@ -1,0 +1,38 @@
+# v7 검증표
+
+현재 **candidate / H07-01 historical verified / V07-01–04 verified / V07-05 running / V07-06–07 pending**이다. Round07의 8개 탐색안 모두 두 진행 목표를 함께 충족하지 못했다. 실제 invalidate/start로 새 설계 등록 단계에 돌아왔으며 실패는 `sessions/V07-05-round07-exploration-failed.md`에 기록했다.
+
+Round07은 8개 실행·9개 보고서·180개 원본을 완료했다. prefix1153의 첫 환생 전체 p50은2878.7초(47.98분),90분 내20/20으로 선별 PASS다. 같은20seed의 새12시간 측정에서 최종h70 자격/제시8/20,미도달12/20,실제선택0이고 전체p50=null로 장기 FAIL이다. 도달자조건부p5018852.5초를 전체목표로 대체하지 않는다. prefix1154/1155는 첫p502280.3/2654초로 너무 빨라 선별FAIL이며12시간미실행이다. 각114개 생산 테스트와 구조검증은 PASS다. 원본과 소스·빌드·로그·프로토콜 해시는 `evidence/exploration/round-07`에 보존했다.
+
+exec13801/Python17539/PGID17539는2026-09-12T08:04:44Z에 종료됐고, 재개한16:48Z에 측정·Native 실행기가 없음을 확인했다. 재개 당시 생산 소스 **S8fe4e890 / Ec12f36f4**는 마지막1155 실행의 지문과 일치했다. 새 등록 후 검토 시작점은 control-l17로 복구했다. 중복 시작하지 않는다. 독립Balance의8실험/180원본과17아카이브 검산은 오류0으로 완료·동결됐다. `evidence/round07-analysis/final-analysis.json` SHA4967aaf7... 및README SHA8887d58e...를 보존했다. Designer/Critic의 완료 탐색 기반 제안·진단을 받아 Round08을 사전등록했다. 기존1153/1000·Lv17·XP1.42·count5/depth63·tail시작79를 고정하고 tail10450/10425/10400 per10000의 세21키 후보를 비교한다. 원본 계약은 `contracts/candidate-16`, 프로토콜SHA1a0fec2a...다. 새 후보8안 배치 exec31735/Python71550/PGID71550은 종료됐다. 11보고서/220raw와모든후보의두종류20쌍비교를완료했다. 두목표통과10450/10425 중등록tuple상10450이앞서며Host독립검산SHA25333b89...도일치한다. 최종독립분석동결후채택예정이며현재는selected=null이다. 측정/Native프로세스없음을확인했고중복시작하지않는다. 검증1–100 결과로 수치를 조정하지 않았다.
+
+`reviews/design-round07`의 실제 Designer→Critic→Balance→Host 전체 prompt/template 검토와 당시control-l17의 새 V01–04 AC·각955테스트/lint/typecheck PASS는 불변 이력이다. V05의 progression48/harness142/gates955도 변형 적용 전 근거로 보존한다. 이 과거 결과를 마지막1155 소스의 전체 검증이나 성능 PASS로 재인증하지 않는다. 현재 `selectedExperiment=null`이고 채택안은 없다. 현재 설계 문서SHA43424252...를 동결했고 `reviews/design-round08`에서 실제 Designer→Critic→Balance→Host 전체 prompt/template 검토를 완료했다. 같은 S5b839be7/E2c357339에서 새 protocol·harness142·gates955+lint+typecheck는 모두 PASS다. V01–04도 같은 소스의 새 등록AC와 각 전체게이트를 통과하여 `sessions/V07-01-round08.md`부터 `V07-04-round08.md`에 verified로 기록했다. V05 progression48/harness142/gates955+lint+typecheck도 같은소스에서 PASS다. 새 탐색 원본은 `evidence/exploration/round-08`에 기록하며 모든8안 완료 후 독립분석·정해진선택규칙을 적용한다. 배치는 `sessions/round08-batch.py`에 준비했으며 이전1153 첫기록과 같은후보screen/full20쌍 검증을 각각 등록했다. 실행 전 Critic이 찾은 준비prefix 참조연결 틈은 공식원본 재계산으로 보강했고 정상1/부정3 데이터검사·독립재검토를 통과했다. 원본은 `round08-design-preparation/batch-reference-binding-fix`에 보존했다. 보강 전 초안은 후보 측정에 사용된 적이 없다. 현재 실행은 보강된batch SHA0fae96a8...를 사용한다.
+
+제품과 lock은 아직 **0.6.0**이다. 이전 실패 `evidence/candidate.json`은 불변이며 `candidate-round07.json` 검증은 실행하지 않았다. 새 검증 AC 경로는 `candidate-round08.json`이다. 최종0.7.0 고정, 실제 Native330분,9정책×100seed×12시간,별도 네 역할 감사,smoke·패키지·운영 고레벨 서버 호환은 **PENDING**이다. 사람 관찰이 없어 **humanChecks=PENDING**이다. 기존 save·미커밋 변경·v5·CURRENT=v3을 보존하며 커밋·푸시·운영 배포는 수행하지 않았다.
+
+하네스 준비, 설계 검토, 로컬 기능 검증, 측정 및 출시 검증을 구분한다. 실제 현재 상태는 loop.json과 HANDOFF.md 상단을 따른다.
+
+하네스 준비의 최종 판정은 [실행 결과](../../.agentdoc/v07-setup-20260911T122653Z/evidence/setup-result.md)와 [loop.json](../../.agentdoc/v07-setup-20260911T122653Z/loop.json)의 H07-01에 기록한다. 아래 후속 기능은 하네스 자체 검사로 통과 처리하지 않는다.
+
+| 대상 | 완료 근거 | 현재 단계 |
+| --- | --- | --- |
+| H07-01 하네스 | 자체 테스트·정확한 저장소 게이트·100 seed × 12시간 baseline·앱/기존 파일 보존 | 최종 저널 참조 |
+| 동료 상한 제거 | Lv11/250/MAX_SAFE_INTEGER 저장/재시작·JSONB·업로드·목록·전투·탈취/회수, overflow 무손실; sessions/V07-02.md | 이전 로컬 AC PASS; 새 프로토콜·운영 호환 PENDING |
+| 동료 환생 | Lv10 미만 거부, Lv10 이상 Lv1/별+1, 전후 힘·별도 확인·변경 대상 무효화; 동일 소스 AC/gates 통과 | 이전 로컬 AC PASS; 새 프로토콜·최종 Native PENDING |
+| 도감 공개 | 후보/스폰만으로 실루엣 유지, 선택/첫 처치 직후 카드·알림·목표 동시 갱신; sessions/V07-03.md | 이전 로컬 AC PASS; 새 프로토콜·최종 Native PENDING |
+| 레거시 도감 | 등장만 한 항목 비공개와 ACK 제거, 영구 컬렉션 ACK 반복 저장/재시작 보존, 과거 처치 추정 없음 | 이전 로컬 AC PASS; 새 프로토콜·최종 Native PENDING |
+| PvP 목록 | 각 행 영웅·파티·승패·선택, 지정 ID 전달, 50명 스크롤/키보드 포커스·오류 처리 | 이전 candidate AC/0분 진단 PASS; 최종 소스 PENDING |
+| 첫 영웅 환생 | p50 45–60분, 전체 100개 중 90개가 90분 이내 성공; ready/open/accepted 분리 | PENDING |
+| 장기 콘텐츠 | 사전등록 마지막 해금 p50 8–12시간, 2시간 이후 남은 목표와 실제 선택/처치 분포 | PENDING |
+| 정책 비교 | 동일 seed·입력량의 집중/균등, 골드 사용, 동료 관리, 방문 간격, 방치 정책 | PENDING |
+| 실제 Native | 9개 짧은 조합 + 연속 180분 active, 격리 save, 실제 메뉴 방문·환생 선택 | PENDING |
+| 출시 후보 | 최종 0.7.0 소스 게이트·네 역할 감사·smoke·실제 패키지·서버 고레벨 호환 | PENDING |
+| 사람 관찰 | 실제 참가자의 선택/자발적 재확인/업무 방해 기록 | PENDING |
+
+목표 미달도 baseline 결과로 보존한다. 미도달 seed를 0초로 바꾸거나 도달한 표본만으로 분모를 줄이지 않는다. 그래프·수치·합성 입력 관측을 사람의 재미 검증으로 표현하지 않는다.
+
+현재 preflight attempt01은0분 진단으로36개 항목 통과 뒤 첫 Enter 지정 상대 응답 대기에서 실패했다. 도감/레거시·고레벨 저장/응답·환생 확인/취소/변경 무효화·50행 표시의 실제 실행 근거는 있으나 전체 Native와 최종 소스 검증은 PENDING이다. 원본은 `.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01`에 유지한다.
+
+후속 attempt02는 입력 이벤트 보완 후41개 진단 모두 통과했다. 이 결과는0.6.0 candidate의0분 fixture 진단이며 최종0.7.0 자연 관측을 대체하지 않는다. V07-04의 최신 등록 근거는 sessions/V07-04.md이며 round01 탐색 실행은 evidence/exploration/round-01에 별도로 보존한다.
+
+Round01 전체 160개 원본의 독립 해시 감사는 통과했지만 채택 가능한 안은 없었다. Round02의 Lv17·XP1.41 후보는 탐색 20개에서 첫 환생 p50 2902.6초, 90분 안에 18/20 성공으로 선별을 통과했다. 같은 탐색 seed의 실제 12시간 측정에서는 h70 자격 충족 0/20으로 장기 목표에 실패했다. XP1.42는 첫 성공 p50 3361.5초·90분 성공 11/20, XP1.43은 4935.5초·12/20으로 선별에 실패했다. 이번 라운드의 채택안은 없다. 검증 seed 1–100을 사용하거나 목표를 완료 처리하지 않았다. 최신 상태와 다음 행동은 HANDOFF.md 및 loop.json을 따른다.

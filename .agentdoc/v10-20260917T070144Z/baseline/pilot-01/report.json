@@ -1,0 +1,769 @@
+{
+  "version": 10,
+  "kind": "independent-preserved-baseline",
+  "agentId": "/root/harness_critic",
+  "clock": "virtual",
+  "tickMs": 100,
+  "observationMs": 1000,
+  "seeds": {
+    "first": 50001,
+    "count": 1
+  },
+  "checkpointsMs": [
+    1800000,
+    7200000,
+    28800000
+  ],
+  "policies": [
+    {
+      "id": "active-no-rebirth",
+      "inputEveryMs": 500,
+      "visitEveryMs": null,
+      "fixture": "fresh"
+    },
+    {
+      "id": "active-immediate",
+      "inputEveryMs": 500,
+      "visitEveryMs": 1000,
+      "fixture": "fresh"
+    },
+    {
+      "id": "active-10m-visits",
+      "inputEveryMs": 500,
+      "visitEveryMs": 600000,
+      "fixture": "fresh"
+    },
+    {
+      "id": "returning-idle-10m-visits",
+      "inputEveryMs": null,
+      "visitEveryMs": 600000,
+      "fixture": "five-initial-companions"
+    }
+  ],
+  "heroChoice": "first offered form; no rerolls",
+  "purchases": "none",
+  "companionManagement": "none",
+  "boundaries": [
+    "Not native Electron or human play",
+    "No direct comparison of active and idle as equivalent starting states",
+    "No-rebirth intentionally measures delayed progression; immediate is an optimistic menu bot",
+    "Checkpoints from a trajectory are correlated; 3 observations do not mean 3 independent runs"
+  ],
+  "startedAt": "2026-09-17T07:05:21.779Z",
+  "endedAt": "2026-09-17T07:05:30.775Z",
+  "passed": true,
+  "rowCount": 12,
+  "binding": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/battle.js": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/collection.js": "09d5b0d2ffbbe224a544fa817f3f515696183c86e2431f8e2d1f1b90cd0717d6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/discovery.js": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/economy.js": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/engine.js": "3393d3461b77af8b14173e9653a18880ab9d8ede4a42d9506ee593851af69393",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/formulas.js": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/fsm.js": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/gold.js": "abe01a71d6da2d86578173ac6574ab4fed65fb7ce5f384b36f7d1a1ce8f418cb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/hero.js": "052d493ca2b6915c71b6baa694737ae1d1076f58998c9fc958ef0eaa2a2403f1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/index.js": "18e0a9ed09bc974bd597456ae5165f4602eac9d01dcf83d0a3de04de7c61058d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/monsters.js": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/progress.js": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/progression.js": "fb216a86394692406e6b21f4470d30fc950472b36852d1d29c69ef68ebe9b684",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/save.js": "f3aeb7fc135b30750a9060b249cf9d819151789ac5a5d766964f4016834d2daf",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/compiled-core/types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/baseline/measure-baseline.mjs": "66d999eb1a29f26e41bd332d2549e47197544f52053239e3c5ff5a6727386014"
+  },
+  "raw": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/baseline/pilot-01/raw.jsonl",
+  "rawHash": "25274a20d11c429330954f730f1f2dd1073a4e5370cf5f0ed9ee05cd02dbd5d4",
+  "protocolHash": "b5ad10615291da1f571043932d9be482a6b1f5504ae0f56c9f81fd7b69f9d238",
+  "summary": [
+    {
+      "policy": "active-no-rebirth",
+      "minutes": 30,
+      "samples": 1,
+      "coins": {
+        "min": 1572,
+        "p10": 1572,
+        "p50": 1572,
+        "p90": 1572,
+        "max": 1572
+      },
+      "level": {
+        "min": 17,
+        "p10": 17,
+        "p50": 17,
+        "p90": 17,
+        "max": 17
+      },
+      "maxLevel": {
+        "min": 17,
+        "p10": 17,
+        "p50": 17,
+        "p90": 17,
+        "max": 17
+      },
+      "bossKills": {
+        "min": 9,
+        "p10": 9,
+        "p50": 9,
+        "p90": 9,
+        "max": 9
+      },
+      "reincarnations": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "bestIndex": {
+        "min": 79,
+        "p10": 79,
+        "p50": 79,
+        "p90": 79,
+        "max": 79
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-no-rebirth",
+      "minutes": 120,
+      "samples": 1,
+      "coins": {
+        "min": 695554,
+        "p10": 695554,
+        "p50": 695554,
+        "p90": 695554,
+        "max": 695554
+      },
+      "level": {
+        "min": 34,
+        "p10": 34,
+        "p50": 34,
+        "p90": 34,
+        "max": 34
+      },
+      "maxLevel": {
+        "min": 34,
+        "p10": 34,
+        "p50": 34,
+        "p90": 34,
+        "max": 34
+      },
+      "bossKills": {
+        "min": 208,
+        "p10": 208,
+        "p50": 208,
+        "p90": 208,
+        "max": 208
+      },
+      "reincarnations": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "bestIndex": {
+        "min": 1666,
+        "p10": 1666,
+        "p50": 1666,
+        "p90": 1666,
+        "max": 1666
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1,
+        "25": 1,
+        "30": 1
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-no-rebirth",
+      "minutes": 480,
+      "samples": 1,
+      "coins": {
+        "min": 729314,
+        "p10": 729314,
+        "p50": 729314,
+        "p90": 729314,
+        "max": 729314
+      },
+      "level": {
+        "min": 34,
+        "p10": 34,
+        "p50": 34,
+        "p90": 34,
+        "max": 34
+      },
+      "maxLevel": {
+        "min": 34,
+        "p10": 34,
+        "p50": 34,
+        "p90": 34,
+        "max": 34
+      },
+      "bossKills": {
+        "min": 213,
+        "p10": 213,
+        "p50": 213,
+        "p90": 213,
+        "max": 213
+      },
+      "reincarnations": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "bestIndex": {
+        "min": 1706,
+        "p10": 1706,
+        "p50": 1706,
+        "p90": 1706,
+        "max": 1706
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1,
+        "25": 1,
+        "30": 1
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-immediate",
+      "minutes": 30,
+      "samples": 1,
+      "coins": {
+        "min": 2739,
+        "p10": 2739,
+        "p50": 2739,
+        "p90": 2739,
+        "max": 2739
+      },
+      "level": {
+        "min": 16,
+        "p10": 16,
+        "p50": 16,
+        "p90": 16,
+        "max": 16
+      },
+      "maxLevel": {
+        "min": 17,
+        "p10": 17,
+        "p50": 17,
+        "p90": 17,
+        "max": 17
+      },
+      "bossKills": {
+        "min": 17,
+        "p10": 17,
+        "p50": 17,
+        "p90": 17,
+        "max": 17
+      },
+      "reincarnations": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "bestIndex": {
+        "min": 75,
+        "p10": 75,
+        "p50": 75,
+        "p90": 75,
+        "max": 75
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-immediate",
+      "minutes": 120,
+      "samples": 1,
+      "coins": {
+        "min": 69935,
+        "p10": 69935,
+        "p50": 69935,
+        "p90": 69935,
+        "max": 69935
+      },
+      "level": {
+        "min": 22,
+        "p10": 22,
+        "p50": 22,
+        "p90": 22,
+        "max": 22
+      },
+      "maxLevel": {
+        "min": 23,
+        "p10": 23,
+        "p50": 23,
+        "p90": 23,
+        "max": 23
+      },
+      "bossKills": {
+        "min": 221,
+        "p10": 221,
+        "p50": 221,
+        "p90": 221,
+        "max": 221
+      },
+      "reincarnations": {
+        "min": 12,
+        "p10": 12,
+        "p50": 12,
+        "p90": 12,
+        "max": 12
+      },
+      "bestIndex": {
+        "min": 216,
+        "p10": 216,
+        "p50": 216,
+        "p90": 216,
+        "max": 216
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-immediate",
+      "minutes": 480,
+      "samples": 1,
+      "coins": {
+        "min": 237648,
+        "p10": 237648,
+        "p50": 237648,
+        "p90": 237648,
+        "max": 237648
+      },
+      "level": {
+        "min": 22,
+        "p10": 22,
+        "p50": 22,
+        "p90": 22,
+        "max": 22
+      },
+      "maxLevel": {
+        "min": 23,
+        "p10": 23,
+        "p50": 23,
+        "p90": 23,
+        "max": 23
+      },
+      "bossKills": {
+        "min": 600,
+        "p10": 600,
+        "p50": 600,
+        "p90": 600,
+        "max": 600
+      },
+      "reincarnations": {
+        "min": 26,
+        "p10": 26,
+        "p50": 26,
+        "p90": 26,
+        "max": 26
+      },
+      "bestIndex": {
+        "min": 216,
+        "p10": 216,
+        "p50": 216,
+        "p90": 216,
+        "max": 216
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-10m-visits",
+      "minutes": 30,
+      "samples": 1,
+      "coins": {
+        "min": 1572,
+        "p10": 1572,
+        "p50": 1572,
+        "p90": 1572,
+        "max": 1572
+      },
+      "level": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "maxLevel": {
+        "min": 17,
+        "p10": 17,
+        "p50": 17,
+        "p90": 17,
+        "max": 17
+      },
+      "bossKills": {
+        "min": 9,
+        "p10": 9,
+        "p50": 9,
+        "p90": 9,
+        "max": 9
+      },
+      "reincarnations": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "bestIndex": {
+        "min": 79,
+        "p10": 79,
+        "p50": 79,
+        "p90": 79,
+        "max": 79
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-10m-visits",
+      "minutes": 120,
+      "samples": 1,
+      "coins": {
+        "min": 332056,
+        "p10": 332056,
+        "p50": 332056,
+        "p90": 332056,
+        "max": 332056
+      },
+      "level": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "maxLevel": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "bossKills": {
+        "min": 255,
+        "p10": 255,
+        "p50": 255,
+        "p90": 255,
+        "max": 255
+      },
+      "reincarnations": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "bestIndex": {
+        "min": 831,
+        "p10": 831,
+        "p50": 831,
+        "p90": 831,
+        "max": 831
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1,
+        "25": 1,
+        "30": 1
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "active-10m-visits",
+      "minutes": 480,
+      "samples": 1,
+      "coins": {
+        "min": 6560436,
+        "p10": 6560436,
+        "p50": 6560436,
+        "p90": 6560436,
+        "max": 6560436
+      },
+      "level": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "maxLevel": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "bossKills": {
+        "min": 3972,
+        "p10": 3972,
+        "p50": 3972,
+        "p90": 3972,
+        "max": 3972
+      },
+      "reincarnations": {
+        "min": 43,
+        "p10": 43,
+        "p50": 43,
+        "p90": 43,
+        "max": 43
+      },
+      "bestIndex": {
+        "min": 839,
+        "p10": 839,
+        "p50": 839,
+        "p90": 839,
+        "max": 839
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 1,
+        "25": 1,
+        "30": 1
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "returning-idle-10m-visits",
+      "minutes": 30,
+      "samples": 1,
+      "coins": {
+        "min": 322,
+        "p10": 322,
+        "p50": 322,
+        "p90": 322,
+        "max": 322
+      },
+      "level": {
+        "min": 12,
+        "p10": 12,
+        "p50": 12,
+        "p90": 12,
+        "max": 12
+      },
+      "maxLevel": {
+        "min": 12,
+        "p10": 12,
+        "p50": 12,
+        "p90": 12,
+        "max": 12
+      },
+      "bossKills": {
+        "min": 4,
+        "p10": 4,
+        "p50": 4,
+        "p90": 4,
+        "max": 4
+      },
+      "reincarnations": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "bestIndex": {
+        "min": 34,
+        "p10": 34,
+        "p50": 34,
+        "p90": 34,
+        "max": 34
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "returning-idle-10m-visits",
+      "minutes": 120,
+      "samples": 1,
+      "coins": {
+        "min": 513,
+        "p10": 513,
+        "p50": 513,
+        "p90": 513,
+        "max": 513
+      },
+      "level": {
+        "min": 14,
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "max": 14
+      },
+      "maxLevel": {
+        "min": 14,
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "max": 14
+      },
+      "bossKills": {
+        "min": 5,
+        "p10": 5,
+        "p50": 5,
+        "p90": 5,
+        "max": 5
+      },
+      "reincarnations": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "bestIndex": {
+        "min": 44,
+        "p10": 44,
+        "p50": 44,
+        "p90": 44,
+        "max": 44
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 0,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    },
+    {
+      "policy": "returning-idle-10m-visits",
+      "minutes": 480,
+      "samples": 1,
+      "coins": {
+        "min": 745,
+        "p10": 745,
+        "p50": 745,
+        "p90": 745,
+        "max": 745
+      },
+      "level": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "maxLevel": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "bossKills": {
+        "min": 6,
+        "p10": 6,
+        "p50": 6,
+        "p90": 6,
+        "max": 6
+      },
+      "reincarnations": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "bestIndex": {
+        "min": 54,
+        "p10": 54,
+        "p50": 54,
+        "p90": 54,
+        "max": 54
+      },
+      "levelReach": {
+        "5": 1,
+        "10": 1,
+        "15": 1,
+        "20": 0,
+        "25": 0,
+        "30": 0
+      },
+      "firstBossUnreached": 0,
+      "first100GoldUnreached": 0
+    }
+  ]
+}

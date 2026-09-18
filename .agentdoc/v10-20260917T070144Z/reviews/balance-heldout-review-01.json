@@ -1,0 +1,23 @@
+{
+  "reviewer": "/root/backend_v10",
+  "passed": true,
+  "rows": 2400,
+  "groups": 24,
+  "checks": [
+    "all canonical summary fields equal",
+    "all derived quantiles independently recomputed",
+    "zero-spend ratio denominator explicit",
+    "weapon template pooled time and player counts equal",
+    "raw/report/baseline hashes equal",
+    "56 exact epic template IDs",
+    "fixed-opportunity global survival formula equal",
+    "report currency Number conversions remain exact for observed ranges"
+  ],
+  "hashes": {
+    ".agentdoc/v10-20260917T070144Z/balance/derived.json": "5a98f62860f39b91ebd0939a28e1e2a4d194dc204653b75fa876c7e868bb7ac5",
+    ".agentdoc/v10-20260917T070144Z/balance/derive.mjs": "f14b6f2a5b442e8ac796b2a52420d8145253357ce272b6be02e0eecbb5007919",
+    ".agentdoc/v10-20260917T070144Z/balance/final.json": "69f57eb4b84d7f8021670e74cd9799bb5dfd06709c33d1286aa2c6632f5f582f",
+    "docs/v0.10/BALANCE_REPORT.md": "335dc70cecc625a1418f7405a43629bb68be9e04b132d04326cd0ba7c9eb8edf",
+    ".agentdoc/v10-20260917T070144Z/balance-validation-01/report.json": "03a4c05c95017654ef9c60194781708b6baa4d758670bf4374c4f6ad647c2bdb"
+  }
+}

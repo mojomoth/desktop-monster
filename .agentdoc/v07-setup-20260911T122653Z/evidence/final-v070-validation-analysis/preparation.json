@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "kind": "final-v070-validation-analysis-preparation",
+  "agentId": "/root/balance",
+  "round": 8,
+  "createdAt": "2026-09-12T18:15:49.148123+00:00",
+  "status": "PREPARED_WAITING_HOST_COMPLETE",
+  "script": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/final-v070-validation.py",
+    "sha256": "c36c92752841eb39289a308942f970e8de0e6b925b9a55f514c0de25ea988455"
+  },
+  "protocol": {
+    "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "sha256": "52f4206ceefec593171a7017db41f4ab7eb8c930a0314c5b018999bd81358192",
+    "frozenAt": "2026-09-12T17:38:53.294240+00:00",
+    "adoptedAt": "2026-09-12T17:38:53.294240+00:00"
+  },
+  "selectedExperiment": {
+    "kind": "candidate",
+    "id": "candidate-r8-tail10450"
+  },
+  "parameters": {
+    "heroMinLevel": 17,
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailNumerator": 10450,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroLevelStepEvery": 2,
+    "heroLevelStepCap": 6,
+    "heroRestMs": 120000,
+    "heroDeferMs": 30000,
+    "xpRewardBase": 5,
+    "xpRewardPerIndex": 3,
+    "bossXpMultiplier": 5,
+    "bossHpMultiplier": 5
+  },
+  "milestones": [
+    {
+      "id": "crownwyrm",
+      "label": "왕관용",
+      "kind": "monster",
+      "ids": [
+        "crownwyrm"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "speciesKills",
+          "id": "dragon",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "rootcolossus",
+      "label": "뿌리거인",
+      "kind": "monster",
+      "ids": [
+        "rootcolossus"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "h58",
+      "label": "심해 기사",
+      "kind": "hero",
+      "ids": [
+        "h58"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "elementKills",
+          "element": "water",
+          "count": 100
+        },
+        {
+          "kind": "speciesKills",
+          "id": "reefknight",
+          "count": 2
+        },
+        {
+          "kind": "totalKills",
+          "count": 1500
+        }
+      ]
+    },
+    {
+      "id": "h62",
+      "label": "천공 수호자",
+      "kind": "hero",
+      "ids": [
+        "h62"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 5
+        },
+        {
+          "kind": "seenMonsters",
+          "count": 60
+        },
+        {
+          "kind": "totalKills",
+          "count": 6000
+        }
+      ]
+    },
+    {
+      "id": "starvoid",
+      "label": "별먹이",
+      "kind": "monster",
+      "ids": [
+        "starvoid"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 16000
+        }
+      ]
+    },
+    {
+      "id": "h70",
+      "label": "별밤 계승자",
+      "kind": "hero",
+      "ids": [
+        "h70"
+      ],
+      "final": true,
+      "requirements": [
+        {
+          "kind": "uniqueHeroes",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 30000
+        }
+      ]
+    }
+  ],
+  "measurementSettings": {
+    "tickMs": 100,
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "seeds": {
+      "baseline": {
+        "start": 1,
+        "count": 100
+      },
+      "exploration": {
+        "start": 10001,
+        "count": 20
+      },
+      "validation": {
+        "start": 1,
+        "count": 100
+      }
+    },
+    "profiles": [
+      "active",
+      "intermittent",
+      "warm-idle",
+      "pure-idle"
+    ],
+    "policies": [
+      "free",
+      "training",
+      "lure",
+      "reroll"
+    ],
+    "inputSchedules": [
+      "uniform",
+      "burst"
+    ],
+    "managementPolicies": [
+      "none",
+      "consume-weakest",
+      "fuse-first",
+      "reincarnate-first"
+    ],
+    "menuVisitSeconds": [
+      0,
+      120,
+      600
+    ],
+    "baseline": {
+      "profile": "active",
+      "policy": "free",
+      "inputSchedule": "uniform",
+      "management": "none",
+      "menuVisitSeconds": 0
+    },
+    "targets": {
+      "firstReincarnation": {
+        "medianMinSec": 2700,
+        "medianMaxSec": 3600,
+        "deadlineSec": 5400,
+        "minimumReachedFraction": 0.9
+      },
+      "lastUnlock": {
+        "medianMinSec": 28800,
+        "medianMaxSec": 43200
+      }
+    },
+    "maximumCandidates": 3,
+    "levelControls": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "validationPolicies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      }
+    ],
+    "explorationHorizonMinutes": 120,
+    "maxArtifactBytes": 268435456,
+    "maxWorkers": 4
+  },
+  "hostExpected": {
+    "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+    "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+    "appVersion": "0.7.0",
+    "execSession": null,
+    "pid": null,
+    "pgid": null
+  },
+  "expected": {
+    "report": ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate-final-v070.json",
+    "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-final-v070/execution.json",
+    "seedStart": 1,
+    "samples": 100,
+    "minutesPerSeed": 720,
+    "policy": "active/free/uniform/none/visit0"
+  },
+  "dataAccessGate": "Do not read future report/.runs or execution values until Host COMPLETE notice. Analyzer also requires execution.endedAt and full100 distinct seeds. Explicit DESMON_VALIDATION_COMPLETE=final-v070 unlock only after notice.",
+  "checksPrepared": [
+    "Full100 population/conditional p10/p50/p90/worst/unreached; no censored denominator reduction.",
+    "First7 records and checkpoint consistency,ready/open/accepted intervals,>=90/100 by5400sec and populationp502700–3600sec.",
+    "h70 population eligibilityp5028800–43200sec,seen/chosen separate;all6named eligible/seen/acquired/captured as applicable.",
+    "Adoptionbeforeexecution,officialexactprotocolSHA,selected21params/contentSHA,actualsource/compiledexports,S/E/build/manifest/raw/file/log/archive hashes.",
+    "Exact100 seed files plusmanifest,100×12h canonicalfreshonly,frozen9policydefinitionsnotpooled;allcheckpointcurrencyconservation and exactbigint.",
+    "Preserve targetFAIL and structuralPASS separately; no new numericalproposal,optimization,game execution,tests/build or finalaudit."
+  ],
+  "syntaxCheck": {
+    "command": "node --input-type=module --check (stdin only)",
+    "exitCode": 0,
+    "sourceExecuted": false
+  },
+  "analyzer": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-validation-analysis/analyzer-source.json",
+    "sha256": "4a51cd2cf75d71e18becb3cf47dd8d90f1a3613ffff0f064c0ded12d3e75c490"
+  },
+  "explorationFrozen": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-analysis/FROZEN.json",
+    "sha256": "162a2d73c766bcffa3a8c047f5df5f03a7ba5feb13e30d7b1cafebdbdb66c8c7"
+  },
+  "hostCompletionNotified": false,
+  "analysisExecuted": false,
+  "validationReportOrRawRead": false,
+  "partialExecutionRead": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "productSourceModified": false,
+  "evaluatorModified": false,
+  "newNumericalProposal": null,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false,
+  "frozenAt": "2026-09-12T18:15:49.148123+00:00",
+  "historicalAnalyzer": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-validation-analysis/analyzer-source.json",
+    "sha256": "0521d626c61e9cbd224cdb02a2a3d9843180644a03f46985b6b4c4cbac650c95"
+  },
+  "historicalPreparation": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-validation-analysis/preparation.json",
+    "sha256": "ef76e4be0ee9d27448c03fdb6c0b4b0d8ae3823276e78b977308a2f55a720aa4"
+  },
+  "historicalValidationFrozen": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-validation-analysis/FROZEN.json",
+    "sha256": "be01d84fb80f1fa6a6571e38c9275afb56bae26932fc6338317d67b1c73c1fa0"
+  },
+  "changesFromHistorical": [
+    "New output/report/execution paths and runner SHA.",
+    "App/package/root-lock version0.7.0; exact full S/E instead of8-character prefixes.",
+    "Unique Host COMPLETE gate token final-v070.",
+    "Preserved all existing raw/archive/log/parameter/content/metric/denominator checks and no reuse of old measured results."
+  ]
+}

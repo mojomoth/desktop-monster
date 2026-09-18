@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "sourceDigest": "6b1f37f7491ebb6af84d27a6054c41bf036b66a22eb2dd1dd96dff2b6bd210fb",
+  "generatorSeed": 60006,
+  "generator": "baseline production createEngine; fresh toSave immediately; full: two keyboard attacks then tick(1000), immediate first hero choice, no purchases or companion actions; stop after first whole-second step with exactly 30 companions",
+  "fullRosterElapsedSeconds": 921,
+  "fullRosterHeroChoices": 8,
+  "fixtures": {
+    "fresh": {
+      "path": ".agentdoc/v06-20260910T063253Z/baseline/fixtures/fresh.json",
+      "sha256": "f68288dc69529578c06305daac83bbd2faf14c0ebd2040f459df676f39dc75a1",
+      "companions": 0,
+      "level": 1,
+      "monsterIndex": 0,
+      "coins": 0,
+      "souls": 0,
+      "releasedCount": 0
+    },
+    "full-roster-fixed": {
+      "path": ".agentdoc/v06-20260910T063253Z/baseline/fixtures/full-roster-fixed.json",
+      "sha256": "b2385fd75a659c201d805a2a86fc7e0f1b7f83c1c5dc410434566298f5f11240",
+      "companions": 30,
+      "level": 11,
+      "monsterIndex": 28,
+      "coins": 10147,
+      "souls": 62,
+      "releasedCount": 0
+    }
+  },
+  "buildHashes": {
+    "dist/electron/core/battle.js": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a",
+    "dist/electron/core/bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "dist/electron/core/collection.js": "eb23976e828270e3907731972a25bc7a20824892e7ae54623f90bf3927db1446",
+    "dist/electron/core/discovery.js": "0d2168892da76263d2277adb3de91c2c837bdbc5e6d3bf57612d78eac2b37584",
+    "dist/electron/core/economy.js": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411",
+    "dist/electron/core/engine.js": "b7eeb3203bc9b89ddff067b0a9918ac0a2ae5fd18d27f26e6dd4deee56c2d3d6",
+    "dist/electron/core/fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+    "dist/electron/core/formulas.js": "60cde296357beefd01f93426c7acb562ea43354ffe7ff8949b50d6bd06db673a",
+    "dist/electron/core/fsm.js": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612",
+    "dist/electron/core/hero.js": "d175e9e798261b8c6d1a832c0c6c9d922a583bd96c0de443ca837fdbc9d6ab54",
+    "dist/electron/core/index.js": "82f3a7d95fef56b043080fe324ff811c9f174b166babcc470ba5202d0609c5ac",
+    "dist/electron/core/input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "dist/electron/core/loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "dist/electron/core/monsters.js": "ef81750aa0da41086298c1957cc751f7975e8d4bc8ad97ddac4362a5a01d426c",
+    "dist/electron/core/progress.js": "c20a07a08cf85beb83efbbdea23fb5731db8b4da2d0631196eb981d185d82cc3",
+    "dist/electron/core/rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "dist/electron/core/save.js": "f0cc0af1fd97025c2c48bdaf5c645f68fb5fc94d7516abed30c36863c7314ae4",
+    "dist/electron/core/types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "dist/electron/core/types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+  }
+}

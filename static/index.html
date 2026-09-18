@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
     <title>DesMon</title>
@@ -8,6 +8,12 @@
   <body>
     <div class="drag-handle"></div>
     <canvas id="game" width="200" height="130"></canvas>
+    <p id="field-pvp-status" role="status" aria-live="polite" hidden></p>
+    <p id="field-save-status" role="status" aria-live="polite" hidden></p>
+    <div id="field-save-recovery" hidden>
+      <button id="field-open-save" type="button">저장 폴더 열기</button>
+      <button id="field-quit" type="button">종료</button>
+    </div>
     <script type="module" src="../dist/web/renderer/index.js"></script>
   </body>
 </html>

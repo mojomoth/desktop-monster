@@ -1,0 +1,156 @@
+{
+  "requestId": "e2b67775abdf19123667d6d38fc6b304d68aed0d4b0ac162a360f88c9b54c982",
+  "round": 1,
+  "role": "balance",
+  "sourceDigest": "0158962366a8669d1721b4ab2d6c7e551e12dfbaadf57c51c6921f54dd658cb0",
+  "evaluationDigest": "659e1bf05b0d7f319a835ad9b8f90cadaa85944cb59149f225bfa752004cffce",
+  "agent": "/root/balance",
+  "decision": "pass",
+  "summary": "실제 발급 prompt/template 전체와 Designer001→Critic002를 읽고, 현재 source/evaluation 지문 및 공식 round02 등록을 독립 대조했다. Lv17에서 XP만 1.41/1.42/1.43으로 비교하는 계획은 pass다. Round01 8개·160개 원본은 모두 선별 실패, 12시간 승급 0개이며 가장 가까운 실패안을 채택하지 않는다. 새 후보는 미측정이고 selectedExperiment=null이다. 이 응답의 fun round1과 실험 protocol round2를 구분한다. 구현 verified, 목표 통과, audit.mjs 네 역할 결과 감사 또는 출시 승인이 아니며 humanChecks=PENDING이다. 이 검토에서 테스트·빌드·측정은 실행하지 않았다.",
+  "evidence": [
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "공식 round2, exploration, frozenAt 2026-09-12T03:45:33.166515+00:00, selectedExperiment null. candidate-r2-xp141/142/143은 control-l17 대비 xpGrowth 한 값만 1.41/1.42/1.43으로 다르다. 정확한 17개 매개변수, 별도 Lv16–20 대조 5개, 원본과 동등한 6개 콘텐츠 조건을 확인했다."
+    },
+    {
+      "path": ".harness/v7/config.json",
+      "note": "탐색 10001–10020/N20, 검증 1–100/N100, 100ms tick/1초 상태 관측, 120분 선별과 720분 전체 관측, 기준 정책 및 release 9개 정책, 목표 2700–3600초·5400초 내90%·최종28800–43200초를 확인했다. V07-05 AC는 탐색 결과를 받지 않는다."
+    },
+    {
+      "path": ".harness/v7/HARNESS.md",
+      "note": "실제 네 역할 순서, 설계/분석/출시 상태 분리, 동일 소스의 등록 AC와 정확한 gates, 실패 원본 보존 및 재검증, 자연 관측 중 fixture/가속 금지와 출시 전 서버 호환 계약을 읽었다."
+    },
+    {
+      "path": "src/core/progression.ts",
+      "note": "현재 실제 값은 control-l17: min17, XP20/1.4, 필드·동료HP115/100, capture0.35/보장null, stepEvery2/cap6, rest120000/defer30000, XP5+3i·보스XP/HP5배다. 새 후보가 적용되었거나 채택되었다고 보지 않는다."
+    },
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "공식 protocol realpath와 snapshot, selected ID/stage, 실제 production 매개변수·콘텐츠 export, build/raw/manifest binding을 읽었다. evaluateTargets는 전체 표본 p50과 전체 분모를 사용하고 scenarios는 조건부 분위수다. tie-break 자동 채택은 없으므로 Host가 원본 순위와 이유를 기록한다. 자신이 구현했던 검사기의 pass만을 승인 근거로 삼지 않았다."
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round01-analysis/README.md",
+      "note": "이전 독립 분석 final-analysis.json SHA256 f4322583990c3aba98b6004563c2c0a149898b30e83e10f074b56660de1d7cc7을 다시 확인했다. 8개 보고서/160개 raw 및 archived source/evaluator/build/log의 당시 일관성 검사, 전체/조건부 p10/p50/p90/worst/미도달, B 최초 테스트 실패와 resume 원본이 보존되어 있다. L17 생산 source는 현재와 같지만 당시 evaluation 9f8a6c2a…는 현재659e1bf0…와 다르므로 현재 검증으로 재인증하지 않는다."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "Lv17 p50 1636.5초·20/20을 새 XP 탐색의 출발 근거로만 쓰고 단조성·꼬리 유지·장기 해금을 보장하지 않는다. 전체 표본 채택 순위, 무료 경로, 동일한 콘텐츠 ID, 이전 원본과 새 round의 상태 분리를 확인했다."
+    },
+    {
+      "path": "src/core/collection.ts",
+      "note": "동료 힘은 bigint이며 Lv10은 환생 자격이다. 환생은 Lv1/별+1, 같은 대상의 힘 비율2/level이고 preview가 전후 정확한 힘을 반환한다. supplied expected 대조, overflow 전 거부 및 s/r 서버 전송 ID 보존 경로를 읽었다."
+    },
+    {
+      "path": "src/core/economy.ts",
+      "note": "훈련75×(level+1)^2, 미끼75+25×bounded(reincarnations,100), 선택적 구매와 stale shopSerial/잔액/누적 지출 안전 정수 거부를 확인했다. 훈련 상한10은 동료 레벨 상한과 별개다."
+    },
+    {
+      "path": "src/core/progress.ts",
+      "note": "acquiredDiscoveries는 실제 선택/영구 collection과 양의 안전 정수 speciesKills를 사용한다. migration은 같은 획득 집합으로 ACK를 교집합 처리하며 seen 이력의 해금 의미는 유지한다. h62 seen60과 도감 처치 공개를 혼동하지 않는다."
+    },
+    {
+      "path": "src/main/net.ts",
+      "note": "모든 중첩 동료 응답의 안전 정수 레벨 검증, 지정 match/result의 실제 playerId/nonbot 일치 및 failed preflight upload 후 PvP 중단을 읽었다. 로컬 구현이 운영 서버의 고레벨 호환을 증명하지는 않는다."
+    },
+    {
+      "path": "tests/server/companionLevelsV7.test.ts",
+      "note": "L11/250/MAX_SAFE_INTEGER에서 실제 app/client JSON→core pvpResult→save/restart→upload→reclaim→addCompanion→재저장/업로드의 전송 ID·레벨 보존과 잘못된 업로드 무손실 거부 계약을 읽었다. 이번 정식 검토에서 재실행하거나 현재 AC 성공을 주장하지 않았다."
+    }
+  ],
+  "findings": [],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "성장 레벨은 양의 안전 정수 범위이고 Lv10은 환생 자격뿐이다. Lv>=10→Lv1/별+1의 전후 힘은 bigint로 표시하며 비율2/level, Lv10에서는1/5다. 강화라고 가정하지 않는다. 증가 overflow는 재료·상태 제거 전에 거부하고, 메뉴 확인/취소와 변경·삭제된 대상 무효화, 새 IPC의 필수 expected 및 core 현재 대상 대조가 필요하다. L11/250/MAX와 전후 힘·소모·융합·환생 경계는 현재 소스 levels AC/gates로 다시 검증한다."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "영웅 실제 선택/영구 collection과 몬스터 종별 처치를 공개·알림·ACK·목표에 공통 적용한다. eligible/seen 또는 PvP 보유로 종별 처치를 발명하지 않는다. 레거시 부당 ACK는 제거하고 이후 첫 획득을 알리되 영구 보유 영웅 ACK는 보존한다. 기존 seen 해금 의미와 필드/offer/PvP 원화는 유지한다. 경제·해금 집계에서도 자격과 실제 획득을 별도로 센다."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "각 실제 최대50행의 영웅과 최대5명 동료 파티가 필요하고 playerId를 선택→미리보기→결과에 연결해야 한다. 지정 상대는 ID 누락/불일치/bot을 거부하며 random/legacy 호환과 구분한다. 업로드 실패 뒤 전투·이력 변경을 막고 stale/삭제/만료 시 재시도와 포커스를 복구한다. 갱신 중 같은 버튼 포커스 및 실제 Tab/ShiftTab/Enter/Space는 현재 최종 Native에서 검증하며 시뮬레이션 성공으로 대체하지 않는다."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Round01 전체 p50/90분 성공은 L16 813.6초/20, L17 1636.5초/20, L18 4976.5초/12, L19 null/5, L20 null/1, A null/5, B2429.7초/16, C5064.9초/10, 모두 분모20으로 실패했다. 모든160개 firstReady/open/accepted가 같아 메뉴 지연을 원인으로 삼지 않는다. 새 L17 XP 세 후보는 같은20seed에서 전체 p50 2700–3600초와18/20이5400초 이내를 동시에 만족해야 한다. 이후 독립100seed에서는90/100을 요구한다. XP 증가의 단조성이나 꼬리 유지는 미확인이다. 새 강제 대기 없이 기존120초 rest/30초 defer만 유지한다."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "crownwyrm/rootcolossus/h58/h62/starvoid/h70와 실제 성과 조건을 고정한다. 선별 통과안만 탐색20×12h로 승급해 최종 h70 eligible 전체 p50 28800–43200초를 요구한다. seen/chosen 및 종별 killed/captured는 별도이며 choices[0]의 h70 미선택을 자격 성공으로 바꾸지 않는다. Round01은12h0개이므로 장기 목표 NOT_EVALUATED다. 두 목표를 모두 통과한 안끼리만3150초 거리→36000초 거리→전체 첫 p90→ID 순위를 적용한다. 훈련/집중 입력/동료 관리의 조기 해금도 별도9정책에서 보고한다."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "고레벨 저장·서버 업로드·중첩 응답·탈취·회수는 같은 안전 정수와 전송 ID를 보존하고 invalid/overflow는 무손실 거부해야 한다. 주입형 로컬 왕복 테스트와 실제 운영 SHA 호환은 다른 상태다. 새 클라이언트 출시 전 운영 고레벨 호환을 확인한다. package/lock0.7.0 고정 후 같은 최종 소스의 AC/gates, 실제5/15/30분×3프로필9개와 별도 연속180분 active의10분마다 메뉴 선택, 정책별100seed×12h, 네 역할 audit.mjs, smoke/실제 package가 필요하다. 사람 관찰이 없으면 humanChecks=PENDING이며 과거 Native/게이트를 현재 출시 근거로 재인증하지 않는다."
+    }
+  ],
+  "protocol": {
+    "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "explorationSeeds": [
+      10001,
+      10020
+    ],
+    "validationSeeds": [
+      1,
+      100
+    ],
+    "policy": "Canonical=active/free/uniform/none/menu0, fresh save, 100ms tick, 균등2입력/초, 첫 카드 즉시 선택. 8개 실제 생산 변형을 각각 --phase candidate --seed-set exploration와 명시 --control/--candidate로120분(--screening), 통과시12h로 실행한다. 12h에도 exploration을 명시하며 --suite로 섞지 않는다. Release9개는 (1)canonical, (2)active/free/uniform/none/menu600, (3)intermittent/free/uniform/none/menu600, (4)warm-idle/free/uniform/none/menu600, (5)pure-idle/free/uniform/none/menu600, (6)active/free/burst/none/menu0, (7)active/training/uniform/consume-weakest/menu600, (8)active/lure/uniform/fuse-first/menu600, (9)active/reroll/uniform/reincarnate-first/menu120. Warm-idle의120초 초기 활동과 pure-idle의무입력을 구분하고 uniform/burst 총입력은 같다. 정책별 N100을 보고하며900개로 canonical 분모를 대체하지 않는다. 실제 source/compiled/protocol/parameter/content/raw 지문을 묶고 실행 중 source/dist 변경이나 중복 Native/build를 금지한다. 같은 seed/정책/fixture/관측 길이만 짝비교한다.",
+    "milestones": "crownwyrm=dragon3킬; rootcolossus=영웅환생3; h58=water100킬+reefknight2킬+totalKills1500; h62=환생5+seenMonsters60+totalKills6000; starvoid=환생10+totalKills16000; 단일final h70=uniqueHeroes10+totalKills30000. Round01과 동등한 실제 requirements이며 새 시간/골드/PvP 요구를 넣지 않는다. 실제 eligibleHeroIds/eligibleMonsterIds와 offer/spawn이 공유하는 판정을 측정하고 h70 eligible/seen/chosen을 분리한다.",
+    "censoring": "모든 등록 seed를 포함한다. 미도달은 null로 남기고0/관측끝값으로 치환하거나 제거하지 않는다. 전체 분위수는 미도달을 모든 도달 뒤에 놓고 floor((N−1)q), 조건부 분위수는 도달자만 같은 규칙으로 별도 보고한다. 각 지표 p10/p50/p90, 관측된 최악, 전체 worst의미도달, reached/unreached와 전체 분모20/100을 모두 표기한다. 채택과tie-break는 전체 분위수이며 scenarios의조건부 p90을 사용하지 않는다. 두 목표 통과집합이 비면 선택null과 실패원본을 유지하고 새 최대3후보 round를 사전등록한다. Host가 순위/근거를 기록한 뒤에만 공식 selectedExperiment·validation stage를 동결하고1–100을 실행하며 검증결과로튜닝하지 않는다."
+  },
+  "metrics": [
+    {
+      "name": "firstAccepted 전체 표본 p50와90분 성공 수",
+      "unit": "초, 성공 수/전체 seed",
+      "target": "Canonical 전체 p50 2700–3600초 및5400초 이내 탐색>=18/20, 검증>=90/100을 동시에 만족. 성공자 조건부p50와미도달도 별도 보고하며 Round02 값은 아직 없음.",
+      "deadline": "탐색120분 선별 후 통과안20seed×12h; 채택 후 검증100seed×12h. 90분 분모는 각각20/100."
+    },
+    {
+      "name": "firstKill/firstReward/firstLevel/firstCapture/firstReady/firstOpen/firstAccepted 및 선택 지연",
+      "unit": "초, 도달/미도달 수",
+      "target": "100ms 사건 시각으로각각p10/p50/p90/worst·미도달, ready→open→accepted 차이를 보고한다. 최초 포획이빨라졌다고전체성공을추론하지 않는다. 선별실패를메뉴지연으로바꾸지 않는다.",
+      "deadline": "5/15/30/45/60/90/120분; 승급후240/480/600/720분과각최초사건."
+    },
+    {
+      "name": "마지막 named h70 자격과실제출현/선택",
+      "unit": "초, eligible/seen/chosen 수",
+      "target": "h70 eligible 전체p50 28800–43200초. 자격/제시/실제선택의각분포를분리하며희귀카드미선택을성공·결측제거로바꾸지 않는다. Round01은120분각0/20이며12h목표NOT_EVALUATED.",
+      "deadline": "선별통과안과채택검증의12시간. 120분만으로8–12시간실패/성공을선언하지 않는다."
+    },
+    {
+      "name": "반복 환생 간격과정체/보상/발견 공백",
+      "unit": "초, 환생·해금·발견 수",
+      "target": "heroChoose action 시각차, longestKillGap/MeaningfulGap/DiscoveryGap의p10/p50/p90/worst와2시간남은단계·후반해금속도를보고한다. 강제타이머를추가하거나결과후허용공백을조정하지 않는다. 추가성공수치기준은등록하지 않았다.",
+      "deadline": "100ms사건, 1초상태관측과모든checkpoint; 최대720분."
+    },
+    {
+      "name": "종별콘텐츠관측과획득",
+      "unit": "ID별 최초초, 개수/전체 seed",
+      "target": "eligibleHero/Monster, seenHero/Monster, chosenHero, killedMonster, capturedMonster를구분하고named6개와전체catalog를보고한다. 1초정기관측외kill/level/capture/ready후100ms사건관측의한계도명시한다.",
+      "deadline": "각엔진관련사건및1초관측, 5–720분checkpoint."
+    },
+    {
+      "name": "골드 보존과정책별구매",
+      "unit": "정확한정수골드, 구매·재굴림·관리행동수",
+      "target": "모든raw/checkpoint에서초기골드+누적유입−누적지출=잔액, 음수·불안전정수없음. Canonical필수지출0, 훈련/미끼/재굴림은별도정책. 소모/융합/동료환생행동과재료손실·보유변화를기록한다.",
+      "deadline": "행동및각checkpoint, release9정책각100seed×12h."
+    },
+    {
+      "name": "영웅/동료피해·파티힘·고레벨경계",
+      "unit": "정확한bigint10진문자열, 레벨·별·행동수",
+      "target": "heroDamage/companionDamage와partyPower를Number변환없이집계하고overkill포함및rawpower≠유효DPS를명시한다. Lv11/250/MAX_SAFE저장/서버왕복과overflow무손실, Lv>=10환생전후힘·재료소모를독립AC로확인한다.",
+      "deadline": "현재소스등록levels/progression AC와gates, 이후최종12h·Native·서버호환."
+    },
+    {
+      "name": "분포와채택순위",
+      "unit": "초거리, 전체p90, 실험ID",
+      "target": "첫목표와h70목표모두통과한안만abs(첫전체p50−3150), abs(h70전체p50−36000), 첫전체p90, ID사전순으로정렬한다. 순위별원본해시/분모/조건부값/실패사유를남기고자동채택하지 않는다.",
+      "deadline": "탐색12h완료후validationseed실행전공식채택동결."
+    }
+  ],
+  "economy": {
+    "sources": "무료몬스터처치와보스드롭의골드. 보스골드5배는기존계약이다. 실제 itemDropped의coin합을유입으로기록하며fresh초기골드0에서정확한정수회계를유지한다. 보스35%포획과무료영웅선택이진행자원이며XP후보는수입속도도바꿀수있다.",
+    "sinks": "선택적훈련75×(trainingLevel+1)^2, 미끼75+25×min(환생수,100), 영웅재굴림50+25×min(환생수,100). 훈련/미끼/재굴림지출과누적goldSpent를실제잔액차와대조한다. 동료소모·융합·환생은골드지출과별도재료/레벨/별변화로추적하며overflow때재료가사라지면실패다.",
+    "freePath": "Canonical은상점/재굴림/동료관리/PvP를쓰지않고처치→보스동료→레벨→무료영웅선택→종별·원소별성과와선택10종을누적한다. 여섯named조건에골드/유료/신규시간요구는없다. 경로가논리적으로가능하다는판단과8–12시간분포의실측성공은다르다. 무료첫카드정책의h70미선택과idle미도달도그대로보고하며관리/골드정책의성공으로무료기준실패를숨기지 않는다."
+  }
+}

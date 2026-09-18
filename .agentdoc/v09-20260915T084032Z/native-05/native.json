@@ -1,0 +1,4383 @@
+{
+  "version": 9,
+  "startedAt": "2026-09-15T09:37:55.802Z",
+  "sources": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/battle.ts": "ceefb54e9a0dbdf583216471948a27d3e34da333bef7cb95d6d7c54eaf0254f4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/collection.ts": "1172c916d297e01175698ddd08c4ef8e9f40db1e244788dd4ac41aa123bd8521",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/discovery.ts": "20e101f325bd4ed5ebca3f1d8719b68d6d7d66acb43ec6a9a167acf1aa662f18",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/economy.ts": "846acc7adf6842d1f8603df242559b551d7025fd4379cd6bb0afe26d7bd9c59a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/engine.ts": "dcef0aca59b761adc440aaaa5000b0c24ebcc2eedc6f18d225637b073e3cf82d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/formulas.ts": "53f6d184c6a982a1b4dd173396a94037f1b90733eba767a716f464a87c3c5fd5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/fsm.ts": "3de841765d2a080edc9fffba08d4dabf08d25026d141468ac63e09a6f49bd658",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/hero.ts": "6b296b4a4910b9460e44ff7be6775cbe97ca15bc4de91eb2ce304f5b77a85633",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/index.ts": "9d5f07383ecbc3d87121aef674ef1671f334e75da002e3ebfc18dc95eacad75e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/monsters.ts": "ced4e5e3282e4a32c6f9b2532fab6154e21f3735a1c42cdcec98efff76c4113f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/progress.ts": "dda6622bc66bd090909c0ab404a70bde0ec683a81576b30fd6259c6a4df33284",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/progression.ts": "9828ae64d517982c3ce50d6c45e684f272253cfec97381d4383be44c04e8fdf1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/save.ts": "fc639fe4425f5b8fefc9032871f0ce0a158142cc68c478ddc09d0fb5fed8d676",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/core/types.ts": "caed1dfeff1d2ed3b8b6d19fb442511a92d0056e68af9e5f5d11731308145c02",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/coordinator.ts": "393a9b2845a1100f3d5483938981f16c8cf0477a597a513862143428faf66b12",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/globalInput.ts": "3f1b441951dcf47e7368bf9cba7675f79d2dbcc108fd27d5349fee452ac59bf4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/identity.ts": "f174db37997c7fdf69bfa937b13670eec4a65b31ac9c65c12dec0565219fb751",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/index.ts": "7008edeb8786b55dad44ca9c557ffee216021135a418262189849d57358da2ff",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/ipc.ts": "30a956d1901d754496baada2ba924eac276adf0db643807595d95402b5dfb1be",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/menuWindow.ts": "f7a8d75319d63926211952bde49d230350b8cae848ac722de9e957a1f8fd5296",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/net.ts": "8abcf838db6eede03dbce332feac4369165818f0f736c638ddc633c5a3827dd6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/persistence.ts": "1a71170f5a5014223b2fb76fea8d40262257aa5baeb1e5dd8c626b7910e64b9c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/recovery.ts": "03379d5d987e988b95ef37934046f0d8d96aa40d6e9b92f026dd2ba40d32c675",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/settings.ts": "975843bc32c3e6a0ce16667285e1a4c3b27dc2ab7d7e54910aceffc3c10f06f0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/share.ts": "5a00bb8661b009aa173b43efc79837444e0179aa98128de8aac2fe23f2f5f553",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/steam.ts": "260ea5484f37174c40cd0dccb3d8b18f48a0cf3a41555d8dd70a908f2dfa4c45",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/thefts.ts": "34e2bb647d905e85cf244f6889e978ed11ef87f672c99744f38ba20c71d929aa",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/tray.ts": "a7998de880c803e6f87d9a3b092db983b0ec49821fdfce125f7813dc0689204e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/trayIcon.ts": "e8541876935edff7eb0d917a5cf6750191b729aed5f080bbc93b751414eaf1bb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/main/window.ts": "3591781c68bac7f2f4a1c2647c7e36225d80f2985669a7bdeaac5d70b1b7cc25",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/codex.ts": "e5e514459fe677cd80c0559ab025228de3d674c75c350cab31591843f20b5309",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/economy.ts": "12c47b3245d97364b97ca03dd5d2b7697cc5b6c8e403f215b4d4c26483a6a220",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/hero.ts": "eeca41b2b4866c674f31420bdec1bddbc0bf064a5dfda0ef9f76c47cf004fb11",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/index.ts": "18fad1f8ba9de99887aa094e7ec2283d672469e3965d8d9553ffd256f443ea29",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/profile.ts": "83337d33ee0590710b2f78ef88808e35ff08a22e3e984e787323c179c4b9dbe8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/recoveryUi.ts": "6eb097249ae0a30f2c801036593fa6e8eb3ffdc74a7a72b15eeebb42f60efefb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/share.ts": "4241df742536c765b233d6911b2411353eef0d06548a4ef995005df451664970",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/shareUi.ts": "2b931f3b51db91558fa343f8e0960bd51277217f00c2dcbd526ad5dfe059d73e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/menu/view.ts": "3dcdb9836d51053742e433b3e424b55e6d870bad5a4117eea4b23a8104581433",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/preload/index.ts": "6301739331112222b52bd31bc11dd25c38de22eed692e138e86ca06196cee6da",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/anim.ts": "2d70b60ff614d65ec04ac8eb46ccdb25765ffc22229066fc5b5baccd993d64a4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/audio.ts": "4bd87a82cc4fc23d8a2caa0752ccec7e02d7e11e14ef2c57eb766e93ae362f78",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/drag.ts": "3508bb714990d586a11a9d70f77b7ee2737c86293b325da7d7887f100f134fc4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/effects.ts": "421d56e65fc803643080a37f1e89d090714f937c4a2b77826342186caa4a61d5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/game.ts": "13de2635467d83e54c35618828a0c30077352372667f47d0d7a60c59248a0673",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/global.d.ts": "9c8effcf04d4eafee857aab577dc0daaf071b17283575d1b64f55f50eeef8801",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/hud.ts": "8cd6317c4cdeb830ba0e56f952dc5e78809a5e05052438c96f19f5e7bca8b516",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/index.ts": "d8cab869c68c5a55f7aac265c2cdbe513f5650f14b2f78f9c9e2b1db1972170f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/input.ts": "7cae155c97b06b4e9136c36fea3603e1ef1a7f46bc5ff7fb3db5b137ea5a25c6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/aura.ts": "4ff9f07919ef85a11bd20cf44072f5b1685e3c889dfb87fa9e5e2a1eb89a5cc0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/boss.ts": "adce81ccf723a8d5a9653dd4600906064c1c2789367188d6036520e981f078d9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/companion.ts": "ec04aaefb5adf5b57359f9546e1cef8456143976614368a1dbe3f2f53e86adad",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/font.ts": "39b1ccd019fa1a5512ef2711c324bf431f558ed5db2e6f807f186bc9c7c63e37",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/hero.ts": "2ccc263954b7374a2492a677737142b3ecaeefd102cb7dc96ca503cbb1ddff1c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroAgileLooks.ts": "0cd5da7908bc042f0adf8eb5ccd15f33aeabffcb192247c2b7456d1b5950d033",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroArcaneLooks.ts": "7969d7fa4817644d31a5783918a7e5a3e22fec560720511f3516148370e4e208",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroEvolutionStudies.ts": "1afca4420849a609181b914f9f7c8229d311b44e290b97ecc8b1e67ee05632e3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroForms.ts": "6880bd9fe7dbfff957b5f2deb5f4e56292bebb9f01442fdac4d552a8c89ca5ce",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroJobStudies.ts": "28b7e4aebded38788ca39d837dd04f5c09e1bdf3a0f4b136aab73c067fe58d0d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroKnightLooks.ts": "00476819d25a649ac249a6a0dde3c06b74da2c56c91dd70139446c152f5f7cc8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroLook.ts": "8f850fc00feeed86df33c6c71b0b1d507477a7dfb19515455df1194e1e4f5db4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/heroRareLooks.ts": "622d65fd06ee3194a9c31cda128114210cbd3738d23e43f8c98d307bdf5e7708",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/index.ts": "af415f79f316dbe031d1d0da6181fda5be9800edbf83b02074e5e2559b992cab",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/items.ts": "45eaa25e7da57c894950e12c111380a010cfceb15033d07c6e282ca1a41548c9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/monsters.ts": "ebdd0442e6dc8bb42417d584b6ab2e9b8e2beb1c65fbe371bef59f5e760c5987",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/palette.ts": "25014b3496ad4d8c1360bf14f850215158bb1644762902e5d7a0e3bf77b95df3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/party.ts": "36de0b0de6f807cb4b93210a2a3eb2c1e4b2008cabe71086eb8877fe6fa6b52d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/dark.ts": "44ad085949960d0d0e1d6fb293dd278c851c25ab1f1dcb6e3200356639ef38f3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/earth.ts": "8d54a781d953e87980f7d5dcc36602bc8b8d6eed6be4f6c42aca1fa1b5ca95f4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/fire.ts": "5d3347e1b1241580f138e28189ffb13004fc2e6fca5fa8b8543b51fecb971a6c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/rare.ts": "ce9e7a287591e2115b6428dd7d023649a1ef7afa4cbf09447b23d250d7e748fb",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/water.ts": "e5e1ce02c7d2ba463d67e084839e6e4510489e449f0dd1381748b349703eca8b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/species/wind.ts": "18a9f4d80a97cf8ce5a758d8d1738fcf1f36c301eec5f63bedcf89acbe08e6e6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/sprite.ts": "759c6f783310e32ec1b9ffb6b1fd90ff952113250de6eb72492dd9816d55e7d2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/app.ts": "5ad8e7012281f6fd35a0e4425eca9f3ad147b666fa0eef92c07bf129ee83c6fc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/http.ts": "5fe51cf7cd00283383616a858878175e337abede7084bdbc09af0de4774168a3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/index.ts": "792de7673b8fdc9630a4a3350ad1a7a55caa529ae6c808858980b938a97af09b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/pg.d.ts": "80ebb37a3080e0e1da36e2862a36122377805eceb774a3396ad5fa3684dbcd76",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/pgStore.ts": "d28348168b56fce4507904eddcb256015b26aa0d2531b8357aff2b901ffb9e12",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/probe.ts": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/server/store.ts": "cfb3d5f2c60d0215b3606bb1eac836e529f793974466e5b22e908b93abf8a74f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/shared/api.ts": "23e178f8491a807fd54eb2226bf6c7cdc8fa0b8376e4d83b0f61db6b92785f4d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/shared/ipc.ts": "deef380336646520ce2bf170078eda38046d22ee3196d5d034c25d4e039091e1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/src/shared/serverUrl.ts": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/index.html": "980aa0ed8d6713f3bac0ead622343754877f575910211cb0325d23319b1577b0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/menu.css": "868b23f521a5af860cc658791521c9ab7a8ed4010f755684d175200a6b05f957",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/menu.html": "740c07b9b94e2046eb68317f079e9c9b7d9ba865755ce35b3a640f80ec9fa077",
+    "/Users/jeongyounglee/work/repo/desktop-monster/static/style.css": "687cb945d5c20debb38c8be87c86411f970010394a78e08b85cd7db441deed89",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/battle.js": "710af03b31cbf96397ac1bfa77c4ee1802a84dfe3983c52ba69025708455c83a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/collection.js": "94d4976355e7bc60021cefe53ea51f95199c298c6b9cb373b2a7b24cee022ec3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/discovery.js": "51f3861a1b0b2e128f038c3c45a73e2f6ad1820ae9df3ece3099ab1d394d082e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/economy.js": "71a8090b1372f1a1c9d3ec519f20d8402996d269881c81b56a54f78fb8f96411",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/engine.js": "3df00134370310f700af0502a78ccff582e93a6d8ce99b560aa33e258d6f321e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/formulas.js": "75aa427d265f8ca33fdd64e5bffdbc3cd50147a57dab94c99170fb311c6bb127",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/fsm.js": "1b1ba4544c73eff629333ba5db1d174f3c8b8b35830353993f038a3eccc47612",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/hero.js": "54f9a261d853056e66c01b81492113ee7fbb3b0b672d5c6a4a2e750af513f961",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/index.js": "a807c0da898a21bc7ffedd574e034aefa66fb2f1f3dd502538c0b85cdaed7f6f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/monsters.js": "2f1081aa082433856ed26a31d3080662b926fee2909d6b9067684344e89d48b3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/progress.js": "83193972db1bdd3a01c065486ec53c9d999945c906db877c223e4629c598bbed",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/progression.js": "c9621250c1859a4d90b504ddd89fd6bbf24de10c87e5fc645c39de3cc05b731f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/save.js": "e2138f438aabccda19b3134a9a4f09dbf199870609f60b4f8369c3c51e38cf4a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/core/types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/coordinator.js": "b4cf6f770fb0cec7027ea5beaca56d4a4198bb972de80dcabefe7963b2b20fa7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/globalInput.js": "6cf971e0f802f84e83dfa05c46f6efbaad824722e539e4fde716a14fb27d7755",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/identity.js": "f03b79391e43ca0b64eacbec29cf26d770ffb21dec19d7a67cd2b96b84cdcf76",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/index.js": "f7961ee5f599753270ffc0487706fb9685f6875f2ec90c7ad13bdd5e8f6f66c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/ipc.js": "0ade5e1e7428c14a12609466aa6f1f9aa608e0a0d3d70dca06a28d85caf79126",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/menuWindow.js": "b61efe9a40cb30c30a9884b3ac6e5767f49e731eb55c253839def3b289d695cc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/net.js": "42664310ec8bb835064cb40f212265b89a70e900a17556c2faf79d2504262683",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/persistence.js": "215a2440559e5e9381920ca106883880bd9ede495650678a18996ff6117669ee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/recovery.js": "33ba0cd180317244896675be2ac383fcdbf08da5bb55a86efcfe5817d3b84c26",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/settings.js": "7fc9778c1f0970692f0dcf17e50967f42c98c0c0a7adf174c09785eac24563ed",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/share.js": "217bc55104c488c2008fe0029b4dcd8ee426f1e0b564b0ff99e659f6d5611d0d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/steam.js": "4a921bc8436c3c6a1dc5059e318561cd816279de0d91767f6b481f21a0c69c44",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/thefts.js": "fca8ab1dc23bd5212a2a9a61bf2d13ec09f4ae2015e8304a23d55c1e190ed7a1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/tray.js": "d365a12ad86da165ee7fba3d931de40f87d33ebddbd5935502ced87a784e4391",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/trayIcon.js": "632a7d19a8976ee53aecd198f79fdae3835b6fee6e86dc21bd66064293ce2a52",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/main/window.js": "cd0a2ecd23836e63ae6c7fe4a3a862e06d75a0c8b101d2c7c404c3be18855664",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/preload/index.js": "7ddb55f3ee7db9f93d3ecc729021290a6409c09cb85806dfe26b3c6c7c001146",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/app.js": "094c5321885ff3d5dd33ebee9917565c969d08b92d50fbb62a586ce47b202519",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/http.js": "347278e2633e4007c19ca83d659f58ee9570ba0323139905eec7c1f816df7a96",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/index.js": "dc3787713261ba792d65d7749fd87a240d71e3a1a663e1616910dfd5935cb389",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/pgStore.js": "256b3bfa669e0002afcd86ea5849f211afb442eb1341f63478c1158efa45b2f5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/probe.js": "3a07d24995a703a7d693881dca1a2e205e3719508450f6c17734abf0d220d5d8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/server/store.js": "fc11f5ffe085071f6f1ae4e4b468ba924007150f2bb1d747c6966d71b9596f63",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/shared/api.js": "542c3ed95f879fd1a3042563759d0427b1ee9df6268c75a924a0cd9ed54177d9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/shared/ipc.js": "9078cedc54e665296145672406115731f59928e7ca60ba81eaf3a931fe1b96e1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/electron/shared/serverUrl.js": "a2a0b8bd1a4b2caf87b0bdbf86142ef64edd8889a0948f8d9c859970409922de",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/battle.js": "27f3f9d7b1687eabaed3efc3b0a80885c33d3bdf2d5ce60beff09c0c6c1acce2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/bignum.js": "e24643874acb8bd0148f884c7bb81773af9d0b2793fcdc77d9b4075d5e7d9591",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/collection.js": "8975841e107e48544d85c57710b2489141af7742d64b4be793a3818105dc99c7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/discovery.js": "8490780042434225d1f2c67aaaa88fd504b55d79f2d73360f41e9deb887b48aa",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/economy.js": "917672800b74fb4318bce2b019200ebc791b6d978db2a7488da20376832f0b13",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/engine.js": "0ca570d4911d526122f63e7d69fcaa4be2aa46013138581062a13d889a692a4c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/fever.js": "1cd6bd92c1f4f2e4139a9ac881668bcc38a165be2beabf122d23355d0590d3c7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/formulas.js": "8626285b36d8f8c9c04d30496ea21e319ed33dfaf42dc28adf4e95edb9e15ccc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/fsm.js": "7ec11d978f26bf849c909c97fd12e50398ff0de3535031867e8d7231d23f477b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/hero.js": "42d5f381c210836fce9924ee0c95959206baeab93ca148edf8079e04dc2cc477",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/index.js": "71d081338aa250e61995420e40068b49f3511fdca143d689bdb70a59ce641a84",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/input.js": "7ecb7492a3c4d9f22ec7d6326a614540d4b6458e095c0bb537039e87c2a7139c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/loot.js": "db287e6729d57c151509851ff9ac65c27082d79b3a759404f42f5e5ef7c903ac",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/monsters.js": "651216db19afe364fce689016c01bdc818ea97ccbde8c9be9be279b80513df9d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/progress.js": "d2013b8e36f8f0896b18b582961ca752f55ebb5ef14cd86e693222d4953a87bc",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/progression.js": "a025f617b0507965253d75f5b302a1533db9cfa1c42f12d8eb031a6950efefc0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/rng.js": "7883a0dc8f39c2738fcb501327f8d1033dacbf14af581d0c68b51e77f63e8f20",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/save.js": "110835a58518153c937606e011ea5cd321752ab71b7de57ec78bbf30a5cb3e22",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/types-chart.js": "994cbf0449da652a181bc5f0e1e45493957c2b1087d762c0664595f93afc40fa",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/core/types.js": "d7d8ab94373e2a9d4f67050a2d37c3a74d082dcf009b82f190d09c087ffca3cf",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/codex.js": "13afae84e6e5230e441a913f137bff72bf7b1117c47f86405aa99f6da33ec371",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/economy.js": "b8c09c98d15cd508ee6a7479d3b90885095a2ce3b9979ee25724165309d8a707",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/hero.js": "b5ef2c2b158efc858c3c40300bffc729e9d7ff9c30dfd83cd7bea097a6a4a248",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/index.js": "ea9f8ad26d3223a376a3d969f5c9aadaa84de61e6bc247ab5aa861316f855675",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/profile.js": "f143b7ab86f34ca4d832c254acd71ba4520a2c4589636379c3d7f8d4e85927c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/recoveryUi.js": "419c780d61943536fb8a49ad4938027d8592f72bcf582e8a64abcc25b6c959cd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/share.js": "0ac9185c6ce96831d259e003aea8c1837a21c7063b94764975d72f2d775b53c3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/shareUi.js": "a982c34417cdad9994d11edad89d797bd588b3b20db12407a064e4bf76066e2a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/menu/view.js": "095d3eed23a424f8c53ec077dc2aecbeea9c1d34d121fbe9b1309490e660dead",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/anim.js": "2003f5881f65e0b8d54927176c5dc56700eefd12b4e4ecfd8f7f1497381e7838",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/audio.js": "ae1716831b61d4b8a2c2b3f9d1796473cac36376664bde86b122708bd22df38b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/drag.js": "ed4f4bbddb732781080905286961fe6e5d256f4a676ea5b3d89cfe39d294a364",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/effects.js": "260211ac7498a2aa73ddabaa8254d25c86470e626726add3579fe95d36006fd6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/game.js": "1b9f81f640d57b5bc65d50de062eab3a9f354910413343d52cb5e8a752590e8b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/hud.js": "273242b5a27a1e67589d9313add315bd16347fd1f9c2c71c1c4fee098e23eb41",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/index.js": "503652a89a17882c0f78039f32f8df739c2f387db599d20d725a916b4bed8bfe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/input.js": "92b925d4cdb12fe505e9e91916b9ef5a441cbbb293c5825bfa802680e99669ee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/aura.js": "5b7810453e62a4ffe2b2b2388c16a7b3b40e24f4f0ca24ee9be1a3904ee523c6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/boss.js": "9b00221a6640c12cd21fe8b49902f74acd41e1e4631a58024aca12243fb8800f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/companion.js": "1c643e3b20ebe271c3f1e4f53c3cbd5b5cd17348374ae6badb90adf161c4f180",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/font.js": "583678e7dc39232618f295ebacb64a782f738d9411afcf77e83cbb9d7de3658d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/hero.js": "0087b8be810d3d70ae205fa2d3708921b9003d654a524309fd1ceed4d9274b0a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroAgileLooks.js": "d39beca5fa3ec11061a8b23767ef704fea2abb709cd2dddcbb772992404b3f99",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroArcaneLooks.js": "2cb5797eeec89783ddf21e619d866a7d243b0beb0749f559fd0b0ef616fb228e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroEvolutionStudies.js": "e7642dd0ed6ab33c896bb1aeb34524647d93449f941274797387253682d054fd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroForms.js": "a75dec563a95b673878400578f845ebfa00ee6f92a5d4d1622f06be27ecc2e22",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroJobStudies.js": "c4bfc7102b72a7302b13d90da903ab3a70283b04e9bda3dd8ae9e53ff28c85a9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroKnightLooks.js": "f1c8a02ce61df860a9c7e64d8d525c9ed97c06b2ae3c0bab72e8235eafded63b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroLook.js": "bd48b4d7f6469ed4a727b0f5011a879357b024b3bd85ff01709d68ff0b32fd63",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/heroRareLooks.js": "6964d2184be0ea39ebeeb32a5c90f732849d8e2f458822cade72f651ad4585f6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/index.js": "775be0fc4c895f691afcde691694abb2d4b61a6e3477e5fab6d4ac5ad10170f2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/items.js": "dcdadffa35a5e1ba2bf102692deae197f3a21a124c1bd2dcc072ff5d1c29c827",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/monsters.js": "cb08247512bafb3b8471f63bf509c653a22f8a5dedf210dc1b83467e400acec4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/palette.js": "5e68267b39a18e3c7604dae20335ad1985dafcbe53442c739b3c53fd00b13cf7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/party.js": "88625cc2643e7e532274395d59f4c8a1788ff0f37d7b46d82064874da2243491",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/dark.js": "0c7fbed99f9b349677e9824495ba0b76554ed731d6de9e2c2269e064045e5e3a",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/earth.js": "a8842f7688d92a117656d805dd81633060c1cc98146e8e6d7969a85700445344",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/fire.js": "35b35f2d295116c3d9fad3c8003c4f867184a854b978884565d39a8f7723ca00",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/rare.js": "bbb78c3fb353f43b1339080401932ef8aef326e259b2d9652207f2de298fb0da",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/water.js": "ad901958db17274513e6cac932f33a69e955ee1057ac0cfff2abfc39aede00e4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/species/wind.js": "a706931e63107e61436e8e0e2f31fafe2785980dfeba2a0c8ffaba02659b2449",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/renderer/sprites/sprite.js": "404297be69882c310c0fd4515f827127256bc6b37745a0f70e994fd042027d31",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/shared/api.js": "63b6099c09f2e7419550a761dcffb91e0af1b9027b866b3c1d3704c5163cb010",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/shared/ipc.js": "7f151ea510f9d6f1ce37152e8f0a612347f6abb39123b0434bb9a713da7f1a5c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/dist/web/shared/serverUrl.js": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v9/runtime.mjs": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v9/ui-cases.mjs": "fb50f6cf5fce7412be753433f87da841466cae31188e179381eb0d96e6158860",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/package-check.mjs": "f7b1d8fbd531d00b9c729250639c8390ceef865984e79dd546e382328fd7a5c7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/evidence.mjs": "891b093f5bfe6f0b3f2c8174a1bf752706f9c52229bb83da0fbd169c579a7dbd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/config.mjs": "e2d7966d8f967235d2d319a4fb7fc23b441745d8d9c3e0533686549febbb4e53",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/config.json": "3497ab47888310d7d5875fe611077d2c40ec0fa32a2d7084b1c604fa5bc27379",
+    "/Users/jeongyounglee/work/repo/desktop-monster/package.json": "16944ffa03a353102415cf3670a613a21bcc2d4a9ae8501908223c08e60d9b23",
+    "/Users/jeongyounglee/work/repo/desktop-monster/package-lock.json": "889d719a5b453ec2138d610684bf94c306a80817a45e58fd42183c763be974f3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/tsconfig.main.json": "f1574ffb55c29deb86fe0444ddaa44dcf30e9718d3ceab16e4c2a69d19a41a39",
+    "/Users/jeongyounglee/work/repo/desktop-monster/tsconfig.renderer.json": "b9acbd36e94729a1d8868c39528c4b549b709287a7ec4d5d25990334aa236e67"
+  },
+  "attempts": [
+    {
+      "phase": "first",
+      "ui": {
+        "version": 9,
+        "phase": "first",
+        "startedAt": "2026-09-15T09:37:59.242Z",
+        "checks": [
+          {
+            "name": "isolated-production-windows",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "ranking-level",
+            "passed": true,
+            "details": {
+              "response": {
+                "method": "GET",
+                "path": "/v1/leaderboard",
+                "query": {
+                  "n": "10",
+                  "metric": "level"
+                },
+                "body": null,
+                "status": 200,
+                "result": {
+                  "top": [
+                    {
+                      "rank": 1,
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "level": 45,
+                      "wins": 2,
+                      "losses": 0
+                    },
+                    {
+                      "rank": 2,
+                      "name": "FixtureMe",
+                      "bestIndex": 1000,
+                      "rebirths": 2,
+                      "level": 27,
+                      "wins": 0,
+                      "losses": 2
+                    }
+                  ],
+                  "me": {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  },
+                  "metric": "level"
+                }
+              },
+              "ui": {
+                "text": "레벨PvP 승수최고 단계환생새로고침#1FixtureFoeLv.45♻×5#2FixtureMeLv.27♻×2",
+                "pressed": [
+                  "true",
+                  "false",
+                  "false",
+                  "false",
+                  null
+                ]
+              }
+            }
+          },
+          {
+            "name": "ranking-pvpWins",
+            "passed": true,
+            "details": {
+              "response": {
+                "method": "GET",
+                "path": "/v1/leaderboard",
+                "query": {
+                  "n": "10",
+                  "metric": "pvpWins"
+                },
+                "body": null,
+                "status": 200,
+                "result": {
+                  "top": [
+                    {
+                      "rank": 1,
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "level": 45,
+                      "wins": 2,
+                      "losses": 0
+                    },
+                    {
+                      "rank": 2,
+                      "name": "FixtureMe",
+                      "bestIndex": 1000,
+                      "rebirths": 2,
+                      "level": 27,
+                      "wins": 0,
+                      "losses": 2
+                    }
+                  ],
+                  "me": {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  },
+                  "metric": "pvpWins"
+                }
+              },
+              "ui": {
+                "text": "레벨PvP 승수최고 단계환생새로고침#1FixtureFoe2승 · 0패공격·방어 합산#2FixtureMe0승 · 2패공격·방어 합산",
+                "pressed": [
+                  "false",
+                  "true",
+                  "false",
+                  "false",
+                  null
+                ]
+              }
+            }
+          },
+          {
+            "name": "ranking-bestIndex",
+            "passed": true,
+            "details": {
+              "response": {
+                "method": "GET",
+                "path": "/v1/leaderboard",
+                "query": {
+                  "n": "10",
+                  "metric": "bestIndex"
+                },
+                "body": null,
+                "status": 200,
+                "result": {
+                  "top": [
+                    {
+                      "rank": 1,
+                      "name": "FixtureMe",
+                      "bestIndex": 1000,
+                      "rebirths": 2,
+                      "level": 27,
+                      "wins": 0,
+                      "losses": 2
+                    },
+                    {
+                      "rank": 2,
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "level": 45,
+                      "wins": 2,
+                      "losses": 0
+                    }
+                  ],
+                  "me": {
+                    "rank": 1,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  },
+                  "metric": "bestIndex"
+                }
+              },
+              "ui": {
+                "text": "레벨PvP 승수최고 단계환생새로고침#1FixtureMe최고 단계 1000♻×2#2FixtureFoe최고 단계 25♻×5",
+                "pressed": [
+                  "false",
+                  "false",
+                  "true",
+                  "false",
+                  null
+                ]
+              }
+            }
+          },
+          {
+            "name": "ranking-rebirths",
+            "passed": true,
+            "details": {
+              "response": {
+                "method": "GET",
+                "path": "/v1/leaderboard",
+                "query": {
+                  "n": "10",
+                  "metric": "rebirths"
+                },
+                "body": null,
+                "status": 200,
+                "result": {
+                  "top": [
+                    {
+                      "rank": 1,
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "level": 45,
+                      "wins": 2,
+                      "losses": 0
+                    },
+                    {
+                      "rank": 2,
+                      "name": "FixtureMe",
+                      "bestIndex": 1000,
+                      "rebirths": 2,
+                      "level": 27,
+                      "wins": 0,
+                      "losses": 2
+                    }
+                  ],
+                  "me": {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  },
+                  "metric": "rebirths"
+                }
+              },
+              "ui": {
+                "text": "레벨PvP 승수최고 단계환생새로고침#1FixtureFoe환생 5회♻×5#2FixtureMe환생 2회♻×2",
+                "pressed": [
+                  "false",
+                  "false",
+                  "false",
+                  "true",
+                  null
+                ]
+              }
+            }
+          },
+          {
+            "name": "selected-id-chains-match-and-fight",
+            "passed": true,
+            "details": {
+              "requests": [
+                {
+                  "method": "GET",
+                  "path": "/v1/me",
+                  "query": {},
+                  "body": null,
+                  "status": 200,
+                  "result": {
+                    "version": 9,
+                    "wins": 0,
+                    "losses": 2,
+                    "revokedIds": [],
+                    "lastMatch": null,
+                    "lastReclaim": null
+                  }
+                },
+                {
+                  "method": "PUT",
+                  "path": "/v1/snapshot",
+                  "query": {},
+                  "body": {
+                    "name": "FixtureMe",
+                    "level": 27,
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "companions": [
+                      {
+                        "id": "c1",
+                        "speciesId": "dragon",
+                        "bossIndex": 63,
+                        "level": 100,
+                        "stars": 3
+                      },
+                      {
+                        "id": "c2",
+                        "speciesId": "bat",
+                        "bossIndex": 15,
+                        "level": 30,
+                        "stars": 1
+                      }
+                    ],
+                    "party": [
+                      "c1"
+                    ],
+                    "hero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    }
+                  },
+                  "status": 200,
+                  "result": {
+                    "rank": 1,
+                    "removed": [],
+                    "thefts": []
+                  }
+                },
+                {
+                  "method": "POST",
+                  "path": "/v1/pvp/match",
+                  "query": {},
+                  "body": {
+                    "opponentId": "fixture-foe"
+                  },
+                  "status": 200,
+                  "result": {
+                    "matchId": "0000000000000001",
+                    "seed": 7,
+                    "bot": false,
+                    "opponent": {
+                      "playerId": "fixture-foe",
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "party": [
+                        {
+                          "id": "c1",
+                          "speciesId": "slime",
+                          "bossIndex": 7,
+                          "level": 1,
+                          "stars": 0
+                        }
+                      ],
+                      "hero": {
+                        "formId": "h00",
+                        "buffPercent": 0
+                      }
+                    },
+                    "expiresAt": 1789465200144
+                  }
+                },
+                {
+                  "method": "POST",
+                  "path": "/v1/pvp",
+                  "query": {},
+                  "body": {
+                    "matchId": "0000000000000001",
+                    "party": [
+                      "c1"
+                    ]
+                  },
+                  "status": 200,
+                  "result": {
+                    "matchId": "0000000000000001",
+                    "record": {
+                      "wins": 1,
+                      "losses": 2
+                    },
+                    "bot": false,
+                    "seed": 7,
+                    "win": true,
+                    "opponent": {
+                      "playerId": "fixture-foe",
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "party": [
+                        {
+                          "id": "c1",
+                          "speciesId": "slime",
+                          "bossIndex": 7,
+                          "level": 1,
+                          "stars": 0
+                        }
+                      ],
+                      "hero": {
+                        "formId": "h00",
+                        "buffPercent": 0
+                      }
+                    },
+                    "blows": [
+                      {
+                        "side": "A",
+                        "actorId": "c1",
+                        "targetId": "c1",
+                        "damage": "1333200",
+                        "ko": true
+                      }
+                    ],
+                    "stolen": {
+                      "id": "s7",
+                      "speciesId": "slime",
+                      "bossIndex": 7,
+                      "level": 1,
+                      "stars": 0
+                    },
+                    "lost": null
+                  }
+                },
+                {
+                  "method": "GET",
+                  "path": "/v1/me",
+                  "query": {},
+                  "body": null,
+                  "status": 200,
+                  "result": {
+                    "version": 9,
+                    "wins": 1,
+                    "losses": 2,
+                    "revokedIds": [],
+                    "lastMatch": {
+                      "matchId": "0000000000000001",
+                      "result": {
+                        "matchId": "0000000000000001",
+                        "record": {
+                          "wins": 1,
+                          "losses": 2
+                        },
+                        "bot": false,
+                        "seed": 7,
+                        "win": true,
+                        "opponent": {
+                          "playerId": "fixture-foe",
+                          "name": "FixtureFoe",
+                          "bestIndex": 25,
+                          "rebirths": 5,
+                          "party": [
+                            {
+                              "id": "c1",
+                              "speciesId": "slime",
+                              "bossIndex": 7,
+                              "level": 1,
+                              "stars": 0
+                            }
+                          ],
+                          "hero": {
+                            "formId": "h00",
+                            "buffPercent": 0
+                          }
+                        },
+                        "blows": [
+                          {
+                            "side": "A",
+                            "actorId": "c1",
+                            "targetId": "c1",
+                            "damage": "1333200",
+                            "ko": true
+                          }
+                        ],
+                        "stolen": {
+                          "id": "s7",
+                          "speciesId": "slime",
+                          "bossIndex": 7,
+                          "level": 1,
+                          "stars": 0
+                        },
+                        "lost": null
+                      }
+                    },
+                    "lastReclaim": null
+                  }
+                },
+                {
+                  "method": "GET",
+                  "path": "/v1/thefts",
+                  "query": {},
+                  "body": null,
+                  "status": 200,
+                  "result": {
+                    "thefts": []
+                  }
+                }
+              ],
+              "last": {
+                "at": 1789465080147,
+                "before": {
+                  "version": 3,
+                  "level": 27,
+                  "xp": 0,
+                  "killCount": 0,
+                  "coins": 1234567,
+                  "items": {},
+                  "monsterIndex": 1000,
+                  "monsterSpeciesId": "slime",
+                  "monsterHp": "309470158987657483911730",
+                  "companions": [
+                    {
+                      "id": "c1",
+                      "speciesId": "dragon",
+                      "bossIndex": 63,
+                      "level": 100,
+                      "stars": 3
+                    },
+                    {
+                      "id": "c2",
+                      "speciesId": "bat",
+                      "bossIndex": 15,
+                      "level": 30,
+                      "stars": 1
+                    }
+                  ],
+                  "nextCompanionId": 3,
+                  "earlyCaptureUsed": 2,
+                  "souls": 0,
+                  "rebirths": 2,
+                  "bestIndex": 1000,
+                  "pvpParty": [
+                    "c1"
+                  ],
+                  "releasedCount": 0,
+                  "hero": {
+                    "equipped": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    },
+                    "collection": [],
+                    "reincarnations": 0,
+                    "choices": [],
+                    "deferRemainingMs": 0,
+                    "offerSerial": 0
+                  },
+                  "progress": {
+                    "playTimeMs": 839.8999996423722,
+                    "speciesKills": {
+                      "slime": 1,
+                      "bat": 1,
+                      "ghost": 1,
+                      "golem": 1,
+                      "dragon": 1,
+                      "lumibel": 1,
+                      "kitekin": 1,
+                      "rictus": 1,
+                      "lichenwing": 1,
+                      "brimhide": 1,
+                      "sopwit": 1,
+                      "nimbling": 1,
+                      "hexweaver": 1,
+                      "sumpfang": 1,
+                      "anvilclaw": 1,
+                      "snipclaw": 1,
+                      "panewhirr": 1,
+                      "chainwraith": 1,
+                      "bramblebear": 1,
+                      "ashtusk": 1,
+                      "vespril": 1,
+                      "fanjack": 1,
+                      "gravebloom": 1,
+                      "fellstump": 1,
+                      "forgehulk": 1,
+                      "murkin": 1,
+                      "skitterel": 1,
+                      "cryptshell": 1,
+                      "quarryback": 1,
+                      "bristlehog": 1,
+                      "foamcap": 1,
+                      "sporeplume": 1,
+                      "sorrowstilt": 1,
+                      "kabulk": 1,
+                      "matchling": 1,
+                      "gulpwick": 1,
+                      "chimbrel": 1,
+                      "sicklehood": 1,
+                      "quagmaw": 1,
+                      "wickmoth": 1,
+                      "brammel": 1,
+                      "lantessa": 1,
+                      "hollowstag": 1,
+                      "wickerhusk": 1,
+                      "emberwren": 1,
+                      "conchguard": 1,
+                      "vaneknight": 1,
+                      "voidmaw": 1,
+                      "grumblode": 1,
+                      "sootcap": 1,
+                      "bellbuoy": 1,
+                      "skreave": 1,
+                      "shroudlamp": 1,
+                      "chirrgrit": 1,
+                      "steamfin": 1,
+                      "quintel": 1,
+                      "curlhart": 1,
+                      "gallowplate": 1,
+                      "gillstub": 1,
+                      "kindletoad": 1,
+                      "pondstrider": 1,
+                      "gyrodillo": 1,
+                      "mournbell": 1,
+                      "cobbleroll": 1,
+                      "flarecrow": 1,
+                      "slushmaw": 1,
+                      "cyclonarch": 1,
+                      "hooklure": 1,
+                      "flintwren": 1,
+                      "hearthmole": 1,
+                      "kraulk": 1,
+                      "vellisk": 1,
+                      "quietus": 1,
+                      "moldwarp": 1,
+                      "scorchbriar": 1,
+                      "reefknight": 1,
+                      "millox": 1,
+                      "unblink": 1,
+                      "spadeling": 1,
+                      "kilnshell": 1,
+                      "grumbol": 1,
+                      "nubilan": 1,
+                      "glasshade": 1,
+                      "helmdelver": 1,
+                      "charspine": 1,
+                      "vorrow": 1,
+                      "dartfinch": 1,
+                      "inknuckle": 1,
+                      "thornhare": 1,
+                      "pyrecairn": 1,
+                      "rainheron": 1,
+                      "glidefin": 1,
+                      "veilcap": 1,
+                      "cairnlith": 1,
+                      "slagram": 1,
+                      "clubprawn": 1,
+                      "whirlseed": 1,
+                      "waxwick": 1,
+                      "drusehog": 1,
+                      "coalscythe": 1,
+                      "kelpwarden": 1,
+                      "velmoth": 1,
+                      "nightlynx": 1,
+                      "terrakin": 1,
+                      "cindercoil": 1,
+                      "dawnfinch": 1,
+                      "kilnbeetle": 1,
+                      "crownwyrm": 1,
+                      "cinderhare": 1,
+                      "duelphoenix": 1,
+                      "furnaceox": 1,
+                      "mistaxolotl": 1,
+                      "pearlcrab": 1,
+                      "tideleviathan": 1,
+                      "frostnewt": 1,
+                      "mirrorjelly": 1,
+                      "anchornaut": 1,
+                      "sunskipper": 1,
+                      "courierowl": 1,
+                      "stormmanta": 1,
+                      "ribbonstoat": 1,
+                      "arenakite": 1,
+                      "zephyrstag": 1,
+                      "duskarmadillo": 1,
+                      "mossbadger": 1,
+                      "crystaltortoise": 1,
+                      "coinmole": 1,
+                      "oathbison": 1,
+                      "rootcolossus": 1,
+                      "moonmoth": 1,
+                      "inkferret": 1,
+                      "cryptcervid": 1,
+                      "maskimp": 1,
+                      "victoryraven": 1,
+                      "starvoid": 1
+                    },
+                    "seenMonsters": [
+                      "slime",
+                      "bat",
+                      "ghost",
+                      "golem",
+                      "dragon",
+                      "lumibel",
+                      "kitekin",
+                      "rictus",
+                      "lichenwing",
+                      "brimhide",
+                      "sopwit",
+                      "nimbling",
+                      "hexweaver",
+                      "sumpfang",
+                      "anvilclaw",
+                      "snipclaw",
+                      "panewhirr",
+                      "chainwraith",
+                      "bramblebear",
+                      "ashtusk",
+                      "vespril",
+                      "fanjack",
+                      "gravebloom",
+                      "fellstump",
+                      "forgehulk",
+                      "murkin",
+                      "skitterel",
+                      "cryptshell",
+                      "quarryback",
+                      "bristlehog",
+                      "foamcap",
+                      "sporeplume",
+                      "sorrowstilt",
+                      "kabulk",
+                      "matchling",
+                      "gulpwick",
+                      "chimbrel",
+                      "sicklehood",
+                      "quagmaw",
+                      "wickmoth",
+                      "brammel",
+                      "lantessa",
+                      "hollowstag",
+                      "wickerhusk",
+                      "emberwren",
+                      "conchguard",
+                      "vaneknight",
+                      "voidmaw",
+                      "grumblode",
+                      "sootcap",
+                      "bellbuoy",
+                      "skreave",
+                      "shroudlamp",
+                      "chirrgrit",
+                      "steamfin",
+                      "quintel",
+                      "curlhart",
+                      "gallowplate",
+                      "gillstub",
+                      "kindletoad",
+                      "pondstrider",
+                      "gyrodillo",
+                      "mournbell",
+                      "cobbleroll",
+                      "flarecrow",
+                      "slushmaw",
+                      "cyclonarch",
+                      "hooklure",
+                      "flintwren",
+                      "hearthmole",
+                      "kraulk",
+                      "vellisk",
+                      "quietus",
+                      "moldwarp",
+                      "scorchbriar",
+                      "reefknight",
+                      "millox",
+                      "unblink",
+                      "spadeling",
+                      "kilnshell",
+                      "grumbol",
+                      "nubilan",
+                      "glasshade",
+                      "helmdelver",
+                      "charspine",
+                      "vorrow",
+                      "dartfinch",
+                      "inknuckle",
+                      "thornhare",
+                      "pyrecairn",
+                      "rainheron",
+                      "glidefin",
+                      "veilcap",
+                      "cairnlith",
+                      "slagram",
+                      "clubprawn",
+                      "whirlseed",
+                      "waxwick",
+                      "drusehog",
+                      "coalscythe",
+                      "kelpwarden",
+                      "velmoth",
+                      "nightlynx",
+                      "terrakin",
+                      "cindercoil",
+                      "dawnfinch",
+                      "kilnbeetle",
+                      "crownwyrm",
+                      "cinderhare",
+                      "duelphoenix",
+                      "furnaceox",
+                      "mistaxolotl",
+                      "pearlcrab",
+                      "tideleviathan",
+                      "frostnewt",
+                      "mirrorjelly",
+                      "anchornaut",
+                      "sunskipper",
+                      "courierowl",
+                      "stormmanta",
+                      "ribbonstoat",
+                      "arenakite",
+                      "zephyrstag",
+                      "duskarmadillo",
+                      "mossbadger",
+                      "crystaltortoise",
+                      "coinmole",
+                      "oathbison",
+                      "rootcolossus",
+                      "moonmoth",
+                      "inkferret",
+                      "cryptcervid",
+                      "maskimp",
+                      "victoryraven",
+                      "starvoid"
+                    ],
+                    "seenHeroes": [
+                      "h01",
+                      "h02",
+                      "h03",
+                      "h04",
+                      "h05",
+                      "h06",
+                      "h07",
+                      "h08",
+                      "h09",
+                      "h10",
+                      "h11",
+                      "h12",
+                      "h13",
+                      "h14"
+                    ],
+                    "heroCounts": {
+                      "h01": 1,
+                      "h02": 1,
+                      "h03": 1,
+                      "h04": 1,
+                      "h05": 1,
+                      "h06": 1,
+                      "h07": 1,
+                      "h08": 1,
+                      "h09": 1,
+                      "h10": 1,
+                      "h11": 1,
+                      "h12": 1,
+                      "h13": 1,
+                      "h14": 1
+                    },
+                    "reincarnationHistory": [],
+                    "pvpWins": 0,
+                    "pvpLosses": 2,
+                    "goldSpent": 0,
+                    "rareMisses": 0,
+                    "trainingLevel": 0,
+                    "lureRemaining": 0,
+                    "shopSerial": 0,
+                    "legacyHistory": false,
+                    "codex": {
+                      "acknowledgedHeroes": [],
+                      "acknowledgedMonsters": [],
+                      "goal": null
+                    }
+                  }
+                },
+                "result": {
+                  "matchId": "0000000000000001",
+                  "record": {
+                    "wins": 1,
+                    "losses": 2
+                  },
+                  "bot": false,
+                  "seed": 7,
+                  "win": true,
+                  "opponent": {
+                    "playerId": "fixture-foe",
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "party": [
+                      {
+                        "id": "c1",
+                        "speciesId": "slime",
+                        "bossIndex": 7,
+                        "level": 1,
+                        "stars": 0
+                      }
+                    ],
+                    "hero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    }
+                  },
+                  "blows": [
+                    {
+                      "side": "A",
+                      "actorId": "c1",
+                      "targetId": "c1",
+                      "damage": "1333200",
+                      "ko": true
+                    }
+                  ],
+                  "stolen": {
+                    "id": "s7",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 1,
+                    "stars": 0
+                  },
+                  "lost": null,
+                  "removed": []
+                }
+              },
+              "collapsed": true
+            }
+          },
+          {
+            "name": "cooldown-click-does-not-submit-again",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "six-share-kinds",
+            "passed": true,
+            "details": {
+              "kinds": [
+                "hero",
+                "companion",
+                "party",
+                "codex",
+                "field",
+                "pvp"
+              ]
+            }
+          },
+          {
+            "name": "real-png-hero",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 37430,
+              "decodedBytes": 4321200,
+              "sha256": "a140c48672f1ac02653a1fd2346fceed79b080d3635eb00b56f4b048a9c0758d"
+            }
+          },
+          {
+            "name": "real-png-companion",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 26217,
+              "decodedBytes": 4321200,
+              "sha256": "160340a48f87471672ad7183998ece81e78e2394f4627749ec2beb61dd639ee9"
+            }
+          },
+          {
+            "name": "real-png-party",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 38399,
+              "decodedBytes": 4321200,
+              "sha256": "3b0c7e41dd7341808099826fac29893b60c7c8b764df32293b27bf340b6147f4"
+            }
+          },
+          {
+            "name": "real-png-codex",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 48483,
+              "decodedBytes": 4321200,
+              "sha256": "3ab6b4814b6ea55d4220a2b2d16cb9af620019fe3daf516ec2519ca7f7cdc5b6"
+            }
+          },
+          {
+            "name": "codex-page-navigation",
+            "passed": true,
+            "details": {
+              "before": "1 / 2",
+              "after": "2 / 2"
+            }
+          },
+          {
+            "name": "real-png-field",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 32942,
+              "decodedBytes": 4321200,
+              "sha256": "1624f2315bad55564cffcfc5c86f61d9e1a1e0a3f9088cf25b40733c87aa1133"
+            }
+          },
+          {
+            "name": "real-png-pvp",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 34752,
+              "decodedBytes": 4321200,
+              "sha256": "5bfddd46e6e7dc46688c7d483ac25e63cd86d9677324312d113935713d24446e"
+            }
+          },
+          {
+            "name": "real-native-image-copy",
+            "passed": true,
+            "details": {
+              "width": 1200,
+              "height": 1200,
+              "bytes": 34752,
+              "decodedBytes": 4321200,
+              "sha256": "5bfddd46e6e7dc46688c7d483ac25e63cd86d9677324312d113935713d24446e"
+            }
+          },
+          {
+            "name": "save-dialog-cancel-visible",
+            "passed": true,
+            "details": {
+              "canceled": "저장을 취소했습니다."
+            }
+          },
+          {
+            "name": "share-close-returns-focus",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "reset-cancel-preserves-progress",
+            "passed": true,
+            "details": {
+              "before": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1234567,
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  },
+                  {
+                    "id": "s7",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 1,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 8,
+                "earlyCaptureUsed": 3,
+                "souls": 0,
+                "rebirths": 2,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1"
+                ],
+                "releasedCount": 0,
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 839.8999996423722,
+                  "speciesKills": {
+                    "slime": 1,
+                    "bat": 1,
+                    "ghost": 1,
+                    "golem": 1,
+                    "dragon": 1,
+                    "lumibel": 1,
+                    "kitekin": 1,
+                    "rictus": 1,
+                    "lichenwing": 1,
+                    "brimhide": 1,
+                    "sopwit": 1,
+                    "nimbling": 1,
+                    "hexweaver": 1,
+                    "sumpfang": 1,
+                    "anvilclaw": 1,
+                    "snipclaw": 1,
+                    "panewhirr": 1,
+                    "chainwraith": 1,
+                    "bramblebear": 1,
+                    "ashtusk": 1,
+                    "vespril": 1,
+                    "fanjack": 1,
+                    "gravebloom": 1,
+                    "fellstump": 1,
+                    "forgehulk": 1,
+                    "murkin": 1,
+                    "skitterel": 1,
+                    "cryptshell": 1,
+                    "quarryback": 1,
+                    "bristlehog": 1,
+                    "foamcap": 1,
+                    "sporeplume": 1,
+                    "sorrowstilt": 1,
+                    "kabulk": 1,
+                    "matchling": 1,
+                    "gulpwick": 1,
+                    "chimbrel": 1,
+                    "sicklehood": 1,
+                    "quagmaw": 1,
+                    "wickmoth": 1,
+                    "brammel": 1,
+                    "lantessa": 1,
+                    "hollowstag": 1,
+                    "wickerhusk": 1,
+                    "emberwren": 1,
+                    "conchguard": 1,
+                    "vaneknight": 1,
+                    "voidmaw": 1,
+                    "grumblode": 1,
+                    "sootcap": 1,
+                    "bellbuoy": 1,
+                    "skreave": 1,
+                    "shroudlamp": 1,
+                    "chirrgrit": 1,
+                    "steamfin": 1,
+                    "quintel": 1,
+                    "curlhart": 1,
+                    "gallowplate": 1,
+                    "gillstub": 1,
+                    "kindletoad": 1,
+                    "pondstrider": 1,
+                    "gyrodillo": 1,
+                    "mournbell": 1,
+                    "cobbleroll": 1,
+                    "flarecrow": 1,
+                    "slushmaw": 1,
+                    "cyclonarch": 1,
+                    "hooklure": 1,
+                    "flintwren": 1,
+                    "hearthmole": 1,
+                    "kraulk": 1,
+                    "vellisk": 1,
+                    "quietus": 1,
+                    "moldwarp": 1,
+                    "scorchbriar": 1,
+                    "reefknight": 1,
+                    "millox": 1,
+                    "unblink": 1,
+                    "spadeling": 1,
+                    "kilnshell": 1,
+                    "grumbol": 1,
+                    "nubilan": 1,
+                    "glasshade": 1,
+                    "helmdelver": 1,
+                    "charspine": 1,
+                    "vorrow": 1,
+                    "dartfinch": 1,
+                    "inknuckle": 1,
+                    "thornhare": 1,
+                    "pyrecairn": 1,
+                    "rainheron": 1,
+                    "glidefin": 1,
+                    "veilcap": 1,
+                    "cairnlith": 1,
+                    "slagram": 1,
+                    "clubprawn": 1,
+                    "whirlseed": 1,
+                    "waxwick": 1,
+                    "drusehog": 1,
+                    "coalscythe": 1,
+                    "kelpwarden": 1,
+                    "velmoth": 1,
+                    "nightlynx": 1,
+                    "terrakin": 1,
+                    "cindercoil": 1,
+                    "dawnfinch": 1,
+                    "kilnbeetle": 1,
+                    "crownwyrm": 1,
+                    "cinderhare": 1,
+                    "duelphoenix": 1,
+                    "furnaceox": 1,
+                    "mistaxolotl": 1,
+                    "pearlcrab": 1,
+                    "tideleviathan": 1,
+                    "frostnewt": 1,
+                    "mirrorjelly": 1,
+                    "anchornaut": 1,
+                    "sunskipper": 1,
+                    "courierowl": 1,
+                    "stormmanta": 1,
+                    "ribbonstoat": 1,
+                    "arenakite": 1,
+                    "zephyrstag": 1,
+                    "duskarmadillo": 1,
+                    "mossbadger": 1,
+                    "crystaltortoise": 1,
+                    "coinmole": 1,
+                    "oathbison": 1,
+                    "rootcolossus": 1,
+                    "moonmoth": 1,
+                    "inkferret": 1,
+                    "cryptcervid": 1,
+                    "maskimp": 1,
+                    "victoryraven": 1,
+                    "starvoid": 1
+                  },
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon",
+                    "lumibel",
+                    "kitekin",
+                    "rictus",
+                    "lichenwing",
+                    "brimhide",
+                    "sopwit",
+                    "nimbling",
+                    "hexweaver",
+                    "sumpfang",
+                    "anvilclaw",
+                    "snipclaw",
+                    "panewhirr",
+                    "chainwraith",
+                    "bramblebear",
+                    "ashtusk",
+                    "vespril",
+                    "fanjack",
+                    "gravebloom",
+                    "fellstump",
+                    "forgehulk",
+                    "murkin",
+                    "skitterel",
+                    "cryptshell",
+                    "quarryback",
+                    "bristlehog",
+                    "foamcap",
+                    "sporeplume",
+                    "sorrowstilt",
+                    "kabulk",
+                    "matchling",
+                    "gulpwick",
+                    "chimbrel",
+                    "sicklehood",
+                    "quagmaw",
+                    "wickmoth",
+                    "brammel",
+                    "lantessa",
+                    "hollowstag",
+                    "wickerhusk",
+                    "emberwren",
+                    "conchguard",
+                    "vaneknight",
+                    "voidmaw",
+                    "grumblode",
+                    "sootcap",
+                    "bellbuoy",
+                    "skreave",
+                    "shroudlamp",
+                    "chirrgrit",
+                    "steamfin",
+                    "quintel",
+                    "curlhart",
+                    "gallowplate",
+                    "gillstub",
+                    "kindletoad",
+                    "pondstrider",
+                    "gyrodillo",
+                    "mournbell",
+                    "cobbleroll",
+                    "flarecrow",
+                    "slushmaw",
+                    "cyclonarch",
+                    "hooklure",
+                    "flintwren",
+                    "hearthmole",
+                    "kraulk",
+                    "vellisk",
+                    "quietus",
+                    "moldwarp",
+                    "scorchbriar",
+                    "reefknight",
+                    "millox",
+                    "unblink",
+                    "spadeling",
+                    "kilnshell",
+                    "grumbol",
+                    "nubilan",
+                    "glasshade",
+                    "helmdelver",
+                    "charspine",
+                    "vorrow",
+                    "dartfinch",
+                    "inknuckle",
+                    "thornhare",
+                    "pyrecairn",
+                    "rainheron",
+                    "glidefin",
+                    "veilcap",
+                    "cairnlith",
+                    "slagram",
+                    "clubprawn",
+                    "whirlseed",
+                    "waxwick",
+                    "drusehog",
+                    "coalscythe",
+                    "kelpwarden",
+                    "velmoth",
+                    "nightlynx",
+                    "terrakin",
+                    "cindercoil",
+                    "dawnfinch",
+                    "kilnbeetle",
+                    "crownwyrm",
+                    "cinderhare",
+                    "duelphoenix",
+                    "furnaceox",
+                    "mistaxolotl",
+                    "pearlcrab",
+                    "tideleviathan",
+                    "frostnewt",
+                    "mirrorjelly",
+                    "anchornaut",
+                    "sunskipper",
+                    "courierowl",
+                    "stormmanta",
+                    "ribbonstoat",
+                    "arenakite",
+                    "zephyrstag",
+                    "duskarmadillo",
+                    "mossbadger",
+                    "crystaltortoise",
+                    "coinmole",
+                    "oathbison",
+                    "rootcolossus",
+                    "moonmoth",
+                    "inkferret",
+                    "cryptcervid",
+                    "maskimp",
+                    "victoryraven",
+                    "starvoid"
+                  ],
+                  "seenHeroes": [
+                    "h01",
+                    "h02",
+                    "h03",
+                    "h04",
+                    "h05",
+                    "h06",
+                    "h07",
+                    "h08",
+                    "h09",
+                    "h10",
+                    "h11",
+                    "h12",
+                    "h13",
+                    "h14"
+                  ],
+                  "heroCounts": {
+                    "h01": 1,
+                    "h02": 1,
+                    "h03": 1,
+                    "h04": 1,
+                    "h05": 1,
+                    "h06": 1,
+                    "h07": 1,
+                    "h08": 1,
+                    "h09": 1,
+                    "h10": 1,
+                    "h11": 1,
+                    "h12": 1,
+                    "h13": 1,
+                    "h14": 1
+                  },
+                  "reincarnationHistory": [],
+                  "pvpWins": 1,
+                  "pvpLosses": 2,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "canceled": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1234567,
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  },
+                  {
+                    "id": "s7",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 1,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 8,
+                "earlyCaptureUsed": 3,
+                "souls": 0,
+                "rebirths": 2,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1"
+                ],
+                "releasedCount": 0,
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 839.8999996423722,
+                  "speciesKills": {
+                    "slime": 1,
+                    "bat": 1,
+                    "ghost": 1,
+                    "golem": 1,
+                    "dragon": 1,
+                    "lumibel": 1,
+                    "kitekin": 1,
+                    "rictus": 1,
+                    "lichenwing": 1,
+                    "brimhide": 1,
+                    "sopwit": 1,
+                    "nimbling": 1,
+                    "hexweaver": 1,
+                    "sumpfang": 1,
+                    "anvilclaw": 1,
+                    "snipclaw": 1,
+                    "panewhirr": 1,
+                    "chainwraith": 1,
+                    "bramblebear": 1,
+                    "ashtusk": 1,
+                    "vespril": 1,
+                    "fanjack": 1,
+                    "gravebloom": 1,
+                    "fellstump": 1,
+                    "forgehulk": 1,
+                    "murkin": 1,
+                    "skitterel": 1,
+                    "cryptshell": 1,
+                    "quarryback": 1,
+                    "bristlehog": 1,
+                    "foamcap": 1,
+                    "sporeplume": 1,
+                    "sorrowstilt": 1,
+                    "kabulk": 1,
+                    "matchling": 1,
+                    "gulpwick": 1,
+                    "chimbrel": 1,
+                    "sicklehood": 1,
+                    "quagmaw": 1,
+                    "wickmoth": 1,
+                    "brammel": 1,
+                    "lantessa": 1,
+                    "hollowstag": 1,
+                    "wickerhusk": 1,
+                    "emberwren": 1,
+                    "conchguard": 1,
+                    "vaneknight": 1,
+                    "voidmaw": 1,
+                    "grumblode": 1,
+                    "sootcap": 1,
+                    "bellbuoy": 1,
+                    "skreave": 1,
+                    "shroudlamp": 1,
+                    "chirrgrit": 1,
+                    "steamfin": 1,
+                    "quintel": 1,
+                    "curlhart": 1,
+                    "gallowplate": 1,
+                    "gillstub": 1,
+                    "kindletoad": 1,
+                    "pondstrider": 1,
+                    "gyrodillo": 1,
+                    "mournbell": 1,
+                    "cobbleroll": 1,
+                    "flarecrow": 1,
+                    "slushmaw": 1,
+                    "cyclonarch": 1,
+                    "hooklure": 1,
+                    "flintwren": 1,
+                    "hearthmole": 1,
+                    "kraulk": 1,
+                    "vellisk": 1,
+                    "quietus": 1,
+                    "moldwarp": 1,
+                    "scorchbriar": 1,
+                    "reefknight": 1,
+                    "millox": 1,
+                    "unblink": 1,
+                    "spadeling": 1,
+                    "kilnshell": 1,
+                    "grumbol": 1,
+                    "nubilan": 1,
+                    "glasshade": 1,
+                    "helmdelver": 1,
+                    "charspine": 1,
+                    "vorrow": 1,
+                    "dartfinch": 1,
+                    "inknuckle": 1,
+                    "thornhare": 1,
+                    "pyrecairn": 1,
+                    "rainheron": 1,
+                    "glidefin": 1,
+                    "veilcap": 1,
+                    "cairnlith": 1,
+                    "slagram": 1,
+                    "clubprawn": 1,
+                    "whirlseed": 1,
+                    "waxwick": 1,
+                    "drusehog": 1,
+                    "coalscythe": 1,
+                    "kelpwarden": 1,
+                    "velmoth": 1,
+                    "nightlynx": 1,
+                    "terrakin": 1,
+                    "cindercoil": 1,
+                    "dawnfinch": 1,
+                    "kilnbeetle": 1,
+                    "crownwyrm": 1,
+                    "cinderhare": 1,
+                    "duelphoenix": 1,
+                    "furnaceox": 1,
+                    "mistaxolotl": 1,
+                    "pearlcrab": 1,
+                    "tideleviathan": 1,
+                    "frostnewt": 1,
+                    "mirrorjelly": 1,
+                    "anchornaut": 1,
+                    "sunskipper": 1,
+                    "courierowl": 1,
+                    "stormmanta": 1,
+                    "ribbonstoat": 1,
+                    "arenakite": 1,
+                    "zephyrstag": 1,
+                    "duskarmadillo": 1,
+                    "mossbadger": 1,
+                    "crystaltortoise": 1,
+                    "coinmole": 1,
+                    "oathbison": 1,
+                    "rootcolossus": 1,
+                    "moonmoth": 1,
+                    "inkferret": 1,
+                    "cryptcervid": 1,
+                    "maskimp": 1,
+                    "victoryraven": 1,
+                    "starvoid": 1
+                  },
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon",
+                    "lumibel",
+                    "kitekin",
+                    "rictus",
+                    "lichenwing",
+                    "brimhide",
+                    "sopwit",
+                    "nimbling",
+                    "hexweaver",
+                    "sumpfang",
+                    "anvilclaw",
+                    "snipclaw",
+                    "panewhirr",
+                    "chainwraith",
+                    "bramblebear",
+                    "ashtusk",
+                    "vespril",
+                    "fanjack",
+                    "gravebloom",
+                    "fellstump",
+                    "forgehulk",
+                    "murkin",
+                    "skitterel",
+                    "cryptshell",
+                    "quarryback",
+                    "bristlehog",
+                    "foamcap",
+                    "sporeplume",
+                    "sorrowstilt",
+                    "kabulk",
+                    "matchling",
+                    "gulpwick",
+                    "chimbrel",
+                    "sicklehood",
+                    "quagmaw",
+                    "wickmoth",
+                    "brammel",
+                    "lantessa",
+                    "hollowstag",
+                    "wickerhusk",
+                    "emberwren",
+                    "conchguard",
+                    "vaneknight",
+                    "voidmaw",
+                    "grumblode",
+                    "sootcap",
+                    "bellbuoy",
+                    "skreave",
+                    "shroudlamp",
+                    "chirrgrit",
+                    "steamfin",
+                    "quintel",
+                    "curlhart",
+                    "gallowplate",
+                    "gillstub",
+                    "kindletoad",
+                    "pondstrider",
+                    "gyrodillo",
+                    "mournbell",
+                    "cobbleroll",
+                    "flarecrow",
+                    "slushmaw",
+                    "cyclonarch",
+                    "hooklure",
+                    "flintwren",
+                    "hearthmole",
+                    "kraulk",
+                    "vellisk",
+                    "quietus",
+                    "moldwarp",
+                    "scorchbriar",
+                    "reefknight",
+                    "millox",
+                    "unblink",
+                    "spadeling",
+                    "kilnshell",
+                    "grumbol",
+                    "nubilan",
+                    "glasshade",
+                    "helmdelver",
+                    "charspine",
+                    "vorrow",
+                    "dartfinch",
+                    "inknuckle",
+                    "thornhare",
+                    "pyrecairn",
+                    "rainheron",
+                    "glidefin",
+                    "veilcap",
+                    "cairnlith",
+                    "slagram",
+                    "clubprawn",
+                    "whirlseed",
+                    "waxwick",
+                    "drusehog",
+                    "coalscythe",
+                    "kelpwarden",
+                    "velmoth",
+                    "nightlynx",
+                    "terrakin",
+                    "cindercoil",
+                    "dawnfinch",
+                    "kilnbeetle",
+                    "crownwyrm",
+                    "cinderhare",
+                    "duelphoenix",
+                    "furnaceox",
+                    "mistaxolotl",
+                    "pearlcrab",
+                    "tideleviathan",
+                    "frostnewt",
+                    "mirrorjelly",
+                    "anchornaut",
+                    "sunskipper",
+                    "courierowl",
+                    "stormmanta",
+                    "ribbonstoat",
+                    "arenakite",
+                    "zephyrstag",
+                    "duskarmadillo",
+                    "mossbadger",
+                    "crystaltortoise",
+                    "coinmole",
+                    "oathbison",
+                    "rootcolossus",
+                    "moonmoth",
+                    "inkferret",
+                    "cryptcervid",
+                    "maskimp",
+                    "victoryraven",
+                    "starvoid"
+                  ],
+                  "seenHeroes": [
+                    "h01",
+                    "h02",
+                    "h03",
+                    "h04",
+                    "h05",
+                    "h06",
+                    "h07",
+                    "h08",
+                    "h09",
+                    "h10",
+                    "h11",
+                    "h12",
+                    "h13",
+                    "h14"
+                  ],
+                  "heroCounts": {
+                    "h01": 1,
+                    "h02": 1,
+                    "h03": 1,
+                    "h04": 1,
+                    "h05": 1,
+                    "h06": 1,
+                    "h07": 1,
+                    "h08": 1,
+                    "h09": 1,
+                    "h10": 1,
+                    "h11": 1,
+                    "h12": 1,
+                    "h13": 1,
+                    "h14": 1
+                  },
+                  "reincarnationHistory": [],
+                  "pvpWins": 1,
+                  "pvpLosses": 2,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "backups": []
+            }
+          },
+          {
+            "name": "reset-requires-safe-default-dialog",
+            "passed": true,
+            "details": {
+              "dialog": {
+                "kind": "message",
+                "options": {
+                  "type": "warning",
+                  "title": "진행 초기화",
+                  "message": "진행을 초기화할까요?",
+                  "detail": "레벨·재화·영웅·동료·도감 등 게임 진행이 처음으로 돌아갑니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+                  "buttons": [
+                    "취소",
+                    "백업 후 초기화"
+                  ],
+                  "defaultId": 0,
+                  "cancelId": 0,
+                  "noLink": true
+                },
+                "response": 1
+              }
+            }
+          },
+          {
+            "name": "reset-preserves-identity-settings-and-id-highwater",
+            "passed": true,
+            "details": {
+              "reset": {
+                "version": 3,
+                "level": 1,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 0,
+                "items": {},
+                "monsterIndex": 0,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "10",
+                "companions": [],
+                "nextCompanionId": 8,
+                "earlyCaptureUsed": 0,
+                "souls": 0,
+                "rebirths": 0,
+                "bestIndex": 0,
+                "pvpParty": [],
+                "releasedCount": 0,
+                "progress": {
+                  "playTimeMs": 0,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 1,
+                  "pvpLosses": 2,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "priorIdentity": {
+                "name": "FixtureMe",
+                "playerId": "fixture-me",
+                "token": "fixture-me-token",
+                "notifiedTheftIds": [],
+                "pvpHistory": {
+                  "wins": 1,
+                  "losses": 2,
+                  "matchIds": [
+                    "0000000000000001"
+                  ]
+                }
+              },
+              "priorSettings": {
+                "gameScale": 1,
+                "muted": true,
+                "screenShake": true,
+                "welcomeSeen": true,
+                "globalInputRequested": false
+              }
+            }
+          },
+          {
+            "name": "reset-creates-verified-visible-checkpoint",
+            "passed": true,
+            "details": {
+              "list": [
+                {
+                  "id": "d304233b-a616-47a6-8cf8-4c38dc14a7a6",
+                  "at": 1789465082253,
+                  "reason": "reset",
+                  "level": 27,
+                  "bestIndex": 1000,
+                  "companions": 3
+                }
+              ]
+            }
+          },
+          {
+            "name": "stale-generation-rejected-through-real-preload",
+            "passed": true,
+            "details": {
+              "accepted": false,
+              "generation": 7,
+              "currentGeneration": 8
+            }
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "field-hud",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/field-hud.png",
+            "sha256": "aa4c3e91987cec736f9bdcb05b9a13fcbeb0b6112adeb40e9b854c420fee686c"
+          },
+          {
+            "name": "hero",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/hero.png",
+            "sha256": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2"
+          },
+          {
+            "name": "ranking-rebirths",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/ranking-rebirths.png",
+            "sha256": "768ef79c70ffd1cbba6b2ed8886caef794f3904eb7df2b689f252a9b981369a8"
+          },
+          {
+            "name": "battle-result",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/battle-result.png",
+            "sha256": "33556bf37df7920f4ea825ce34f344c493e16be68256a085ed3452570a947af2"
+          },
+          {
+            "name": "share-modal-hero",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-modal-hero.png",
+            "sha256": "b3e763bad9c9b689c4fb566f5487ae3664ade3f2fbc1dcf1d857219eb91fd11c"
+          },
+          {
+            "name": "share-modal-pvp",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-modal-pvp.png",
+            "sha256": "1287d584f6e766609aef3d458ff4ff7cf7bbbe945a88015bf2cf2f04a3d81ea3"
+          },
+          {
+            "name": "reset-checkpoint",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/reset-checkpoint.png",
+            "sha256": "0ed4f4799b326d818e4fd78b89805d8cc6cbf1fc0f8e3fcf713c880c3eb9f0fd"
+          }
+        ],
+        "pngs": [
+          {
+            "kind": "hero",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-hero.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 37430,
+            "decodedBytes": 4321200,
+            "sha256": "a140c48672f1ac02653a1fd2346fceed79b080d3635eb00b56f4b048a9c0758d"
+          },
+          {
+            "kind": "companion",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-companion.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 26217,
+            "decodedBytes": 4321200,
+            "sha256": "160340a48f87471672ad7183998ece81e78e2394f4627749ec2beb61dd639ee9"
+          },
+          {
+            "kind": "party",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-party.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 38399,
+            "decodedBytes": 4321200,
+            "sha256": "3b0c7e41dd7341808099826fac29893b60c7c8b764df32293b27bf340b6147f4"
+          },
+          {
+            "kind": "codex",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-codex.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 48483,
+            "decodedBytes": 4321200,
+            "sha256": "3ab6b4814b6ea55d4220a2b2d16cb9af620019fe3daf516ec2519ca7f7cdc5b6"
+          },
+          {
+            "kind": "codex-monster",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-codex-monster.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 48910,
+            "decodedBytes": 4321200,
+            "sha256": "0e76d23cfe75a030c146416af6e0e40fb2db64f0c47350fc0b4fae2d5d57034d"
+          },
+          {
+            "kind": "field",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-field.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 32942,
+            "decodedBytes": 4321200,
+            "sha256": "1624f2315bad55564cffcfc5c86f61d9e1a1e0a3f9088cf25b40733c87aa1133"
+          },
+          {
+            "kind": "pvp",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-pvp.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 34752,
+            "decodedBytes": 4321200,
+            "sha256": "5bfddd46e6e7dc46688c7d483ac25e63cd86d9677324312d113935713d24446e"
+          },
+          {
+            "kind": "clipboard",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/clipboard-7.png",
+            "width": 1200,
+            "height": 1200,
+            "bytes": 34752,
+            "decodedBytes": 4321200,
+            "sha256": "5bfddd46e6e7dc46688c7d483ac25e63cd86d9677324312d113935713d24446e"
+          }
+        ],
+        "errors": [],
+        "restore": {
+          "checkpointId": "d304233b-a616-47a6-8cf8-4c38dc14a7a6",
+          "before": {
+            "version": 3,
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 1234567,
+            "items": {},
+            "monsterIndex": 1000,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "309470158987657483911730",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "dragon",
+                "bossIndex": 63,
+                "level": 100,
+                "stars": 3
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 30,
+                "stars": 1
+              },
+              {
+                "id": "s7",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 1,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 8,
+            "earlyCaptureUsed": 3,
+            "souls": 0,
+            "rebirths": 2,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1"
+            ],
+            "releasedCount": 0,
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 839.8999996423722,
+              "speciesKills": {
+                "slime": 1,
+                "bat": 1,
+                "ghost": 1,
+                "golem": 1,
+                "dragon": 1,
+                "lumibel": 1,
+                "kitekin": 1,
+                "rictus": 1,
+                "lichenwing": 1,
+                "brimhide": 1,
+                "sopwit": 1,
+                "nimbling": 1,
+                "hexweaver": 1,
+                "sumpfang": 1,
+                "anvilclaw": 1,
+                "snipclaw": 1,
+                "panewhirr": 1,
+                "chainwraith": 1,
+                "bramblebear": 1,
+                "ashtusk": 1,
+                "vespril": 1,
+                "fanjack": 1,
+                "gravebloom": 1,
+                "fellstump": 1,
+                "forgehulk": 1,
+                "murkin": 1,
+                "skitterel": 1,
+                "cryptshell": 1,
+                "quarryback": 1,
+                "bristlehog": 1,
+                "foamcap": 1,
+                "sporeplume": 1,
+                "sorrowstilt": 1,
+                "kabulk": 1,
+                "matchling": 1,
+                "gulpwick": 1,
+                "chimbrel": 1,
+                "sicklehood": 1,
+                "quagmaw": 1,
+                "wickmoth": 1,
+                "brammel": 1,
+                "lantessa": 1,
+                "hollowstag": 1,
+                "wickerhusk": 1,
+                "emberwren": 1,
+                "conchguard": 1,
+                "vaneknight": 1,
+                "voidmaw": 1,
+                "grumblode": 1,
+                "sootcap": 1,
+                "bellbuoy": 1,
+                "skreave": 1,
+                "shroudlamp": 1,
+                "chirrgrit": 1,
+                "steamfin": 1,
+                "quintel": 1,
+                "curlhart": 1,
+                "gallowplate": 1,
+                "gillstub": 1,
+                "kindletoad": 1,
+                "pondstrider": 1,
+                "gyrodillo": 1,
+                "mournbell": 1,
+                "cobbleroll": 1,
+                "flarecrow": 1,
+                "slushmaw": 1,
+                "cyclonarch": 1,
+                "hooklure": 1,
+                "flintwren": 1,
+                "hearthmole": 1,
+                "kraulk": 1,
+                "vellisk": 1,
+                "quietus": 1,
+                "moldwarp": 1,
+                "scorchbriar": 1,
+                "reefknight": 1,
+                "millox": 1,
+                "unblink": 1,
+                "spadeling": 1,
+                "kilnshell": 1,
+                "grumbol": 1,
+                "nubilan": 1,
+                "glasshade": 1,
+                "helmdelver": 1,
+                "charspine": 1,
+                "vorrow": 1,
+                "dartfinch": 1,
+                "inknuckle": 1,
+                "thornhare": 1,
+                "pyrecairn": 1,
+                "rainheron": 1,
+                "glidefin": 1,
+                "veilcap": 1,
+                "cairnlith": 1,
+                "slagram": 1,
+                "clubprawn": 1,
+                "whirlseed": 1,
+                "waxwick": 1,
+                "drusehog": 1,
+                "coalscythe": 1,
+                "kelpwarden": 1,
+                "velmoth": 1,
+                "nightlynx": 1,
+                "terrakin": 1,
+                "cindercoil": 1,
+                "dawnfinch": 1,
+                "kilnbeetle": 1,
+                "crownwyrm": 1,
+                "cinderhare": 1,
+                "duelphoenix": 1,
+                "furnaceox": 1,
+                "mistaxolotl": 1,
+                "pearlcrab": 1,
+                "tideleviathan": 1,
+                "frostnewt": 1,
+                "mirrorjelly": 1,
+                "anchornaut": 1,
+                "sunskipper": 1,
+                "courierowl": 1,
+                "stormmanta": 1,
+                "ribbonstoat": 1,
+                "arenakite": 1,
+                "zephyrstag": 1,
+                "duskarmadillo": 1,
+                "mossbadger": 1,
+                "crystaltortoise": 1,
+                "coinmole": 1,
+                "oathbison": 1,
+                "rootcolossus": 1,
+                "moonmoth": 1,
+                "inkferret": 1,
+                "cryptcervid": 1,
+                "maskimp": 1,
+                "victoryraven": 1,
+                "starvoid": 1
+              },
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon",
+                "lumibel",
+                "kitekin",
+                "rictus",
+                "lichenwing",
+                "brimhide",
+                "sopwit",
+                "nimbling",
+                "hexweaver",
+                "sumpfang",
+                "anvilclaw",
+                "snipclaw",
+                "panewhirr",
+                "chainwraith",
+                "bramblebear",
+                "ashtusk",
+                "vespril",
+                "fanjack",
+                "gravebloom",
+                "fellstump",
+                "forgehulk",
+                "murkin",
+                "skitterel",
+                "cryptshell",
+                "quarryback",
+                "bristlehog",
+                "foamcap",
+                "sporeplume",
+                "sorrowstilt",
+                "kabulk",
+                "matchling",
+                "gulpwick",
+                "chimbrel",
+                "sicklehood",
+                "quagmaw",
+                "wickmoth",
+                "brammel",
+                "lantessa",
+                "hollowstag",
+                "wickerhusk",
+                "emberwren",
+                "conchguard",
+                "vaneknight",
+                "voidmaw",
+                "grumblode",
+                "sootcap",
+                "bellbuoy",
+                "skreave",
+                "shroudlamp",
+                "chirrgrit",
+                "steamfin",
+                "quintel",
+                "curlhart",
+                "gallowplate",
+                "gillstub",
+                "kindletoad",
+                "pondstrider",
+                "gyrodillo",
+                "mournbell",
+                "cobbleroll",
+                "flarecrow",
+                "slushmaw",
+                "cyclonarch",
+                "hooklure",
+                "flintwren",
+                "hearthmole",
+                "kraulk",
+                "vellisk",
+                "quietus",
+                "moldwarp",
+                "scorchbriar",
+                "reefknight",
+                "millox",
+                "unblink",
+                "spadeling",
+                "kilnshell",
+                "grumbol",
+                "nubilan",
+                "glasshade",
+                "helmdelver",
+                "charspine",
+                "vorrow",
+                "dartfinch",
+                "inknuckle",
+                "thornhare",
+                "pyrecairn",
+                "rainheron",
+                "glidefin",
+                "veilcap",
+                "cairnlith",
+                "slagram",
+                "clubprawn",
+                "whirlseed",
+                "waxwick",
+                "drusehog",
+                "coalscythe",
+                "kelpwarden",
+                "velmoth",
+                "nightlynx",
+                "terrakin",
+                "cindercoil",
+                "dawnfinch",
+                "kilnbeetle",
+                "crownwyrm",
+                "cinderhare",
+                "duelphoenix",
+                "furnaceox",
+                "mistaxolotl",
+                "pearlcrab",
+                "tideleviathan",
+                "frostnewt",
+                "mirrorjelly",
+                "anchornaut",
+                "sunskipper",
+                "courierowl",
+                "stormmanta",
+                "ribbonstoat",
+                "arenakite",
+                "zephyrstag",
+                "duskarmadillo",
+                "mossbadger",
+                "crystaltortoise",
+                "coinmole",
+                "oathbison",
+                "rootcolossus",
+                "moonmoth",
+                "inkferret",
+                "cryptcervid",
+                "maskimp",
+                "victoryraven",
+                "starvoid"
+              ],
+              "seenHeroes": [
+                "h01",
+                "h02",
+                "h03",
+                "h04",
+                "h05",
+                "h06",
+                "h07",
+                "h08",
+                "h09",
+                "h10",
+                "h11",
+                "h12",
+                "h13",
+                "h14"
+              ],
+              "heroCounts": {
+                "h01": 1,
+                "h02": 1,
+                "h03": 1,
+                "h04": 1,
+                "h05": 1,
+                "h06": 1,
+                "h07": 1,
+                "h08": 1,
+                "h09": 1,
+                "h10": 1,
+                "h11": 1,
+                "h12": 1,
+                "h13": 1,
+                "h14": 1
+              },
+              "reincarnationHistory": [],
+              "pvpWins": 1,
+              "pvpLosses": 2,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "identity": {
+            "name": "FixtureMe",
+            "playerId": "fixture-me",
+            "token": "fixture-me-token",
+            "notifiedTheftIds": [],
+            "pvpHistory": {
+              "wins": 1,
+              "losses": 2,
+              "matchIds": [
+                "0000000000000001"
+              ]
+            }
+          },
+          "settings": {
+            "gameScale": 1,
+            "muted": true,
+            "screenShake": true,
+            "welcomeSeen": true,
+            "globalInputRequested": false
+          },
+          "nextCompanionId": 8
+        },
+        "finishedAt": "2026-09-15T09:38:02.385Z",
+        "passed": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app",
+        "appHash": "3692e162a73de3df7e596ee0756277dfe3496b26edd1591f6e1ce994ad00f044",
+        "launcherHash": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+        "startedAt": "2026-09-15T09:37:55.859Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-HJd71G",
+        "metadata": {
+          "version": "0.9.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-HJd71G",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/leaderboard",
+              "query": {
+                "n": "10",
+                "metric": "level"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "top": [
+                  {
+                    "rank": 1,
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "level": 45,
+                    "wins": 2,
+                    "losses": 0
+                  },
+                  {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  }
+                ],
+                "me": {
+                  "rank": 2,
+                  "name": "FixtureMe",
+                  "bestIndex": 1000,
+                  "rebirths": 2,
+                  "level": 27,
+                  "wins": 0,
+                  "losses": 2
+                },
+                "metric": "level"
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/leaderboard",
+              "query": {
+                "n": "10",
+                "metric": "level"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "top": [
+                  {
+                    "rank": 1,
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "level": 45,
+                    "wins": 2,
+                    "losses": 0
+                  },
+                  {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  }
+                ],
+                "me": {
+                  "rank": 2,
+                  "name": "FixtureMe",
+                  "bestIndex": 1000,
+                  "rebirths": 2,
+                  "level": 27,
+                  "wins": 0,
+                  "losses": 2
+                },
+                "metric": "level"
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/leaderboard",
+              "query": {
+                "n": "10",
+                "metric": "pvpWins"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "top": [
+                  {
+                    "rank": 1,
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "level": 45,
+                    "wins": 2,
+                    "losses": 0
+                  },
+                  {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  }
+                ],
+                "me": {
+                  "rank": 2,
+                  "name": "FixtureMe",
+                  "bestIndex": 1000,
+                  "rebirths": 2,
+                  "level": 27,
+                  "wins": 0,
+                  "losses": 2
+                },
+                "metric": "pvpWins"
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/leaderboard",
+              "query": {
+                "n": "10",
+                "metric": "bestIndex"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "top": [
+                  {
+                    "rank": 1,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  },
+                  {
+                    "rank": 2,
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "level": 45,
+                    "wins": 2,
+                    "losses": 0
+                  }
+                ],
+                "me": {
+                  "rank": 1,
+                  "name": "FixtureMe",
+                  "bestIndex": 1000,
+                  "rebirths": 2,
+                  "level": 27,
+                  "wins": 0,
+                  "losses": 2
+                },
+                "metric": "bestIndex"
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/leaderboard",
+              "query": {
+                "n": "10",
+                "metric": "rebirths"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "top": [
+                  {
+                    "rank": 1,
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "level": 45,
+                    "wins": 2,
+                    "losses": 0
+                  },
+                  {
+                    "rank": 2,
+                    "name": "FixtureMe",
+                    "bestIndex": 1000,
+                    "rebirths": 2,
+                    "level": 27,
+                    "wins": 0,
+                    "losses": 2
+                  }
+                ],
+                "me": {
+                  "rank": 2,
+                  "name": "FixtureMe",
+                  "bestIndex": 1000,
+                  "rebirths": 2,
+                  "level": 27,
+                  "wins": 0,
+                  "losses": 2
+                },
+                "metric": "rebirths"
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/thefts",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/opponents",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "opponents": [
+                  {
+                    "playerId": "fixture-foe",
+                    "rank": 2,
+                    "name": "FixtureFoe",
+                    "bestIndex": 25,
+                    "rebirths": 5,
+                    "hero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    },
+                    "party": [
+                      {
+                        "id": "c1",
+                        "speciesId": "slime",
+                        "bossIndex": 7,
+                        "level": 1,
+                        "stars": 0
+                      }
+                    ],
+                    "wins": 2,
+                    "losses": 0
+                  }
+                ]
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "level": 27,
+                "bestIndex": 1000,
+                "rebirths": 2,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  }
+                ],
+                "party": [
+                  "c1"
+                ],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": []
+              }
+            },
+            {
+              "method": "POST",
+              "path": "/v1/pvp/match",
+              "query": {},
+              "body": {
+                "opponentId": "fixture-foe"
+              },
+              "status": 200,
+              "result": {
+                "matchId": "0000000000000001",
+                "seed": 7,
+                "bot": false,
+                "opponent": {
+                  "playerId": "fixture-foe",
+                  "name": "FixtureFoe",
+                  "bestIndex": 25,
+                  "rebirths": 5,
+                  "party": [
+                    {
+                      "id": "c1",
+                      "speciesId": "slime",
+                      "bossIndex": 7,
+                      "level": 1,
+                      "stars": 0
+                    }
+                  ],
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  }
+                },
+                "expiresAt": 1789465200144
+              }
+            },
+            {
+              "method": "POST",
+              "path": "/v1/pvp",
+              "query": {},
+              "body": {
+                "matchId": "0000000000000001",
+                "party": [
+                  "c1"
+                ]
+              },
+              "status": 200,
+              "result": {
+                "matchId": "0000000000000001",
+                "record": {
+                  "wins": 1,
+                  "losses": 2
+                },
+                "bot": false,
+                "seed": 7,
+                "win": true,
+                "opponent": {
+                  "playerId": "fixture-foe",
+                  "name": "FixtureFoe",
+                  "bestIndex": 25,
+                  "rebirths": 5,
+                  "party": [
+                    {
+                      "id": "c1",
+                      "speciesId": "slime",
+                      "bossIndex": 7,
+                      "level": 1,
+                      "stars": 0
+                    }
+                  ],
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  }
+                },
+                "blows": [
+                  {
+                    "side": "A",
+                    "actorId": "c1",
+                    "targetId": "c1",
+                    "damage": "1333200",
+                    "ko": true
+                  }
+                ],
+                "stolen": {
+                  "id": "s7",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 1,
+                  "stars": 0
+                },
+                "lost": null
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 1,
+                "losses": 2,
+                "revokedIds": [],
+                "lastMatch": {
+                  "matchId": "0000000000000001",
+                  "result": {
+                    "matchId": "0000000000000001",
+                    "record": {
+                      "wins": 1,
+                      "losses": 2
+                    },
+                    "bot": false,
+                    "seed": 7,
+                    "win": true,
+                    "opponent": {
+                      "playerId": "fixture-foe",
+                      "name": "FixtureFoe",
+                      "bestIndex": 25,
+                      "rebirths": 5,
+                      "party": [
+                        {
+                          "id": "c1",
+                          "speciesId": "slime",
+                          "bossIndex": 7,
+                          "level": 1,
+                          "stars": 0
+                        }
+                      ],
+                      "hero": {
+                        "formId": "h00",
+                        "buffPercent": 0
+                      }
+                    },
+                    "blows": [
+                      {
+                        "side": "A",
+                        "actorId": "c1",
+                        "targetId": "c1",
+                        "damage": "1333200",
+                        "ko": true
+                      }
+                    ],
+                    "stolen": {
+                      "id": "s7",
+                      "speciesId": "slime",
+                      "bossIndex": 7,
+                      "level": 1,
+                      "stars": 0
+                    },
+                    "lost": null
+                  }
+                },
+                "lastReclaim": null
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/thefts",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "thefts": []
+              }
+            }
+          ],
+          "dialogs": [
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-hero.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-hero"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-companion.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-companion"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-party.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-party"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-codex-hero-1.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-codex"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-codex-monster-1.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-codex-monster"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-field.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-field"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-pvp.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "share-pvp"
+            },
+            {
+              "kind": "save",
+              "options": {
+                "title": "공유 이미지 저장",
+                "defaultPath": "DesMon-pvp.png",
+                "filters": [
+                  {
+                    "name": "PNG 이미지",
+                    "extensions": [
+                      "png"
+                    ]
+                  }
+                ]
+              },
+              "answer": "cancel"
+            },
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "진행 초기화",
+                "message": "진행을 초기화할까요?",
+                "detail": "레벨·재화·영웅·동료·도감 등 게임 진행이 처음으로 돌아갑니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+                "buttons": [
+                  "취소",
+                  "백업 후 초기화"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 0
+            },
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "진행 초기화",
+                "message": "진행을 초기화할까요?",
+                "detail": "레벨·재화·영웅·동료·도감 등 게임 진행이 처음으로 돌아갑니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+                "buttons": [
+                  "취소",
+                  "백업 후 초기화"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 1
+            }
+          ],
+          "exports": [
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-hero.png"
+            },
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-companion.png"
+            },
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-party.png"
+            },
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-codex.png"
+            },
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-codex-monster.png"
+            },
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-field.png"
+            },
+            {
+              "kind": "file",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-pvp.png"
+            },
+            {
+              "kind": "clipboard",
+              "filePath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/clipboard-7.png"
+            }
+          ],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-HJd71G",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher",
+          "clock": "real time",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 109,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-15T09:38:02.655Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "phase": "restart",
+      "ui": {
+        "version": 9,
+        "phase": "restart",
+        "startedAt": "2026-09-15T09:38:03.268Z",
+        "checks": [
+          {
+            "name": "isolated-production-windows",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "reset-survives-app-restart",
+            "passed": true,
+            "details": {
+              "fresh": {
+                "version": 3,
+                "level": 1,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 0,
+                "items": {},
+                "monsterIndex": 0,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "10",
+                "companions": [],
+                "nextCompanionId": 8,
+                "earlyCaptureUsed": 0,
+                "souls": 0,
+                "rebirths": 0,
+                "bestIndex": 0,
+                "pvpParty": [],
+                "releasedCount": 0,
+                "progress": {
+                  "playTimeMs": 165.70000009536744,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 1,
+                  "pvpLosses": 2,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "checkpoint-survives-app-restart",
+            "passed": true,
+            "details": {
+              "list": [
+                {
+                  "id": "d304233b-a616-47a6-8cf8-4c38dc14a7a6",
+                  "at": 1789465082253,
+                  "reason": "reset",
+                  "level": 27,
+                  "bestIndex": 1000,
+                  "companions": 3
+                }
+              ]
+            }
+          },
+          {
+            "name": "restore-cancel-preserves-current-progress",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "restore-recovers-progress-with-durable-identity-and-ids",
+            "passed": true,
+            "details": {
+              "restored": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1234567,
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657482577568",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "dragon",
+                    "bossIndex": 63,
+                    "level": 100,
+                    "stars": 3
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 30,
+                    "stars": 1
+                  },
+                  {
+                    "id": "s7",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 1,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 8,
+                "earlyCaptureUsed": 3,
+                "souls": 0,
+                "rebirths": 2,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1"
+                ],
+                "releasedCount": 0,
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 2565.8999996185303,
+                  "speciesKills": {
+                    "slime": 1,
+                    "bat": 1,
+                    "ghost": 1,
+                    "golem": 1,
+                    "dragon": 1,
+                    "lumibel": 1,
+                    "kitekin": 1,
+                    "rictus": 1,
+                    "lichenwing": 1,
+                    "brimhide": 1,
+                    "sopwit": 1,
+                    "nimbling": 1,
+                    "hexweaver": 1,
+                    "sumpfang": 1,
+                    "anvilclaw": 1,
+                    "snipclaw": 1,
+                    "panewhirr": 1,
+                    "chainwraith": 1,
+                    "bramblebear": 1,
+                    "ashtusk": 1,
+                    "vespril": 1,
+                    "fanjack": 1,
+                    "gravebloom": 1,
+                    "fellstump": 1,
+                    "forgehulk": 1,
+                    "murkin": 1,
+                    "skitterel": 1,
+                    "cryptshell": 1,
+                    "quarryback": 1,
+                    "bristlehog": 1,
+                    "foamcap": 1,
+                    "sporeplume": 1,
+                    "sorrowstilt": 1,
+                    "kabulk": 1,
+                    "matchling": 1,
+                    "gulpwick": 1,
+                    "chimbrel": 1,
+                    "sicklehood": 1,
+                    "quagmaw": 1,
+                    "wickmoth": 1,
+                    "brammel": 1,
+                    "lantessa": 1,
+                    "hollowstag": 1,
+                    "wickerhusk": 1,
+                    "emberwren": 1,
+                    "conchguard": 1,
+                    "vaneknight": 1,
+                    "voidmaw": 1,
+                    "grumblode": 1,
+                    "sootcap": 1,
+                    "bellbuoy": 1,
+                    "skreave": 1,
+                    "shroudlamp": 1,
+                    "chirrgrit": 1,
+                    "steamfin": 1,
+                    "quintel": 1,
+                    "curlhart": 1,
+                    "gallowplate": 1,
+                    "gillstub": 1,
+                    "kindletoad": 1,
+                    "pondstrider": 1,
+                    "gyrodillo": 1,
+                    "mournbell": 1,
+                    "cobbleroll": 1,
+                    "flarecrow": 1,
+                    "slushmaw": 1,
+                    "cyclonarch": 1,
+                    "hooklure": 1,
+                    "flintwren": 1,
+                    "hearthmole": 1,
+                    "kraulk": 1,
+                    "vellisk": 1,
+                    "quietus": 1,
+                    "moldwarp": 1,
+                    "scorchbriar": 1,
+                    "reefknight": 1,
+                    "millox": 1,
+                    "unblink": 1,
+                    "spadeling": 1,
+                    "kilnshell": 1,
+                    "grumbol": 1,
+                    "nubilan": 1,
+                    "glasshade": 1,
+                    "helmdelver": 1,
+                    "charspine": 1,
+                    "vorrow": 1,
+                    "dartfinch": 1,
+                    "inknuckle": 1,
+                    "thornhare": 1,
+                    "pyrecairn": 1,
+                    "rainheron": 1,
+                    "glidefin": 1,
+                    "veilcap": 1,
+                    "cairnlith": 1,
+                    "slagram": 1,
+                    "clubprawn": 1,
+                    "whirlseed": 1,
+                    "waxwick": 1,
+                    "drusehog": 1,
+                    "coalscythe": 1,
+                    "kelpwarden": 1,
+                    "velmoth": 1,
+                    "nightlynx": 1,
+                    "terrakin": 1,
+                    "cindercoil": 1,
+                    "dawnfinch": 1,
+                    "kilnbeetle": 1,
+                    "crownwyrm": 1,
+                    "cinderhare": 1,
+                    "duelphoenix": 1,
+                    "furnaceox": 1,
+                    "mistaxolotl": 1,
+                    "pearlcrab": 1,
+                    "tideleviathan": 1,
+                    "frostnewt": 1,
+                    "mirrorjelly": 1,
+                    "anchornaut": 1,
+                    "sunskipper": 1,
+                    "courierowl": 1,
+                    "stormmanta": 1,
+                    "ribbonstoat": 1,
+                    "arenakite": 1,
+                    "zephyrstag": 1,
+                    "duskarmadillo": 1,
+                    "mossbadger": 1,
+                    "crystaltortoise": 1,
+                    "coinmole": 1,
+                    "oathbison": 1,
+                    "rootcolossus": 1,
+                    "moonmoth": 1,
+                    "inkferret": 1,
+                    "cryptcervid": 1,
+                    "maskimp": 1,
+                    "victoryraven": 1,
+                    "starvoid": 1
+                  },
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon",
+                    "lumibel",
+                    "kitekin",
+                    "rictus",
+                    "lichenwing",
+                    "brimhide",
+                    "sopwit",
+                    "nimbling",
+                    "hexweaver",
+                    "sumpfang",
+                    "anvilclaw",
+                    "snipclaw",
+                    "panewhirr",
+                    "chainwraith",
+                    "bramblebear",
+                    "ashtusk",
+                    "vespril",
+                    "fanjack",
+                    "gravebloom",
+                    "fellstump",
+                    "forgehulk",
+                    "murkin",
+                    "skitterel",
+                    "cryptshell",
+                    "quarryback",
+                    "bristlehog",
+                    "foamcap",
+                    "sporeplume",
+                    "sorrowstilt",
+                    "kabulk",
+                    "matchling",
+                    "gulpwick",
+                    "chimbrel",
+                    "sicklehood",
+                    "quagmaw",
+                    "wickmoth",
+                    "brammel",
+                    "lantessa",
+                    "hollowstag",
+                    "wickerhusk",
+                    "emberwren",
+                    "conchguard",
+                    "vaneknight",
+                    "voidmaw",
+                    "grumblode",
+                    "sootcap",
+                    "bellbuoy",
+                    "skreave",
+                    "shroudlamp",
+                    "chirrgrit",
+                    "steamfin",
+                    "quintel",
+                    "curlhart",
+                    "gallowplate",
+                    "gillstub",
+                    "kindletoad",
+                    "pondstrider",
+                    "gyrodillo",
+                    "mournbell",
+                    "cobbleroll",
+                    "flarecrow",
+                    "slushmaw",
+                    "cyclonarch",
+                    "hooklure",
+                    "flintwren",
+                    "hearthmole",
+                    "kraulk",
+                    "vellisk",
+                    "quietus",
+                    "moldwarp",
+                    "scorchbriar",
+                    "reefknight",
+                    "millox",
+                    "unblink",
+                    "spadeling",
+                    "kilnshell",
+                    "grumbol",
+                    "nubilan",
+                    "glasshade",
+                    "helmdelver",
+                    "charspine",
+                    "vorrow",
+                    "dartfinch",
+                    "inknuckle",
+                    "thornhare",
+                    "pyrecairn",
+                    "rainheron",
+                    "glidefin",
+                    "veilcap",
+                    "cairnlith",
+                    "slagram",
+                    "clubprawn",
+                    "whirlseed",
+                    "waxwick",
+                    "drusehog",
+                    "coalscythe",
+                    "kelpwarden",
+                    "velmoth",
+                    "nightlynx",
+                    "terrakin",
+                    "cindercoil",
+                    "dawnfinch",
+                    "kilnbeetle",
+                    "crownwyrm",
+                    "cinderhare",
+                    "duelphoenix",
+                    "furnaceox",
+                    "mistaxolotl",
+                    "pearlcrab",
+                    "tideleviathan",
+                    "frostnewt",
+                    "mirrorjelly",
+                    "anchornaut",
+                    "sunskipper",
+                    "courierowl",
+                    "stormmanta",
+                    "ribbonstoat",
+                    "arenakite",
+                    "zephyrstag",
+                    "duskarmadillo",
+                    "mossbadger",
+                    "crystaltortoise",
+                    "coinmole",
+                    "oathbison",
+                    "rootcolossus",
+                    "moonmoth",
+                    "inkferret",
+                    "cryptcervid",
+                    "maskimp",
+                    "victoryraven",
+                    "starvoid"
+                  ],
+                  "seenHeroes": [
+                    "h01",
+                    "h02",
+                    "h03",
+                    "h04",
+                    "h05",
+                    "h06",
+                    "h07",
+                    "h08",
+                    "h09",
+                    "h10",
+                    "h11",
+                    "h12",
+                    "h13",
+                    "h14"
+                  ],
+                  "heroCounts": {
+                    "h01": 1,
+                    "h02": 1,
+                    "h03": 1,
+                    "h04": 1,
+                    "h05": 1,
+                    "h06": 1,
+                    "h07": 1,
+                    "h08": 1,
+                    "h09": 1,
+                    "h10": 1,
+                    "h11": 1,
+                    "h12": 1,
+                    "h13": 1,
+                    "h14": 1
+                  },
+                  "reincarnationHistory": [],
+                  "pvpWins": 1,
+                  "pvpLosses": 2,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              }
+            }
+          },
+          {
+            "name": "restore-backs-up-current-progress-first",
+            "passed": true,
+            "details": {
+              "after": [
+                {
+                  "id": "1540dc55-4d17-43fa-b26d-93f0cf9bc4ca",
+                  "at": 1789465083829,
+                  "reason": "restore",
+                  "level": 1,
+                  "bestIndex": 0,
+                  "companions": 0
+                },
+                {
+                  "id": "d304233b-a616-47a6-8cf8-4c38dc14a7a6",
+                  "at": 1789465082253,
+                  "reason": "reset",
+                  "level": 27,
+                  "bestIndex": 1000,
+                  "companions": 3
+                }
+              ]
+            }
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "field-hud",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/field-hud.png",
+            "sha256": "f948734fedf16723449ad139d8df053882f24cb16d88897c0126486a40e12917"
+          },
+          {
+            "name": "hero",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/hero.png",
+            "sha256": "06c1af81f53d1b834cdb2a62a484e55ac11988b4ec9bbfc940637d63920a5b7f"
+          },
+          {
+            "name": "restart-checkpoint",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/restart-checkpoint.png",
+            "sha256": "8f8c1d1d70931d64dfea0b97d37a700221de989e5c9f2270de9c3e9cfc0028d8"
+          },
+          {
+            "name": "restored-checkpoints",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/restored-checkpoints.png",
+            "sha256": "5307a095e0d7517ba59979f94a4b0f7adb2d8ddf8e7eb54fbb8d341da655110e"
+          },
+          {
+            "name": "restored-hero",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/restored-hero.png",
+            "sha256": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2"
+          }
+        ],
+        "pngs": [],
+        "errors": [],
+        "restore": null,
+        "finishedAt": "2026-09-15T09:38:04.041Z",
+        "passed": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app",
+        "appHash": "3692e162a73de3df7e596ee0756277dfe3496b26edd1591f6e1ce994ad00f044",
+        "launcherHash": "466c8ad3d53e02995552cf597910a2f11679be9ec0278a751abeb862b27674c6",
+        "startedAt": "2026-09-15T09:38:02.661Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-HJd71G",
+        "metadata": {
+          "version": "0.9.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-HJd71G",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [],
+          "dialogs": [
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "진행 복원",
+                "message": "선택한 백업 시점으로 돌아갈까요?",
+                "detail": "백업 이후의 로컬 진행은 선택한 시점으로 교체됩니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+                "buttons": [
+                  "취소",
+                  "백업으로 복원"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 0
+            },
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "진행 복원",
+                "message": "선택한 백업 시점으로 돌아갈까요?",
+                "detail": "백업 이후의 로컬 진행은 선택한 시점으로 교체됩니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+                "buttons": [
+                  "취소",
+                  "백업으로 복원"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 1
+            }
+          ],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v09-ui-HJd71G",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/installed-02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher",
+          "clock": "real time",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 109,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-15T09:38:04.249Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true,
+  "sourceUnchanged": true,
+  "finishedAt": "2026-09-15T09:38:04.269Z",
+  "artifacts": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/battle-result.png": "33556bf37df7920f4ea825ce34f344c493e16be68256a085ed3452570a947af2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/clipboard-7.png": "5bfddd46e6e7dc46688c7d483ac25e63cd86d9677324312d113935713d24446e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/field-hud.png": "aa4c3e91987cec736f9bdcb05b9a13fcbeb0b6112adeb40e9b854c420fee686c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/hero.png": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/ranking-rebirths.png": "768ef79c70ffd1cbba6b2ed8886caef794f3904eb7df2b689f252a9b981369a8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/reset-checkpoint.png": "0ed4f4799b326d818e4fd78b89805d8cc6cbf1fc0f8e3fcf713c880c3eb9f0fd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/runtime-start.json": "b9a8fd022d620a2285762f8119ad4096656e1357ab6dfb93ff2482f5765efb7c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/runtime.json": "aaa0e974011398f1785e1affc72bfbefb7188c2c054c2fce95a43a13e54b7797",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/runtime.log": "26d7e33ad599706cd3043b7828a0cc9cc30145f028bca03110f1e8031d432184",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-codex-monster.png": "0e76d23cfe75a030c146416af6e0e40fb2db64f0c47350fc0b4fae2d5d57034d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-codex.png": "3ab6b4814b6ea55d4220a2b2d16cb9af620019fe3daf516ec2519ca7f7cdc5b6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-companion.png": "160340a48f87471672ad7183998ece81e78e2394f4627749ec2beb61dd639ee9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-field.png": "1624f2315bad55564cffcfc5c86f61d9e1a1e0a3f9088cf25b40733c87aa1133",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-hero.png": "a140c48672f1ac02653a1fd2346fceed79b080d3635eb00b56f4b048a9c0758d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-modal-hero.png": "b3e763bad9c9b689c4fb566f5487ae3664ade3f2fbc1dcf1d857219eb91fd11c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-modal-pvp.png": "1287d584f6e766609aef3d458ff4ff7cf7bbbe945a88015bf2cf2f04a3d81ea3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-party.png": "3b0c7e41dd7341808099826fac29893b60c7c8b764df32293b27bf340b6147f4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/share-pvp.png": "5bfddd46e6e7dc46688c7d483ac25e63cd86d9677324312d113935713d24446e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/first/ui.json": "434095672a6bcba61cc00b1b51ca39927e155933118f3daf5abde8882b60a930",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/field-hud.png": "f948734fedf16723449ad139d8df053882f24cb16d88897c0126486a40e12917",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/hero.png": "06c1af81f53d1b834cdb2a62a484e55ac11988b4ec9bbfc940637d63920a5b7f",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/restart-checkpoint.png": "8f8c1d1d70931d64dfea0b97d37a700221de989e5c9f2270de9c3e9cfc0028d8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/restored-checkpoints.png": "5307a095e0d7517ba59979f94a4b0f7adb2d8ddf8e7eb54fbb8d341da655110e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/restored-hero.png": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/runtime-start.json": "221d217e399fdc954e59650f27d7dd0b85cdc43da6b576b810ee2646f551d2a8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/runtime.json": "affbe6856c6022f96e121471320a3d5dbbcf4846038c2f124ba766c37242207c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/runtime.log": "e291f6d056d6c4c550f5e5c2648eae6875a64b0d48500e1cfe121f31b0c4f409",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-05/restart/ui.json": "faec39cdcd04d0231ec79db9e9a3ed7dd9a75217677a65fe2dfd059b8b9eecb8"
+  }
+}

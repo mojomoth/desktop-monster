@@ -1,0 +1,5893 @@
+{
+  "version": 91,
+  "phase": "interrupt",
+  "startedAt": "2026-09-17T03:21:45.273Z",
+  "checks": [
+    {
+      "name": "production-field-and-wallets",
+      "passed": true,
+      "details": {
+        "initial": {
+          "rows": [
+            {
+              "id": "fixture-me",
+              "name": "FixtureMe",
+              "snapshot": {
+                "name": "FixtureMe",
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "party": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "level": 27,
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "stolenIds": [],
+              "lastPvpAt": null,
+              "thefts": [],
+              "wins": 0,
+              "losses": 0,
+              "revokedIds": [],
+              "lastMatch": null,
+              "lastReclaim": null,
+              "goldAccount": {
+                "revision": 2,
+                "net": "0",
+                "balance": 1000,
+                "enrolled": true,
+                "day": 20713,
+                "peak": 1000,
+                "gained": 0,
+                "lost": 0,
+                "pairs": {},
+                "lastDefenseAt": null,
+                "eventSeq": 0,
+                "events": []
+              }
+            },
+            {
+              "id": "fixture-foe",
+              "name": "FixtureFoe",
+              "snapshot": {
+                "name": "FixtureFoe",
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "party": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "level": 27,
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              },
+              "stolenIds": [],
+              "lastPvpAt": null,
+              "thefts": [],
+              "wins": 0,
+              "losses": 0,
+              "revokedIds": [],
+              "lastMatch": null,
+              "lastReclaim": null,
+              "goldAccount": {
+                "revision": 1,
+                "net": "0",
+                "balance": 1000,
+                "enrolled": true,
+                "day": 20713,
+                "peak": 1000,
+                "gained": 0,
+                "lost": 0,
+                "pairs": {},
+                "lastDefenseAt": null,
+                "eventSeq": 0,
+                "events": []
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "url": "file:///private/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v091-install-foddb84m/installed/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        },
+        "before": {
+          "save": {
+            "version": 3,
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 1000,
+            "pvpGoldNet": "0",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monsterIndex": 1000,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "309470158987657483911730",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 93.50000009536743,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "state": {
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 1000,
+            "pvpGoldNet": "0",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monster": {
+              "index": 1000,
+              "speciesId": "slime",
+              "name": "Slime Lv.10",
+              "maxHp": "309470158987657483911730",
+              "tier": 9,
+              "boss": false,
+              "type": "water"
+            },
+            "monsterHp": "309470158987657483911730",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "fever": {
+              "active": false,
+              "remainingMs": 0
+            },
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 93.50000009536743,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 0,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "replaying": false,
+          "paused": false,
+          "generation": 1,
+          "status": {
+            "hidden": true,
+            "text": "",
+            "top": 0,
+            "bottom": 0,
+            "viewportHeight": 260,
+            "whiteSpace": "nowrap",
+            "textOverflow": "ellipsis"
+          },
+          "transitions": [
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": false,
+              "paused": false,
+              "generation": 1,
+              "status": {
+                "hidden": true,
+                "text": "",
+                "top": 0,
+                "bottom": 0,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 293.6999999284744,
+              "wallAt": 1789615305304
+            }
+          ],
+          "inputEvents": {
+            "keyboard": 0,
+            "mouse": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "server-defense-and-viewer-perspective",
+      "passed": true,
+      "details": {
+        "match": {
+          "status": 200,
+          "body": {
+            "matchId": "0000000000000001",
+            "seed": 7,
+            "bot": false,
+            "opponent": {
+              "playerId": "fixture-me",
+              "name": "FixtureMe",
+              "bestIndex": 1000,
+              "rebirths": 0,
+              "party": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 15,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 23,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 31,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 39,
+                  "level": 10,
+                  "stars": 0
+                }
+              ],
+              "hero": {
+                "formId": "h00",
+                "buffPercent": 0
+              }
+            },
+            "expiresAt": 1789615425344
+          }
+        },
+        "battle": {
+          "status": 200,
+          "body": {
+            "matchId": "0000000000000001",
+            "record": {
+              "wins": 1,
+              "losses": 0
+            },
+            "bot": false,
+            "seed": 7,
+            "win": true,
+            "opponent": {
+              "playerId": "fixture-me",
+              "name": "FixtureMe",
+              "bestIndex": 1000,
+              "rebirths": 0,
+              "party": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 15,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 23,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 31,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 39,
+                  "level": 10,
+                  "stars": 0
+                }
+              ],
+              "hero": {
+                "formId": "h00",
+                "buffPercent": 0
+              }
+            },
+            "blows": [
+              {
+                "side": "A",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c2",
+                "targetId": "c2",
+                "damage": "40",
+                "ko": true
+              },
+              {
+                "side": "D",
+                "actorId": "c1",
+                "targetId": "c2",
+                "damage": "5",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c2",
+                "targetId": "c1",
+                "damage": "80",
+                "ko": true
+              },
+              {
+                "side": "D",
+                "actorId": "c3",
+                "targetId": "c2",
+                "damage": "240",
+                "ko": true
+              },
+              {
+                "side": "A",
+                "actorId": "c1",
+                "targetId": "c3",
+                "damage": "20",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c3",
+                "targetId": "c1",
+                "damage": "60",
+                "ko": true
+              },
+              {
+                "side": "A",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c3",
+                "targetId": "c3",
+                "damage": "120",
+                "ko": true
+              },
+              {
+                "side": "D",
+                "actorId": "c5",
+                "targetId": "c3",
+                "damage": "580",
+                "ko": true
+              },
+              {
+                "side": "A",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "D",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c5",
+                "targetId": "c5",
+                "damage": "1160",
+                "ko": true
+              },
+              {
+                "side": "D",
+                "actorId": "c4",
+                "targetId": "c5",
+                "damage": "190",
+                "ko": false
+              },
+              {
+                "side": "A",
+                "actorId": "c5",
+                "targetId": "c4",
+                "damage": "2320",
+                "ko": true
+              }
+            ],
+            "stolen": null,
+            "lost": null,
+            "gold": {
+              "amount": 50,
+              "delta": 50,
+              "reason": "transfer"
+            },
+            "ownParty": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "ownHero": {
+              "formId": "h00",
+              "buffPercent": 0
+            }
+          }
+        },
+        "startedAt": 1789615305344,
+        "event": {
+          "seq": 1,
+          "at": 1789615305345,
+          "presentation": {
+            "battleId": "0000000000000001-D",
+            "role": "defense",
+            "ownParty": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "ownHero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "replay": {
+              "opponentName": "FixtureFoe",
+              "opponentParty": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 15,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 23,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 31,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 39,
+                  "level": 10,
+                  "stars": 0
+                }
+              ],
+              "opponentHero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "blows": [
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "damage": "5",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c1",
+                  "damage": "80",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c2",
+                  "damage": "240",
+                  "ko": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c3",
+                  "damage": "20",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c1",
+                  "damage": "60",
+                  "ko": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c3",
+                  "damage": "580",
+                  "ko": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c4",
+                  "targetId": "c5",
+                  "damage": "190",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c4",
+                  "damage": "2320",
+                  "ko": true
+                }
+              ]
+            },
+            "won": false,
+            "goldDelta": -50
+          }
+        }
+      }
+    },
+    {
+      "name": "notification-independent-five-second-delivery",
+      "passed": true,
+      "details": {
+        "deliveryMs": 4902,
+        "nominalPollMs": 5000,
+        "schedulingAllowanceMs": 1000,
+        "start": {
+          "save": {
+            "version": 3,
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monsterIndex": 1000,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "state": {
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monster": {
+              "index": 1000,
+              "speciesId": "slime",
+              "name": "Slime Lv.10",
+              "maxHp": "309470158987657483911730",
+              "tier": 9,
+              "boss": false,
+              "type": "water"
+            },
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "fever": {
+              "active": false,
+              "remainingMs": 0
+            },
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "replaying": true,
+          "paused": false,
+          "generation": 2,
+          "status": {
+            "hidden": false,
+            "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+            "top": 31.1875,
+            "bottom": 45.578125,
+            "viewportHeight": 260,
+            "whiteSpace": "nowrap",
+            "textOverflow": "ellipsis"
+          },
+          "transitions": [
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": false,
+              "paused": false,
+              "generation": 1,
+              "status": {
+                "hidden": true,
+                "text": "",
+                "top": 0,
+                "bottom": 0,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 293.6999999284744,
+              "wallAt": 1789615305304
+            },
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": true,
+              "paused": false,
+              "generation": 2,
+              "status": {
+                "hidden": false,
+                "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+                "top": 31.1875,
+                "bottom": 45.578125,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 5235.599999904633,
+              "wallAt": 1789615310246
+            }
+          ],
+          "inputEvents": {
+            "keyboard": 0,
+            "mouse": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "hunting-and-input-frozen",
+      "passed": true,
+      "details": {
+        "start": {
+          "save": {
+            "version": 3,
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monsterIndex": 1000,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "state": {
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monster": {
+              "index": 1000,
+              "speciesId": "slime",
+              "name": "Slime Lv.10",
+              "maxHp": "309470158987657483911730",
+              "tier": 9,
+              "boss": false,
+              "type": "water"
+            },
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "fever": {
+              "active": false,
+              "remainingMs": 0
+            },
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "replaying": true,
+          "paused": false,
+          "generation": 2,
+          "status": {
+            "hidden": false,
+            "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+            "top": 31.1875,
+            "bottom": 45.578125,
+            "viewportHeight": 260,
+            "whiteSpace": "nowrap",
+            "textOverflow": "ellipsis"
+          },
+          "transitions": [
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": false,
+              "paused": false,
+              "generation": 1,
+              "status": {
+                "hidden": true,
+                "text": "",
+                "top": 0,
+                "bottom": 0,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 293.6999999284744,
+              "wallAt": 1789615305304
+            },
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": true,
+              "paused": false,
+              "generation": 2,
+              "status": {
+                "hidden": false,
+                "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+                "top": 31.1875,
+                "bottom": 45.578125,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 5235.599999904633,
+              "wallAt": 1789615310246
+            }
+          ],
+          "inputEvents": {
+            "keyboard": 0,
+            "mouse": 0
+          }
+        },
+        "after": {
+          "save": {
+            "version": 3,
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monsterIndex": 1000,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "state": {
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monster": {
+              "index": 1000,
+              "speciesId": "slime",
+              "name": "Slime Lv.10",
+              "maxHp": "309470158987657483911730",
+              "tier": 9,
+              "boss": false,
+              "type": "water"
+            },
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "fever": {
+              "active": false,
+              "remainingMs": 0
+            },
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "replaying": true,
+          "paused": false,
+          "generation": 2,
+          "status": {
+            "hidden": false,
+            "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+            "top": 31.1875,
+            "bottom": 45.578125,
+            "viewportHeight": 260,
+            "whiteSpace": "nowrap",
+            "textOverflow": "ellipsis"
+          },
+          "transitions": [
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": false,
+              "paused": false,
+              "generation": 1,
+              "status": {
+                "hidden": true,
+                "text": "",
+                "top": 0,
+                "bottom": 0,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 293.6999999284744,
+              "wallAt": 1789615305304
+            },
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": true,
+              "paused": false,
+              "generation": 2,
+              "status": {
+                "hidden": false,
+                "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+                "top": 31.1875,
+                "bottom": 45.578125,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 5235.599999904633,
+              "wallAt": 1789615310246
+            }
+          ],
+          "inputEvents": {
+            "keyboard": 1,
+            "mouse": 1
+          }
+        },
+        "observedNativeInput": true,
+        "compared": "entire SaveFile and GameState, including HP, index, playTime and fever"
+      }
+    },
+    {
+      "name": "single-durable-gold-settlement",
+      "passed": true,
+      "details": {
+        "saved": {
+          "version": 3,
+          "level": 27,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 950,
+          "pvpGoldNet": "-50",
+          "pvpGoldDebt": "0",
+          "items": {},
+          "monsterIndex": 1000,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "309470158987657483905770",
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "slime",
+              "bossIndex": 7,
+              "level": 10,
+              "stars": 0
+            },
+            {
+              "id": "c2",
+              "speciesId": "bat",
+              "bossIndex": 15,
+              "level": 10,
+              "stars": 0
+            },
+            {
+              "id": "c3",
+              "speciesId": "ghost",
+              "bossIndex": 23,
+              "level": 10,
+              "stars": 0
+            },
+            {
+              "id": "c4",
+              "speciesId": "golem",
+              "bossIndex": 31,
+              "level": 10,
+              "stars": 0
+            },
+            {
+              "id": "c5",
+              "speciesId": "dragon",
+              "bossIndex": 39,
+              "level": 10,
+              "stars": 0
+            }
+          ],
+          "nextCompanionId": 6,
+          "earlyCaptureUsed": 5,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 1000,
+          "pvpParty": [
+            "c1",
+            "c2",
+            "c3",
+            "c4",
+            "c5"
+          ],
+          "releasedCount": 0,
+          "hero": {
+            "equipped": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "collection": [],
+            "reincarnations": 0,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "progress": {
+            "playTimeMs": 4989.200000095367,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime",
+              "bat",
+              "ghost",
+              "golem",
+              "dragon"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 1,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "recovery": {
+          "version": 1,
+          "highWater": 6,
+          "reconcilePending": false,
+          "gold": {
+            "revision": 4,
+            "net": "-50",
+            "balance": 950
+          },
+          "committedOperationId": "8b03973a-f750-4d68-9678-fdbd9a971953",
+          "defenseCursor": 1,
+          "replays": [
+            {
+              "battleId": "0000000000000001-D",
+              "role": "defense",
+              "ownParty": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 15,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 23,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 31,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 39,
+                  "level": 10,
+                  "stars": 0
+                }
+              ],
+              "ownHero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "replay": {
+                "opponentName": "FixtureFoe",
+                "opponentParty": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "opponentHero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "blows": [
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c1",
+                    "targetId": "c2",
+                    "damage": "5",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c1",
+                    "damage": "80",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c2",
+                    "damage": "240",
+                    "ko": true
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c1",
+                    "targetId": "c3",
+                    "damage": "20",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c1",
+                    "damage": "60",
+                    "ko": true
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c3",
+                    "damage": "580",
+                    "ko": true
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c4",
+                    "targetId": "c5",
+                    "damage": "190",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c4",
+                    "damage": "2320",
+                    "ko": true
+                  }
+                ]
+              },
+              "won": false,
+              "goldDelta": -50
+            }
+          ]
+        },
+        "server": {
+          "id": "fixture-me",
+          "name": "FixtureMe",
+          "snapshot": {
+            "name": "FixtureMe",
+            "bestIndex": 1000,
+            "rebirths": 0,
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "party": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "level": 27,
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            }
+          },
+          "stolenIds": [],
+          "lastPvpAt": null,
+          "thefts": [],
+          "wins": 0,
+          "losses": 1,
+          "revokedIds": [],
+          "lastMatch": null,
+          "lastReclaim": null,
+          "goldAccount": {
+            "revision": 4,
+            "net": "-50",
+            "balance": 950,
+            "enrolled": true,
+            "day": 20713,
+            "peak": 1000,
+            "gained": 0,
+            "lost": 50,
+            "pairs": {
+              "fixture-foe": 1789615305345
+            },
+            "lastDefenseAt": 1789615305345,
+            "eventSeq": 1,
+            "events": []
+          }
+        }
+      }
+    },
+    {
+      "name": "server-event-acked-after-durable-delivery",
+      "passed": true,
+      "details": {
+        "ack": {
+          "method": "POST",
+          "path": "/v1/pvp/events/ack",
+          "query": {},
+          "body": {
+            "through": 1
+          },
+          "status": 200,
+          "result": {
+            "ok": true
+          }
+        },
+        "recovery": {
+          "version": 1,
+          "highWater": 6,
+          "reconcilePending": false,
+          "gold": {
+            "revision": 4,
+            "net": "-50",
+            "balance": 950
+          },
+          "committedOperationId": "8b03973a-f750-4d68-9678-fdbd9a971953",
+          "defenseCursor": 1,
+          "replays": [
+            {
+              "battleId": "0000000000000001-D",
+              "role": "defense",
+              "ownParty": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 15,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 23,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 31,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 39,
+                  "level": 10,
+                  "stars": 0
+                }
+              ],
+              "ownHero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "replay": {
+                "opponentName": "FixtureFoe",
+                "opponentParty": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "opponentHero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "blows": [
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c2",
+                    "damage": "40",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c1",
+                    "targetId": "c2",
+                    "damage": "5",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c2",
+                    "targetId": "c1",
+                    "damage": "80",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c2",
+                    "damage": "240",
+                    "ko": true
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c1",
+                    "targetId": "c3",
+                    "damage": "20",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c1",
+                    "damage": "60",
+                    "ko": true
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c3",
+                    "targetId": "c3",
+                    "damage": "120",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c3",
+                    "damage": "580",
+                    "ko": true
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c5",
+                    "damage": "1160",
+                    "ko": true
+                  },
+                  {
+                    "side": "A",
+                    "actorId": "c4",
+                    "targetId": "c5",
+                    "damage": "190",
+                    "ko": false
+                  },
+                  {
+                    "side": "D",
+                    "actorId": "c5",
+                    "targetId": "c4",
+                    "damage": "2320",
+                    "ko": true
+                  }
+                ]
+              },
+              "won": false,
+              "goldDelta": -50
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "replay-persisted-before-quit",
+      "passed": true,
+      "details": {
+        "pending": [
+          {
+            "battleId": "0000000000000001-D",
+            "role": "defense",
+            "ownParty": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "ownHero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "replay": {
+              "opponentName": "FixtureFoe",
+              "opponentParty": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 7,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 15,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 23,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 31,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 39,
+                  "level": 10,
+                  "stars": 0
+                }
+              ],
+              "opponentHero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "blows": [
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c2",
+                  "damage": "40",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c1",
+                  "targetId": "c2",
+                  "damage": "5",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c2",
+                  "targetId": "c1",
+                  "damage": "80",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c2",
+                  "damage": "240",
+                  "ko": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c1",
+                  "targetId": "c3",
+                  "damage": "20",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c1",
+                  "damage": "60",
+                  "ko": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c3",
+                  "targetId": "c3",
+                  "damage": "120",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c3",
+                  "damage": "580",
+                  "ko": true
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "A",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c5",
+                  "damage": "1160",
+                  "ko": true
+                },
+                {
+                  "side": "A",
+                  "actorId": "c4",
+                  "targetId": "c5",
+                  "damage": "190",
+                  "ko": false
+                },
+                {
+                  "side": "D",
+                  "actorId": "c5",
+                  "targetId": "c4",
+                  "damage": "2320",
+                  "ko": true
+                }
+              ]
+            },
+            "won": false,
+            "goldDelta": -50
+          }
+        ],
+        "after": {
+          "save": {
+            "version": 3,
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monsterIndex": 1000,
+            "monsterSpeciesId": "slime",
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "state": {
+            "level": 27,
+            "xp": 0,
+            "killCount": 0,
+            "coins": 950,
+            "pvpGoldNet": "-50",
+            "pvpGoldDebt": "0",
+            "items": {},
+            "monster": {
+              "index": 1000,
+              "speciesId": "slime",
+              "name": "Slime Lv.10",
+              "maxHp": "309470158987657483911730",
+              "tier": 9,
+              "boss": false,
+              "type": "water"
+            },
+            "monsterHp": "309470158987657483905770",
+            "companions": [
+              {
+                "id": "c1",
+                "speciesId": "slime",
+                "bossIndex": 7,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c2",
+                "speciesId": "bat",
+                "bossIndex": 15,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c3",
+                "speciesId": "ghost",
+                "bossIndex": 23,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c4",
+                "speciesId": "golem",
+                "bossIndex": 31,
+                "level": 10,
+                "stars": 0
+              },
+              {
+                "id": "c5",
+                "speciesId": "dragon",
+                "bossIndex": 39,
+                "level": 10,
+                "stars": 0
+              }
+            ],
+            "nextCompanionId": 6,
+            "earlyCaptureUsed": 5,
+            "souls": 0,
+            "releasedCount": 0,
+            "rebirths": 0,
+            "bestIndex": 1000,
+            "pvpParty": [
+              "c1",
+              "c2",
+              "c3",
+              "c4",
+              "c5"
+            ],
+            "fever": {
+              "active": false,
+              "remainingMs": 0
+            },
+            "hero": {
+              "equipped": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "collection": [],
+              "reincarnations": 0,
+              "choices": [],
+              "deferRemainingMs": 0,
+              "offerSerial": 0
+            },
+            "progress": {
+              "playTimeMs": 4989.200000095367,
+              "speciesKills": {},
+              "seenMonsters": [
+                "slime",
+                "bat",
+                "ghost",
+                "golem",
+                "dragon"
+              ],
+              "seenHeroes": [],
+              "heroCounts": {},
+              "reincarnationHistory": [],
+              "pvpWins": 0,
+              "pvpLosses": 1,
+              "goldSpent": 0,
+              "rareMisses": 0,
+              "trainingLevel": 0,
+              "lureRemaining": 0,
+              "shopSerial": 0,
+              "legacyHistory": false,
+              "codex": {
+                "acknowledgedHeroes": [],
+                "acknowledgedMonsters": [],
+                "goal": null
+              }
+            }
+          },
+          "replaying": true,
+          "paused": false,
+          "generation": 2,
+          "status": {
+            "hidden": false,
+            "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+            "top": 31.1875,
+            "bottom": 45.578125,
+            "viewportHeight": 260,
+            "whiteSpace": "nowrap",
+            "textOverflow": "ellipsis"
+          },
+          "transitions": [
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 1000,
+                "pvpGoldNet": "0",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483911730",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 80.60000009536745,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 0,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": false,
+              "paused": false,
+              "generation": 1,
+              "status": {
+                "hidden": true,
+                "text": "",
+                "top": 0,
+                "bottom": 0,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 293.6999999284744,
+              "wallAt": 1789615305304
+            },
+            {
+              "save": {
+                "version": 3,
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monsterIndex": 1000,
+                "monsterSpeciesId": "slime",
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "state": {
+                "level": 27,
+                "xp": 0,
+                "killCount": 0,
+                "coins": 950,
+                "pvpGoldNet": "-50",
+                "pvpGoldDebt": "0",
+                "items": {},
+                "monster": {
+                  "index": 1000,
+                  "speciesId": "slime",
+                  "name": "Slime Lv.10",
+                  "maxHp": "309470158987657483911730",
+                  "tier": 9,
+                  "boss": false,
+                  "type": "water"
+                },
+                "monsterHp": "309470158987657483905770",
+                "companions": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 7,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 15,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 23,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 31,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 39,
+                    "level": 10,
+                    "stars": 0
+                  }
+                ],
+                "nextCompanionId": 6,
+                "earlyCaptureUsed": 5,
+                "souls": 0,
+                "releasedCount": 0,
+                "rebirths": 0,
+                "bestIndex": 1000,
+                "pvpParty": [
+                  "c1",
+                  "c2",
+                  "c3",
+                  "c4",
+                  "c5"
+                ],
+                "fever": {
+                  "active": false,
+                  "remainingMs": 0
+                },
+                "hero": {
+                  "equipped": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "collection": [],
+                  "reincarnations": 0,
+                  "choices": [],
+                  "deferRemainingMs": 0,
+                  "offerSerial": 0
+                },
+                "progress": {
+                  "playTimeMs": 4989.200000095367,
+                  "speciesKills": {},
+                  "seenMonsters": [
+                    "slime",
+                    "bat",
+                    "ghost",
+                    "golem",
+                    "dragon"
+                  ],
+                  "seenHeroes": [],
+                  "heroCounts": {},
+                  "reincarnationHistory": [],
+                  "pvpWins": 0,
+                  "pvpLosses": 1,
+                  "goldSpent": 0,
+                  "rareMisses": 0,
+                  "trainingLevel": 0,
+                  "lureRemaining": 0,
+                  "shopSerial": 0,
+                  "legacyHistory": false,
+                  "codex": {
+                    "acknowledgedHeroes": [],
+                    "acknowledgedMonsters": [],
+                    "goal": null
+                  }
+                }
+              },
+              "replaying": true,
+              "paused": false,
+              "generation": 2,
+              "status": {
+                "hidden": false,
+                "text": "PvP 발생 · 상대 FixtureFoe와 전투 중",
+                "top": 31.1875,
+                "bottom": 45.578125,
+                "viewportHeight": 260,
+                "whiteSpace": "nowrap",
+                "textOverflow": "ellipsis"
+              },
+              "at": 5235.599999904633,
+              "wallAt": 1789615310246
+            }
+          ],
+          "inputEvents": {
+            "keyboard": 1,
+            "mouse": 1
+          }
+        }
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "hunting-before",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/native-05/interrupt/hunting-before.png",
+      "sha256": "35daed7dd0f492e1566acd404f52408c06605b83af502ac89942f6c2897d5f43"
+    },
+    {
+      "name": "defense-replay",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/native-05/interrupt/defense-replay.png",
+      "sha256": "a3317b1f0f9a59c8ed3e5f143bdbc3284974d7e5c279fe61fbedf9b0c46beb56"
+    },
+    {
+      "name": "quit-during-replay",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v091-20260917T024712Z/native-05/interrupt/quit-during-replay.png",
+      "sha256": "2ea9a87f20fd9ada37db2dfaf1118f88d3cda540e967132de67745fe9901d46d"
+    }
+  ],
+  "errors": [],
+  "interrupted": {
+    "presentation": {
+      "battleId": "0000000000000001-D",
+      "role": "defense",
+      "ownParty": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "bat",
+          "bossIndex": 15,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "ghost",
+          "bossIndex": 23,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "golem",
+          "bossIndex": 31,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "dragon",
+          "bossIndex": 39,
+          "level": 10,
+          "stars": 0
+        }
+      ],
+      "ownHero": {
+        "formId": "h00",
+        "buffPercent": 0
+      },
+      "replay": {
+        "opponentName": "FixtureFoe",
+        "opponentParty": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 7,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 15,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 23,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 31,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 39,
+            "level": 10,
+            "stars": 0
+          }
+        ],
+        "opponentHero": {
+          "formId": "h00",
+          "buffPercent": 0
+        },
+        "blows": [
+          {
+            "side": "D",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c2",
+            "targetId": "c2",
+            "damage": "40",
+            "ko": true
+          },
+          {
+            "side": "A",
+            "actorId": "c1",
+            "targetId": "c2",
+            "damage": "5",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c2",
+            "targetId": "c1",
+            "damage": "80",
+            "ko": true
+          },
+          {
+            "side": "A",
+            "actorId": "c3",
+            "targetId": "c2",
+            "damage": "240",
+            "ko": true
+          },
+          {
+            "side": "D",
+            "actorId": "c1",
+            "targetId": "c3",
+            "damage": "20",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c3",
+            "targetId": "c1",
+            "damage": "60",
+            "ko": true
+          },
+          {
+            "side": "D",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c3",
+            "targetId": "c3",
+            "damage": "120",
+            "ko": true
+          },
+          {
+            "side": "A",
+            "actorId": "c5",
+            "targetId": "c3",
+            "damage": "580",
+            "ko": true
+          },
+          {
+            "side": "D",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "A",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c5",
+            "targetId": "c5",
+            "damage": "1160",
+            "ko": true
+          },
+          {
+            "side": "A",
+            "actorId": "c4",
+            "targetId": "c5",
+            "damage": "190",
+            "ko": false
+          },
+          {
+            "side": "D",
+            "actorId": "c5",
+            "targetId": "c4",
+            "damage": "2320",
+            "ko": true
+          }
+        ]
+      },
+      "won": false,
+      "goldDelta": -50
+    },
+    "save": {
+      "version": 3,
+      "level": 27,
+      "xp": 0,
+      "killCount": 0,
+      "coins": 950,
+      "pvpGoldNet": "-50",
+      "pvpGoldDebt": "0",
+      "items": {},
+      "monsterIndex": 1000,
+      "monsterSpeciesId": "slime",
+      "monsterHp": "309470158987657483905770",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "bat",
+          "bossIndex": 15,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "ghost",
+          "bossIndex": 23,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "golem",
+          "bossIndex": 31,
+          "level": 10,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "dragon",
+          "bossIndex": 39,
+          "level": 10,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 1000,
+      "pvpParty": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "releasedCount": 0,
+      "hero": {
+        "equipped": {
+          "formId": "h00",
+          "buffPercent": 0
+        },
+        "collection": [],
+        "reincarnations": 0,
+        "choices": [],
+        "deferRemainingMs": 0,
+        "offerSerial": 0
+      },
+      "progress": {
+        "playTimeMs": 4989.200000095367,
+        "speciesKills": {},
+        "seenMonsters": [
+          "slime",
+          "bat",
+          "ghost",
+          "golem",
+          "dragon"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 1,
+        "goldSpent": 0,
+        "rareMisses": 0,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    }
+  },
+  "scope": "Synthetic level/party fixture; actual packaged UI and production in-process server. Native events, real clock. Read-only Game observer; no game/clock/RNG override. Restart restores only persisted field state, not transient pools.",
+  "observer": {
+    "sourcePath": "/private/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v091-install-foddb84m/installed/DesMon.app/Contents/Resources/app.asar/dist/web/renderer/index.js",
+    "lineNumber": 172,
+    "installed": true,
+    "replaying": false
+  },
+  "finishedAt": "2026-09-17T03:21:51.336Z",
+  "passed": true
+}

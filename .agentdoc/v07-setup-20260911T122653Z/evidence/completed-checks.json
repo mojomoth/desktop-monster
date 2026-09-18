@@ -1,0 +1,30 @@
+[
+  {
+    "commandId": "harness",
+    "command": "node .harness/v7/loop/fun.mjs selftest",
+    "exitCode": 0,
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132407979.log",
+    "sha256": "b24a8f09c17fb2dfad0115ea87daf41e5f14a0f0838bd3ff74500543444ad29a"
+  },
+  {
+    "commandId": "baseline",
+    "command": "node .harness/v7/loop/measure.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'/evidence/baseline.json --phase baseline",
+    "exitCode": 0,
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132877692.log",
+    "sha256": "6325b7ea40565d51a1e8f77f165eb1a79674648bfcfc62c4880d34448e9f4a24"
+  },
+  {
+    "commandId": "preservation",
+    "command": "node .harness/v7/loop/setup-check.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z'",
+    "exitCode": 0,
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132878185.log",
+    "sha256": "a3eeb0d62dda99732113344b967e11d20fa1e64fee9def1030482a1841de7fac"
+  },
+  {
+    "commandId": "gates",
+    "command": "npm test && npm run lint && npm run typecheck",
+    "exitCode": 0,
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/H07-01-1789132418732.log",
+    "sha256": "b5a3ed745d97785ebac8e8db957f5c84373a04c4c90ed367b4770735bf90053b"
+  }
+]

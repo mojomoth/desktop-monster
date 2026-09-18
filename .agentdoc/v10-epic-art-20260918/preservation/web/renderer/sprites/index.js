@@ -1,0 +1,15 @@
+// Sprites barrel — one import surface for the renderer (T13+). Importing it
+// side-effect-registers ALL art modules into the sprite registry.
+export { allSprites, drawSprite, registerSprites, TRANSPARENT, } from './sprite.js';
+export { COLORS, hexToHsl, hslToHex, paletteForTier, shiftHue, TIER_HUE_STEP, tintPalette, } from './palette.js';
+export { HERO_RIVAL_PALETTE, heroAttack, heroIdle, heroSlash } from './hero.js';
+export { drawHeroForm, HERO_FORM_IDS, heroFormSprite } from './heroForms.js';
+export { drawEquipmentIcon, equipmentIcon, equipmentColor, ITEM_RARITY_COLORS } from './equipment.js';
+export { drawEquippedHero, equippedHeroSprite, heroBodyLayers, heroEquipmentPose, HERO_HANDS, EQUIPPED_HERO_PADDING } from './equippedHero.js';
+export { monsterSprites } from './monsters.js';
+export { ITEM_SPRITE_IDS, itemSprites } from './items.js';
+export { BOSS_HP_BAR_Y, drawBoss } from './boss.js';
+export { drawCompanion } from './companion.js';
+export { drawFootBadge, drawParty, drawPartyBadges, drawTypeBadge, PARTY_STEP_X, PARTY_STEP_Y, PARTY_X, partySlots, TYPE_BADGE_DY, TYPE_COLORS, } from './party.js';
+export { drawFeverAura } from './aura.js';
+export { drawText, FONT_ADVANCE, FONT_H, FONT_W, fontSprite, GLYPH_CHARS, glyphIndex, textWidth, } from './font.js';

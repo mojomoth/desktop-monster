@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "at": "2026-09-12T20:19:48.845122+00:00",
+  "kind": "read-only-host-census-v2-vs-frozen-balance-crosscheck",
+  "status": "PASS",
+  "errors": [],
+  "hostCensus": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-host-release-census-v2.json",
+    "sha256": "fc4d9dd5c453505373aa64191d5ab3838175f1fb80f837c23934d1e8b90e32f1"
+  },
+  "hostPreservedOriginal": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-host-release-census.json",
+    "sha256": "444072f1eef95623660d60330111abab2aeac72728cf1e3defa1e39b8ae71fee"
+  },
+  "balanceAnalysis": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/final-analysis.json",
+    "sha256": "116b4a84a0dd2a2bf3fa7b3c523ab38f85f39daf6cc635a9ce0fb3c422e5bafc"
+  },
+  "balanceFreeze": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/FROZEN.json",
+    "sha256": "63a3724ec1114c5b6c5b186ea0f499303abdf208c7d472c6b9e22f273ad63eb9",
+    "all16ListedFilesUnchanged": true
+  },
+  "bindings": {
+    "report": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release.json",
+      "sha256": "46271facabdeb917748b50b46b2136246c0fd65281b5e76b350a7dcd1e6b1079"
+    },
+    "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+    "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d"
+  },
+  "mapping": "Host whole=>Balance population; Host p100=>Balance worst. Direct exact values including null; no tolerance, interpolation or remeasurement.",
+  "policies": [
+    {
+      "index": 1,
+      "key": "active/free/uniform/none/0",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 100,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-01.json",
+        "sha256": "a330c3322e52495fc1b46305f7460d309fc33cdbb43c520e93211871306e3a0d"
+      }
+    },
+    {
+      "index": 2,
+      "key": "active/free/uniform/none/600",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 100,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-02.json",
+        "sha256": "a2e49351992d1262f22f7f834dc597f7760581b77e9d172e221dd98f4879cd8a"
+      }
+    },
+    {
+      "index": 3,
+      "key": "intermittent/free/uniform/none/600",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 64,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-03.json",
+        "sha256": "556595c3f74823be101a886d098746c806f5a3fe256b4b605f5d17fce418bd39"
+      }
+    },
+    {
+      "index": 4,
+      "key": "warm-idle/free/uniform/none/600",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 13,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-04.json",
+        "sha256": "6ade0593af324945abb300d3ebf6fb0bbf512f50dbd7f32c1c385a536711c3d2"
+      }
+    },
+    {
+      "index": 5,
+      "key": "pure-idle/free/uniform/none/600",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 0,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-05.json",
+        "sha256": "0ad93e8384d38b1218d7321c0c633999b9463ba92d0667c186f8b752e106fbb7"
+      }
+    },
+    {
+      "index": 6,
+      "key": "active/free/burst/none/0",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 100,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-06.json",
+        "sha256": "7f5593fd9e6f316e4c243521ecad8f69a68e6988a8b7e0b86e39809034daf8dc"
+      }
+    },
+    {
+      "index": 7,
+      "key": "active/training/uniform/consume-weakest/600",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 100,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-07.json",
+        "sha256": "77596b7ec8ce05f455550e2c884917a4f40a72861f25e3662daebc319fd2fdc3"
+      }
+    },
+    {
+      "index": 8,
+      "key": "active/lure/uniform/fuse-first/600",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 100,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-08.json",
+        "sha256": "4dab9f65b16918b34db3517f951875deec5900f700055a22dce4491503177d3e"
+      }
+    },
+    {
+      "index": 9,
+      "key": "active/reroll/uniform/reincarnate-first/120",
+      "status": "PASS",
+      "events": [
+        "firstAccepted",
+        "h70Eligible",
+        "h70Seen",
+        "h70Chosen"
+      ],
+      "distributionCount": 4,
+      "countAndQuantileComparisons": 44,
+      "by90": 100,
+      "balanceArtifact": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release-v070-analysis/policy-09.json",
+        "sha256": "d509039f1bdfcf3ff891e0968e5b9d8e9fdaaeea54a679b4b1dfdf4a89fa1a44"
+      }
+    }
+  ],
+  "eventsPerPolicy": 4,
+  "totalDistributions": 36,
+  "quantileComparisons": 288,
+  "sampleReachedUnreachedComparisons": 108,
+  "by90Comparisons": 9,
+  "allMatch": true,
+  "verifiedOriginalCorrections": [
+    {
+      "policy": 2,
+      "event": "h70Eligible",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 36018.9,
+      "correct": 35605.7
+    },
+    {
+      "policy": 2,
+      "event": "h70Seen",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 37200.0,
+      "correct": 36600.0
+    },
+    {
+      "policy": 3,
+      "event": "h70Seen",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 38400.0,
+      "correct": 37200.0
+    },
+    {
+      "policy": 4,
+      "event": "h70Eligible",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 40884.2,
+      "correct": 39648.8
+    },
+    {
+      "policy": 4,
+      "event": "h70Seen",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 40800.0,
+      "correct": 40200.0
+    },
+    {
+      "policy": 6,
+      "event": "h70Eligible",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 39922.0,
+      "correct": 35884.6
+    },
+    {
+      "policy": 6,
+      "event": "h70Seen",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 36111.4,
+      "correct": 35931.6
+    },
+    {
+      "policy": 8,
+      "event": "h70Eligible",
+      "scope": "conditional",
+      "quantile": "p90",
+      "old": 34260.8,
+      "correct": 33783.7
+    }
+  ],
+  "wholeQuantilesMediansCountsTargetsChanged": false,
+  "frozenBalanceAnalysisModified": false,
+  "originalHostCensusModified": false,
+  "rawRemeasured": false,
+  "sourceEvaluatorModified": false,
+  "nativeTouched": false,
+  "formalAuditExecuted": false
+}

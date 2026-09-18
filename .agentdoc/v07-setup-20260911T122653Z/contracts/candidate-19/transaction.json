@@ -1,0 +1,55 @@
+{
+  "at": "2026-09-12T18:09:31.628945+00:00",
+  "state": "version-display-repaired",
+  "reviewFindings": [
+    {
+      "id": "C070-VERSION-FREEZE-GATE",
+      "severity": "major",
+      "problem": "src/main/tray.ts:10의 TRAY_TITLE은 DesMon v0.6.0인데 package/lock은 0.7.0이다. 유지된 tests/tray.test.ts:198이 실제 실패했다. 표시 수정 자체는 작지만 현재 최종 소스의 필수 gate와 버전 일치 계약을 차단하므로 미해결 minor로 승인하지 않는다.",
+      "fix": "Host가 원본·실패 로그를 보존하고 tray 파일 소유권을 등록한 뒤 제목을 0.7.0에 맞춘다. 기존 버전 일치 테스트와 package/lock 0.7.0을 유지한다. 실제 veto 이후 fun refresh로 새 S/E의 Designer부터 재검토하고, 영향 AC 및 npm test && npm run lint && npm run typecheck를 같은 수정 소스에서 새로 통과시킨 뒤 후속 최종 측정/Native 근거를 만든다."
+    }
+  ],
+  "originals": [
+    {
+      "source": ".harness/v7/config.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/.harness__v7__config.json.original.txt",
+      "sha256": "8233f0bb8e70ecde574a387a8e5bfae0d55790dc625c318d6ca8bc92e41e1cb1"
+    },
+    {
+      "source": ".agentdoc/v07-setup-20260911T122653Z/loop.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/.agentdoc__v07-setup-20260911T122653Z__loop.json.original.txt",
+      "sha256": "79ad7bf847becc5fcf255fcb388c1800b894568fc7b6a1406e64180893c2222c"
+    },
+    {
+      "source": "src/main/tray.ts",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/src__main__tray.ts.original.txt",
+      "sha256": "a9046eb4bebe2926fad4675055fd41b7dad596d08d008c631306231eecdf3079"
+    },
+    {
+      "source": "tests/tray.test.ts",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/tests__tray.test.ts.original.txt",
+      "sha256": "cd423afd4a045d85517327922f9e6c670a1b858f0c734e9767b8e4710d06159b"
+    },
+    {
+      "source": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/session.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/.agentdoc__v07-setup-20260911T122653Z__reviews__design-final-v070__session.json.original.txt",
+      "sha256": "14b66c4341360cb6a52797f43b94284608f5a610e11efae09969196b3cafe61b"
+    },
+    {
+      "source": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-freeze.json",
+      "preserved": ".agentdoc/v07-setup-20260911T122653Z/contracts/candidate-19/.agentdoc__v07-setup-20260911T122653Z__evidence__final-v070-freeze.json.original.txt",
+      "sha256": "facea245aa3c29d2ad04cbdb201167a410d55226c3b3eeba0aba69c6368891d4"
+    }
+  ],
+  "mutated": [
+    ".harness/v7/config.json",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json",
+    "src/main/tray.ts"
+  ],
+  "after": {
+    ".harness/v7/config.json": "3497ab47888310d7d5875fe611077d2c40ec0fa32a2d7084b1c604fa5bc27379",
+    ".agentdoc/v07-setup-20260911T122653Z/loop.json": "7cf0aceccde47bba9f383bc1fdf2a2139ab0d6d5fb0f5ca35f368289d73d39dc",
+    "src/main/tray.ts": "c178ac674092d0b587a4e6fea8804e3b6f5ff0b49253bc6c245b9d3692486d30"
+  },
+  "scope": "Existing literal title now matches alreadyfixed0.7 package/lock. Existing tray test unchanged; no new gameplay/numerical/content/timer changes. New checks and actualfun refresh required."
+}

@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "at": "2026-09-17T19:25:00.702Z",
+  "reviewer": "/root/equipment_economy",
+  "scope": "prospective-performance-methodology",
+  "verdict": "approved-methodology-only",
+  "registration": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04-registration.json",
+    "sha256": "31c6e44bd7040429b2048a386bde751011b59a7ee5d4496526067cc4122b7bad"
+  },
+  "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+  "performanceAcceptance": false,
+  "preconditionsChecked": {
+    "registrationPrecedesNewBaseline": true,
+    "newOutputDirectoryAbsentAtReview": true,
+    "currentSourceMatches": true,
+    "all15RegisteredArtifactHashesMatch": true,
+    "observersHaveExactAllowedBigIntBoundaryDifference": true,
+    "protocolDurationsAndBudgetFormulasUnchanged": true,
+    "priorFailuresAndRejectedIsolationReviewPreserved": true,
+    "currentSourceTasks01Through09MarkedVerified": true
+  },
+  "reasoning": [
+    "The new block is justified by a demonstrated cleanup defect: an app started by the cancelled previous idle observer survived through matched03. The new cooperative cleanup, process isolation evidence and final approval gate are concrete reviewed corrections. This is not approval to repeat unchanged numeric experiments until one passes.",
+    "The preserved 0.9.1 baseline and unchanged candidate app ASAR are fixed before any new baseline observation. Order is baseline-active30, baseline-idle30, candidate-active30, candidate-idle30, mixed180. Both observers have the same 5-minute warmup, 5-second metric sampling, input schedule and environmental settings; only required BigInt fixture serialization differs.",
+    "CPU remains max(baseline p95*1.1,baseline p95+1 percentage point), RAM remains max(baseline p95*1.2,baseline p95+50 MiB), and mixed remains max(initial median*1.2,initial median+50 MiB) using unchanged 5..35 and150..180 minute windows. Fresh baseline measurements can raise or lower numeric limits under these fixed formulas. Both prior limits and future limits must be reported.",
+    "The registration commits to exactly one whole five-slot block, retaining every sample and no best-of selection or cross-attempt mixing. Structural failure stops the block; otherwise all five slots finish even when budget failure is apparent. No unchanged-code retry is authorized by this review.",
+    "Boundaries must contain zero DesMon processes. Five-second inventories, no gaps above10seconds including between slots, lifecycle and raw Browser identity bindings, and complete owned-process cleanup are required. The independent final result review and automatic gate must reject a numerical pass with invalid isolation.",
+    "From the first through final boundary, agents may run only the registered observers and inventory process plus short read-only status/documentation work. Other Electron validation, tests, builds, packaging, galleries and simulations are prohibited. Ordinary user apps are not closed; preexisting DesMon rejects the block without being killed."
+  ],
+  "limitations": [
+    "This is prospective methodology approval only. It approves neither numerical outcome, gameplay/core implementation nor overall release completion.",
+    "Five-second inventories are sampled evidence and cannot prove absence of processes whose full lifetime lies between samples; a10-second maximum gap is a validation tolerance, not continuous tracing.",
+    "DesMon inventory does not detect arbitrary Node/build/simulation concurrency. The registered launch prohibition and work journal remain necessary.",
+    "Ordinary user activity, macOS memory residency and fixed baseline-then-candidate order can introduce time-varying ambient conditions. A single paired block is not a randomized causal estimate or battery-life guarantee.",
+    "Process identity checks cannot atomically eliminate the ps-to-kill PID race. Uncatchable termination or an unknown markerless helper may prevent cleanup; the next boundary and completed isolation review must fail rather than assume cleanup.",
+    "Both earlier numeric failures and matched03 isolation rejection remain valid historical results. This review does not reclassify them."
+  ],
+  "priorCodeReviews": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-cleanup-isolation-review.json",
+      "sha256": "3dbf163d60f83a43fc87fbd1f01ac96947ad6ffe5914a4aa78cfe5cc56110d42"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/cleanup-critic-final.json",
+      "sha256": "e05873a236f3bc90934077599e60e5d14c756242741c5e80fc5eb88574f8379c"
+    }
+  ],
+  "priorResultBindings": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison-failed-01.json",
+      "sha256": "7aee86fa0167a737818258db7e5b5f043e784821f35e28e613d7e48e5990fc75"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/attempt-02/active-verdict.json",
+      "sha256": "24060dedebcceec8940abe900e2af1538c71284a0e0f7f912d667c23931c5b1c"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/comparison.json",
+      "sha256": "f9718b891daab049241b8a25761613bf57407298674eb671f3cc49be1d365882"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-result-review.json",
+      "sha256": "d1a53a0653ee68f212493f65df7c3fa57fc7f101c178cb168838e59783e82325"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/orphan-cleanup-matched03.json",
+      "sha256": "1721eedae83e4c133a82678c4c5b2ed4bd0193d08fb2ea3bd07ef3c14bf7e70d"
+    }
+  ],
+  "requiredResultReview": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-result-final.json",
+    "reviewer": "/root/equipment_economy",
+    "afterAllObservations": true,
+    "mustBindCurrentSourceAndComparisonAndIsolation": true
+  }
+}

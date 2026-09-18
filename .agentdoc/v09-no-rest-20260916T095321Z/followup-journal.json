@@ -1,0 +1,236 @@
+{
+  "version": 9,
+  "changeId": "no-left-hud-no-rebirth-rest",
+  "createdAt": "2026-09-16T10:06:23.017Z",
+  "writer": "/root",
+  "roles": [
+    "/root/designer",
+    "/root/critic",
+    "/root/balance",
+    "/root"
+  ],
+  "sourceAtRegistration": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+  "tasks": [
+    {
+      "id": "HUD",
+      "owner": "/root/designer",
+      "dependencies": [],
+      "files": [
+        "src/renderer/hud.ts",
+        "src/renderer/game.ts",
+        "tests/hud-v09.test.ts",
+        "tests/expedition.test.ts"
+      ],
+      "ac": "npx vitest run tests/hud-v09.test.ts tests/expedition.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+      "status": "verified"
+    },
+    {
+      "id": "CORE",
+      "owner": "/root/balance",
+      "dependencies": [],
+      "files": [
+        "src/core/hero.ts",
+        "src/core/engine.ts",
+        "src/core/progression.ts",
+        "tests/hero.test.ts",
+        "tests/progressionV5.test.ts",
+        "tests/progressionV7.test.ts",
+        "tests/progressV5.test.ts",
+        "tests/balance.test.ts",
+        "tests/heroArtCompatibility.test.ts"
+      ],
+      "ac": "npx vitest run tests/hero.test.ts tests/progressionV5.test.ts tests/progressionV7.test.ts tests/progressV5.test.ts tests/balance.test.ts tests/heroArtCompatibility.test.ts",
+      "status": "verified"
+    },
+    {
+      "id": "MENU_RECOVERY",
+      "owner": "/root",
+      "dependencies": [
+        "CORE"
+      ],
+      "files": [
+        "src/menu/hero.ts",
+        "src/menu/index.ts",
+        "tests/heroMenuReadiness.test.ts",
+        "tests/recoveryV9.test.ts"
+      ],
+      "ac": "npx vitest run tests/heroMenuReadiness.test.ts tests/recoveryV9.test.ts",
+      "status": "verified"
+    },
+    {
+      "id": "INTEGRATION",
+      "owner": "/root",
+      "dependencies": [
+        "HUD",
+        "CORE",
+        "MENU_RECOVERY"
+      ],
+      "files": [
+        "README.md",
+        "docs/v0.9/NO_REST_UPDATE.json",
+        "docs/v0.9/NO_REST_UPDATE.md"
+      ],
+      "ac": "npm test && npm run lint && npm run typecheck",
+      "status": "verified"
+    },
+    {
+      "id": "NATIVE",
+      "owner": "/root/designer",
+      "executor": "/root",
+      "dependencies": [
+        "INTEGRATION"
+      ],
+      "files": [
+        ".harness/v9/no-rest-ui.mjs"
+      ],
+      "ac": "node .harness/v9/no-rest-ui.mjs APP OUTDIR",
+      "status": "verified"
+    },
+    {
+      "id": "REVIEW",
+      "owner": "/root/critic",
+      "dependencies": [
+        "HUD",
+        "CORE",
+        "MENU_RECOVERY",
+        "NATIVE"
+      ],
+      "files": [],
+      "ac": "Independent review of preservation diff and new evidence",
+      "status": "verified"
+    }
+  ],
+  "completedCommands": [
+    {
+      "command": "npm run smoke && npm run package",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/macos-build.log",
+      "logSha256": "4ad4c3e082a68ba311e7311f7ce90e05c0fd64735a53de2711a5a73e67e0a584"
+    },
+    {
+      "command": "npm run package:win",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/windows-build.log",
+      "logSha256": "8df3a9944ebadf1ddb8aea7a4641c9b18fd90ea40891f975067724447842b231"
+    },
+    {
+      "command": "node --test .harness/v9/run.test.mjs",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/harness-selftest.log",
+      "logSha256": "42c47b33fdc92ba1464f0d8ebd42071e59daa45080bb43e49fb732f514ab3a90"
+    },
+    {
+      "command": "node .harness/v9/regression.mjs .agentdoc/v09-no-rest-20260916T095321Z/preservation/baseline-dist .agentdoc/v09-no-rest-20260916T095321Z/core-regression.json",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/core-regression.log",
+      "baseline": "v0.9 immediately before this follow-up (preserved compiled source)",
+      "candidate": "v0.9 no-rest follow-up",
+      "note": "Runner interpretation text is generic historical v0.8/v0.9 wording. Actual inputs are the independently preserved paths and hashes in the report; this run compares two v0.9 states.",
+      "logSha256": "3361abdab2d02fe7072b7f7411edbc1d0b5971334f3c6ec96099c28ecc6cc466"
+    },
+    {
+      "command": "node .harness/v9/runtime.mjs .agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app .agentdoc/v09-no-rest-20260916T095321Z/native-integration",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/native-integration.log",
+      "logSha256": "49a35f6ee8cadfd131286119a6a06afb2b4926162b74b3a6ab5fc674bbd32f02"
+    },
+    {
+      "command": "node .harness/v9/no-rest-ui.mjs .agentdoc/v09-no-rest-20260916T095321Z/installed/DesMon.app .agentdoc/v09-no-rest-20260916T095321Z/native-no-rest",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/native-no-rest.log",
+      "logSha256": "84e58b59bb6dcbdabfd78107b6430f2733b2b2f64b7e5a8ca465e91d70c00adb"
+    }
+  ],
+  "status": "implementation-and-automated-verification-complete",
+  "pending": [],
+  "externalPending": [
+    "Windows CI and Windows 11 hardware validation",
+    "Steam AppID/SDK native initialization",
+    "production server deployment/migration",
+    "human validation"
+  ],
+  "DESMON_SKIP_NET": 1,
+  "finishedAt": "2026-09-16T10:12:33.452Z",
+  "finalSourceDigest": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+  "checks": [
+    {
+      "command": "npm test && npm run lint && npm run typecheck",
+      "startedAt": "2026-09-16T10:06:45.766Z",
+      "endedAt": "2026-09-16T10:06:58.861Z",
+      "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/gates.log",
+      "logSha256": "7f80d59ff0e912b8eba14c3762412e929e19f7c0193066e731e99fae70473fcc"
+    },
+    {
+      "task": "HUD",
+      "command": "npx vitest run tests/hud-v09.test.ts tests/expedition.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+      "startedAt": "2026-09-16T10:07:18.609Z",
+      "endedAt": "2026-09-16T10:07:20.046Z",
+      "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/HUD-ac.log",
+      "logSha256": "85d414d91e1362885f75a05de88c4430231ef48dc7d16a6e5b955e7b3c1c9aa2"
+    },
+    {
+      "task": "CORE",
+      "command": "npx vitest run tests/hero.test.ts tests/progressionV5.test.ts tests/progressionV7.test.ts tests/progressV5.test.ts tests/balance.test.ts tests/heroArtCompatibility.test.ts",
+      "startedAt": "2026-09-16T10:07:20.060Z",
+      "endedAt": "2026-09-16T10:07:23.491Z",
+      "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/CORE-ac.log",
+      "logSha256": "d13cadf5e06f0c27aa0765479f869b77428d6a0f8929d9b08a65de72f6cb1574"
+    },
+    {
+      "task": "MENU_RECOVERY",
+      "command": "npx vitest run tests/heroMenuReadiness.test.ts tests/recoveryV9.test.ts",
+      "startedAt": "2026-09-16T10:07:23.505Z",
+      "endedAt": "2026-09-16T10:07:24.282Z",
+      "before": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "after": "8500daa5a09e299fdf67763e720cb2c2b931049385deb81ae194fb5bd06738d1",
+      "exitCode": 0,
+      "log": ".agentdoc/v09-no-rest-20260916T095321Z/MENU_RECOVERY-ac.log",
+      "logSha256": "4b7b19434cfdb068082db042e43dd5dba2c886397fd7c28b0930a3e2231ae28e"
+    }
+  ],
+  "reviewOrder": [
+    "/root/designer",
+    "/root/critic",
+    "/root/balance",
+    "/root"
+  ],
+  "evidence": {
+    ".agentdoc/v09-no-rest-20260916T095321Z/gates.json": "661539dc080512c3874352b05dd99d0d2fef019234008e7feecd9202af52fbf4",
+    ".agentdoc/v09-no-rest-20260916T095321Z/gates.log": "7f80d59ff0e912b8eba14c3762412e929e19f7c0193066e731e99fae70473fcc",
+    ".agentdoc/v09-no-rest-20260916T095321Z/acceptance.json": "f9393fd028cc95eeea097a94257b483304253e0e1c34017898b413833a4e8696",
+    ".agentdoc/v09-no-rest-20260916T095321Z/artifacts.json": "a163df452443199373863369bbd76a7b7d49141faa2a1fb5681e7065dcf9e0af",
+    ".agentdoc/v09-no-rest-20260916T095321Z/core-regression.json": "7a8c266328dd598fa806eec6c06afd071c5842755c4e4068aea93b9eb4c29aa7",
+    ".agentdoc/v09-no-rest-20260916T095321Z/core-regression.jsonl": "fa009a85b98cba1dd013356eb950691c45d8859c901759e068fe4adca4f5d3c5",
+    ".agentdoc/v09-no-rest-20260916T095321Z/native-integration/native.json": "6d75fda9b24ff50cbba2bcb26f39732a42e4769c631f7fad98cc80b178aca6ef",
+    ".agentdoc/v09-no-rest-20260916T095321Z/native-no-rest/no-rest-ui.json": "00766f7a3c95aa5613131d99b494291c16b54993c436d511d05df9cec6c2f73d",
+    ".agentdoc/v09-no-rest-20260916T095321Z/preservation/manifest.json": "54b6a7386b06ecf3f2ecefcfc3fd37a49ba2f1369a6d98c94613ff66a749ecd9",
+    ".agentdoc/v09-no-rest-20260916T095321Z/reviews/designer.md": "9c7886f49e903deedb5784ebf0e930a2c35d234c7a7a99178791c01635c0c754",
+    ".agentdoc/v09-no-rest-20260916T095321Z/reviews/critic.md": "978467a5745bf30d2068864f6a0b91c5ab9f8d783e585bb14f46e92d1dead0ba",
+    ".agentdoc/v09-no-rest-20260916T095321Z/reviews/balance.md": "058eae371c272d6079ed7f58470a59b8f0f761d075b6dec951805008d91bf4d6",
+    ".agentdoc/v09-no-rest-20260916T095321Z/reviews/playtester.md": "ddb470b56291be94fea3973fd574ab458e31032f6c3c82a50a401759d76495b9",
+    "README.md": "5f4dff564b6181a888f90bf3620f14ec453cb6b87d95b120f7e151a3693b17e2",
+    "docs/v0.9/NO_REST_UPDATE.json": "eb57adf9d824c6e30a859ea3def4f64517d3a07ad2347944b7aa9908390d6e71",
+    "docs/v0.9/NO_REST_UPDATE.md": "a1f636611d71beec7ee4b4561c6e964a4cedfacc09579e197617b4d1101169c3"
+  },
+  "releaseReady": false,
+  "releaseReason": "External Windows/Steam/production/human checks remain pending; current-source long-duration performance was not rerun.",
+  "summary": {
+    "tests": 1071,
+    "testFiles": 73,
+    "pairedCoreCases": 200,
+    "nativeIntegrationChecks": 29,
+    "focusedNativeChecks": 13,
+    "focusedBoots": 3,
+    "macInstalledFiles": 302,
+    "windowsPayloadFiles": 109
+  }
+}

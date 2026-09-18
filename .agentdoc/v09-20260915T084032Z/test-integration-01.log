@@ -1,0 +1,1137 @@
+
+> desmon@0.8.0 test
+> vitest run --reporter=dot
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+·····················x············································································································································xx·················································································································································································································································x···························································································································································································································x············································x················································································xxxxxxx····xxx·······························································································································································································x····················································
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/hero.test.ts > v0.4 hero growth, collection and persistent choices > validates malformed hero fields independently and never changes legacy progress
+AssertionError: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+
+- Expected
++ Received
+
+@@ -8,10 +8,11 @@
+        "level": 3,
+        "speciesId": "dragon",
+        "stars": 1,
+      },
+    ],
++   "earlyCaptureUsed": 1,
+    "items": {},
+    "killCount": 0,
+    "level": 17,
+    "monsterHp": "1",
+    "monsterIndex": 39,
+
+ ❯ tests/hero.test.ts:186:46
+    184|   it('validates malformed hero fields independently and never changes …
+    185|     const legacy = readySave();
+    186|     expect(parseSave(serializeSave(legacy))).toEqual(legacy);
+       |                                              ^
+    187|     const parsed = parseSave({ ...legacy, hero: { equipped: { formId: …
+    188|       collection: [{ formId: 'h01', buffPercent: 10 }, { formId: 'h01'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  tests/heroArtCompatibility.test.ts > hero art redesign preserves published save and network identities > loads all collected looks and exact pending rolls, retaining each equipped id on the wire
+AssertionError: h01: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+
+- Expected
++ Received
+
+@@ -15,10 +15,11 @@
+        "level": 5,
+        "speciesId": "dragon",
+        "stars": 2,
+      },
+    ],
++   "earlyCaptureUsed": 2,
+    "hero": {
+      "choices": [
+        {
+          "buffPercent": 12,
+          "formId": "h47",
+
+ ❯ tests/heroArtCompatibility.test.ts:53:39
+     51|       const loaded = parseSave(JSON.stringify(oldSave));
+     52|       const migrated = { ...oldSave, hero: { ...oldSave.hero!, offerLe…
+     53|       expect(loaded, equipped.formId).toEqual(migrated);
+       |                                       ^
+     54|       expect(parseSave(serializeSave(loaded)), equipped.formId).toEqua…
+     55|       const resumed = createEngine(loaded, {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  tests/ipc.test.ts > v0.7 confirmed companion IPC > rejects invalid incoming companion levels before live-state relay
+AssertionError: expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      "desmon:save-status",
+      Object {
+        "reason": "recovery",
+        "state": "load-error",
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/ipc.test.ts:38:33
+     36|       send({ type: 'pvpResult', won: true, stolen: { ...c, level }, lo…
+     37|     }
+     38|     expect(relay.game.send).not.toHaveBeenCalled();
+       |                                 ^
+     39|     for (const level of [11, 250, Number.MAX_SAFE_INTEGER]) {
+     40|       send({ type: 'addCompanion', companion: { ...c, level } });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  tests/ipc.test.ts > v0.7 confirmed companion IPC > drops missing/malformed confirmations and relays an exact safe-integer snapshot
+AssertionError: expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      "desmon:save-status",
+      Object {
+        "reason": "recovery",
+        "state": "load-error",
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/ipc.test.ts:57:33
+     55|       send({ type: 'reincarnate', id: 'c1', expected: snapshot });
+     56|     }
+     57|     expect(relay.game.send).not.toHaveBeenCalled();
+       |                                 ^
+     58|     const valid = { type: 'reincarnate', id: 'c1', expected };
+     59|     send(valid);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  tests/ipc.test.ts > shared IPC channels (src/shared/ipc.ts) > defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-window and the net channels
+AssertionError: expected { INPUT: 'desmon:input', …(40) } to deeply equal { INPUT: 'desmon:input', …(29) }
+
+- Expected
++ Received
+
+@@ -1,28 +1,39 @@
+  {
+    "ACTION": "desmon:action",
++   "BATTLE_OPPONENT": "desmon:battle-opponent",
++   "CAPTURE_STATE": "desmon:capture-state",
+    "CONNECT_GLOBAL_INPUT": "desmon:connect-global-input",
++   "EXPORT_PNG": "desmon:export-png",
++   "FIELD_IMAGE": "desmon:field-image",
+    "FIRST_FRAME": "desmon:first-frame",
++   "GET_GENERATION": "desmon:get-generation",
+    "GET_IDENTITY": "desmon:get-identity",
+    "GET_INPUT_MODE": "desmon:get-input-mode",
+    "GET_SAVE_STATUS": "desmon:get-save-status",
+    "GET_SETTINGS": "desmon:get-settings",
+    "INPUT": "desmon:input",
+    "INPUT_MODE": "desmon:input-mode",
++   "LAST_BATTLE": "desmon:last-battle",
+    "LEADERBOARD": "desmon:leaderboard",
++   "LIST_CHECKPOINTS": "desmon:list-checkpoints",
+    "LOAD_STATE": "desmon:load-state",
+    "MENU_ACTION": "desmon:menu-action",
+    "MENU_READY": "desmon:menu-ready",
+    "MOVE_WINDOW": "desmon:move-window",
+    "OPEN_ACCESSIBILITY_SETTINGS": "desmon:open-accessibility-settings",
+    "OPEN_SAVE_FOLDER": "desmon:open-save-folder",
++   "PREPARE_STATE": "desmon:prepare-state",
+    "PVP": "desmon:pvp",
+    "PVP_MATCH": "desmon:pvp-match",
+    "PVP_OPPONENTS": "desmon:pvp-opponents",
+    "QUIT": "desmon:quit",
+    "RECLAIM": "desmon:reclaim",
++   "RELEASE_STATE": "desmon:release-state",
+    "RESET": "desmon:reset",
++   "RESET_PROGRESS": "desmon:reset-progress",
++   "RESTORE_CHECKPOINT": "desmon:restore-checkpoint",
+    "SAVE_FAILED": "desmon:save-failed",
+    "SAVE_STATE": "desmon:save-state",
+    "SAVE_STATUS": "desmon:save-status",
+    "SETTINGS_CHANGED": "desmon:settings-changed",
+    "SET_NAME": "desmon:set-name",
+
+ ❯ tests/ipc.test.ts:73:17
+     71| describe('shared IPC channels (src/shared/ipc.ts)', () => {
+     72|   it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-…
+     73|     expect(IPC).toEqual({
+       |                 ^
+     74|       INPUT: 'desmon:input',
+     75|       INPUT_MODE: 'desmon:input-mode',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.5 main-only progress boundary > shows recovered official records on the first menu render
+AssertionError: expected "spy" to be called with arguments: [ 'desmon:state-changed', …(1) ]
+
+Received: 
+
+  1st spy call:
+
+  [
+-   "desmon:state-changed",
+-   ObjectContaining {
+-     "progress": ObjectContaining {
+-       "pvpLosses": 2,
+-       "pvpWins": 3,
+-     },
++   "desmon:save-status",
++   {
++     "reason": "recovery",
++     "state": "load-error",
+    },
+  ]
+
+  2nd spy call:
+
+  [
+-   "desmon:state-changed",
+-   ObjectContaining {
+-     "progress": ObjectContaining {
+-       "pvpLosses": 2,
+-       "pvpWins": 3,
+-     },
++   "desmon:save-status",
++   {
++     "reason": "recovery",
++     "state": "load-error",
+    },
+  ]
+
+
+Number of calls: 2
+
+ ❯ tests/ipcV5.test.ts:41:28
+     39|   it('shows recovered official records on the first menu render', () =…
+     40|     fake.events.get(IPC.MENU_READY)!({ sender: fake.menu });
+     41|     expect(fake.menu.send).toHaveBeenCalledWith(IPC.STATE_CHANGED, exp…
+       |                            ^
+     42|       progress: expect.objectContaining({ pvpWins: 3, pvpLosses: 2 }) …
+     43|     expect(fake.game.send).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.5 main-only progress boundary > recovers official totals on load and overwrites fabricated totals before disk, upload and menu relay
+AssertionError: expected null to match object { progress: { pvpWins: 3, …(1) } }
+
+- Expected: 
+{
+  "progress": {
+    "pvpLosses": 2,
+    "pvpWins": 3,
+  },
+}
+
++ Received: 
+null
+
+ ❯ tests/ipcV5.test.ts:46:34
+     44|   });
+     45|   it('recovers official totals on load and overwrites fabricated total…
+     46|     expect(call(IPC.LOAD_STATE)).toMatchObject({ progress: { pvpWins: …
+       |                                  ^
+     47|     call(IPC.SAVE_STATE, { ...DEFAULT_SAVE, coins: 75, progress: { ...…
+     48|     expect(fake.write).toHaveBeenCalledWith('/injected/user-data', exp…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.5 main-only progress boundary > rejects menu-forged totals and malformed purchases while forwarding a valid serial-bound purchase once
+AssertionError: expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      "desmon:save-status",
+      Object {
+        "reason": "recovery",
+        "state": "load-error",
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/ipcV5.test.ts:59:32
+     57|       { type: 'shopBuy', item: 'gold', shopSerial: 0 }, { type: 'shopB…
+     58|       { type: 'shopBuy', item: 'lure', shopSerial: .5 }, null]) call(I…
+     59|     expect(fake.game.send).not.toHaveBeenCalled();
+       |                                ^
+     60|     const valid = { type: 'shopBuy', item: 'training', shopSerial: 7 };
+     61|     call(IPC.MENU_ACTION, valid);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.5 main-only progress boundary > broadcasts absolute main totals after success and nothing after a failed network verdict
+AssertionError: expected { ok: false, error: 'offline' } to be { ok: true, …(1) } // Object.is equality
+
+- Expected
++ Received
+
+  {
+-   "ok": true,
+-   "value": {
+-     "bot": false,
+-     "win": true,
+-   },
++   "error": "offline",
++   "ok": false,
+  }
+
+ ❯ tests/ipcV5.test.ts:69:63
+     67|     const verdict = { ok: true, value: { bot: false, win: true } };
+     68|     fake.pvp.mockResolvedValueOnce(verdict).mockResolvedValueOnce({ ok…
+     69|     expect(await call(IPC.PVP, { matchId: 'm1', party: [] })).toBe(ver…
+       |                                                               ^
+     70|     for (const window of [fake.game, fake.menu]) expect(window.send)
+     71|       .toHaveBeenCalledExactlyOnceWith(IPC.ACTION, { type: 'syncPvpPro…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.6 local UI action and save acknowledgement boundary > normalizes legacy ACK on load, save and menu relay while preserving collection-only hero ACK
+AssertionError: expected null to match object { progress: { codex: { …(3) } } }
+
+- Expected: 
+{
+  "progress": {
+    "codex": {
+      "acknowledgedHeroes": [
+        "h01",
+      ],
+      "acknowledgedMonsters": [],
+      "goal": null,
+    },
+  },
+}
+
++ Received: 
+null
+
+ ❯ tests/ipcV5.test.ts:86:34
+     84|     registerIpcHandlers();
+     85|     const codex = { acknowledgedHeroes: ['h01'], acknowledgedMonsters:…
+     86|     expect(call(IPC.LOAD_STATE)).toMatchObject({ progress: { codex } }…
+       |                                  ^
+     87|     expect(call(IPC.SAVE_STATE, save, fake.game)).toBe(true);
+     88|     expect(fake.write.mock.calls[0]![1]).toMatchObject({ progress: { c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.6 local UI action and save acknowledgement boundary > relays valid discovery IDs and nullable goals, rejecting malformed kinds, IDs and arrays
+AssertionError: expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      "desmon:save-status",
+      Object {
+        "reason": "recovery",
+        "state": "load-error",
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/ipcV5.test.ts:104:32
+    102|       { type: 'setDiscoveryGoal' },
+    103|     ]) call(IPC.MENU_ACTION, action);
+    104|     expect(fake.game.send).not.toHaveBeenCalled();
+       |                                ^
+    105|     for (const action of [
+    106|       { type: 'acknowledgeDiscoveries', heroes: ['h01', 'h01'], monste…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/17]⎯
+
+ FAIL  tests/ipcV5.test.ts > v0.6 local UI action and save acknowledgement boundary > never publishes a failed write as saved and reports success only after a successful retry
+AssertionError: expected [ [ 'desmon:save-status', …(1) ] ] to deeply equal [ Array(2) ]
+
+- Expected
++ Received
+
+  [
+    [
+      "desmon:save-status",
+      {
+-       "state": "write-error",
++       "reason": "recovery",
++       "state": "load-error",
+      },
+-   ],
+-   [
+-     "desmon:save-failed",
+-     undefined,
+    ],
+  ]
+
+ ❯ tests/ipcV5.test.ts:125:38
+    123|     expect(fake.onSave).not.toHaveBeenCalled();
+    124|     for (const window of [fake.game, fake.menu]) {
+    125|       expect(window.send.mock.calls).toEqual([[IPC.SAVE_STATUS, {state…
+       |                                      ^
+    126|     }
+    127|     expect(call(IPC.SAVE_STATE, save, fake.game)).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/17]⎯
+
+ FAIL  tests/renderer.test.ts > renderer boot source contract (src/renderer/index.ts) > persists via the scheduler on both input paths and on blur (T16)
+AssertionError: expected '// Renderer boot (SPEC F21 + F18, Ass…' to contain 'window.desmon.saveState(game.toSave())'
+
+- Expected
++ Received
+
+- window.desmon.saveState(game.toSave())
++ // Renderer boot (SPEC F21 + F18, Assumption 11): load save → parseSave →
++ // createEngine → subscribe input → rAF loop repainting the full scene, and
++ // report the first painted frame over IPC exactly once (drives smoke).
++ // Persistence wiring (SPEC F22, T16): progress saves on every kill and
++ // level-up, debounced 500ms after damage, on window blur, and immediately
++ // after a Reset Progress request from main, and after every applied
++ // collection action (F53).
++
++ import { createEngine, parseSave } from '../core/index.js';
++ import type { CollectionAction } from '../core/index.js';
++ import { setupWindowDrag } from './drag.js';
++ import { createGame, createSaveScheduler } from './game.js';
++ import { setupFallbackInput } from './input.js';
++ import type { SaveStatus } from '../shared/ipc.js';
++
++ async function boot(): Promise<void> {
++   const canvas = document.getElementById('game');
++   if (!(canvas instanceof HTMLCanvasElement)) {
++     return;
++   }
++   const ctx = canvas.getContext('2d');
++   if (ctx === null) {
++     return;
++   }
++   ctx.imageSmoothingEnabled = false; // chunky pixels (canvas is CSS-scaled 2x)
++
++   const statusElement = document.getElementById('field-save-status');
++   const recovery = document.getElementById('field-save-recovery');
++   const showSaveStatus = (status: SaveStatus): void => {
++     if (statusElement) {
++       statusElement.hidden = status.state === 'ready';
++       statusElement.textContent = status.state === 'load-error'
++         ? status.reason === 'settings-write'
++           ? '처음 시작할 설정을 저장하지 못했습니다. 저장 폴더 권한을 확인하고 앱을 다시 실행하세요.'
++           : '저장 파일을 읽지 못했습니다. 원본을 보존했습니다. 복원 후 앱을 다시 실행하세요.'
++         : status.state === 'write-error' ? '저장 실패 · 자동 재시도 중입니다. 앱을 닫지 마세요.' : '';
++     }
++     if (recovery) recovery.hidden = status.state !== 'load-error';
++   };
++   window.desmon.onSaveStatus(showSaveStatus);
++   const saveStatus = await window.desmon.getSaveStatus();
++   showSaveStatus(saveStatus);
++   document.getElementById('field-open-save')?.addEventListener('click', () => { void window.desmon.openSaveFolder(); });
++   document.getElementById('field-quit')?.addEventListener('click', () => { void window.desmon.quit(); });
++   if (saveStatus.state === 'load-error') return;
++
++   // Main has already rejected unreadable/unsupported files. Core still
++   // normalizes fields in supported v1–v3 saves and migrates older progress.
++   const loaded = await window.desmon.loadState();
++   const engine = createEngine(loaded == null ? null : parseSave(loaded));
++   const settings = await window.desmon.getSettings();
++   const options = { screenShake: settings.screenShake };
++   window.desmon.onSettingsChanged((next) => { options.screenShake = next.screenShake; });
++   let game = createGame(engine, undefined, options);
++   let generation = await window.desmon.getGeneration();
++   let paused = false;
++
++   // WHEN to save is the scheduler's policy (game.ts, unit-tested there);
++   // WHAT a save is stays right here: the engine snapshot over the bridge.
++   const saves = createSaveScheduler({
++     save: () => {
++       if (!paused) void window.desmon.saveState(game.toSave(), generation);
++     },
++   });
++
++   window.desmon.onInput((event) => {
++     if (paused) return;
++     saves.onEvents(game.attack(event.source));
++   });
++
++   // Window-focused fallback input (SPEC F14): keydown/mousedown listeners
++   // attach only while the input mode is 'fallback' and detach when the
++   // global hook takes over, so attacks are never double-counted.
++   setupFallbackInput({
++     target: window,
++     bridge: window.desmon,
++     onAttack: (source) => {
++       if (paused) return;
++       saves.onEvents(game.attack(source));
++     },
++   });
++
++   // Whole-window drag (SPEC Assumption 10): mouse-dragging anywhere moves the
++   // overlay; clicks stay attacks (the drag engages only past a small
++   // cursor-travel threshold).
++   setupWindowDrag({
++     target: window,
++     moveBy: (dx, dy) => {
++       window.desmon.moveWindowBy(dx, dy);
++     },
++   });
++
++   // Losing focus is the last reliable moment before a quit — flush progress.
++   window.addEventListener('blur', () => {
++     saves.flush();
++   });
++
++   // Collection & Battle actions (SPEC F53): the game window owns the state,
++   // so the menu's requests are applied HERE and persisted immediately — the
++   // flush's SAVE_STATE is what main relays back as STATE_CHANGED.
++   window.desmon.onAction((payload) => {
++     if (paused) return;
++     // Trust boundary: main already narrowed the menu payload (narrowAction).
++     const a = payload as CollectionAction;
++     saves.onEvents(game.apply(a));
++     saves.flush();
++   });
++
++   // Legacy reset notification is a request for the same confirmed main flow.
++   window.desmon.onReset(() => {
++     void window.desmon.resetProgress();
++   });
++
++   window.desmon.onPrepareState((request) => {
++     if (request.generation !== generation) return;
++     paused = true;
++     saves.flush(); // cancel debounce; the paused save callback does not write
++     void window.desmon.captureState(request.requestId, generation, game.toSave());
++   });
++   window.desmon.onReleaseState((release) => {
++     if (release.generation <= generation) return;
++     if (release.replace) game = createGame(createEngine(parseSave(release.save)), undefined, options);
++     else for (const action of release.actions) game.apply(action as CollectionAction);
++     generation = release.generation;
++     paused = release.blocked;
++     last = performance.now();
++     unsavedActiveMs = 0;
++   });
++
++   let reportedFirstFrame = false;
++   let last = performance.now();
++   let unsavedActiveMs = 0;
++   const frame = (now: number): void => {
++     const dt = Math.min(now - last, 100); // dt clamp: throttle/wake safety
++     last = now;
++     // The engine clock lives in the rAF loop: companion volleys and fever
++     // transitions come back as events and persist like any other progress.
++     if (!paused) saves.onEvents(game.update(dt));
++     // Even an untouched, companion-less field has play time to preserve.
++     if (!paused) unsavedActiveMs += dt;
++     if (unsavedActiveMs >= 5000) {
++       unsavedActiveMs %= 5000;
++       saves.flush();
++     }
++     game.draw(ctx);
++     if (!reportedFirstFrame) {
++       reportedFirstFrame = true;
++       // First painted frame: tell main the scene is live (smoke exits on it).
++       window.desmon.reportFirstFrame();
++     }
++     window.requestAnimationFrame(frame);
++   };
++   window.requestAnimationFrame(frame);
++ }
++
++ void boot();
++
++ export {};
++
+
+ ❯ tests/renderer.test.ts:2100:27
+    2098|     expect(rendererIndex).toContain('saves.onEvents(game.attack(source…
+    2099|     // …the save itself ships the engine snapshot over the bridge…
+    2100|     expect(rendererIndex).toContain('window.desmon.saveState(game.toSa…
+       |                           ^
+    2101|     // …and losing focus flushes unconditionally.
+    2102|     expect(rendererIndex).toContain("addEventListener('blur'");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/17]⎯
+
+ FAIL  tests/renderer.test.ts > renderer boot source contract (src/renderer/index.ts) > onReset swaps in a fresh engine, then saves immediately (T16)
+AssertionError: expected -1 to be greater than 4604
+ ❯ tests/renderer.test.ts:2108:19
+    2106|   it('onReset swaps in a fresh engine, then saves immediately (T16)', …
+    2107|     const reset = rendererIndex.indexOf('game.reset()');
+    2108|     expect(reset).toBeGreaterThan(rendererIndex.indexOf('onReset'));
+       |                   ^
+    2109|     expect(reset).toBeGreaterThan(-1);
+    2110|     const flushAfterReset = rendererIndex.indexOf('saves.flush()', res…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/17]⎯
+
+ FAIL  tests/runtimeV8.test.ts > v0.8 save protection and last save status > keeps write failure through menu reopen and state reads, and clears it only after a real successful retry
+AssertionError: expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      Object {
+        "bestIndex": 0,
+        "coins": 0,
+        "companions": Array [],
+        "earlyCaptureUsed": 0,
+        "items": Object {},
+        "killCount": 0,
+        "level": 1,
+        "monsterHp": "10",
+        "monsterIndex": 0,
+        "nextCompanionId": 1,
+        "pvpParty": Array [],
+        "rebirths": 0,
+        "releasedCount": 0,
+        "souls": 0,
+        "version": 3,
+        "xp": 0,
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/runtimeV8.test.ts:127:29
+    125|     expect(fake.menu.send).toHaveBeenCalledWith(IPC.SAVE_STATUS,{state…
+    126|     expect(call(IPC.GET_SAVE_STATUS)).toEqual({state:'write-error'});
+    127|     expect(fake.onSave).not.toHaveBeenCalled();
+       |                             ^
+    128|     rmSync(join(fake.directory,'save.json.tmp'),{recursive:true});
+    129|     expect(call(IPC.SAVE_STATE,{...DEFAULT_SAVE,coins:99})).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/17]⎯
+
+ FAIL  tests/tray.test.ts > tray wiring (source contract, src/main/index.ts) > wires the menu actions to reset IPC, the settings deep link and quit
+AssertionError: expected '// Main-process entry: accessory-app …' to contain 'win.webContents.send(IPC.RESET)'
+
+- Expected
++ Received
+
+- win.webContents.send(IPC.RESET)
++ // Main-process entry: accessory-app lifecycle (SPEC F16) + overlay window
++ // + IPC handlers (T03) + guarded global input hook (T04, production only)
++ // + tray icon/menu (T17, SPEC F23) + the SMOKE=1 self-test sequence (T13).
++
++ import { randomUUID } from 'node:crypto';
++ import { mkdtempSync } from 'node:fs';
++ import { tmpdir } from 'node:os';
++ import { join } from 'node:path';
++ import { app, Menu, nativeImage, Notification, systemPreferences, Tray } from 'electron';
++ import type { BrowserWindow } from 'electron';
++ import type { Theft } from '../shared/api.js';
++ import { SimulatedInputDriver } from '../core/index.js';
++ import { IPC } from '../shared/ipc.js';
++ import { getCurrentInputMode, onceGlobalInput, startGlobalInput } from './globalInput.js';
++ import { readIdentity, writeIdentity } from './identity.js';
++ import { getSaveStatus, registerIpcHandlers, sendToAll, requestProgressReset } from './ipc.js';
++ import { showMenuWindow } from './menuWindow.js';
++ import type { NetSession } from './net.js';
++ import { createTheftWatcher } from './thefts.js';
++ import { setupTray, type TrayController } from './tray.js';
++ import { encodeTrayIconPng } from './trayIcon.js';
++ import { applyOverlayScale, createOverlayWindow } from './window.js';
++ import { readSettings, updateSettings } from './settings.js';
++ import { readSaveFileResult } from './persistence.js';
++ import type { SettingsResult } from '../shared/ipc.js';
++
++ const isSmoke = Boolean(process.env.SMOKE);
++
++ /** How many synthetic attacks the smoke run fires (SPEC F18: at least 3). */
++ const SMOKE_ATTACK_COUNT = 3;
++ /** Render grace after the synthetic attacks before declaring success. */
++ const SMOKE_EXIT_DELAY_MS = 500;
++
++ /**
++  * SMOKE=1 proof sequence. Runs only AFTER the renderer reported its first
++  * painted frame over IPC, so success covers boot + render + the input path:
++  * a core SimulatedInputDriver (never the native hook — no permissions, no
++  * interaction) fires synthetic attacks through the real desmon:input channel,
++  * the renderer gets a moment to process/repaint, then SMOKE_OK + exit(0).
++  */
++ function runSmokeSequence(win: BrowserWindow): void {
++   const driver = new SimulatedInputDriver();
++   driver.subscribe((event) => {
++     win.webContents.send(IPC.INPUT, event);
++   });
++   driver.start(); // emit() drops events while the driver is stopped
++   for (let i = 0; i < SMOKE_ATTACK_COUNT; i++) {
++     driver.emit(i % 2 === 0 ? 'keyboard' : 'mouse');
++   }
++   setTimeout(() => {
++     process.stdout.write('SMOKE_OK\n');
++     app.exit(0);
++   }, SMOKE_EXIT_DELAY_MS);
++ }
++
++ /** Whole hours left in a theft's 24 h reclaim window, never negative. */
++ const hoursLeft = (reclaimUntil: number): number =>
++   Math.max(0, Math.ceil((reclaimUntil - Date.now()) / 3_600_000));
++
++ /**
++  * SPEC F74: the ONE main-originated action. The server re-ids the companion,
++  * so the game window adds it as-is, flushes the save, and STATE_CHANGED
++  * carries it on to the menu. A failed reclaim is silent — the inbox in the
++  * menu is the place that explains why.
++  */
++ function reclaimAndApply(session: NetSession, theftId: string): void { void session.reclaim(theftId); }
++
++ /**
++  * Native notification for one theft, click → reclaim. The whole body is
++  * guarded: `Notification` is OS-owned and its failure must cost a toast, not
++  * the app.
++  */
++ function makeNotifier(session: NetSession): (t: Theft) => void {
++   return (t) => {
++     try {
++       const species = t.companion.speciesId;
++       const speciesName = species.charAt(0).toUpperCase() + species.slice(1);
++       const n = new Notification({
++         title: 'DesMon',
++         body: `${t.thiefName}에게 ${speciesName} Lv ${String(t.companion.level)} 동료를 빼앗겼습니다. 눌러 회수하세요 · 회수 기한 ${String(hoursLeft(t.reclaimUntil))}시간 남음.`,
++       });
++       n.on('click', () => {
++         reclaimAndApply(session, t.id);
++       });
++       n.show();
++     } catch {
++       // an unusable notifier is not a reason to take the game down
++     }
++   };
++ }
++
++ // Accessory lifecycle order matters: setName first, single-instance gate,
++ // dock hidden BEFORE window creation (see GAME_ARCHITECTURE §0.3/§3.1).
++ app.setName('DesMon');
++
++ if (isSmoke) {
++   // Assumption 40: the single-instance lock file lives in userData, so a smoke
++   // run sharing it with a real (or parallel) instance would quit before ever
++   // printing SMOKE_OK. A throwaway dir also keeps save.json out of the way.
++   // Must land AFTER setName (it seeds the default path) and BEFORE the lock.
++   app.setPath('userData', mkdtempSync(join(tmpdir(), 'desmon-smoke-')));
++ }
++
++ if (!app.requestSingleInstanceLock()) {
++   // A DesMon instance is already running — this second instance quits.
++   app.quit();
++ } else {
++   if (isSmoke) {
++     // Watchdog: if boot/render/input never completes, fail the smoke run.
++     setTimeout(() => {
++       app.exit(1);
++     }, 20_000);
++   }
++
++   void app.whenReady().then(() => {
++     app.dock?.hide(); // BEFORE window creation: accessory app, no dock icon
++
++     let smokeWin: BrowserWindow | null = null;
++     let smokeStarted = false;
++
++     const directory = app.getPath('userData');
++     const initialSave = readSaveFileResult(directory);
++     const legacySave = initialSave.kind === 'loaded';
++     let preferences = readSettings(directory, legacySave);
++     const runtime: { tray?: TrayController; win?: BrowserWindow } = {};
++     let settingsError = false;
++     const refreshTray = (): void => { runtime.tray?.refresh(getCurrentInputMode()); };
++     const changeSettings = (patch: unknown): SettingsResult => {
++       const result = updateSettings(directory, patch, legacySave);
++       settingsError = !result.ok;
++       if (result.ok) {
++         preferences = result.settings;
++         if (runtime.win && !runtime.win.isDestroyed()) {
++           applyOverlayScale(runtime.win, preferences.gameScale);
++           runtime.win.webContents.setAudioMuted(preferences.muted);
++         }
++         sendToAll(IPC.SETTINGS_CHANGED, preferences);
++       }
++       refreshTray();
++       return result;
++     };
++     // Persist the fresh-install choice before its first automatic progress save.
++     const startupError = initialSave.kind === 'missing' && !isSmoke && !changeSettings(preferences).ok
++       ? 'settings-write' : undefined;
++     const globalInput = onceGlobalInput(() => startGlobalInput({
++       isTrustedAccessibilityClient: (prompt) => systemPreferences.isTrustedAccessibilityClient(prompt),
++       onInput: (payload) => { runtime.win?.webContents.send(IPC.INPUT, payload); },
++       onModeChange: (payload) => { sendToAll(IPC.INPUT_MODE, payload); refreshTray(); },
++     }));
++     const session = registerIpcHandlers({
++       initialSave,
++       startupError,
++       getSettings: () => ({ ...preferences }),
++       updateSettings: changeSettings,
++       onSaveStatus: refreshTray,
++       connectGlobalInput: () => {
++         if (isSmoke || getSaveStatus().state === 'load-error') return { ok: false, mode: getCurrentInputMode() };
++         const result = changeSettings({ welcomeSeen: true, globalInputRequested: true });
++         if (result.ok) globalInput.start();
++         return { ok: result.ok, mode: getCurrentInputMode() };
++       },
++       onFirstFrame: () => {
++         if (!isSmoke || smokeWin === null || smokeStarted) return;
++         smokeStarted = true;
++         runSmokeSequence(smokeWin);
++       },
++     });
++     const win = createOverlayWindow();
++     runtime.win = win;
++     applyOverlayScale(win, preferences.gameScale);
++     win.webContents.setAudioMuted(preferences.muted);
++     smokeWin = win;
++     const openMenu = (guide = false): void => {
++       if (guide && !changeSettings({ welcomeSeen: false }).ok) return;
++       const menu = showMenuWindow();
++       if (!preferences.welcomeSeen) menu.once('closed', () => {
++         if (!preferences.welcomeSeen) changeSettings({ welcomeSeen: true });
++       });
++     };
++     runtime.tray = setupTray({
++       title: `DesMon v${app.getVersion()}`,
++       getGameScale: () => preferences.gameScale,
++       getSettings: () => preferences,
++       getSaveStatus,
++       getSettingsError: () => settingsError,
++       createTray: () => new Tray(nativeImage.createFromBuffer(encodeTrayIconPng())),
++       buildMenu: (template) => Menu.buildFromTemplate(template),
++       getInputMode: getCurrentInputMode,
++       actions: {
++         setGameScale: (scale) => { changeSettings({ gameScale: scale }); },
++         setMuted: (muted) => { changeSettings({ muted }); },
++         setScreenShake: (screenShake) => { changeSettings({ screenShake }); },
++         showWelcome: () => { openMenu(true); },
++         openAccessibilitySettings: () => { openMenu(true); },
++         openCollection: () => { openMenu(); },
++         resetProgress: () => { void requestProgressReset(); },
++         quit: () => { app.quit(); },
++       },
++     });
++     if (!isSmoke && (getSaveStatus().state === 'load-error' || !preferences.welcomeSeen)) openMenu();
++
++     if (!isSmoke) {
++       // Theft watcher (SPEC F74): SMOKE never starts it, so a smoke run stays
++       // offline. No notification support → no watcher at all: there would be
++       // nothing to show, so there is nothing to poll for either.
++       const watcher = getSaveStatus().state !== 'load-error' && Notification.isSupported()
++         ? createTheftWatcher({
++             session,
++             notify: makeNotifier(session),
++             setInterval,
++             clearInterval,
++             readIdentity: () => readIdentity(app.getPath('userData'), randomUUID),
++             writeIdentity: (identity) => {
++               writeIdentity(app.getPath('userData'), identity);
++             },
++           })
++         : null;
++       watcher?.start();
++
++       // Permission is requested only after the fresh user chooses global input.
++       if (getSaveStatus().state !== 'load-error' && preferences.globalInputRequested) globalInput.start();
++       app.on('will-quit', () => {
++         globalInput.stop(); // uIOhook.stop() + cancel the grant poll
++         watcher?.stop();
++       });
++     }
++   });
++
++   app.on('window-all-closed', () => {
++     app.quit();
++   });
++ }
++
+
+ ❯ tests/tray.test.ts:305:21
+    303| 
+    304|   it('wires the menu actions to reset IPC, the settings deep link and …
+    305|     expect(indexTs).toContain('win.webContents.send(IPC.RESET)');
+       |                     ^
+    306|     expect(indexTs).toContain('openAccessibilitySettings: () => { open…
+    307|     expect(indexTs).toContain('app.quit()');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/17]⎯
+
+ FAIL  tests/window.test.ts > theft watcher (F74, src/main/index.ts) > notifies with the F74 body and turns a click into the one main-originated action
+AssertionError: expected '// Main-process entry: accessory-app …' to contain 'sendToAll(IPC.ACTION, { type: \'addCo…'
+
+- Expected
++ Received
+
+- sendToAll(IPC.ACTION, { type: 'addCompanion', companion: res.value.companion })
++ // Main-process entry: accessory-app lifecycle (SPEC F16) + overlay window
++ // + IPC handlers (T03) + guarded global input hook (T04, production only)
++ // + tray icon/menu (T17, SPEC F23) + the SMOKE=1 self-test sequence (T13).
++
++ import { randomUUID } from 'node:crypto';
++ import { mkdtempSync } from 'node:fs';
++ import { tmpdir } from 'node:os';
++ import { join } from 'node:path';
++ import { app, Menu, nativeImage, Notification, systemPreferences, Tray } from 'electron';
++ import type { BrowserWindow } from 'electron';
++ import type { Theft } from '../shared/api.js';
++ import { SimulatedInputDriver } from '../core/index.js';
++ import { IPC } from '../shared/ipc.js';
++ import { getCurrentInputMode, onceGlobalInput, startGlobalInput } from './globalInput.js';
++ import { readIdentity, writeIdentity } from './identity.js';
++ import { getSaveStatus, registerIpcHandlers, sendToAll, requestProgressReset } from './ipc.js';
++ import { showMenuWindow } from './menuWindow.js';
++ import type { NetSession } from './net.js';
++ import { createTheftWatcher } from './thefts.js';
++ import { setupTray, type TrayController } from './tray.js';
++ import { encodeTrayIconPng } from './trayIcon.js';
++ import { applyOverlayScale, createOverlayWindow } from './window.js';
++ import { readSettings, updateSettings } from './settings.js';
++ import { readSaveFileResult } from './persistence.js';
++ import type { SettingsResult } from '../shared/ipc.js';
++
++ const isSmoke = Boolean(process.env.SMOKE);
++
++ /** How many synthetic attacks the smoke run fires (SPEC F18: at least 3). */
++ const SMOKE_ATTACK_COUNT = 3;
++ /** Render grace after the synthetic attacks before declaring success. */
++ const SMOKE_EXIT_DELAY_MS = 500;
++
++ /**
++  * SMOKE=1 proof sequence. Runs only AFTER the renderer reported its first
++  * painted frame over IPC, so success covers boot + render + the input path:
++  * a core SimulatedInputDriver (never the native hook — no permissions, no
++  * interaction) fires synthetic attacks through the real desmon:input channel,
++  * the renderer gets a moment to process/repaint, then SMOKE_OK + exit(0).
++  */
++ function runSmokeSequence(win: BrowserWindow): void {
++   const driver = new SimulatedInputDriver();
++   driver.subscribe((event) => {
++     win.webContents.send(IPC.INPUT, event);
++   });
++   driver.start(); // emit() drops events while the driver is stopped
++   for (let i = 0; i < SMOKE_ATTACK_COUNT; i++) {
++     driver.emit(i % 2 === 0 ? 'keyboard' : 'mouse');
++   }
++   setTimeout(() => {
++     process.stdout.write('SMOKE_OK\n');
++     app.exit(0);
++   }, SMOKE_EXIT_DELAY_MS);
++ }
++
++ /** Whole hours left in a theft's 24 h reclaim window, never negative. */
++ const hoursLeft = (reclaimUntil: number): number =>
++   Math.max(0, Math.ceil((reclaimUntil - Date.now()) / 3_600_000));
++
++ /**
++  * SPEC F74: the ONE main-originated action. The server re-ids the companion,
++  * so the game window adds it as-is, flushes the save, and STATE_CHANGED
++  * carries it on to the menu. A failed reclaim is silent — the inbox in the
++  * menu is the place that explains why.
++  */
++ function reclaimAndApply(session: NetSession, theftId: string): void { void session.reclaim(theftId); }
++
++ /**
++  * Native notification for one theft, click → reclaim. The whole body is
++  * guarded: `Notification` is OS-owned and its failure must cost a toast, not
++  * the app.
++  */
++ function makeNotifier(session: NetSession): (t: Theft) => void {
++   return (t) => {
++     try {
++       const species = t.companion.speciesId;
++       const speciesName = species.charAt(0).toUpperCase() + species.slice(1);
++       const n = new Notification({
++         title: 'DesMon',
++         body: `${t.thiefName}에게 ${speciesName} Lv ${String(t.companion.level)} 동료를 빼앗겼습니다. 눌러 회수하세요 · 회수 기한 ${String(hoursLeft(t.reclaimUntil))}시간 남음.`,
++       });
++       n.on('click', () => {
++         reclaimAndApply(session, t.id);
++       });
++       n.show();
++     } catch {
++       // an unusable notifier is not a reason to take the game down
++     }
++   };
++ }
++
++ // Accessory lifecycle order matters: setName first, single-instance gate,
++ // dock hidden BEFORE window creation (see GAME_ARCHITECTURE §0.3/§3.1).
++ app.setName('DesMon');
++
++ if (isSmoke) {
++   // Assumption 40: the single-instance lock file lives in userData, so a smoke
++   // run sharing it with a real (or parallel) instance would quit before ever
++   // printing SMOKE_OK. A throwaway dir also keeps save.json out of the way.
++   // Must land AFTER setName (it seeds the default path) and BEFORE the lock.
++   app.setPath('userData', mkdtempSync(join(tmpdir(), 'desmon-smoke-')));
++ }
++
++ if (!app.requestSingleInstanceLock()) {
++   // A DesMon instance is already running — this second instance quits.
++   app.quit();
++ } else {
++   if (isSmoke) {
++     // Watchdog: if boot/render/input never completes, fail the smoke run.
++     setTimeout(() => {
++       app.exit(1);
++     }, 20_000);
++   }
++
++   void app.whenReady().then(() => {
++     app.dock?.hide(); // BEFORE window creation: accessory app, no dock icon
++
++     let smokeWin: BrowserWindow | null = null;
++     let smokeStarted = false;
++
++     const directory = app.getPath('userData');
++     const initialSave = readSaveFileResult(directory);
++     const legacySave = initialSave.kind === 'loaded';
++     let preferences = readSettings(directory, legacySave);
++     const runtime: { tray?: TrayController; win?: BrowserWindow } = {};
++     let settingsError = false;
++     const refreshTray = (): void => { runtime.tray?.refresh(getCurrentInputMode()); };
++     const changeSettings = (patch: unknown): SettingsResult => {
++       const result = updateSettings(directory, patch, legacySave);
++       settingsError = !result.ok;
++       if (result.ok) {
++         preferences = result.settings;
++         if (runtime.win && !runtime.win.isDestroyed()) {
++           applyOverlayScale(runtime.win, preferences.gameScale);
++           runtime.win.webContents.setAudioMuted(preferences.muted);
++         }
++         sendToAll(IPC.SETTINGS_CHANGED, preferences);
++       }
++       refreshTray();
++       return result;
++     };
++     // Persist the fresh-install choice before its first automatic progress save.
++     const startupError = initialSave.kind === 'missing' && !isSmoke && !changeSettings(preferences).ok
++       ? 'settings-write' : undefined;
++     const globalInput = onceGlobalInput(() => startGlobalInput({
++       isTrustedAccessibilityClient: (prompt) => systemPreferences.isTrustedAccessibilityClient(prompt),
++       onInput: (payload) => { runtime.win?.webContents.send(IPC.INPUT, payload); },
++       onModeChange: (payload) => { sendToAll(IPC.INPUT_MODE, payload); refreshTray(); },
++     }));
++     const session = registerIpcHandlers({
++       initialSave,
++       startupError,
++       getSettings: () => ({ ...preferences }),
++       updateSettings: changeSettings,
++       onSaveStatus: refreshTray,
++       connectGlobalInput: () => {
++         if (isSmoke || getSaveStatus().state === 'load-error') return { ok: false, mode: getCurrentInputMode() };
++         const result = changeSettings({ welcomeSeen: true, globalInputRequested: true });
++         if (result.ok) globalInput.start();
++         return { ok: result.ok, mode: getCurrentInputMode() };
++       },
++       onFirstFrame: () => {
++         if (!isSmoke || smokeWin === null || smokeStarted) return;
++         smokeStarted = true;
++         runSmokeSequence(smokeWin);
++       },
++     });
++     const win = createOverlayWindow();
++     runtime.win = win;
++     applyOverlayScale(win, preferences.gameScale);
++     win.webContents.setAudioMuted(preferences.muted);
++     smokeWin = win;
++     const openMenu = (guide = false): void => {
++       if (guide && !changeSettings({ welcomeSeen: false }).ok) return;
++       const menu = showMenuWindow();
++       if (!preferences.welcomeSeen) menu.once('closed', () => {
++         if (!preferences.welcomeSeen) changeSettings({ welcomeSeen: true });
++       });
++     };
++     runtime.tray = setupTray({
++       title: `DesMon v${app.getVersion()}`,
++       getGameScale: () => preferences.gameScale,
++       getSettings: () => preferences,
++       getSaveStatus,
++       getSettingsError: () => settingsError,
++       createTray: () => new Tray(nativeImage.createFromBuffer(encodeTrayIconPng())),
++       buildMenu: (template) => Menu.buildFromTemplate(template),
++       getInputMode: getCurrentInputMode,
++       actions: {
++         setGameScale: (scale) => { changeSettings({ gameScale: scale }); },
++         setMuted: (muted) => { changeSettings({ muted }); },
++         setScreenShake: (screenShake) => { changeSettings({ screenShake }); },
++         showWelcome: () => { openMenu(true); },
++         openAccessibilitySettings: () => { openMenu(true); },
++         openCollection: () => { openMenu(); },
++         resetProgress: () => { void requestProgressReset(); },
++         quit: () => { app.quit(); },
++       },
++     });
++     if (!isSmoke && (getSaveStatus().state === 'load-error' || !preferences.welcomeSeen)) openMenu();
++
++     if (!isSmoke) {
++       // Theft watcher (SPEC F74): SMOKE never starts it, so a smoke run stays
++       // offline. No notification support → no watcher at all: there would be
++       // nothing to show, so there is nothing to poll for either.
++       const watcher = getSaveStatus().state !== 'load-error' && Notification.isSupported()
++         ? createTheftWatcher({
++             session,
++             notify: makeNotifier(session),
++             setInterval,
++             clearInterval,
++             readIdentity: () => readIdentity(app.getPath('userData'), randomUUID),
++             writeIdentity: (identity) => {
++               writeIdentity(app.getPath('userData'), identity);
++             },
++           })
++         : null;
++       watcher?.start();
++
++       // Permission is requested only after the fresh user chooses global input.
++       if (getSaveStatus().state !== 'load-error' && preferences.globalInputRequested) globalInput.start();
++       app.on('will-quit', () => {
++         globalInput.stop(); // uIOhook.stop() + cancel the grant poll
++         watcher?.stop();
++       });
++     }
++   });
++
++   app.on('window-all-closed', () => {
++     app.quit();
++   });
++ }
++
+
+ ❯ tests/window.test.ts:141:21
+    139|     expect(indexTs).toContain('눌러 회수하세요 · 회수 기한 ${String(hoursLeft(t.r…
+    140|     expect(indexTs).toContain("n.on('click'");
+    141|     expect(indexTs).toContain(
+       |                     ^
+    142|       "sendToAll(IPC.ACTION, { type: 'addCompanion', companion: res.va…
+    143|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/17]⎯
+
+
+ Test Files  8 failed | 59 passed (67)
+      Tests  17 failed | 992 passed (1009)
+   Start at  17:56:33
+   Duration  6.56s (transform 2.92s, setup 0ms, collect 10.30s, tests 18.77s, environment 9ms, prepare 4.83s)
+

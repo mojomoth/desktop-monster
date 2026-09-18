@@ -1,0 +1,1737 @@
+{
+  "schemaVersion": 3,
+  "mode": "electron-e2e",
+  "sourceDigest": "06e5cfec27b15fe4286a35c69aacef98a5bcb36574ae0939018f136955c8d484",
+  "evaluationDigest": "c52713a0c5698e8ac2e5d3eed1ed47cbe1fb3e88a74271d680ce540a88c77d95",
+  "command": "node .harness/v7/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json 0 active",
+  "startedAt": "2026-09-12T03:24:07.633Z",
+  "elapsedMs": 33031.364125,
+  "status": "failed",
+  "completion": "interrupted",
+  "checks": [
+    {
+      "id": "native-overlay",
+      "passed": true,
+      "details": {
+        "size": [
+          400,
+          260
+        ],
+        "alwaysOnTop": true
+      }
+    },
+    {
+      "id": "preload-isolation",
+      "passed": true,
+      "details": "Real sandboxed preload bridge; Node unavailable in renderer."
+    },
+    {
+      "id": "painted-canvas",
+      "passed": true,
+      "details": {
+        "opaquePixels": 3921
+      }
+    },
+    {
+      "id": "fallback-keyboard-to-save",
+      "passed": true,
+      "details": {
+        "beforeHp": "10",
+        "afterHp": "9"
+      }
+    },
+    {
+      "id": "fallback-mouse-to-save",
+      "passed": true,
+      "details": {
+        "beforeHp": "9",
+        "afterHp": "8"
+      }
+    },
+    {
+      "id": "ipc-input-kill-reward",
+      "passed": true,
+      "details": {
+        "level": 2,
+        "kills": 4,
+        "coins": 5,
+        "companions": 0,
+        "reincarnations": 0,
+        "playTimeMs": 2994.4999999999995,
+        "seenMonsters": 5,
+        "acquiredHeroes": 0,
+        "defeatedSpecies": 4
+      }
+    },
+    {
+      "id": "save-reload",
+      "passed": true,
+      "details": {
+        "saved": {
+          "level": 2,
+          "kills": 4,
+          "coins": 5,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 2994.4999999999995,
+          "seenMonsters": 5,
+          "acquiredHeroes": 0,
+          "defeatedSpecies": 4
+        },
+        "resumed": {
+          "level": 2,
+          "kills": 4,
+          "coins": 5,
+          "companions": 0,
+          "reincarnations": 0,
+          "playTimeMs": 2994.4999999999995,
+          "seenMonsters": 5,
+          "acquiredHeroes": 0,
+          "defeatedSpecies": 4
+        }
+      }
+    },
+    {
+      "id": "menu-singleton",
+      "passed": true,
+      "details": "Repeated opener reuses the production menu window."
+    },
+    {
+      "id": "shop-transaction",
+      "passed": true,
+      "details": {
+        "coins": 1725,
+        "training": 1
+      }
+    },
+    {
+      "id": "stale-purchase-token",
+      "passed": true,
+      "details": "Repeated token rejected by production reducer through IPC."
+    },
+    {
+      "id": "menu-hero",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "여행의 시작 · 수습 영웅\n\nLv.1 · 공격력 1\n\n환생하면 동료 버프가 열립니다\n\n중첩 0 · 환생 0회 · 보유 영웅 0/70 · 골드 1725\n\n현재 Lv.1 / 다음 환생 Lv.18\n\n새로운 모습으로 환생\n\n확정하면 Lv.1 · 첫 몬스터부터 다시 시작합니다. 동료·골드·훈련·발견·기록은 유지되고 영혼과 영구 공격력 +25%를 얻습니다. 수락 후에는 Lv.19과 플레이 2분 휴식이 필요합니다.\n\n낮은 단계와 보유 영웅도 다시 등장합니다. 같은 영웅으로 환생하면 중첩 +1, 이전 최고 수치를 보존합니다. 도감에서 보유 영웅을 무료 장착할 수 있습니다.\n\nLv.18에 환생 해금"
+      }
+    },
+    {
+      "id": "menu-codex",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "영웅 도감 · 발견 0/70\n지난 확인 이후 발견\n\n영웅 0 · 몬스터 0 · 모두 확인했습니다.\n\n표시한 발견 확인\n\n표시한 카드만 확인합니다. 나머지 발견은 확인 후 이어서 표시됩니다. 아래 전체 도감에서 모든 발견을 볼 수 있습니다.\n\n선택한 목표\n\n목표 없음 · 아래 카드에서 하나를 무료로 선택하세요.\n\n목표 해제\n\n필드 시간 · 새벽 · 다음 전환까지 플레이 5분 0초 (20분 주기)\n\n영웅 도감\n몬스터 도감\n\n카드를 펼치면 발견 조건과 진행도를 확인할 수 있습니다. 영웅은 환생에서 선택하고, 몬스터는 처치하면 도감에 공개됩니다.\n\n#001\n미발견\n일반 · 불 · ★\n#002\n미발견\n일반 · 물 · ★\n#003\n미발견\n일반 · 바람 · ★\n#004\n미발견\n일반 · 대지 · ★\n#005\n미발견\n일반 · 어둠 · ★\n#006\n미발견\n일반 · 불 · ★\n#007\n미발견\n일반 · 물 · ★\n#008\n미발견\n일반 · 바람 · ★\n#009\n미발견\n일반 · 대지 · ★\n#010\n미발견\n일반 · 어둠 · ★\n#011\n미발견\n일반 · 불 · ★★\n#012\n미발견\n일반 · 물 · ★★\n#013\n미발견\n일반 · 바람 · ★★\n#014\n미발견\n일반 · 대지 · ★★\n#015\n미발견\n일반 · 어둠 · ★★\n#016\n미발견\n일반 · 불 · ★★\n#017\n미발견\n일반 · 물 · ★★\n#018\n미발견\n일반 · 바람 · ★★\n#019\n미발견\n일반 · 대지 · ★★\n#020\n미발견\n일반 · 어둠 · ★★\n#021\n미발견\n일반 · 불 · ★★★\n#022\n미발견\n일반 · 물 · ★★★\n#023\n미발견\n일반 · 바람 · ★★★\n#024\n미발견\n일반 · 대지 · ★★★\n#025\n미발견\n일반 · 어둠 · ★★★\n#026\n미발견\n일반 · 불 · ★★★\n#027\n미발견\n일반 · 물 · ★★★\n#028\n미발견\n일반 · 바람 · ★★★\n#029\n미발견\n일반 · 대지 · ★★★\n#030\n미발견\n일반 · 어둠 · ★★★\n#031\n미발견\n일반 · 불 · ★★★★\n#032\n미발견\n일반 · 물 · ★★★★\n#033\n미발견\n일반 · 바람 · ★★★★\n#034\n미발견\n일반 · 대지 · ★★★★\n#035\n미발견\n일반 · 어둠 · ★★★★\n#036\n미발견\n일반 · 불 · ★★★★\n#037\n미발견\n일반 · 물 · ★★★★\n#038\n미발견\n일반 · 바람 · ★★★★\n#039\n미발견\n일반 · 대지 · ★★★★\n#040\n미발견\n일반 · 어둠 · ★★★★\n#041\n미발견\n일반 · 불 · ★★★★★\n#042\n미발견\n일반 · 물 · ★★★★★\n#043\n미발견\n일반 · 바람 · ★★★★★\n#044\n미발견\n일반 · 대지 · ★★★★★\n#045\n미발견\n일반 · 어둠 · ★★★★★\n#046\n미발견\n일반 · 불 · ★★★★★\n#047\n미발견\n일반 · 물 · ★★★★★\n#048\n미발견\n일반 · 바람 · ★★★★★\n#049\n미발견\n일반 · 대지 · ★★★★★\n#050\n미발견\n일반 · 어둠 · ★★★★★\n#051\n미발견\n레어 · 불 · ★★\n#052\n미발견\n레어 · 불 · ★★★\n#053\n미발견\n레어 · 불 · ★★★★\n#054\n미발견\n레어 · 불 · ★★★★★\n#055\n미발견\n레어 · 물 · ★★\n#056\n미발견\n레어 · 물 · ★★★\n#057\n미발견\n레어 · 물 · ★★★★\n#058\n미발견\n레어 · 물 · ★★★★★\n#059\n미발견\n레어 · 바람 · ★★\n#060\n미발견\n레어 · 바람 · ★★★\n#061\n미발견\n레어 · 바람 · ★★★★\n#062\n미발견\n레어 · 바람 · ★★★★★\n#063\n미발견\n레어 · 대지 · ★★\n#064\n미발견\n레어 · 대지 · ★★★\n#065\n미발견\n레어 · 대지 · ★★★★\n#066\n미발견\n레어 · 대지 · ★★★★★\n#067\n미발견\n레어 · 어둠 · ★★\n#068\n미발견\n레어 · 어둠 · ★★★\n#069\n미발견\n레어 · 어둠 · ★★★★\n#070\n미발견\n레어 · 어둠 · ★★★★★"
+      }
+    },
+    {
+      "id": "menu-profile",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "내 기록\n플레이어 이름\n이름 저장\n\n영문·숫자·_·- 1–16자. 오프라인에서도 변경할 수 있습니다.\n\n플레이 시간 · 0시간 0분 0초\n\n몬스터 처치 · 0마리\n\n영웅 환생 · 0회\n\n총 회귀 · 0회 (영웅 환생과 영혼 회귀 포함)\n\nPvP · 0승 0패 (훈련 상대 제외)\n\n누적 골드 사용 · 75\n\n앱에서 진행한 시간을 기록합니다. 종료·절전 시간은 포함되지 않습니다. 영웅 장착 변경은 환생 기록에 포함되지 않습니다.\n\n영웅 환생 기록 · 총 0회 · 최근 0개 (최대 100개)\n영웅별 전체 환생 횟수"
+      }
+    },
+    {
+      "id": "menu-roster",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "No companions yet — beat a boss to capture one."
+      }
+    },
+    {
+      "id": "menu-ranking",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "Offline"
+      }
+    },
+    {
+      "id": "menu-battle",
+      "passed": true,
+      "details": {
+        "visible": true,
+        "overflow": false,
+        "text": "대전 상대\n\n영웅과 배치된 동료, 전적을 보고 상대를 선택하세요.\n\n목록 새로고침\n서버에 연결할 수 없습니다. 목록 새로고침으로 다시 시도하세요.\n서버에 연결할 수 없습니다. 목록 새로고침으로 다시 시도하세요.\nAuto\nSave party\n\nΣ vs opponent: 0\n\nBattle!"
+      }
+    },
+    {
+      "id": "offline-pvp",
+      "passed": true,
+      "details": "Battle is disabled with offline identity."
+    },
+    {
+      "id": "profile-name-ipc",
+      "passed": true,
+      "details": "Native input, click, preload, IPC and isolated identity store round-trip."
+    },
+    {
+      "id": "hero-choice-reset-preserve",
+      "passed": true,
+      "details": {
+        "chosen": {
+          "level": 1,
+          "kills": 0,
+          "coins": 1800,
+          "companions": 0,
+          "reincarnations": 1,
+          "playTimeMs": 648.2000000357627,
+          "seenMonsters": 2,
+          "acquiredHeroes": 1,
+          "defeatedSpecies": 0
+        },
+        "restRemainingMs": 120000,
+        "choices": [
+          {
+            "formId": "h03",
+            "buffPercent": 23
+          },
+          {
+            "formId": "h06",
+            "buffPercent": 15
+          },
+          {
+            "formId": "h05",
+            "buffPercent": 11
+          }
+        ]
+      }
+    },
+    {
+      "id": "stale-hero-choice",
+      "passed": true,
+      "details": "Replaying an accepted offer does not grant another reincarnation."
+    },
+    {
+      "id": "reincarnation-progress-honesty",
+      "passed": true,
+      "details": {
+        "level": 12,
+        "requiredLevel": 19,
+        "ready": false,
+        "filledPixels": 24,
+        "barWidth": 38,
+        "fixture": "Lv12 after first reincarnation, no rest"
+      }
+    },
+    {
+      "id": "v07-codex-strict-legacy",
+      "passed": true,
+      "details": {
+        "selectedArt": {
+          "colors": 7,
+          "label": "새벽 검사",
+          "name": "새벽 검사"
+        },
+        "seenArt": {
+          "colors": 1,
+          "label": "미발견 영웅 실루엣",
+          "name": "미발견"
+        },
+        "killedArt": {
+          "colors": 6,
+          "label": "Slime",
+          "name": "Slime"
+        },
+        "spawnedArt": {
+          "colors": 1,
+          "label": "미발견 몬스터 실루엣",
+          "name": "미발견"
+        }
+      }
+    },
+    {
+      "id": "v07-codex-legacy-ack-normalization",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h01"
+        ],
+        "acknowledgedMonsters": [
+          "slime"
+        ],
+        "goal": {
+          "kind": "hero",
+          "id": "h02"
+        }
+      }
+    },
+    {
+      "id": "v07-codex-unacquired-goal",
+      "passed": true,
+      "details": {
+        "name": "영웅 #002 · 미발견",
+        "status": "조건 충족 · 아직 미발견. Lv.19 이후 환생 후보에서 선택하면 공개됩니다."
+      }
+    },
+    {
+      "id": "v07-codex-offer-stays-silhouette",
+      "passed": true,
+      "details": {
+        "choices": [
+          {
+            "formId": "h10",
+            "buffPercent": 24
+          },
+          {
+            "formId": "h01",
+            "buffPercent": 25
+          },
+          {
+            "formId": "h08",
+            "buffPercent": 23
+          }
+        ],
+        "art": [
+          {
+            "colors": 1,
+            "label": "미발견 영웅 실루엣",
+            "name": "미발견"
+          },
+          {
+            "colors": 1,
+            "label": "미발견 영웅 실루엣",
+            "name": "미발견"
+          },
+          {
+            "colors": 1,
+            "label": "미발견 영웅 실루엣",
+            "name": "미발견"
+          }
+        ]
+      }
+    },
+    {
+      "id": "v07-codex-selection-reveals-one",
+      "passed": true,
+      "details": {
+        "art": [
+          {
+            "colors": 7,
+            "label": "새벽 소환사",
+            "name": "새벽 소환사"
+          },
+          {
+            "colors": 1,
+            "label": "미발견 영웅 실루엣",
+            "name": "미발견"
+          },
+          {
+            "colors": 1,
+            "label": "미발견 영웅 실루엣",
+            "name": "미발견"
+          }
+        ],
+        "summary": {
+          "goal": "발견 완료 · 보유 · 목표는 직접 변경하거나 해제할 수 있습니다.",
+          "unread": "영웅 1 · 몬스터 0"
+        }
+      }
+    },
+    {
+      "id": "v07-codex-acquired-ack-only",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h10"
+        ],
+        "acknowledgedMonsters": [],
+        "goal": {
+          "kind": "hero",
+          "id": "h10"
+        }
+      }
+    },
+    {
+      "id": "v07-codex-restart-preservation",
+      "passed": true,
+      "details": {
+        "acknowledgedHeroes": [
+          "h10"
+        ],
+        "acknowledgedMonsters": [],
+        "goal": {
+          "kind": "hero",
+          "id": "h10"
+        }
+      }
+    },
+    {
+      "id": "v07-codex-first-kill-reveals",
+      "passed": true,
+      "details": {
+        "preKill": {
+          "colors": 1,
+          "label": "미발견 몬스터 실루엣",
+          "name": "미발견"
+        },
+        "postKill": {
+          "colors": 8,
+          "label": "Bat",
+          "name": "Bat"
+        },
+        "killGoal": "발견 완료 · 목표는 직접 변경하거나 해제할 수 있습니다."
+      }
+    },
+    {
+      "id": "v07-level-over-10-save-reload",
+      "passed": true,
+      "details": {
+        "expected": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 8,
+            "level": 11,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 8,
+            "level": 250,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 8,
+            "level": 9007199254740991,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 8,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 8,
+            "level": 1,
+            "stars": 0
+          }
+        ],
+        "saved": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 8,
+            "level": 11,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 8,
+            "level": 250,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 8,
+            "level": 9007199254740991,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 8,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 8,
+            "level": 1,
+            "stars": 0
+          }
+        ],
+        "resumed": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 8,
+            "level": 11,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 8,
+            "level": 250,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 8,
+            "level": 9007199254740991,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 8,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 8,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "v07-codex-owned-without-kill-masked",
+      "passed": true,
+      "details": {
+        "art": {
+          "colors": 1,
+          "label": "미발견 몬스터 실루엣",
+          "name": "미발견"
+        },
+        "note": "Synthetic transferred companion; no species kill record."
+      }
+    },
+    {
+      "id": "v07-companion-reincarnation-cancel",
+      "passed": true,
+      "details": {
+        "fixture": true,
+        "displayedPower": {
+          "result": "Slime Lv 11 · Lv.11 → Lv.1 · ★0 → ★1",
+          "power": "기본 힘 11 → 2",
+          "exact": "11 → 2",
+          "aria": "기본 힘 11에서 2로 변경"
+        },
+        "before": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 8,
+            "level": 11,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 8,
+            "level": 250,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 8,
+            "level": 9007199254740991,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 8,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 8,
+            "level": 1,
+            "stars": 0
+          }
+        ],
+        "afterFirstClick": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 8,
+            "level": 11,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 8,
+            "level": 250,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 8,
+            "level": 9007199254740991,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 8,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 8,
+            "level": 1,
+            "stars": 0
+          }
+        ],
+        "afterCancel": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 8,
+            "level": 11,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "bat",
+            "bossIndex": 8,
+            "level": 250,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "ghost",
+            "bossIndex": 8,
+            "level": 9007199254740991,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "golem",
+            "bossIndex": 8,
+            "level": 10,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "dragon",
+            "bossIndex": 8,
+            "level": 1,
+            "stars": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "v07-companion-reincarnation-confirm",
+      "passed": true,
+      "details": {
+        "fixture": true,
+        "before": {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 8,
+          "level": 11,
+          "stars": 0
+        },
+        "displayedPower": {
+          "result": "Slime Lv 11 · Lv.11 → Lv.1 · ★0 → ★1",
+          "power": "기본 힘 11 → 2",
+          "exact": "11 → 2",
+          "aria": "기본 힘 11에서 2로 변경"
+        },
+        "after": {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 8,
+          "level": 1,
+          "stars": 1
+        },
+        "beforePower": "11",
+        "afterPower": "2"
+      }
+    },
+    {
+      "id": "v07-companion-reincarnation-target-change-invalidates",
+      "passed": true,
+      "details": {
+        "fixture": true,
+        "change": "isolated save target level 250 -> 251 through field reload/stateChanged",
+        "beforeChange": {
+          "result": "Bat Lv 250 · Lv.250 → Lv.1 · ★0 → ★1",
+          "power": "기본 힘 250 → 2",
+          "exact": "250 → 2",
+          "aria": "기본 힘 250에서 2로 변경"
+        },
+        "after": {
+          "id": "c2",
+          "speciesId": "bat",
+          "bossIndex": 8,
+          "level": 251,
+          "stars": 0
+        },
+        "notice": "동료가 변경되어 환생 확인을 취소했습니다. 다시 확인해 주세요."
+      }
+    },
+    {
+      "id": "v07-level-over-10-network-roundtrip",
+      "passed": true,
+      "details": {
+        "upload": {
+          "ok": true,
+          "value": {
+            "rank": 1,
+            "removed": [],
+            "thefts": []
+          }
+        },
+        "directory": {
+          "ok": true,
+          "value": {
+            "opponents": [
+              {
+                "playerId": "e2e-4",
+                "rank": 1,
+                "name": "E2E_Rival",
+                "bestIndex": 8,
+                "rebirths": 0,
+                "hero": {
+                  "formId": "h01",
+                  "buffPercent": 15
+                },
+                "party": [
+                  {
+                    "id": "c1",
+                    "speciesId": "slime",
+                    "bossIndex": 8,
+                    "level": 11,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c2",
+                    "speciesId": "bat",
+                    "bossIndex": 8,
+                    "level": 250,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c3",
+                    "speciesId": "ghost",
+                    "bossIndex": 8,
+                    "level": 9007199254740991,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c4",
+                    "speciesId": "golem",
+                    "bossIndex": 8,
+                    "level": 10,
+                    "stars": 0
+                  },
+                  {
+                    "id": "c5",
+                    "speciesId": "dragon",
+                    "bossIndex": 8,
+                    "level": 1,
+                    "stars": 0
+                  }
+                ],
+                "wins": 0,
+                "losses": 0
+              }
+            ]
+          }
+        },
+        "preview": {
+          "ok": true,
+          "value": {
+            "matchId": "0000000000000005",
+            "seed": 7,
+            "bot": false,
+            "opponent": {
+              "playerId": "e2e-4",
+              "name": "E2E_Rival",
+              "bestIndex": 8,
+              "rebirths": 0,
+              "party": [
+                {
+                  "id": "c1",
+                  "speciesId": "slime",
+                  "bossIndex": 8,
+                  "level": 11,
+                  "stars": 0
+                },
+                {
+                  "id": "c2",
+                  "speciesId": "bat",
+                  "bossIndex": 8,
+                  "level": 250,
+                  "stars": 0
+                },
+                {
+                  "id": "c3",
+                  "speciesId": "ghost",
+                  "bossIndex": 8,
+                  "level": 9007199254740991,
+                  "stars": 0
+                },
+                {
+                  "id": "c4",
+                  "speciesId": "golem",
+                  "bossIndex": 8,
+                  "level": 10,
+                  "stars": 0
+                },
+                {
+                  "id": "c5",
+                  "speciesId": "dragon",
+                  "bossIndex": 8,
+                  "level": 1,
+                  "stars": 0
+                }
+              ],
+              "hero": {
+                "formId": "h01",
+                "buffPercent": 15
+              }
+            },
+            "expiresAt": 1789183587683
+          }
+        }
+      }
+    },
+    {
+      "id": "v07-pvp-party-in-every-row",
+      "passed": true,
+      "details": [
+        {
+          "id": "e2e-103",
+          "text": "#1 E2E_Foe50\n새벽 검사\n0승 0패\n최고 몬스터 400\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#1 E2E_Foe50",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-101",
+          "text": "#2 E2E_Foe49\n새벽 검사\n0승 0패\n최고 몬스터 392\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#2 E2E_Foe49",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-99",
+          "text": "#3 E2E_Foe48\n새벽 검사\n0승 0패\n최고 몬스터 384\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#3 E2E_Foe48",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-97",
+          "text": "#4 E2E_Foe47\n새벽 검사\n0승 0패\n최고 몬스터 376\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#4 E2E_Foe47",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-95",
+          "text": "#5 E2E_Foe46\n새벽 검사\n0승 0패\n최고 몬스터 368\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#5 E2E_Foe46",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-93",
+          "text": "#6 E2E_Foe45\n새벽 검사\n0승 0패\n최고 몬스터 360\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#6 E2E_Foe45",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-91",
+          "text": "#7 E2E_Foe44\n새벽 검사\n0승 0패\n최고 몬스터 352\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#7 E2E_Foe44",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-89",
+          "text": "#8 E2E_Foe43\n새벽 검사\n0승 0패\n최고 몬스터 344\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#8 E2E_Foe43",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-87",
+          "text": "#9 E2E_Foe42\n새벽 검사\n0승 0패\n최고 몬스터 336\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#9 E2E_Foe42",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-85",
+          "text": "#10 E2E_Foe41\n새벽 검사\n0승 0패\n최고 몬스터 328\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#10 E2E_Foe41",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-83",
+          "text": "#11 E2E_Foe40\n새벽 검사\n0승 0패\n최고 몬스터 320\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#11 E2E_Foe40",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-81",
+          "text": "#12 E2E_Foe39\n새벽 검사\n0승 0패\n최고 몬스터 312\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#12 E2E_Foe39",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-79",
+          "text": "#13 E2E_Foe38\n새벽 검사\n0승 0패\n최고 몬스터 304\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#13 E2E_Foe38",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-77",
+          "text": "#14 E2E_Foe37\n새벽 검사\n0승 0패\n최고 몬스터 296\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#14 E2E_Foe37",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-75",
+          "text": "#15 E2E_Foe36\n새벽 검사\n0승 0패\n최고 몬스터 288\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#15 E2E_Foe36",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-73",
+          "text": "#16 E2E_Foe35\n새벽 검사\n0승 0패\n최고 몬스터 280\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#16 E2E_Foe35",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-71",
+          "text": "#17 E2E_Foe34\n새벽 검사\n0승 0패\n최고 몬스터 272\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#17 E2E_Foe34",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-69",
+          "text": "#18 E2E_Foe33\n새벽 검사\n0승 0패\n최고 몬스터 264\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#18 E2E_Foe33",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-67",
+          "text": "#19 E2E_Foe32\n새벽 검사\n0승 0패\n최고 몬스터 256\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#19 E2E_Foe32",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-65",
+          "text": "#20 E2E_Foe31\n새벽 검사\n0승 0패\n최고 몬스터 248\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#20 E2E_Foe31",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-63",
+          "text": "#21 E2E_Foe30\n새벽 검사\n0승 0패\n최고 몬스터 240\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#21 E2E_Foe30",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-61",
+          "text": "#22 E2E_Foe29\n새벽 검사\n0승 0패\n최고 몬스터 232\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#22 E2E_Foe29",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-59",
+          "text": "#23 E2E_Foe28\n새벽 검사\n0승 0패\n최고 몬스터 224\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#23 E2E_Foe28",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-57",
+          "text": "#24 E2E_Foe27\n새벽 검사\n0승 0패\n최고 몬스터 216\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#24 E2E_Foe27",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-55",
+          "text": "#25 E2E_Foe26\n새벽 검사\n0승 0패\n최고 몬스터 208\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#25 E2E_Foe26",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-53",
+          "text": "#26 E2E_Foe25\n새벽 검사\n0승 0패\n최고 몬스터 200\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#26 E2E_Foe25",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-51",
+          "text": "#27 E2E_Foe24\n새벽 검사\n0승 0패\n최고 몬스터 192\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#27 E2E_Foe24",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-49",
+          "text": "#28 E2E_Foe23\n새벽 검사\n0승 0패\n최고 몬스터 184\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#28 E2E_Foe23",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-47",
+          "text": "#29 E2E_Foe22\n새벽 검사\n0승 0패\n최고 몬스터 176\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#29 E2E_Foe22",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-45",
+          "text": "#30 E2E_Foe21\n새벽 검사\n0승 0패\n최고 몬스터 168\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#30 E2E_Foe21",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-43",
+          "text": "#31 E2E_Foe20\n새벽 검사\n0승 0패\n최고 몬스터 160\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#31 E2E_Foe20",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-41",
+          "text": "#32 E2E_Foe19\n새벽 검사\n0승 0패\n최고 몬스터 152\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#32 E2E_Foe19",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-39",
+          "text": "#33 E2E_Foe18\n새벽 검사\n0승 0패\n최고 몬스터 144\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#33 E2E_Foe18",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-37",
+          "text": "#34 E2E_Foe17\n새벽 검사\n0승 0패\n최고 몬스터 136\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#34 E2E_Foe17",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-35",
+          "text": "#35 E2E_Foe16\n새벽 검사\n0승 0패\n최고 몬스터 128\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#35 E2E_Foe16",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-33",
+          "text": "#36 E2E_Foe15\n새벽 검사\n0승 0패\n최고 몬스터 120\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#36 E2E_Foe15",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-31",
+          "text": "#37 E2E_Foe14\n새벽 검사\n0승 0패\n최고 몬스터 112\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#37 E2E_Foe14",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-29",
+          "text": "#38 E2E_Foe13\n새벽 검사\n0승 0패\n최고 몬스터 104\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#38 E2E_Foe13",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-27",
+          "text": "#39 E2E_Foe12\n새벽 검사\n0승 0패\n최고 몬스터 96\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#39 E2E_Foe12",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-25",
+          "text": "#40 E2E_Foe11\n새벽 검사\n0승 0패\n최고 몬스터 88\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#40 E2E_Foe11",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-23",
+          "text": "#41 E2E_Foe10\n새벽 검사\n0승 0패\n최고 몬스터 80\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#41 E2E_Foe10",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-21",
+          "text": "#42 E2E_Foe09\n새벽 검사\n0승 0패\n최고 몬스터 72\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#42 E2E_Foe09",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-19",
+          "text": "#43 E2E_Foe08\n새벽 검사\n0승 0패\n최고 몬스터 64\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#43 E2E_Foe08",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-17",
+          "text": "#44 E2E_Foe07\n새벽 검사\n0승 0패\n최고 몬스터 56\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#44 E2E_Foe07",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-15",
+          "text": "#45 E2E_Foe06\n새벽 검사\n0승 0패\n최고 몬스터 48\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#45 E2E_Foe06",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-13",
+          "text": "#46 E2E_Foe05\n새벽 검사\n0승 0패\n최고 몬스터 40\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#46 E2E_Foe05",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-11",
+          "text": "#47 E2E_Foe04\n새벽 검사\n0승 0패\n최고 몬스터 32\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#47 E2E_Foe04",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-9",
+          "text": "#48 E2E_Foe03\n새벽 검사\n0승 0패\n최고 몬스터 24\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#48 E2E_Foe03",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-7",
+          "text": "#49 E2E_Second\n새벽 검사\n0승 0패\n최고 몬스터 16\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#49 E2E_Second",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        },
+        {
+          "id": "e2e-4",
+          "text": "#50 E2E_Rival\n새벽 검사\n0승 0패\n최고 몬스터 8\nSlime Lv 11\n★×0\nA\nBat Lv 250\n★×0\nW\nGhost Lv 9007199254740991\n★×0\nD\nGolem Lv 10\n★×0\nE\nDragon Lv 1\n★×0\nF\n상대 선택 · 파티 미리보기",
+          "rankName": "#50 E2E_Rival",
+          "record": "0승 0패",
+          "party": 5,
+          "partyNames": [
+            "Slime Lv 11",
+            "Bat Lv 250",
+            "Ghost Lv 9007199254740991",
+            "Golem Lv 10",
+            "Dragon Lv 1"
+          ],
+          "heroLabel": "새벽 검사",
+          "paintedHero": true,
+          "button": true
+        }
+      ]
+    }
+  ],
+  "sessions": [],
+  "screenshots": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/fresh-field.png",
+      "sha256": "70084cfa8c16006d6cd692d524bdcf300c6263a86ed1316c4e57b1f39dcd7cde"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/shop.png",
+      "sha256": "e1576a3b78768b8c8b1fb40fb9d973ca21413ecb985846a748733204670a7af9"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/hero.png",
+      "sha256": "746920c65bd288936529d401b2e66cb03eef7fb65b600a3bfcadb480ecbaaa88"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/codex.png",
+      "sha256": "258685fd7e16bebf8be2160ddb3fbc55d80347d63066ebb3dc6d6052214ce013"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/profile.png",
+      "sha256": "34eb3af927ccdcb74b74d73ff35bb57d764b245a37eada1cef681cb410b27ce3"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/roster.png",
+      "sha256": "0c0c97c72c5583ea1ddf86655c403281ecc1f3ab690296cb4900092b49e65f40"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/ranking.png",
+      "sha256": "b35e7098bdda9fc0e14fafb5f165defab1ee5242a91735d815b3242a9149e4fe"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/battle.png",
+      "sha256": "33a42cdee39e89291e11540a235ac21b586ec26e4cd509718ec766ed5cabe062"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/hero-choices.png",
+      "sha256": "c957290047e1afc1b94877c867496b9164187855dc6ce215a819acbbd97c4359"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/level-gate.png",
+      "sha256": "1a374f633eaf89df464406411654112b6a50326ad5f9d6a464a5543f4225dd40"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/v07-legacy-silhouettes.png",
+      "sha256": "059c4c23d616b60e3f95f8b39169272e7cd7055376e3767c3ff0067a3a988c0a"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/v07-first-kill-codex.png",
+      "sha256": "1034ab9ddd116c2cb85b286713ae445a7a6122714490a6ecc888f2f96280cc25"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/preflight/attempt01/journey.json.screenshots/v07-companion-reincarnation-preview.png",
+      "sha256": "4f03b4fa0594034f353aa2d170f15ded8e7ca3cfb95761459ed8d94e71a52668"
+    }
+  ],
+  "errors": [
+    "Error: Timeout: native selected preview response\n    at until (/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/electron-e2e.cjs:45:9)\n    at async selectWith (/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/journey.cjs:229:5)\n    at async journey (/Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/journey.cjs:239:3)\n    at async /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/electron-e2e.cjs:319:3"
+  ],
+  "bootstrap": "Production BrowserWindows, preload, renderer, IPC and save; harness lifecycle.",
+  "limitations": [
+    "No human player: enjoyment, distraction and retention remain unverified.",
+    "OS global hooks, Accessibility, tray startup, packaged app and live PvP are not exercised.",
+    "Live renderer uses production RNG and wall clock; distribution claims use separate seeded simulation.",
+    "Scripted fixtures are diagnostic setup, not naturally earned player progress."
+  ]
+}

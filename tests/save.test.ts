@@ -11,11 +11,11 @@ import {
 import type { Companion, SaveFile, SaveFileV1, SaveFileV2 } from '../src/core/index.js';
 
 const richSave: SaveFile = {
-  version: 3,
+  version: 4,
   level: 7,
   xp: 13,
   killCount: 42,
-  coins: 99,
+  coins: '99',
   items: { sword_shard: 3, crown: 1, bone: 2 },
   monsterIndex: 21,
   monsterHp: '77',
@@ -24,19 +24,22 @@ const richSave: SaveFile = {
     { id: 'c2', speciesId: 'dragon', bossIndex: 15, level: 10, stars: 0 },
   ],
   nextCompanionId: 3,
+  earlyCaptureUsed: 2,
   souls: 5,
   rebirths: 2,
   bestIndex: 40,
   pvpParty: ['c2'],
+  releasedCount: 0,
+  pvpGoldNet: '0', pvpGoldDebt: '0',
 };
 
 describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
   it('DEFAULT_SAVE is a fresh-game v2 save', () => {
-    expect(DEFAULT_SAVE.version).toBe(3);
+    expect(DEFAULT_SAVE.version).toBe(4);
     expect(DEFAULT_SAVE.level).toBe(1);
     expect(DEFAULT_SAVE.xp).toBe(0);
     expect(DEFAULT_SAVE.killCount).toBe(0);
-    expect(DEFAULT_SAVE.coins).toBe(0);
+    expect(DEFAULT_SAVE.coins).toBe('0');
     expect(DEFAULT_SAVE.items).toEqual({});
     expect(DEFAULT_SAVE.monsterIndex).toBe(0);
     expect(DEFAULT_SAVE.monsterHp).toBe(String(monsterMaxHp(0)));
@@ -50,7 +53,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
 
   it('serialize then parse round-trips losslessly', () => {
     expect(parseSave(serializeSave(richSave))).toEqual(richSave);
-    expect(parseSave(serializeSave({ ...DEFAULT_SAVE }))).toEqual(DEFAULT_SAVE);
+    expect(parseSave(serializeSave({ ...DEFAULT_SAVE }))).toEqual({ ...DEFAULT_SAVE, earlyCaptureUsed: 0 });
 
     // Engine-produced saves round-trip too (the real persistence path).
     const engine = createEngine(null, mulberry32(1234));
@@ -68,6 +71,17 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       expect(parseSave({ ...richSave, monsterSpeciesId })).toEqual(richSave);
     }
     expect(parseSave(richSave)).toEqual(richSave); // old v3 saves still load unchanged
+  });
+
+  it('releasedCount round-trips and legacy saves without it read as zero', () => {
+    const released: SaveFile = { ...richSave, releasedCount: 7 };
+    expect(parseSave(serializeSave(released)).releasedCount).toBe(7);
+    // A v3 save written before v0.4 has no such key at all.
+    const { releasedCount, ...legacy } = released;
+    expect(releasedCount).toBe(7);
+    expect(parseSave(legacy).releasedCount).toBe(0);
+    expect(parseSave({ ...released, releasedCount: -3 }).releasedCount).toBe(0);
+    expect(parseSave({ ...released, releasedCount: 'many' }).releasedCount).toBe(0);
   });
 
   it('serializeSave is stable: items insertion order never changes the bytes', () => {
@@ -90,25 +104,25 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       [1, 2, 3],
       () => 0,
     ]) {
-      expect(parseSave(junk)).toEqual(DEFAULT_SAVE);
+      expect(parseSave(junk)).toEqual({ ...DEFAULT_SAVE, earlyCaptureUsed: 0 });
     }
 
     // The classic wrong-typed-field case, as raw JSON text.
-    expect(parseSave('{"level":"x"}')).toEqual(DEFAULT_SAVE);
+    expect(parseSave('{"level":"x"}')).toEqual({ ...DEFAULT_SAVE, earlyCaptureUsed: 0 });
 
     // Per-field independence: valid fields survive, invalid ones default.
     const mixed = parseSave({
       version: 99,
       level: 'x',
       xp: 7,
-      coins: null,
       items: 'nope',
       monsterIndex: 3,
       monsterHp: Number.NaN,
     });
     expect(mixed).toEqual({
       ...DEFAULT_SAVE,
-      version: 3,
+      earlyCaptureUsed: 0,
+      version: 4,
       level: DEFAULT_SAVE.level,
       xp: 7,
       killCount: DEFAULT_SAVE.killCount, // missing
@@ -135,7 +149,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     for (const raw of horrors) {
       expect(() => parseSave(raw)).not.toThrow();
       const parsed = parseSave(raw);
-      expect(parsed.version).toBe(3);
+      expect(parsed.version).toBe(4);
       expect(Number.isInteger(parsed.level)).toBe(true);
     }
   });
@@ -145,14 +159,14 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       level: 3.9,
       xp: -5,
       killCount: 2.2,
-      coins: -0.5,
+      coins: 0,
       monsterIndex: -7,
       monsterHp: 0,
     });
     expect(parsed.level).toBe(3);
     expect(parsed.xp).toBe(0);
     expect(parsed.killCount).toBe(2);
-    expect(parsed.coins).toBe(0);
+    expect(parsed.coins).toBe('0');
     expect(parsed.monsterIndex).toBe(0);
     expect(parsed.monsterHp).toBe('1'); // range vs maxHp is the engine's clamp
   });
@@ -178,7 +192,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
     expect(a.items).not.toBe(b.items);
     a.items['crown'] = 999;
     a.level = 999;
-    expect(parseSave(null)).toEqual(DEFAULT_SAVE);
+    expect(parseSave(null)).toEqual({ ...DEFAULT_SAVE, earlyCaptureUsed: 0 });
     expect(DEFAULT_SAVE.level).toBe(1);
     expect(DEFAULT_SAVE.items).toEqual({});
   });
@@ -203,20 +217,23 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
       monsterHp: 77.9,
     };
     expect(upgradeSave(v1)).toEqual({
-      version: 3,
+      version: 4,
       level: 7,
       xp: 13,
       killCount: 42,
-      coins: 99,
+      coins: '99',
       items: { bone: 2 },
       monsterIndex: 21,
       monsterHp: '77',
       companions: [],
       nextCompanionId: 1,
+      earlyCaptureUsed: 0,
       souls: 0,
       rebirths: 0,
+      pvpGoldNet: '0', pvpGoldDebt: '0',
       bestIndex: 21, // v1 never tracked depth: the current monster is the best
       pvpParty: [],
+      releasedCount: 0,
     });
     // A dead-on-arrival v1 hp still resumes at 1, and v3 passes straight through.
     expect(upgradeSave({ ...v1, monsterHp: 0 }).monsterHp).toBe('1');
@@ -228,7 +245,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
 
   it('migrates a v2 save: pvpParty defaults to empty', () => {
     // The v2 shape has no party at all — the field is the v3 addition.
-    const { pvpParty, ...v2 } = { ...richSave, version: 2 as const };
+    const { pvpParty, ...v2 } = { ...richSave, version: 2 as const, coins: 99 };
     expect(pvpParty).toEqual(['c2']);
     const migrated: SaveFileV2 = v2;
     expect(upgradeSave(migrated)).toEqual({ ...richSave, pvpParty: [] });
@@ -263,7 +280,7 @@ describe('save schema & tolerant parsing (SPEC F10/F11, Assumption 7)', () => {
         { id: 'c5', speciesId: 'wyrm', bossIndex: 0, level: 1, stars: 0 }, // unknown species
         { id: 'c6', speciesId: 'bat', bossIndex: -1, level: 1, stars: 0 }, // bossIndex < 0
         { id: 'c7', speciesId: 'bat', bossIndex: 1.5, level: 1, stars: 0 }, // not an integer
-        { id: 'c8', speciesId: 'bat', bossIndex: 0, level: 11, stars: 0 }, // level > 10
+        { id: 'c8', speciesId: 'bat', bossIndex: 0, level: Number.MAX_SAFE_INTEGER + 1, stars: 0 }, // unsafe level
         { id: 'c9', speciesId: 'bat', bossIndex: 0, level: 0, stars: 0 }, // level < 1
         { id: 'c10', speciesId: 'bat', bossIndex: 0, level: 1, stars: -1 }, // stars < 0
         { id: 'c11', speciesId: 'bat', bossIndex: 0, level: 1 }, // missing stars

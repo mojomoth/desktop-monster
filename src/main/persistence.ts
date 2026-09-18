@@ -26,6 +26,25 @@ export function readSaveFile(userDataDir: string): unknown {
   }
 }
 
+export type SaveFileReadResult = { kind: 'missing' } | { kind: 'loaded'; value: unknown }
+  | { kind: 'error'; reason: 'read' | 'format' | 'unsupported-version' };
+
+/** Disk failures must not silently become a new game that overwrites the original. */
+export function readSaveFileResult(userDataDir: string): SaveFileReadResult {
+  let text: string;
+  try { text = readFileSync(saveFilePath(userDataDir), 'utf8'); }
+  catch (error) {
+    return (error as NodeJS.ErrnoException).code === 'ENOENT'
+      ? { kind: 'missing' } : { kind: 'error', reason: 'read' };
+  }
+  let value: unknown;
+  try { value = JSON.parse(text) as unknown; }
+  catch { return { kind: 'error', reason: 'format' }; }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return { kind: 'error', reason: 'format' };
+  if (![1, 2, 3, 4].includes((value as { version: number }).version)) return { kind: 'error', reason: 'unsupported-version' };
+  return { kind: 'loaded', value };
+}
+
 /**
  * Atomically persist `data` as JSON: write a tmp file in the same directory,
  * then rename it over save.json — rename on the same volume is atomic, so a

@@ -1,0 +1,124 @@
+{
+  "version": 10,
+  "source": "5939e04e6fc76f14d851444d63b3999a30b132595ff16ac6abe30faf5311ec4a",
+  "passed": true,
+  "reviews": [
+    {
+      "scope": "core-host",
+      "reviewer": "/root/backend_v10",
+      "implementedBy": [
+        "/root",
+        "/root/equipment_economy"
+      ],
+      "verdict": "approved",
+      "evidence": {
+        "path": ".agentdoc/v10-20260917T070144Z/reviews/core-host-review.json",
+        "sha256": "c08f695cca7c0fe2bc1fac1dfb4deda2b1678ee2f304e0848e2912c2cf77bb2e"
+      },
+      "sourceHashes": {
+        "src/core/equipment.ts": "a2dfb19c31602dd23672e4ea5a6f1c546dd06e54a755034147161c4f9e1089b4",
+        "src/core/engine.ts": "edccd846605d45d02ae5a79493b1eac5e78d6419c48d21d1e3ecee603688c2db",
+        "src/core/hero.ts": "8bcd30b7a1ef004763a2eb441ae3c8cc914122495b498fcfc67560c20b6737dd",
+        "src/core/save.ts": "60ca74cbe74bcffe6ccb48a87e3361afdbafb9f30d03623bdd26991a95834e75",
+        "src/main/ipc.ts": "ed080c1a7fcc71304f05e266cf3f85c6759f2c899da795261cbf748b2d049da9",
+        "src/main/coordinator.ts": "425048ef60dd35e1e6f8d76b2f3c3bdee6676b12371a75615eacc018efb3d213",
+        "src/main/recovery.ts": "42404a2fc9bf9231ea267b7c6bb9c5da8d81331afa9116c7879dc49d2abbf996",
+        "src/main/persistence.ts": "007dd9f0709f64bc035d962ce488381f60627608e2ea0f26f55584bfdac960ad",
+        "src/main/index.ts": "93ad8bf0d1cd1d723627e544dabe8aac7773066ceac8d685dad5cef1b21f5112",
+        "src/renderer/index.ts": "fa5a9e6309322abcfb92218b3584139a0752edc317999f3a49d8077865acf260",
+        "src/menu/equipment.ts": "4a1878355595c7c24e4917736f966724e317e1ffb9e354be928e79f32443017a",
+        "tests/v10Review.test.ts": "9224e2f599915996bae03251a458e1e7f180529f4533a7a8338f86979c6c7433",
+        "src/menu/hero.ts": "50037df08a9434637816fe0e3d494c74bef16819cdbbd742e279ccbc5596eb6d",
+        "src/menu/economy.ts": "b98702c530a984c39275bbef54342a5e40a088f4bd96696cc7259ede6ff86fcd",
+        "src/menu/profile.ts": "bdf9215a03abf5e493e8358f339d0165fc7f032ce232e28a0394719c3e6f1fcf"
+      }
+    },
+    {
+      "scope": "backend",
+      "reviewer": "/root/sprite_qa",
+      "implementedBy": [
+        "/root/backend_v10"
+      ],
+      "verdict": "approved",
+      "evidence": {
+        "path": "docs/v0.10/REVIEWS/BACKEND_REVIEW.md",
+        "sha256": "dc3ebf44c7153e8c9e2e6c927c7c670766f0b9986f320f177c86361443f7af18"
+      },
+      "sourceHashes": {
+        "src/server/app.ts": "dd55b5df247c7960bd37e3f7540d5de4562e738beedcc142c2f84ab656bf4eb1",
+        "src/server/gold.ts": "c070a5d9f24503100eee2fc7e2e9df59af5361c525f7be6c2e812d308c855d6b",
+        "src/server/store.ts": "460830edb9491331f29f42febc6c887e919493ebecd60d3c9ab7c14fd69b48ef",
+        "src/server/pgStore.ts": "7bb1ca885dd0dacd6d7dae0227409bdab5e1c674ad31162d91c161208306f7ca",
+        "src/main/net.ts": "6e408ed70467dde3a8c63ac98990f8d56391261b555595f5a467a8f9f9ec23d7",
+        "src/shared/api.ts": "5dbce2c8e99e65ad43bfe4c79837b9952403819355c46e240a528720c409c793",
+        "tests/server/backendReviewV10.test.ts": "cc5cca942a732fc912be7ef22230d161c0a56c5f5fb9d20da3242f1f7be468ac"
+      }
+    },
+    {
+      "scope": "visual",
+      "reviewer": "/root",
+      "implementedBy": [
+        "/root/sprite_qa"
+      ],
+      "verdict": "approved",
+      "evidence": {
+        "path": "docs/v0.10/REVIEWS/VISUAL_REVIEW.md",
+        "sha256": "abab7ec768952308d6fbd5cdebbbbe716a28c40cecc4d53d778a78b25d48ebfa"
+      },
+      "sourceHashes": {
+        "src/renderer/game.ts": "ebdb166503d340667a9777ff0aad6b35b188084ea93ec293d785f45b935fad6e",
+        "src/renderer/anim.ts": "2d70b60ff614d65ec04ac8eb46ccdb25765ffc22229066fc5b5baccd993d64a4",
+        "src/core/fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+        "src/renderer/sprites/equipment.ts": "a299a4d313c10928919031afa5fd89a20f6780b54ad1ca66316bdd3e4bf928ba",
+        "src/renderer/sprites/equippedHero.ts": "e47f15b7be311a23edcb05ecb0ededd724b2d64d223a77810fe1e85d346e511d",
+        "src/renderer/sprites/heroForms.ts": "6880bd9fe7dbfff957b5f2deb5f4e56292bebb9f01442fdac4d552a8c89ca5ce"
+      }
+    }
+  ],
+  "packages": {
+    "macApp": {
+      "path": "release/mac-arm64/DesMon.app",
+      "sha256": "eaa3d8337fed1d6ffcd21e01e5e668084efcc82f4c5c1ed2a349fd85e8752fb9"
+    },
+    "macDmg": {
+      "path": "release/DesMon-0.10.0-arm64.dmg",
+      "sha256": "de1d28fddec3623b09a120e7f58e4684d2ed1c13fa93f926d260ef846119a729"
+    },
+    "windowsInstaller": {
+      "path": "release/DesMon Setup 0.10.0.exe",
+      "sha256": "9dc758e44bbb75368a921dae6a2590439f0ded657e9d7ee056118d216725151f"
+    },
+    "windowsAppAsar": {
+      "path": "release/win-unpacked/resources/app.asar",
+      "sha256": "d5e4ad958a071a52edb967235c2dee0d04921344491d64ab260bbe32e30b52a4"
+    }
+  },
+  "externalChecks": {
+    "windowsHardware": {
+      "performed": false,
+      "note": "Windows x64 installer built; execution on a physical Windows machine was not performed."
+    },
+    "postgresql": {
+      "performed": false,
+      "note": "Deterministic injected store/query tests and source review passed; no live PostgreSQL integration run."
+    },
+    "humanFun": {
+      "performed": false,
+      "note": "Agent simulation and native interaction only; human enjoyment evaluation was not performed."
+    }
+  },
+  "additionalIndependentReviews": {
+    "balance": {
+      "path": ".agentdoc/v10-20260917T070144Z/reviews/balance-heldout-review.json",
+      "sha256": "4616fbc996590ed910dc3f33e9cc908b5800639599d20c581ef8d3ee0e33aee8"
+    },
+    "harness": {
+      "path": "docs/v0.10/REVIEWS/HARNESS_REVIEW.md",
+      "sha256": "96db7b9713f778f60e491c0159c2a7db0b892d55f5e8e68fee9cccfb71f1837e"
+    }
+  },
+  "deployment": {
+    "performed": false,
+    "note": "DESMON_SKIP_NET=1; commits, PRs and operational deployment excluded by approved scope."
+  }
+}

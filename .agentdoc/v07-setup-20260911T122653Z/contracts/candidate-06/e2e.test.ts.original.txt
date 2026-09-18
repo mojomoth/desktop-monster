@@ -1,0 +1,68 @@
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { createApp } from '../../../src/server/app.js';
+import { MemoryStore } from '../../../src/server/store.js';
+import { createNetClient } from '../../../src/main/net.js';
+// @ts-expect-error native harness CommonJS module has no declaration file
+import journey from './journey.cjs';
+// @ts-expect-error executable Node harness has no declaration file
+import { menuVisitSchedule, parseRunArguments, writeRunCheckpoint } from './e2e.mjs';
+
+describe('native run selection and real-time menu schedule', () => {
+  it('keeps diagnostics separate and accepts the three-hour active journey', () => {
+    expect(parseRunArguments(['run.json','0'])).toEqual({output:'run.json',minutes:'0',profile:'active'});
+    expect(parseRunArguments(['run.json','180','active'])).toEqual({output:'run.json',minutes:'180',profile:'active'});
+    expect(parseRunArguments(['run.json'])).toEqual({output:'run.json',minutes:'5',profile:'active'});
+  });
+  it.each([[],['run.json','180','idle'],['run.json','180','intermittent'],['run.json','60'],
+    ['run.json','5','accelerated'],['run.json','05'],['run.json','5','active','extra']])('rejects unsupported observation %j', (...args) => {
+    expect(()=>parseRunArguments(args)).toThrow(/Usage/);
+  });
+  it('requires all eighteen real menu visits, including the three-hour boundary', () => {
+    expect(menuVisitSchedule(180)).toEqual(Array.from({length:18},(_,i)=>(i+1)*600000));
+    for(const minutes of [0,5,15,30])expect(menuVisitSchedule(minutes)).toEqual([]);
+  });
+  it('persists growing partial observations before completion and retains them on interruption', () => {
+    const directory=mkdtempSync(join(tmpdir(),'desmon-v7-native-checkpoint-'));
+    try {
+      const file=join(directory,'original.json');
+      const session={completion:'running',elapsedMs:0,timeline:[] as {elapsedMs:number}[],menuVisits:[] as {scheduledAtMs:number;completedAtMs:number}[]};
+      const report={status:'running',completion:'running',sessions:[session],errors:[] as string[]};
+      writeRunCheckpoint(file,report);
+      expect(JSON.parse(readFileSync(file,'utf8')).sessions).toHaveLength(1);
+      session.elapsedMs=179*60000;session.timeline.push({elapsedMs:178.5*60000});session.menuVisits.push({scheduledAtMs:170*60000,completedAtMs:170*60000+700});
+      writeRunCheckpoint(file,report);
+      const partial=JSON.parse(readFileSync(file,'utf8'));
+      expect(partial.status).toBe('running');expect(partial.sessions[0].menuVisits).toEqual(session.menuVisits);
+      session.completion='interrupted';report.completion='interrupted';report.status='failed';report.errors.push('Terminated');
+      writeRunCheckpoint(file,report);
+      const interrupted=JSON.parse(readFileSync(file,'utf8'));
+      expect(interrupted.sessions[0].timeline).toEqual(partial.sessions[0].timeline);
+      expect(interrupted.sessions[0].elapsedMs).toBe(179*60000);expect(interrupted.status).toBe('failed');
+    } finally {rmSync(directory,{recursive:true,force:true});}
+  });
+});
+
+describe('native journey injected production client/server transport', () => {
+  afterEach(()=>{vi.restoreAllMocks();vi.useRealTimers();});
+  it('lists and previews a selected party through auth and JSON validation without opening a socket', async () => {
+    vi.useFakeTimers();
+    const network=vi.spyOn(globalThis,'fetch').mockRejectedValue(new Error('Real network forbidden'));
+    const {client,calls}=journey.createMockPvp({createApp,MemoryStore,createNetClient});
+    const me=await client.register('E2E_Player');const foe=await client.register('E2E_Rival');
+    expect(me.ok&&foe.ok).toBe(true);
+    const companion={id:'c1',speciesId:'slime',bossIndex:8,level:1,stars:0};
+    const snapshot={name:'E2E_Rival',bestIndex:8,rebirths:0,companions:[companion],party:['c1'],hero:{formId:'h01',buffPercent:15}};
+    expect((await client.upload(me.value.token,{...snapshot,name:'E2E_Player'})).ok).toBe(true);
+    expect((await client.upload(foe.value.token,snapshot)).ok).toBe(true);
+    const rows=await client.opponents(me.value.token);
+    expect(rows.ok).toBe(true);expect(rows.value.opponents).toHaveLength(1);
+    expect(rows.value.opponents[0]).toMatchObject({playerId:foe.value.playerId,party:[companion]});
+    const selected=await client.match(me.value.token,foe.value.playerId);
+    expect(selected.ok).toBe(true);expect(selected.value.opponent.party).toEqual([companion]);
+    expect(calls.at(-1)).toEqual({path:'/v1/pvp/match',body:{opponentId:foe.value.playerId}});
+    expect(network).not.toHaveBeenCalled();expect(vi.getTimerCount()).toBe(0);
+  });
+});

@@ -1,0 +1,62 @@
+{
+  "output": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-pvp-feedback-20260916T131757Z/before",
+  "passed": false,
+  "checks": [
+    {
+      "name": "visible-pending",
+      "passed": false,
+      "details": {
+        "visible": false,
+        "footer": "",
+        "footerVisible": false,
+        "button": "전투 중…"
+      }
+    },
+    {
+      "name": "visible-failure-at-clicked-card",
+      "passed": false,
+      "details": {
+        "visible": false,
+        "footer": "서버에 연결할 수 없어 지금은 대전할 수 없습니다.",
+        "footerVisible": true,
+        "button": "전투"
+      }
+    },
+    {
+      "name": "failed-match-never-fights",
+      "passed": true
+    },
+    {
+      "name": "visible-verdict",
+      "passed": false,
+      "details": {
+        "visible": false,
+        "footer": "FixtureFoe에게 승리 · Slime Lv 1을 데려왔습니다!",
+        "footerVisible": true,
+        "button": "전투 · 60초"
+      }
+    },
+    {
+      "name": "exactly-one-committed-battle",
+      "passed": true,
+      "details": {
+        "opponent": "fixture-foe"
+      }
+    },
+    {
+      "name": "repeat-click-keeps-one-battle",
+      "passed": true
+    },
+    {
+      "name": "refresh-explains-blocked-button",
+      "passed": false,
+      "details": {
+        "visible": false,
+        "footer": "FixtureFoe에게 승리 · Slime Lv 1을 데려왔습니다!",
+        "footerVisible": true,
+        "button": "전투 · 58초"
+      }
+    }
+  ],
+  "errors": []
+}

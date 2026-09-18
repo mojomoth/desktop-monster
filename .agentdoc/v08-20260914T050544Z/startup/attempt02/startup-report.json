@@ -1,0 +1,1205 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-14T05:42:59.871Z",
+  "checks": [
+    {
+      "name": "fresh-defaults",
+      "passed": true,
+      "detail": {
+        "gameScale": 1,
+        "muted": false,
+        "screenShake": true,
+        "welcomeSeen": false,
+        "globalInputRequested": false
+      }
+    },
+    {
+      "name": "fresh-guide-without-permission-request",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "skip-persists-window-input",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "native-window-input-damages-monster",
+      "passed": true,
+      "detail": {
+        "before": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 0,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "brammel",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 1,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 0,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 7.5,
+            "speciesKills": {},
+            "seenMonsters": [
+              "brammel"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "after": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 0,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "brammel",
+          "monsterHp": "9",
+          "companions": [],
+          "nextCompanionId": 1,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 0,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 421.9,
+            "speciesKills": {},
+            "seenMonsters": [
+              "brammel"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "fresh-skip-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "skip-survives-restart-with-save",
+      "passed": true,
+      "detail": {
+        "gameScale": 1,
+        "muted": false,
+        "screenShake": true,
+        "welcomeSeen": true,
+        "globalInputRequested": false
+      }
+    },
+    {
+      "name": "restart-does-not-reopen-guide-or-request-permission",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "skip-restart-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "closing-guide-persists-fallback",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "fresh-close-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "closed-guide-stays-closed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "explicit-repeated-connection-starts-once",
+      "passed": true,
+      "detail": {
+        "calls": [
+          {
+            "prompt": true,
+            "at": 1789364584670
+          }
+        ],
+        "replies": [
+          {
+            "ok": true,
+            "mode": {
+              "mode": "fallback",
+              "accessibilityGranted": false
+            }
+          },
+          {
+            "ok": true,
+            "mode": {
+              "mode": "fallback",
+              "accessibilityGranted": false
+            }
+          },
+          {
+            "ok": true,
+            "mode": {
+              "mode": "fallback",
+              "accessibilityGranted": false
+            }
+          },
+          {
+            "ok": true,
+            "mode": {
+              "mode": "fallback",
+              "accessibilityGranted": false
+            }
+          },
+          {
+            "ok": true,
+            "mode": {
+              "mode": "fallback",
+              "accessibilityGranted": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "denied-permission-never-displays-success",
+      "passed": true,
+      "detail": {
+        "text": "아직 전체 입력이 연결되지 않았습니다. 접근성 설정에서 DesMon을 허용하세요. 허용했는데도 연결되지 않으면 앱을 다시 실행하세요."
+      }
+    },
+    {
+      "name": "global-request-survives-settings-save",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "close-restart-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "legacy-retains-automatic-connection-and-scale",
+      "passed": true,
+      "detail": {
+        "gameScale": 1.5,
+        "muted": false,
+        "screenShake": true,
+        "welcomeSeen": true,
+        "globalInputRequested": true
+      }
+    },
+    {
+      "name": "v07-progress-migrates",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "tray-applies-and-preserves-every-setting",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "muted": true,
+          "size": [
+            200,
+            130
+          ]
+        },
+        "persisted": {
+          "gameScale": 0.5,
+          "muted": true,
+          "screenShake": false,
+          "welcomeSeen": true,
+          "globalInputRequested": true
+        }
+      }
+    },
+    {
+      "name": "v07-upgrade-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "mute-shake-scale-survive-app-restart",
+      "passed": true,
+      "detail": {
+        "gameScale": 0.5,
+        "muted": true,
+        "screenShake": false,
+        "welcomeSeen": true,
+        "globalInputRequested": true
+      }
+    },
+    {
+      "name": "settings-restart-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "broken-json-blocks-game",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "broken-json-recovery-controls",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "broken-json-preserves-original",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "broken-json-refuses-save",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "broken-json-blocks-online",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "broken-json-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "unsupported-format-blocks-game",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "unsupported-format-recovery-controls",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "unsupported-format-preserves-original",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "unsupported-format-refuses-save",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "unsupported-format-blocks-online",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "unsupported-format-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "restored-file-runs-after-restart",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "restore-restart-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "failed-first-preferences-stop-progress",
+      "passed": true,
+      "detail": {
+        "state": "load-error",
+        "reason": "settings-write"
+      }
+    },
+    {
+      "name": "fresh-settings-write-failure-runtime-isolated",
+      "passed": true,
+      "detail": {}
+    }
+  ],
+  "runtimes": [
+    {
+      "name": "fresh-skip",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:42:59.878Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-H5Ojur",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-H5Ojur",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-H5Ojur",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:02.320Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "skip-restart",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:02.322Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-H5Ojur",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-H5Ojur",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-H5Ojur",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:02.947Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "fresh-close",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:02.950Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:03.786Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "close-restart",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:03.788Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [
+          {
+            "prompt": true,
+            "at": 1789364584670
+          }
+        ],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:05.006Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "v07-upgrade",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:05.018Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-aTfoLH",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-aTfoLH",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [
+          {
+            "prompt": true,
+            "at": 1789364585599
+          }
+        ],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-aTfoLH",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:05.927Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "settings-restart",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:05.931Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-aTfoLH",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-aTfoLH",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [
+          {
+            "prompt": true,
+            "at": 1789364586479
+          }
+        ],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-aTfoLH",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:06.832Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "broken-json",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:06.837Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-9CzKtY",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-9CzKtY",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": false,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-9CzKtY",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:13.465Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "unsupported-format",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:13.468Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-IxKxPm",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-IxKxPm",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": false,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-IxKxPm",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:20.000Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "restore-restart",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:20.003Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-IxKxPm",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-IxKxPm",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": true,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-IxKxPm",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:20.620Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    },
+    {
+      "name": "fresh-settings-write-failure",
+      "version": 1,
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+      "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+      "launcherHash": "5228cf53fa886b7ffd4674adfe7913bb44181d1fd2fb61e26c62d0b530a6883b",
+      "startedAt": "2026-09-14T05:43:20.622Z",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+      "metadata": {
+        "version": "0.8.0",
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+        "runtime": {
+          "node": "22.22.1",
+          "acorn": "8.15.0",
+          "ada": "2.9.2",
+          "amaro": "1.1.5",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cjs_module_lexer": "2.2.0",
+          "cldr": "44.1",
+          "icu": "74.2",
+          "llhttp": "9.3.0",
+          "modules": "140",
+          "napi": "10",
+          "nbytes": "0.1.1",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.64.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.2.4",
+          "simdutf": "7.3.3",
+          "sqlite": "3.51.2",
+          "tz": "2025b",
+          "undici": "6.23.0",
+          "unicode": "15.1",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.2.231.22-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "39.8.10",
+          "chrome": "142.0.7444.265"
+        }
+      },
+      "diagnostics": {
+        "permissionCalls": [],
+        "hookLoads": 0,
+        "errors": [],
+        "firstFrame": false,
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v08-ui-jxeY8n",
+        "windows": [
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+          "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app/Contents/Resources/app.asar/static/index.html"
+        ]
+      },
+      "errors": [],
+      "isolation": {
+        "globalHooks": false,
+        "permissionPrompts": false,
+        "network": "blocked; production offline client",
+        "notifications": false,
+        "input": "none from launcher",
+        "clock": "real time",
+        "data": "owned fixture directory only"
+      },
+      "finishedAt": "2026-09-14T05:43:21.405Z",
+      "exitCode": 0,
+      "signal": null,
+      "appUnchanged": true,
+      "passed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "fresh-guide",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/startup/attempt02/fresh-guide.png",
+      "sha256": "ee27e17cfab71249bb0ea34f8fde54735df4bda05a30f721fd854aed26f9faa4"
+    },
+    {
+      "name": "connection-pending",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/startup/attempt02/connection-pending.png",
+      "sha256": "48fdc0702b2585df7b1f5eda3b42e3c33166fca8b6ed64a60e4103a9e8f47d5a"
+    },
+    {
+      "name": "broken-json",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/startup/attempt02/broken-json.png",
+      "sha256": "5b155df858490cdd677f26b0a2c6393d9750dad0cf32862043d4112e40a79ce0"
+    },
+    {
+      "name": "unsupported-format",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/startup/attempt02/unsupported-format.png",
+      "sha256": "e9589671de8be683784a342638443788598ec6b6d039e3ec130321e016433d39"
+    },
+    {
+      "name": "settings-recovery",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/startup/attempt02/settings-recovery.png",
+      "sha256": "0e3301a5cb4a3617343d172e63fd8f92b1373d95b9b3db2e56bae1d4b0f2705a"
+    }
+  ],
+  "legacyFixture": {
+    "source": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v08-20260914T050544Z/performance/baseline-active-06.json.samples.jsonl",
+    "firstSampleSha256": "b36e51b2caefd3fd6a1de4b0e24801d84c48d67cbba1bcd249ba266ada19b5c4",
+    "save": {
+      "version": 3,
+      "level": 1,
+      "xp": 13,
+      "killCount": 2,
+      "coins": 2,
+      "items": {
+        "slime_gel": 1
+      },
+      "monsterIndex": 2,
+      "monsterSpeciesId": "chimbrel",
+      "monsterHp": "3",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "souls": 0,
+      "rebirths": 0,
+      "bestIndex": 2,
+      "pvpParty": [],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 4791.4999999761585,
+        "speciesKills": {
+          "slime": 1,
+          "vorrow": 1
+        },
+        "seenMonsters": [
+          "slime",
+          "vorrow",
+          "chimbrel"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": 0,
+        "rareMisses": 0,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    }
+  },
+  "limits": [
+    "OS permission decision is simulated denied; real grant/hook remains a human check.",
+    "Native mute state is checked; physical speakers/headphones are a human check."
+  ],
+  "finishedAt": "2026-09-14T05:43:21.406Z",
+  "passed": true
+}

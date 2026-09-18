@@ -1,0 +1,2204 @@
+{
+  "kind": "simulated-not-human",
+  "seeds": "1..40",
+  "inputModel": "2 inputs/s; 120s onboarding, then idle=0/s; intermittent=15s/min; choose first offer, no rerolls, no companion management",
+  "restGaugeRule": "drawExpedition renders only while hero.restRemainingMs > 0; REBIRTH READY text renders while heroReady()",
+  "scenarios": [
+    {
+      "profile": "active",
+      "minutes": 5,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 0,
+      "fullRosterSec": null,
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedStrongerRatio": 0,
+      "restVisibleRatio": 0.7357500000000002,
+      "readyVisibleRatio": 0.006666666666666661,
+      "blindRatio": 0.25758333333333333,
+      "deferRatio": 0,
+      "offers": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "reincarnations": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "collected": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "remainingUnseen": {
+        "min": 48,
+        "p10": 48,
+        "p50": 48,
+        "p90": 48,
+        "max": 48
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 145,
+        "p10": 145,
+        "p50": 147,
+        "p90": 148,
+        "max": 148
+      },
+      "coins": {
+        "min": 1937,
+        "p10": 1937,
+        "p50": 1977,
+        "p90": 1998,
+        "max": 1998
+      },
+      "souls": {
+        "min": 9,
+        "p10": 9,
+        "p50": 9,
+        "p90": 9,
+        "max": 9
+      },
+      "companions": {
+        "min": 1,
+        "p10": 3,
+        "p50": 5,
+        "p90": 8,
+        "max": 11
+      },
+      "longestKillGapSec": {
+        "min": 17,
+        "p10": 18,
+        "p50": 20,
+        "p90": 21,
+        "max": 22
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "profile": "active",
+      "minutes": 15,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 1,
+      "fullRosterSec": {
+        "min": 679,
+        "p10": 679,
+        "p50": 679,
+        "p90": 679,
+        "max": 679
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 8
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 4
+      },
+      "releasedStrongerRatio": 0.021875,
+      "restVisibleRatio": 0.9063611111111107,
+      "readyVisibleRatio": 0.007777777777777774,
+      "blindRatio": 0.08586111111111112,
+      "deferRatio": 0,
+      "offers": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "reincarnations": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "collected": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "remainingUnseen": {
+        "min": 43,
+        "p10": 43,
+        "p50": 43,
+        "p90": 43,
+        "max": 43
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 519,
+        "p10": 521,
+        "p50": 528,
+        "p90": 533,
+        "max": 537
+      },
+      "coins": {
+        "min": 9063,
+        "p10": 9105,
+        "p50": 9443,
+        "p90": 9745,
+        "max": 9853
+      },
+      "souls": {
+        "min": 50,
+        "p10": 50,
+        "p50": 51,
+        "p90": 52,
+        "max": 55
+      },
+      "companions": {
+        "min": 15,
+        "p10": 17,
+        "p50": 21,
+        "p90": 26,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 26,
+        "p10": 28,
+        "p50": 33,
+        "p90": 38,
+        "max": 42
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "profile": "active",
+      "minutes": 30,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 40,
+      "fullRosterSec": {
+        "min": 679,
+        "p10": 946,
+        "p50": 1167,
+        "p90": 1293,
+        "max": 1416
+      },
+      "released": {
+        "min": 13,
+        "p10": 16,
+        "p50": 21,
+        "p90": 30,
+        "max": 40
+      },
+      "releasedWithSoul": {
+        "min": 6,
+        "p10": 8,
+        "p50": 10,
+        "p90": 15,
+        "max": 20
+      },
+      "releasedStrongerRatio": 0.9086675575601555,
+      "restVisibleRatio": 0.948736111111111,
+      "readyVisibleRatio": 0.008333333333333338,
+      "blindRatio": 0.04293055555555556,
+      "deferRatio": 0,
+      "offers": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "reincarnations": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "collected": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "remainingUnseen": {
+        "min": 35,
+        "p10": 35,
+        "p50": 35,
+        "p90": 35,
+        "max": 35
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 1219,
+        "p10": 1223,
+        "p50": 1238,
+        "p90": 1249,
+        "max": 1264
+      },
+      "coins": {
+        "min": 24877,
+        "p10": 24912,
+        "p50": 25616,
+        "p90": 26156,
+        "max": 26776
+      },
+      "souls": {
+        "min": 142,
+        "p10": 142,
+        "p50": 145,
+        "p90": 150,
+        "max": 154
+      },
+      "companions": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 33,
+        "p10": 34,
+        "p50": 36,
+        "p90": 40,
+        "max": 42
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "profile": "idle",
+      "minutes": 5,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 0,
+      "fullRosterSec": null,
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedStrongerRatio": 0,
+      "restVisibleRatio": 0.7357500000000002,
+      "readyVisibleRatio": 0.006666666666666661,
+      "blindRatio": 0.25758333333333333,
+      "deferRatio": 0,
+      "offers": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "reincarnations": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "collected": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "remainingUnseen": {
+        "min": 48,
+        "p10": 48,
+        "p50": 48,
+        "p90": 48,
+        "max": 48
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 78,
+        "p10": 81,
+        "p50": 94,
+        "p90": 108,
+        "max": 112
+      },
+      "coins": {
+        "min": 660,
+        "p10": 675,
+        "p50": 852,
+        "p90": 1068,
+        "max": 1120
+      },
+      "souls": {
+        "min": 7,
+        "p10": 7,
+        "p50": 8,
+        "p90": 8,
+        "max": 8
+      },
+      "companions": {
+        "min": 1,
+        "p10": 2,
+        "p50": 3,
+        "p90": 6,
+        "max": 7
+      },
+      "longestKillGapSec": {
+        "min": 28,
+        "p10": 33,
+        "p50": 66,
+        "p90": 88,
+        "max": 90
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 1,
+        "max": 2
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "profile": "idle",
+      "minutes": 15,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 0,
+      "fullRosterSec": null,
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedStrongerRatio": 0,
+      "restVisibleRatio": 0.6797499999999997,
+      "readyVisibleRatio": 0.006027777777777773,
+      "blindRatio": 0.31422222222222207,
+      "deferRatio": 0,
+      "offers": {
+        "min": 2,
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "reincarnations": {
+        "min": 2,
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "collected": {
+        "min": 2,
+        "p10": 2,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "remainingUnseen": {
+        "min": 43,
+        "p10": 43,
+        "p50": 43,
+        "p90": 48,
+        "max": 48
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 92,
+        "p10": 95,
+        "p50": 240,
+        "p90": 307,
+        "max": 322
+      },
+      "coins": {
+        "min": 754,
+        "p10": 873,
+        "p50": 1914,
+        "p90": 3156,
+        "max": 3427
+      },
+      "souls": {
+        "min": 7,
+        "p10": 8,
+        "p50": 22,
+        "p90": 29,
+        "max": 30
+      },
+      "companions": {
+        "min": 2,
+        "p10": 2,
+        "p50": 9,
+        "p90": 14,
+        "max": 15
+      },
+      "longestKillGapSec": {
+        "min": 31,
+        "p10": 36,
+        "p50": 69,
+        "p90": 155,
+        "max": 310
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 3,
+        "max": 4
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "max": 2
+      }
+    },
+    {
+      "profile": "idle",
+      "minutes": 30,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 1,
+      "fullRosterSec": {
+        "min": 1650,
+        "p10": 1650,
+        "p50": 1650,
+        "p90": 1650,
+        "max": 1650
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 4
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 2
+      },
+      "releasedStrongerRatio": 0.01875,
+      "restVisibleRatio": 0.7439027777777778,
+      "readyVisibleRatio": 0.006500000000000001,
+      "blindRatio": 0.2495972222222222,
+      "deferRatio": 0,
+      "offers": {
+        "min": 3,
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "max": 15
+      },
+      "reincarnations": {
+        "min": 3,
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "max": 15
+      },
+      "collected": {
+        "min": 3,
+        "p10": 4,
+        "p50": 14,
+        "p90": 15,
+        "max": 15
+      },
+      "remainingUnseen": {
+        "min": 35,
+        "p10": 35,
+        "p50": 36,
+        "p90": 45,
+        "max": 47
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 122,
+        "p10": 145,
+        "p50": 485,
+        "p90": 665,
+        "max": 692
+      },
+      "coins": {
+        "min": 987,
+        "p10": 1171,
+        "p50": 4239,
+        "p90": 7329,
+        "max": 7813
+      },
+      "souls": {
+        "min": 10,
+        "p10": 13,
+        "p50": 48,
+        "p90": 69,
+        "max": 72
+      },
+      "companions": {
+        "min": 2,
+        "p10": 4,
+        "p50": 18,
+        "p90": 26,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 34,
+        "p10": 42,
+        "p50": 69,
+        "p90": 207,
+        "max": 310
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 6,
+        "max": 7
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 2,
+        "max": 4
+      }
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 5,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 0,
+      "fullRosterSec": null,
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedStrongerRatio": 0,
+      "restVisibleRatio": 0.7357500000000002,
+      "readyVisibleRatio": 0.006666666666666661,
+      "blindRatio": 0.25758333333333333,
+      "deferRatio": 0,
+      "offers": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "reincarnations": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "collected": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "remainingUnseen": {
+        "min": 48,
+        "p10": 48,
+        "p50": 48,
+        "p90": 48,
+        "max": 48
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 112,
+        "p10": 113,
+        "p50": 120,
+        "p90": 124,
+        "max": 132
+      },
+      "coins": {
+        "min": 1127,
+        "p10": 1139,
+        "p50": 1291,
+        "p90": 1353,
+        "max": 1617
+      },
+      "souls": {
+        "min": 8,
+        "p10": 8,
+        "p50": 8,
+        "p90": 8,
+        "max": 9
+      },
+      "companions": {
+        "min": 2,
+        "p10": 2,
+        "p50": 4,
+        "p90": 6,
+        "max": 9
+      },
+      "longestKillGapSec": {
+        "min": 24,
+        "p10": 36,
+        "p50": 48,
+        "p90": 63,
+        "max": 64
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "max": 1
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 15,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 0,
+      "fullRosterSec": null,
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "releasedStrongerRatio": 0,
+      "restVisibleRatio": 0.9063611111111107,
+      "readyVisibleRatio": 0.007777777777777774,
+      "blindRatio": 0.08586111111111112,
+      "deferRatio": 0,
+      "offers": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "reincarnations": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "collected": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "remainingUnseen": {
+        "min": 43,
+        "p10": 43,
+        "p50": 43,
+        "p90": 43,
+        "max": 43
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 410,
+        "p10": 425,
+        "p50": 435,
+        "p90": 451,
+        "max": 459
+      },
+      "coins": {
+        "min": 5621,
+        "p10": 6137,
+        "p50": 6447,
+        "p90": 6957,
+        "max": 7155
+      },
+      "souls": {
+        "min": 40,
+        "p10": 40,
+        "p50": 42,
+        "p90": 44,
+        "max": 45
+      },
+      "companions": {
+        "min": 9,
+        "p10": 14,
+        "p50": 17,
+        "p90": 22,
+        "max": 24
+      },
+      "longestKillGapSec": {
+        "min": 31,
+        "p10": 46,
+        "p50": 49,
+        "p90": 63,
+        "max": 64
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "max": 1
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "profile": "intermittent",
+      "minutes": 30,
+      "seeds": 40,
+      "firstOfferSec": {
+        "min": 73,
+        "p10": 76,
+        "p50": 78,
+        "p90": 80,
+        "max": 81
+      },
+      "firstOfferReached": 40,
+      "killsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "levelUpsBeforeFirstOffer": {
+        "min": 11,
+        "p10": 11,
+        "p50": 11,
+        "p90": 11,
+        "max": 11
+      },
+      "dropsBeforeFirstOffer": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "capturesBeforeFirstOffer": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 2,
+        "max": 3
+      },
+      "firstCaptureSec": {
+        "min": 34,
+        "p10": 35,
+        "p50": 48,
+        "p90": 95,
+        "max": 105
+      },
+      "firstCaptureReached": 40,
+      "fullRosterReached": 39,
+      "fullRosterSec": {
+        "min": 1046,
+        "p10": 1083,
+        "p50": 1290,
+        "p90": 1458,
+        "max": 1662
+      },
+      "released": {
+        "min": 0,
+        "p10": 6,
+        "p50": 13,
+        "p90": 19,
+        "max": 24
+      },
+      "releasedWithSoul": {
+        "min": 0,
+        "p10": 3,
+        "p50": 6,
+        "p90": 9,
+        "max": 12
+      },
+      "releasedStrongerRatio": 0.8840802020262158,
+      "restVisibleRatio": 0.948736111111111,
+      "readyVisibleRatio": 0.008333333333333338,
+      "blindRatio": 0.04293055555555556,
+      "deferRatio": 0,
+      "offers": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "reincarnations": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "collected": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "remainingUnseen": {
+        "min": 35,
+        "p10": 35,
+        "p50": 35,
+        "p90": 35,
+        "max": 35
+      },
+      "unseenFirstCardRatio": 1,
+      "kills": {
+        "min": 1002,
+        "p10": 1029,
+        "p50": 1045,
+        "p90": 1068,
+        "max": 1084
+      },
+      "coins": {
+        "min": 16955,
+        "p10": 17870,
+        "p50": 18438,
+        "p90": 19398,
+        "max": 19850
+      },
+      "souls": {
+        "min": 111,
+        "p10": 114,
+        "p50": 120,
+        "p90": 125,
+        "max": 128
+      },
+      "companions": {
+        "min": 28,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 40,
+        "p10": 48,
+        "p50": 49,
+        "p90": 63,
+        "max": 64
+      },
+      "gapsOver60": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 1,
+        "max": 1
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    }
+  ],
+  "controls": [
+    {
+      "label": "cold-idle-0-companions-no-onboarding",
+      "minutes": 5,
+      "kills": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "level": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "offers": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "collected": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "coins": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "companions": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "longestKillGapSec": {
+        "min": 300,
+        "p10": 300,
+        "p50": 300,
+        "p90": 300,
+        "max": 300
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0,
+      "readyVisibleRatio": 0,
+      "blindRatio": 1,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "label": "cold-idle-0-companions-no-onboarding",
+      "minutes": 15,
+      "kills": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "level": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "offers": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "collected": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "coins": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "companions": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "longestKillGapSec": {
+        "min": 900,
+        "p10": 900,
+        "p50": 900,
+        "p90": 900,
+        "max": 900
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0,
+      "readyVisibleRatio": 0,
+      "blindRatio": 1,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "label": "cold-idle-0-companions-no-onboarding",
+      "minutes": 30,
+      "kills": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "level": {
+        "min": 1,
+        "p10": 1,
+        "p50": 1,
+        "p90": 1,
+        "max": 1
+      },
+      "offers": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "collected": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "coins": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "companions": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "longestKillGapSec": {
+        "min": 1800,
+        "p10": 1800,
+        "p50": 1800,
+        "p90": 1800,
+        "max": 1800
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0,
+      "readyVisibleRatio": 0,
+      "blindRatio": 1,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "label": "returning-save-12-companions-idle",
+      "minutes": 5,
+      "kills": {
+        "min": 512,
+        "p10": 513,
+        "p50": 517,
+        "p90": 524,
+        "max": 528
+      },
+      "level": {
+        "min": 12,
+        "p10": 12,
+        "p50": 13,
+        "p90": 13,
+        "max": 13
+      },
+      "offers": {
+        "min": 3,
+        "p10": 3,
+        "p50": 3,
+        "p90": 3,
+        "max": 3
+      },
+      "collected": {
+        "min": 8,
+        "p10": 8,
+        "p50": 8,
+        "p90": 8,
+        "max": 8
+      },
+      "coins": {
+        "min": 6094,
+        "p10": 6106,
+        "p50": 6213,
+        "p90": 6367,
+        "max": 6425
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "companions": {
+        "min": 13,
+        "p10": 15,
+        "p50": 16,
+        "p90": 19,
+        "max": 20
+      },
+      "longestKillGapSec": {
+        "min": 27,
+        "p10": 29,
+        "p50": 36,
+        "p90": 51,
+        "max": 54
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0.9899999999999999,
+      "readyVisibleRatio": 0.010000000000000005,
+      "blindRatio": 0,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "label": "returning-save-12-companions-idle",
+      "minutes": 15,
+      "kills": {
+        "min": 714,
+        "p10": 721,
+        "p50": 737,
+        "p90": 755,
+        "max": 762
+      },
+      "level": {
+        "min": 13,
+        "p10": 13,
+        "p50": 13,
+        "p90": 14,
+        "max": 14
+      },
+      "offers": {
+        "min": 8,
+        "p10": 8,
+        "p50": 8,
+        "p90": 8,
+        "max": 8
+      },
+      "collected": {
+        "min": 13,
+        "p10": 13,
+        "p50": 13,
+        "p90": 13,
+        "max": 13
+      },
+      "coins": {
+        "min": 8281,
+        "p10": 8379,
+        "p50": 8723,
+        "p90": 9160,
+        "max": 9264
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 2
+      },
+      "companions": {
+        "min": 20,
+        "p10": 23,
+        "p50": 25,
+        "p90": 28,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 30,
+        "p10": 32,
+        "p50": 43,
+        "p90": 54,
+        "max": 61
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0.9911111111111104,
+      "readyVisibleRatio": 0.008888888888888889,
+      "blindRatio": 0,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "label": "returning-save-12-companions-idle",
+      "minutes": 30,
+      "kills": {
+        "min": 1032,
+        "p10": 1040,
+        "p50": 1068,
+        "p90": 1090,
+        "max": 1101
+      },
+      "level": {
+        "min": 14,
+        "p10": 14,
+        "p50": 14,
+        "p90": 14,
+        "max": 15
+      },
+      "offers": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "collected": {
+        "min": 20,
+        "p10": 20,
+        "p50": 20,
+        "p90": 20,
+        "max": 20
+      },
+      "coins": {
+        "min": 12084,
+        "p10": 12238,
+        "p50": 12727,
+        "p90": 13211,
+        "max": 13581
+      },
+      "released": {
+        "min": 3,
+        "p10": 4,
+        "p50": 8,
+        "p90": 13,
+        "max": 16
+      },
+      "companions": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 30,
+        "p10": 34,
+        "p50": 44,
+        "p90": 54,
+        "max": 61
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0.9916666666666669,
+      "readyVisibleRatio": 0.008333333333333338,
+      "blindRatio": 0,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      }
+    },
+    {
+      "label": "active-gold-reroll-policy",
+      "minutes": 5,
+      "kills": {
+        "min": 145,
+        "p10": 145,
+        "p50": 147,
+        "p90": 148,
+        "max": 148
+      },
+      "level": {
+        "min": 16,
+        "p10": 16,
+        "p50": 16,
+        "p90": 16,
+        "max": 16
+      },
+      "offers": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "collected": {
+        "min": 2,
+        "p10": 2,
+        "p50": 2,
+        "p90": 2,
+        "max": 2
+      },
+      "coins": {
+        "min": 1723,
+        "p10": 1808,
+        "p50": 1902,
+        "p90": 1998,
+        "max": 1998
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "companions": {
+        "min": 3,
+        "p10": 4,
+        "p50": 5,
+        "p90": 7,
+        "max": 8
+      },
+      "longestKillGapSec": {
+        "min": 17,
+        "p10": 17,
+        "p50": 20,
+        "p90": 21,
+        "max": 22
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0.7357500000000002,
+      "readyVisibleRatio": 0.006666666666666661,
+      "blindRatio": 0.25758333333333333,
+      "rerolls": {
+        "min": 0,
+        "p10": 0,
+        "p50": 1,
+        "p90": 3,
+        "max": 4
+      },
+      "goldSpent": {
+        "min": 0,
+        "p10": 0,
+        "p50": 50,
+        "p90": 150,
+        "max": 275
+      }
+    },
+    {
+      "label": "active-gold-reroll-policy",
+      "minutes": 15,
+      "kills": {
+        "min": 520,
+        "p10": 521,
+        "p50": 528,
+        "p90": 536,
+        "max": 540
+      },
+      "level": {
+        "min": 17,
+        "p10": 17,
+        "p50": 18,
+        "p90": 18,
+        "max": 18
+      },
+      "offers": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "collected": {
+        "min": 7,
+        "p10": 7,
+        "p50": 7,
+        "p90": 7,
+        "max": 7
+      },
+      "coins": {
+        "min": 7540,
+        "p10": 8334,
+        "p50": 9033,
+        "p90": 9465,
+        "max": 9611
+      },
+      "released": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "companions": {
+        "min": 14,
+        "p10": 17,
+        "p50": 21,
+        "p90": 27,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 25,
+        "p10": 28,
+        "p50": 34,
+        "p90": 36,
+        "max": 40
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0.9063611111111107,
+      "readyVisibleRatio": 0.007777777777777774,
+      "blindRatio": 0.08586111111111112,
+      "rerolls": {
+        "min": 1,
+        "p10": 1,
+        "p50": 4,
+        "p90": 8,
+        "max": 12
+      },
+      "goldSpent": {
+        "min": 75,
+        "p10": 100,
+        "p50": 450,
+        "p90": 975,
+        "max": 1575
+      }
+    },
+    {
+      "label": "active-gold-reroll-policy",
+      "minutes": 30,
+      "kills": {
+        "min": 1210,
+        "p10": 1228,
+        "p50": 1248,
+        "p90": 1258,
+        "max": 1266
+      },
+      "level": {
+        "min": 18,
+        "p10": 18,
+        "p50": 18,
+        "p90": 18,
+        "max": 18
+      },
+      "offers": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "collected": {
+        "min": 15,
+        "p10": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "coins": {
+        "min": 20781,
+        "p10": 22213,
+        "p50": 23896,
+        "p90": 24717,
+        "max": 25800
+      },
+      "released": {
+        "min": 7,
+        "p10": 12,
+        "p50": 22,
+        "p90": 29,
+        "max": 34
+      },
+      "companions": {
+        "min": 30,
+        "p10": 30,
+        "p50": 30,
+        "p90": 30,
+        "max": 30
+      },
+      "longestKillGapSec": {
+        "min": 30,
+        "p10": 32,
+        "p50": 35,
+        "p90": 39,
+        "max": 40
+      },
+      "gapsOver120": {
+        "min": 0,
+        "p10": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "restVisibleRatio": 0.948736111111111,
+      "readyVisibleRatio": 0.008333333333333338,
+      "blindRatio": 0.04293055555555556,
+      "rerolls": {
+        "min": 2,
+        "p10": 5,
+        "p50": 10,
+        "p90": 14,
+        "max": 19
+      },
+      "goldSpent": {
+        "min": 475,
+        "p10": 1000,
+        "p50": 1900,
+        "p90": 3425,
+        "max": 4425
+      }
+    }
+  ],
+  "timelineActiveSeed1": [
+    "t=5s lv1 kills1 gold1 party0 rest0s :: kill drop monsterSpawned",
+    "t=10s lv1 kills2 gold2 party0 rest0s :: kill drop monsterSpawned",
+    "t=16s lv2 kills3 gold3 party0 rest0s :: kill drop LV2 monsterSpawned",
+    "t=20s lv2 kills4 gold5 party0 rest0s :: kill drop monsterSpawned",
+    "t=24s lv3 kills5 gold7 party0 rest0s :: kill drop LV3 monsterSpawned",
+    "t=26s lv3 kills6 gold9 party0 rest0s :: kill drop monsterSpawned",
+    "t=29s lv4 kills7 gold12 party0 rest0s :: kill drop LV4 monsterSpawned",
+    "t=37s lv6 kills8 gold27 party0 rest0s :: kill drop LV5 LV6 monsterSpawned",
+    "t=38s lv6 kills9 gold30 party0 rest0s :: kill drop monsterSpawned",
+    "t=39s lv6 kills10 gold34 party0 rest0s :: kill drop monsterSpawned",
+    "t=40s lv7 kills11 gold38 party0 rest0s :: kill drop LV7 monsterSpawned",
+    "t=41s lv7 kills12 gold42 party0 rest0s :: kill drop monsterSpawned",
+    "t=42s lv7 kills13 gold47 party0 rest0s :: kill drop monsterSpawned",
+    "t=43s lv7 kills14 gold52 party0 rest0s :: kill drop monsterSpawned",
+    "t=44s lv8 kills15 gold57 party0 rest0s :: kill drop LV8 monsterSpawned",
+    "t=49s lv9 kills16 gold87 party1 rest0s :: kill drop bossCaptured LV9 monsterSpawned",
+    "t=50s lv9 kills17 gold93 party1 rest0s :: kill drop monsterSpawned",
+    "t=51s lv9 kills18 gold99 party1 rest0s :: kill drop monsterSpawned",
+    "t=52s lv9 kills19 gold106 party1 rest0s :: kill drop monsterSpawned",
+    "t=54s lv9 kills20 gold113 party1 rest0s :: kill drop monsterSpawned",
+    "t=55s lv10 kills21 gold120 party1 rest0s :: kill drop LV10 monsterSpawned",
+    "t=56s lv10 kills22 gold128 party1 rest0s :: kill drop monsterSpawned",
+    "t=58s lv10 kills23 gold136 party1 rest0s :: kill drop monsterSpawned",
+    "t=60s lv10 kills23 gold136 party1 rest0s :: ",
+    "t=65s lv11 kills24 gold176 party2 rest0s :: kill drop bossCaptured LV11 monsterSpawned",
+    "t=66s lv11 kills25 gold185 party2 rest0s :: kill drop monsterSpawned",
+    "t=68s lv11 kills26 gold194 party2 rest0s :: kill drop monsterSpawned",
+    "t=70s lv11 kills27 gold203 party2 rest0s :: kill drop monsterSpawned",
+    "t=72s lv11 kills28 gold213 party2 rest0s :: kill drop monsterSpawned",
+    "t=75s lv11 kills29 gold223 party2 rest0s :: kill drop monsterSpawned",
+    "t=77s lv1 kills30 gold233 party2 rest120s :: kill drop LV12 monsterSpawned OFFER[h07+25,h01+23,h10+10] REBIRTH",
+    "t=78s lv1 kills32 gold235 party2 rest119s :: kill drop monsterSpawned kill drop monsterSpawned",
+    "t=79s lv2 kills34 gold238 party2 rest118s :: kill drop LV2 monsterSpawned kill drop monsterSpawned",
+    "t=80s lv3 kills36 gold242 party2 rest117s :: kill drop LV3 monsterSpawned kill drop monsterSpawned",
+    "t=81s lv4 kills37 gold245 party2 rest116s :: kill drop LV4 monsterSpawned",
+    "t=82s lv6 kills39 gold263 party2 rest115s :: kill drop LV5 LV6 monsterSpawned kill drop monsterSpawned",
+    "t=83s lv7 kills41 gold271 party2 rest114s :: kill drop monsterSpawned kill drop LV7 monsterSpawned",
+    "t=84s lv7 kills43 gold280 party2 rest113s :: kill drop monsterSpawned kill drop monsterSpawned",
+    "t=85s lv8 kills45 gold290 party2 rest112s :: kill drop monsterSpawned kill drop LV8 monsterSpawned",
+    "t=86s lv9 kills46 gold320 party2 rest111s :: kill drop LV9 monsterSpawned",
+    "t=87s lv9 kills48 gold332 party2 rest110s :: kill drop monsterSpawned kill drop monsterSpawned",
+    "t=88s lv9 kills50 gold346 party2 rest109s :: kill drop monsterSpawned kill drop monsterSpawned",
+    "t=89s lv10 kills52 gold361 party2 rest108s :: kill drop LV10 monsterSpawned kill drop monsterSpawned",
+    "t=90s lv10 kills53 gold369 party2 rest107s :: kill drop monsterSpawned",
+    "t=92s lv11 kills55 gold418 party3 rest105s :: kill drop bossCaptured LV11 monsterSpawned kill drop monsterSpawned",
+    "t=93s lv11 kills57 gold436 party3 rest104s :: kill drop monsterSpawned kill drop monsterSpawned",
+    "t=94s lv11 kills58 gold446 party3 rest103s :: kill drop monsterSpawned",
+    "t=95s lv11 kills59 gold456 party3 rest102s :: kill drop monsterSpawned",
+    "t=96s lv12 kills60 gold466 party3 rest101s :: kill drop LV12 monsterSpawned",
+    "t=97s lv12 kills61 gold477 party3 rest100s :: kill drop monsterSpawned",
+    "t=100s lv12 kills62 gold532 party3 rest97s :: kill drop monsterSpawned",
+    "t=101s lv12 kills63 gold543 party3 rest96s :: kill drop monsterSpawned",
+    "t=102s lv13 kills64 gold555 party3 rest95s :: kill drop LV13 monsterSpawned",
+    "t=103s lv13 kills65 gold567 party3 rest94s :: kill drop monsterSpawned",
+    "t=104s lv13 kills66 gold579 party3 rest93s :: kill drop monsterSpawned",
+    "t=105s lv13 kills67 gold592 party3 rest92s :: kill drop monsterSpawned",
+    "t=106s lv13 kills68 gold605 party3 rest91s :: kill drop monsterSpawned",
+    "t=108s lv13 kills69 gold618 party3 rest89s :: kill drop monsterSpawned",
+    "t=115s lv14 kills70 gold688 party3 rest82s :: kill drop LV14 monsterSpawned",
+    "t=117s lv14 kills71 gold702 party3 rest80s :: kill drop monsterSpawned",
+    "t=119s lv14 kills72 gold716 party3 rest78s :: kill drop monsterSpawned",
+    "t=120s lv14 kills72 gold716 party3 rest77s :: ",
+    "t=121s lv14 kills73 gold731 party3 rest76s :: kill drop monsterSpawned",
+    "t=124s lv14 kills74 gold746 party3 rest73s :: kill drop monsterSpawned",
+    "t=127s lv14 kills75 gold761 party3 rest70s :: kill drop monsterSpawned",
+    "t=131s lv14 kills76 gold777 party3 rest66s :: kill drop monsterSpawned",
+    "t=134s lv14 kills77 gold793 party3 rest63s :: kill drop monsterSpawned",
+    "t=140s lv14 kills77 gold793 party3 rest57s :: ",
+    "t=154s lv15 kills78 gold873 party3 rest43s :: kill drop LV15 monsterSpawned",
+    "t=158s lv15 kills79 gold890 party3 rest39s :: kill drop monsterSpawned",
+    "t=160s lv15 kills79 gold890 party3 rest37s :: ",
+    "t=162s lv15 kills80 gold907 party3 rest35s :: kill drop monsterSpawned",
+    "t=167s lv15 kills81 gold924 party3 rest30s :: kill drop monsterSpawned",
+    "t=173s lv15 kills82 gold942 party3 rest24s :: kill drop monsterSpawned",
+    "t=180s lv15 kills83 gold960 party3 rest17s :: kill drop monsterSpawned",
+    "t=188s lv15 kills84 gold978 party3 rest9s :: kill drop monsterSpawned",
+    "t=197s lv1 kills85 gold997 party3 rest120s :: kill drop monsterSpawned heroReady OFFER[h13+19,h02+12,h06+21] REBIRTH",
+    "t=198s lv2 kills88 gold1000 party3 rest119s :: kill drop monsterSpawned kill drop monsterSpawned kill drop LV2 monsterSpawned",
+    "t=199s lv3 kills91 gold1006 party3 rest118s :: kill drop monsterSpawned kill drop LV3 monsterSpawned kill drop monsterSpawned",
+    "t=200s lv6 kills93 gold1024 party3 rest117s :: kill drop LV4 monsterSpawned kill drop LV5 LV6 monsterSpawned"
+  ]
+}

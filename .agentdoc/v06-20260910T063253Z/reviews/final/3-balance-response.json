@@ -1,0 +1,224 @@
+{
+  "requestId": "aa907a0989111b4374f74ec3dd553cbc30de206810af6c49552347527a3ed057",
+  "role": "balance",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "agent": "/root/balance",
+  "summary": "최종 소스의 수치 근거는 보류 후보 1개 기능을 v0.6에서 제외하는 결정을 지지한다. 600초 방문 조건에서 일부 전투력 개선이 있지만 속성별 악화·유용 후보 손실 증가·추가 클릭이 함께 발생해 사전 채택 조건을 충족하지 않는다. 필수 구현 범위에서 새 blocker/major를 확인하지 않았다. 무료 경로는 동료 확보 후 성장하고 훈련에는 실제 피해·처치 효용이 있으나, 자동 수락 모델의 높은 수집량을 실제 방치 성과나 사람의 재미로 해석할 수 없다. 최초 Native 30분 idle의 1처치는 원인 미확정으로 남기며, 사전 선언된 1회 재검증의 정지 기록과 구분한다. 나는 protocol/fixture/measure/experiments 및 결과 문서 작성에 참여했다. 동일 최종 원본의 별도 산술 재계산 기록을 재사용했으므로 도구 작성자와 완전히 독립적인 평가자는 아니다. Designer와 Critic의 별도 검토를 함께 대조했다. humanFun=PENDING이며 출시 판단은 하지 않는다.",
+  "coverage": [
+    {
+      "category": "bug",
+      "assessment": "Native 9개 원본의 해시가 aggregate와 일치하고 총 342개 기능 관측이 true임을 확인했다. 표시된 ID만 확인 처리, 늦은 발견 보존, 저장 실패 후 기존 목표 유지/재시도, 재시작 보존, 훈련 +0 정직한 미리보기 및 중복 토큰 방어가 이번 변경의 손실 위험을 직접 다룬다. 실험 원시 10,800행의 포획 분할·영혼 정산과 canonical 1,800행의 수입−지출=잔액은 이전 최종 독립 산술 검토에서 확인했고 현재 bytes가 동일하다. 실험 adapter의 소유 동료 자동 삭제/중복 정산/강제 창 0은 adapter 범위의 관측이다. 기존 Native idle 이상은 삭제하거나 원인이 해결됐다고 취급하지 않는다.",
+      "confidence": "high",
+      "unknowns": [
+        "최초 30-idle-1789030534754.json은 synthetic inputs=0인데 약 330~360초 사이 첫 처치가 발생했다. 전체 입력 경로·포커스·HP/XP 이벤트 추적이 없어 원인은 미확정이다. synthetic 전송 수는 fallback keyboard/mouse까지 포함한 실제 수신 입력 총수가 아니다.",
+        "선택된 fresh idle 5/15/30분 상태 기록에서 레벨/처치/코인/동료/환생/발견 수는 변하지 않았지만 모든 순간의 HP/XP 불변이나 실제 사용자 입력 부재를 증명하지 않는다.",
+        "candidateLossOnReload와 보류 후보의 production 저장·재정산·stale 대상·서버 업로드 검사는 PENDING이다. 후보 보류를 제품에 구현하지 않아 V06-07/08을 조건부 제외한 것이며 이 상태를 제품 검증 0건 성공으로 바꾸지 않는다.",
+        "실제 Accessibility 전역 입력 권한, 장기 OS 중단/복귀, 서버 PvP와 사람의 작업 방해는 이번 Balance 원시값으로 검증하지 않았다."
+      ]
+    },
+    {
+      "category": "logic",
+      "assessment": "production core의 성장식, 정수 절삭, 영혼·환생 배율, 속성별 상위 5명, 무료 보류/환생 휴식과 측정 정책을 대조했다. 평균·꼬리·미도달을 분리하고 골드 정책은 같은 seed끼리 비교했다. 무료 대비 훈련은 평균 처치 +30.14, 미끼 −1.02, 재굴림 −0.80이지만 희귀 발견과 장기 투자 목적은 처치 수와 다르다. 영웅 즉시 수락 stage 1과 방문 시 수락 stage 2를 분리한 보류 실험 모두 사전 600초 채택 기준에 못 미치므로 excluded를 유지한다. 목표 선택과 확인 처리는 보상 확률/가격을 바꾸는 기능이 아니며 조건 달성·발견·보유를 구분한다.",
+      "confidence": "high",
+      "unknowns": [
+        "100개 고유 seed를 정책과 checkpoint 사이에 재사용한다. 300개의 지연 증가 setting-seed 쌍은 300개 독립 seed가 아니며 5/15/30분 값은 같은 trajectory의 누적 관측이다.",
+        "seed가 같아도 선택/포획 이후 RNG 소비가 달라진다. 짝 비교는 정책의 전체 결과 차이이며 후보 하나만의 국소 인과 효과가 아니다.",
+        "5속성 전투력 합은 공격 주기·공격 순서·PvP 승패·동료 애착을 포함하지 않는다. 보류가 전투력 일부를 늘렸다는 결과만으로 교체를 권할 수 없다.",
+        "unaffordableSeconds의 null은 무료/재굴림에 연속 측정이 적용되지 않는다는 뜻이다. 0이나 재굴림 실패 100건으로 읽지 않는다. minimumBalance=0에는 최초 잔액 0이 포함된다.",
+        "30분 이후 훈련 투자 회수, 특정 외형/roll/속성 목표를 가진 구매 선택, 반복 환생 stack의 장기 최적화는 측정하지 않았다."
+      ]
+    },
+    {
+      "category": "fun",
+      "assessment": "장르 문서의 즉시 반응·작업 중 성장·예측 가능한 환생·수집 표현·작은 파티 선택·무료 거절·방해 예산을 관측에 적용했다. 첫 보상은 빠르지만 새 발견의 최대 공백은 active 572초, warm-idle 768초여서 처치 수가 많아도 다음 발견의 기대가 항상 짧다는 주장은 성립하지 않는다. Designer의 목표 카드 왕복 개선은 가능한 후속 가설이고, Critic이 지적한 목표 없음/완료/다른 도감 및 이해 정확도를 함께 측정해야 한다. 현재 기능을 대조군으로 사람의 필요를 먼저 확인하는 순서에 동의한다. 환생 설명이나 시각 반응을 추가할 때도 자연 작업 복귀 비용을 먼저 확인해야 한다. 실제 야간 접속이나 일일 마감 이벤트를 추가할 수치 근거는 없으며 저장된 활성 플레이 주기와 목표 유지가 장르에 맞는 현재 선택이다.",
+      "confidence": "medium",
+      "unknowns": [
+        "발견/표현/성장 환상/편안한 반복의 감정은 PENDING이다. 의미 있는 이벤트는 관측용 proxy이며 즐거움이나 자발적 재방문이 아니다.",
+        "Natural Native 30-active는 Lv17/71처치/환생0이고 canonical은 첫 후보를 즉시 자동 수락한다. 전자의 자동 관찰이 메뉴 선택을 하지 않았다는 사실만으로 사람이 환생을 이해하지 못한다고 추론할 수 없다.",
+        "도감 scroll=5953과 보존 관측만으로 실제 탐색 부담·2행동 목표 달성·설명 이해·5초 PvP 대상 선택을 입증할 수 없다.",
+        "Critic의 세 파티 산술 반례는 항상 같은 속성 버프가 최고라는 단순 주장에 반례가 되지만 실제 제공 후보 조합/장기 stack/PvP 균형이나 외형 선호는 증명하지 않는다.",
+        "피버의 동일 입력량 차이는 수치상 인센티브다. 사람이 피버 때문에 업무 입력을 바꾸거나 방해받는지는 PENDING이다."
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "artifact": "measure",
+      "pointer": "/sourceDigest",
+      "note": "최종 measure SHA256=50a3938604378a1b57224a5b05694916b62b92d302e04ce2578a1aa20e31c4fc, source=c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef, evaluation=53fc0326a4ad1a742b775f3bdf887a072de0927e1d811af3431e116663d9e080를 현재 파일에서 확인했다. evidence/balance-final-review.json(SHA256=5d5217d9ff70540a48f82d301c5a29e7e9e28adb64973e84894c23fea4b90e5f)의 최종 원시 558분포/1,800행 별도 산술 검토와 같은 bytes다. 새로운 엔진 실험을 재실행한 것은 아니다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/method",
+      "note": "100개 mulberry32 seed 1..100, 1초 tick, 동시 입력 2회, 최초 120초 onboarding, 첫 offer 즉시 수락, 동료 관리 없음이라는 canonical 조건을 그대로 해석했다. rawSamples 1,800개는 18그룹의 checkpoint이고 독립 Native 세션이나 사람 표본 1,800명이 아니다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/experiments",
+      "note": "링크 원본 experiments.json SHA256=08e5fd653faed3080ca561689c856d5a2152ae6b97d914f199ec1de326e5adb1을 재확인했다. protocol v2 SHA256=9e7a8d4575098c34d860080fca7a0a57f8c3edc3fadf5816b53348d28727e632, /capture/rawSamples 10,800행, /capture/comparisons의 30분 1,200쌍, /fever/rawSamples 200행, /freshIdle/rawSamples 300행을 기존 최종 독립 검토와 연결한다. /adoption.numericCriteriaPass=false, decision=excluded이며 출하 후보 보류 기능 검증을 주장하지 않는다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/scenarios/0/metrics/firstCaptureSec",
+      "note": "fresh active 첫 포획 p10/p50/p90=36/48/93초, 최대107초, 미도달0/100. 첫 보상4/5/5초, 최대5초이며 120초 동료 수1/3/5, 최소1이다. onboarding 후 방치는 동료를 갖춘 상태라는 증거다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/scenarios/5/metrics/longestMeaningfulGapSec",
+      "note": "warm-idle 30분 의미 이벤트 최장 공백 p10/p50/p90=173/260/447초, 최대647초; 새 종 발견 공백222/315/504초, 최대768초. 평균 처치 증가만으로 정체가 사라졌다고 판단하지 않는다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/rawSamples",
+      "note": "정책별 평균 수입/지출/잔액 및 동일 seed의 처치·희귀 발견 차이를 raw에서 산출한 기존 최종 검토를 재사용했다. 무료/훈련/미끼/재굴림 모두 30분 고유 영웅15개지만 이는 즉시 첫 후보 수락 정책의 수집 수이며 선호 외형 획득이나 골드 효용의 완전한 척도가 아니다."
+    },
+    {
+      "artifact": "measure",
+      "pointer": "/scenarios/11/metrics/unaffordableSeconds",
+      "note": "훈련 30분 100개 seed 모두 9레벨, 누적 지출21,375, 돈 부족 관측1,791초. 실제 reducer가 구매 가능 조건에서 Not enough gold를 반환한 1초 간격 관측 수다. 사람이 1,791초 동안 막힌 경험이라는 뜻이 아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/matrix/originals",
+      "note": "aggregate SHA256=4a9237af0c0ce641569ffda1a5d3225e5706d1ffbe942a53fd88424f8feceecd와 선택된 9개 원본 파일의 SHA256을 직접 대조했다. 5/15/30분×3프로필의 독립 실행과 관측시간 합9,000,193.118167ms를 확인했다. 고정 fixture 기능 관측342개와 자연 경과 관측은 서로 다른 근거다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/8",
+      "note": "선택된 30분 fresh idle는 1회 재검증 원본 30-idle-1789034290070.json(SHA256=66a9f87065f04a8dda29a2c51ddff85c376952e27b4eb1ee01cf4cd7d6b76440), 실제1,800,014.355708ms다. 5/15분 idle와 합한 106개 기록은 Lv1/0처치/0코인/0동료/0환생/발견종1을 유지한다. evidence/native-quality-review.json, idle-quality-policy.json, reviews/idle-anomaly-critic.md를 읽었다. 최초 30-idle-1789030534754.json(SHA256=5a9061829fe39d4fb79685494d7f63b1816317c9d9a2ccbfa55e4d9d099d205b)의 1처치는 보존돼 있고 원인은 미확정이다. 재검증 정책은 재실행 전에 기록됐으며 나머지 8개 원본은 그대로다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/sessions/6/end",
+      "note": "자연 30-active 종료는 Lv17, 71처치, 1,272코인, 동료2, 환생0, synthetic 입력3,490회다. 메뉴를 선택하지 않는 Native 정책과 영웅을 즉시 수락하는 canonical 정책의 차이를 숨기지 않는다. 환생0은 사람의 이해 실패를 직접 관측한 값이 아니다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/325/details",
+      "note": "환생 후 Lv12/필요Lv13/ready=false에서 38px 중35px로 표시한다. src/core/hero.ts의 heroRequiredLevel/준비도와 연결되며 거짓 완료 표시를 막는 경계 관측이다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/329/details",
+      "note": "실제 heroOffer로 h07/h08/h06이 새로 생긴 뒤 이전 h01/slime snapshot을 반복 확인해도 새 ID는 확인 목록에 들어가지 않는다. 조건 달성·후보 발견·소유/선택은 다른 상태다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/334/details",
+      "note": "저장 실패 메시지가 보이고 aria-live=polite이며 목표 없음이 유지된다. 후속 /checks/335와 /checks/336에서 재시도 저장 및 재시작 상태 보존을 확인한다. 실패를 성공한 선택처럼 표시하지 않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/338/details",
+      "note": "dawnfinch 목표를 유지한 채 조건 미충족에서도 이미 발견했으면 발견 완료로 표시한다. coins45/souls0은 명시적 before/after save fixture이며 자연 RNG 획득 성공률의 증거가 아니다. /checks/337은 활성 시간 조건이 바뀌어도 목표가 유지됨을 보여준다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/339/details",
+      "note": "훈련 0→1 미리보기는 14→14(+0)이다. src/core/economy.ts의 bigint 절삭과 일치한다. /checks/340의 중복 토큰 방어를 함께 확인했으며 +5% 표기만으로 항상 정수 피해가 증가한다고 주장하지 않는다."
+    },
+    {
+      "artifact": "e2e",
+      "pointer": "/checks/341/details",
+      "note": "20입력 진단에서 피버 표시 cold0/212→hot212/212→cooled0/212를 확인했다. 이는 Native 렌더 경계 관측이며 /experiments가 연결한 3,600회 동일 입력량 100seed 엔진 비교와 별개다."
+    }
+  ],
+  "findings": [
+    {
+      "id": "V06-BAL-01",
+      "category": "fun",
+      "severity": "minor",
+      "problem": "후속 장르 가설: 동일 3,600회 입력에서도 burst 피버90회/균일0회이며 paired 처치 차이 p50=+25, 90/100 seed에서 증가했다. 입력 몰아치기를 보상하는 수치 인센티브는 관측되지만 업무 입력을 바꾸게 하는지·추가 피버 시각 반응이 방해되는지는 미확인이다. 이번 v0.6 필수 구현의 새 결함이나 '항상 burst가 최적'이라는 판단은 아니다.",
+      "fix": "현재 피버를 대조군으로 유지하고 자연 업무 중 자발적 입력 변화·게임을 본 횟수·원래 작업 복귀 시간·방해 응답을 사전 지표로 기록한다. 직접 관찰 전에는 처치 평균만으로 피버 확률/배율을 바꾸거나 시각 강조를 더하지 않는다. 수치 재검증이 필요하면 동일 입력량과 100개 paired seed 조건을 유지한다.",
+      "evidence": "measure#/experiments"
+    },
+    {
+      "id": "V06-BAL-02",
+      "category": "logic",
+      "severity": "minor",
+      "problem": "후속 측정 한계: 훈련/미끼/재굴림 모두 즉시 첫 후보 수락으로 30분 고유 형태15개가 되어 형태 수만으로 구매 효용을 구분하기 어렵다. 훈련은 처치와 피해가 증가하고 미끼/재굴림은 희귀 발견 수가 증가하므로 '돈을 써도 아무 효용이 없다'도, 현재 구매가 모든 목표에 최적이라는 주장도 원시값을 벗어난다. Critic V06-CRIT-03의 우려를 골드 부족 지표와 분리해 해석해야 한다.",
+      "fix": "가격 변경 전 후속 실험에서 목표 외형/속성/roll 선호와 수락·무료 보류·재굴림 정책을 미리 고정하고 같은 seed의 목표 최초 도달 시간, 미도달 수, 골드 지출, 5속성 전투력 및 사람이 지불한 선택 시간을 비교한다. 무료/재굴림의 연속 돈 부족 null을 0으로 바꾸지 않는다. 현 v0.6 결과를 고쳐 유리한 결론을 만들 필요는 없다.",
+      "evidence": "measure#/rawSamples"
+    }
+  ],
+  "metrics": [
+    {
+      "name": "첫 보상·첫 포획·첫 환생 기회",
+      "evidence": "measure#/scenarios/0/metrics",
+      "interpretation": "fresh active 첫 보상 p10/p50/p90=4/5/5초(최대5), 첫 포획36/48/93초(최대107), 첫 offer76/79/81초(최대83), 각 미도달0/100이다. 장르의 즉시 작은 보상 뒤 첫 동료와 예측 가능한 성장 기회가 이어지는 구조다. 첫 offer의 5분 탐색 목표에 대한 실제 엔진 분포를 제공한다.",
+      "limitation": "가상 시간·동시 입력2회/초·첫 후보 즉시 수락 조건이다. 화면을 본 시각이나 실제 사람의 첫 수락 시각이 아니며 100seed의 최대값은 모든 RNG 결과에 대한 보장이 아니다."
+    },
+    {
+      "name": "성장 공식과 영웅 기여도",
+      "evidence": "measure#/scenarios/2/metrics",
+      "interpretation": "src/core/hero.ts:98의 D(L)=L+max(0,L−2)^2는 Lv1=1, Lv5=14, Lv10=74이며 heroAttackPower는 영혼(1+s), 환생(100+25r)/100을 곱한 정수값이다. 훈련은 이후 (100+5t)/100을 절삭한다. active 영웅 피해 비중 p50은 5분90.72%→15분77.20%→30분75.49%로 동료 기여가 커져도 영웅 피해가 사라지지 않는다. 30분 영웅 기여 p10/p90=61.35/86.20%, 전체 범위43.97~88.56%다.",
+      "limitation": "heroDps/companionDps는 누적 emitted damage÷가상 초이며 overkill을 포함한다. HP를 실제 줄인 양이나 말기 순간 DPS가 아니다. bigint 절삭 때문에 Lv5 훈련1은14로 유지된다. 조건·상대·공격 순서와 기간이 다르므로 이 값으로 TTK=HP/DPS를 정확히 복원하거나 70개 외형의 최적성을 판단하지 않는다."
+    },
+    {
+      "name": "처치 속도와 정체 꼬리",
+      "evidence": "measure#/scenarios/2/metrics/longestKillGapSec",
+      "interpretation": "free active 30분 처치 평균1,240.05, p10/p50/p90=1,225/1,239/1,257이다. 각 세션 최장 무처치 간격은5분18/20/22초에서30분33/36/40초(최대42)로 늘어난다. 의미 이벤트 최장 공백81/85/90초(최대98), 새 몬스터 발견 공백240/360/486초(최대572)는 따로 길어진다. 보스 포획·환생과 새 종 발견은 일반 처치보다 드문 기회다.",
+      "limitation": "의미 이벤트는 levelUp/bossCaptured/새 종/수락으로 정한 proxy다. 공백은 시작/끝 대기도 포함하며 checkpoint가 같은 trajectory를 공유한다. 발견 공백 감소가 즐거움 증가라는 인과 결론이나 새로운 일일 이벤트의 필요성을 제공하지 않는다."
+    },
+    {
+      "name": "warm-idle·intermittent와 fresh idle의 구분",
+      "evidence": "measure#/scenarios/5/metrics",
+      "interpretation": "30분 warm-idle 처치132/259/463, 환생3/6/9, 최장 무처치109/186/310초(최대635), 의미 공백173/260/447초(최대647)다. intermittent는 처치895/978/1,067, 의미 공백76/119/171초(최대182)다. 최초120초 동료1/3/5(최소1)가 성장 기반이다. 연결된 experiments의 fresh idle100seed×5/15/30분 300행과 별도 pureIdleControl은 Lv1/0처치/0코인/0동료이며 첫 보상·포획은 null이다.",
+      "limitation": "warm-idle도 영웅 선택을 즉시 자동 수락하는 낙관적 주의 모델이다. Native fresh idle와 초기 세이브/입력/선택이 다르다. fresh idle 미도달은 실패를 누락한 것이 아니라 동료0·입력0 정지 대조군이며 warm-idle 분포에 합치지 않는다."
+    },
+    {
+      "name": "골드 유입·지출·잔액",
+      "evidence": "measure#/rawSamples",
+      "interpretation": "active30분 평균 수입/지출/잔액: 무료25,739.85/0/25,739.85, 훈련26,921.36/21,375/5,546.36, 미끼25,721.85/16,538.25/9,183.60, 재굴림25,722.36/3,375/22,347.36. 무료 잔액 p10/p50/p90=25,088/25,732/26,432, 훈련5,014/5,541/6,102, 미끼8,639/9,170/9,693, 재굴림21,625/22,340/23,004다. 모든 canonical 원시1,800행에서 수입−지출=잔액을 확인했다.",
+      "limitation": "초기 돈0이며 전역 정책을 각각 단독 적용했다. 구매 조합이나 30분 이후 투자 회수는 다르다. 전체 기간 평균 수입으로 특정 시점의 재굴림 회복 시간을 확정하지 않는다. 순수 방치 수입0이면 금전 회복 시간은 유한한 0이 아니다."
+    },
+    {
+      "name": "훈련 가격·돈 부족·정수 피해",
+      "evidence": "measure#/scenarios/11/metrics",
+      "interpretation": "훈련 가격75×(t+1)^2, 단계당+5%, 상한10. 100seed 모두9단계까지21,375를 지출했고 10번째7,500에는 종료 잔액이 부족하다(잔액최대7,324). 1,791/1,800초가 다음 구매의 돈 부족 관측이다. paired 처치 증가 p10/p50/p90=13/31/49, 범위−16~63,98seed 증가/2감소다. 실제 영웅 피해 합도 커지므로 영구 훈련 효용은 있지만 모든 seed의 처치 개선은 아니다.",
+      "limitation": "1,791초는 매초 살 수 있으면 즉시 구매하는 정책의 다음 레벨 부족을 세어 거의 전체 기간이 될 수 있다. 사람의 강제 대기나 콘텐츠 잠금으로 해석하지 않는다. 초기0을 포함한 minimumBalance=0은 별도의 잔고 위험 지표가 아니다. native14→14(+0) 경계와 후기 공격 증가가 동시에 참이다."
+    },
+    {
+      "name": "미끼·재굴림의 실제 효용과 적용 불가 값",
+      "evidence": "measure#/rawSamples",
+      "interpretation": "미끼−무료 paired 처치는−25/−1/+20(범위−44~34, 증가47/감소51/동일2), 재굴림은−24/0/+20(−50~45,48/46/6)이다. 희귀 발견 차이는 두 정책 모두 p10/p50/p90=2/2/2이며 미끼99seed 증가/1동일, 재굴림100증가다. 훈련도 희귀 발견100seed 증가다. 네 정책의 환생·고유 영웅 수는 모두15여서 처치·희귀 발견·수집 수를 따로 해석해야 한다. 미끼의 적격 구매 돈 부족은0이고 무료/재굴림 연속 지표는null이다.",
+      "limitation": "미끼0은 레어 조건 미충족이나 이미 활성인 미끼를 기다리는 시간0이 아니다. 재굴림null은 구매 실패가 없었다는 검사가 아니다. rareSeen은 희귀 발견 수이며 특정 선호 후보 도달/수락·소유·장기 버프 품질을 직접 측정하지 않는다."
+    },
+    {
+      "name": "600초 방문 보류 후보안의 채택 조건",
+      "evidence": "measure#/experiments",
+      "interpretation": "연결 원본 /capture/comparisons/groups의 30분600초 그룹8/17/26/35에서 pending−기존관리 비교: fresh stage1 전투력 일부증가54/속성일부악화32/후보손실증가26/클릭증가100, fresh stage2 모두0(엄격 개선 없음), full stage1 65/45/37/100, full stage2 65/40/25/100. 후보손실 Δp10/p50/p90는−4/0/+2,0/0/0,−6/0/+4,−3/0/+2이고 클릭Δ는+1/+2/+2,0/0/0,+3/+3/+3,+3/+3/+3이다. 일부 평균 개선으로 전 seed의 비악화·일부 엄격 개선·손실/클릭 비증가 조건을 대신할 수 없어 /adoption.decision=excluded가 타당하다.",
+      "limitation": "전투력 증가/악화는 서로 다른 속성에서 동시에 발생할 수 있어 두 수를 더해 표본을 분할하지 않는다. stage1 영웅 즉시수락은 별도 방문/클릭 비용이고 stage2는 관리 방문에 수락을 묶는다. 포획 보류는 actual engine capture hook에 붙인 실험 adapter이며 제품 기본값이 아니다."
+    },
+    {
+      "name": "5속성 전투력 분포의 반례",
+      "evidence": "measure#/experiments",
+      "interpretation": "full stage1/600초30분의 pending−기존관리 전투력 Δp10/p50/p90: fire −23,548/+3,926/+152,504, water −15,184/+1,224/+108,732, wind −28,683/+5,069/+129,325, earth −23,046/+3,458/+77,867, dark −18,928/+1,632/+109,205다. 중앙값 다섯 개가 양수여도 같은 그룹 seed1은 다섯 속성이 모두−15,696/−7,902/−15,047/−13,824/−13,824이고 클릭+3이다. 속성별 top5 production 산술과 seed별 손실을 유지한 기준이 필요한 직접 반례다.",
+      "limitation": "이는 fresh가 아닌 고정 가득 찬 roster fixture의 반례다. 전투력 값은 bigint를 유지했으며 counterfactual 합이지 실제 전투 승률이 아니다. 보류 후보 채택 여부는 관리 전에 가진 파티 기준과 비교하지만 시간 경과 후 정책 전체 결과가 항상 비악화된다는 보장은 없다."
+    },
+    {
+      "name": "영혼 정산과 보류 대기 비용",
+      "evidence": "measure#/experiments",
+      "interpretation": "600초30분에서 보류 release-unit 대기초 p10/p50/p90는 fresh stage1 395/550/734(최대947), full stage1 1,665/1,768/1,789(최대1,794), full stage2 1,456/1,778/1,789(최대1,792)다. 총300 setting-seed 쌍의 대기가 증가했다. 반면 종료 영혼 Δ는 각각−2/0/+2,−5/0/+5,−2/0/+2로 방향이 섞인다. full stage1 seed1은 종료 영혼+4이면서 대기1,783초와 모든 속성 전투력 악화가 공존한다.",
+      "limitation": "soulDelaySeconds는 보류한 capture release-unit의 체류 시간으로, 수락된 후보와 당시 지급 parity가0인 대기도 포함한다. 실제 미지급 영혼 수×초가 아니다. 종료 pending=0이어도 누적 대기는 지워지지 않는다.300쌍은100개 seed를 세 조건에서 재사용한 수이며 사람의 불편 정도는 미확인이다."
+    },
+    {
+      "name": "120초·관리 없음 대조군과 미구현 상태",
+      "evidence": "measure#/experiments",
+      "interpretation": "120초30분 네 그룹의 전투력 일부악화는45/39/24/32seed이고 클릭은 각100seed에서 증가한다. full stage1의98seed 일부개선도 전 속성 비악화를 뜻하지 않는다. 관리 없음에서는 stage1 영웅 선택이 계속 있으므로 완전 무관심 상태가 아니며 fresh/full stage1 보류후보는100/100seed, full stage2는99/100seed에서 종료까지 남는다. 종료 강제 정산을 넣지 않아 놓친 기회가 원시에 보존된다. 보류 구현을 제외한 상태에서 reload 관련 PENDING은 정직한 범위 표시다.",
+      "limitation": "실험 전 고정한 기존관리 정책은 최저 production companionPower 동료를 명시적으로 하나 희생하는 방식이다. 사람의 애착/선호나 최적 roster 관리를 대표하지 않는다. 원시 자동소유삭제0·중복정산0·강제창0은 adapter 불변식이며 production 보류 UI/저장/서버 행동의 검증값이 아니다."
+    },
+    {
+      "name": "동일 입력량 피버 효과와 입력 집중도",
+      "evidence": "measure#/experiments",
+      "interpretation": "연결 원본 /fever에서 두 패턴 모두30분3,600회 입력,100seed,100ms tick이다. 균일은500ms마다1회, burst는10초마다100ms 간격20회다. 피버 시작은 각각0/90회이고 paired 처치 Δp10/p50/p90=−1/+25/+52, 범위−31~68, 증가90/감소10이다. 새 종 발견 Δ는0/0/0(증가2/감소5/동일93), 환생Δ는100seed 모두0이다. 입력이 발생한 1초 bin 비율은100%/20%, 최대 bin 입력은2/10으로 집중도 차이가 명확하다.",
+      "limitation": "src/core/fever.ts의3초20입력·5초활성·10초cooldown·3배 공격을 재사용한 실제 엔진 결과다. 입력량을 통제해도 입력 시점/RNG 진행이 달라지므로 처치 전부를 단일 3배 효과로 환원하지 않는다. 사람이 입력을 바꾸는지, 피버 강조가 좋은지, 어떤 패턴이 항상 최적인지는 미확인이다."
+    },
+    {
+      "name": "무료 거절·수집 선택과 후속 목표 실험",
+      "evidence": "measure#/method/choice",
+      "interpretation": "src/core/hero.ts의 무료 보류30초와 수락 후120초 휴식, bounded roll10..25와 속성 버프는 돈을 쓰지 않는 선택 경로를 제공한다. 도감 목표/확인 기능은 이 확률·가격을 바꾸지 않는다. Designer의 도감 왕복 개선, 환생 설명, 시각 반응, 현 상태 유지 대안을 비교하면 현재 대조군을 유지하고 실제 이해/작업 복귀 비용을 먼저 관찰하는 Critic의 순서가 타당하다. 작은 목표 접근 개선도 목표 없음/완료/다른 도감 상태를 포함해 검토할 수 있다.",
+      "limitation": "canonical은 무료 보류를 선택하지 않고 첫 offer를 즉시 수락한다. 따라서 현 분포로30초 거절이 실제로 편안하다거나 재굴림보다 선호된다고 판단하지 않는다. 서로 다른 세 파티의 산술 반례는 선택 다양성의 가능성만 보이며 사람의 외형 애착과 PvP 대상 선택은 PENDING이다."
+    }
+  ]
+}

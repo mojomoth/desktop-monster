@@ -1,0 +1,43 @@
+import { describe, it, expect } from 'vitest';
+// @ts-expect-error executable Node harness has no declaration file
+import { newLoop, transition, GATES } from './develop.mjs';
+const digest = 'a'.repeat(64);
+const proof = { ac: 'AC.md', review: 'review.md', filesHash: {} };
+const record = (command: string, exitCode = 0) => ({ command, exitCode, sourceDigest: digest, endedDigest: digest, log: 'check.log', sha256: digest, ac: command !== GATES });
+function checked() {
+  let loop = transition(newLoop(digest), 'V06-01', 'start', {}, digest);
+  loop = transition(loop, 'V06-01', 'check', record('node selftest'), digest);
+  return transition(loop, 'V06-01', 'check', record(GATES), digest);
+}
+describe('development task journal', () => {
+  it('requires dependencies, actual AC and gates, keeping failed transitions immutable', () => {
+    const loop = newLoop(digest); const before = JSON.stringify(loop);
+    expect(() => transition(loop, 'V06-04', 'start', {}, digest)).toThrow(/Dependencies/);
+    expect(() => transition(loop, 'V06-01', 'verify', proof, digest)).toThrow(/running/);
+    expect(JSON.stringify(loop)).toBe(before);
+    const verified = transition(checked(), 'V06-01', 'verify', proof, digest);
+    expect(verified.tasks[0].status).toBe('verified');
+    expect(verified.tasks[0].verificationHistory[0].sourceDigest).toBe(digest);
+  });
+  it('rejects stale and failed checks and arbitrary exclusions', () => {
+    const loop = checked();
+    expect(() => transition(loop, 'V06-01', 'verify', proof, 'b'.repeat(64))).toThrow(/stale/);
+    const failed = transition(loop, 'V06-01', 'check', record('AC', 1), digest);
+    expect(() => transition(failed, 'V06-01', 'verify', proof, digest)).toThrow(/Failed/);
+    expect(() => transition(loop, 'V06-02', 'exclude', {reason:'skip'}, digest)).toThrow(/conditional/);
+    expect(() => transition(loop, 'V06-07', 'exclude', {reason:'no data'}, digest)).toThrow(/experiment/);
+  });
+  it('resumes explicitly without losing old attempts or resetting independent tasks', () => {
+    let loop = transition(checked(), 'V06-01', 'verify', proof, digest);
+    loop = transition(loop, 'V06-02', 'start', {}, digest);
+    loop = transition(loop, 'V06-02', 'retry', {reason:'interrupted worker'}, digest);
+    expect(loop.tasks[0].status).toBe('verified');
+    expect(loop.tasks[1].attempts).toHaveLength(1);
+    loop = transition(loop, 'V06-02', 'start', {}, digest);
+    expect(loop.tasks[1].attempts).toHaveLength(2);
+    loop = transition(loop, 'V06-01', 'invalidate', {reason:'measurement changed'}, digest);
+    expect(loop.tasks[0].status).toBe('pending');
+    expect(loop.tasks[0].verificationHistory).toHaveLength(1);
+    expect(loop.tasks[1].status).toBe('running');
+  });
+});

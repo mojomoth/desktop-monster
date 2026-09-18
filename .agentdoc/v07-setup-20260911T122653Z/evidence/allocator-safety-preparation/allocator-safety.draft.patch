@@ -1,0 +1,185 @@
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -269,10 +269,13 @@
+     ...(typeof record['monsterSpeciesId'] === 'string' ? { monsterSpeciesId: record['monsterSpeciesId'] } : {}),
+   }, heroForm(initialHero?.equipped.formId ?? '')?.type));
+   const species = record['monsterSpeciesId'];
+-  // Re-minting must never collide with an id already on the roster.
+-  let nextCompanionId = intField(record['nextCompanionId'], DEFAULT_SAVE.nextCompanionId, 1);
++  // Keep every ID's digit repair; MAX is the exhausted local allocator sentinel.
++  let nextCompanionId = Math.min(Number.MAX_SAFE_INTEGER,
++    intField(record['nextCompanionId'], DEFAULT_SAVE.nextCompanionId, 1));
+   for (const c of companions) {
+-    nextCompanionId = Math.max(nextCompanionId, Number(c.id.replace(/\D/g, '') || 0) + 1);
++    const digits = Number(c.id.replace(/\D/g, '') || 0);
++    const afterId = digits >= Number.MAX_SAFE_INTEGER ? Number.MAX_SAFE_INTEGER : digits + 1;
++    nextCompanionId = Math.max(nextCompanionId, afterId);
+   }
+   return {
+     version: 3,
+--- a/src/core/collection.ts
++++ b/src/core/collection.ts
+@@ -175,6 +175,21 @@
+   };
+ }
+ 
++/** Validate against the original roster before a PvP loss can remove an ID. */
++function mintedId(companions: readonly Companion[], nextCompanionId: number, c: Companion): string | null {
++  const external = /^[sr][0-9a-f]+$/.test(c.id);
++  if (!external && (!Number.isSafeInteger(nextCompanionId) || nextCompanionId < 1 ||
++    nextCompanionId >= Number.MAX_SAFE_INTEGER)) return null;
++  const id = external ? c.id : `c${nextCompanionId}`;
++  return companions.some((existing) => existing.id === id) ? null : id;
++}
++
++/** External deliveries remain valid at exhaustion; never add above the safe bound. */
++function incrementCompanionId(value: number): number {
++  return Number.isSafeInteger(value) && value >= 1 && value < Number.MAX_SAFE_INTEGER
++    ? value + 1 : Number.MAX_SAFE_INTEGER;
++}
++
+ /** Keep server transfer IDs so the theft ledger survives the next save/upload. */
+ function minted(
+   companions: Companion[],
+@@ -183,8 +198,8 @@
+ ): Companion | null {
+   if (companions.length >= ROSTER_CAP) return null;
+   // Legacy/local callers still receive a fresh local ID; the server owns s/r IDs.
+-  const id = /^[sr][0-9a-f]+$/.test(c.id) ? c.id : `c${nextCompanionId}`;
+-  if (companions.some((existing) => existing.id === id)) return null;
++  const id = mintedId(companions, nextCompanionId, c);
++  if (id === null) return null;
+   const fresh: Companion = { ...c, id };
+   companions.push(fresh);
+   return fresh;
+@@ -295,9 +310,9 @@
+     case 'addCompanion': {
+       const companions = reroster(cs, []);
+       if (!minted(companions, state.nextCompanionId, action.companion)) {
+-        return { error: 'addCompanion: roster is full or id already exists' };
+-      }
+-      return next(state, companions, { nextCompanionId: state.nextCompanionId + 1 });
++        return { error: 'addCompanion: roster is full or id allocation failed' };
++      }
++      return next(state, companions, { nextCompanionId: incrementCompanionId(state.nextCompanionId) });
+     }
+     case 'removeCompanions':
+       return next(state, reroster(cs, action.ids));
+@@ -307,8 +322,8 @@
+         pvpParty: resolveIds(cs, action.ids).map((c) => c.id),
+       });
+     case 'pvpResult': {
+-      if (action.stolen && /^[sr][0-9a-f]+$/.test(action.stolen.id) && cs.some((c) => c.id === action.stolen!.id)) {
+-        return { error: 'pvpResult: transferred id already exists' };
++      if (action.stolen && mintedId(cs, state.nextCompanionId, action.stolen) === null) {
++        return { error: 'pvpResult: id allocation failed' };
+       }
+       const companions = reroster(cs, action.lostId === null ? [] : [action.lostId]);
+       // A steal into a full roster is void, never an error (Assumption 23).
+@@ -316,7 +331,7 @@
+       return next(
+         state,
+         companions,
+-        { nextCompanionId: state.nextCompanionId + (stolen ? 1 : 0) },
++        { nextCompanionId: stolen ? incrementCompanionId(state.nextCompanionId) : state.nextCompanionId },
+         [
+           {
+             type: 'pvpResolved',
+--- a/tests/companionLevelsV7.test.ts
++++ b/tests/companionLevelsV7.test.ts
+@@ -125,3 +125,95 @@
+       .toEqual([companion('c1'), companion('c2', 250)]);
+   });
+ });
++
++
++describe('v0.7 companion allocator exhaustion', () => {
++  it('repairs every ID digit sequence without changing any ID or producing an unsafe counter', () => {
++    const ids = ['r9007199254740992', `c${'9'.repeat(400)}`];
++    for (const id of ids) {
++      const original = companion(id, 250);
++      const save = parseSave({ ...DEFAULT_SAVE, companions: [original], nextCompanionId: 1 });
++      expect(save.nextCompanionId).toBe(max);
++      expect(save.companions).toEqual([original]);
++      const engine = createEngine(parseSave(serializeSave(save)), mulberry32(9));
++      const restarted = parseSave(serializeSave(engine.toSave()));
++      expect(restarted.nextCompanionId).toBe(max);
++      expect(restarted.companions).toEqual([original]);
++    }
++    // s/r IDs still participate in the existing all-digit repair rule.
++    expect(parseSave({ companions: [companion('s12a3')] }).nextCompanionId).toBe(124);
++    for (const counter of [max, max + 1, Number.MAX_VALUE]) {
++      expect(parseSave({ nextCompanionId: counter }).nextCompanionId).toBe(max);
++    }
++  });
++
++  it('allocates the last unique local ID at MAX-1 and retains the exhausted sentinel after restart', () => {
++    const incoming = companion('legacy', 250);
++    const actions: CollectionAction[] = [
++      { type: 'addCompanion', companion: incoming },
++      { type: 'pvpResult', won: true, stolen: incoming, lostId: 'c1' },
++    ];
++    for (const action of actions) {
++      const base = { ...stateWith([companion('c1')]), nextCompanionId: max - 1 };
++      const received = success(base, action);
++      expect(received.nextCompanionId).toBe(max);
++      expect(received.companions).toContainEqual(companion(`c${max - 1}`, 250));
++      expect(new Set(received.companions.map(c => c.id)).size).toBe(received.companions.length);
++      const save = parseSave({ ...DEFAULT_SAVE, companions: received.companions,
++        nextCompanionId: received.nextCompanionId });
++      const engine = createEngine(parseSave(serializeSave(save)), mulberry32(9));
++      expect(engine.getState().nextCompanionId).toBe(max);
++      expect(engine.getState().companions).toEqual(received.companions);
++      const before = structuredClone(received);
++      expect(applyCollection(received, { type: 'addCompanion', companion: incoming })).toHaveProperty('error');
++      expect(received).toEqual(before);
++    }
++  });
++
++  it.each([0, -1, 1.5, max, max + 1, Infinity, NaN])(
++    'rejects local allocation at counter %s before applying a PvP loss', nextCompanionId => {
++      const state = { ...stateWith([companion('c1'), companion('c2')]),
++        nextCompanionId, items: { gem: 7 }, souls: 9 };
++      const before = structuredClone(state);
++      const incoming = companion('legacy', 250);
++      expect(applyCollection(state, { type: 'addCompanion', companion: incoming })).toHaveProperty('error');
++      expect(applyCollection(state, { type: 'pvpResult', won: true,
++        stolen: incoming, lostId: 'c1' })).toHaveProperty('error');
++      expect(state).toEqual(before);
++    },
++  );
++
++  it.each([1, 2])('rejects duplicate local c%s against the original roster before removing lostId', nextCompanionId => {
++    const state = { ...stateWith([companion('c1'), companion('c2')]),
++      nextCompanionId, items: { gem: 7 }, souls: 9 };
++    const before = structuredClone(state), incoming = companion('legacy', 250);
++    expect(applyCollection(state, { type: 'addCompanion', companion: incoming })).toHaveProperty('error');
++    expect(applyCollection(state, { type: 'pvpResult', won: true,
++      stolen: incoming, lostId: 'c1' })).toHaveProperty('error');
++    expect(state).toEqual(before);
++  });
++
++  it.each(['r9007199254740992', 's9007199254740992'])(
++    'accepts external %s at exhaustion and preserves its ID through save and restart', id => {
++      const incoming = companion(id, 250);
++      const base = { ...stateWith([companion('c1')]), nextCompanionId: max };
++      const action: CollectionAction = id.startsWith('r')
++        ? { type: 'addCompanion', companion: incoming }
++        : { type: 'pvpResult', won: true, stolen: incoming, lostId: null };
++      const received = success(base, action);
++      expect(received.nextCompanionId).toBe(max);
++      expect(received.companions).toEqual([companion('c1'), incoming]);
++      const save = parseSave({ ...DEFAULT_SAVE, companions: received.companions,
++        nextCompanionId: received.nextCompanionId });
++      const engine = createEngine(parseSave(serializeSave(save)), mulberry32(9));
++      const restarted = parseSave(serializeSave(engine.toSave()));
++      expect(restarted.nextCompanionId).toBe(max);
++      expect(restarted.companions).toEqual(received.companions);
++      const before = structuredClone(received);
++      expect(applyCollection(received, action)).toHaveProperty('error');
++      expect(applyCollection(received, { type: 'pvpResult', won: true,
++        stolen: incoming, lostId: 'c1' })).toHaveProperty('error');
++      expect(received).toEqual(before);
++    },
++  );
++});

@@ -1,0 +1,293 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "round": 7,
+  "status": "PREPARED_NOT_EXECUTED",
+  "observed": {
+    "protocolPath": "docs/v0.7/EVALUATION_PROTOCOL.json",
+    "protocolSha256": "196f351031a385164fa68b0821606538c1d230b2b3b6c6c292deb01bec3048c1",
+    "parameterVersion": 3,
+    "frozenAt": "2026-09-12T07:24:21.813306+00:00",
+    "candidateIds": [
+      "candidate-r7-prefix1153",
+      "candidate-r7-prefix1154",
+      "candidate-r7-prefix1155"
+    ],
+    "executionCount": 0,
+    "completedCount": 0,
+    "reportCountAnalyzed": 0,
+    "preregisteredArchivePresent": false
+  },
+  "registeredCandidates": [
+    {
+      "id": "candidate-r7-prefix1153",
+      "hypothesis": "Hold Round06B L17/XP1.42/count5/depth63 and tail79/10475per10000, compare field prefix1153/1000 to slow the tooearly central first journey while testing whether the20/20deadline tail persists. Prefix also raises tail anchor and changes relative companion power; actual timing/RNG not assumed monotonic. No new mechanic or waits; all6content conditions/goals/policies/seeds unchanged. New120min and qualifying12h required.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1153,
+        "fieldHpDenominator": 1000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10475,
+        "fieldHpTailDenominator": 10000,
+        "earlyCaptureCount": 5
+      }
+    },
+    {
+      "id": "candidate-r7-prefix1154",
+      "hypothesis": "Hold Round06B L17/XP1.42/count5/depth63 and tail79/10475per10000, compare field prefix1154/1000 to slow the tooearly central first journey while testing whether the20/20deadline tail persists. Prefix also raises tail anchor and changes relative companion power; actual timing/RNG not assumed monotonic. No new mechanic or waits; all6content conditions/goals/policies/seeds unchanged. New120min and qualifying12h required.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1154,
+        "fieldHpDenominator": 1000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10475,
+        "fieldHpTailDenominator": 10000,
+        "earlyCaptureCount": 5
+      }
+    },
+    {
+      "id": "candidate-r7-prefix1155",
+      "hypothesis": "Hold Round06B L17/XP1.42/count5/depth63 and tail79/10475per10000, compare field prefix1155/1000 to slow the tooearly central first journey while testing whether the20/20deadline tail persists. Prefix also raises tail anchor and changes relative companion power; actual timing/RNG not assumed monotonic. No new mechanic or waits; all6content conditions/goals/policies/seeds unchanged. New120min and qualifying12h required.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 1155,
+        "fieldHpDenominator": 1000,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": 63,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10475,
+        "fieldHpTailDenominator": 10000,
+        "earlyCaptureCount": 5
+      }
+    }
+  ],
+  "registeredMeasurementSettings": {
+    "tickMs": 100,
+    "observationMs": 1000,
+    "checkpointsMinutes": [
+      5,
+      15,
+      30,
+      45,
+      60,
+      90,
+      120,
+      240,
+      480,
+      600,
+      720
+    ],
+    "seeds": {
+      "baseline": {
+        "start": 1,
+        "count": 100
+      },
+      "exploration": {
+        "start": 10001,
+        "count": 20
+      },
+      "validation": {
+        "start": 1,
+        "count": 100
+      }
+    },
+    "profiles": [
+      "active",
+      "intermittent",
+      "warm-idle",
+      "pure-idle"
+    ],
+    "policies": [
+      "free",
+      "training",
+      "lure",
+      "reroll"
+    ],
+    "inputSchedules": [
+      "uniform",
+      "burst"
+    ],
+    "managementPolicies": [
+      "none",
+      "consume-weakest",
+      "fuse-first",
+      "reincarnate-first"
+    ],
+    "menuVisitSeconds": [
+      0,
+      120,
+      600
+    ],
+    "baseline": {
+      "profile": "active",
+      "policy": "free",
+      "inputSchedule": "uniform",
+      "management": "none",
+      "menuVisitSeconds": 0
+    },
+    "targets": {
+      "firstReincarnation": {
+        "medianMinSec": 2700,
+        "medianMaxSec": 3600,
+        "deadlineSec": 5400,
+        "minimumReachedFraction": 0.9
+      },
+      "lastUnlock": {
+        "medianMinSec": 28800,
+        "medianMaxSec": 43200
+      }
+    },
+    "maximumCandidates": 3,
+    "levelControls": [
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "validationPolicies": [
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      }
+    ],
+    "explorationHorizonMinutes": 120,
+    "maxArtifactBytes": 268435456,
+    "maxWorkers": 4
+  },
+  "batchScript": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/round07-batch.py",
+    "sha256": "5ec5d09ff7a0e14a11344eb426e45bc6091146477a8b2ffe1e3b6ec496cbff1c"
+  },
+  "historicalAnalyzer": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round06-analysis/analyzer-source.json",
+    "sha256": "72be2094fe52dec54b86b1aaa0e88a140769b561d690d9df503f21685e729b17"
+  },
+  "expectedProductionTests": {
+    "files": 4,
+    "tests": 114
+  },
+  "checksPrepared": [
+    "Read reports/raw/archives/logs only after execution.endedAt.",
+    "Validate exact21 source/compiled parameters, all six content conditions, fixed settings/nine policies, experiment/report/manifest/raw binding and source/evaluator/build/log SHA.",
+    "Preserve whole20 population p10/p50/p90/worst with null after finite, conditional successful distribution and full90minute denominator.",
+    "Screening p502700–3600sec AND18/20by5400; same20 full12h only for passers and h70 eligibility population p5028800–43200sec.",
+    "Pair samecandidate screening/full first7events, records/actions through first success or7200sec censoring; mask later first events to null. Verify screening-full-pairing artifact; no oldXP141 first-prefix comparison.",
+    "Compute late8-to12h paired increases before quantiles and integer100ms content gaps only for completed full12h.",
+    "All8complete and integrityPASS required before ranking; both-goal passers only, strict integer100ms distance3150→distance36000→firstp90→ID.",
+    "Compare five controls with completedRound06 identical policy/seed/fixture raw; retain historical reports unchanged."
+  ],
+  "selection": {
+    "passingRanking": [],
+    "proposedExperiment": null,
+    "adopted": false
+  },
+  "analysisExecuted": false,
+  "measurementExecuted": false,
+  "buildExecuted": false,
+  "productSourceModified": false,
+  "evaluatorModified": false,
+  "validationSeedsAccessed": false,
+  "newNumericalProposal": null,
+  "humanChecks": "PENDING",
+  "productReleaseVerified": false
+}

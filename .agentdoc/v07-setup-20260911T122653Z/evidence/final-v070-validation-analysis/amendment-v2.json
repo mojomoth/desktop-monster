@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "agent": "/root/balance",
+  "at": "2026-09-12T18:49:10.146306+00:00",
+  "status": "FROZEN_NOT_EXECUTED",
+  "reason": "Actual Critic wrapper finding resolved before new final validation. Bind completed final fun and all29 owned source/test files to fresh readiness and execution archives. Original submitted-fun evidence remains immutable.",
+  "originals": {
+    "preparation": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-validation-analysis/preparation.json",
+      "sha256": "f7a61dc06df6c01f6d6d961435dce77384c8f0e0ab1b280325690dd3b7e85c84"
+    },
+    "analyzer": {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-validation-analysis/analyzer-source.json",
+      "sha256": "4a51cd2cf75d71e18becb3cf47dd8d90f1a3613ffff0f064c0ded12d3e75c490"
+    },
+    "originalsRemainImmutable": true
+  },
+  "files": [
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-validation-analysis/analyzer-source-v2.json",
+      "bytes": 20785,
+      "sha256": "de67ca1833b3e5092e5f6fe81a77766849b6d8e0a2bfa6498f69d1014deb7b29"
+    },
+    {
+      "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-validation-analysis/preparation-v2.json",
+      "bytes": 18003,
+      "sha256": "f252fa37ea1e9fc78585992a0978b0a24f2beae3c798dc7fe44108e0ad272267"
+    }
+  ],
+  "correctedWrapper": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/sessions/final-v070-validation.py",
+    "sha256": "169d94cf95b56bbb3cf362f6884aad8530752f1f9d3c6bc80008822337aa6334"
+  },
+  "completedDesign": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/session.json",
+    "sha256": "02d821623320baa61b5558e6e3aa9114968563d83c2ac884d6249a43718bc222",
+    "round": 2,
+    "status": "design_review_complete",
+    "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+    "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+    "reports": [
+      {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/003-designer.json",
+        "sha256": "10ac15df8e9760e119a7b8a75308806a29d9b87ba7670ab535b6939153ed4698",
+        "role": "designer",
+        "agent": "/root/designer",
+        "requestId": "3718413dbc220722152045e4a0cceaf8d302a13e3725a896cb88d4f324c7ee3f"
+      },
+      {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/004-critic.json",
+        "sha256": "abf16770e6f37651de6cea57a8ceff92cbe8ac7ae99bc40065b86c363861b3ca",
+        "role": "critic",
+        "agent": "/root/critic",
+        "requestId": "8e8688b2670805bb6b9638e1ed5403b23c7207e8a4bee34d33f46eddbfa3bab2"
+      },
+      {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/005-balance.json",
+        "sha256": "faa2207fdb62d81746166a6a480da579f54f7367b40033b549626cf66e7d8d99",
+        "role": "balance",
+        "agent": "/root/balance",
+        "requestId": "2267323bf7f493de8de8976e028bb35ecf8958645501e80597bb3d33a215d0bf"
+      },
+      {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-final-v070/006-playtester.json",
+        "sha256": "4f0691a08f5251e1872ba9a6adcf7496511dd4a580a2d290c3e777f63f0a5b3c",
+        "role": "playtester",
+        "agent": "/root",
+        "requestId": "dbe2865ba5c4b5a48d05964bbae0a629e6c29bc988d6fd6469ca37b7b89b0650"
+      }
+    ]
+  },
+  "futureInvocation": "python3 -c \"import json,os,subprocess; p='.agentdoc/v07-setup-20260911T122653Z/evidence/final-v070-validation-analysis/analyzer-source-v2.json'; env=os.environ.copy(); env['DESMON_VALIDATION_COMPLETE']='final-v070'; subprocess.run(['node','--input-type=module'],input=json.load(open(p))['source'],text=True,env=env,check=True)\"",
+  "analysisExecuted": false,
+  "futureExecutionOrRawRead": false,
+  "gameMeasurementExecuted": false,
+  "buildOrTestsExecuted": false,
+  "syntaxOnlyExitCode": 0
+}

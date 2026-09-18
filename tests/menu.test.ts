@@ -1,10 +1,14 @@
+import { saveProgress } from '../src/core/progress.js';
 // T48/T49 — Collection & Battle menu page (SPEC F54/F55; GAME_DESIGN_V2 §9).
 // view.ts is pure data, index.ts is DOM-free by injection: these tests drive
 // mountMenu with a recording fake document and a fake preload bridge, exactly
 // as the real `document` and `window.desmon` drive it in the menu window.
 
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { DEFAULT_SAVE, parseSave } from '../src/core/index.js';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+beforeEach(() => { vi.spyOn(Date, 'now').mockReturnValue(0); });
+afterEach(() => { vi.restoreAllMocks(); });
+import { DEFAULT_SAVE, parseSave, createEngine, mulberry32, HERO_MIN_LEVEL } from '../src/core/index.js';
 import type { CollectionAction, SaveFile } from '../src/core/index.js';
 import type {
   Companion,
@@ -21,7 +25,11 @@ import type {
 import { monsterSprites, paletteForTier } from '../src/renderer/sprites/index.js';
 import type { SpriteCanvas } from '../src/renderer/sprites/index.js';
 import { mountMenu } from '../src/menu/index.js';
+import { heroBuffText, heroCanvas, SILHOUETTE_COLOR } from '../src/menu/hero.js';
+import { newProgress as newCoreProgress } from '../src/core/progress.js';
+import { HERO_FORMS, heroRequiredLevel, newHeroProgress } from '../src/core/hero.js';
 import type { MenuBridge, MenuDocument, MenuElement } from '../src/menu/index.js';
+import type { GameSettings, InputModePayload, SaveStatus } from '../src/shared/ipc.js';
 import {
   battleEnabled,
   canRebirth,
@@ -45,9 +53,12 @@ class FakeEl {
   value = '';
   width = 0;
   height = 0;
+  open = false;
   children: FakeEl[] = [];
   /** Every color drawSprite painted into this canvas. */
   readonly fills: string[] = [];
+  readonly pixels: Array<{ x: number; y: number; w: number; h: number }> = [];
+  readonly attributes: Record<string, string> = {};
   private readonly listeners: Array<() => void> = [];
   private readonly changed: Array<() => void> = [];
 
@@ -67,11 +78,14 @@ class FakeEl {
     (type === 'change' ? this.changed : this.listeners).push(listener);
   }
 
+  setAttribute(name: string, value: string): void { this.attributes[name] = value; }
+
   getContext(): SpriteCanvas {
     const ctx: SpriteCanvas = {
       fillStyle: '',
-      fillRect: (): void => {
+      fillRect: (x, y, w, h): void => {
         this.fills.push(String(ctx.fillStyle));
+        this.pixels.push({ x, y, w, h });
       },
     };
     return ctx;
@@ -104,8 +118,11 @@ class FakeDoc implements MenuDocument {
   readonly created: FakeEl[] = [];
   private readonly byId = new Map<string, FakeEl>();
 
-  constructor() {
-    for (const id of ['tab-roster', 'tab-ranking', 'tab-battle'].concat([
+  constructor(v4 = false) {
+    for (const id of ['tab-roster', 'tab-ranking', 'tab-battle'].concat(v4 ? ['tab-hero', 'hero', 'opponents',
+      'save-status', 'tab-shop', 'shop', 'tab-codex', 'codex', 'tab-profile', 'profile', 'profile-stats', 'name-status', 'save-name',
+      'game-content', 'save-recovery', 'recovery-title', 'recovery-description', 'recovery-status', 'open-save-folder', 'recovery-quit', 'welcome', 'connect-input',
+      'skip-welcome', 'input-permission', 'input-status', 'welcome-status', 'settings-status', 'mute-toggle', 'shake-toggle'] : []).concat([
       'roster',
       'ranking',
       'battle',
@@ -354,6 +371,15 @@ describe('menu view-model', () => {
     expect(consumeTargets(saveWith(COMPANIONS), 'c1')).toEqual(['c2', 'c3']);
     expect(consumeTargets(saveWith(COMPANIONS), 'nobody')).toEqual([]);
   });
+
+  it('excludes companion growth that would overflow without hiding safe boundary growth', () => {
+    const food = { ...COMPANIONS[0]!, stars: 0 };
+    const target = { ...COMPANIONS[1]!, level: Number.MAX_SAFE_INTEGER };
+    expect(consumeTargets(saveWith([food, target]), food.id)).toEqual([]);
+    expect(consumeTargets(saveWith([food, { ...target, level: Number.MAX_SAFE_INTEGER - 1 }]), food.id)).toEqual([target.id]);
+    const twins = COMPANIONS.filter(c => c.speciesId === 'slime').map(c => ({ ...c, stars: Number.MAX_SAFE_INTEGER }));
+    expect(fuseCandidates({ ...DEFAULT_SAVE, companions: twins })).toEqual([]);
+  });
 });
 
 describe('menu page', () => {
@@ -419,13 +445,13 @@ describe('menu page', () => {
 
   it('card buttons send consume, fuse, reincarnate and sacrifice actions', () => {
     const { doc, fake } = mounted();
-    // Reincarnate needs max level: only the level-10 dragon offers it.
+    // Reincarnate needs Lv10 or higher: only this dragon is eligible.
     expect(button(doc, 0, 2).disabled).toBe(false);
     expect(button(doc, 1, 2).disabled).toBe(true);
 
     button(doc, 0, 0).click(); // Consume on the dragon: pick it as the target
-    expect(doc.el('result').textContent).toBe('Pick a companion to feed to Dragon Lv 10.');
-    expect(button(doc, 0, 0).textContent).toBe('Cancel');
+    expect(doc.el('result').textContent).toBe('Dragon Lv 10 · 성장 재료로 쓸 동료를 선택하세요. 재료는 사라집니다.');
+    expect(button(doc, 0, 0).textContent).toBe('취소');
     button(doc, 1, 0).click(); // feed it the 2-star slime
     expect(fake.actions).toEqual([{ type: 'consume', targetId: 'c2', foodId: 'c3' }]);
 
@@ -434,10 +460,12 @@ describe('menu page', () => {
     expect(button(doc, 1, 1).disabled).toBe(false);
     button(doc, 1, 1).click();
     button(doc, 0, 2).click();
+    expect(fake.actions).toHaveLength(2);
+    child(child(doc.el('roster'), 'reincarnation-confirmation', 0), 'btn', 0).click();
     button(doc, 2, 3).click();
     expect(fake.actions.slice(1)).toEqual([
       { type: 'fuse', aId: 'c1', bId: 'c3' },
-      { type: 'reincarnate', id: 'c2' },
+      { type: 'reincarnate', id: 'c2', expected: { speciesId: 'dragon', bossIndex: 79, level: 10, stars: 1 } },
       { type: 'sacrifice', id: 'c1' },
     ]);
   });
@@ -452,6 +480,92 @@ describe('menu page', () => {
   });
 });
 
+describe('v0.7 companion reincarnation confirmation', () => {
+  const companion = { id: 'c1', speciesId: 'dragon', bossIndex: 7, level: 10, stars: 2 };
+  const confirmation = (doc: FakeDoc): FakeEl => child(doc.el('roster'), 'reincarnation-confirmation', 0);
+
+  it.each([10, 11, 250, Number.MAX_SAFE_INTEGER])('previews Lv%s and sends its exact snapshot only after confirmation', (level) => {
+    const { doc, fake } = mounted(saveWith([{ ...companion, level }]));
+    expect(button(doc, 0, 2).disabled).toBe(false);
+    button(doc, 0, 2).click();
+    expect(fake.actions).toEqual([]);
+    const panel = confirmation(doc);
+    expect(texts(panel, 'reincarnation-result')).toEqual([`Dragon Lv ${level} · Lv.${level} → Lv.1 · ★2 → ★3`]);
+    const power = child(panel, 'reincarnation-power', 0);
+    expect(power.attributes['title']).toBe(`${4n * BigInt(level)} → 8`);
+    expect(power.attributes['aria-label']).toBe(`기본 힘 ${4n * BigInt(level)}에서 8로 변경`);
+    expect(texts(panel, 'muted')).toEqual(['환생하면 레벨이 초기화되어 기본 힘이 감소합니다.']);
+    const confirm = child(panel, 'btn', 0);
+    confirm.click();
+    confirm.click();
+    expect(fake.actions).toEqual([{ type: 'reincarnate', id: companion.id,
+      expected: { speciesId: 'dragon', bossIndex: 7, level, stars: 2 } }]);
+    expect(doc.el('roster').find('reincarnation-confirmation')).toEqual([]);
+  });
+
+  it('preserves the mounted confirmation during unrelated save changes', () => {
+    const save = saveWith([companion]);
+    const { doc, fake } = mounted(save);
+    button(doc, 0, 2).click();
+    const panel = confirmation(doc);
+    const confirm = child(panel, 'btn', 0);
+    fake.emit({ ...save, coins: '123', killCount: 5, xp: 1 });
+    expect(confirmation(doc)).toBe(panel);
+    expect(child(confirmation(doc), 'btn', 0)).toBe(confirm);
+    expect(fake.actions).toEqual([]);
+    confirm.click();
+    expect(fake.actions).toHaveLength(1);
+  });
+
+  it('cancels without sending and rejects an old confirmation after reopening', () => {
+    const { doc, fake } = mounted(saveWith([companion]));
+    button(doc, 0, 2).click();
+    const panel = confirmation(doc);
+    const oldConfirm = child(panel, 'btn', 0);
+    child(panel, 'btn', 1).click();
+    expect(fake.actions).toEqual([]);
+    expect(doc.el('roster').find('reincarnation-confirmation')).toEqual([]);
+    button(doc, 0, 2).click();
+    oldConfirm.click();
+    expect(fake.actions).toEqual([]);
+    child(confirmation(doc), 'btn', 0).click();
+    expect(fake.actions).toHaveLength(1);
+  });
+
+  it.each([
+    ['id', { id: 'c2' }],
+    ['level', { level: 11 }],
+    ['stars', { stars: 3 }],
+    ['species', { speciesId: 'ghost' }],
+    ['boss depth', { bossIndex: 15 }],
+    ['deletion', null],
+  ] as const)('invalidates confirmation after a target %s change, even if the old values return', (_name, patch) => {
+    const save = saveWith([companion]);
+    const { doc, fake } = mounted(save);
+    button(doc, 0, 2).click();
+    const oldConfirm = child(confirmation(doc), 'btn', 0);
+    fake.emit(saveWith(patch ? [{ ...companion, ...patch }] : []));
+    expect(doc.el('roster').find('reincarnation-confirmation')).toEqual([]);
+    expect(doc.el('result').textContent).toContain('동료가 변경되어 환생 확인을 취소했습니다');
+    oldConfirm.click();
+    fake.emit(save);
+    oldConfirm.click();
+    expect(fake.actions).toEqual([]);
+  });
+
+  it('disables an overflowing consume target while allowing it to feed another companion', () => {
+    const high = { ...companion, level: Number.MAX_SAFE_INTEGER, stars: 0 };
+    const low = { ...companion, id: 'c2', level: 1, stars: 0 };
+    const { doc, fake } = mounted(saveWith([high, low]));
+    expect(button(doc, 0, 0).disabled).toBe(true);
+    expect(button(doc, 1, 0).disabled).toBe(false);
+    button(doc, 1, 0).click();
+    expect(button(doc, 0, 0).disabled).toBe(false);
+    button(doc, 0, 0).click();
+    expect(fake.actions).toEqual([{ type: 'consume', targetId: 'c2', foodId: 'c1' }]);
+  });
+});
+
 describe('menu ranking and battle', () => {
   afterEach(() => {
     vi.useRealTimers();
@@ -459,9 +573,9 @@ describe('menu ranking and battle', () => {
 
   it('leaderboard rows render rank, name, deepest monster and rebirths', async () => {
     expect(leaderboardRows({ ok: true, value: { top: TOP, me: ME, removed: [] } })).toEqual([
-      { rank: '#1', name: 'Ada', deepest: 'Monster 79', rebirths: '♻×2' },
-      { rank: '#2', name: 'Bo', deepest: 'Monster 40', rebirths: '♻×0' },
-      { rank: '#12', name: 'Knight-ab12', deepest: 'Monster 7', rebirths: '♻×0' },
+      { rank: '#1', name: 'Ada', deepest: '최고 단계 79', rebirths: '♻×2' },
+      { rank: '#2', name: 'Bo', deepest: '최고 단계 40', rebirths: '♻×0' },
+      { rank: '#12', name: 'Knight-ab12', deepest: '최고 단계 7', rebirths: '♻×0' },
     ]);
     // My own line is not repeated when the top already carries it.
     expect(
@@ -477,16 +591,16 @@ describe('menu ranking and battle', () => {
     expect(fake.calls).toEqual(['getIdentity', 'getLeaderboard']);
     expect(texts(doc.el('ranking'), 'rank')).toEqual(['#1', '#2', '#12']);
     expect(texts(doc.el('ranking'), 'name')).toEqual(['Ada', 'Bo', 'Knight-ab12']);
-    expect(texts(doc.el('ranking'), 'power')).toEqual(['Monster 79', 'Monster 40', 'Monster 7']);
+    expect(texts(doc.el('ranking'), 'power')).toEqual(['최고 단계 79', '최고 단계 40', '최고 단계 7']);
     expect(texts(doc.el('ranking'), 'stars')).toEqual(['♻×2', '♻×0', '♻×0']);
     expect(fake.actions).toEqual([{ type: 'removeCompanions', ids: ['c1'] }]);
   });
 
   it('offline or failed results render an Offline row', async () => {
-    expect(leaderboardRows({ ok: false, error: 'offline' })[0]?.name).toBe('Offline');
-    expect(leaderboardRows({ ok: false, error: 'server', status: 500 })[0]?.name).toBe('Offline');
+    expect(leaderboardRows({ ok: false, error: 'offline' })[0]?.name).toBe('서버 연결 안 됨');
+    expect(leaderboardRows({ ok: false, error: 'server', status: 500 })[0]?.name).toBe('서버 연결 안 됨');
     expect(leaderboardRows({ ok: false, error: 'cooldown', retryAfterSec: 30 })[0]?.name).toBe(
-      'Cooldown',
+      '잠시 기다려 주세요',
     );
 
     // An offline identity answers both tabs without touching the network —
@@ -496,28 +610,28 @@ describe('menu ranking and battle', () => {
     doc.el('find').click();
     await flush();
     expect(fake.calls).toEqual(['getIdentity']);
-    expect(texts(doc.el('ranking'), 'name')).toEqual(['Offline']);
-    expect(doc.el('result').textContent).toBe('Offline — no battle right now.');
+    expect(texts(doc.el('ranking'), 'name')).toEqual(['서버 연결 안 됨']);
+    expect(doc.el('result').textContent).toBe('서버에 연결할 수 없어 지금은 대전할 수 없습니다.');
   });
 
   it('pvp result text names the stolen or lost companion and the cooldown', () => {
     expect(pvpResultText({ ok: true, value: WON })).toBe(
-      'Victory over Bo — stole Dragon Lv 10!',
+      'Bo에게 승리 · Dragon Lv 10을 데려왔습니다!',
     );
-    expect(pvpResultText({ ok: true, value: { ...WON, stolen: null } })).toBe('Victory over Bo.');
-    expect(pvpResultText({ ok: true, value: { ...LOST, lost: null } })).toBe('Defeat by Bo.');
+    expect(pvpResultText({ ok: true, value: { ...WON, stolen: null } })).toBe('Bo에게 승리했습니다.');
+    expect(pvpResultText({ ok: true, value: { ...LOST, lost: null } })).toBe('Bo에게 패배했습니다.');
     expect(pvpResultText({ ok: true, value: LOST })).toBe(
-      'Defeat by Bo — Slime Lv 4 was stolen from you.',
+      'Bo에게 패배 · Slime Lv 4을 빼앗겼습니다.',
     );
     expect(pvpResultText({ ok: false, error: 'cooldown', retryAfterSec: 42 })).toBe(
-      'Cooldown — next battle in 42s.',
+      '다음 대전까지 42초 남았습니다.',
     );
-    expect(pvpResultText({ ok: false, error: 'network' })).toBe('Offline — no battle right now.');
+    expect(pvpResultText({ ok: false, error: 'network' })).toBe('서버에 연결할 수 없어 지금은 대전할 수 없습니다.');
   });
 
-  it('battle button is disabled with no companions or during cooldown', async () => {
-    vi.useFakeTimers();
-    expect(battleEnabled(saveWith([]), 0)).toBe(false);
+  it('allows a hero alone and disables battles during cooldown', async () => {
+    vi.useFakeTimers({ now: 0 });
+    expect(battleEnabled(saveWith([]), 0)).toBe(true);
     expect(battleEnabled(saveWith(COMPANIONS), 2)).toBe(false);
     expect(battleEnabled(saveWith(COMPANIONS), 0)).toBe(true);
 
@@ -538,13 +652,13 @@ describe('menu ranking and battle', () => {
     expect(go.disabled).toBe(false);
     go.click();
     await flush();
-    expect(doc.el('result').textContent).toBe('Cooldown — next battle in 2s.');
-    expect([go.textContent, go.disabled]).toEqual(['Battle! (2s)', true]);
+    expect(doc.el('result').textContent).toBe('다음 대전까지 2초 남았습니다.');
+    expect([go.textContent, go.disabled]).toEqual(['대전 시작 (2초)', true]);
 
     vi.advanceTimersByTime(1000);
-    expect([go.textContent, go.disabled]).toEqual(['Battle! (1s)', true]);
+    expect([go.textContent, go.disabled]).toEqual(['대전 시작 (1초)', true]);
     vi.advanceTimersByTime(1000);
-    expect([go.textContent, go.disabled]).toEqual(['Battle!', false]);
+    expect([go.textContent, go.disabled]).toEqual(['대전 시작', false]);
     expect(fake.calls).toEqual(['getIdentity', 'pvpMatch', 'pvp:m1:c2,c3,c1']);
   });
 
@@ -567,7 +681,7 @@ describe('menu ranking and battle', () => {
         replay: { opponentName: 'Bo', opponentParty: [], blows: [] },
       },
     ]);
-    expect(win.doc.el('result').textContent).toBe('Victory over Bo — stole Dragon Lv 10!');
+    expect(win.doc.el('result').textContent).toBe('Bo에게 승리 · Dragon Lv 10을 데려왔습니다!');
 
     const loss = mounted(saveWith(COMPANIONS), { pvp: { ok: true, value: LOST } });
     loss.doc.el('find').click();
@@ -596,7 +710,7 @@ describe('menu ranking and battle', () => {
     // Step 1 previews the opponent and its party, biggest member first.
     expect(texts(doc.el('opponent'), 'name')).toEqual(['Bo', 'Golem Lv 2', 'Slime Lv 4']);
     // …and the preview line re-reads against that opponent's front member.
-    expect(doc.el('preview').textContent).toBe('Σ vs opponent: 316A');
+    expect(doc.el('preview').textContent).toBe('상대에게 적용되는 파티 힘: 316A');
 
     doc.el('battle-go').click();
     await flush();
@@ -613,9 +727,9 @@ describe('menu ranking and battle', () => {
         replay: { opponentName: 'Bo', opponentParty: OPP_PARTY, blows: BLOWS },
       },
     ]);
-    expect(doc.el('result').textContent).toBe('Victory over Bo — stole Dragon Lv 10!');
+    expect(doc.el('result').textContent).toBe('Bo에게 승리 · Dragon Lv 10을 데려왔습니다!');
     // The match is spent: the panel asks for a new opponent.
-    expect(texts(doc.el('opponent'), 'name')).toEqual(['No opponent yet']);
+    expect(texts(doc.el('opponent'), 'name')).toEqual(['아직 선택한 상대가 없습니다']);
     expect(doc.el('battle-go').disabled).toBe(true);
   });
 
@@ -627,14 +741,14 @@ describe('menu ranking and battle', () => {
 
     doc.el('battle-go').click();
     await flush();
-    expect(texts(doc.el('opponent'), 'name')).toEqual(['Opponent expired — find again']);
+    expect(texts(doc.el('opponent'), 'name')).toEqual(['상대 미리보기가 만료됐습니다. 다시 선택하세요.']);
     expect(doc.el('battle-go').disabled).toBe(true);
     // Nothing happened to the roster, so the game hears nothing.
     expect(fake.actions).toEqual([]);
   });
 
   it('a successful reclaim forwards addCompanion to the game and refreshes the inbox', async () => {
-    vi.useFakeTimers();
+    vi.useFakeTimers({ now: 0 });
     vi.setSystemTime(NOW);
     const { doc, fake } = mounted(saveWith(COMPANIONS), {
       thefts: { ok: true, value: { thefts: [THEFT] } },
@@ -642,7 +756,7 @@ describe('menu ranking and battle', () => {
     // The inbox loads when the Battle tab opens.
     doc.el('tab-battle').click();
     await flush();
-    expect(texts(doc.el('thefts'), 'name')).toEqual(['Ada stole Slime Lv 4 · 2h 30m left']);
+    expect(texts(doc.el('thefts'), 'name')).toEqual(['Ada에게 빼앗긴 Slime Lv 4 · 회수 가능 시간 2시간 30분 남음']);
 
     child(doc.el('thefts'), 'btn', 0).click();
     await flush();
@@ -659,7 +773,7 @@ describe('menu ranking and battle', () => {
     child(late.doc.el('thefts'), 'btn', 0).click();
     await flush();
     expect(late.doc.el('thefts').find('row')).toHaveLength(0);
-    expect(late.doc.el('result').textContent).toBe('Too late — the reclaim window closed.');
+    expect(late.doc.el('result').textContent).toBe('되찾을 수 있는 시간이 지났습니다.');
     expect(late.fake.actions).toEqual([]);
   });
 
@@ -685,7 +799,7 @@ describe('menu ranking and battle', () => {
     expect(doc.el('party').find('slot')).toHaveLength(5);
     expect(texts(doc.el('party'), 'name')).toEqual(['Dragon Lv 10', 'Slime Lv 2', 'Slime Lv 4']);
     // No opponent loaded yet, so the preview is the raw sum of the picks.
-    expect(doc.el('preview').textContent).toBe('Σ vs opponent: 628A');
+    expect(doc.el('preview').textContent).toBe('상대에게 적용되는 파티 힘: 628A');
     expect(doc.el('picks').find('pick').map((p) => p.className)).toEqual([
       'card mini pick selected',
       'card mini pick selected',
@@ -735,14 +849,14 @@ describe('battle tab view (v3, F75)', () => {
   it('party preview sums effective power against the opponent front member type', () => {
     const mine = [COMPANIONS[0], COMPANIONS[1]].map((c) => c!);
     // slime 32 (water vs water = normal) + dragon 623920 (fire vs water = halved).
-    expect(partyPreview(mine, OPP_PARTY)).toBe('Σ vs opponent: 311A');
+    expect(partyPreview(mine, OPP_PARTY)).toBe('상대에게 적용되는 파티 힘: 311A');
     // The front member is picked by size, not by the order the party arrived in.
-    expect(partyPreview(mine, [...OPP_PARTY].reverse())).toBe('Σ vs opponent: 311A');
+    expect(partyPreview(mine, [...OPP_PARTY].reverse())).toBe('상대에게 적용되는 파티 힘: 311A');
     // Against the earth golem alone the dragon is super effective instead.
-    expect(partyPreview(mine, [OPP_GOLEM])).toBe('Σ vs opponent: 1.24B');
-    // No opponent yet → the raw sum, 32 + 623920.
-    expect(partyPreview(mine, [])).toBe('Σ vs opponent: 623A');
-    expect(partyPreview([], OPP_PARTY)).toBe('Σ vs opponent: 0');
+    expect(partyPreview(mine, [OPP_GOLEM])).toBe('상대에게 적용되는 파티 힘: 1.24B');
+    // 아직 선택한 상대가 없습니다 → the raw sum, 32 + 623920.
+    expect(partyPreview(mine, [])).toBe('상대에게 적용되는 파티 힘: 623A');
+    expect(partyPreview([], OPP_PARTY)).toBe('상대에게 적용되는 파티 힘: 0');
   });
 
   it('togglePick adds and removes ids and never exceeds 5', () => {
@@ -758,22 +872,544 @@ describe('battle tab view (v3, F75)', () => {
 
   it('theft rows render the thief, the companion and the time left from the injected now', () => {
     expect(theftRows([THEFT], NOW)).toEqual([
-      { id: 't1', text: 'Ada stole Slime Lv 4 · 2h 30m left' },
+      { id: 't1', text: 'Ada에게 빼앗긴 Slime Lv 4 · 회수 가능 시간 2시간 30분 남음' },
     ]);
     expect(theftRows([THEFT], NOW + 2 * 3_600_000)[0]?.text).toBe(
-      'Ada stole Slime Lv 4 · 0h 30m left',
+      'Ada에게 빼앗긴 Slime Lv 4 · 회수 가능 시간 0시간 30분 남음',
     );
     // Past the window the row reads zero rather than going negative.
     expect(theftRows([THEFT], THEFT.reclaimUntil + 60_000)[0]?.text).toBe(
-      'Ada stole Slime Lv 4 · 0h 0m left',
+      'Ada에게 빼앗긴 Slime Lv 4 · 회수 가능 시간 0시간 0분 남음',
     );
     expect(theftRows([], NOW)).toEqual([]);
   });
 
-  it('battle button is enabled only with a live match, a non-empty party and no cooldown', () => {
+  it('battle button is enabled only with a live match, the hero and no cooldown', () => {
     expect(battleEnabled({ match: MATCH, party: ['c1'], cooldownUntil: 0 })).toBe(true);
     expect(battleEnabled({ match: null, party: ['c1'], cooldownUntil: 0 })).toBe(false);
-    expect(battleEnabled({ match: MATCH, party: [], cooldownUntil: 0 })).toBe(false);
+    expect(battleEnabled({ match: MATCH, party: [], cooldownUntil: 0 })).toBe(true);
     expect(battleEnabled({ match: MATCH, party: ['c1'], cooldownUntil: 3 })).toBe(false);
   });
 });
+
+describe('v0.4 hero choices and opponent directory binding', () => {
+  it('centers the novice and unknown fallback on the same preview floor as evolved forms', () => {
+    const doc = new FakeDoc(true);
+    const novice = heroCanvas(doc, 'h00') as FakeEl;
+    const fallback = heroCanvas(doc, 'missing-form') as FakeEl;
+    const evolved = heroCanvas(doc, 'h41') as FakeEl;
+    expect([novice.width, novice.height]).toEqual([96, 96]);
+    // Native 14×14 is centered in 96px at the same 4px art scale as the field.
+    expect(novice.pixels[0]).toEqual({ x: 36, y: 20, w: 4, h: 4 });
+    expect(novice.pixels).toContainEqual({ x: 24, y: 72, w: 4, h: 4 });
+    expect(fallback.pixels).toEqual(novice.pixels);
+    expect(fallback.fills).toEqual(novice.fills);
+    const opponent = heroCanvas(doc, 'h00', 64) as FakeEl;
+    expect([opponent.width, opponent.height]).toEqual([64, 64]);
+    expect(opponent.pixels).toEqual(novice.pixels.map(pixel => ({ ...pixel, x: pixel.x - 16, y: pixel.y - 16 })));
+    for (const canvas of [novice, fallback, evolved]) {
+      expect(Math.max(...canvas.pixels.map((pixel) => pixel.y + pixel.h))).toBe(76);
+      expect(canvas.pixels.every((pixel) => pixel.x >= 20 && pixel.x + pixel.w <= 76 && pixel.y >= 20 && pixel.w === 4 && pixel.h === 4)).toBe(true);
+    }
+  });
+
+  it('shows actual art and rolled buffs for three choices and sends a serial-bound selection', () => {
+    const doc = new FakeDoc(true);
+    const api = makeBridge();
+    mountMenu(doc, api.bridge);
+    const engine = createEngine({ ...DEFAULT_SAVE, level: HERO_MIN_LEVEL, coins: '100' }, mulberry32(17));
+    engine.apply({ type: 'heroOffer' });
+    api.emit(engine.toSave());
+    const choices = doc.el('hero').find('hero-choices')[0]!;
+    expect(choices.children).toHaveLength(3);
+    expect(choices.find('hero-art').every((canvas) => canvas.fills.length > 0)).toBe(true);
+    expect(choices.find('hero-art').every((canvas) => canvas.width === 96 && canvas.height === 96)).toBe(true);
+    expect(choices.find('hero-buff').every((el) => el.textContent?.includes('%'))).toBe(true);
+    const gallery = doc.el('codex').find('hero-gallery')[0]!;
+    const entry = gallery.find('codex-card')[0]!;
+    entry.open = true;
+    api.emit({ ...engine.toSave(), coins: '101' });
+    expect(doc.el('codex').find('hero-gallery')[0]).toBe(gallery);
+    expect(gallery.find('codex-card')[0]).toBe(entry);
+    expect(entry.open).toBe(true);
+    expect(doc.el('hero').find('hero-gallery')).toHaveLength(0);
+    expect(doc.el('hero').find('hero-choices')[0]).toBe(choices);
+    choices.find('btn')[0]!.click();
+    expect(api.actions).toContainEqual({ type: 'heroChoose', formId: engine.getState().hero!.choices[0]!.formId,
+      offerSerial: engine.getState().hero!.offerSerial });
+    doc.el('hero').find('btn').find((b) => b.textContent?.startsWith('보류'))!.click();
+    expect(api.actions.at(-1)?.type).toBe('heroDefer');
+  });
+
+  it('opens a list with hero, party and win/loss record, then previews the selected player', async () => {
+    const doc = new FakeDoc(true);
+    const api = makeBridge();
+    const directory = vi.fn(async () => ({ ok: true as const, value: { opponents: [{
+      ...MATCH.opponent, playerId: 'chosen-player', rank: 3, wins: 8, losses: 2,
+      hero: { formId: 'h41', buffPercent: 20 },
+    }] } }));
+    const match = vi.fn(async () => ({ ok: true as const, value: { ...MATCH, opponent: { ...MATCH.opponent, playerId: 'chosen-player' } } }));
+    api.bridge.pvpOpponents = directory;
+    api.bridge.pvpMatch = match;
+    mountMenu(doc, api.bridge);
+    doc.el('tab-battle').click();
+    await flush();
+    expect(directory).toHaveBeenCalledTimes(1);
+    expect(match).not.toHaveBeenCalled();
+    const rows = doc.el('opponents').find('opponent-card');
+    expect(rows).toHaveLength(1);
+    expect(texts(rows[0]!, 'record')).toEqual(['8승 2패']);
+    const portrait = rows[0]!.find('hero-art')[0]!;
+    expect(portrait.fills.length).toBeGreaterThan(0);
+    expect([portrait.width, portrait.height]).toEqual([64, 64]);
+    expect(portrait.pixels.every(pixel => pixel.w === 4 && pixel.h === 4 && pixel.x >= 4 && pixel.x + pixel.w <= 60 && pixel.y >= 4 && pixel.y + pixel.h <= 60)).toBe(true);
+    expect(rows[0]!.find('mini')).toHaveLength(MATCH.opponent.party.length);
+    rows[0]!.find('btn')[0]!.click();
+    await flush();
+    expect(match).toHaveBeenCalledWith('chosen-player');
+    expect(texts(doc.el('opponent'), 'name')).toContain(MATCH.opponent.name);
+  });
+
+  it('keeps an empty or failed directory actionable and never silently starts a random match', async () => {
+    const doc = new FakeDoc(true);
+    const api = makeBridge();
+    const directory = vi.fn<NonNullable<MenuBridge['pvpOpponents']>>()
+      .mockResolvedValueOnce({ ok: true, value: { opponents: [] } })
+      .mockRejectedValueOnce(new Error('offline'));
+    const match = vi.fn(api.bridge.pvpMatch);
+    api.bridge.pvpOpponents = directory;
+    api.bridge.pvpMatch = match;
+    mountMenu(doc, api.bridge);
+    doc.el('find').click();
+    await flush();
+    expect(texts(doc.el('opponents'), 'muted')[0]).toContain('아직 대전 상대가 없습니다');
+    doc.el('find').click();
+    await flush();
+    expect(texts(doc.el('opponents'), 'muted')[0]).toContain('연결할 수 없습니다');
+    expect(doc.el('find').disabled).toBe(false);
+    expect(match).not.toHaveBeenCalled();
+  });
+});
+
+describe('v0.5 shop, codices and player history', () => {
+  function v5(save: Partial<SaveFile> = {}): { doc: FakeDoc; api: FakeBridge } {
+    const doc = new FakeDoc(true);
+    const api = makeBridge();
+    mountMenu(doc, api.bridge);
+    api.emit({ ...DEFAULT_SAVE, progress: newProgress(), ...save });
+    return { doc, api };
+  }
+
+  it('keeps all 70 heroes in one codex and masks undiscovered art even after requirements are met', () => {
+    const progress = { ...newProgress(), speciesKills: { dragon: 3 } };
+    const { doc, api } = v5({ progress });
+    const cards = doc.el('codex').find('hero-gallery')[0]!.find('codex-card');
+    expect(cards).toHaveLength(70);
+    expect(doc.el('hero').find('hero-gallery')).toHaveLength(0);
+    const locked = cards[50]!;
+    expect(texts(locked, 'name')).toEqual(['미발견']);
+    expect(new Set(locked.find('hero-art')[0]!.fills)).toEqual(new Set([SILHOUETTE_COLOR]));
+    expect(locked.find('hero-art')[0]!.attributes['aria-label']).toBe('미발견 영웅 실루엣');
+    expect(texts(locked, 'condition')[0]).toContain('3/3');
+    expect(texts(locked, 'codex-eligibility')[0]).toContain('조건 달성');
+    expect(locked.find('codex-equip')[0]!.disabled).toBe(true);
+    locked.find('codex-equip')[0]!.click();
+    expect(api.actions).toEqual([]);
+
+    locked.open = true;
+    api.emit({ ...DEFAULT_SAVE, progress: { ...progress, seenHeroes: ['h51'] } });
+    expect(texts(locked, 'name')).toEqual(['미발견']);
+    expect(new Set(locked.find('hero-art')[0]!.fills)).toEqual(new Set([SILHOUETTE_COLOR]));
+    api.emit({ ...DEFAULT_SAVE, progress: { ...progress, seenHeroes: ['h51'], heroCounts: { h51: 1 } } });
+    expect(doc.el('codex').find('codex-card')[50]).toBe(locked);
+    expect(locked.open).toBe(true);
+    expect(texts(locked, 'name')).toEqual([HERO_FORMS[50]!.name]);
+    expect(new Set(locked.find('hero-art')[0]!.fills).size).toBeGreaterThan(1);
+    expect(texts(locked, 'codex-description')[0]).toBe(HERO_FORMS[50]!.description);
+    expect(locked.find('codex-equip')[0]!.disabled).toBe(true);
+  });
+
+  it('keeps art, open cards and an edited name through five-second updates and codex switches', () => {
+    const { doc, api } = v5();
+    const hero = doc.el('codex').find('codex-card')[0]!;
+    const portrait = hero.find('hero-art')[0]!;
+    hero.open = true;
+    doc.el('name').value = 'EditingName';
+    api.emit({ ...DEFAULT_SAVE, progress: { ...newProgress(), playTimeMs: 5000 } });
+    expect(doc.el('codex').find('codex-card')[0]).toBe(hero);
+    expect(hero.find('hero-art')[0]).toBe(portrait);
+    expect(hero.open).toBe(true);
+    expect(doc.el('name').value).toBe('EditingName');
+    doc.el('codex').find('codex-monsters')[0]!.click();
+    expect(doc.el('codex').find('monster-gallery')[0]!.find('codex-card')).toHaveLength(135);
+    doc.el('codex').find('codex-heroes')[0]!.click();
+    expect(hero.open).toBe(true);
+    expect(hero.find('hero-art')[0]).toBe(portrait);
+  });
+
+  it('shows time AND progress conditions and reveals monsters only after a kill', () => {
+    const progress = { ...newProgress(), killCount: 30, playTimeMs: 300_000 };
+    const { doc, api } = v5({ killCount: 30, progress });
+    doc.el('codex').find('codex-monsters')[0]!.click();
+    const cards = doc.el('codex').find('monster-gallery')[0]!.find('codex-card');
+    const dawn = cards[105]!;
+    const mist = cards[111]!;
+    expect(texts(dawn, 'name')).toEqual(['미발견']);
+    expect(new Set(dawn.find('monster-art')[0]!.fills)).toEqual(new Set([SILHOUETTE_COLOR]));
+    expect(texts(mist, 'condition')).toEqual(expect.arrayContaining([
+      expect.stringContaining('현재 낮'), expect.stringContaining('5/5분'),
+    ]));
+    expect(texts(mist, 'codex-eligibility')[0]).toContain('조건을 달성하면');
+    expect(texts(doc.el('codex'), 'field-phase')[0]).toContain('낮');
+    api.emit({ ...DEFAULT_SAVE, killCount: 30, progress: { ...progress, seenMonsters: ['dawnfinch'] } });
+    expect(texts(dawn, 'name')).toEqual(['미발견']);
+    expect(new Set(dawn.find('monster-art')[0]!.fills)).toEqual(new Set([SILHOUETTE_COLOR]));
+    api.emit({ ...DEFAULT_SAVE, killCount: 31, progress: { ...progress, seenMonsters: ['dawnfinch'], speciesKills: { dawnfinch: 1 } } });
+    expect(texts(dawn, 'name')).toEqual(['새벽불새']);
+    expect(new Set(dawn.find('monster-art')[0]!.fills).size).toBeGreaterThan(1);
+    expect(texts(dawn, 'codex-eligibility')[0]).toContain('발견 완료');
+    expect(texts(dawn, 'codex-stats')[0]).toContain('HP');
+  });
+
+  it('offers free equipment only for owned heroes and uses the collected stacked buff', () => {
+    const owned = { formId: 'h06', buffPercent: 25, stacks: 3 };
+    const hero = { ...newHeroProgress(), collection: [owned] };
+    const { doc, api } = v5({ hero });
+    const card = doc.el('codex').find('codex-card')[5]!;
+    expect(texts(card, 'codex-stats')[0]).toContain('+28%');
+    card.find('codex-equip')[0]!.click();
+    expect(api.actions).toEqual([{ type: 'heroEquip', formId: 'h06' }]);
+    expect(heroBuffText(owned)).toBe('모든 동료 공격력 +28%');
+  });
+
+  it('previews repeat rewards and changing level thresholds including an old pending offer', () => {
+    const hero = { ...newHeroProgress(), reincarnations: 3, offerSerial: 7, offerLevel: 12,
+      collection: [{ formId: 'h01', buffPercent: 25, stacks: 2 }],
+      choices: [{ formId: 'h01', buffPercent: 10 }, { formId: 'h02', buffPercent: 15 }, { formId: 'h03', buffPercent: 20 }] };
+    const { doc, api } = v5({ hero, level: 12, coins: '1000' });
+    expect(texts(doc.el('hero'), 'next-level')[0]).toContain('다음 환생 Lv.12');
+    expect(texts(doc.el('hero'), 'next-level')[0]).toContain(`새 후보·재굴림 Lv.${heroRequiredLevel(3)}`);
+    const choices = doc.el('hero').find('hero-choices')[0]!;
+    expect(texts(choices, 'stack-change')[0]).toBe('중첩 2 → 3');
+    expect(texts(choices, 'hero-buff')[0]).toContain('+56%');
+    const reroll = doc.el('hero').find('btn').find((b) => b.textContent?.includes('다시 뽑기'))!;
+    expect(reroll.disabled).toBe(true);
+    expect(reroll.textContent).toContain(`Lv.${heroRequiredLevel(3)} 필요`);
+    api.emit({ ...DEFAULT_SAVE, hero, level: heroRequiredLevel(3), coins: '1000' });
+    expect(doc.el('hero').find('btn').find((b) => b.textContent?.includes('다시 뽑기'))!.disabled).toBe(false);
+    choices.find('btn')[0]!.click();
+    expect(api.actions).toContainEqual({ type: 'heroChoose', formId: 'h01', offerSerial: 7 });
+  });
+
+  it('shows exact shop effects and shortfalls, keeps buttons mounted and sends serial-bound purchases', () => {
+    const { doc, api } = v5({ coins: '74' });
+    const cards = doc.el('shop').find('shop-card');
+    const training = cards[0]!.find('btn')[0]!;
+    expect(training.disabled).toBe(true);
+    expect(training.textContent).toContain('75 골드');
+    expect(training.textContent).toContain('1 부족');
+    expect(texts(cards[0]!, 'shop-effect')[0]).toContain('+0% → +5%');
+    training.click();
+    expect(api.actions).toEqual([]);
+    api.emit({ ...DEFAULT_SAVE, coins: '500', progress: { ...newProgress(), shopSerial: 8 } });
+    expect(cards[0]!.find('btn')[0]).toBe(training);
+    training.click();
+    expect(api.actions).toEqual([{ type: 'shopBuy', item: 'training', shopSerial: 8 }]);
+    expect(cards[1]!.find('btn')[0]!.textContent).toContain('출현 조건');
+    api.emit({ ...DEFAULT_SAVE, coins: '500', progress: { ...newProgress(), trainingLevel: 10, lureRemaining: 20, shopSerial: 9 } });
+    expect(training.disabled).toBe(true);
+    expect(training.textContent).toBe('최대 훈련 완료');
+    expect(cards[1]!.find('btn')[0]!.disabled).toBe(true);
+    expect(cards[1]!.find('btn')[0]!.textContent).toContain('20회 남음');
+  });
+
+  it('prices eligible lure purchases using reincarnations and shows exact remaining charges', () => {
+    const hero = { ...newHeroProgress(), reincarnations: 2 };
+    const progress = { ...newProgress(), shopSerial: 2, speciesKills: { dragon: 3 } };
+    const { doc, api } = v5({ hero, progress, coins: '125' });
+    const button = doc.el('shop').find('shop-card')[1]!.find('btn')[0]!;
+    expect(button.disabled).toBe(false);
+    expect(button.textContent).toBe('125 골드로 구입');
+    button.click();
+    expect(api.actions).toEqual([{ type: 'shopBuy', item: 'lure', shopSerial: 2 }]);
+  });
+
+  it('shows persisted time, lifetime totals and reverse chronological hero history without replacing open details', () => {
+    const progress = { ...newProgress(), playTimeMs: 3_723_000, pvpWins: 3, pvpLosses: 1, goldSpent: '1000',
+      legacyHistory: true, heroCounts: { h06: 2 }, reincarnationHistory: [
+        { number: 100, formId: 'h06', level: 18, playTimeMs: 3600_000, buffPercent: 25, stacks: 0 },
+        { number: 101, formId: 'h06', level: 18, playTimeMs: 3720_000, buffPercent: 25, stacks: 1 },
+      ] };
+    const { doc, api } = v5({ hero: { ...newHeroProgress(), reincarnations: 101 }, progress, killCount: 8888, rebirths: 105 });
+    const profile = doc.el('profile-stats');
+    expect(texts(profile, 'play-time')).toEqual(['플레이 시간 · 1시간 2분 3초']);
+    expect(texts(profile, 'kill-count')[0]).toContain('8,888');
+    expect(texts(profile, 'hero-count')[0]).toContain('101회');
+    expect(texts(profile, 'pvp-count')[0]).toContain('3승 1패');
+    expect(texts(profile, 'name')[0]).toContain('총 101회 · 최근 2개');
+    expect(texts(profile, 'history-detail')[0]).toContain('+26%');
+    expect(texts(profile, 'hero-total')).toEqual(['새벽 광전사 · 2회']);
+    expect(texts(profile, 'muted').some((line) => line?.includes('v0.5부터'))).toBe(true);
+    const history = profile.find('profile-history')[0]!;
+    const entry = profile.find('history-entry')[0]!;
+    history.open = true;
+    api.emit({ ...DEFAULT_SAVE, hero: { ...newHeroProgress(), reincarnations: 101 }, progress: { ...progress, playTimeMs: 3_728_000 } });
+    expect(profile.find('profile-history')[0]).toBe(history);
+    expect(profile.find('history-entry')[0]).toBe(entry);
+    expect(history.open).toBe(true);
+  });
+
+  it('saves names offline, explains rejected characters and preserves typing against delayed identity', async () => {
+    const doc = new FakeDoc(true);
+    const api = makeBridge({ identity: OFFLINE });
+    let resolveIdentity: (value: IdentityPayload) => void = () => undefined;
+    api.bridge.getIdentity = () => new Promise((resolve) => { resolveIdentity = resolve; });
+    mountMenu(doc, api.bridge);
+    doc.el('name').value = 'Typing';
+    resolveIdentity(OFFLINE);
+    await flush();
+    expect(doc.el('name').value).toBe('Typing');
+    doc.el('name').type('bad name');
+    expect(doc.el('name-status').textContent).toContain('1–16자');
+    expect(api.calls.some((call) => call.startsWith('setName:'))).toBe(false);
+    doc.el('name').type('Sir_Bongo');
+    await flush();
+    expect(api.calls).toContain('setName:Sir_Bongo');
+    expect(doc.el('name-status').textContent).toBe('이름을 저장했습니다.');
+    expect(doc.el('save-name').disabled).toBe(false);
+  });
+
+  it('keeps the battle verdict and warns only when official history could not be persisted', () => {
+    expect(pvpResultText({ ok: true, value: { ...WON, historySaved: false } }))
+      .toContain('전적 저장을 완료하지 못했습니다');
+    expect(pvpResultText({ ok: true, value: WON })).not.toContain('전적 저장');
+  });
+});
+
+describe('v0.6 explicit discovery acknowledgement and optional goal', () => {
+  function setup() {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    mountMenu(doc, api.bridge);return {doc,api};
+  }
+  it('acknowledges only previewed IDs, never on open or before persisted state arrives', () => {
+    const {doc,api}=setup();
+    const progress={...newProgress(),seenHeroes:['h01','h02','h03','h04'],seenMonsters:['slime','dragon'],
+      heroCounts:{h01:1,h02:1,h03:1,h04:1},speciesKills:{slime:1,dragon:1}};
+    api.emit({...DEFAULT_SAVE,progress});doc.el('tab-codex').click();
+    expect(api.actions).toEqual([]);
+    const ack=doc.el('codex').find('discovery-ack')[0]!;ack.click();
+    expect(api.actions.at(-1)).toEqual({type:'acknowledgeDiscoveries',heroes:['h01','h02','h03'],monsters:[]});
+    expect(doc.el('codex').find('discovery-preview')).toHaveLength(3);
+    expect(texts(doc.el('codex'),'discovery-count')[0]).toContain('영웅 4');
+    const engine=createEngine({...DEFAULT_SAVE,progress},mulberry32(1));
+    engine.apply(api.actions.at(-1)!);api.emit(engine.toSave());
+    expect(doc.el('codex').find('discovery-ack')[0]).toBe(ack);
+    expect(texts(doc.el('codex'),'discovery-count')[0]).toContain('영웅 1');
+    expect(texts(doc.el('codex'),'discovery-count')[0]).toContain('몬스터 2');
+    ack.click();expect(api.actions.at(-1)).toEqual({type:'acknowledgeDiscoveries',heroes:['h04'],monsters:['slime','dragon']});
+    engine.apply(api.actions.at(-1)!);api.emit(engine.toSave());
+    expect(doc.el('codex').find('discovery-summary')[0]!.hidden).toBe(true);
+  });
+  it('keeps a selected undiscovered goal through eligibility changes and discovery until explicit clear', () => {
+    const {doc,api}=setup();const progress={...newProgress(),speciesKills:{dragon:3}};
+    api.emit({...DEFAULT_SAVE,progress});
+    const card=doc.el('codex').find('hero-gallery')[0]!.find('codex-card')[50]!;
+    const button=card.find('codex-goal')[0]!;card.open=true;button.click();
+    expect(api.actions.at(-1)).toEqual({type:'setDiscoveryGoal',goal:{kind:'hero',id:'h51'}});
+    const goal={kind:'hero' as const,id:'h51'};
+    const selected={...progress,codex:{acknowledgedHeroes:[],acknowledgedMonsters:[],goal}};
+    api.emit({...DEFAULT_SAVE,progress:selected});
+    expect(texts(doc.el('codex'),'goal-name')[0]).toContain('미발견');
+    expect(texts(doc.el('codex'),'goal-status')[0]).toContain('조건 충족 · 아직 미발견');
+    expect(new Set(card.find('hero-art')[0]!.fills)).toEqual(new Set([SILHOUETTE_COLOR]));
+    api.emit({...DEFAULT_SAVE,progress:{...selected,speciesKills:{},playTimeMs:5000}});
+    expect(texts(doc.el('codex'),'goal-status')[0]).toContain('현재 조건 미충족');
+    expect(card.open).toBe(true);expect(card.find('codex-goal')[0]).toBe(button);
+    api.emit({...DEFAULT_SAVE,progress:{...selected,seenHeroes:['h51']}});
+    expect(texts(doc.el('codex'),'goal-status')[0]).toContain('조건 충족 · 아직 미발견');
+    api.emit({...DEFAULT_SAVE,progress:{...selected,seenHeroes:['h51'],heroCounts:{h51:1}}});
+    expect(texts(doc.el('codex'),'goal-status')[0]).toContain('발견 완료 · 미보유');
+    doc.el('codex').find('goal-clear')[0]!.click();
+    expect(api.actions.at(-1)).toEqual({type:'setDiscoveryGoal',goal:null});
+  });
+  it('keeps a write error across state snapshots and only clears it on an explicit saved status', () => {
+    const doc=new FakeDoc(true);const api=makeBridge();let status: (next: SaveStatus)=>void=()=>{};
+    api.bridge.onSaveStatus=cb=>{status=cb;return ()=>{};};mountMenu(doc,api.bridge);
+    api.emit({...DEFAULT_SAVE,progress:{...newProgress(),seenHeroes:['h01']}});
+    status({state:'write-error'});expect(doc.el('save-status').textContent).toContain('저장하지 못했습니다');
+    doc.el('tab-codex').click();expect(doc.el('save-status').textContent).toContain('저장하지 못했습니다');
+    api.emit({...DEFAULT_SAVE,progress:newProgress()});expect(doc.el('save-status').hidden).toBe(false);
+    status({state:'ready'});expect(doc.el('save-status').hidden).toBe(true);
+  });
+});
+
+describe('v0.6 capped hero discovery guidance', () => {
+  it('keeps a chosen goal but does not promise another offer at the reincarnation cap', () => {
+    const doc=new FakeDoc(true);const api=makeBridge();mountMenu(doc,api.bridge);
+    api.emit({...DEFAULT_SAVE,level:99,hero:{...newHeroProgress(),reincarnations:1_000_000},
+      progress:{...newProgress(),codex:{acknowledgedHeroes:[],acknowledgedMonsters:[],goal:{kind:'hero',id:'h01'}}}});
+    const card=doc.el('codex').find('hero-gallery')[0]!.find('codex-card')[0]!;
+    expect(texts(card,'codex-eligibility')[0]).toContain('새 후보를 열 수 없습니다');
+    expect(texts(doc.el('codex'),'goal-status')[0]).toContain('환생 상한 도달');
+    expect(card.find('codex-goal')[0]!.textContent).toContain('선택한 목표');
+    expect(api.actions).toEqual([]);
+  });
+});
+
+describe('v0.8 menu setup and persistent save status', () => {
+  const freshSettings: GameSettings = { gameScale: 1, muted: false, screenShake: true,
+    welcomeSeen: false, globalInputRequested: false };
+  const fallback: InputModePayload = { mode: 'fallback', accessibilityGranted: false };
+
+  it('skips the inline welcome with a window-only preference and honors it on a new menu', async () => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    let saved = { ...freshSettings };
+    api.bridge.getSettings = async () => saved;
+    api.bridge.getInputMode = async () => fallback;
+    const update = vi.fn(async (patch: Partial<GameSettings>) => {
+      saved = { ...saved, ...patch }; return { ok: true, settings: saved };
+    });
+    api.bridge.updateSettings = update;
+    mountMenu(doc, api.bridge); await flush();
+    expect(doc.el('welcome').hidden).toBe(false);
+    expect(doc.el('input-status').textContent).toContain('게임 창에서만');
+    doc.el('skip-welcome').click(); await flush();
+    expect(update).toHaveBeenCalledWith({ welcomeSeen: true, globalInputRequested: false });
+    expect(doc.el('welcome').hidden).toBe(true);
+    const reopened = new FakeDoc(true); mountMenu(reopened, api.bridge); await flush();
+    expect(reopened.el('welcome').hidden).toBe(true);
+  });
+
+  it('requests input once while pending and distinguishes permission wait from a live global connection', async () => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    let settingsChanged: (settings: GameSettings) => void = () => {};
+    let modeChanged: (mode: InputModePayload) => void = () => {};
+    let finish: (reply: { ok: boolean; mode: InputModePayload }) => void = () => {};
+    api.bridge.getSettings = async () => ({ ...freshSettings });
+    api.bridge.getInputMode = async () => fallback;
+    api.bridge.onSettingsChanged = cb => { settingsChanged = cb; return () => {}; };
+    api.bridge.onInputMode = cb => { modeChanged = cb; return () => {}; };
+    const connect = vi.fn(() => new Promise<{ ok: boolean; mode: InputModePayload }>(resolve => { finish = resolve; }));
+    api.bridge.connectGlobalInput = connect;
+    const update = vi.fn(async (patch: Partial<GameSettings>) => ({ ok: true,
+      settings: { ...freshSettings, globalInputRequested: true, ...patch } }));
+    api.bridge.updateSettings = update;
+    mountMenu(doc, api.bridge); await flush();
+    doc.el('connect-input').click(); doc.el('connect-input').click();
+    expect(connect).toHaveBeenCalledTimes(1);
+    settingsChanged({ ...freshSettings, welcomeSeen: true, globalInputRequested: true });
+    expect(doc.el('welcome').hidden).toBe(false);
+    finish({ ok: true, mode: fallback }); await flush();
+    expect(doc.el('welcome-status').textContent).toContain('아직 전체 입력이 연결되지 않았습니다');
+    expect(doc.el('input-status').textContent).not.toContain('전체 입력 연결됨');
+    expect(doc.el('input-permission').hidden).toBe(false);
+    modeChanged({ mode: 'global', accessibilityGranted: true });
+    expect(doc.el('input-status').textContent).toContain('전체 입력 연결됨');
+    doc.el('skip-welcome').click(); await flush();
+    expect(update).toHaveBeenCalledWith({ welcomeSeen: true });
+  });
+
+  it('keeps the saved toggle state and reports a failed settings write', async () => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    api.bridge.getSettings = async () => ({ ...freshSettings, welcomeSeen: true });
+    const update = vi.fn(async () => ({ ok: false,
+      settings: { ...freshSettings, welcomeSeen: true } }));
+    api.bridge.updateSettings = update;
+    mountMenu(doc, api.bridge); await flush();
+    doc.el('mute-toggle').click(); await flush();
+    expect(update).toHaveBeenCalledWith({ muted: true });
+    expect(doc.el('mute-toggle').attributes['aria-pressed']).toBe('false');
+    expect(doc.el('settings-status').textContent).toContain('저장하지 못했습니다');
+    doc.el('shake-toggle').click(); await flush();
+    expect(update).toHaveBeenLastCalledWith({ screenShake: false });
+    expect(doc.el('shake-toggle').attributes['aria-pressed']).toBe('true');
+  });
+
+  it('restores a pre-existing write error and ignores an older ready lookup after a live error', async () => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    let deliver: (status: SaveStatus) => void = () => {};
+    let finish: (status: SaveStatus) => void = () => {};
+    api.bridge.getSaveStatus = () => new Promise(resolve => { finish = resolve; });
+    api.bridge.onSaveStatus = cb => { deliver = cb; return () => {}; };
+    mountMenu(doc, api.bridge);
+    expect(doc.el('game-content').hidden).toBe(true);
+    deliver({ state: 'write-error' });
+    finish({ state: 'ready' }); await flush();
+    expect(doc.el('game-content').hidden).toBe(false);
+    expect(doc.el('save-status').textContent).toContain('저장하지 못했습니다');
+    api.emit(DEFAULT_SAVE);
+    expect(doc.el('save-status').hidden).toBe(false);
+    deliver({ state: 'ready' });
+    expect(doc.el('save-status').hidden).toBe(true);
+
+    const reopened = new FakeDoc(true);
+    api.bridge.getSaveStatus = async () => ({ state: 'write-error' });
+    mountMenu(reopened, api.bridge); await flush();
+    expect(reopened.el('save-status').textContent).toContain('저장하지 못했습니다');
+  });
+
+  it.each(['invalid JSON', 'settings-write'])('shows only recovery controls after %s and sends no gameplay action', async (reason) => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    api.bridge.getSaveStatus = async () => ({ state: 'load-error', reason });
+    const folder = vi.fn(async () => {}); const quit = vi.fn(async () => {});
+    api.bridge.openSaveFolder = folder; api.bridge.quit = quit;
+    mountMenu(doc, api.bridge); api.emit({ ...DEFAULT_SAVE, monsterIndex: 40 }); await flush();
+    expect(doc.el('game-content').hidden).toBe(true);
+    expect(doc.el('save-recovery').hidden).toBe(false);
+    expect(doc.el('recovery-title').textContent).toBe(reason === 'settings-write'
+      ? '처음 시작할 설정을 저장하지 못했습니다' : '저장 데이터를 열지 못했습니다');
+    if (reason === 'settings-write') expect(doc.el('recovery-description').textContent).not.toContain('파일을 확인');
+    expect(doc.el('hero').find('hero-choices')).toHaveLength(0);
+    doc.el('rebirth').click(); doc.el('tab-battle').click();
+    expect(api.actions).toEqual([]);
+    doc.el('open-save-folder').click(); doc.el('recovery-quit').click(); await flush();
+    expect(folder).toHaveBeenCalledTimes(1); expect(quit).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not overwrite newer live preferences or input state with an older request response', async () => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    let settingsChanged: (settings: GameSettings) => void = () => {};
+    let modeChanged: (mode: InputModePayload) => void = () => {};
+    let finishSettings: (value: { ok: boolean; settings: GameSettings }) => void = () => {};
+    let finishInput: (value: { ok: boolean; mode: InputModePayload }) => void = () => {};
+    api.bridge.getSettings = async () => freshSettings;
+    api.bridge.getInputMode = async () => fallback;
+    api.bridge.onSettingsChanged = cb => { settingsChanged = cb; return () => {}; };
+    api.bridge.onInputMode = cb => { modeChanged = cb; return () => {}; };
+    api.bridge.updateSettings = () => new Promise(resolve => { finishSettings = resolve; });
+    api.bridge.connectGlobalInput = () => new Promise(resolve => { finishInput = resolve; });
+    mountMenu(doc, api.bridge); await flush();
+    doc.el('mute-toggle').click();
+    settingsChanged({ ...freshSettings, muted: true, screenShake: false });
+    finishSettings({ ok: true, settings: { ...freshSettings, muted: true } }); await flush();
+    expect(doc.el('shake-toggle').attributes['aria-pressed']).toBe('false');
+    doc.el('connect-input').click();
+    modeChanged({ mode: 'global', accessibilityGranted: true });
+    finishInput({ ok: true, mode: fallback }); await flush();
+    expect(doc.el('input-status').textContent).toContain('전체 입력 연결됨');
+    expect(doc.el('welcome-status').textContent).toContain('연결되었습니다');
+  });
+
+  it('keeps reset consequences and repeated-hero effects outside collapsed rules', () => {
+    const doc = new FakeDoc(true); const api = makeBridge();
+    mountMenu(doc, api.bridge);
+    api.emit({ ...DEFAULT_SAVE, level: HERO_MIN_LEVEL, hero: { ...newHeroProgress(), offerSerial: 9,
+      collection: [{ formId: 'h01', buffPercent: 25, stacks: 2 }],
+      choices: [{ formId: 'h01', buffPercent: 10 }, { formId: 'h02', buffPercent: 15 }, { formId: 'h03', buffPercent: 20 }] } });
+    const hero = doc.el('hero'); const rules = hero.find('hero-rules')[0]!;
+    expect(rules.open).toBe(false);
+    expect(rules.find('hero-reset')).toHaveLength(0);
+    expect(hero.find('hero-reset')[0]!.textContent).toContain('Lv.1');
+    expect(hero.find('hero-keeps')[0]!.textContent).toContain('동료·골드·훈련·발견·기록 유지');
+    const choices = hero.find('hero-choice');
+    expect(choices).toHaveLength(3);
+    expect(choices[0]!.find('hero-buff')[0]!.textContent).toContain('현재');
+    expect(choices[0]!.find('hero-buff')[0]!.textContent).toContain('수락 후');
+    for (const choice of choices) {
+      expect(choice.find('btn')[0]!.attributes['aria-label']).toContain(choice.find('name')[0]!.textContent);
+      expect(choice.find('btn')[0]!.textContent).toBe('환생');
+    }
+  });
+});
+
+function newProgress(...args: Parameters<typeof newCoreProgress>) { return saveProgress(newCoreProgress(...args)); }

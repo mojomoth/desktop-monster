@@ -23,6 +23,8 @@ export type HeroAnimState = 'idle' | 'attack';
 export interface HeroAnim {
   readonly state: HeroAnimState;
   readonly t: number;
+  /** At most one presentation swing waits behind the current completed motion. */
+  readonly pending?: true;
 }
 
 export type MonsterAnimState = 'spawning' | 'idle' | 'hit' | 'dying';
@@ -44,11 +46,12 @@ export function createHeroAnim(): HeroAnim {
 }
 
 /**
- * The hero anim state entered on ANY input, from idle or mid-attack alike:
- * a fresh ATTACK at t = 0 — re-input during ATTACK restarts it
- * (BongoCat-style spam feel, SPEC F20).
+ * No argument starts a fresh swing (also used for historical replay beats).
+ * Passing the current animation coalesces rapid live inputs into one pending
+ * swing, letting wind-up, strike and recovery all become visible.
  */
-export function heroInput(): HeroAnim {
+export function heroInput(current?: HeroAnim): HeroAnim {
+  if (current?.state === 'attack') return { ...current, pending: true };
   return { state: 'attack', t: 0 };
 }
 
@@ -61,9 +64,12 @@ export function heroInput(): HeroAnim {
 export function tickHero(anim: HeroAnim, dt: number): HeroAnim {
   const t = anim.t + normalizeDt(dt);
   if (anim.state === 'attack' && t >= HERO_ATTACK_MS) {
+    if (anim.pending) return t < HERO_ATTACK_MS * 2
+      ? { state: 'attack', t: t - HERO_ATTACK_MS }
+      : { state: 'idle', t: t - HERO_ATTACK_MS * 2 };
     return { state: 'idle', t: t - HERO_ATTACK_MS };
   }
-  return { state: anim.state, t };
+  return { state: anim.state, t, ...(anim.pending ? { pending: true as const } : {}) };
 }
 
 /** Fresh monster machine: starts with the SPAWNING pop-in. */

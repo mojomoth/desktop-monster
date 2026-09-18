@@ -1,0 +1,724 @@
+{
+  "kind": "host-independent-release900-event-census",
+  "agent": "/root",
+  "report": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/release.json",
+    "sha256": "46271facabdeb917748b50b46b2136246c0fd65281b5e76b350a7dcd1e6b1079"
+  },
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "method": "Read all900 event records independently; unique first/h70 records; integer100ms ticks; exact seeds1–100 per policy; final720min checkpoint firstAccepted/lastUnlock equality. Whole quantile ceil(n*p)-1, unreached after observed; conditional denominator separately. This is a read-only verification, not optimization or human/Native evidence.",
+  "policies": [
+    {
+      "policyIndex": 1,
+      "policy": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 1698.4,
+          "p50": 2736.6,
+          "p90": 3539.5,
+          "p100": 3723.3
+        },
+        "conditional": {
+          "p10": 1698.4,
+          "p50": 2736.6,
+          "p90": 3539.5,
+          "p100": 3723.3
+        }
+      },
+      "by90": 100,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 50,
+        "unreached": 50,
+        "whole": {
+          "p10": 17441.5,
+          "p50": 40596.0,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 14841.7,
+          "p50": 20933.6,
+          "p90": 34739.3,
+          "p100": 40596.0
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 50,
+        "unreached": 50,
+        "whole": {
+          "p10": 17555.4,
+          "p50": 40692.5,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 15063.0,
+          "p50": 21271.6,
+          "p90": 34841.4,
+          "p100": 40692.5
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 2,
+      "policy": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 1800.0,
+          "p50": 3000.0,
+          "p90": 3600.0,
+          "p100": 4200.0
+        },
+        "conditional": {
+          "p10": 1800.0,
+          "p50": 3000.0,
+          "p90": 3600.0,
+          "p100": 4200.0
+        }
+      },
+      "by90": 100,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 89,
+        "unreached": 11,
+        "whole": {
+          "p10": 17749.5,
+          "p50": 25894.3,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 17567.0,
+          "p50": 24710.4,
+          "p90": 36018.9,
+          "p100": 42600.6
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 89,
+        "unreached": 11,
+        "whole": {
+          "p10": 18600.0,
+          "p50": 27000.0,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 18000.0,
+          "p50": 25800.0,
+          "p90": 37200.0,
+          "p100": 43200.0
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 3,
+      "policy": {
+        "profile": "intermittent",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 3000.0,
+          "p50": 4800.0,
+          "p90": 10800.0,
+          "p100": 12000.0
+        },
+        "conditional": {
+          "p10": 3000.0,
+          "p50": 4800.0,
+          "p90": 10800.0,
+          "p100": 12000.0
+        }
+      },
+      "by90": 64,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 81,
+        "unreached": 19,
+        "whole": {
+          "p10": 19860.4,
+          "p50": 28810.5,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 19818.9,
+          "p50": 27112.2,
+          "p90": 37959.6,
+          "p100": 42609.8
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 78,
+        "unreached": 22,
+        "whole": {
+          "p10": 20400.0,
+          "p50": 30000.0,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 20400.0,
+          "p50": 27600.0,
+          "p90": 38400.0,
+          "p100": 42600.0
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 4,
+      "policy": {
+        "profile": "warm-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 70,
+        "unreached": 30,
+        "whole": {
+          "p10": 4800.0,
+          "p50": 13800.0,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 4200.0,
+          "p50": 9000.0,
+          "p90": 28200.0,
+          "p100": 42600.0
+        }
+      },
+      "by90": 13,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 44,
+        "unreached": 56,
+        "whole": {
+          "p10": 25259.4,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 23452.6,
+          "p50": 30067.4,
+          "p90": 40884.2,
+          "p100": 42873.3
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 43,
+        "unreached": 57,
+        "whole": {
+          "p10": 26400.0,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 24600.0,
+          "p50": 31200.0,
+          "p90": 40800.0,
+          "p100": 43200.0
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 5,
+      "policy": {
+        "profile": "pure-idle",
+        "policy": "free",
+        "inputSchedule": "uniform",
+        "management": "none",
+        "menuVisitSeconds": 600
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      },
+      "by90": 0,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 6,
+      "policy": {
+        "profile": "active",
+        "policy": "free",
+        "inputSchedule": "burst",
+        "management": "none",
+        "menuVisitSeconds": 0
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 1164.9,
+          "p50": 1822.6,
+          "p90": 3083.0,
+          "p100": 3377.1
+        },
+        "conditional": {
+          "p10": 1164.9,
+          "p50": 1822.6,
+          "p90": 3083.0,
+          "p100": 3377.1
+        }
+      },
+      "by90": 100,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 68,
+        "unreached": 32,
+        "whole": {
+          "p10": 13319.2,
+          "p50": 25651.5,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 13086.2,
+          "p50": 17327.0,
+          "p90": 39922.0,
+          "p100": 43161.0
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 67,
+        "unreached": 33,
+        "whole": {
+          "p10": 13413.1,
+          "p50": 25890.8,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 13184.1,
+          "p50": 17379.0,
+          "p90": 36111.4,
+          "p100": 42782.6
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 7,
+      "policy": {
+        "profile": "active",
+        "policy": "training",
+        "inputSchedule": "uniform",
+        "management": "consume-weakest",
+        "menuVisitSeconds": 600
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 1800.0,
+          "p50": 2400.0,
+          "p90": 3600.0,
+          "p100": 3600.0
+        },
+        "conditional": {
+          "p10": 1800.0,
+          "p50": 2400.0,
+          "p90": 3600.0,
+          "p100": 3600.0
+        }
+      },
+      "by90": 100,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 13290.5,
+          "p50": 16807.0,
+          "p90": 21019.5,
+          "p100": 28108.6
+        },
+        "conditional": {
+          "p10": 13290.5,
+          "p50": 16807.0,
+          "p90": 21019.5,
+          "p100": 28108.6
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 14400.0,
+          "p50": 17400.0,
+          "p90": 21600.0,
+          "p100": 28800.0
+        },
+        "conditional": {
+          "p10": 14400.0,
+          "p50": 17400.0,
+          "p90": 21600.0,
+          "p100": 28800.0
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 8,
+      "policy": {
+        "profile": "active",
+        "policy": "lure",
+        "inputSchedule": "uniform",
+        "management": "fuse-first",
+        "menuVisitSeconds": 600
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 1800.0,
+          "p50": 3000.0,
+          "p90": 3600.0,
+          "p100": 4200.0
+        },
+        "conditional": {
+          "p10": 1800.0,
+          "p50": 3000.0,
+          "p90": 3600.0,
+          "p100": 4200.0
+        }
+      },
+      "by90": 100,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 92,
+        "unreached": 8,
+        "whole": {
+          "p10": 16273.9,
+          "p50": 22227.0,
+          "p90": 40220.0,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 16273.9,
+          "p50": 21646.7,
+          "p90": 34260.8,
+          "p100": 41425.0
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 92,
+        "unreached": 8,
+        "whole": {
+          "p10": 16800.0,
+          "p50": 22800.0,
+          "p90": 41400.0,
+          "p100": null
+        },
+        "conditional": {
+          "p10": 16800.0,
+          "p50": 22800.0,
+          "p90": 34800.0,
+          "p100": 42000.0
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    },
+    {
+      "policyIndex": 9,
+      "policy": {
+        "profile": "active",
+        "policy": "reroll",
+        "inputSchedule": "uniform",
+        "management": "reincarnate-first",
+        "menuVisitSeconds": 120
+      },
+      "firstAccepted": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 1440.0,
+          "p50": 2040.0,
+          "p90": 3120.0,
+          "p100": 3840.0
+        },
+        "conditional": {
+          "p10": 1440.0,
+          "p50": 2040.0,
+          "p90": 3120.0,
+          "p100": 3840.0
+        }
+      },
+      "by90": 100,
+      "h70Eligible": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 8567.5,
+          "p50": 9969.0,
+          "p90": 12559.1,
+          "p100": 17536.4
+        },
+        "conditional": {
+          "p10": 8567.5,
+          "p50": 9969.0,
+          "p90": 12559.1,
+          "p100": 17536.4
+        }
+      },
+      "h70Seen": {
+        "samples": 100,
+        "reached": 100,
+        "unreached": 0,
+        "whole": {
+          "p10": 8640.0,
+          "p50": 10080.0,
+          "p90": 12600.0,
+          "p100": 17640.0
+        },
+        "conditional": {
+          "p10": 8640.0,
+          "p50": 10080.0,
+          "p90": 12600.0,
+          "p100": 17640.0
+        }
+      },
+      "h70Chosen": {
+        "samples": 100,
+        "reached": 0,
+        "unreached": 100,
+        "whole": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        },
+        "conditional": {
+          "p10": null,
+          "p50": null,
+          "p90": null,
+          "p100": null
+        }
+      }
+    }
+  ]
+}

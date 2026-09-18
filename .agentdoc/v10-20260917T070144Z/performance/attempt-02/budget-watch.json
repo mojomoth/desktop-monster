@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "startedAt": "2026-09-17T13:22:21.618Z",
+  "queuePid": 33949,
+  "source": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+  "checks": [
+    {
+      "profile": "active",
+      "at": "2026-09-17T13:51:37.604Z",
+      "passed": false,
+      "actual": {
+        "cpuP95": 2.397737395438099,
+        "workingSetMiBP95": 323.5,
+        "initialMemoryMedian": 281.21875,
+        "finalMemoryMedian": null
+      },
+      "limits": {
+        "cpu": 3.6747937256889855,
+        "memory": 290.375
+      }
+    }
+  ],
+  "state": "failed",
+  "error": "Error: Registered active performance budget exceeded",
+  "endedAt": "2026-09-17T13:51:37.604Z"
+}

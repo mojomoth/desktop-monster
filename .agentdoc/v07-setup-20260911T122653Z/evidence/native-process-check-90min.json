@@ -1,0 +1,63 @@
+{
+  "at": "2026-09-12T21:51:49.294650+00:00",
+  "completedMinutes": 90,
+  "running": {
+    "key": "30-idle",
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/30-idle-1789249575720.json",
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/30-idle-1789249575720.json.log",
+    "pid": 29141,
+    "processGroupId": 29141,
+    "startedAt": "2026-09-12T21:46:15.721Z"
+  },
+  "processes": [
+    {
+      "pid": 25832,
+      "ppid": 66072,
+      "pgid": 25832,
+      "command": "node .harness/v7/loop/e2e-matrix.mjs run .agentdoc/v07-setup-20260911T122653Z/evidence/native"
+    },
+    {
+      "pid": 29141,
+      "ppid": 25832,
+      "pgid": 29141,
+      "command": "/Users/jeongyounglee/.nvm/versions/node/v20.12.2/bin/node /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/e2e.mjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/30-idle-1789249575720.json 30 idle"
+    },
+    {
+      "pid": 29250,
+      "ppid": 29141,
+      "pgid": 29141,
+      "command": "/Users/jeongyounglee/.nvm/versions/node/v20.12.2/bin/node /Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/cli.js /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/electron-e2e.cjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/30-idle-1789249575720.json 30 idle"
+    },
+    {
+      "pid": 29251,
+      "ppid": 29250,
+      "pgid": 29141,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron /Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/electron-e2e.cjs /Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/native/30-idle-1789249575720.json 30 idle"
+    },
+    {
+      "pid": 29253,
+      "ppid": 29251,
+      "pgid": 29141,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (GPU).app/Contents/MacOS/Electron Helper (GPU) --type=gpu-process --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-rXKS20 --gpu-preferences=SAAAAAAAAAAgAAAEAAAAAAAAAAAAAGAAAwAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=1718379636,r,17909451214651598422,15923489549394860018,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --seatbelt-client=32"
+    },
+    {
+      "pid": 29254,
+      "ppid": 29251,
+      "pgid": 29141,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper.app/Contents/MacOS/Electron Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-rXKS20 --shared-files --field-trial-handle=1718379636,r,17909451214651598422,15923489549394860018,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --seatbelt-client=32"
+    },
+    {
+      "pid": 29256,
+      "ppid": 29251,
+      "pgid": 29141,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/Frameworks/Electron Helper (Renderer).app/Contents/MacOS/Electron Helper (Renderer) --type=renderer --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-e2e-rXKS20 --app-path=/Users/jeongyounglee/work/repo/desktop-monster --enable-sandbox --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1788757594280920 --launch-time-ticks=491984272268 --shared-files --field-trial-handle=1718379636,r,17909451214651598422,15923489549394860018,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=LocalNetworkAccessChecks,MacWebContentsOcclusion,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --seatbelt-client=52"
+    },
+    {
+      "pid": 50718,
+      "ppid": 50717,
+      "pgid": 50646,
+      "command": "/Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    }
+  ],
+  "scope": "Read-only ps and kill(group,0); no signals sent or app interaction. One actual e2e wrapper group, no measure process, preserved user50718. This is not a lock or completed matrix."
+}

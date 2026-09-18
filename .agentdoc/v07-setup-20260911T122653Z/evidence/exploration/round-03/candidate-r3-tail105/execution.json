@@ -1,0 +1,237 @@
+{
+  "kind": "actual-production-exploration",
+  "round": 3,
+  "startedAt": "2026-09-12T05:00:26.771376+00:00",
+  "experimentKind": "candidate",
+  "experiment": {
+    "id": "candidate-r3-tail105",
+    "hypothesis": "Preserve the XP1.41/L17 first journey through index79; use exact field-only 105/100 HP growth after79 to remove late progression stall without changing companion power, policy, timers or content counts. Both target goals remain unproven.",
+    "parameters": {
+      "heroMinLevel": 17,
+      "xpBase": 20,
+      "xpGrowth": 1.41,
+      "fieldHpNumerator": 115,
+      "fieldHpDenominator": 100,
+      "companionHpNumerator": 115,
+      "companionHpDenominator": 100,
+      "captureChance": 0.35,
+      "firstCaptureBossIndex": null,
+      "heroLevelStepEvery": 2,
+      "heroLevelStepCap": 6,
+      "heroRestMs": 120000,
+      "heroDeferMs": 30000,
+      "xpRewardBase": 5,
+      "xpRewardPerIndex": 3,
+      "bossXpMultiplier": 5,
+      "bossHpMultiplier": 5,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 105,
+      "fieldHpTailDenominator": 100
+    }
+  },
+  "seedSet": {
+    "name": "exploration",
+    "start": 10001,
+    "count": 20
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/protocol.preregistered.json",
+    "sha256": "71921150d741c021de7ae6776e6d7f2b297cb4125431f2188fca70ee1fa56795"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/evaluation.tar.gz",
+    "sha256": "9d668d31c0263ad231b24f5f866987a939de2f2f1856e188a57dadb23b2df7cc"
+  },
+  "commands": [
+    {
+      "label": "production-tests",
+      "argv": [
+        "npx",
+        "vitest",
+        "run",
+        "tests/progressionV7.test.ts",
+        "tests/formulas.test.ts",
+        "tests/engine.test.ts",
+        "tests/balance.test.ts"
+      ],
+      "startedAt": "2026-09-12T05:00:26.872168+00:00",
+      "endedAt": "2026-09-12T05:00:30.652446+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/production-tests.log",
+      "sha256": "5b335283339d03b95d8b89928295269f142d2ce545505f22312afa6a755b951f"
+    },
+    {
+      "label": "screening",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/screening.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r3-tail105",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4",
+        "--screening"
+      ],
+      "startedAt": "2026-09-12T05:00:30.653414+00:00",
+      "endedAt": "2026-09-12T05:00:38.076631+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/screening.log",
+      "sha256": "23b317e62be9679be21d573b82a48156e8a8a306e04ca6478290dfd2d6a3984d"
+    },
+    {
+      "label": "screening-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/screening.json"
+      ],
+      "startedAt": "2026-09-12T05:00:38.077326+00:00",
+      "endedAt": "2026-09-12T05:00:38.199551+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/screening-verify.log",
+      "sha256": "27bbc6939dc87f7364f6350bd0c7902f4eae5854cb1966fe460c655b72e973cf"
+    },
+    {
+      "label": "full-12h",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/full-12h.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r3-tail105",
+        "--seed-set",
+        "exploration",
+        "--workers",
+        "4"
+      ],
+      "startedAt": "2026-09-12T05:00:38.229107+00:00",
+      "endedAt": "2026-09-12T05:01:44.448708+00:00",
+      "exitCode": 1,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/full-12h.log",
+      "sha256": "30f575205697e9a3f9140703d3cddd88a01a030f057f2dd5fcbdd8d420f079a2"
+    },
+    {
+      "label": "full-12h-verify",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/full-12h.json"
+      ],
+      "startedAt": "2026-09-12T05:01:44.450281+00:00",
+      "endedAt": "2026-09-12T05:01:44.589639+00:00",
+      "exitCode": 0,
+      "log": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/full-12h-verify.log",
+      "sha256": "3c469745f16b4ed541d0e8a8d2318f7329d6241aaed52250e3ce750837f7cbb3"
+    }
+  ],
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/production-source.tar.gz",
+    "sha256": "715e2e47c063004c991073ba665a6aac7891a93290f3b783e0c8a58b579e99ba"
+  },
+  "screening": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/screening.json",
+    "sha256": "a0a99aac7708929d281a4e0cfa0d182805e034ef83e1881194f9ca77e6cd8a4d",
+    "sourceDigest": "6ff022356132eff3fa68e2bd49827a7b6dab1c13541ed6b5e978507309c15f16",
+    "evaluationDigest": "2e858ae487fed58a3efd3ed7539ea84b5b746b7f920b9b210f91739a0187307f",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r3-tail105",
+      "parametersSha256": "79bbecae85a7f190808cd514513e0561c9c90cf5ef0bb5ed771ba2909f38383e",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "PASS",
+      "passed": true,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2902.6,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 18,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        }
+      ],
+      "skipped": [
+        "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+      ],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "f8a955cea68ffe73bbfc903a003ee0937902fefae7ab7ac1688f2f94a60271c5",
+    "buildSha256": "a606d3373ff502c7cd3544f8651c24feff971b35cb00d4181517aa5f1aeaaecb"
+  },
+  "prefixComparison": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/prefix-comparison.json",
+    "sha256": "4242a3d8a046fef17e889931104c8a056ef6c4416f98650e037bd23f8ed0ad71",
+    "passed": true
+  },
+  "full-12h": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/full-12h.json",
+    "sha256": "46ace94f43d58671ae4d45adf1114e1d019a8a3dbfdc9163d493120d1b6c7a6b",
+    "sourceDigest": "6ff022356132eff3fa68e2bd49827a7b6dab1c13541ed6b5e978507309c15f16",
+    "evaluationDigest": "2e858ae487fed58a3efd3ed7539ea84b5b746b7f920b9b210f91739a0187307f",
+    "experiment": {
+      "kind": "candidate",
+      "id": "candidate-r3-tail105",
+      "parametersSha256": "79bbecae85a7f190808cd514513e0561c9c90cf5ef0bb5ed771ba2909f38383e",
+      "contentRulesSha256": "29789589a93dea5cdbc75b249e996aebe158a7f1256e95344fcf67bbc035c16e"
+    },
+    "targets": {
+      "status": "FAIL",
+      "passed": false,
+      "samples": 20,
+      "checks": [
+        {
+          "id": "first-reincarnation-median",
+          "passed": true,
+          "observedSec": 2902.6,
+          "minSec": 2700,
+          "maxSec": 3600
+        },
+        {
+          "id": "first-reincarnation-deadline",
+          "passed": true,
+          "reached": 18,
+          "samples": 20,
+          "deadlineSec": 5400,
+          "minimumFraction": 0.9
+        },
+        {
+          "id": "last-unlock-median",
+          "passed": false,
+          "observedSec": null,
+          "minSec": 28800,
+          "maxSec": 43200,
+          "registered": true
+        }
+      ],
+      "skipped": [],
+      "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+    },
+    "rawSha256": "77966dbaa9a8f1eeefe2db74fb796c1c65d6caf5f8e4a53636d65a687e232a1c",
+    "buildSha256": "a606d3373ff502c7cd3544f8651c24feff971b35cb00d4181517aa5f1aeaaecb"
+  },
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-03/candidate-r3-tail105/compiled-build.tar.gz",
+    "sha256": "857928fbdefa1b5132b45b1dce0694594a1ff2b0ac7b3e639d2c6333814d80c1"
+  },
+  "endedAt": "2026-09-12T05:01:44.681201+00:00"
+}

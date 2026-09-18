@@ -1,0 +1,4097 @@
+{
+ "note": "critic round 4 independent probe. Real engine + mulberry32 + injected clock, same input model as tests/balance.test.ts. A temporary heroRecall was implemented EXACTLY as designer-r4 specifies (action {type,restRecalls}; cost (200+100*min(100,r))*(k+1); -30s of restRemainingMs; restRecalls reset on heroChoose; int(restRecalls,1_000_000) in parseHeroProgress; handler placed BEFORE the heroReady gate), run once, then src/core/hero.ts and src/core/engine.ts were restored byte-for-byte (shasum bb299acda38fdbb0917e8a0a178e41e13ca64234 / bd9a0f015f0bdd089c48092e85663933b375fcfd). Temp test files deleted.",
+ "policies": {
+  "none": "no gold spent (regression baseline)",
+  "recall": "designer's policy — buy every affordable recall",
+  "recallOne": "frugal — at most ONE recall per expedition, so the price is always the cheapest rung k=0",
+  "recallTwo": "at most two per expedition",
+  "recallRich": "buy recalls but keep a 5,000 gold cushion"
+ },
+ "offersIsTheInterruptionCount": "offers = number of times the 3-card choice opened = modal decision events in the window",
+ "summary30": [
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1223,
+    "p50": 1240,
+    "p90": 1256,
+    "mean": 1240.42
+   },
+   "reincarnations": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "collected": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "coins": {
+    "p10": 25118,
+    "p50": 25782,
+    "p90": 26360,
+    "mean": 25754.82
+   },
+   "earned": {
+    "p10": 25118,
+    "p50": 25782,
+    "p90": 26360,
+    "mean": 25754.82
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1644,
+    "p50": 1702,
+    "p90": 1744,
+    "mean": 1697.12
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "coins": {
+    "p10": 604,
+    "p50": 1805,
+    "p90": 3161,
+    "mean": 1906.88
+   },
+   "earned": {
+    "p10": 34240,
+    "p50": 35381,
+    "p90": 36883,
+    "mean": 35532.88
+   },
+   "recalls": {
+    "p10": 25,
+    "p50": 25,
+    "p90": 26,
+    "mean": 25.17
+   },
+   "spent": {
+    "p10": 32700,
+    "p50": 33400,
+    "p90": 35500,
+    "mean": 33626
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.946
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1611,
+    "p50": 1631,
+    "p90": 1649,
+    "mean": 1630.44
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "coins": {
+    "p10": 8206,
+    "p50": 9008,
+    "p90": 9687,
+    "mean": 8957.55
+   },
+   "earned": {
+    "p10": 33206,
+    "p50": 34008,
+    "p90": 34687,
+    "mean": 33957.55
+   },
+   "recalls": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "spent": {
+    "p10": 25000,
+    "p50": 25000,
+    "p90": 25000,
+    "mean": 25000
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.736
+  },
+  {
+   "profile": "active",
+   "policy": "recallTwo",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1644,
+    "p50": 1702,
+    "p90": 1744,
+    "mean": 1697.12
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "coins": {
+    "p10": 604,
+    "p50": 1805,
+    "p90": 3161,
+    "mean": 1906.88
+   },
+   "earned": {
+    "p10": 34240,
+    "p50": 35381,
+    "p90": 36883,
+    "mean": 35532.88
+   },
+   "recalls": {
+    "p10": 25,
+    "p50": 25,
+    "p90": 26,
+    "mean": 25.17
+   },
+   "spent": {
+    "p10": 32700,
+    "p50": 33400,
+    "p90": 35500,
+    "mean": 33626
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.946
+  },
+  {
+   "profile": "active",
+   "policy": "recallRich",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1533,
+    "p50": 1565,
+    "p90": 1590,
+    "mean": 1564.44
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 19,
+    "mean": 18.99
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 19,
+    "mean": 18.99
+   },
+   "coins": {
+    "p10": 6032,
+    "p50": 7040,
+    "p90": 8139,
+    "mean": 7097.66
+   },
+   "earned": {
+    "p10": 31351,
+    "p50": 32602,
+    "p90": 33572,
+    "mean": 32604.66
+   },
+   "recalls": {
+    "p10": 16,
+    "p50": 17,
+    "p90": 17,
+    "mean": 16.91
+   },
+   "spent": {
+    "p10": 24900,
+    "p50": 25400,
+    "p90": 26000,
+    "mean": 25507
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 19,
+    "mean": 18.99
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.782
+  },
+  {
+   "profile": "idle",
+   "policy": "none",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 156,
+    "p50": 496,
+    "p90": 665,
+    "mean": 451.52
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "coins": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 7197,
+    "mean": 4260.27
+   },
+   "earned": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 7197,
+    "mean": 4260.27
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "idle",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 157,
+    "p50": 490,
+    "p90": 719,
+    "mean": 466.24
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "coins": {
+    "p10": 161,
+    "p50": 651,
+    "p90": 1582,
+    "mean": 765.47
+   },
+   "earned": {
+    "p10": 1297,
+    "p50": 4034,
+    "p90": 7682,
+    "mean": 4332.47
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 5,
+    "p90": 8,
+    "mean": 4.85
+   },
+   "spent": {
+    "p10": 800,
+    "p50": 3600,
+    "p90": 7000,
+    "mean": 3567
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.79
+  },
+  {
+   "profile": "idle",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 157,
+    "p50": 490,
+    "p90": 719,
+    "mean": 466.24
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "coins": {
+    "p10": 161,
+    "p50": 651,
+    "p90": 1582,
+    "mean": 765.47
+   },
+   "earned": {
+    "p10": 1297,
+    "p50": 4034,
+    "p90": 7682,
+    "mean": 4332.47
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 5,
+    "p90": 8,
+    "mean": 4.85
+   },
+   "spent": {
+    "p10": 800,
+    "p50": 3600,
+    "p90": 7000,
+    "mean": 3567
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.79
+  },
+  {
+   "profile": "idle",
+   "policy": "recallTwo",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 157,
+    "p50": 490,
+    "p90": 719,
+    "mean": 466.24
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "coins": {
+    "p10": 161,
+    "p50": 651,
+    "p90": 1582,
+    "mean": 765.47
+   },
+   "earned": {
+    "p10": 1297,
+    "p50": 4034,
+    "p90": 7682,
+    "mean": 4332.47
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 5,
+    "p90": 8,
+    "mean": 4.85
+   },
+   "spent": {
+    "p10": 800,
+    "p50": 3600,
+    "p90": 7000,
+    "mean": 3567
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.79
+  },
+  {
+   "profile": "idle",
+   "policy": "recallRich",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 156,
+    "p50": 496,
+    "p90": 667,
+    "mean": 451.7
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "coins": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 6202,
+    "mean": 4029.82
+   },
+   "earned": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 7278,
+    "mean": 4264.82
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 1,
+    "mean": 0.15
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 1500,
+    "mean": 235
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.031
+  },
+  {
+   "profile": "intermittent",
+   "policy": "none",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1030,
+    "p50": 1050,
+    "p90": 1068,
+    "mean": 1050.31
+   },
+   "reincarnations": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "collected": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "coins": {
+    "p10": 17870,
+    "p50": 18664,
+    "p90": 19236,
+    "mean": 18613.93
+   },
+   "earned": {
+    "p10": 17870,
+    "p50": 18664,
+    "p90": 19236,
+    "mean": 18613.93
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1271,
+    "p50": 1300,
+    "p90": 1363,
+    "mean": 1316.47
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "coins": {
+    "p10": 580,
+    "p50": 1259,
+    "p90": 2001,
+    "mean": 1287.89
+   },
+   "earned": {
+    "p10": 21652,
+    "p50": 22731,
+    "p90": 23982,
+    "mean": 22951.89
+   },
+   "recalls": {
+    "p10": 18,
+    "p50": 18,
+    "p90": 19,
+    "mean": 18.49
+   },
+   "spent": {
+    "p10": 20700,
+    "p50": 20800,
+    "p90": 22800,
+    "mean": 21664
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.944
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1275,
+    "p50": 1305,
+    "p90": 1369,
+    "mean": 1324.03
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.49
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.49
+   },
+   "coins": {
+    "p10": 580,
+    "p50": 1170,
+    "p90": 1991,
+    "mean": 1239.08
+   },
+   "earned": {
+    "p10": 21841,
+    "p50": 22787,
+    "p90": 24114,
+    "mean": 23060.08
+   },
+   "recalls": {
+    "p10": 18,
+    "p50": 18,
+    "p90": 19,
+    "mean": 18.52
+   },
+   "spent": {
+    "p10": 20700,
+    "p50": 20900,
+    "p90": 22800,
+    "mean": 21821
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.49
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.946
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallTwo",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1271,
+    "p50": 1300,
+    "p90": 1363,
+    "mean": 1316.47
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "coins": {
+    "p10": 580,
+    "p50": 1259,
+    "p90": 2001,
+    "mean": 1287.89
+   },
+   "earned": {
+    "p10": 21652,
+    "p50": 22731,
+    "p90": 23982,
+    "mean": 22951.89
+   },
+   "recalls": {
+    "p10": 18,
+    "p50": 18,
+    "p90": 19,
+    "mean": 18.49
+   },
+   "spent": {
+    "p10": 20700,
+    "p50": 20800,
+    "p90": 22800,
+    "mean": 21664
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.944
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallRich",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1162,
+    "p50": 1231,
+    "p90": 1254,
+    "mean": 1220.02
+   },
+   "reincarnations": {
+    "p10": 17,
+    "p50": 18,
+    "p90": 18,
+    "mean": 17.77
+   },
+   "collected": {
+    "p10": 17,
+    "p50": 18,
+    "p90": 18,
+    "mean": 17.77
+   },
+   "coins": {
+    "p10": 5395,
+    "p50": 6246,
+    "p90": 6783,
+    "mean": 6191.02
+   },
+   "earned": {
+    "p10": 19999,
+    "p50": 21471,
+    "p90": 22310,
+    "mean": 21299.02
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 11,
+    "p90": 11,
+    "mean": 10.87
+   },
+   "spent": {
+    "p10": 13500,
+    "p50": 15400,
+    "p90": 15400,
+    "mean": 15108
+   },
+   "offers": {
+    "p10": 17,
+    "p50": 18,
+    "p90": 18,
+    "mean": 17.77
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.709
+  }
+ ],
+ "summaryAll": [
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 145,
+    "p50": 147,
+    "p90": 148,
+    "mean": 146.76
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 1937,
+    "p50": 1979,
+    "p90": 1998,
+    "mean": 1973.03
+   },
+   "earned": {
+    "p10": 1937,
+    "p50": 1979,
+    "p90": 1998,
+    "mean": 1973.03
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 521,
+    "p50": 528,
+    "p90": 535,
+    "mean": 527.97
+   },
+   "reincarnations": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "collected": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "coins": {
+    "p10": 9112,
+    "p50": 9426,
+    "p90": 9790,
+    "mean": 9456.88
+   },
+   "earned": {
+    "p10": 9112,
+    "p50": 9426,
+    "p90": 9790,
+    "mean": 9456.88
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1223,
+    "p50": 1240,
+    "p90": 1256,
+    "mean": 1240.42
+   },
+   "reincarnations": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "collected": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "coins": {
+    "p10": 25118,
+    "p50": 25782,
+    "p90": 26360,
+    "mean": 25754.82
+   },
+   "earned": {
+    "p10": 25118,
+    "p50": 25782,
+    "p90": 26360,
+    "mean": 25754.82
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 196,
+    "p50": 199,
+    "p90": 203,
+    "mean": 199.42
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 25,
+    "p50": 655,
+    "p90": 984,
+    "mean": 561.29
+   },
+   "earned": {
+    "p10": 2655,
+    "p50": 2764,
+    "p90": 2846,
+    "mean": 2755.29
+   },
+   "recalls": {
+    "p10": 4,
+    "p50": 4,
+    "p90": 5,
+    "mean": 4.35
+   },
+   "spent": {
+    "p10": 1800,
+    "p50": 2000,
+    "p90": 2800,
+    "mean": 2194
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.794
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 742,
+    "p50": 755,
+    "p90": 812,
+    "mean": 768.24
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.45
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.45
+   },
+   "coins": {
+    "p10": 340,
+    "p50": 1191,
+    "p90": 1605,
+    "mean": 1092.92
+   },
+   "earned": {
+    "p10": 13478,
+    "p50": 13949,
+    "p90": 14952,
+    "mean": 14060.92
+   },
+   "recalls": {
+    "p10": 14,
+    "p50": 14,
+    "p90": 15,
+    "mean": 14.14
+   },
+   "spent": {
+    "p10": 12500,
+    "p50": 12600,
+    "p90": 14400,
+    "mean": 12968
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.45
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.922
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1644,
+    "p50": 1702,
+    "p90": 1744,
+    "mean": 1697.12
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "coins": {
+    "p10": 604,
+    "p50": 1805,
+    "p90": 3161,
+    "mean": 1906.88
+   },
+   "earned": {
+    "p10": 34240,
+    "p50": 35381,
+    "p90": 36883,
+    "mean": 35532.88
+   },
+   "recalls": {
+    "p10": 25,
+    "p50": 25,
+    "p90": 26,
+    "mean": 25.17
+   },
+   "spent": {
+    "p10": 32700,
+    "p50": 33400,
+    "p90": 35500,
+    "mean": 33626
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.946
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 195,
+    "p50": 197,
+    "p90": 201,
+    "mean": 197.68
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 1409,
+    "p50": 1526,
+    "p90": 1604,
+    "mean": 1517.27
+   },
+   "earned": {
+    "p10": 2609,
+    "p50": 2726,
+    "p90": 2804,
+    "mean": 2717.27
+   },
+   "recalls": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "spent": {
+    "p10": 1200,
+    "p50": 1200,
+    "p90": 1200,
+    "mean": 1200
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.442
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 716,
+    "p50": 729,
+    "p90": 741,
+    "mean": 729.47
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "coins": {
+    "p10": 5213,
+    "p50": 5670,
+    "p90": 6063,
+    "mean": 5687.59
+   },
+   "earned": {
+    "p10": 12713,
+    "p50": 13170,
+    "p90": 13563,
+    "mean": 13187.59
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "spent": {
+    "p10": 7500,
+    "p50": 7500,
+    "p90": 7500,
+    "mean": 7500
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.569
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1611,
+    "p50": 1631,
+    "p90": 1649,
+    "mean": 1630.44
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "coins": {
+    "p10": 8206,
+    "p50": 9008,
+    "p90": 9687,
+    "mean": 8957.55
+   },
+   "earned": {
+    "p10": 33206,
+    "p50": 34008,
+    "p90": 34687,
+    "mean": 33957.55
+   },
+   "recalls": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "spent": {
+    "p10": 25000,
+    "p50": 25000,
+    "p90": 25000,
+    "mean": 25000
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.736
+  },
+  {
+   "profile": "active",
+   "policy": "recallTwo",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 196,
+    "p50": 199,
+    "p90": 203,
+    "mean": 199.42
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 25,
+    "p50": 655,
+    "p90": 984,
+    "mean": 561.29
+   },
+   "earned": {
+    "p10": 2655,
+    "p50": 2764,
+    "p90": 2846,
+    "mean": 2755.29
+   },
+   "recalls": {
+    "p10": 4,
+    "p50": 4,
+    "p90": 5,
+    "mean": 4.35
+   },
+   "spent": {
+    "p10": 1800,
+    "p50": 2000,
+    "p90": 2800,
+    "mean": 2194
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.794
+  },
+  {
+   "profile": "active",
+   "policy": "recallTwo",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 742,
+    "p50": 755,
+    "p90": 812,
+    "mean": 768.24
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.45
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.45
+   },
+   "coins": {
+    "p10": 340,
+    "p50": 1191,
+    "p90": 1605,
+    "mean": 1092.92
+   },
+   "earned": {
+    "p10": 13478,
+    "p50": 13949,
+    "p90": 14952,
+    "mean": 14060.92
+   },
+   "recalls": {
+    "p10": 14,
+    "p50": 14,
+    "p90": 15,
+    "mean": 14.14
+   },
+   "spent": {
+    "p10": 12500,
+    "p50": 12600,
+    "p90": 14400,
+    "mean": 12968
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.45
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.922
+  },
+  {
+   "profile": "active",
+   "policy": "recallTwo",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1644,
+    "p50": 1702,
+    "p90": 1744,
+    "mean": 1697.12
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "coins": {
+    "p10": 604,
+    "p50": 1805,
+    "p90": 3161,
+    "mean": 1906.88
+   },
+   "earned": {
+    "p10": 34240,
+    "p50": 35381,
+    "p90": 36883,
+    "mean": 35532.88
+   },
+   "recalls": {
+    "p10": 25,
+    "p50": 25,
+    "p90": 26,
+    "mean": 25.17
+   },
+   "spent": {
+    "p10": 32700,
+    "p50": 33400,
+    "p90": 35500,
+    "mean": 33626
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.69
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.946
+  },
+  {
+   "profile": "active",
+   "policy": "recallRich",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 145,
+    "p50": 147,
+    "p90": 148,
+    "mean": 146.76
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 1937,
+    "p50": 1979,
+    "p90": 1998,
+    "mean": 1973.03
+   },
+   "earned": {
+    "p10": 1937,
+    "p50": 1979,
+    "p90": 1998,
+    "mean": 1973.03
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "recallRich",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 601,
+    "p50": 654,
+    "p90": 670,
+    "mean": 647.51
+   },
+   "reincarnations": {
+    "p10": 8,
+    "p50": 9,
+    "p90": 9,
+    "mean": 8.89
+   },
+   "collected": {
+    "p10": 8,
+    "p50": 9,
+    "p90": 9,
+    "mean": 8.89
+   },
+   "coins": {
+    "p10": 5132,
+    "p50": 5649,
+    "p90": 6044,
+    "mean": 5688.44
+   },
+   "earned": {
+    "p10": 10794,
+    "p50": 11531,
+    "p90": 12067,
+    "mean": 11499.44
+   },
+   "recalls": {
+    "p10": 5,
+    "p50": 6,
+    "p90": 6,
+    "mean": 5.53
+   },
+   "spent": {
+    "p10": 5200,
+    "p50": 6300,
+    "p90": 6500,
+    "mean": 5811
+   },
+   "offers": {
+    "p10": 8,
+    "p50": 9,
+    "p90": 9,
+    "mean": 8.89
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.504
+  },
+  {
+   "profile": "active",
+   "policy": "recallRich",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1533,
+    "p50": 1565,
+    "p90": 1590,
+    "mean": 1564.44
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 19,
+    "mean": 18.99
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 19,
+    "mean": 18.99
+   },
+   "coins": {
+    "p10": 6032,
+    "p50": 7040,
+    "p90": 8139,
+    "mean": 7097.66
+   },
+   "earned": {
+    "p10": 31351,
+    "p50": 32602,
+    "p90": 33572,
+    "mean": 32604.66
+   },
+   "recalls": {
+    "p10": 16,
+    "p50": 17,
+    "p90": 17,
+    "mean": 16.91
+   },
+   "spent": {
+    "p10": 24900,
+    "p50": 25400,
+    "p90": 26000,
+    "mean": 25507
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 19,
+    "mean": 18.99
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.782
+  },
+  {
+   "profile": "idle",
+   "policy": "none",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 81,
+    "p50": 95,
+    "p90": 108,
+    "mean": 95.56
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 665,
+    "p50": 852,
+    "p90": 1068,
+    "mean": 870.03
+   },
+   "earned": {
+    "p10": 665,
+    "p50": 852,
+    "p90": 1068,
+    "mean": 870.03
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "idle",
+   "policy": "none",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 95,
+    "p50": 243,
+    "p90": 307,
+    "mean": 217.14
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 7,
+    "mean": 5.48
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 7,
+    "mean": 5.48
+   },
+   "coins": {
+    "p10": 853,
+    "p50": 2032,
+    "p90": 3103,
+    "mean": 1979.37
+   },
+   "earned": {
+    "p10": 853,
+    "p50": 2032,
+    "p90": 3103,
+    "mean": 1979.37
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 7,
+    "mean": 5.48
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "idle",
+   "policy": "none",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 156,
+    "p50": 496,
+    "p90": 665,
+    "mean": 451.52
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "coins": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 7197,
+    "mean": 4260.27
+   },
+   "earned": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 7197,
+    "mean": 4260.27
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "idle",
+   "policy": "recall",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 83,
+    "p50": 98,
+    "p90": 135,
+    "mean": 106.25
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "coins": {
+    "p10": 31,
+    "p50": 173,
+    "p90": 411,
+    "mean": 217.69
+   },
+   "earned": {
+    "p10": 675,
+    "p50": 878,
+    "p90": 1263,
+    "mean": 936.69
+   },
+   "recalls": {
+    "p10": 1,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.01
+   },
+   "spent": {
+    "p10": 300,
+    "p50": 700,
+    "p90": 1200,
+    "mean": 719
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.76
+  },
+  {
+   "profile": "idle",
+   "policy": "recall",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 96,
+    "p50": 245,
+    "p90": 355,
+    "mean": 232.27
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "coins": {
+    "p10": 81,
+    "p50": 406,
+    "p90": 781,
+    "mean": 428.98
+   },
+   "earned": {
+    "p10": 863,
+    "p50": 2039,
+    "p90": 3396,
+    "mean": 2071.98
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 3,
+    "p90": 5,
+    "mean": 3.31
+   },
+   "spent": {
+    "p10": 700,
+    "p50": 1300,
+    "p90": 2800,
+    "mean": 1643
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.762
+  },
+  {
+   "profile": "idle",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 157,
+    "p50": 490,
+    "p90": 719,
+    "mean": 466.24
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "coins": {
+    "p10": 161,
+    "p50": 651,
+    "p90": 1582,
+    "mean": 765.47
+   },
+   "earned": {
+    "p10": 1297,
+    "p50": 4034,
+    "p90": 7682,
+    "mean": 4332.47
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 5,
+    "p90": 8,
+    "mean": 4.85
+   },
+   "spent": {
+    "p10": 800,
+    "p50": 3600,
+    "p90": 7000,
+    "mean": 3567
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.79
+  },
+  {
+   "profile": "idle",
+   "policy": "recallOne",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 83,
+    "p50": 98,
+    "p90": 135,
+    "mean": 106.25
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "coins": {
+    "p10": 31,
+    "p50": 173,
+    "p90": 411,
+    "mean": 217.69
+   },
+   "earned": {
+    "p10": 675,
+    "p50": 878,
+    "p90": 1263,
+    "mean": 936.69
+   },
+   "recalls": {
+    "p10": 1,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.01
+   },
+   "spent": {
+    "p10": 300,
+    "p50": 700,
+    "p90": 1200,
+    "mean": 719
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.76
+  },
+  {
+   "profile": "idle",
+   "policy": "recallOne",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 96,
+    "p50": 245,
+    "p90": 355,
+    "mean": 232.27
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "coins": {
+    "p10": 81,
+    "p50": 406,
+    "p90": 781,
+    "mean": 428.98
+   },
+   "earned": {
+    "p10": 863,
+    "p50": 2039,
+    "p90": 3396,
+    "mean": 2071.98
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 3,
+    "p90": 5,
+    "mean": 3.31
+   },
+   "spent": {
+    "p10": 700,
+    "p50": 1300,
+    "p90": 2800,
+    "mean": 1643
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.762
+  },
+  {
+   "profile": "idle",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 157,
+    "p50": 490,
+    "p90": 719,
+    "mean": 466.24
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "coins": {
+    "p10": 161,
+    "p50": 651,
+    "p90": 1582,
+    "mean": 765.47
+   },
+   "earned": {
+    "p10": 1297,
+    "p50": 4034,
+    "p90": 7682,
+    "mean": 4332.47
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 5,
+    "p90": 8,
+    "mean": 4.85
+   },
+   "spent": {
+    "p10": 800,
+    "p50": 3600,
+    "p90": 7000,
+    "mean": 3567
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.79
+  },
+  {
+   "profile": "idle",
+   "policy": "recallTwo",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 83,
+    "p50": 98,
+    "p90": 135,
+    "mean": 106.25
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "coins": {
+    "p10": 31,
+    "p50": 173,
+    "p90": 411,
+    "mean": 217.69
+   },
+   "earned": {
+    "p10": 675,
+    "p50": 878,
+    "p90": 1263,
+    "mean": 936.69
+   },
+   "recalls": {
+    "p10": 1,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.01
+   },
+   "spent": {
+    "p10": 300,
+    "p50": 700,
+    "p90": 1200,
+    "mean": 719
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 3,
+    "mean": 2.44
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.76
+  },
+  {
+   "profile": "idle",
+   "policy": "recallTwo",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 96,
+    "p50": 245,
+    "p90": 355,
+    "mean": 232.27
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "coins": {
+    "p10": 81,
+    "p50": 406,
+    "p90": 781,
+    "mean": 428.98
+   },
+   "earned": {
+    "p10": 863,
+    "p50": 2039,
+    "p90": 3396,
+    "mean": 2071.98
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 3,
+    "p90": 5,
+    "mean": 3.31
+   },
+   "spent": {
+    "p10": 700,
+    "p50": 1300,
+    "p90": 2800,
+    "mean": 1643
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 9,
+    "mean": 6.12
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.762
+  },
+  {
+   "profile": "idle",
+   "policy": "recallTwo",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 157,
+    "p50": 490,
+    "p90": 719,
+    "mean": 466.24
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "coins": {
+    "p10": 161,
+    "p50": 651,
+    "p90": 1582,
+    "mean": 765.47
+   },
+   "earned": {
+    "p10": 1297,
+    "p50": 4034,
+    "p90": 7682,
+    "mean": 4332.47
+   },
+   "recalls": {
+    "p10": 2,
+    "p50": 5,
+    "p90": 8,
+    "mean": 4.85
+   },
+   "spent": {
+    "p10": 800,
+    "p50": 3600,
+    "p90": 7000,
+    "mean": 3567
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 15,
+    "p90": 17,
+    "mean": 12.52
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.79
+  },
+  {
+   "profile": "idle",
+   "policy": "recallRich",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 81,
+    "p50": 95,
+    "p90": 108,
+    "mean": 95.56
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 665,
+    "p50": 852,
+    "p90": 1068,
+    "mean": 870.03
+   },
+   "earned": {
+    "p10": 665,
+    "p50": 852,
+    "p90": 1068,
+    "mean": 870.03
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0
+  },
+  {
+   "profile": "idle",
+   "policy": "recallRich",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 95,
+    "p50": 243,
+    "p90": 307,
+    "mean": 217.14
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 7,
+    "mean": 5.48
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 7,
+    "mean": 5.48
+   },
+   "coins": {
+    "p10": 853,
+    "p50": 2032,
+    "p90": 3103,
+    "mean": 1979.37
+   },
+   "earned": {
+    "p10": 853,
+    "p50": 2032,
+    "p90": 3103,
+    "mean": 1979.37
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 7,
+    "p90": 7,
+    "mean": 5.48
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0
+  },
+  {
+   "profile": "idle",
+   "policy": "recallRich",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 156,
+    "p50": 496,
+    "p90": 667,
+    "mean": 451.7
+   },
+   "reincarnations": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "collected": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "coins": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 6202,
+    "mean": 4029.82
+   },
+   "earned": {
+    "p10": 1287,
+    "p50": 4264,
+    "p90": 7278,
+    "mean": 4264.82
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 1,
+    "mean": 0.15
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 1500,
+    "mean": 235
+   },
+   "offers": {
+    "p10": 4,
+    "p50": 14,
+    "p90": 15,
+    "mean": 11.87
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.031
+  },
+  {
+   "profile": "intermittent",
+   "policy": "none",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 113,
+    "p50": 120,
+    "p90": 124,
+    "mean": 119.51
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 1139,
+    "p50": 1291,
+    "p90": 1353,
+    "mean": 1278.04
+   },
+   "earned": {
+    "p10": 1139,
+    "p50": 1291,
+    "p90": 1353,
+    "mean": 1278.04
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "intermittent",
+   "policy": "none",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 427,
+    "p50": 436,
+    "p90": 451,
+    "mean": 438.13
+   },
+   "reincarnations": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "collected": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "coins": {
+    "p10": 6159,
+    "p50": 6472,
+    "p90": 6957,
+    "mean": 6510.23
+   },
+   "earned": {
+    "p10": 6159,
+    "p50": 6472,
+    "p90": 6957,
+    "mean": 6510.23
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "intermittent",
+   "policy": "none",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1030,
+    "p50": 1050,
+    "p90": 1068,
+    "mean": 1050.31
+   },
+   "reincarnations": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "collected": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "coins": {
+    "p10": 17870,
+    "p50": 18664,
+    "p90": 19236,
+    "mean": 18613.93
+   },
+   "earned": {
+    "p10": 17870,
+    "p50": 18664,
+    "p90": 19236,
+    "mean": 18613.93
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recall",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 141,
+    "p50": 151,
+    "p90": 159,
+    "mean": 150.37
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 234,
+    "p50": 347,
+    "p90": 560,
+    "mean": 367.4
+   },
+   "earned": {
+    "p10": 1434,
+    "p50": 1547,
+    "p90": 1760,
+    "mean": 1567.4
+   },
+   "recalls": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "spent": {
+    "p10": 1200,
+    "p50": 1200,
+    "p90": 1200,
+    "mean": 1200
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.77
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recall",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 564,
+    "p50": 580,
+    "p90": 605,
+    "mean": 581.29
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "coins": {
+    "p10": 277,
+    "p50": 709,
+    "p90": 1040,
+    "mean": 697.97
+   },
+   "earned": {
+    "p10": 7825,
+    "p50": 8254,
+    "p90": 9040,
+    "mean": 8343.97
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.1
+   },
+   "spent": {
+    "p10": 7500,
+    "p50": 7500,
+    "p90": 8700,
+    "mean": 7646
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.917
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1271,
+    "p50": 1300,
+    "p90": 1363,
+    "mean": 1316.47
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "coins": {
+    "p10": 580,
+    "p50": 1259,
+    "p90": 2001,
+    "mean": 1287.89
+   },
+   "earned": {
+    "p10": 21652,
+    "p50": 22731,
+    "p90": 23982,
+    "mean": 22951.89
+   },
+   "recalls": {
+    "p10": 18,
+    "p50": 18,
+    "p90": 19,
+    "mean": 18.49
+   },
+   "spent": {
+    "p10": 20700,
+    "p50": 20800,
+    "p90": 22800,
+    "mean": 21664
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.944
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallOne",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 141,
+    "p50": 151,
+    "p90": 159,
+    "mean": 150.37
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 234,
+    "p50": 347,
+    "p90": 560,
+    "mean": 367.4
+   },
+   "earned": {
+    "p10": 1434,
+    "p50": 1547,
+    "p90": 1760,
+    "mean": 1567.4
+   },
+   "recalls": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "spent": {
+    "p10": 1200,
+    "p50": 1200,
+    "p90": 1200,
+    "mean": 1200
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.77
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallOne",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 564,
+    "p50": 580,
+    "p90": 601,
+    "mean": 580.85
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "coins": {
+    "p10": 389,
+    "p50": 760,
+    "p90": 1483,
+    "mean": 859.98
+   },
+   "earned": {
+    "p10": 7825,
+    "p50": 8254,
+    "p90": 8983,
+    "mean": 8335.98
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 9.98
+   },
+   "spent": {
+    "p10": 7500,
+    "p50": 7500,
+    "p90": 7500,
+    "mean": 7476
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.899
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1275,
+    "p50": 1305,
+    "p90": 1369,
+    "mean": 1324.03
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.49
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.49
+   },
+   "coins": {
+    "p10": 580,
+    "p50": 1170,
+    "p90": 1991,
+    "mean": 1239.08
+   },
+   "earned": {
+    "p10": 21841,
+    "p50": 22787,
+    "p90": 24114,
+    "mean": 23060.08
+   },
+   "recalls": {
+    "p10": 18,
+    "p50": 18,
+    "p90": 19,
+    "mean": 18.52
+   },
+   "spent": {
+    "p10": 20700,
+    "p50": 20900,
+    "p90": 22800,
+    "mean": 21821
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.49
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.946
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallTwo",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 141,
+    "p50": 151,
+    "p90": 159,
+    "mean": 150.37
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 234,
+    "p50": 347,
+    "p90": 560,
+    "mean": 367.4
+   },
+   "earned": {
+    "p10": 1434,
+    "p50": 1547,
+    "p90": 1760,
+    "mean": 1567.4
+   },
+   "recalls": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "spent": {
+    "p10": 1200,
+    "p50": 1200,
+    "p90": 1200,
+    "mean": 1200
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.77
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallTwo",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 564,
+    "p50": 580,
+    "p90": 605,
+    "mean": 581.29
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "coins": {
+    "p10": 277,
+    "p50": 709,
+    "p90": 1040,
+    "mean": 697.97
+   },
+   "earned": {
+    "p10": 7825,
+    "p50": 8254,
+    "p90": 9040,
+    "mean": 8343.97
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 11,
+    "mean": 10.1
+   },
+   "spent": {
+    "p10": 7500,
+    "p50": 7500,
+    "p90": 8700,
+    "mean": 7646
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.917
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallTwo",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1271,
+    "p50": 1300,
+    "p90": 1363,
+    "mean": 1316.47
+   },
+   "reincarnations": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "collected": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "coins": {
+    "p10": 580,
+    "p50": 1259,
+    "p90": 2001,
+    "mean": 1287.89
+   },
+   "earned": {
+    "p10": 21652,
+    "p50": 22731,
+    "p90": 23982,
+    "mean": 22951.89
+   },
+   "recalls": {
+    "p10": 18,
+    "p50": 18,
+    "p90": 19,
+    "mean": 18.49
+   },
+   "spent": {
+    "p10": 20700,
+    "p50": 20800,
+    "p90": 22800,
+    "mean": 21664
+   },
+   "offers": {
+    "p10": 19,
+    "p50": 19,
+    "p90": 20,
+    "mean": 19.35
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.944
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallRich",
+   "minutes": 5,
+   "n": 100,
+   "kills": {
+    "p10": 113,
+    "p50": 120,
+    "p90": 124,
+    "mean": 119.51
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 1139,
+    "p50": 1291,
+    "p90": 1353,
+    "mean": 1278.04
+   },
+   "earned": {
+    "p10": 1139,
+    "p50": 1291,
+    "p90": 1353,
+    "mean": 1278.04
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallRich",
+   "minutes": 15,
+   "n": 100,
+   "kills": {
+    "p10": 461,
+    "p50": 476,
+    "p90": 493,
+    "mean": 475.32
+   },
+   "reincarnations": {
+    "p10": 8,
+    "p50": 8,
+    "p90": 8,
+    "mean": 7.99
+   },
+   "collected": {
+    "p10": 8,
+    "p50": 8,
+    "p90": 8,
+    "mean": 7.99
+   },
+   "coins": {
+    "p10": 5033,
+    "p50": 5493,
+    "p90": 5865,
+    "mean": 5454.5
+   },
+   "earned": {
+    "p10": 6449,
+    "p50": 6896,
+    "p90": 7393,
+    "mean": 6881.5
+   },
+   "recalls": {
+    "p10": 1,
+    "p50": 1,
+    "p90": 2,
+    "mean": 1.54
+   },
+   "spent": {
+    "p10": 900,
+    "p50": 900,
+    "p90": 1900,
+    "mean": 1427
+   },
+   "offers": {
+    "p10": 8,
+    "p50": 8,
+    "p90": 8,
+    "mean": 7.99
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.204
+  },
+  {
+   "profile": "intermittent",
+   "policy": "recallRich",
+   "minutes": 30,
+   "n": 100,
+   "kills": {
+    "p10": 1162,
+    "p50": 1231,
+    "p90": 1254,
+    "mean": 1220.02
+   },
+   "reincarnations": {
+    "p10": 17,
+    "p50": 18,
+    "p90": 18,
+    "mean": 17.77
+   },
+   "collected": {
+    "p10": 17,
+    "p50": 18,
+    "p90": 18,
+    "mean": 17.77
+   },
+   "coins": {
+    "p10": 5395,
+    "p50": 6246,
+    "p90": 6783,
+    "mean": 6191.02
+   },
+   "earned": {
+    "p10": 19999,
+    "p50": 21471,
+    "p90": 22310,
+    "mean": 21299.02
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 11,
+    "p90": 11,
+    "mean": 10.87
+   },
+   "spent": {
+    "p10": 13500,
+    "p50": 15400,
+    "p90": 15400,
+    "mean": 15108
+   },
+   "offers": {
+    "p10": 17,
+    "p50": 18,
+    "p90": 18,
+    "mean": 17.77
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.709
+  }
+ ],
+ "long60": [
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 5,
+   "n": 30,
+   "kills": {
+    "p10": 145,
+    "p50": 147,
+    "p90": 148,
+    "mean": 146.73
+   },
+   "reincarnations": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "collected": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "coins": {
+    "p10": 1937,
+    "p50": 1977,
+    "p90": 1998,
+    "mean": 1972.47
+   },
+   "earned": {
+    "p10": 1937,
+    "p50": 1977,
+    "p90": 1998,
+    "mean": 1972.47
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 2,
+    "p50": 2,
+    "p90": 2,
+    "mean": 2
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 15,
+   "n": 30,
+   "kills": {
+    "p10": 522,
+    "p50": 527,
+    "p90": 532,
+    "mean": 527.3
+   },
+   "reincarnations": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "collected": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "coins": {
+    "p10": 9131,
+    "p50": 9385,
+    "p90": 9715,
+    "mean": 9428
+   },
+   "earned": {
+    "p10": 9131,
+    "p50": 9385,
+    "p90": 9715,
+    "mean": 9428
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 7,
+    "p50": 7,
+    "p90": 7,
+    "mean": 7
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 30,
+   "n": 30,
+   "kills": {
+    "p10": 1223,
+    "p50": 1237,
+    "p90": 1243,
+    "mean": 1234.6
+   },
+   "reincarnations": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "collected": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "coins": {
+    "p10": 24912,
+    "p50": 25601,
+    "p90": 25888,
+    "mean": 25500.97
+   },
+   "earned": {
+    "p10": 24912,
+    "p50": 25601,
+    "p90": 25888,
+    "mean": 25500.97
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 15,
+    "p50": 15,
+    "p90": 15,
+    "mean": 15
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "none",
+   "minutes": 60,
+   "n": 30,
+   "kills": {
+    "p10": 2698,
+    "p50": 2719,
+    "p90": 2732,
+    "mean": 2718.73
+   },
+   "reincarnations": {
+    "p10": 30,
+    "p50": 30,
+    "p90": 30,
+    "mean": 30
+   },
+   "collected": {
+    "p10": 30,
+    "p50": 30,
+    "p90": 30,
+    "mean": 30
+   },
+   "coins": {
+    "p10": 62002,
+    "p50": 62965,
+    "p90": 63613,
+    "mean": 62884.17
+   },
+   "earned": {
+    "p10": 62002,
+    "p50": 62965,
+    "p90": 63613,
+    "mean": 62884.17
+   },
+   "recalls": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "spent": {
+    "p10": 0,
+    "p50": 0,
+    "p90": 0,
+    "mean": 0
+   },
+   "offers": {
+    "p10": 30,
+    "p50": 30,
+    "p90": 30,
+    "mean": 30
+   },
+   "blockedSeedRatio": 0,
+   "spendRatio": 0
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 5,
+   "n": 30,
+   "kills": {
+    "p10": 196,
+    "p50": 200,
+    "p90": 203,
+    "mean": 199.27
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 4,
+    "p50": 672,
+    "p90": 984,
+    "mean": 588.9
+   },
+   "earned": {
+    "p10": 2655,
+    "p50": 2783,
+    "p90": 2846,
+    "mean": 2755.57
+   },
+   "recalls": {
+    "p10": 4,
+    "p50": 4,
+    "p90": 5,
+    "mean": 4.33
+   },
+   "spent": {
+    "p10": 1800,
+    "p50": 1800,
+    "p90": 2800,
+    "mean": 2166.67
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.784
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 15,
+   "n": 30,
+   "kills": {
+    "p10": 743,
+    "p50": 755,
+    "p90": 808,
+    "mean": 769.97
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 11,
+    "p90": 11,
+    "mean": 10.53
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 11,
+    "p90": 11,
+    "mean": 10.53
+   },
+   "coins": {
+    "p10": 374,
+    "p50": 1134,
+    "p90": 1464,
+    "mean": 1063.2
+   },
+   "earned": {
+    "p10": 13520,
+    "p50": 13912,
+    "p90": 14816,
+    "mean": 14049.87
+   },
+   "recalls": {
+    "p10": 14,
+    "p50": 14,
+    "p90": 15,
+    "mean": 14.13
+   },
+   "spent": {
+    "p10": 12500,
+    "p50": 12700,
+    "p90": 14200,
+    "mean": 12986.67
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 11,
+    "p90": 11,
+    "mean": 10.53
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.924
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 30,
+   "n": 30,
+   "kills": {
+    "p10": 1644,
+    "p50": 1693,
+    "p90": 1747,
+    "mean": 1695.9
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.77
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.77
+   },
+   "coins": {
+    "p10": 465,
+    "p50": 1772,
+    "p90": 2770,
+    "mean": 1757
+   },
+   "earned": {
+    "p10": 34163,
+    "p50": 35085,
+    "p90": 36765,
+    "mean": 35460.33
+   },
+   "recalls": {
+    "p10": 25,
+    "p50": 25,
+    "p90": 26,
+    "mean": 25.2
+   },
+   "spent": {
+    "p10": 32500,
+    "p50": 33300,
+    "p90": 35500,
+    "mean": 33703.33
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 21,
+    "p90": 21,
+    "mean": 20.77
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.95
+  },
+  {
+   "profile": "active",
+   "policy": "recall",
+   "minutes": 60,
+   "n": 30,
+   "kills": {
+    "p10": 3535,
+    "p50": 3560,
+    "p90": 3643,
+    "mean": 3577.3
+   },
+   "reincarnations": {
+    "p10": 39,
+    "p50": 39,
+    "p90": 40,
+    "mean": 39.47
+   },
+   "collected": {
+    "p10": 39,
+    "p50": 39,
+    "p90": 40,
+    "mean": 39.47
+   },
+   "coins": {
+    "p10": 509,
+    "p50": 2700,
+    "p90": 3388,
+    "mean": 2480.87
+   },
+   "earned": {
+    "p10": 82262,
+    "p50": 83496,
+    "p90": 85706,
+    "mean": 83647.53
+   },
+   "recalls": {
+    "p10": 40,
+    "p50": 40,
+    "p90": 41,
+    "mean": 40.23
+   },
+   "spent": {
+    "p10": 79800,
+    "p50": 80700,
+    "p90": 83300,
+    "mean": 81166.67
+   },
+   "offers": {
+    "p10": 39,
+    "p50": 39,
+    "p90": 40,
+    "mean": 39.47
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.97
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 5,
+   "n": 30,
+   "kills": {
+    "p10": 195,
+    "p50": 197,
+    "p90": 201,
+    "mean": 197.73
+   },
+   "reincarnations": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "collected": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "coins": {
+    "p10": 1409,
+    "p50": 1525,
+    "p90": 1604,
+    "mean": 1518.53
+   },
+   "earned": {
+    "p10": 2609,
+    "p50": 2725,
+    "p90": 2804,
+    "mean": 2718.53
+   },
+   "recalls": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "spent": {
+    "p10": 1200,
+    "p50": 1200,
+    "p90": 1200,
+    "mean": 1200
+   },
+   "offers": {
+    "p10": 3,
+    "p50": 3,
+    "p90": 3,
+    "mean": 3
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.442
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 15,
+   "n": 30,
+   "kills": {
+    "p10": 717,
+    "p50": 728,
+    "p90": 738,
+    "mean": 728.8
+   },
+   "reincarnations": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "collected": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "coins": {
+    "p10": 5177,
+    "p50": 5653,
+    "p90": 5978,
+    "mean": 5658.07
+   },
+   "earned": {
+    "p10": 12677,
+    "p50": 13153,
+    "p90": 13478,
+    "mean": 13158.07
+   },
+   "recalls": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "spent": {
+    "p10": 7500,
+    "p50": 7500,
+    "p90": 7500,
+    "mean": 7500
+   },
+   "offers": {
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "mean": 10
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.57
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 30,
+   "n": 30,
+   "kills": {
+    "p10": 1610,
+    "p50": 1625,
+    "p90": 1641,
+    "mean": 1626.4
+   },
+   "reincarnations": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "collected": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "coins": {
+    "p10": 8095,
+    "p50": 8786,
+    "p90": 9437,
+    "mean": 8800.87
+   },
+   "earned": {
+    "p10": 33095,
+    "p50": 33786,
+    "p90": 34437,
+    "mean": 33800.87
+   },
+   "recalls": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "spent": {
+    "p10": 25000,
+    "p50": 25000,
+    "p90": 25000,
+    "mean": 25000
+   },
+   "offers": {
+    "p10": 20,
+    "p50": 20,
+    "p90": 20,
+    "mean": 20
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.74
+  },
+  {
+   "profile": "active",
+   "policy": "recallOne",
+   "minutes": 60,
+   "n": 30,
+   "kills": {
+    "p10": 3529,
+    "p50": 3558,
+    "p90": 3576,
+    "mean": 3557.83
+   },
+   "reincarnations": {
+    "p10": 39,
+    "p50": 39,
+    "p90": 39,
+    "mean": 39
+   },
+   "collected": {
+    "p10": 39,
+    "p50": 39,
+    "p90": 39,
+    "mean": 39
+   },
+   "coins": {
+    "p10": 814,
+    "p50": 1852,
+    "p90": 2753,
+    "mean": 1886.07
+   },
+   "earned": {
+    "p10": 82158,
+    "p50": 83417,
+    "p90": 84225,
+    "mean": 83436.07
+   },
+   "recalls": {
+    "p10": 38,
+    "p50": 38,
+    "p90": 38,
+    "mean": 37.93
+   },
+   "spent": {
+    "p10": 81700,
+    "p50": 81800,
+    "p90": 81900,
+    "mean": 81550
+   },
+   "offers": {
+    "p10": 39,
+    "p50": 39,
+    "p90": 39,
+    "mean": 39
+   },
+   "blockedSeedRatio": 1,
+   "spendRatio": 0.977
+  }
+ ],
+ "paired": {
+  "recall_vs_none": {
+   "killsDeltaMedian": 464,
+   "win": 100,
+   "tie": 0,
+   "loss": 0,
+   "pct": 37.4
+  },
+  "recallOne_vs_none": {
+   "killsDeltaMedian": 389,
+   "win": 100,
+   "tie": 0,
+   "loss": 0,
+   "pct": 31.4
+  },
+  "recallTwo_vs_none": {
+   "killsDeltaMedian": 464,
+   "win": 100,
+   "tie": 0,
+   "loss": 0,
+   "pct": 37.4
+  },
+  "recallRich_vs_none": {
+   "killsDeltaMedian": 328,
+   "win": 100,
+   "tie": 0,
+   "loss": 0,
+   "pct": 26.5
+  },
+  "recall_vs_recallOne": {
+   "killsDeltaMedian": 72,
+   "win": 98,
+   "tie": 0,
+   "loss": 2,
+   "pct": 4.4
+  }
+ },
+ "staleRecallReplay": {
+  "seed": 7,
+  "repro": "expedition N: buy recall with payload {restRecalls:0} (k 0->1). Duplicate of the SAME payload is correctly rejected. Let the rest expire, heroChoose starts expedition N+1 (restRecalls reset to 0). Re-send the SAME payload {restRecalls:0}.",
+  "observed": "coins 892 -> 492 (-400), restRemainingMs 120000 -> 90000",
+  "conclusion": "restRecalls is NOT an offerSerial-equivalent: it resets every heroChoose, so a queued/duplicated IPC from the previous expedition spends gold in the next one."
+ },
+ "saveRoundTrip": {
+  "restRecalls 1 -> serializeSave/parseSave -> 1": true,
+  "restRemainingMs 50000 -> 50000": true,
+  "legacy save without restRecalls -> 0": true
+ }
+}

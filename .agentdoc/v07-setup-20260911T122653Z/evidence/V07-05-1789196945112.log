@@ -1,0 +1,84 @@
+
+> desmon@0.6.0 test
+> vitest run
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/heroJobStudies.test.ts (3 tests) 130ms
+ ✓ tests/hero.test.ts (13 tests) 136ms
+ ✓ tests/loot.test.ts (11 tests) 264ms
+ ✓ tests/codexV7.test.ts (10 tests) 140ms
+ ✓ tests/engine.test.ts (45 tests) 392ms
+ ✓ tests/sprites.test.ts (34 tests) 263ms
+ ✓ tests/renderer.test.ts (104 tests) 230ms
+ ✓ tests/collection.test.ts (21 tests) 213ms
+ ✓ tests/heroRendering.test.ts (5 tests) 383ms
+ ✓ tests/heroForms.test.ts (8 tests) 694ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  577ms
+ ✓ tests/menu.test.ts (55 tests) 197ms
+ ✓ tests/net.test.ts (44 tests) 129ms
+ ✓ tests/progressionV5.test.ts (12 tests) 82ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 42ms
+ ✓ tests/progressV5.test.ts (12 tests) 57ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 87ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 41ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 65ms
+ ✓ tests/server/app.test.ts (18 tests) 33ms
+ ✓ tests/formulas.test.ts (21 tests) 86ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 17ms
+ ✓ tests/progressionV7.test.ts (45 tests) 433ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 20ms
+ ✓ tests/server/opponents.test.ts (10 tests) 27ms
+ ✓ tests/save.test.ts (15 tests) 17ms
+ ✓ tests/globalInput.test.ts (20 tests) 17ms
+ ✓ tests/server/pvp.test.ts (14 tests) 30ms
+ ✓ tests/progressV6.test.ts (15 tests) 17ms
+ ✓ tests/identity.test.ts (8 tests) 13ms
+ ✓ tests/tray.test.ts (38 tests) 17ms
+ ✓ tests/audio.test.ts (15 tests) 37ms
+ ✓ tests/packaging.test.ts (16 tests) 12ms
+ ✓ tests/persistence.test.ts (10 tests) 8ms
+ ✓ tests/fever.test.ts (4 tests) 13ms
+ ✓ tests/progressV7.test.ts (5 tests) 10ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 10ms
+ ✓ tests/anim.test.ts (14 tests) 9ms
+ ✓ tests/ipc.test.ts (61 tests) 13ms
+ ✓ tests/settings.test.ts (4 tests) 8ms
+ ✓ tests/server/http.test.ts (9 tests) 8ms
+ ✓ tests/effects.test.ts (7 tests) 9ms
+ ✓ tests/deploy.test.ts (7 tests) 3ms
+ ✓ tests/ipcV5.test.ts (7 tests) 10ms
+ ✓ tests/server/pgTransaction.test.ts (6 tests) 13ms
+ ✓ tests/battle.test.ts (5 tests) 9ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 4ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/fsm.test.ts (12 tests) 3ms
+ ✓ tests/window.test.ts (29 tests) 15ms
+ ✓ tests/typeChart.test.ts (4 tests) 5ms
+ ✓ tests/thefts.test.ts (5 tests) 3ms
+ ✓ tests/heroMenuReadiness.test.ts (3 tests) 3ms
+ ✓ tests/drag.test.ts (7 tests) 2ms
+ ✓ tests/bignum.test.ts (7 tests) 3ms
+ ✓ tests/rendererInput.test.ts (8 tests) 3ms
+ ✓ tests/scaffold.test.ts (1 test) 1ms
+ ✓ tests/expedition.test.ts (16 tests) 2988ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  641ms
+   ✓ A1 — the expedition gauge is display-only and stays out of the way (H2b/H7) > never leaves its declared pixel budget, whatever the depth (H7)  2266ms
+ ✓ tests/balance.test.ts (3 tests) 3900ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  3877ms
+
+ Test Files  58 passed (58)
+      Tests  955 passed (955)
+   Start at  16:09:05
+   Duration  4.32s (transform 1.87s, setup 0ms, collect 6.52s, tests 11.38s, environment 7ms, prepare 3.56s)
+
+
+> desmon@0.6.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.6.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+

@@ -1,0 +1,438 @@
+{
+  "at": "2026-09-12T17:28:43.925129+00:00",
+  "scope": "Host complete execution/archive/log/report/pairing binding check; independent full raw analysis remains separate.",
+  "execSession": 31735,
+  "batchPid": 71550,
+  "batchPgid": 71550,
+  "exitCode": 0,
+  "activeMeasurementNative": [],
+  "trials": 8,
+  "reports": 11,
+  "rawRows": 220,
+  "results": [
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/execution.json",
+      "sha256": "e5703e8989a2abd24d14e06cbaa0939ca736e9c44824638ebe863d34e54fd4de",
+      "endedAt": "2026-09-12T17:26:13.621345+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/screening.json",
+          "sha256": "304970b81ffe18695e34bcc47452441514b1d22a2a96413df7f98e118f71839a",
+          "targets": {
+            "status": "PASS",
+            "passed": true,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": true,
+                "observedSec": 2878.7,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        },
+        {
+          "scope": "full-12h",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10400/full-12h.json",
+          "sha256": "a039beb9ec4987de25db0409cc2b08fe553a34a8fd7f37723fed5635c74a1e7b",
+          "targets": {
+            "status": "FAIL",
+            "passed": false,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": true,
+                "observedSec": 2878.7,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              },
+              {
+                "id": "last-unlock-median",
+                "passed": false,
+                "observedSec": 24451,
+                "minSec": 28800,
+                "maxSec": 43200,
+                "registered": true
+              }
+            ],
+            "skipped": [],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10425/execution.json",
+      "sha256": "64926e1438d95ce850a8e3002bc798c576a0d723a280c4ab09dabdf64cb50a74",
+      "endedAt": "2026-09-12T17:24:11.486517+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10425/screening.json",
+          "sha256": "d69635b928d7f2a894e39137cfe3c1fb970b85e9705d0436cda822965483e901",
+          "targets": {
+            "status": "PASS",
+            "passed": true,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": true,
+                "observedSec": 2878.7,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        },
+        {
+          "scope": "full-12h",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10425/full-12h.json",
+          "sha256": "3e955bca132a12d8c1c96fe74a1b266e6fddd510cd27a35daf4729c206212617",
+          "targets": {
+            "status": "PASS",
+            "passed": true,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": true,
+                "observedSec": 2878.7,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              },
+              {
+                "id": "last-unlock-median",
+                "passed": true,
+                "observedSec": 31768.5,
+                "minSec": 28800,
+                "maxSec": 43200,
+                "registered": true
+              }
+            ],
+            "skipped": [],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10450/execution.json",
+      "sha256": "e64013dc0da8928b118a944307b6021e8fe2c46d19e2c2c1a4ee3c096890882b",
+      "endedAt": "2026-09-12T17:22:35.267434+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10450/screening.json",
+          "sha256": "0f4a2ba67cd67295836b43f8715b47792aaac5a4d61221248e7030a093f3cf80",
+          "targets": {
+            "status": "PASS",
+            "passed": true,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": true,
+                "observedSec": 2878.7,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        },
+        {
+          "scope": "full-12h",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/candidate-r8-tail10450/full-12h.json",
+          "sha256": "08aa65eefe9818326968e8094800c38415189573d0dde5bdcc55b31dcf88fea1",
+          "targets": {
+            "status": "PASS",
+            "passed": true,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": true,
+                "observedSec": 2878.7,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              },
+              {
+                "id": "last-unlock-median",
+                "passed": true,
+                "observedSec": 36991.5,
+                "minSec": 28800,
+                "maxSec": 43200,
+                "registered": true
+              }
+            ],
+            "skipped": [],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l16/execution.json",
+      "sha256": "34e95f8300b4595bfe7edf77ecf98855965920f3841ec2e6adb0ea514189e76d",
+      "endedAt": "2026-09-12T17:20:03.679693+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l16/screening.json",
+          "sha256": "09a34b37d757e6950656fb931f8797706bcf5735cdd3f1114a7d56042608befd",
+          "targets": {
+            "status": "FAIL",
+            "passed": false,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": false,
+                "observedSec": 813.6,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/execution.json",
+      "sha256": "7f1f674a02d706dc801afb62c70822276e6bb45bb7f573a34dcbf323f88ae23a",
+      "endedAt": "2026-09-12T17:20:16.016512+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l17/screening.json",
+          "sha256": "e2d86fbefe6aae3faa522937a056277dd4c56ecd13c391076ed6d8f3fd9ccc42",
+          "targets": {
+            "status": "FAIL",
+            "passed": false,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": false,
+                "observedSec": 1636.5,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": true,
+                "reached": 20,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l18/execution.json",
+      "sha256": "3792bd7dd4ac6043a209846b55c652f2d6df53b67473aba0c0dceefae3ba55fd",
+      "endedAt": "2026-09-12T17:20:26.921275+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l18/screening.json",
+          "sha256": "4764f55b0125849b336d8043bd98727a87c2e180aada1166f897db035f3a4a3f",
+          "targets": {
+            "status": "FAIL",
+            "passed": false,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": false,
+                "observedSec": 4976.5,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": false,
+                "reached": 12,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l19/execution.json",
+      "sha256": "6b0f7515077368edddcadc68c50de0c4ec73d617ee561df6de70dc186872b573",
+      "endedAt": "2026-09-12T17:20:39.120913+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l19/screening.json",
+          "sha256": "946379cb8bca89e49f1b1cef8917cf40df5a8e734245d62728e038c40720b696",
+          "targets": {
+            "status": "FAIL",
+            "passed": false,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": false,
+                "observedSec": null,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": false,
+                "reached": 5,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    },
+    {
+      "execution": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l20/execution.json",
+      "sha256": "f01fbf3430af85b168efd13b9c9be38ccd689301bd565ff9a6e03ad51398eab7",
+      "endedAt": "2026-09-12T17:20:56.136439+00:00",
+      "reports": [
+        {
+          "scope": "screening",
+          "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-08/control-l20/screening.json",
+          "sha256": "246acbb185940f5792c72378ff30e4165c003b033809eac2e9224fcfd929b6f2",
+          "targets": {
+            "status": "FAIL",
+            "passed": false,
+            "samples": 20,
+            "checks": [
+              {
+                "id": "first-reincarnation-median",
+                "passed": false,
+                "observedSec": null,
+                "minSec": 2700,
+                "maxSec": 3600
+              },
+              {
+                "id": "first-reincarnation-deadline",
+                "passed": false,
+                "reached": 1,
+                "samples": 20,
+                "deadlineSec": 5400,
+                "minimumFraction": 0.9
+              }
+            ],
+            "skipped": [
+              "last-unlock-median: NOT_EVALUATED in 120-minute exploration screening"
+            ],
+            "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+          }
+        }
+      ]
+    }
+  ],
+  "current": {
+    "source": "48df3f7598aac71cf315c526b27b779ccabb93da598ff676360891b69626a9b1",
+    "evaluation": "2c35733967ef5080f9d7e60e157712f5ec3dc9ce79079bb372dc915795c662ff"
+  },
+  "selectionCheck": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-host-selection-check.json",
+    "sha256": "25333b89c23ff15aa5ac9dcc2298f8db0d6f79eacd0bc7a56274adc0bf34051a"
+  },
+  "adoption": "NOT_PERFORMED: awaiting frozen independent final analysis."
+}

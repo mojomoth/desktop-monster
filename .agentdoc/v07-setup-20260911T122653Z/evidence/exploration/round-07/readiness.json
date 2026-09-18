@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-12T08:01:51.258697+00:00",
+  "status": "PREREGISTERED_READY_FOR_ACTUAL_EXECUTION",
+  "sourceDigest": "5b839be72a8ee0f35bf38d6e8fd260189f2a3934f45b289efa11d08455a26df6",
+  "evaluationDigest": "c12f36f481ed2bbf4896ecafa787cf1929856ff24202267db2f4cec3b56b7002",
+  "protocolSha256": "196f351031a385164fa68b0821606538c1d230b2b3b6c6c292deb01bec3048c1",
+  "batchSha256": "5ec5d09ff7a0e14a11344eb426e45bc6091146477a8b2ffe1e3b6ec496cbff1c",
+  "review": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/reviews/design-round07/session.json",
+    "sha256": "a83add06d9bc3877c8844392a8a06ff8c39731f87196ea71c2959cbecda6257c"
+  },
+  "checks": {
+    "progression": {
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789200060004.log",
+      "sha256": "1dd28bc18f9e2d35005033d441f67aee436d7e951a00a04ce68f7727a94e4eb4"
+    },
+    "harness": {
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789200063979.log",
+      "sha256": "6ae90a429f03b855423116a243a96315c43a462e0aa34a7b463d0171009a11f6"
+    },
+    "gates": {
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v07-setup-20260911T122653Z/evidence/V07-05-1789200070204.log",
+      "sha256": "eb84a3194c24fc195ebbf732bf20e73c80804484ea3b563cd585c28fbb9f4c4f"
+    }
+  },
+  "processCheck": {
+    "activeMeasurementNative": [],
+    "preservedUserApp": [
+      "50718 50646 01-01:56:09 /Users/jeongyounglee/work/repo/desktop-monster/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron ."
+    ],
+    "doNotRestart": [
+      "round05",
+      "round06"
+    ]
+  }
+}

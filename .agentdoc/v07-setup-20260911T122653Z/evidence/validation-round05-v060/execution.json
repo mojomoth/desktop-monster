@@ -1,0 +1,112 @@
+{
+  "kind": "first-adopted-candidate-validation",
+  "startedAt": "2026-09-12T06:14:05.142902+00:00",
+  "seedSet": {
+    "name": "validation",
+    "start": 1,
+    "count": 100
+  },
+  "appVersion": "0.6.0",
+  "experiment": {
+    "kind": "candidate",
+    "id": "candidate-r5-tail10475"
+  },
+  "protocol": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/protocol.adopted.json",
+    "sha256": "44d3a06a12308a6a5a90bc97e983af51bdaceb3a441c1144ac91d7f340b135f1"
+  },
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/production-source.tar.gz",
+    "sha256": "7d2cf452d4469b235d737cc800d60c7a11c8edc2f07da9a055ac8ac53f8d7553"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/evaluation.tar.gz",
+    "sha256": "bcf266885e13f6cce5dfd5cba6f4ab19ba3dc6361bfa396258a1195a8e44fb93"
+  },
+  "commands": [
+    {
+      "label": "measure",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "run",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate.json",
+        "--phase",
+        "candidate",
+        "--candidate",
+        "candidate-r5-tail10475",
+        "--seed-set",
+        "validation",
+        "--workers",
+        "4"
+      ],
+      "startedAt": "2026-09-12T06:14:05.298548+00:00",
+      "endedAt": "2026-09-12T06:20:59.779307+00:00",
+      "exitCode": 1,
+      "log": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/measure.log",
+        "sha256": "878928de8a8bf91cd80564d6772aac7299ab868ddafe0f29ae6d4b46b7b300bd"
+      }
+    },
+    {
+      "label": "verify-structure",
+      "argv": [
+        "node",
+        ".harness/v7/loop/measure.mjs",
+        "verify",
+        ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate.json"
+      ],
+      "startedAt": "2026-09-12T06:20:59.787156+00:00",
+      "endedAt": "2026-09-12T06:21:00.183498+00:00",
+      "exitCode": 0,
+      "log": {
+        "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/verify-structure.log",
+        "sha256": "7d73eb102f6ad2124585f2dd3124dd940737a1d2884722bfa3ed91434ee31261"
+      }
+    }
+  ],
+  "report": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/candidate.json",
+    "sha256": "9286dd20e7f125f25a0bae1189daf6be9d429053a49732b145ced42238d4f803"
+  },
+  "sourceDigest": "3e563b2dd99f4755644bff3f74dd33d5def260c605c27f2a771609264ab7a8be",
+  "evaluationDigest": "c230862f43dd51266a53cf924c95c22d60d4983bc93f82dc6d44f4116e77b8b3",
+  "targets": {
+    "status": "FAIL",
+    "passed": false,
+    "samples": 100,
+    "checks": [
+      {
+        "id": "first-reincarnation-median",
+        "passed": false,
+        "observedSec": 2492.8,
+        "minSec": 2700,
+        "maxSec": 3600
+      },
+      {
+        "id": "first-reincarnation-deadline",
+        "passed": false,
+        "reached": 88,
+        "samples": 100,
+        "deadlineSec": 5400,
+        "minimumFraction": 0.9
+      },
+      {
+        "id": "last-unlock-median",
+        "passed": true,
+        "observedSec": 35144,
+        "minSec": 28800,
+        "maxSec": 43200,
+        "registered": true
+      }
+    ],
+    "skipped": [],
+    "method": "Population median sorts unreached after all observed times; deadline fraction always divides by all samples."
+  },
+  "rawSha256": "6d14884a200f99d3aabcb30c3d045e63b3423c6d2a9dd4411125a4f975584ce8",
+  "buildArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/validation-round05-v060/compiled-build.tar.gz",
+    "sha256": "46856a648c878a6af1f579a085095559ce152c33d9d953b4c6f3a4f2b14cf1d4"
+  },
+  "endedAt": "2026-09-12T06:21:00.323205+00:00"
+}

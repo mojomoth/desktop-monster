@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "observerPid": 98327,
+  "childPid": 98328,
+  "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-HmIIDO",
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+  "appHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+  "startedAt": "2026-09-17T19:12:18.199Z",
+  "state": "complete",
+  "cancelSignal": "SIGINT",
+  "cleanup": {
+    "state": "complete",
+    "owned": [
+      {
+        "pid": 98328,
+        "ppid": 98327,
+        "pgid": 98324,
+        "started": "Fri Sep 18 04:12:18 2026",
+        "command": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/MacOS/DesMon --inspect-brk=127.0.0.1:0 --user-data-dir=/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v10-perf-HmIIDO"
+      }
+    ],
+    "remaining": [],
+    "signals": [
+      {
+        "pid": 98328,
+        "signal": "SIGTERM",
+        "at": "2026-09-17T19:12:18.626Z"
+      }
+    ],
+    "finishedAt": "2026-09-17T19:12:18.797Z"
+  }
+}

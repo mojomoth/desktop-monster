@@ -1,0 +1,67 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ❯ tests/companionLevelsV7.test.ts (33 tests | 1 failed) 17ms
+   ✓ v0.7 companion growth and save compatibility > round trips Lv11 through JSON, engine save and restart without truncation 2ms
+   ✓ v0.7 companion growth and save compatibility > round trips Lv250 through JSON, engine save and restart without truncation 0ms
+   ✓ v0.7 companion growth and save compatibility > round trips Lv9007199254740991 through JSON, engine save and restart without truncation 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level 0 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level -1 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level 1.5 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level 9007199254740992 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level Infinity 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level NaN 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects invalid saved level 250 0ms
+   ✓ v0.7 companion growth and save compatibility > consumes beyond Lv10 and permits the exact safe-integer boundary 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects overflowing level or stars before consuming any companion 1ms
+   ✓ v0.7 companion growth and save compatibility > reincarnates Lv10 to Lv1/stars+1 with exact before/after power 1ms
+   ✓ v0.7 companion growth and save compatibility > reincarnates Lv11 to Lv1/stars+1 with exact before/after power 0ms
+   ✓ v0.7 companion growth and save compatibility > reincarnates Lv250 to Lv1/stars+1 with exact before/after power 0ms
+   ✓ v0.7 companion growth and save compatibility > reincarnates Lv9007199254740991 to Lv1/stars+1 with exact before/after power 0ms
+   ✓ v0.7 companion growth and save compatibility > rejects Lv9 and stale, malformed, missing-target or reused confirmations without mutation 1ms
+   ✓ v0.7 companion growth and save compatibility > validates confirmation snapshots at the trust boundary 1ms
+   ✓ v0.7 companion growth and save compatibility > preserves a sacrificed companion when the soul reward would overflow 0ms
+   ✓ v0.7 companion growth and save compatibility > preserves server transfer IDs and rejects duplicate or conflicting delivery without any removal 0ms
+   × v0.7 companion allocator exhaustion > repairs every ID digit sequence without changing any ID or producing an unsafe counter 5ms
+     → expected 1 to be 9007199254740991 // Object.is equality
+   ✓ v0.7 companion allocator exhaustion > allocates the last unique local ID at MAX-1 and retains the exhausted sentinel after restart 1ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter 0 before applying a PvP loss 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter -1 before applying a PvP loss 1ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter 1.5 before applying a PvP loss 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter 9007199254740991 before applying a PvP loss 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter 9007199254740992 before applying a PvP loss 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter Infinity before applying a PvP loss 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects local allocation at counter NaN before applying a PvP loss 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects duplicate local c1 against the original roster before removing lostId 0ms
+   ✓ v0.7 companion allocator exhaustion > rejects duplicate local c2 against the original roster before removing lostId 0ms
+   ✓ v0.7 companion allocator exhaustion > accepts external r9007199254740992 at exhaustion and preserves its ID through save and restart 0ms
+   ✓ v0.7 companion allocator exhaustion > accepts external s9007199254740992 at exhaustion and preserves its ID through save and restart 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/companionLevelsV7.test.ts > v0.7 companion allocator exhaustion > repairs every ID digit sequence without changing any ID or producing an unsafe counter
+AssertionError: expected 1 to be 9007199254740991 // Object.is equality
+
+- Expected
++ Received
+
+- 9007199254740991
++ 1
+
+ ❯ tests/companionLevelsV7.test.ts:146:71
+    144|     expect(parseSave({ companions: [companion('s12a3')] }).nextCompani…
+    145|     for (const counter of [max, max + 1, Number.MAX_VALUE, Infinity]) {
+    146|       expect(parseSave({ nextCompanionId: counter }).nextCompanionId).…
+       |                                                                       ^
+    147|     }
+    148|     const numericOverflow = parseSave('{"nextCompanionId":1e400}');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 32 passed (33)
+   Start at  16:03:48
+   Duration  341ms (transform 91ms, setup 0ms, collect 108ms, tests 17ms, environment 0ms, prepare 40ms)
+

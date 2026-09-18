@@ -1,0 +1,483 @@
+{
+  "version": 9,
+  "phase": "first",
+  "startedAt": "2026-09-15T09:16:46.280Z",
+  "checks": [
+    {
+      "name": "isolated-production-windows",
+      "passed": true,
+      "details": {}
+    },
+    {
+      "name": "four-independent-rankings",
+      "passed": false,
+      "details": {
+        "error": "Error: Timeout: ranking level"
+      }
+    },
+    {
+      "name": "selected-opponent-immediate-battle",
+      "passed": false,
+      "details": {
+        "error": "Error: Timeout: opponent directory"
+      }
+    },
+    {
+      "name": "six-share-kinds",
+      "passed": true,
+      "details": {
+        "kinds": [
+          "hero",
+          "companion",
+          "party",
+          "codex",
+          "field",
+          "pvp"
+        ]
+      }
+    },
+    {
+      "name": "real-png-hero",
+      "passed": true,
+      "details": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 37430,
+        "decodedBytes": 4321200,
+        "sha256": "a140c48672f1ac02653a1fd2346fceed79b080d3635eb00b56f4b048a9c0758d"
+      }
+    },
+    {
+      "name": "real-png-companion",
+      "passed": true,
+      "details": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 26217,
+        "decodedBytes": 4321200,
+        "sha256": "160340a48f87471672ad7183998ece81e78e2394f4627749ec2beb61dd639ee9"
+      }
+    },
+    {
+      "name": "real-png-party",
+      "passed": true,
+      "details": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 35163,
+        "decodedBytes": 4321200,
+        "sha256": "a4fc23595f78b78615805ac42675ad6996b5bc8efb80d040c64766bfaefca62f"
+      }
+    },
+    {
+      "name": "real-png-codex",
+      "passed": true,
+      "details": {
+        "width": 1200,
+        "height": 1200,
+        "bytes": 31538,
+        "decodedBytes": 4321200,
+        "sha256": "f8853e9902148f86f4e25053611eb7f7618c60ba2a47429bc0cfafded21dd875"
+      }
+    },
+    {
+      "name": "all-share-cards-save-and-copy",
+      "passed": false,
+      "details": {
+        "error": "Error: {\"exceptionId\":1,\"text\":\"Uncaught (in promise) Error: Script failed to execute, this normally means an error was thrown. Check the renderer console for the error.\",\"lineNumber\":0,\"columnNumber\":0,\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"Error\",\"description\":\"Error: Script failed to execute, this normally means an error was thrown. Check the renderer console for the error.\\n    at node:electron/js2c/sandbox_bundle:2:127949\\n    at IpcRendererInternal.<anonymous> (node:electron/js2c/sandbox_bundle:2:122217)\\n    at IpcRendererInternal.emit (node:electron/js2c/sandbox_bundle:2:45997)\\n    at Object.onMessage (node:electron/js2c/sandbox_bundle:2:121276)\",\"objectId\":\"-3668246640763623945.1.83\"}}"
+      }
+    },
+    {
+      "name": "reset-cancel-preserves-progress",
+      "passed": true,
+      "details": {
+        "before": {
+          "version": 3,
+          "level": 27,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 1000,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "309470158987657443901330",
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "dragon",
+              "bossIndex": 63,
+              "level": 100,
+              "stars": 3
+            },
+            {
+              "id": "c2",
+              "speciesId": "bat",
+              "bossIndex": 15,
+              "level": 30,
+              "stars": 1
+            }
+          ],
+          "nextCompanionId": 3,
+          "earlyCaptureUsed": 2,
+          "souls": 0,
+          "rebirths": 2,
+          "bestIndex": 1000,
+          "pvpParty": [
+            "c1"
+          ],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 30705.39999976158,
+            "speciesKills": {},
+            "seenMonsters": [
+              "dragon",
+              "bat",
+              "slime"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "canceled": {
+          "version": 3,
+          "level": 27,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 1234567,
+          "items": {},
+          "monsterIndex": 1000,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "309470158987657443901330",
+          "companions": [
+            {
+              "id": "c1",
+              "speciesId": "dragon",
+              "bossIndex": 63,
+              "level": 100,
+              "stars": 3
+            },
+            {
+              "id": "c2",
+              "speciesId": "bat",
+              "bossIndex": 15,
+              "level": 30,
+              "stars": 1
+            }
+          ],
+          "nextCompanionId": 3,
+          "earlyCaptureUsed": 2,
+          "souls": 0,
+          "rebirths": 2,
+          "bestIndex": 1000,
+          "pvpParty": [
+            "c1"
+          ],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 30705.39999976158,
+            "speciesKills": {},
+            "seenMonsters": [
+              "dragon",
+              "bat",
+              "slime"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "backups": []
+      }
+    },
+    {
+      "name": "reset-requires-safe-default-dialog",
+      "passed": true,
+      "details": {
+        "dialog": {
+          "kind": "message",
+          "options": {
+            "type": "warning",
+            "title": "진행 초기화",
+            "message": "진행을 초기화할까요?",
+            "detail": "레벨·재화·영웅·동료·도감 등 게임 진행이 처음으로 돌아갑니다.\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.",
+            "buttons": [
+              "취소",
+              "백업 후 초기화"
+            ],
+            "defaultId": 0,
+            "cancelId": 0,
+            "noLink": true
+          },
+          "response": 1
+        }
+      }
+    },
+    {
+      "name": "reset-preserves-identity-settings-and-id-highwater",
+      "passed": true,
+      "details": {
+        "reset": {
+          "version": 3,
+          "level": 1,
+          "xp": 0,
+          "killCount": 0,
+          "coins": 0,
+          "items": {},
+          "monsterIndex": 0,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "10",
+          "companions": [],
+          "nextCompanionId": 3,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "rebirths": 0,
+          "bestIndex": 0,
+          "pvpParty": [],
+          "releasedCount": 0,
+          "progress": {
+            "playTimeMs": 0,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [],
+            "heroCounts": {},
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": 0,
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          }
+        },
+        "priorIdentity": {
+          "name": "FixtureMe",
+          "playerId": "fixture-me",
+          "token": "fixture-me-token",
+          "notifiedTheftIds": []
+        },
+        "priorSettings": {
+          "gameScale": 1,
+          "muted": true,
+          "screenShake": true,
+          "welcomeSeen": true,
+          "globalInputRequested": false
+        }
+      }
+    },
+    {
+      "name": "reset-creates-verified-visible-checkpoint",
+      "passed": true,
+      "details": {
+        "list": [
+          {
+            "id": "edaf44f3-4a4f-4c6a-bc3e-82d9edc5c2c7",
+            "at": 1789463838320,
+            "reason": "reset",
+            "level": 27,
+            "bestIndex": 1000,
+            "companions": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "stale-generation-rejected-through-real-preload",
+      "passed": true,
+      "details": {
+        "accepted": false,
+        "generation": 3,
+        "currentGeneration": 4
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "field-hud",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/field-hud.png",
+      "sha256": "aa4c3e91987cec736f9bdcb05b9a13fcbeb0b6112adeb40e9b854c420fee686c"
+    },
+    {
+      "name": "hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/hero.png",
+      "sha256": "ab8b6608b3142664f9c440c0a3a8ed05707a845365f5b9a929a152bf1d3847e2"
+    },
+    {
+      "name": "share-modal-hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/share-modal-hero.png",
+      "sha256": "4c7a0bcbb178bd701ced93449229c1477d80d83df86475ac86ae2d1b72cd97c5"
+    },
+    {
+      "name": "reset-checkpoint",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/reset-checkpoint.png",
+      "sha256": "67b6a85d83b91479698da934dabeb40434d6bd9cbd74359de38f27c54325f288"
+    }
+  ],
+  "pngs": [
+    {
+      "kind": "hero",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/share-hero.png",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 37430,
+      "decodedBytes": 4321200,
+      "sha256": "a140c48672f1ac02653a1fd2346fceed79b080d3635eb00b56f4b048a9c0758d"
+    },
+    {
+      "kind": "companion",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/share-companion.png",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 26217,
+      "decodedBytes": 4321200,
+      "sha256": "160340a48f87471672ad7183998ece81e78e2394f4627749ec2beb61dd639ee9"
+    },
+    {
+      "kind": "party",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/share-party.png",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 35163,
+      "decodedBytes": 4321200,
+      "sha256": "a4fc23595f78b78615805ac42675ad6996b5bc8efb80d040c64766bfaefca62f"
+    },
+    {
+      "kind": "codex",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v09-20260915T084032Z/native-01/first/share-codex.png",
+      "width": 1200,
+      "height": 1200,
+      "bytes": 31538,
+      "decodedBytes": 4321200,
+      "sha256": "f8853e9902148f86f4e25053611eb7f7618c60ba2a47429bc0cfafded21dd875"
+    }
+  ],
+  "errors": [
+    {
+      "name": "four-independent-rankings",
+      "error": "Error: Timeout: ranking level"
+    },
+    {
+      "name": "selected-opponent-immediate-battle",
+      "error": "Error: Timeout: opponent directory"
+    },
+    {
+      "name": "all-share-cards-save-and-copy",
+      "error": "Error: {\"exceptionId\":1,\"text\":\"Uncaught (in promise) Error: Script failed to execute, this normally means an error was thrown. Check the renderer console for the error.\",\"lineNumber\":0,\"columnNumber\":0,\"exception\":{\"type\":\"object\",\"subtype\":\"error\",\"className\":\"Error\",\"description\":\"Error: Script failed to execute, this normally means an error was thrown. Check the renderer console for the error.\\n    at node:electron/js2c/sandbox_bundle:2:127949\\n    at IpcRendererInternal.<anonymous> (node:electron/js2c/sandbox_bundle:2:122217)\\n    at IpcRendererInternal.emit (node:electron/js2c/sandbox_bundle:2:45997)\\n    at Object.onMessage (node:electron/js2c/sandbox_bundle:2:121276)\",\"objectId\":\"-3668246640763623945.1.83\"}}"
+    }
+  ],
+  "restore": {
+    "checkpointId": "edaf44f3-4a4f-4c6a-bc3e-82d9edc5c2c7",
+    "before": {
+      "version": 3,
+      "level": 27,
+      "xp": 0,
+      "killCount": 0,
+      "coins": 1234567,
+      "items": {},
+      "monsterIndex": 1000,
+      "monsterSpeciesId": "slime",
+      "monsterHp": "309470158987657443901330",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "dragon",
+          "bossIndex": 63,
+          "level": 100,
+          "stars": 3
+        },
+        {
+          "id": "c2",
+          "speciesId": "bat",
+          "bossIndex": 15,
+          "level": 30,
+          "stars": 1
+        }
+      ],
+      "nextCompanionId": 3,
+      "earlyCaptureUsed": 2,
+      "souls": 0,
+      "rebirths": 2,
+      "bestIndex": 1000,
+      "pvpParty": [
+        "c1"
+      ],
+      "releasedCount": 0,
+      "progress": {
+        "playTimeMs": 30705.39999976158,
+        "speciesKills": {},
+        "seenMonsters": [
+          "dragon",
+          "bat",
+          "slime"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": 0,
+        "rareMisses": 0,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    },
+    "identity": {
+      "name": "FixtureMe",
+      "playerId": "fixture-me",
+      "token": "fixture-me-token",
+      "notifiedTheftIds": []
+    },
+    "settings": {
+      "gameScale": 1,
+      "muted": true,
+      "screenShake": true,
+      "welcomeSeen": true,
+      "globalInputRequested": false
+    },
+    "nextCompanionId": 3
+  },
+  "finishedAt": "2026-09-15T09:17:18.429Z",
+  "passed": false
+}

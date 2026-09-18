@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "pid": 51526,
+  "startedAt": "2026-09-17T13:34:31.414Z",
+  "registrationPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03-registration.json",
+  "registrationHash": "0794ed87ccd606dfbbe922b908fd1a5faeb41a896311d71fb546628334651e96",
+  "reviewPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-method-review.json",
+  "reviewHash": "d3d50b84c0864a2b072fb56b65a9b5740af9568a646073b406654b572c1d6ce8",
+  "state": "passed",
+  "steps": [
+    {
+      "label": "baseline-active",
+      "args": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json",
+        "active",
+        "30"
+      ],
+      "startedAt": "2026-09-17T13:51:37.632Z",
+      "state": "passed",
+      "pid": 73018,
+      "signal": null,
+      "endedAt": "2026-09-17T14:21:39.357Z",
+      "exitCode": 0
+    },
+    {
+      "label": "baseline-idle",
+      "args": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/preservation/DesMon-0.9.1.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json",
+        "idle",
+        "30"
+      ],
+      "startedAt": "2026-09-17T14:21:39.559Z",
+      "state": "passed",
+      "pid": 11808,
+      "signal": null,
+      "endedAt": "2026-09-17T14:51:41.434Z",
+      "exitCode": 0
+    },
+    {
+      "label": "candidate-queue",
+      "args": [
+        ".harness/v10/run-performance.mjs",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-active.json",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03/baseline-idle.json",
+        "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+        "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-03"
+      ],
+      "startedAt": "2026-09-17T14:51:41.646Z",
+      "state": "passed",
+      "pid": 50512,
+      "signal": null,
+      "endedAt": "2026-09-17T18:51:48.821Z",
+      "exitCode": 0
+    }
+  ],
+  "previousActive": {
+    "at": "2026-09-17T13:51:37.002Z",
+    "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/attempt-02/candidate-active.json",
+    "reportHash": "dfec4fbc2efeef90a6ffb13dc060afd1b5d49621cb79d5e3023dd041583956fa",
+    "passed": false,
+    "cpu": {
+      "actual": 2.397737395438099,
+      "limit": 3.6747937256889855
+    },
+    "workingSetMiB": {
+      "actual": 323.5,
+      "limit": 290.375
+    },
+    "transition": "End attempt02 after completed active30 regardless of result, as registered before new baseline."
+  },
+  "observationsStartedAt": "2026-09-17T13:51:37.517Z",
+  "endedAt": "2026-09-17T18:51:49.019Z"
+}

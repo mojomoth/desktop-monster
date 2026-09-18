@@ -1,0 +1,69 @@
+import { writeFileSync } from 'node:fs';
+import { describe, expect, it } from 'vitest';
+import { createEngine, heroReady, mulberry32 } from '../src/core/index.js';
+import { ROSTER_CAP } from '../src/core/collection.js';
+
+type Profile = 'active' | 'idle' | 'intermittent';
+
+function run(profile: Profile, seed: number) {
+  const engine = createEngine(null, mulberry32(seed));
+  let lastKill = 0;
+  const gaps: number[] = [];
+  const cycles: { startSec: number; lvl12Sec: number | null; kills: number; killsFirstHalf: number; killsSecondHalf: number; endIndex: number; souls: number }[] = [];
+  let cur = { startSec: 0, lvl12Sec: null as number | null, kills: 0, killsFirstHalf: 0, killsSecondHalf: 0, endIndex: 0, souls: 0 };
+  let voidedCaptures = 0;
+  let bossKills = 0;
+  let heroDamage = 0n;
+  let companionDamage = 0n;
+  const killSeconds: number[] = [];
+  for (let sec = 1; sec <= 1800; sec++) {
+    const inputs = sec <= 120 || profile === 'active' || (profile === 'intermittent' && sec % 60 < 15) ? 2 : 0;
+    let killed = false;
+    let nKills = 0;
+    for (let i = 0; i < inputs; i++) {
+      const before = engine.getState();
+      const hit = engine.attack('keyboard');
+      for (const e of hit) {
+        if (e.type === 'attack') heroDamage += e.damage;
+        if (e.type === 'monsterKilled') { nKills++; if (e.monster.boss) { bossKills++; if (before.companions.length >= ROSTER_CAP) voidedCaptures++; } }
+      }
+      killed = nKills > 0 || killed;
+    }
+    const beforeTick = engine.getState();
+    const events = engine.tick(1000);
+    for (const e of events) {
+      if (e.type === 'companionAttack') companionDamage += e.damage;
+      if (e.type === 'monsterKilled') { nKills++; if (e.monster.boss) { bossKills++; if (beforeTick.companions.length >= ROSTER_CAP) voidedCaptures++; } }
+    }
+    killed = nKills > 0 || killed;
+    if (killed) { gaps.push(sec - lastKill); lastKill = sec; killSeconds.push(sec); }
+    cur.kills += nKills;
+    if (sec - cur.startSec <= 60) cur.killsFirstHalf += nKills; else cur.killsSecondHalf += nKills;
+    const state = engine.getState();
+    if (state.level >= 12 && cur.lvl12Sec === null) cur.lvl12Sec = sec - cur.startSec;
+    if (heroReady(state.level, state.hero)) {
+      engine.apply({ type: 'heroOffer' });
+      const hero = engine.getState().hero!;
+      engine.apply({ type: 'heroChoose', formId: hero.choices[0]!.formId, offerSerial: hero.offerSerial });
+      const after = engine.getState();
+      cur.endIndex = state.monster.index;
+      cur.souls = after.souls;
+      cycles.push(cur);
+      cur = { startSec: sec, lvl12Sec: null, kills: 0, killsFirstHalf: 0, killsSecondHalf: 0, endIndex: 0, souls: 0 };
+    }
+  }
+  const s = engine.getState();
+  return { profile, seed, gaps, cycles, voidedCaptures, bossKills, companions: s.companions.length,
+    heroDamage: heroDamage.toString(), companionDamage: companionDamage.toString(),
+    heroShare: Number(heroDamage * 10000n / (heroDamage + companionDamage)) / 100,
+    collected: s.hero?.collection.length ?? 0, souls: s.souls, killCount: s.killCount, coins: s.coins };
+}
+
+describe('scratch designer probe', () => {
+  it('probes', () => {
+    const out = (['active', 'idle', 'intermittent'] as const).flatMap((p) =>
+      Array.from({ length: 20 }, (_, i) => run(p, i + 1)));
+    writeFileSync('.agentdoc/v4-fun-post-heroes-20260909/probe.json', JSON.stringify(out));
+    expect(out.length).toBe(60);
+  }, 120_000);
+});

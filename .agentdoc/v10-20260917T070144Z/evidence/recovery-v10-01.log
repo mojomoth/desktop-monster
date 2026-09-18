@@ -1,0 +1,40 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ❯ tests/recoveryV10.test.ts (4 tests | 2 failed) 15ms
+   × v10 atomic equipment and unbounded wallet recovery > recovers purchase/auto equip/huge money together after save.json rename failure 8ms
+     → expected 1000000000000000000000000000000000000n to be 999999999999999999999999999999998500n // Object.is equality
+   × v10 atomic equipment and unbounded wallet recovery > recovers purchase/auto equip/huge money together after recovery.json rename failure 1ms
+     → expected 1000000000000000000000000000000000000n to be 999999999999999999999999999999998500n // Object.is equality
+   ✓ v10 atomic equipment and unbounded wallet recovery > authenticates old numeric backup bytes before exact v4 migration and preserves the original 2ms
+   ✓ v10 atomic equipment and unbounded wallet recovery > recognizes v4 on disk and refuses rounded legacy or malformed decimal currency without overwriting bytes 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/recoveryV10.test.ts > v10 atomic equipment and unbounded wallet recovery > recovers purchase/auto equip/huge money together after save.json rename failure
+ FAIL  tests/recoveryV10.test.ts > v10 atomic equipment and unbounded wallet recovery > recovers purchase/auto equip/huge money together after recovery.json rename failure
+AssertionError: expected 1000000000000000000000000000000000000n to be 999999999999999999999999999999998500n // Object.is equality
+
+- Expected
++ Received
+
+- 999999999999999999999999999999998500n
++ 1000000000000000000000000000000000000n
+
+ ❯ tests/recoveryV10.test.ts:28:37
+     26|     engine.apply({ type: 'equipmentBuy', itemId: item.id, shopSerial: …
+     27|     const purchased = engine.toSave();
+     28|     expect(BigInt(purchased.coins)).toBe(BigInt(initial.coins) - 1500n…
+       |                                     ^
+     29|     expect(purchased.equipment?.loadout.weapon?.id).toBe(item.id);
+     30|     expect(() => store.commit(purchased)).toThrow('injected rename');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  16:26:12
+   Duration  364ms (transform 126ms, setup 0ms, collect 160ms, tests 15ms, environment 0ms, prepare 38ms)
+

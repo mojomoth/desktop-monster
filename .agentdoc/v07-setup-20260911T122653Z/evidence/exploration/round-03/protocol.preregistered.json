@@ -1,0 +1,389 @@
+{
+  "schemaVersion": 2,
+  "harnessVersion": 7,
+  "kind": "desmon-v07-evaluation",
+  "phase": "candidate",
+  "experimentStage": "exploration",
+  "configuration": ".harness/v7/config.json",
+  "fixture": "fresh",
+  "round": 3,
+  "milestones": [
+    {
+      "id": "crownwyrm",
+      "label": "\uc655\uad00\uc6a9",
+      "kind": "monster",
+      "ids": [
+        "crownwyrm"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "speciesKills",
+          "id": "dragon",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "rootcolossus",
+      "label": "\ubfcc\ub9ac\uac70\uc778",
+      "kind": "monster",
+      "ids": [
+        "rootcolossus"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "h58",
+      "label": "\uc2ec\ud574 \uae30\uc0ac",
+      "kind": "hero",
+      "ids": [
+        "h58"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "elementKills",
+          "element": "water",
+          "count": 100
+        },
+        {
+          "kind": "speciesKills",
+          "id": "reefknight",
+          "count": 2
+        },
+        {
+          "kind": "totalKills",
+          "count": 1500
+        }
+      ]
+    },
+    {
+      "id": "h62",
+      "label": "\ucc9c\uacf5 \uc218\ud638\uc790",
+      "kind": "hero",
+      "ids": [
+        "h62"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 5
+        },
+        {
+          "kind": "seenMonsters",
+          "count": 60
+        },
+        {
+          "kind": "totalKills",
+          "count": 6000
+        }
+      ]
+    },
+    {
+      "id": "starvoid",
+      "label": "\ubcc4\uba39\uc774",
+      "kind": "monster",
+      "ids": [
+        "starvoid"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 16000
+        }
+      ]
+    },
+    {
+      "id": "h70",
+      "label": "\ubcc4\ubc24 \uacc4\uc2b9\uc790",
+      "kind": "hero",
+      "ids": [
+        "h70"
+      ],
+      "final": true,
+      "requirements": [
+        {
+          "kind": "uniqueHeroes",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 30000
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "control-l16",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 16,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100
+      }
+    },
+    {
+      "id": "control-l17",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100
+      }
+    },
+    {
+      "id": "control-l18",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 18,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100
+      }
+    },
+    {
+      "id": "control-l19",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 19,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100
+      }
+    },
+    {
+      "id": "control-l20",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 20,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": null,
+        "fieldHpTailNumerator": 115,
+        "fieldHpTailDenominator": 100
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-r3-tail111",
+      "hypothesis": "Preserve the XP1.41/L17 first journey through index79; use exact field-only 111/100 HP growth after79 to remove late progression stall without changing companion power, policy, timers or content counts. Both target goals remain unproven.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.41,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 111,
+        "fieldHpTailDenominator": 100
+      }
+    },
+    {
+      "id": "candidate-r3-tail108",
+      "hypothesis": "Preserve the XP1.41/L17 first journey through index79; use exact field-only 108/100 HP growth after79 to remove late progression stall without changing companion power, policy, timers or content counts. Both target goals remain unproven.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.41,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 108,
+        "fieldHpTailDenominator": 100
+      }
+    },
+    {
+      "id": "candidate-r3-tail105",
+      "hypothesis": "Preserve the XP1.41/L17 first journey through index79; use exact field-only 105/100 HP growth after79 to remove late progression stall without changing companion power, policy, timers or content counts. Both target goals remain unproven.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.41,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 105,
+        "fieldHpTailDenominator": 100
+      }
+    }
+  ],
+  "selectedExperiment": null,
+  "frozenAt": "2026-09-12T04:21:26.078232+00:00",
+  "selectionRule": {
+    "screeningMinutes": 120,
+    "minimumBy90Minutes": 18,
+    "denominator": 20,
+    "firstMedianMinutes": [
+      45,
+      60
+    ],
+    "finalMedianHours": [
+      8,
+      12
+    ],
+    "tieBreak": [
+      "population firstAccepted p50 distance from 3150 seconds",
+      "population final eligibility p50 distance from 36000 seconds",
+      "population firstAccepted p90",
+      "experiment id lexicographic"
+    ]
+  },
+  "notes": "Round03 preregistration before execution. Round02 XP141 first goal passed but12h h70 eligibility0/20 and kills median977; XP142/143 screening failed. Keep all6 content requirements and goals; compare3 exact rational HP tails afterindex79. New20-field parameter contract retains legacy17-field archived protocol verification. No validation seed used or candidate adopted.",
+  "changeHistory": [
+    {
+      "version": 1,
+      "reason": "Original baseline protocol preserved in contracts/candidate-01 and baseline archives."
+    },
+    {
+      "version": 2,
+      "reason": "Approved development plan preregistration before source changes and exploration."
+    },
+    {
+      "version": 2,
+      "round": 2,
+      "at": "2026-09-12T03:45:33.166515+00:00",
+      "reason": "All8 round01 failed screening; B16/20 by90min and C10/20 do not pass. Raise XP at L17 without changing field/capture/content.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/protocol.preregistered.json",
+      "analysis": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/round01-analysis/snapshot-08-reports-08-complete.json"
+    },
+    {
+      "version": 2,
+      "round": 3,
+      "at": "2026-09-12T04:21:26.078232+00:00",
+      "reason": "Round02 no eligibleboth candidate. XP141 long stall:12h kills p50=977, uniqueheroes7\u20139; keepcontent goals and relieve field-only deep HP growth.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-02/protocol.preregistered.json"
+    }
+  ],
+  "progressionParameterVersion": 2
+}

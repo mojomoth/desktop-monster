@@ -1,0 +1,68 @@
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ❯ tests/measurementV8.test.ts (6 tests | 3 failed) 23ms
+   × v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly 16ms
+     → Gold conservation failed.
+   ✓ v0.8 collection policy measurement > uses permanent ownership, prioritizes unowned rare, and retains original slot order for ties 1ms
+   ✓ v0.8 collection policy measurement > reorders only the detached policy view and consumes no RNG or engine action 2ms
+   × v0.8 collection policy measurement > chooses the actual third rare card and records the existing consume policy without species protection 2ms
+     → Gold conservation failed.
+   × v0.8 collection policy measurement > records full-roster releases separately from actual new companions 1ms
+     → Gold conservation failed.
+   ✓ v0.8 collection policy measurement > rejects unregistered policies and changed seed registration 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/measurementV8.test.ts > v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly
+Error: Gold conservation failed.
+ ❯ fail .harness/v7/loop/measure.mjs:12:35
+     10| import { ROOT, sourceDigest, evaluationDigest, sha256 } from './eviden…
+     11| 
+     12| const fail = (message) => { throw new Error(message); };
+       |                                   ^
+     13| const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+     14| const integer = (n, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.…
+ ❯ simulate .harness/v7/loop/measure.mjs:308:121
+ ❯ Module.simulate .harness/v8/measure.mjs:150:25
+ ❯ tests/measurementV8.test.ts:48:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/measurementV8.test.ts > v0.8 collection policy measurement > chooses the actual third rare card and records the existing consume policy without species protection
+Error: Gold conservation failed.
+ ❯ fail .harness/v7/loop/measure.mjs:12:35
+     10| import { ROOT, sourceDigest, evaluationDigest, sha256 } from './eviden…
+     11| 
+     12| const fail = (message) => { throw new Error(message); };
+       |                                   ^
+     13| const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+     14| const integer = (n, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.…
+ ❯ simulate .harness/v7/loop/measure.mjs:308:121
+ ❯ Module.simulate .harness/v8/measure.mjs:150:25
+ ❯ tests/measurementV8.test.ts:83:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/measurementV8.test.ts > v0.8 collection policy measurement > records full-roster releases separately from actual new companions
+Error: Gold conservation failed.
+ ❯ fail .harness/v7/loop/measure.mjs:12:35
+     10| import { ROOT, sourceDigest, evaluationDigest, sha256 } from './eviden…
+     11| 
+     12| const fail = (message) => { throw new Error(message); };
+       |                                   ^
+     13| const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+     14| const integer = (n, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.…
+ ❯ simulate .harness/v7/loop/measure.mjs:308:121
+ ❯ Module.simulate .harness/v8/measure.mjs:150:25
+ ❯ tests/measurementV8.test.ts:102:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 3 passed (6)
+   Start at  16:27:29
+   Duration  421ms (transform 141ms, setup 0ms, collect 182ms, tests 23ms, environment 0ms, prepare 67ms)
+

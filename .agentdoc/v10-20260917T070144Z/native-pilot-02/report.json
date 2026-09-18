@@ -1,0 +1,4569 @@
+{
+  "version": 10,
+  "source": "c11c871af27dce9683326ededf9aad0c1b5fccd09e87a34cea74a9f20d6cac5c",
+  "startedAt": "2026-09-17T07:42:01.321Z",
+  "attempts": [
+    {
+      "name": "motion-bare",
+      "ui": {
+        "family": "bare",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483910102",
+            "maxPhase": 173.39999999999986,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483910102",
+            "afterHp": "309470158987657483900334",
+            "maxPhase": 174.30000000000018,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483900334",
+            "afterHp": "309470158987657483864518",
+            "maxPhase": 174.89999999999964,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483864518",
+            "afterHp": "309470158987657483754628",
+            "maxPhase": 175.79999999999927,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "bare-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-1hz.png",
+            "sha256": "0516a4b72eb38eadc24032187489a78cea07ef045b135cf8c53fee3ad3cc0cd8"
+          },
+          {
+            "name": "bare-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-5hz.png",
+            "sha256": "115748e430c426eb6d09127294709e08317cf1cc200ec1fa807ae192116e971c"
+          },
+          {
+            "name": "bare-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-10hz.png",
+            "sha256": "b10c11d1a05728f430093e4555aa2ca4a32e48c31ae57351b763f58bef2d2bee"
+          },
+          {
+            "name": "bare-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-20hz.png",
+            "sha256": "73bc909071b86fef4039c35908d7c53dba0244e4c7c68f20fc96984554da357e"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:01.331Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-bN54AU",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-bN54AU",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": null,
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-bN54AU",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:42:11.816Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-sword",
+      "ui": {
+        "family": "sword",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483907172",
+            "maxPhase": 173,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483907172",
+            "afterHp": "309470158987657483879824",
+            "maxPhase": 174.29999999999973,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483879824",
+            "afterHp": "309470158987657483788664",
+            "maxPhase": 179.40000000000055,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483788664",
+            "afterHp": "309470158987657483494673",
+            "maxPhase": 179.90000000000055,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "sword-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-1hz.png",
+            "sha256": "f6c955d0925b3f7d7b41d38f5ca2d80bcc721ba95695c22fff753cf827efba78"
+          },
+          {
+            "name": "sword-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-5hz.png",
+            "sha256": "c9031dbb8c08601b94b9c4bf6588a3f18979302f4aee6740d8f38a0c3119c9d0"
+          },
+          {
+            "name": "sword-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-10hz.png",
+            "sha256": "051298b9c1f08618cf32e5bcfc9176213352acadb642c605e5610c5e26a26147"
+          },
+          {
+            "name": "sword-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-20hz.png",
+            "sha256": "47d72845569573bebfbe77142492b42e8f484b43d1c5dcdaec6b5ec60752a0e1"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:11.820Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-xc7hI5",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-xc7hI5",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-sword-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-xc7hI5",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:42:21.407Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-greatsword",
+      "ui": {
+        "family": "greatsword",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483907172",
+            "maxPhase": 179.99999999999997,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483907172",
+            "afterHp": "309470158987657483884382",
+            "maxPhase": 174.30000000000018,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483884382",
+            "afterHp": "309470158987657483777269",
+            "maxPhase": 175,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483777269",
+            "afterHp": "309470158987657483503789",
+            "maxPhase": 175.90000000000055,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "greatsword-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-1hz.png",
+            "sha256": "707adc410dd0431ab6d98878f90e25cf62d13aee3678869964693cc68f0757f6"
+          },
+          {
+            "name": "greatsword-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-5hz.png",
+            "sha256": "cf36218f21a056eca4cd2d14eaf90a16142dcee9969a4757d7d85cc4bb5f2990"
+          },
+          {
+            "name": "greatsword-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-10hz.png",
+            "sha256": "d338cef6fc2ae7fb62eae9823e2272d3aa8ecf4baf676c2f58d096138e5bdbb5"
+          },
+          {
+            "name": "greatsword-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-20hz.png",
+            "sha256": "f5b115f8ab7fa36553a41109c536e8292b451d97ce7a48c8b418a5b513bc0cc1"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:21.411Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-16rzLx",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-16rzLx",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-greatsword-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-16rzLx",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:42:30.956Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-spear",
+      "ui": {
+        "family": "spear",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483907172",
+            "maxPhase": 173.39999999999986,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483907172",
+            "afterHp": "309470158987657483882103",
+            "maxPhase": 174.29999999999973,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483882103",
+            "afterHp": "309470158987657483784106",
+            "maxPhase": 174.80000000000018,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483784106",
+            "afterHp": "309470158987657483476441",
+            "maxPhase": 175.70000000000073,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "spear-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-1hz.png",
+            "sha256": "8c271823ea4e36c489327297c5e5b8cb9133178195ec965955521f5151e709c9"
+          },
+          {
+            "name": "spear-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-5hz.png",
+            "sha256": "4aacfe4f90e11c2fbf8a0aac20619a509f5d81eb22831e416f7759c260ecba68"
+          },
+          {
+            "name": "spear-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-10hz.png",
+            "sha256": "1f3b6a4589c6900476809ce887f68b7f9240c3f6f237901e5bb41d5872fad50e"
+          },
+          {
+            "name": "spear-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-20hz.png",
+            "sha256": "914d373bb05da2e49a823b154d3d13b82ff0f4c349e28cf9ecfa3a3634e8e053"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:30.960Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ve8atL",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ve8atL",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-spear-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ve8atL",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:42:40.609Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-gun",
+      "ui": {
+        "family": "gun",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483902614",
+            "maxPhase": 179.1,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483902614",
+            "afterHp": "309470158987657483879824",
+            "maxPhase": 174.39999999999964,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483879824",
+            "afterHp": "309470158987657483781827",
+            "maxPhase": 179.59999999999945,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483781827",
+            "afterHp": "309470158987657483474162",
+            "maxPhase": 174.90000000000055,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "gun-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-1hz.png",
+            "sha256": "48710baf6ced5ccc779e0ec3dcbe72c7d9de46b1f9dcbf697924deb3f491116c"
+          },
+          {
+            "name": "gun-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-5hz.png",
+            "sha256": "7511d6153137f27b7213b650a1f6f70936b9e9d9e44d39441bec3cc48b419342"
+          },
+          {
+            "name": "gun-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-10hz.png",
+            "sha256": "093bebc78b9d3800e06e60c67fec8a9cc8571e2695e5b3f9c594df6e5c1d83d2"
+          },
+          {
+            "name": "gun-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-20hz.png",
+            "sha256": "6d845e79ddf8a2b0f4a861b34e23fdb2009328805ae2450dd3518c4735e772e7"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:40.614Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-0ubJBo",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-0ubJBo",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-gun-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-0ubJBo",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:42:50.220Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-dagger",
+      "ui": {
+        "family": "dagger",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483904893",
+            "maxPhase": 178.99999999999997,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483904893",
+            "afterHp": "309470158987657483882103",
+            "maxPhase": 174.30000000000018,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483882103",
+            "afterHp": "309470158987657483788664",
+            "maxPhase": 179.80000000000018,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483788664",
+            "afterHp": "309470158987657483467325",
+            "maxPhase": 174.90000000000055,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "dagger-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-1hz.png",
+            "sha256": "2c4b7aa0850d80dd9a890c326560828aeebcce959fdd936115396c179c16ca1c"
+          },
+          {
+            "name": "dagger-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-5hz.png",
+            "sha256": "4421bf525f448748ff020be2d0361053d5f207ea77cd93dfc41be521b8f95609"
+          },
+          {
+            "name": "dagger-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-10hz.png",
+            "sha256": "0c7b8c9654db95e8383404105e8b8bb98d9f8cd1185fdf973cd5707a874c136b"
+          },
+          {
+            "name": "dagger-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-20hz.png",
+            "sha256": "c06925d4dc15d716714d1f815a262e91e095ad29c00609826b477ac9563364f3"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:50.224Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-4T6hei",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-4T6hei",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-dagger-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-4T6hei",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:42:59.899Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-staff",
+      "ui": {
+        "family": "staff",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483907172",
+            "maxPhase": 173.4000000000001,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483907172",
+            "afterHp": "309470158987657483882103",
+            "maxPhase": 173.9000000000001,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483882103",
+            "afterHp": "309470158987657483790943",
+            "maxPhase": 174.09999999999945,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483790943",
+            "afterHp": "309470158987657483462767",
+            "maxPhase": 174.90000000000055,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "staff-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-1hz.png",
+            "sha256": "6174d08954823a7f54e5b4d8843461f1947b63d30f0e68b4d12f6a5d68b0dee3"
+          },
+          {
+            "name": "staff-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-5hz.png",
+            "sha256": "3f3ab01650fd1bd55911f5d48d2c8d2b58b610e528d9581f4093b930f0da26ce"
+          },
+          {
+            "name": "staff-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-10hz.png",
+            "sha256": "d94da3462fb634eb0a139fada90b40280cfaf5b0f00e634754ee007b52d7f390"
+          },
+          {
+            "name": "staff-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-20hz.png",
+            "sha256": "6a3cbaf9c9d06760ab25ba6585ad850be4caa9353e02872ea56895457d3cfa0c"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:42:59.902Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ueoYow",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ueoYow",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-staff-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ueoYow",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:09.600Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-hammer",
+      "ui": {
+        "family": "hammer",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483907172",
+            "maxPhase": 173.4000000000001,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483907172",
+            "afterHp": "309470158987657483884382",
+            "maxPhase": 174.5,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483884382",
+            "afterHp": "309470158987657483786385",
+            "maxPhase": 179.80000000000018,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483786385",
+            "afterHp": "309470158987657483492394",
+            "maxPhase": 174.8000000000011,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "hammer-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-1hz.png",
+            "sha256": "771fbaa5f1e08b9d721cd97c0b6d7de315c3787bef34a0cdf634dab6fec4db65"
+          },
+          {
+            "name": "hammer-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-5hz.png",
+            "sha256": "d8609b7cdb285f0f33495d56e2ac536c53afdecec06cf420d955c9eddb69db47"
+          },
+          {
+            "name": "hammer-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-10hz.png",
+            "sha256": "ba8c7758cb489616e4fcbf6766120c9bb3262858c0a344c91052520a070d2d5d"
+          },
+          {
+            "name": "hammer-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-20hz.png",
+            "sha256": "d4466d875d7da1547c3eb6ad2a955a6b29a34dc2fa3c81e67c6872c20af61136"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:09.604Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-rOcn1N",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-rOcn1N",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-hammer-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-rOcn1N",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:19.230Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "motion-gauntlet",
+      "ui": {
+        "family": "gauntlet",
+        "checks": [
+          {
+            "hz": 1,
+            "inputs": 2,
+            "beforeHp": "309470158987657483911730",
+            "afterHp": "309470158987657483907172",
+            "maxPhase": 173.4000000000001,
+            "passed": true
+          },
+          {
+            "hz": 5,
+            "inputs": 10,
+            "beforeHp": "309470158987657483907172",
+            "afterHp": "309470158987657483882103",
+            "maxPhase": 174.30000000000018,
+            "passed": true
+          },
+          {
+            "hz": 10,
+            "inputs": 20,
+            "beforeHp": "309470158987657483882103",
+            "afterHp": "309470158987657483790943",
+            "maxPhase": 179.89999999999964,
+            "passed": true
+          },
+          {
+            "hz": 20,
+            "inputs": 40,
+            "beforeHp": "309470158987657483790943",
+            "afterHp": "309470158987657483503789",
+            "maxPhase": 175,
+            "passed": true
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "gauntlet-1hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-1hz.png",
+            "sha256": "80a51d4e1b43badb3450bc071a585fb90d92d1b93bbaf3c31a3fcc53778919ec"
+          },
+          {
+            "name": "gauntlet-5hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-5hz.png",
+            "sha256": "120121129e080737be7fcc4102790fa56c4a98d0c051570fff796a9ca072d8fd"
+          },
+          {
+            "name": "gauntlet-10hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-10hz.png",
+            "sha256": "626c3c0d0937fc25275e708d7133d1dd497c655ca0bb514b94beda569f4aec5c"
+          },
+          {
+            "name": "gauntlet-20hz",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-20hz.png",
+            "sha256": "7334c9546d456357a0afceed94952cd2c31afc3c41054d4fa66c20d2ea938f99"
+          }
+        ],
+        "passed": true,
+        "settled": true
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:19.241Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ULc2lR",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ULc2lR",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-gauntlet-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-ULc2lR",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:29.686Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "equipment",
+      "ui": {
+        "checks": [
+          {
+            "name": "four-accessory-copies",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "all-incompatible-items-temporary",
+            "passed": true,
+            "details": {
+              "ids": [
+                "e1",
+                "e2",
+                "e3",
+                "e4",
+                "e5"
+              ]
+            }
+          },
+          {
+            "name": "warning-cancel-preserves-items",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "enhancement-and-wallet",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "confirmed-loss-exact",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "hourly-stock-and-affordable-offer",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "shop-purchase-saved-once",
+            "passed": true,
+            "details": {}
+          },
+          {
+            "name": "epic-loot-visible",
+            "passed": true,
+            "details": {}
+          }
+        ],
+        "screenshots": [
+          {
+            "name": "inventory-before",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/inventory-before.png",
+            "sha256": "ed26a1f68a2c4736e3696f692a9fbb02f70ba910a4df1188dc0df848be4555a4"
+          },
+          {
+            "name": "inventory-temporary",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/inventory-temporary.png",
+            "sha256": "595a413069defaa0d04129c5cfaebe8ba811f234a1c864645333f6a9dcccf37e"
+          },
+          {
+            "name": "shop",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/shop.png",
+            "sha256": "be87fe8e61dd65845a5be97bf7323863e5c06d18c4a43aad5c9ac3c3e914e2b6"
+          },
+          {
+            "name": "epic-codex",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/epic-codex.png",
+            "sha256": "b9c0cd0f9e865065eb5e14602c4fb41359a28f58a8f02a03c8853c96318b648e"
+          }
+        ],
+        "passed": true,
+        "expectedOnRestart": {
+          "version": 4,
+          "level": 30,
+          "xp": 0,
+          "killCount": 0,
+          "coins": "999999999999999999999999999986400",
+          "pvpGoldNet": "0",
+          "pvpGoldDebt": "0",
+          "items": {},
+          "monsterIndex": 1000,
+          "monsterSpeciesId": "slime",
+          "monsterHp": "309470158987657483911730",
+          "companions": [],
+          "nextCompanionId": 1,
+          "earlyCaptureUsed": 0,
+          "souls": 0,
+          "releasedCount": 0,
+          "rebirths": 0,
+          "bestIndex": 1000,
+          "pvpParty": [],
+          "hero": {
+            "equipped": {
+              "formId": "h01",
+              "buffPercent": 20
+            },
+            "collection": [
+              {
+                "formId": "h01",
+                "buffPercent": 20
+              },
+              {
+                "formId": "h02",
+                "buffPercent": 20
+              }
+            ],
+            "reincarnations": 0,
+            "choices": [],
+            "deferRemainingMs": 0,
+            "offerSerial": 0
+          },
+          "progress": {
+            "playTimeMs": 1475.699999952316,
+            "speciesKills": {},
+            "seenMonsters": [
+              "slime"
+            ],
+            "seenHeroes": [
+              "h01",
+              "h02"
+            ],
+            "heroCounts": {
+              "h01": 1,
+              "h02": 1
+            },
+            "reincarnationHistory": [],
+            "pvpWins": 0,
+            "pvpLosses": 0,
+            "goldSpent": "18400",
+            "rareMisses": 0,
+            "trainingLevel": 0,
+            "lureRemaining": 0,
+            "shopSerial": 0,
+            "legacyHistory": false,
+            "codex": {
+              "acknowledgedHeroes": [
+                "h01",
+                "h02"
+              ],
+              "acknowledgedMonsters": [],
+              "goal": null
+            }
+          },
+          "equipment": {
+            "bag": [
+              {
+                "id": "e7",
+                "templateId": "w-greatsword-common-4",
+                "enhancement": "0",
+                "roll": 90,
+                "seed": 1892713626,
+                "attempts": "0"
+              }
+            ],
+            "loadout": {
+              "weapon": {
+                "id": "e1",
+                "templateId": "w-sword-rare-3",
+                "enhancement": "1",
+                "roll": 100,
+                "seed": 1482449629,
+                "attempts": "1"
+              },
+              "accessories": []
+            },
+            "temporary": [],
+            "capacity": 1,
+            "expansions": 0,
+            "revision": 8,
+            "temporaryRevision": 4,
+            "heroChangeSerial": 2,
+            "nextId": 19,
+            "rngState": 2015884114,
+            "acquired": {
+              "w-greatsword-common-4": 1
+            },
+            "shop": {
+              "serial": 1,
+              "nextRefreshAt": 1789632000000,
+              "lastObservedAt": 1789631012323,
+              "stock": [
+                {
+                  "id": "e7",
+                  "templateId": "w-greatsword-common-4",
+                  "enhancement": "0",
+                  "roll": 90,
+                  "seed": 1892713626,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e8",
+                  "templateId": "w-dagger-rare-1",
+                  "enhancement": "0",
+                  "roll": 110,
+                  "seed": 1815378468,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e9",
+                  "templateId": "a-necklace-critical-common-4",
+                  "enhancement": "0",
+                  "roll": 110,
+                  "seed": 386449622,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e10",
+                  "templateId": "w-hammer-rare-1",
+                  "enhancement": "0",
+                  "roll": 99,
+                  "seed": 2323759871,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e11",
+                  "templateId": "w-spear-common-1",
+                  "enhancement": "0",
+                  "roll": 102,
+                  "seed": 2839262322,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e12",
+                  "templateId": "w-gauntlet-rare-4",
+                  "enhancement": "0",
+                  "roll": 95,
+                  "seed": 1999492774,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e13",
+                  "templateId": "a-ring-critical-common-2",
+                  "enhancement": "0",
+                  "roll": 101,
+                  "seed": 2495928000,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e14",
+                  "templateId": "a-charm-critical-common-1",
+                  "enhancement": "0",
+                  "roll": 103,
+                  "seed": 3522660192,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e15",
+                  "templateId": "a-charm-critical-rare-3",
+                  "enhancement": "0",
+                  "roll": 91,
+                  "seed": 3008106270,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e16",
+                  "templateId": "w-gun-uncommon-3",
+                  "enhancement": "0",
+                  "roll": 90,
+                  "seed": 382062126,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e17",
+                  "templateId": "a-necklace-critical-rare-4",
+                  "enhancement": "0",
+                  "roll": 110,
+                  "seed": 1401600117,
+                  "attempts": "0"
+                },
+                {
+                  "id": "e18",
+                  "templateId": "a-charm-party-uncommon-1",
+                  "enhancement": "0",
+                  "roll": 103,
+                  "seed": 2881615896,
+                  "attempts": "0"
+                }
+              ],
+              "boughtIds": [
+                "e7"
+              ]
+            }
+          }
+        }
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:29.701Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-XdJfGl",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-XdJfGl",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-sword-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": [
+                      {
+                        "id": "e2",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 396280900,
+                        "attempts": "0"
+                      },
+                      {
+                        "id": "e3",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 2101249537,
+                        "attempts": "0"
+                      },
+                      {
+                        "id": "e4",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 2612390240,
+                        "attempts": "0"
+                      },
+                      {
+                        "id": "e5",
+                        "templateId": "a-ring-critical-rare-2",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 3359081762,
+                        "attempts": "0"
+                      }
+                    ]
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "임시 장비 소멸 확인",
+                "message": "영웅을 변경하면 아래 임시 장비가 사라집니다.",
+                "detail": "왕실의 별빛 칼날 +0\n서약의 별빛 예리 반지 +0\n서약의 별빛 예리 반지 +0\n서약의 별빛 예리 반지 +0\n서약의 별빛 예리 반지 +0",
+                "buttons": [
+                  "취소",
+                  "장비 삭제 후 변경"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 0
+            },
+            {
+              "kind": "message",
+              "options": {
+                "type": "warning",
+                "title": "임시 장비 소멸 확인",
+                "message": "영웅을 변경하면 아래 임시 장비가 사라집니다.",
+                "detail": "서약의 별빛 예리 반지 +0\n서약의 별빛 예리 반지 +0\n서약의 별빛 예리 반지 +0\n서약의 별빛 예리 반지 +0",
+                "buttons": [
+                  "취소",
+                  "장비 삭제 후 변경"
+                ],
+                "defaultId": 0,
+                "cancelId": 0,
+                "noLink": true
+              },
+              "response": 1
+            }
+          ],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-XdJfGl",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:33.661Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "equipment-restart",
+      "ui": {
+        "passed": true,
+        "checks": [
+          "wallet",
+          "bag",
+          "five-slots",
+          "temporary",
+          "saved-hourly-stock"
+        ]
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:33.664Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-XdJfGl",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-XdJfGl",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h01",
+                    "buffPercent": 20
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-sword-rare-3",
+                      "enhancement": "1",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "1"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h01",
+                  "buffPercent": 20
+                },
+                "gold": {
+                  "revision": 2,
+                  "coins": "999999999999999999999999999986400"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 3,
+                  "net": "0",
+                  "balance": "999999999999999999999999999986400"
+                }
+              }
+            }
+          ],
+          "fixtureRequests": [],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-XdJfGl",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:36.418Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "boss-drop",
+      "ui": {
+        "passed": true,
+        "checks": [
+          "boss-only-acquisition",
+          "same-save-kill-and-equipment"
+        ],
+        "screenshots": [
+          {
+            "name": "boss-drop",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/boss-drop/boss-drop.png",
+            "sha256": "5ca5c319a610b3a3e988c2a2bf3a8b23a99aaff65438925c485b54b65c684b96"
+          }
+        ]
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:36.422Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-9MbLHO",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-9MbLHO",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-sword-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-9MbLHO",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:37.825Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "hero-pvp",
+      "ui": {
+        "passed": true,
+        "checks": [
+          "native-opponent-button",
+          "hero-only-actor",
+          "frozen-five-gear-slots",
+          "initial-hp",
+          "real-replay-completion"
+        ],
+        "presentation": {
+          "battleId": "0000000000000001-A",
+          "role": "attack",
+          "ownParty": [],
+          "ownHero": {
+            "formId": "h00",
+            "buffPercent": 0
+          },
+          "ownCombat": {
+            "hero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "level": 30,
+            "souls": 0,
+            "reincarnations": 0,
+            "trainingLevel": 0,
+            "loadout": {
+              "weapon": {
+                "id": "e1",
+                "templateId": "w-dagger-rare-3",
+                "enhancement": "0",
+                "roll": 100,
+                "seed": 1482449629,
+                "attempts": "0"
+              },
+              "accessories": []
+            }
+          },
+          "won": true,
+          "goldDelta": "50",
+          "replay": {
+            "opponentName": "FixtureFoe",
+            "opponentParty": [],
+            "opponentHero": {
+              "formId": "h00",
+              "buffPercent": 0
+            },
+            "opponentCombat": {
+              "hero": {
+                "formId": "h00",
+                "buffPercent": 0
+              },
+              "level": 30,
+              "souls": 0,
+              "reincarnations": 0,
+              "trainingLevel": 0,
+              "loadout": {
+                "weapon": {
+                  "id": "e1",
+                  "templateId": "w-dagger-rare-3",
+                  "enhancement": "0",
+                  "roll": 100,
+                  "seed": 1482449629,
+                  "attempts": "0"
+                },
+                "accessories": []
+              }
+            },
+            "ownFighters": [
+              {
+                "id": "@hero",
+                "kind": "hero",
+                "formId": "h00",
+                "hp": "4070",
+                "attack": "2279"
+              }
+            ],
+            "opponentFighters": [
+              {
+                "id": "@hero",
+                "kind": "hero",
+                "formId": "h00",
+                "hp": "4070",
+                "attack": "2279"
+              }
+            ],
+            "blows": [
+              {
+                "side": "A",
+                "actorId": "@hero",
+                "targetId": "@hero",
+                "actorKind": "hero",
+                "targetKind": "hero",
+                "damage": "4558",
+                "ko": true,
+                "crit": true
+              }
+            ]
+          }
+        },
+        "screenshots": [
+          {
+            "name": "hero-pvp",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/hero-pvp/hero-pvp.png",
+            "sha256": "5d264f6b374451457ed8859ae74fe3b179d7b084e7213d7a08ac20b920bac455"
+          }
+        ]
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:37.828Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-PGns9v",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-PGns9v",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [
+            {
+              "method": "GET",
+              "path": "/v1/pvp/events",
+              "query": {
+                "after": "0"
+              },
+              "body": null,
+              "status": 200,
+              "result": {
+                "events": [],
+                "latestSeq": 0
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 1,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-dagger-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 1,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/thefts",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "thefts": []
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 2,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-dagger-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 2,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 3,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/pvp/opponents",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "opponents": [
+                  {
+                    "playerId": "fixture-foe",
+                    "rank": 1,
+                    "name": "FixtureFoe",
+                    "bestIndex": 1000,
+                    "rebirths": 0,
+                    "hero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    },
+                    "party": [],
+                    "combat": {
+                      "hero": {
+                        "formId": "h00",
+                        "buffPercent": 0
+                      },
+                      "level": 30,
+                      "souls": 0,
+                      "reincarnations": 0,
+                      "trainingLevel": 0,
+                      "loadout": {
+                        "weapon": {
+                          "id": "e1",
+                          "templateId": "w-dagger-rare-3",
+                          "enhancement": "0",
+                          "roll": 100,
+                          "seed": 1482449629,
+                          "attempts": "0"
+                        },
+                        "accessories": []
+                      }
+                    },
+                    "wins": 0,
+                    "losses": 0
+                  }
+                ]
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 0,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": null,
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 3,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "query": {},
+              "body": {
+                "name": "FixtureMe",
+                "protocol": "equipment-gold-v2",
+                "combat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-dagger-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "level": 30,
+                "bestIndex": 1000,
+                "rebirths": 0,
+                "companions": [],
+                "party": [],
+                "hero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "gold": {
+                  "revision": 3,
+                  "coins": "1000000000000000000000000000000000"
+                }
+              },
+              "status": 200,
+              "result": {
+                "rank": 1,
+                "removed": [],
+                "thefts": [],
+                "gold": {
+                  "revision": 4,
+                  "net": "0",
+                  "balance": "1000000000000000000000000000000000"
+                }
+              }
+            },
+            {
+              "method": "POST",
+              "path": "/v1/pvp/match",
+              "query": {},
+              "body": {
+                "opponentId": "fixture-foe",
+                "mode": "equipment-gold-v2"
+              },
+              "status": 200,
+              "result": {
+                "matchId": "0000000000000001",
+                "seed": 7,
+                "bot": false,
+                "opponent": {
+                  "playerId": "fixture-foe",
+                  "name": "FixtureFoe",
+                  "bestIndex": 1000,
+                  "rebirths": 0,
+                  "party": [],
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "combat": {
+                    "hero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    },
+                    "level": 30,
+                    "souls": 0,
+                    "reincarnations": 0,
+                    "trainingLevel": 0,
+                    "loadout": {
+                      "weapon": {
+                        "id": "e1",
+                        "templateId": "w-dagger-rare-3",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 1482449629,
+                        "attempts": "0"
+                      },
+                      "accessories": []
+                    }
+                  }
+                },
+                "expiresAt": 1789631138809
+              }
+            },
+            {
+              "method": "POST",
+              "path": "/v1/pvp",
+              "query": {},
+              "body": {
+                "matchId": "0000000000000001",
+                "party": [],
+                "mode": "equipment-gold-v2"
+              },
+              "status": 200,
+              "result": {
+                "matchId": "0000000000000001",
+                "record": {
+                  "wins": 1,
+                  "losses": 0
+                },
+                "bot": false,
+                "seed": 7,
+                "win": true,
+                "opponent": {
+                  "playerId": "fixture-foe",
+                  "name": "FixtureFoe",
+                  "bestIndex": 1000,
+                  "rebirths": 0,
+                  "party": [],
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "combat": {
+                    "hero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    },
+                    "level": 30,
+                    "souls": 0,
+                    "reincarnations": 0,
+                    "trainingLevel": 0,
+                    "loadout": {
+                      "weapon": {
+                        "id": "e1",
+                        "templateId": "w-dagger-rare-3",
+                        "enhancement": "0",
+                        "roll": 100,
+                        "seed": 1482449629,
+                        "attempts": "0"
+                      },
+                      "accessories": []
+                    }
+                  }
+                },
+                "blows": [
+                  {
+                    "side": "A",
+                    "actorId": "@hero",
+                    "targetId": "@hero",
+                    "actorKind": "hero",
+                    "targetKind": "hero",
+                    "damage": "4558",
+                    "ko": true,
+                    "crit": true
+                  }
+                ],
+                "stolen": null,
+                "lost": null,
+                "ownCombat": {
+                  "hero": {
+                    "formId": "h00",
+                    "buffPercent": 0
+                  },
+                  "level": 30,
+                  "souls": 0,
+                  "reincarnations": 0,
+                  "trainingLevel": 0,
+                  "loadout": {
+                    "weapon": {
+                      "id": "e1",
+                      "templateId": "w-dagger-rare-3",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 1482449629,
+                      "attempts": "0"
+                    },
+                    "accessories": []
+                  }
+                },
+                "ownFighters": [
+                  {
+                    "id": "@hero",
+                    "kind": "hero",
+                    "formId": "h00",
+                    "hp": "4070",
+                    "attack": "2279"
+                  }
+                ],
+                "opponentFighters": [
+                  {
+                    "id": "@hero",
+                    "kind": "hero",
+                    "formId": "h00",
+                    "hp": "4070",
+                    "attack": "2279"
+                  }
+                ],
+                "gold": {
+                  "amount": "50",
+                  "delta": "50",
+                  "reason": "transfer"
+                },
+                "ownParty": [],
+                "ownHero": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/me",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "version": 9,
+                "wins": 1,
+                "losses": 0,
+                "revokedIds": [],
+                "lastMatch": {
+                  "matchId": "0000000000000001",
+                  "result": {
+                    "matchId": "0000000000000001",
+                    "record": {
+                      "wins": 1,
+                      "losses": 0
+                    },
+                    "bot": false,
+                    "seed": 7,
+                    "win": true,
+                    "opponent": {
+                      "playerId": "fixture-foe",
+                      "name": "FixtureFoe",
+                      "bestIndex": 1000,
+                      "rebirths": 0,
+                      "party": [],
+                      "hero": {
+                        "formId": "h00",
+                        "buffPercent": 0
+                      },
+                      "combat": {
+                        "hero": {
+                          "formId": "h00",
+                          "buffPercent": 0
+                        },
+                        "level": 30,
+                        "souls": 0,
+                        "reincarnations": 0,
+                        "trainingLevel": 0,
+                        "loadout": {
+                          "weapon": {
+                            "id": "e1",
+                            "templateId": "w-dagger-rare-3",
+                            "enhancement": "0",
+                            "roll": 100,
+                            "seed": 1482449629,
+                            "attempts": "0"
+                          },
+                          "accessories": []
+                        }
+                      }
+                    },
+                    "blows": [
+                      {
+                        "side": "A",
+                        "actorId": "@hero",
+                        "targetId": "@hero",
+                        "actorKind": "hero",
+                        "targetKind": "hero",
+                        "damage": "4558",
+                        "ko": true,
+                        "crit": true
+                      }
+                    ],
+                    "stolen": null,
+                    "lost": null,
+                    "ownCombat": {
+                      "hero": {
+                        "formId": "h00",
+                        "buffPercent": 0
+                      },
+                      "level": 30,
+                      "souls": 0,
+                      "reincarnations": 0,
+                      "trainingLevel": 0,
+                      "loadout": {
+                        "weapon": {
+                          "id": "e1",
+                          "templateId": "w-dagger-rare-3",
+                          "enhancement": "0",
+                          "roll": 100,
+                          "seed": 1482449629,
+                          "attempts": "0"
+                        },
+                        "accessories": []
+                      }
+                    },
+                    "ownFighters": [
+                      {
+                        "id": "@hero",
+                        "kind": "hero",
+                        "formId": "h00",
+                        "hp": "4070",
+                        "attack": "2279"
+                      }
+                    ],
+                    "opponentFighters": [
+                      {
+                        "id": "@hero",
+                        "kind": "hero",
+                        "formId": "h00",
+                        "hp": "4070",
+                        "attack": "2279"
+                      }
+                    ],
+                    "gold": {
+                      "amount": "50",
+                      "delta": "50",
+                      "reason": "transfer"
+                    },
+                    "ownParty": [],
+                    "ownHero": {
+                      "formId": "h00",
+                      "buffPercent": 0
+                    }
+                  }
+                },
+                "lastReclaim": null,
+                "pvpMode": "equipment-gold-v2",
+                "gold": {
+                  "revision": 5,
+                  "net": "50",
+                  "balance": "1000000000000000000000000000000050"
+                }
+              }
+            },
+            {
+              "method": "GET",
+              "path": "/v1/thefts",
+              "query": {},
+              "body": null,
+              "status": 200,
+              "result": {
+                "thefts": []
+              }
+            }
+          ],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-PGns9v",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/menu.html",
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:39.932Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    },
+    {
+      "name": "historical-replay",
+      "ui": {
+        "passed": true,
+        "checks": [
+          "numeric-gold-legacy-receipt",
+          "legacy-companion-replay"
+        ],
+        "screenshots": [
+          {
+            "name": "historical-replay",
+            "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/historical-replay/historical-replay.png",
+            "sha256": "c3925342b33de6e932a06a0c53ae659d803ec9fa548c8bb6e2beede025a9e535"
+          }
+        ]
+      },
+      "runtime": {
+        "version": 1,
+        "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app",
+        "appHash": "35f175b4765ae442f2d1fc1131c523acc45950a59c38d3acba6e6cbd2c23c33e",
+        "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+        "startedAt": "2026-09-17T07:43:39.935Z",
+        "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-MUMY6H",
+        "metadata": {
+          "version": "0.10.0",
+          "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-MUMY6H",
+          "runtime": {
+            "node": "22.22.1",
+            "acorn": "8.15.0",
+            "ada": "2.9.2",
+            "amaro": "1.1.5",
+            "ares": "1.34.6",
+            "brotli": "1.0.9",
+            "cjs_module_lexer": "2.2.0",
+            "cldr": "44.1",
+            "icu": "74.2",
+            "llhttp": "9.3.0",
+            "modules": "140",
+            "napi": "10",
+            "nbytes": "0.1.1",
+            "ncrypto": "0.0.1",
+            "nghttp2": "1.64.0",
+            "openssl": "0.0.0",
+            "simdjson": "4.2.4",
+            "simdutf": "7.3.3",
+            "sqlite": "3.51.2",
+            "tz": "2025b",
+            "undici": "6.23.0",
+            "unicode": "15.1",
+            "uv": "1.51.0",
+            "uvwasi": "0.0.23",
+            "v8": "14.2.231.22-electron.0",
+            "zlib": "1.3.1",
+            "zstd": "1.5.8",
+            "electron": "39.8.10",
+            "chrome": "142.0.7444.265"
+          }
+        },
+        "diagnostics": {
+          "permissionCalls": [],
+          "hookLoads": 0,
+          "requests": [],
+          "fixtureRequests": [
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-me",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000000000000000000000000000000000"
+                  }
+                }
+              }
+            },
+            {
+              "method": "PUT",
+              "path": "/v1/snapshot",
+              "playerId": "fixture-foe",
+              "result": {
+                "status": 200,
+                "body": {
+                  "rank": 1,
+                  "removed": [],
+                  "thefts": [],
+                  "gold": {
+                    "revision": 1,
+                    "net": "0",
+                    "balance": "1000"
+                  }
+                }
+              }
+            }
+          ],
+          "notificationSupported": false,
+          "dialogs": [],
+          "exports": [],
+          "fixtureAccounts": [
+            "fixture-me",
+            "fixture-foe"
+          ],
+          "errors": [],
+          "firstFrame": true,
+          "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-MUMY6H",
+          "windows": [
+            "file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/pilot-package/mac-arm64/DesMon.app/Contents/Resources/app.asar/static/index.html"
+          ]
+        },
+        "errors": [],
+        "isolation": {
+          "globalHooks": false,
+          "permissionPrompts": false,
+          "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+          "notifications": false,
+          "input": "none from launcher; UI cases use native sendInputEvent",
+          "clock": "real time; one debugger pause to install read-only closure observer",
+          "data": "owned fixture directory only"
+        },
+        "packageBinding": {
+          "checked": 118,
+          "mismatches": [],
+          "passed": true
+        },
+        "finishedAt": "2026-09-17T07:43:48.063Z",
+        "exitCode": 0,
+        "signal": null,
+        "appUnchanged": true,
+        "passed": true
+      }
+    }
+  ],
+  "artifacts": {
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-1hz.png": "0516a4b72eb38eadc24032187489a78cea07ef045b135cf8c53fee3ad3cc0cd8",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-5hz.png": "115748e430c426eb6d09127294709e08317cf1cc200ec1fa807ae192116e971c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-10hz.png": "b10c11d1a05728f430093e4555aa2ca4a32e48c31ae57351b763f58bef2d2bee",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-bare/bare-20hz.png": "73bc909071b86fef4039c35908d7c53dba0244e4c7c68f20fc96984554da357e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-1hz.png": "f6c955d0925b3f7d7b41d38f5ca2d80bcc721ba95695c22fff753cf827efba78",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-5hz.png": "c9031dbb8c08601b94b9c4bf6588a3f18979302f4aee6740d8f38a0c3119c9d0",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-10hz.png": "051298b9c1f08618cf32e5bcfc9176213352acadb642c605e5610c5e26a26147",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-sword/sword-20hz.png": "47d72845569573bebfbe77142492b42e8f484b43d1c5dcdaec6b5ec60752a0e1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-1hz.png": "707adc410dd0431ab6d98878f90e25cf62d13aee3678869964693cc68f0757f6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-5hz.png": "cf36218f21a056eca4cd2d14eaf90a16142dcee9969a4757d7d85cc4bb5f2990",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-10hz.png": "d338cef6fc2ae7fb62eae9823e2272d3aa8ecf4baf676c2f58d096138e5bdbb5",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-greatsword/greatsword-20hz.png": "f5b115f8ab7fa36553a41109c536e8292b451d97ce7a48c8b418a5b513bc0cc1",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-1hz.png": "8c271823ea4e36c489327297c5e5b8cb9133178195ec965955521f5151e709c9",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-5hz.png": "4aacfe4f90e11c2fbf8a0aac20619a509f5d81eb22831e416f7759c260ecba68",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-10hz.png": "1f3b6a4589c6900476809ce887f68b7f9240c3f6f237901e5bb41d5872fad50e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-spear/spear-20hz.png": "914d373bb05da2e49a823b154d3d13b82ff0f4c349e28cf9ecfa3a3634e8e053",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-1hz.png": "48710baf6ced5ccc779e0ec3dcbe72c7d9de46b1f9dcbf697924deb3f491116c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-5hz.png": "7511d6153137f27b7213b650a1f6f70936b9e9d9e44d39441bec3cc48b419342",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-10hz.png": "093bebc78b9d3800e06e60c67fec8a9cc8571e2695e5b3f9c594df6e5c1d83d2",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gun/gun-20hz.png": "6d845e79ddf8a2b0f4a861b34e23fdb2009328805ae2450dd3518c4735e772e7",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-1hz.png": "2c4b7aa0850d80dd9a890c326560828aeebcce959fdd936115396c179c16ca1c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-5hz.png": "4421bf525f448748ff020be2d0361053d5f207ea77cd93dfc41be521b8f95609",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-10hz.png": "0c7b8c9654db95e8383404105e8b8bb98d9f8cd1185fdf973cd5707a874c136b",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-dagger/dagger-20hz.png": "c06925d4dc15d716714d1f815a262e91e095ad29c00609826b477ac9563364f3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-1hz.png": "6174d08954823a7f54e5b4d8843461f1947b63d30f0e68b4d12f6a5d68b0dee3",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-5hz.png": "3f3ab01650fd1bd55911f5d48d2c8d2b58b610e528d9581f4093b930f0da26ce",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-10hz.png": "d94da3462fb634eb0a139fada90b40280cfaf5b0f00e634754ee007b52d7f390",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-staff/staff-20hz.png": "6a3cbaf9c9d06760ab25ba6585ad850be4caa9353e02872ea56895457d3cfa0c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-1hz.png": "771fbaa5f1e08b9d721cd97c0b6d7de315c3787bef34a0cdf634dab6fec4db65",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-5hz.png": "d8609b7cdb285f0f33495d56e2ac536c53afdecec06cf420d955c9eddb69db47",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-10hz.png": "ba8c7758cb489616e4fcbf6766120c9bb3262858c0a344c91052520a070d2d5d",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-hammer/hammer-20hz.png": "d4466d875d7da1547c3eb6ad2a955a6b29a34dc2fa3c81e67c6872c20af61136",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-1hz.png": "80a51d4e1b43badb3450bc071a585fb90d92d1b93bbaf3c31a3fcc53778919ec",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-5hz.png": "120121129e080737be7fcc4102790fa56c4a98d0c051570fff796a9ca072d8fd",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-10hz.png": "626c3c0d0937fc25275e708d7133d1dd497c655ca0bb514b94beda569f4aec5c",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/motion-gauntlet/gauntlet-20hz.png": "7334c9546d456357a0afceed94952cd2c31afc3c41054d4fa66c20d2ea938f99",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/inventory-before.png": "ed26a1f68a2c4736e3696f692a9fbb02f70ba910a4df1188dc0df848be4555a4",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/inventory-temporary.png": "595a413069defaa0d04129c5cfaebe8ba811f234a1c864645333f6a9dcccf37e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/shop.png": "be87fe8e61dd65845a5be97bf7323863e5c06d18c4a43aad5c9ac3c3e914e2b6",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/equipment/epic-codex.png": "b9c0cd0f9e865065eb5e14602c4fb41359a28f58a8f02a03c8853c96318b648e",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/boss-drop/boss-drop.png": "5ca5c319a610b3a3e988c2a2bf3a8b23a99aaff65438925c485b54b65c684b96",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/hero-pvp/hero-pvp.png": "5d264f6b374451457ed8859ae74fe3b179d7b084e7213d7a08ac20b920bac455",
+    "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native-pilot-02/historical-replay/historical-replay.png": "c3925342b33de6e932a06a0c53ae659d803ec9fa548c8bb6e2beede025a9e535"
+  },
+  "errors": [],
+  "passed": false,
+  "sourceUnchanged": false,
+  "finishedAt": "2026-09-17T07:43:48.134Z"
+}

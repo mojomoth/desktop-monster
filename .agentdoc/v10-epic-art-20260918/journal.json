@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "task": "epic-equipment-art",
+  "createdAt": "2026-09-18T02:21:12.710Z",
+  "status": "complete",
+  "parentRun": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z",
+  "scope": "32 epic weapon and 24 epic accessory appearances; original lower-rarity pixels and gameplay preserved",
+  "agents": {
+    "Host": "/root",
+    "Designer": "/root/sprite_qa",
+    "Critic": "/root/equipment_economy/cleanup_counterexamples"
+  },
+  "verification": [
+    "canonical gates",
+    "all gear pose/grip/mirror/clipping tests",
+    "lower-rarity exact pixel preservation",
+    "actual Electron native scenarios and gallery",
+    "macOS and Windows packaging"
+  ],
+  "performance": "Previous full observation belongs to previous frozen source and package; this art delta will not relabel it as a current long observation.",
+  "history": [
+    {
+      "action": "regression-found",
+      "note": "Critic identified pose1 head bob y6 missing from protected face mask. New test reproduced 1328 covered epic/head pixels across compatible combinations before art changes; Host fixes face mask."
+    },
+    {
+      "at": "2026-09-18T02:31:08.898Z",
+      "command": "npm test && npm run lint && npm run typecheck",
+      "exitCode": 0,
+      "source": "a12de8d66b294e246fc24b79e76b38fa686a3edcf50a99ef8ce5c130a2d7c636",
+      "tests": 1202,
+      "files": 88,
+      "log": ".agentdoc/v10-epic-art-20260918/evidence/canonical-gates.log",
+      "sha256": "2abe28aa0b469cac597b31e1b73b46a078b2d59b9c9072f0712bc3be2c17cbb2",
+      "note": "Tool output retained; initial display header normalized. No cases skipped; prior pixel goldens intentionally updated for requested epic art and reproduced head fix, with original expectations retained."
+    },
+    {
+      "at": "2026-09-18T02:42:19.333Z",
+      "action": "verified-art-delta",
+      "source": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+      "tests": 1202,
+      "nativeScenarios": 16,
+      "epicItems": 56,
+      "nonEpicIconsPreserved": 168,
+      "reviewer": "/root/equipment_economy/cleanup_counterexamples",
+      "note": "Current source gates, native16, full gallery7148, six dedicated epic images, both packaged payloads and independent visual review passed. Prior performance evidence not rebound."
+    }
+  ],
+  "source": "022756d1e6faa53e72ee296254f579904381ebf4f2e08070e5302833764c58c6",
+  "completedAt": "2026-09-18T02:42:19.333Z",
+  "finalCheck": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-epic-art-20260918/evidence/final-check.json",
+    "sha256": "2e3c68a2bf1321400e2e8563ec99304c556bd8d177f16eafde479ac64a209797"
+  }
+}

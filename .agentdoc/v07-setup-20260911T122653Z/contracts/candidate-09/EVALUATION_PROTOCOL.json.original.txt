@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 2,
+  "harnessVersion": 7,
+  "kind": "desmon-v07-evaluation",
+  "phase": "candidate",
+  "experimentStage": "exploration",
+  "configuration": ".harness/v7/config.json",
+  "fixture": "fresh",
+  "round": 2,
+  "milestones": [
+    {
+      "id": "crownwyrm",
+      "label": "왕관용",
+      "kind": "monster",
+      "ids": [
+        "crownwyrm"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "speciesKills",
+          "id": "dragon",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "rootcolossus",
+      "label": "뿌리거인",
+      "kind": "monster",
+      "ids": [
+        "rootcolossus"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "h58",
+      "label": "심해 기사",
+      "kind": "hero",
+      "ids": [
+        "h58"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "elementKills",
+          "element": "water",
+          "count": 100
+        },
+        {
+          "kind": "speciesKills",
+          "id": "reefknight",
+          "count": 2
+        },
+        {
+          "kind": "totalKills",
+          "count": 1500
+        }
+      ]
+    },
+    {
+      "id": "h62",
+      "label": "천공 수호자",
+      "kind": "hero",
+      "ids": [
+        "h62"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 5
+        },
+        {
+          "kind": "seenMonsters",
+          "count": 60
+        },
+        {
+          "kind": "totalKills",
+          "count": 6000
+        }
+      ]
+    },
+    {
+      "id": "starvoid",
+      "label": "별먹이",
+      "kind": "monster",
+      "ids": [
+        "starvoid"
+      ],
+      "final": false,
+      "requirements": [
+        {
+          "kind": "reincarnations",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 16000
+        }
+      ]
+    },
+    {
+      "id": "h70",
+      "label": "별밤 계승자",
+      "kind": "hero",
+      "ids": [
+        "h70"
+      ],
+      "final": true,
+      "requirements": [
+        {
+          "kind": "uniqueHeroes",
+          "count": 10
+        },
+        {
+          "kind": "totalKills",
+          "count": 30000
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "id": "control-l16",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 16,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    },
+    {
+      "id": "control-l17",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    },
+    {
+      "id": "control-l18",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 18,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    },
+    {
+      "id": "control-l19",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 19,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    },
+    {
+      "id": "control-l20",
+      "hypothesis": "Level-only control; all other progression parameters unchanged.",
+      "parameters": {
+        "heroMinLevel": 20,
+        "xpBase": 20,
+        "xpGrowth": 1.4,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate-r2-xp141",
+      "hypothesis": "Lv17 control reached20/20 by90min but median27.275min was early. Raise only XP growth to1.41 to approach45–60min; preserve115/100 field,35% capture, no guarantee. Tail and12h eligibility remain unproven.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.41,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    },
+    {
+      "id": "candidate-r2-xp142",
+      "hypothesis": "Lv17 control reached20/20 by90min but median27.275min was early. Raise only XP growth to1.42 to approach45–60min; preserve115/100 field,35% capture, no guarantee. Tail and12h eligibility remain unproven.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.42,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    },
+    {
+      "id": "candidate-r2-xp143",
+      "hypothesis": "Lv17 control reached20/20 by90min but median27.275min was early. Raise only XP growth to1.43 to approach45–60min; preserve115/100 field,35% capture, no guarantee. Tail and12h eligibility remain unproven.",
+      "parameters": {
+        "heroMinLevel": 17,
+        "xpBase": 20,
+        "xpGrowth": 1.43,
+        "fieldHpNumerator": 115,
+        "fieldHpDenominator": 100,
+        "companionHpNumerator": 115,
+        "companionHpDenominator": 100,
+        "captureChance": 0.35,
+        "firstCaptureBossIndex": null,
+        "heroLevelStepEvery": 2,
+        "heroLevelStepCap": 6,
+        "heroRestMs": 120000,
+        "heroDeferMs": 30000,
+        "xpRewardBase": 5,
+        "xpRewardPerIndex": 3,
+        "bossXpMultiplier": 5,
+        "bossHpMultiplier": 5
+      }
+    }
+  ],
+  "selectedExperiment": null,
+  "frozenAt": "2026-09-12T03:45:33.166515+00:00",
+  "selectionRule": {
+    "screeningMinutes": 120,
+    "minimumBy90Minutes": 18,
+    "denominator": 20,
+    "firstMedianMinutes": [
+      45,
+      60
+    ],
+    "finalMedianHours": [
+      8,
+      12
+    ],
+    "tieBreak": [
+      "population firstAccepted p50 distance from 3150 seconds",
+      "population final eligibility p50 distance from 36000 seconds",
+      "population firstAccepted p90",
+      "experiment id lexicographic"
+    ]
+  },
+  "notes": "Round02 preregistration before execution. Round01 all8 screening failures preserved; no12h promotion and no validation seed used. Lv17 baseline20/20 by90min motivates XP1.41/1.42/1.43; all content requirements and targets unchanged. Three unmeasured candidates, no adopted experiment. Existing120s rest/30s defer only.",
+  "changeHistory": [
+    {
+      "version": 1,
+      "reason": "Original baseline protocol preserved in contracts/candidate-01 and baseline archives."
+    },
+    {
+      "version": 2,
+      "reason": "Approved development plan preregistration before source changes and exploration."
+    },
+    {
+      "version": 2,
+      "round": 2,
+      "at": "2026-09-12T03:45:33.166515+00:00",
+      "reason": "All8 round01 failed screening; B16/20 by90min and C10/20 do not pass. Raise XP at L17 without changing field/capture/content.",
+      "previousProtocol": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/exploration/round-01/protocol.preregistered.json",
+      "analysis": "../../.agentdoc/v07-setup-20260911T122653Z/evidence/round01-analysis/snapshot-08-reports-08-complete.json"
+    }
+  ]
+}

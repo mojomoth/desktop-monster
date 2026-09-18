@@ -5,3 +5,22 @@ release/
 .regent/
 graphify-out
 .worktrees/
+.gstack/
+
+# Preserve local release copies and runtime data without committing generated binaries.
+.playwright-mcp/
+.agentdoc/**/*.app/
+.agentdoc/**/*.dmg
+.agentdoc/**/*.exe
+.agentdoc/**/*.zip
+.agentdoc/**/*.7z
+.agentdoc/**/*.tar.gz
+.agentdoc/**/*.blockmap
+.agentdoc/**/win-unpacked/
+.agentdoc/**/mac-arm64/
+.agentdoc/**/user-data/
+.agentdoc/**/preservation/source/
+.agentdoc/**/preservation/release/
+.agentdoc/**/pilot-package/
+.agentdoc/**/compiled-*/
+.agentdoc/**/candidate-core*/

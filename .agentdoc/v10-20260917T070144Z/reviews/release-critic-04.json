@@ -1,0 +1,517 @@
+{
+  "version": 1,
+  "at": "2026-09-18T00:34:51.285Z",
+  "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+  "reviewer": "/root/equipment_economy/cleanup_counterexamples",
+  "role": "Critic",
+  "scope": "release-evidence-readiness",
+  "verdict": "approved-evidence-readiness",
+  "independence": {
+    "implementationChangesByReviewer": [],
+    "sourceOrExistingEvidenceModified": false,
+    "newArtifactOnly": true,
+    "performedThisTurn": [
+      "Read-only source/evidence inspection",
+      "Independent Node assertions over all process inventories, task receipts, artifact hashes and gallery coverage",
+      "In-memory extraction of current macOS/Windows ASAR payload files for byte comparison"
+    ],
+    "notPerformedThisTurn": [
+      "Electron launch",
+      "Unit/integration test execution",
+      "Build/package execution",
+      "Installer extraction",
+      "Modification of loop.json or existing reviews"
+    ],
+    "numericPerformanceReviewer": "/root/equipment_economy",
+    "numericQuantilesRecomputedByThisReviewer": false
+  },
+  "conclusion": "The current machine evidence is internally consistent, source-bound and ready for Host to execute the current V10-10 final AC. This review does not mark V10-10 complete, override the task journal, or approve deployment. Independent product-scope approvals and the post-block performance approval are bound below.",
+  "blockingFindings": [],
+  "finalAcceptanceAtAudit": {
+    "task10Status": "pending",
+    "currentFinalACExecuted": false,
+    "priorTask10ReceiptSource": "85a1265fd4d134a1158bd468bf424b4c9d6d3893e3311d41f62a76cb67adc2a1",
+    "requiredNextStep": "Host must run and pass the current V10-10 final AC and record the resulting receipt before marking final acceptance complete."
+  },
+  "exactBindings": {
+    "loop.json": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/loop.json",
+      "sha256": "9e76a50ea8d98453d9405b2fe7cc3e1075e1708e6721a3420e63a59e01fb15b3"
+    },
+    "reviews/final.json": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/final.json",
+      "sha256": "80910a46a36acbaac18b3df2dfc6f8e923e9238c524cc8f1a294112a2f75f2e0"
+    },
+    "native/final.json": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json",
+      "sha256": "77dc846a34dccb0b9081846e28893b40579cc4d40585cbbfefab7276b9dbcf11"
+    },
+    "native/gallery-final.json": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/gallery-final.json",
+      "sha256": "189bc05bab6e949448b76098f69454d5863393a245182b859a657a6cb622f495"
+    },
+    "performance/comparison.json": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison.json",
+      "sha256": "717d10a3282a2ef067b03798f60c484fee7a54f567800bff1fc626fa0df6569a"
+    },
+    "performance/isolation.json": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/isolation.json",
+      "sha256": "122b3cb3935626a81ea4728b06bf472d0af9c93cafa4ab0287c04e0aef311a23"
+    },
+    "catalog": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/EQUIPMENT_CATALOG.json",
+      "sha256": "4c62266b42b21c0764e826f2c5963a4f2871757bc38c6e25b0f1eb911680e90f"
+    },
+    "catalogMarkdown": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.10/CATALOG.md",
+      "sha256": "8735cd5981ca69784c22ec3d4aaaee55e052caff898591b0c34214f8773efe6f"
+    }
+  },
+  "taskReceiptAudit": {
+    "reviewedTasks": 9,
+    "allLatestACsPassedAtCurrentSource": true,
+    "latestGateReceipt": {
+      "id": "gates",
+      "command": "npm test && npm run lint && npm run typecheck",
+      "before": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "after": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-gates-1789672693496.log",
+      "logHash": "f88d59371c66d03c82202bd629698db2668eeadc38ec67af0b38cf1abc067671",
+      "artifacts": {},
+      "at": "2026-09-17T19:18:38.294Z",
+      "summary": [
+        "Test Files  88 passed (88)",
+        "Tests  1200 passed (1200)"
+      ]
+    },
+    "latestACs": [
+      {
+        "id": "V10-01",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:33.649Z",
+        "executedBy": "/root",
+        "command": "node --test .harness/v10/run.test.mjs .harness/v10/performance.test.mjs .harness/v10/balance-verify.test.mjs .harness/v10/final-check.test.mjs",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-01-ac-1789672773088.log",
+        "logHash": "3fd8f6ae1fa92b58da3ba8886f1659dcb22700731a299b53a357fa5272435865",
+        "artifacts": {}
+      },
+      {
+        "id": "V10-02",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:35.236Z",
+        "executedBy": "/root",
+        "command": "npx vitest run tests/equipmentV10.test.ts tests/save.test.ts tests/engine.test.ts tests/goldV91.test.ts",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-02-ac-1789672773794.log",
+        "logHash": "56ba4eed4d7384c92c7f4c4a0e7fdc342b66ed220dfbf7746d124bbab68eff65",
+        "artifacts": {}
+      },
+      {
+        "id": "V10-03",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:37.452Z",
+        "executedBy": "/root",
+        "command": "npx vitest run tests/sprites.test.ts tests/heroForms.test.ts tests/renderer.test.ts tests/fsm.test.ts tests/equipmentSprites.test.ts tests/equipmentRendering.test.ts",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-03-ac-1789672775391.log",
+        "logHash": "ddf756ab6dabe672b48942890c46c556ba13c19f5b2a9b94aeb6835fe68caa1e",
+        "artifacts": {}
+      },
+      {
+        "id": "V10-04",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:38.766Z",
+        "executedBy": "/root",
+        "command": "npx vitest run tests/server tests/net.test.ts tests/onlineV91.test.ts tests/onlineV10.test.ts",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-04-ac-1789672777601.log",
+        "logHash": "193c251b4349d3cfca61a80e800c81964c1aea3ed342b4f2a475ae45e88ea458",
+        "artifacts": {}
+      },
+      {
+        "id": "V10-05",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:40.021Z",
+        "executedBy": "/root",
+        "command": "npx vitest run tests/ipc.test.ts tests/menu.test.ts tests/equipmentMenuV10.test.ts tests/recoveryV10.test.ts tests/rendererInput.test.ts",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-05-ac-1789672778914.log",
+        "logHash": "8ce1d231504c94bd06ac2a05670dbbd30c40f33c15457211edf3fb0f6326d988",
+        "artifacts": {}
+      },
+      {
+        "id": "V10-06",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:42.518Z",
+        "executedBy": "/root",
+        "command": "npm run build",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-06-ac-1789672780168.log",
+        "logHash": "42d32b0c29d45790b88d24c7f3da690e5f683fcd107ad8086467cb077bdc8b94",
+        "artifacts": {}
+      },
+      {
+        "id": "V10-07",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:19:43.525Z",
+        "executedBy": "/root",
+        "command": "node .harness/v10/balance-verify.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/balance/final.json",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-07-ac-1789672782667.log",
+        "logHash": "17604fec4df1cdbbbf304357917f0b3c4ff750b5960fb101cbced8dc1ef42ca0",
+        "artifacts": {
+          "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/balance/final.json": "69f57eb4b84d7f8021670e74cd9799bb5dfd06709c33d1286aa2c6632f5f582f"
+        }
+      },
+      {
+        "id": "V10-08",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:21:46.592Z",
+        "executedBy": "/root",
+        "command": "node .harness/v10/runtime.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z'/native/final.json",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-08-ac-1789672783666.log",
+        "logHash": "4279b77d2376938ed507e33e5940eab647a990f64d3d22f31c9653351330fd56",
+        "artifacts": {
+          "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/final.json": "77dc846a34dccb0b9081846e28893b40579cc4d40585cbbfefab7276b9dbcf11"
+        }
+      },
+      {
+        "id": "V10-09",
+        "status": "verified",
+        "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+        "at": "2026-09-17T19:22:36.023Z",
+        "executedBy": "/root",
+        "command": "npm run smoke && npm run package && npm run package:win",
+        "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/V10-09-ac-1789672906751.log",
+        "logHash": "cf013f0fbd894b59aada33b06f3dc6b144081639e1d1b709407db47c62abd203",
+        "artifacts": {}
+      }
+    ],
+    "note": "Latest receipts were checked, including command equality, before/after source digests, log hashes, bound artifact hashes and post-invalidation timestamps. Old source-bound receipts were retained and were not substituted for current ACs."
+  },
+  "productReviewAudit": {
+    "scopes": [
+      {
+        "scope": "core-host",
+        "reviewer": "/root/backend_v10",
+        "implementedBy": [
+          "/root",
+          "/root/equipment_economy"
+        ],
+        "evidence": {
+          "path": ".agentdoc/v10-20260917T070144Z/reviews/core-host-review.json",
+          "sha256": "c08f695cca7c0fe2bc1fac1dfb4deda2b1678ee2f304e0848e2912c2cf77bb2e"
+        },
+        "sourceHashCount": 15
+      },
+      {
+        "scope": "backend",
+        "reviewer": "/root/sprite_qa",
+        "implementedBy": [
+          "/root/backend_v10"
+        ],
+        "evidence": {
+          "path": "docs/v0.10/REVIEWS/BACKEND_REVIEW.md",
+          "sha256": "dc3ebf44c7153e8c9e2e6c927c7c670766f0b9986f320f177c86361443f7af18"
+        },
+        "sourceHashCount": 7
+      },
+      {
+        "scope": "visual",
+        "reviewer": "/root",
+        "implementedBy": [
+          "/root/sprite_qa"
+        ],
+        "evidence": {
+          "path": "docs/v0.10/REVIEWS/VISUAL_REVIEW.md",
+          "sha256": "29963752159e4f3b1e12cb4198d9fb67ad524d2a83b93dbf10521b5d88c23b2b"
+        },
+        "sourceHashCount": 6
+      }
+    ],
+    "all28SourceBindingsMatched": true,
+    "allAuthorsSeparated": true,
+    "previousApprovedScopeRecordsByteEquivalent": true,
+    "interpretation": "Historic product approvals remain valid because their exact reviewed source files and evidence are unchanged. The later harness cleanup/isolation change has separate independent reviews. This audit verifies that separation and freshness; it is not a new full product-code review."
+  },
+  "packageAudit": {
+    "packages": {
+      "macApp": {
+        "path": "release/mac-arm64/DesMon.app",
+        "sha256": "075b2de5f3dbdc29e7e0b5df269603f66a8ab50db201ccbe136b162e0c7817bd"
+      },
+      "macDmg": {
+        "path": "release/DesMon-0.10.0-arm64.dmg",
+        "sha256": "7b9101f8202cfd7fb0ff783ee9ca376732040696bb4aad2c2526f67e98357775"
+      },
+      "windowsInstaller": {
+        "path": "release/DesMon Setup 0.10.0.exe",
+        "sha256": "31a98d20967ce03db845d42fef527561cc615a8e6bfc740fe063b352e1abb335"
+      },
+      "windowsAppAsar": {
+        "path": "release/win-unpacked/resources/app.asar",
+        "sha256": "63e1f686add6c5d21b33cc7af04d7c1eec7e4fff1ab770d69b61d444512dca08"
+      }
+    },
+    "macAsarHash": "28214fe34acea915f69af280e6f09e098001678d472f62893aa2aba69c222cc7",
+    "compiledPayloadFilesCheckedPerPlatform": 118,
+    "platforms": [
+      "macOS arm64",
+      "Windows x64"
+    ],
+    "packageVersions": "0.10.0",
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/installer-payload-04.json",
+    "sha256": "bc753d880c366651e793ecd5d9f82c27fabe2c7750481ce16c27c1f7f848028b",
+    "record": {
+      "at": "2026-09-18T00:30:46.640Z",
+      "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+      "passed": true,
+      "macPayloadHash": "075b2de5f3dbdc29e7e0b5df269603f66a8ab50db201ccbe136b162e0c7817bd",
+      "windowsPayloadHash": "0b92c8e94f3d2f9aae05f66c6c00e5cb838068e133723208e1bf9b65a32f5272",
+      "extractor": {
+        "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+        "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+      },
+      "macDmgHash": "7b9101f8202cfd7fb0ff783ee9ca376732040696bb4aad2c2526f67e98357775",
+      "windowsInstallerHash": "31a98d20967ce03db845d42fef527561cc615a8e6bfc740fe063b352e1abb335"
+    },
+    "readOnlyRecheckedWindowsTreeHash": "0b92c8e94f3d2f9aae05f66c6c00e5cb838068e133723208e1bf9b65a32f5272",
+    "windowsTreeFiles": 120,
+    "extractionExecutedByReviewer": false,
+    "versionedInstallerManifestsMatched": true
+  },
+  "nativeAudit": {
+    "scenarios": 16,
+    "motionChecks": 40,
+    "artifacts": 48,
+    "names": [
+      "motion-bare",
+      "motion-sword",
+      "motion-greatsword",
+      "motion-spear",
+      "motion-gun",
+      "motion-dagger",
+      "motion-staff",
+      "motion-hammer",
+      "motion-gauntlet",
+      "motion-epic",
+      "equipment",
+      "equipment-restart",
+      "boss-drop",
+      "hero-pvp",
+      "hero-party-pvp",
+      "historical-replay"
+    ],
+    "minimumCheckedPayload": 118
+  },
+  "galleryAudit": {
+    "pages": 150,
+    "overviews": 4,
+    "uniqueSamples": 7148,
+    "expectedSamples": 7148,
+    "sourceBindings": 233,
+    "generatedAt": "2026-09-17T13:10:40.271Z",
+    "fieldScreenshot": {
+      "name": "native-field",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/native/gallery-performance-02/native-art/native-field.png",
+      "sha256": "f3c74db916916999280e43cdbd1f39738f954978163c9fe6c84b4abb31a21b23"
+    },
+    "exactSourceBuildFingerprintSetMatched": true,
+    "pngHashesAndHeadersVerified": 155,
+    "allExpectedPoseFacingThemeCombinationsMatched": true,
+    "note": "150 page PNGs, 4 overview PNGs and the field PNG were checked. The gallery predates the harness-only cleanup edits but its exact 233 source/build bindings and same app ASAR remain current. Generator visualApproval remains a producer disclaimer; independent visual approval is in the bound Host review."
+  },
+  "catalogAudit": {
+    "items": 224,
+    "weapons": 128,
+    "accessories": 96,
+    "sourceBindings": 4,
+    "productionDefinitionFieldsAndCompatibleHeroIdsMatched": true,
+    "compiledCoreBoundToCurrentPackagedPayload": true,
+    "note": "Catalog source hashes, all definition fields and hero compatibility were checked against the current built core. This review did not regenerate the catalog or re-run its TypeScript compilation command."
+  },
+  "independentProcessIsolationAudit": {
+    "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+    "registrationBindingsVerified": 15,
+    "registrationAt": "2026-09-17T19:23:38.407Z",
+    "methodApprovalAt": "2026-09-17T19:25:00.702Z",
+    "blockStartedAt": "2026-09-17T19:25:41.915Z",
+    "blockEndedAt": "2026-09-18T00:25:56.107Z",
+    "inventories": 3609,
+    "totalProcessEntries": 17999,
+    "zeroBoundaries": 10,
+    "maxGlobalGapMs": 5169,
+    "rawBrowserBindings": 3592,
+    "slots": [
+      {
+        "slot": "baseline-active",
+        "inventories": 362,
+        "identities": 5,
+        "mainPid": 18060,
+        "observerPid": 18059,
+        "maxGapMs": 5073,
+        "reparentedEntries": 0,
+        "fixtureMarkedEntries": 1800,
+        "metrics": 360,
+        "cleanup": "complete",
+        "remaining": [],
+        "report": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json",
+          "sha256": "1609b616323fd45fee12dc64f8fdb986afb9cb8e8f0b50bab933a03ab8e859aa"
+        },
+        "lifecycle": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-active.json.lifecycle.json",
+          "sha256": "d01735701a9105ca84332988968dce32389225efc2878509e3f0954be936a6ef"
+        }
+      },
+      {
+        "slot": "baseline-idle",
+        "inventories": 362,
+        "identities": 5,
+        "mainPid": 56964,
+        "observerPid": 56963,
+        "maxGapMs": 5071,
+        "reparentedEntries": 0,
+        "fixtureMarkedEntries": 1800,
+        "metrics": 360,
+        "cleanup": "complete",
+        "remaining": [],
+        "report": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json",
+          "sha256": "58395901e74897c164b7d85d358247a9c2afc457ff92f9101e5644d830bb9bb4"
+        },
+        "lifecycle": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/baseline-idle.json.lifecycle.json",
+          "sha256": "f80f67ac174690f6814ff5611d675253a39d7b7703cccc4e3affebcd8febff27"
+        }
+      },
+      {
+        "slot": "candidate-active",
+        "inventories": 362,
+        "identities": 5,
+        "mainPid": 95869,
+        "observerPid": 95867,
+        "maxGapMs": 5169,
+        "reparentedEntries": 0,
+        "fixtureMarkedEntries": 1800,
+        "metrics": 360,
+        "cleanup": "complete",
+        "remaining": [],
+        "report": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json",
+          "sha256": "6629f3c5291e48f052f03ba1e7ba81a1089e942b8f8232b52e0a7169b8761da7"
+        },
+        "lifecycle": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-active.json.lifecycle.json",
+          "sha256": "da362356705674f38b51d6a7a32d87cf992cd4ffbe6853b30f8564cd859f5821"
+        }
+      },
+      {
+        "slot": "candidate-idle",
+        "inventories": 362,
+        "identities": 5,
+        "mainPid": 35765,
+        "observerPid": 35764,
+        "maxGapMs": 5088,
+        "reparentedEntries": 0,
+        "fixtureMarkedEntries": 1800,
+        "metrics": 360,
+        "cleanup": "complete",
+        "remaining": [],
+        "report": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json",
+          "sha256": "8258ae15a7320072e462474709167f50c92d9f2215e1266c47c70cb7ec57da05"
+        },
+        "lifecycle": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/candidate-idle.json.lifecycle.json",
+          "sha256": "04b008f788e2e7776abc9773ee1aef526651e4f1bdfc391720bcac535258ca45"
+        }
+      },
+      {
+        "slot": "mixed",
+        "inventories": 2161,
+        "identities": 9,
+        "mainPid": 74722,
+        "observerPid": 74721,
+        "maxGapMs": 5133,
+        "reparentedEntries": 0,
+        "fixtureMarkedEntries": 10799,
+        "metrics": 2152,
+        "cleanup": "complete",
+        "remaining": [],
+        "report": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json",
+          "sha256": "13b413a0ed3fcd5e52dccce21111b02060a23dd5e90c58435e5542fa8f3dc7f8"
+        },
+        "lifecycle": {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/matched-04/mixed.json.lifecycle.json",
+          "sha256": "a66a09478d53525ae548dd6ea60bf4bcd9ba8193dcead9868bcad173def58d46"
+        }
+      }
+    ],
+    "issues": [],
+    "method": "Standalone read-only Node calculations; did not invoke production verifyIsolation for these results.",
+    "checks": [
+      "All 3609 raw inventories and 17999 process entries inspected",
+      "All ten before/after boundaries empty",
+      "Global and per-slot timestamp order, <=10000ms cadence and launch-through-cleanup coverage",
+      "Each measured main has the expected app path, unique fixture marker, observer PPID, stable PID/start/command identity and launch-time agreement",
+      "Every recorded descendant belongs to the current app ancestry; no competing or reparented entries observed",
+      "All five uncancelled lifecycle records complete with remaining=[] and exact report equality",
+      "Every one of the 3592 raw metric rows has exactly one Browser matching the lifecycle child PID and creation time",
+      "Registration and method review preceded the single five-slot block; all 15 registered artifact bindings, including prior failures, remain intact"
+    ]
+  },
+  "independentPerformanceResultReview": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/reviews/performance-result-final.json",
+    "sha256": "d41b649c2e9b8c337baf3c9ac79b78076ec24f2a6dd66563de6203340c8675be",
+    "reviewer": "/root/equipment_economy",
+    "at": "2026-09-18T00:32:36.841Z",
+    "verdict": "approved",
+    "source": "184854c67ae31ae5dea668165656e6b4a32f7b70ffc723464f231996e3c5e3ad",
+    "comparison": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/comparison.json",
+      "sha256": "717d10a3282a2ef067b03798f60c484fee7a54f567800bff1fc626fa0df6569a"
+    },
+    "isolation": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/performance/isolation.json",
+      "sha256": "122b3cb3935626a81ea4728b06bf472d0af9c93cafa4ab0287c04e0aef311a23"
+    }
+  },
+  "preservedFailures": {
+    "unchangedRegisteredPriorArtifacts": true,
+    "note": "The first numeric failures and matched03 isolation rejection remain historical failures. Matched04 is one prospectively registered complete block; all five canonical reports come from matched-04.",
+    "memoryBudgetDisclosure": "The approved performance review reports candidate active p95 317.59375 MiB against matched04 limit 479.49375 MiB. It remains above the original 290.375 MiB active limit; the fresh registered baseline changed the numerical limit under the same formula. This is not an original-cap pass or proof of causal cache improvement."
+  },
+  "explicitlyUnperformed": {
+    "windowsHardware": {
+      "performed": false,
+      "note": "Windows x64 installer built; execution on a physical Windows machine was not performed."
+    },
+    "postgresql": {
+      "performed": false,
+      "note": "Deterministic injected store/query tests and source review passed; no live PostgreSQL integration run."
+    },
+    "humanFun": {
+      "performed": false,
+      "note": "Agent simulation and native interaction only; human enjoyment evaluation was not performed."
+    },
+    "deployment": {
+      "performed": false,
+      "note": "DESMON_SKIP_NET=1; commits, PRs and operational deployment excluded by approved scope."
+    }
+  },
+  "residualLimits": [
+    "V10-10 final AC is still pending at this review. Final integration acceptance must use a fresh current-source receipt, not the preserved older final pass.",
+    "Stored hashes bind available artifacts but do not independently authenticate original capture. Existing test/native and installer-extraction outcomes were audited as recorded; they were not re-executed by this reviewer.",
+    "DesMon inventories are sampled approximately every five seconds; transient processes between samples and arbitrary generic Node/build workloads cannot be ruled out. Registration and the Host journal provide the stated concurrency restriction, not continuous OS tracing.",
+    "Process cleanup cannot atomically eliminate the final ps-to-kill race or same-second same-command PID identity aliasing. Uncatchable termination and unknown markerless helpers remain limitations despite this block having no observed survivors.",
+    "A single fixed-order block with uncontrolled ordinary applications is not a randomized causal estimate, battery-life guarantee or absolute memory cap. Working-set sums may count shared pages more than once.",
+    "Native UI evidence uses fixture storage, injected native boundaries and in-process production server/MemoryStore. It does not establish real global-hook permission behavior, Windows hardware behavior or live PostgreSQL operation.",
+    "Gallery hashes and exhaustive combination coverage are machine evidence. This reviewer did not visually inspect all 7148 samples or perform human enjoyment assessment.",
+    "No operational deployment, commit or PR action is approved or performed by this evidence-readiness verdict."
+  ]
+}

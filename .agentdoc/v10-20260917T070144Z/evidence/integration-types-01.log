@@ -1,0 +1,41 @@
+src/main/coordinator.ts(56,47): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/coordinator.ts(63,27): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/coordinator.ts(267,35): error TS2345: Argument of type '{ coins: bigint; pvpGoldNet: string; pvpGoldDebt: string; version: 4; progress?: SavedProgress | undefined; equipment?: EquipmentState | undefined; ... 16 more ...; monsterSpeciesId?: "dragon" | ... 134 more ... | undefined; } | { ...; }' is not assignable to parameter of type 'SaveInput | null | undefined'.
+  Type '{ coins: bigint; pvpGoldNet: string; pvpGoldDebt: string; version: 4; progress?: SavedProgress; equipment?: EquipmentState; ... 16 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'SaveInput | null | undefined'.
+    Type '{ coins: bigint; pvpGoldNet: string; pvpGoldDebt: string; version: 4; progress?: SavedProgress; equipment?: EquipmentState; ... 16 more ...; monsterSpeciesId?: SpeciesId | undefined; }' is not assignable to type 'SaveFileV4'.
+      Types of property 'coins' are incompatible.
+        Type 'bigint' is not assignable to type 'string'.
+src/main/coordinator.ts(270,74): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/ipc.ts(290,23): error TS2322: Type 'Progress' is not assignable to type 'SavedProgress'.
+  Type 'Progress' is not assignable to type '{ goldSpent: string; }'.
+    Types of property 'goldSpent' are incompatible.
+      Type 'bigint' is not assignable to type 'string'.
+src/main/ipc.ts(337,38): error TS2345: Argument of type 'SaveFileV4' is not assignable to parameter of type 'SnapshotSource'.
+  Types of property 'coins' are incompatible.
+    Type 'string' is not assignable to type 'number'.
+src/main/ipc.ts(371,33): error TS2322: Type '{ equipmentConfirmation: HeroChangeConfirmation; type: "heroChoose"; formId: string; offerSerial: number; } | { equipmentConfirmation: HeroChangeConfirmation; type: "heroEquip"; formId: string; } | { ...; }' is not assignable to type 'CollectionAction | null'.
+  Object literal may only specify known properties, and 'equipmentConfirmation' does not exist in type '{ type: "rebirth"; }'.
+src/main/ipc.ts(377,96): error TS18047: 'action' is possibly 'null'.
+src/main/ipc.ts(377,103): error TS2339: Property 'itemId' does not exist on type 'CollectionAction'.
+  Property 'itemId' does not exist on type '{ type: "acknowledgeDiscoveries"; heroes: string[]; monsters: string[]; }'.
+src/server/app.ts(227,39): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/server/gold.ts(27,47): error TS2322: Type 'string | number' is not assignable to type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/server/gold.ts(28,41): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/server/gold.ts(37,23): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(37,73): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(45,12): error TS2365: Operator '<=' cannot be applied to types 'string | number' and 'number'.
+src/server/gold.ts(45,45): error TS2365: Operator '<=' cannot be applied to types 'string | number' and 'number'.
+src/server/gold.ts(49,64): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(52,5): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/server/gold.ts(52,30): error TS2365: Operator '+=' cannot be applied to types 'string | number' and 'number'.
+src/server/gold.ts(54,88): error TS2345: Argument of type 'string | number' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.

@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "purpose": "Cancellation only, not performance acceptance",
+  "cases": [
+    {
+      "name": "startup-sigint",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/startup-sigint.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        2432
+      ]
+    },
+    {
+      "name": "baseline-inspector-sigterm",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/baseline-inspector-sigterm.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        2440,
+        2448,
+        2449,
+        2450
+      ]
+    },
+    {
+      "name": "queue-inspector-sigterm",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/queue-inspector-sigterm/candidate-active.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        2510,
+        2512,
+        2513,
+        2519
+      ]
+    },
+    {
+      "name": "cleanup-write-failure",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/cleanup-write-failure.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        2526,
+        2528,
+        2529,
+        2530
+      ]
+    },
+    {
+      "name": "observing-sigterm",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-02/observing-sigterm.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        2538,
+        2539,
+        2540,
+        2546,
+        2547
+      ]
+    }
+  ],
+  "files": {
+    ".harness/v10/performance.mjs": "c626341277070bc677bdd750bd1ebd0647255808da010369a07d66b04f6a9773",
+    ".harness/v10/performance-v4.mjs": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+    ".harness/v10/run-performance.mjs": "7e942ba3e6718ab89fc54decdf806bd4d9ff41469eb90cec22f9b44634561fd1",
+    ".harness/v10/performance.test.mjs": "4dd2e18087a008bd5fbfadfc3393875cc6f869becdc85635d7ef7dc84e57a66c"
+  },
+  "saveBefore": "f69823213a50cbe289dbc0023a92de6799fef3da107b57b2c3dd67af3d80c11c",
+  "saveAfter": "f69823213a50cbe289dbc0023a92de6799fef3da107b57b2c3dd67af3d80c11c",
+  "remainingDesMon": []
+}

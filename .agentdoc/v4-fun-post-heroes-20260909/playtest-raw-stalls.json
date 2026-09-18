@@ -1,0 +1,106 @@
+{
+  "kind": "simulated-not-human",
+  "seeds": "1..100",
+  "note": "blind = hero exists but neither the expedition gauge nor REBIRTH READY is on the field",
+  "out": [
+    {
+      "profile": "active",
+      "seeds": 100,
+      "longestBlindSec": {
+        "min": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "longestKillGapSec": {
+        "min": 31,
+        "p50": 36,
+        "p90": 40,
+        "max": 43
+      },
+      "offers": {
+        "min": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "worstBlindExample": {
+        "profile": "active",
+        "seed": 1,
+        "longestBlindSec": 0,
+        "blindStartSec": 0,
+        "blindLevel": 0,
+        "blindCompanions": 0,
+        "longestKillGapSec": 37,
+        "killGapStartSec": 879,
+        "offers": 15
+      }
+    },
+    {
+      "profile": "idle",
+      "seeds": 100,
+      "longestBlindSec": {
+        "min": 0,
+        "p50": 42,
+        "p90": 661,
+        "max": 1484
+      },
+      "longestKillGapSec": {
+        "min": 34,
+        "p50": 74,
+        "p90": 207,
+        "max": 414
+      },
+      "offers": {
+        "min": 2,
+        "p50": 14,
+        "p90": 15,
+        "max": 15
+      },
+      "worstBlindExample": {
+        "profile": "idle",
+        "seed": 91,
+        "longestBlindSec": 1484,
+        "blindStartSec": 317,
+        "blindLevel": 10,
+        "blindCompanions": 1,
+        "longestKillGapSec": 216,
+        "killGapStartSec": 1486,
+        "offers": 2
+      }
+    },
+    {
+      "profile": "intermittent",
+      "seeds": 100,
+      "longestBlindSec": {
+        "min": 0,
+        "p50": 0,
+        "p90": 0,
+        "max": 0
+      },
+      "longestKillGapSec": {
+        "min": 40,
+        "p50": 50,
+        "p90": 63,
+        "max": 67
+      },
+      "offers": {
+        "min": 15,
+        "p50": 15,
+        "p90": 15,
+        "max": 15
+      },
+      "worstBlindExample": {
+        "profile": "intermittent",
+        "seed": 1,
+        "longestBlindSec": 0,
+        "blindStartSec": 0,
+        "blindLevel": 0,
+        "blindCompanions": 0,
+        "longestKillGapSec": 64,
+        "killGapStartSec": 134,
+        "offers": 15
+      }
+    }
+  ]
+}

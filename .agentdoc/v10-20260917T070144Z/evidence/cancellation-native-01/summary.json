@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "purpose": "Cancellation only, not performance acceptance",
+  "cases": [
+    {
+      "name": "startup-sigint",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/startup-sigint.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        98328
+      ]
+    },
+    {
+      "name": "baseline-inspector-sigterm",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/baseline-inspector-sigterm.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        98335,
+        98337,
+        98338,
+        98339
+      ]
+    },
+    {
+      "name": "queue-inspector-sigterm",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/queue-inspector-sigterm/candidate-active.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        98352,
+        98354,
+        98355,
+        98408
+      ]
+    },
+    {
+      "name": "observing-sigterm",
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v10-20260917T070144Z/evidence/cancellation-native-01/observing-sigterm.json",
+      "cleanup": "complete",
+      "ownedPids": [
+        98414,
+        98415,
+        98416,
+        98422,
+        98423
+      ]
+    }
+  ],
+  "files": {
+    ".harness/v10/performance.mjs": "7f5c8b5b9ed5abf6c2b06708b018dc924acb4c26430681d7d2e38d6317a475d7",
+    ".harness/v10/performance-v4.mjs": "57f74bb8e7350f94ef4b21c93792be3d01ffe17561894faf10757d8a71ef3d35",
+    ".harness/v10/run-performance.mjs": "7e942ba3e6718ab89fc54decdf806bd4d9ff41469eb90cec22f9b44634561fd1",
+    ".harness/v10/performance.test.mjs": "6f92f20445486afb148d16b60c253b1c27250533774c8620bb2986ed8613426e"
+  },
+  "saveBefore": "f69823213a50cbe289dbc0023a92de6799fef3da107b57b2c3dd67af3d80c11c",
+  "saveAfter": "f69823213a50cbe289dbc0023a92de6799fef3da107b57b2c3dd67af3d80c11c",
+  "remainingDesMon": []
+}

@@ -1,0 +1,14 @@
+Debugger listening on ws://127.0.0.1:63650/27c7533e-edc6-4308-b892-fb57bdac6476
+For help, see: https://nodejs.org/en/docs/inspector
+Debugger attached.
+V09_INSPECTOR_RESUMED
+(node:68214) UnhandledPromiseRejectionWarning: TypeError: Cannot read properties of undefined (reading 'equipped')
+    at eval (eval at <anonymous> (/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar/dist/electron/main/index.js:5:1), <anonymous>:33:71)
+(Use `DesMon --trace-warnings ...` to show where the warning was created)
+(node:68214) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+V09_FIELD_LOADED
+V09_CONTEXT_READY
+V09_FRAME_READY
+(node:68214) PromiseRejectionHandledWarning: Promise rejection was handled asynchronously (rejection id: 1)
+Debugger ending on ws://127.0.0.1:63650/27c7533e-edc6-4308-b892-fb57bdac6476
+For help, see: https://nodejs.org/en/docs/inspector

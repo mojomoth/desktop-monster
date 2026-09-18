@@ -16,8 +16,32 @@ export const IPC = {
   LOAD_STATE: 'desmon:load-state',
   /** renderer → main (invoke): persist the save file (atomic tmp + rename). */
   SAVE_STATE: 'desmon:save-state',
+  /** main → windows (send): the latest save failed; no success state is broadcast. */
+  SAVE_FAILED: 'desmon:save-failed',
+  GET_SAVE_STATUS: 'desmon:get-save-status',
+  SAVE_STATUS: 'desmon:save-status',
+  GET_SETTINGS: 'desmon:get-settings',
+  UPDATE_SETTINGS: 'desmon:update-settings',
+  SETTINGS_CHANGED: 'desmon:settings-changed',
+  CONNECT_GLOBAL_INPUT: 'desmon:connect-global-input',
+  OPEN_SAVE_FOLDER: 'desmon:open-save-folder',
+  QUIT: 'desmon:quit',
   /** main → renderer (send): tray "Reset Progress" was clicked. */
   RESET: 'desmon:reset',
+  PREPARE_STATE: 'desmon:prepare-state',
+  CAPTURE_STATE: 'desmon:capture-state',
+  RELEASE_STATE: 'desmon:release-state',
+  GET_GENERATION: 'desmon:get-generation',
+  RESET_PROGRESS: 'desmon:reset-progress',
+  LIST_CHECKPOINTS: 'desmon:list-checkpoints',
+  RESTORE_CHECKPOINT: 'desmon:restore-checkpoint',
+  BATTLE_OPPONENT: 'desmon:battle-opponent',
+  LAST_BATTLE: 'desmon:last-battle',
+  PENDING_REPLAYS: 'desmon:pending-replays',
+  REPLAY_COMPLETE: 'desmon:replay-complete',
+  PVP_PLAYBACK: 'desmon:pvp-playback',
+  EXPORT_PNG: 'desmon:export-png',
+  FIELD_IMAGE: 'desmon:field-image',
   /** renderer → main (invoke): open the macOS Accessibility settings pane. */
   OPEN_ACCESSIBILITY_SETTINGS: 'desmon:open-accessibility-settings',
   /** renderer → main (send): first painted frame — drives smoke (T13). */
@@ -30,6 +54,8 @@ export const IPC = {
   SET_NAME: 'desmon:set-name',
   /** renderer → main (invoke): top-N leaderboard rows plus this player's row. */
   LEADERBOARD: 'desmon:leaderboard',
+  /** renderer → main (invoke): opponents with hero, party and official record. */
+  PVP_OPPONENTS: 'desmon:pvp-opponents',
   /** renderer → main (invoke): step 1 of a battle — the opponent preview (F73). */
   PVP_MATCH: 'desmon:pvp-match',
   /** renderer → main (invoke): resolve one asynchronous PvP battle. */
@@ -67,6 +93,21 @@ export interface InputModePayload {
   accessibilityGranted: boolean;
 }
 
+export interface GameSettings {
+  gameScale: number;
+  muted: boolean;
+  screenShake: boolean;
+  welcomeSeen: boolean;
+  globalInputRequested: boolean;
+}
+
+export interface SettingsResult { ok: boolean; settings: GameSettings }
+export interface ConnectInputResult { ok: boolean; mode: InputModePayload }
+export interface SaveStatus {
+  state: 'ready' | 'write-error' | 'load-error';
+  reason?: string;
+}
+
 /**
  * Raw save-state payload carried over `desmon:save-state` / `desmon:load-state`.
  * Main treats it as opaque JSON; parsing/validation is core's job — the
@@ -85,6 +126,8 @@ export interface PvpPayload {
   party: string[];
 }
 
+export interface PvpMatchPayload { opponentId?: string }
+
 /** Payload of `desmon:reclaim`: which theft to take back. */
 export interface ReclaimPayload {
   theftId: string;
@@ -93,7 +136,16 @@ export interface ReclaimPayload {
 /** Payload of `desmon:leaderboard`: how many rows; absent/invalid = the default. */
 export interface LeaderboardQueryPayload {
   n?: number;
+  metric?: import('./api.js').LeaderboardMetric;
 }
+
+export interface PrepareStatePayload { requestId: string; generation: number }
+export interface ReleaseStatePayload { generation: number; save: unknown; replace: boolean; actions: unknown[]; blocked: boolean; replays?: import('./api.js').PvpPresentation[] }
+export interface CheckpointInfo { id: string; at: number; reason: 'reset' | 'restore'; level: number; bestIndex: number; companions: number }
+export interface OperationResult { ok: boolean; error?: string }
+export interface LastBattleInfo { at: number; before: unknown; result: import('./api.js').PvpResult }
+export interface ExportPngPayload { dataUrl: string; destination: 'file' | 'clipboard'; name: string }
+export interface ExportPngResult { ok: boolean; canceled?: boolean; error?: string }
 
 /** Payload of `desmon:move-window`: cursor delta (DIPs) since the last event. */
 export interface MoveWindowPayload {

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>DesMon — 영웅과 모험 기록</title>
+    <link rel="stylesheet" href="menu.css" />
+  </head>
+  <body>
+    <p id="save-status" role="status" aria-live="polite" hidden></p>
+    <section id="save-recovery" hidden>
+      <h2 id="recovery-title">저장 데이터를 열지 못했습니다</h2>
+      <p id="recovery-description">기존 파일을 보호하기 위해 게임을 시작하지 않았습니다. 저장 폴더의 파일을 확인한 뒤 앱을 다시 실행하세요.</p>
+      <p id="recovery-status" role="status" aria-live="polite"></p>
+      <button class="btn" id="open-save-folder" type="button">저장 폴더 열기</button>
+      <button class="btn" id="recovery-quit" type="button">앱 종료</button>
+    </section>
+    <main id="game-content">
+    <section id="welcome" hidden aria-label="처음 시작 안내">
+      <h2>입력할 때마다 함께 자라요</h2>
+      <p>키보드와 마우스 입력이 영웅의 공격이 됩니다. 동료를 얻으면 앱을 켜 둔 동안 자동으로 공격합니다.</p>
+      <p>새 영웅은 영웅 탭의 환생으로 얻고, 도감에서 다시 장착할 수 있습니다. 메뉴는 상단 메뉴 막대의 DesMon 아이콘에서 열 수 있습니다.</p>
+      <p id="input-status" role="status" aria-live="polite"></p>
+      <div class="welcome-actions">
+        <button class="btn" id="connect-input" type="button">전체 입력 연결</button>
+        <button class="btn" id="skip-welcome" type="button">창에서 시작</button>
+        <button class="btn" id="input-permission" type="button" hidden>접근성 설정 열기</button>
+      </div>
+      <p id="welcome-status" role="status" aria-live="polite"></p>
+    </section>
+    <div class="tabs" role="tablist" aria-label="게임 메뉴">
+      <button class="tab active" id="tab-hero" type="button">영웅</button>
+      <button class="tab" id="tab-codex" type="button">도감</button>
+      <button class="tab" id="tab-roster" type="button">동료</button>
+      <button class="tab" id="tab-shop" type="button">상점</button>
+      <button class="tab" id="tab-battle" type="button">대전</button>
+      <button class="tab" id="tab-ranking" type="button">순위</button>
+      <button class="tab" id="tab-profile" type="button">내 기록</button>
+    </div>
+    <div class="panel" id="hero"></div>
+    <div class="panel" id="shop" hidden></div>
+    <div class="panel" id="codex" hidden></div>
+    <div class="panel" id="profile" hidden>
+      <h2>내 기록</h2>
+      <div class="row">
+        <label class="name" for="name">플레이어 이름</label>
+        <input id="name" type="text" maxlength="16" autocomplete="off" spellcheck="false" aria-describedby="name-rule name-status" />
+        <button class="btn" id="save-name" type="button">이름 저장</button>
+      </div>
+      <p class="muted" id="name-rule">영문·숫자·_·- 1–16자. 오프라인에서도 변경할 수 있습니다.</p>
+      <p class="muted" id="name-status" role="status" aria-live="polite"></p>
+      <div id="profile-stats"></div>
+      <details id="user-settings">
+        <summary>소리와 효과</summary>
+        <button class="btn" id="mute-toggle" type="button" aria-pressed="false">음소거 끔</button>
+        <button class="btn" id="shake-toggle" type="button" aria-pressed="true">화면 흔들림 켬</button>
+        <p id="settings-status" role="status" aria-live="polite"></p>
+      </details>
+      <details id="progress-recovery">
+        <summary>진행 초기화와 복원</summary>
+        <p>초기화·복원 전에 자동 백업합니다. 최근 5개를 보관하며 계정·설정·온라인 전적은 유지합니다.</p>
+        <button class="btn" id="reset-progress" type="button">진행 초기화…</button>
+        <button class="btn" id="refresh-checkpoints" type="button">백업 새로고침</button>
+        <div id="checkpoint-list"></div>
+        <p id="checkpoint-status" role="status" aria-live="polite"></p>
+      </details>
+    </div>
+    <div class="panel" id="roster" hidden></div>
+    <div class="panel" id="ranking" hidden></div>
+    <div class="panel" id="battle" hidden>
+      <h2>대전 상대</h2>
+      <p class="muted">영웅·동료·전적을 보고 상대의 전투 버튼을 누르세요. 저장한 파티로 바로 대전합니다.</p>
+      <button class="btn" id="find" type="button">목록 새로고침</button>
+      <div id="opponents" aria-live="polite"></div>
+      <div id="opponent" hidden></div>
+      <details id="party-editor"><summary>내 전투 파티 편집</summary>
+      <div id="party">
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
+      </div>
+      <div class="panel" id="picks"></div>
+      <div class="row">
+        <button class="btn" id="auto" type="button">자동 편성</button>
+        <button class="btn" id="save-party" type="button">파티 저장</button>
+      </div>
+      <p class="muted">저장한 파티가 없으면 자동 편성합니다.</p>
+      </details>
+      <p id="preview" hidden></p>
+      <button class="btn" id="battle-go" type="button" hidden>대전 시작</button>
+      <div id="thefts"></div>
+    </div>
+    <div class="footer">
+      <button class="btn" id="rebirth" type="button" disabled>영혼 회귀 · 외형 유지</button>
+      <button class="btn" id="share-open" type="button">내보내기</button>
+    </div>
+    <!-- #result is shared: the roster tab writes its consume prompt here too, so
+         it stays outside the panels instead of moving into the Battle tab. -->
+    <p class="result" id="result"></p>
+    </main>
+    <script type="module" src="../dist/web/menu/index.js"></script>
+    <script type="module" src="../dist/web/menu/recoveryUi.js"></script>
+    <script type="module" src="../dist/web/menu/shareUi.js"></script>
+  </body>
+</html>

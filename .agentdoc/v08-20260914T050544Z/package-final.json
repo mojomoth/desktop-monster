@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-09-14T05:50:13.774Z",
+  "command": "npm run package",
+  "commandExitCode": 0,
+  "version": "0.8.0",
+  "dmg": {
+    "path": "release/DesMon-0.8.0-arm64.dmg",
+    "sha256": "b84b53cc8d159b99fc7849b49d5ede60ec302cfe5933a36b6caf6fcc0cc08da7",
+    "bytes": 110364222
+  },
+  "installedApp": {
+    "path": ".agentdoc/v08-20260914T050544Z/install/attempt02/DesMon.app",
+    "appHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472"
+  },
+  "buildAppHash": "7f4a217d0bc49255003721841ccc965a01daf4fcd5100e94a4f464ef72455472",
+  "installation": {
+    "method": "hdiutil attach -readonly -nobrowse; ditto mounted DesMon.app into isolated fixture path; hdiutil detach /dev/disk8",
+    "volume": "/Volumes/DesMon 0.8.0-arm64",
+    "detached": true,
+    "applicationsFolderUnchanged": true,
+    "firstAttempt": {
+      "method": "cp -cR",
+      "result": "failed: clonefile across mounted volume is not supported; incomplete copy retained separately"
+    }
+  },
+  "checks": {
+    "version": true,
+    "installedMatchesBuild": true
+  },
+  "externalLimit": "Unsigned local installation and launch; Gatekeeper/quarantine and a second physical Mac require the external test.",
+  "passed": true
+}

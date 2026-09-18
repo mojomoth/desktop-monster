@@ -1,0 +1,97 @@
+{
+  "requestId": "baf8015d43725c0406f5f018e570df00f783c952a78f03945cc1201f445bfd6f",
+  "round": 1,
+  "role": "playtester",
+  "sourceDigest": "c1b3603ed446d75fdd4830e59aac930d5fad73d17c6bef7de6c888b062914aef",
+  "evaluationDigest": "24a640b10d7b5cdb85def3b4b77f3aa0cf405b8d27854d2952d95c29666e670e",
+  "agent": "/root",
+  "decision": "revise",
+  "summary": "Host Playtester vetoes official-protocol bypass found after the earlier role reports. No candidate measurement or Native observation has run. Product scenarios are specified but unverified.",
+  "evidence": [
+    {
+      "path": ".harness/v7/loop/measure.mjs",
+      "note": "runCommand accepts alternate protocol; CLI verify lacks official snapshot comparison."
+    },
+    {
+      "path": "docs/v0.7/EVALUATION_PROTOCOL.json",
+      "note": "Official exploration round has selectedExperiment=null."
+    },
+    {
+      "path": "docs/v0.7/DESIGN_DECISIONS.md",
+      "note": "Approved product scenarios and production identity requirements."
+    }
+  ],
+  "findings": [
+    {
+      "id": "P07-OFFICIAL-PROTOCOL-BYPASS",
+      "severity": "blocker",
+      "problem": "measure run accepts --protocol pointing at a copied validation protocol while evaluationDigest still binds the official exploration protocol. Current CLI verify accepts that embedded copy. This can admit seeds 1–100 before official selection.",
+      "fix": "Bind nonbaseline run/resume/verify to the official registered protocol path and exact current snapshot, reject copied selection before build/measurement, and add regression tests. Preserve historical baseline comparison without recertification."
+    }
+  ],
+  "coverage": [
+    {
+      "id": "companion-levels",
+      "assessment": "Safe-integer growth and explicit before/after confirmation are designed; implementation pending."
+    },
+    {
+      "id": "codex-acquisition",
+      "assessment": "Shared acquisition predicates must replace seen-based disclosure including legacy ACK."
+    },
+    {
+      "id": "pvp-directory",
+      "assessment": "Each real opponent needs stable identity, hero and companion party with retained focus."
+    },
+    {
+      "id": "first-reincarnation",
+      "assessment": "Official-protocol bypass currently blocks trustworthy seed separation."
+    },
+    {
+      "id": "long-progression",
+      "assessment": "Registered h70 eligibility is distinct from actual appearance or selection."
+    },
+    {
+      "id": "save-network-compatibility",
+      "assessment": "Local server round trip and live build mapping are separate release gates."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "companion-levels",
+      "action": "Consume Lv250, reject overflowing consume/fuse without mutation, confirm Lv10 reincarnation and invalidate after roster change.",
+      "expected": "Positive safe levels survive; Lv10→1/stars+1 with exact power preview; changed target sends no action.",
+      "evidencePlan": "Registered companionLevelsV7, menu, IPC unit tests and later isolated Native diagnostics."
+    },
+    {
+      "id": "codex-acquisition",
+      "action": "Boot legacy seen-only state twice, select hero and defeat one species, inspect cards and ACK.",
+      "expected": "Only actual hero acquisition and speciesKills disclose; first new acquisition notifies once.",
+      "evidencePlan": "codexAcquisitionV7 unit tests and menu accessibility/Native evidence."
+    },
+    {
+      "id": "pvp-directory",
+      "action": "Navigate 50 rows, refresh/reorder/delete selected row, return mismatched/expired preview.",
+      "expected": "Correct ID requested and validated; focus persists or moves to refresh; stale battle disabled.",
+      "evidencePlan": "pvpDirectoryV7 tests and isolated mocked-network menu scenario."
+    },
+    {
+      "id": "first-reincarnation",
+      "action": "After registered source adoption run active validation seeds1–100 and record ready/open/accepted separately.",
+      "expected": "Population p50 45–60 minutes and 90/100 accepted by90 minutes; conditional quantiles reported separately.",
+      "evidencePlan": "New immutable production measurement output after bypass fix and exploration."
+    },
+    {
+      "id": "long-progression",
+      "action": "Measure all named milestones and h70 eligibility with all samples retained.",
+      "expected": "Final eligible population p50 8–12h; unreached selection remains visible, no imposed time locks.",
+      "evidencePlan": "Registered12h policies plus sequential9 Native runs and continuous180min journey."
+    },
+    {
+      "id": "save-network-compatibility",
+      "action": "Round trip Lv11,250,MAX_SAFE and reject malformed nested responses; compare live build sources.",
+      "expected": "No level truncation or overflow loss; unknown live build remains PENDING.",
+      "evidencePlan": "server-check local tests, immutable build/log/source mapping, live health only as identity check."
+    }
+  ],
+  "humanChecks": "PENDING: actual human observation has not run"
+}

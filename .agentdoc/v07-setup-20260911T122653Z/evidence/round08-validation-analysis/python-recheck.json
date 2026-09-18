@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "agentId": "/root/balance",
+  "at": "2026-09-12T17:56:22.905978+00:00",
+  "kind": "independent-python-decimal-recheck-of-completed-raw",
+  "status": "PASS",
+  "errors": [],
+  "sourceSnapshot": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/round08-validation-analysis/snapshot-complete.json",
+    "sha256": "b2c0a5237b71dce515bac796d3ed45e56048df23253c323c21f938507e08fd54"
+  },
+  "sampleCount": 100,
+  "seedRange": [
+    1,
+    100
+  ],
+  "horizonMinutes": 720,
+  "rawLiteralHashCount": 100,
+  "rawMatchesReportCount": 100,
+  "metricDistributionsChecked": 12,
+  "milestoneDistributionsChecked": 21,
+  "quantileMethod": "Decimal seconds converted to exact integer100ms; lower order-statistic index floor((N-1)*q); full null-censored population and reached-only conditional distributions checked separately.",
+  "firstAcceptedBy90Minutes": 100,
+  "goals": {
+    "firstMedian": true,
+    "firstDeadline": true,
+    "lastMedian": true
+  },
+  "h70EligibilityTiming": {
+    "before8h": 30,
+    "within8Through12h": 20,
+    "unreached": 50
+  },
+  "originalArtifactsRehashed": [
+    "execution",
+    "report",
+    "manifest",
+    "100 raw files",
+    "3 archives",
+    "2 execution command logs",
+    "3 readiness logs",
+    "adopted protocol"
+  ],
+  "liveSourceOrCurrentProtocolRead": false,
+  "newMeasurements": 0,
+  "newNumericalProposal": null,
+  "validationResultsForOptimization": false
+}

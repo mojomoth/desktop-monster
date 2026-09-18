@@ -1,0 +1,107 @@
+{
+  "version": 9,
+  "at": "2026-09-15T10:44:49.897Z",
+  "reason": "Exact initial snapshot lacks optional playTimeMs until the first periodic save; normalize only its known initial time under existing10-second lag limit.",
+  "previousVerifierHash": "8abe2f73a1b5e3e76aa6cd4dce3436d4879e3c16ef1957f7f6be319879af8a73",
+  "currentVerifierHash": "b240a0045d11d942923bcc2d2ec7f35155d157d7564dbda209e934e871e96520",
+  "observerHash": "cd17b18dbde752583bc3cf76539d078d0b3822cddddab944e184cc06b13efa17",
+  "protocolHash": "9be0a2c9a9ef9dfdf008d70c50820f8a1e3553ba12f9aaa22f921661889a382d",
+  "reports": {
+    "baseline-active": {
+      "priorError": null,
+      "current": {
+        "slot": "baseline-active",
+        "profile": "active",
+        "durationMs": 1800053.296416,
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "maximumSampleGapMs": 5713.828125,
+        "initialFixtureSamples": [],
+        "cpu": {
+          "samples": 301,
+          "min": 1.1608253905591406,
+          "median": 1.9473455585781372,
+          "p95": 2.642215107002181,
+          "max": 3.1287582350734384
+        },
+        "workingSetMiB": {
+          "samples": 301,
+          "min": 180.34375,
+          "median": 207.578125,
+          "p95": 248.21875,
+          "max": 388.453125
+        },
+        "summary": {
+          "cpuP95": 2.642215107002181,
+          "workingSetMiBP95": 248.21875,
+          "initialMemoryMedian": 207.578125,
+          "finalMemoryMedian": null
+        },
+        "input": {
+          "actual": 3557,
+          "expected": 3600,
+          "fraction": 0.9880555555555556,
+          "phases": [
+            {
+              "startMs": 0,
+              "endMs": 1800000,
+              "measuredFromMs": 0,
+              "measuredThroughMs": 1799321.297583,
+              "expectedInputs": 3598.642595166,
+              "actualInputs": 3556
+            }
+          ]
+        }
+      }
+    },
+    "baseline-idle": {
+      "priorError": "baseline-idle: Persisted play time is stale, reset, or accelerated.",
+      "current": {
+        "slot": "baseline-idle",
+        "profile": "idle",
+        "durationMs": 1800053.751041,
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "maximumSampleGapMs": 5050.321291999891,
+        "initialFixtureSamples": [
+          5024.168541
+        ],
+        "cpu": {
+          "samples": 301,
+          "min": 1.4387028946857625,
+          "median": 2.2402683798067855,
+          "p95": 2.4699722240331714,
+          "max": 2.5925784689428317
+        },
+        "workingSetMiB": {
+          "samples": 301,
+          "min": 174.3125,
+          "median": 224.015625,
+          "p95": 263.4375,
+          "max": 277.5625
+        },
+        "summary": {
+          "cpuP95": 2.4699722240331714,
+          "workingSetMiBP95": 263.4375,
+          "initialMemoryMedian": 224.015625,
+          "finalMemoryMedian": null
+        },
+        "input": {
+          "actual": 0,
+          "expected": 0,
+          "fraction": null,
+          "phases": [
+            {
+              "startMs": 0,
+              "endMs": 1800000,
+              "measuredFromMs": 0,
+              "measuredThroughMs": 1797759.603583,
+              "expectedInputs": 0,
+              "actualInputs": 0
+            }
+          ]
+        }
+      }
+    }
+  }
+}

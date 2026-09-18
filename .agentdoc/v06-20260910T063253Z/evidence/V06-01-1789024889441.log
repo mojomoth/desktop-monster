@@ -1,0 +1,19 @@
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ .harness/v5/loop/package-check.test.ts (3 tests) 5ms
+ ✓ .harness/v5/loop/e2e-matrix.test.ts (14 tests) 8ms
+ ✓ .harness/v5/loop/measure.test.ts (2 tests) 41ms
+ ✓ .harness/v5/loop/develop.test.ts (8 tests) 288ms
+ ✓ .harness/v5/loop/fun.test.ts (9 tests) 359ms
+   ✓ v5 executable CLI > archives the issued prompt, preserves rejected state, and resumes accepted reports from disk  350ms
+ ✓ .harness/v5/loop/audit.test.ts (7 tests) 651ms
+   ✓ evidence-first game audit > resumes the CLI from disk and preserves an audit after a rejected submission  401ms
+ ✓ .harness/v5/loop/experiments.test.ts (9 tests) 699ms
+   ✓ experimental evidence audit > recomputes complete raw distributions, rejects stale/missing/forged samples and action ledgers  419ms
+
+ Test Files  7 passed (7)
+      Tests  52 passed (52)
+   Start at  16:21:29
+   Duration  988ms (transform 369ms, setup 0ms, collect 707ms, tests 2.05s, environment 1ms, prepare 359ms)
+

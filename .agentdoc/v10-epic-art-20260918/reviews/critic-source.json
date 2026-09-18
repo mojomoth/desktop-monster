@@ -1,0 +1,1078 @@
+{
+  "version": 1,
+  "task": "epic-equipment-art",
+  "reviewedAt": "2026-09-18T02:33:24Z",
+  "reviewer": {
+    "id": "/root/equipment_economy/cleanup_counterexamples",
+    "role": "Critic",
+    "independentOfImplementation": true
+  },
+  "verdict": "approved-source-only-pending-native-visual-review",
+  "finalVisualApproval": false,
+  "blockingSourceFindings": [],
+  "scope": [
+    "32 epic weapon and 24 epic accessory sprite construction; primary occupancy compared with corresponding rare and preserved epic icons.",
+    "Bobbing-head protection change and two additive equipment sprite regression tests.",
+    "Preservation of 168 non-epic icons, gameplay/economy/widget source and UI rarity tokens.",
+    "Read-only inspection of intentional cache golden updates and Host's canonical gate evidence."
+  ],
+  "hostRecordedSourceFreeze": "a12de8d66b294e246fc24b79e76b38fa686a3edcf50a99ef8ce5c130a2d7c636",
+  "sourceHashes": {
+    "src/renderer/sprites/epicEquipment.ts": "977327b212374bd6b03d8b1aa897d8ce8047fa0539ddf9eb9cfdd32ed487e3d6",
+    "src/renderer/sprites/equipment.ts": "ca7d09079027110aacc8810cffe31ec5a1a5087e35ca2610326e15ebf14d89b0",
+    "src/renderer/sprites/equippedHero.ts": "c63e92703bf37c9302b1e66e3ccb3f213dc51de7f4da5e868117852333ecaf31",
+    "tests/equipmentSprites.test.ts": "a590988b444fafa553ce6c5b582efb1c7dd830bef229764fd1ba6c3134900803",
+    "tests/equippedHeroCache.test.ts": "7d8942d9d23ad9bc53934ec63106af11c078c2a71201c0422f69e799802d5ca9"
+  },
+  "methods": {
+    "performedByReviewer": [
+      "Read source and compare with preserved originals without editing implementation.",
+      "Evaluate sprite constructors using installed TypeScript transpileModule and a VM in memory, with existing compiled equipment catalog and sprite registration/draw stubs.",
+      "Compare sets of occupied coordinates after excluding transparent '.' and black outline 'e', ignoring all palette colors.",
+      "Compare all 168 non-epic sprite objects, including dimensions, frames and palettes, with preserved 224-icon baseline.",
+      "Compare previously fingerprinted src/static files with prior gallery source map; inspect core, widget, economy and UI token bindings.",
+      "Read prior failing head regression and golden mismatch evidence, final additive tests and current canonical gate log."
+    ],
+    "notPerformedByReviewer": [
+      "No Electron/application launch.",
+      "No build or test execution.",
+      "No implementation or existing evidence modification.",
+      "No native screenshot inspection in this source review."
+    ],
+    "aggregateSourceHashNote": "Aggregate freeze is recorded by Host; independent reviewer bindings are the exact source hashes above."
+  },
+  "evidence": {
+    ".agentdoc/v10-epic-art-20260918/preservation/icons.json": "a43cbc857af371c0b23280db4a7c1b652899f5c9928dbb3f449a7341173e0038",
+    ".agentdoc/v10-epic-art-20260918/head-regression-before.json": "4230c0686ce352be2de9a6286f103ee0325ba84542e34dd789eeb8859669e2c9",
+    ".agentdoc/v10-epic-art-20260918/head-regression-before.log": "f8fdb173ca8a0a86268c6c6a2c07d354ab6b6996383fac62a32ce868bebbb027",
+    ".agentdoc/v10-epic-art-20260918/head-regression-after.log": "47a4ab5f2cd4f24b642ffb1fae61c27a2f8161a903d419fb057d154df3ff173f",
+    ".agentdoc/v10-epic-art-20260918/evidence/golden-before-update.log": "708efef6e1f13ab5dc93503e5e6929da95152915fb6ce4ccd6ed50a859ed1568",
+    ".agentdoc/v10-epic-art-20260918/evidence/canonical-gates.log": "2abe28aa0b469cac597b31e1b73b46a078b2d59b9c9072f0712bc3be2c17cbb2"
+  },
+  "independentGeometryAndPreservation": {
+    "sourceHashes": {
+      "src/renderer/sprites/epicEquipment.ts": "977327b212374bd6b03d8b1aa897d8ce8047fa0539ddf9eb9cfdd32ed487e3d6",
+      "src/renderer/sprites/equipment.ts": "ca7d09079027110aacc8810cffe31ec5a1a5087e35ca2610326e15ebf14d89b0",
+      "src/renderer/sprites/equippedHero.ts": "c63e92703bf37c9302b1e66e3ccb3f213dc51de7f4da5e868117852333ecaf31",
+      "tests/equipmentSprites.test.ts": "a590988b444fafa553ce6c5b582efb1c7dd830bef229764fd1ba6c3134900803"
+    },
+    "method": "Read-only in-memory TypeScript transpilation/evaluation of sprite construction only; no source/build/artifact modifications and no app/test launch.",
+    "counts": {
+      "epicWeapons": 32,
+      "epicAccessories": 24,
+      "nonEpicUnchanged": 168,
+      "uniqueEpicPrimaryMasks": 56
+    },
+    "allIcons16": true,
+    "palettesValid": true,
+    "nonEpicFingerprint": "6450b9b126485c4251fa4dd55963ff6f1e47d388f67bbfc8ca7b6c5eaf4960db",
+    "changedNonEpic": [],
+    "duplicates": [],
+    "symmetricDifferenceRange": [
+      24,
+      83
+    ],
+    "iouRange": [
+      0.16842105263157894,
+      0.7108433734939759
+    ],
+    "sourceScope": {
+      "changedTrackedArtFiles": [
+        "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/equipment.ts",
+        "/Users/jeongyounglee/work/repo/desktop-monster/src/renderer/sprites/equippedHero.ts"
+      ],
+      "coreFilesUnchanged": 22,
+      "changedCoreFiles": [],
+      "widgetAndEconomyHashes": {
+        "src/renderer/hud.ts": "d49a8e4f777b25228231cc3f4b758d6883cce2b476f69eca9f95e8ead2dc9855",
+        "src/renderer/index.ts": "fa5a9e6309322abcfb92218b3584139a0752edc317999f3a49d8077865acf260",
+        "src/renderer/game.ts": "ebdb166503d340667a9777ff0aad6b35b188084ea93ec293d785f45b935fad6e",
+        "src/menu/economy.ts": "b98702c530a984c39275bbef54342a5e40a088f4bd96696cc7259ede6ff86fcd",
+        "src/menu/equipment.ts": "4a1878355595c7c24e4917736f966724e317e1ffb9e354be928e79f32443017a",
+        "src/menu/index.ts": "cfc524f037b0327f6c1dc58d1443af9448edc428d1d09317635ff6c70897415b",
+        "static/menu.css": "cd13aeb56cfedca28a802beb6d39272ac61bb50e668369f5ee6fef072375d5e0",
+        "src/core/gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+        "src/core/equipment.ts": "a2dfb19c31602dd23672e4ea5a6f1c546dd06e54a755034147161c4f9e1089b4",
+        "src/core/engine.ts": "edccd846605d45d02ae5a79493b1eac5e78d6419c48d21d1e3ecee603688c2db"
+      }
+    },
+    "rows": [
+      {
+        "id": "w-sword-epic-1",
+        "rareId": "w-sword-rare-1",
+        "primaryPixels": 50,
+        "rarePrimaryPixels": 30,
+        "addedVsRare": 25,
+        "removedVsRare": 5,
+        "symmetricDifference": 30,
+        "intersectionOverUnion": 0.45454545454545453,
+        "changedVsPreviousEpic": 38,
+        "bounds": {
+          "minX": 3,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-sword-epic-2",
+        "rareId": "w-sword-rare-2",
+        "primaryPixels": 49,
+        "rarePrimaryPixels": 33,
+        "addedVsRare": 29,
+        "removedVsRare": 13,
+        "symmetricDifference": 42,
+        "intersectionOverUnion": 0.3225806451612903,
+        "changedVsPreviousEpic": 44,
+        "bounds": {
+          "minX": 3,
+          "maxX": 10,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-sword-epic-3",
+        "rareId": "w-sword-rare-3",
+        "primaryPixels": 48,
+        "rarePrimaryPixels": 33,
+        "addedVsRare": 23,
+        "removedVsRare": 8,
+        "symmetricDifference": 31,
+        "intersectionOverUnion": 0.44642857142857145,
+        "changedVsPreviousEpic": 33,
+        "bounds": {
+          "minX": 3,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-sword-epic-4",
+        "rareId": "w-sword-rare-4",
+        "primaryPixels": 69,
+        "rarePrimaryPixels": 36,
+        "addedVsRare": 41,
+        "removedVsRare": 8,
+        "symmetricDifference": 49,
+        "intersectionOverUnion": 0.36363636363636365,
+        "changedVsPreviousEpic": 53,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-greatsword-epic-1",
+        "rareId": "w-greatsword-rare-1",
+        "primaryPixels": 67,
+        "rarePrimaryPixels": 50,
+        "addedVsRare": 29,
+        "removedVsRare": 12,
+        "symmetricDifference": 41,
+        "intersectionOverUnion": 0.4810126582278481,
+        "changedVsPreviousEpic": 41,
+        "bounds": {
+          "minX": 3,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-greatsword-epic-2",
+        "rareId": "w-greatsword-rare-2",
+        "primaryPixels": 86,
+        "rarePrimaryPixels": 57,
+        "addedVsRare": 32,
+        "removedVsRare": 3,
+        "symmetricDifference": 35,
+        "intersectionOverUnion": 0.6067415730337079,
+        "changedVsPreviousEpic": 41,
+        "bounds": {
+          "minX": 3,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-greatsword-epic-3",
+        "rareId": "w-greatsword-rare-3",
+        "primaryPixels": 70,
+        "rarePrimaryPixels": 61,
+        "addedVsRare": 18,
+        "removedVsRare": 9,
+        "symmetricDifference": 27,
+        "intersectionOverUnion": 0.6582278481012658,
+        "changedVsPreviousEpic": 25,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-greatsword-epic-4",
+        "rareId": "w-greatsword-rare-4",
+        "primaryPixels": 83,
+        "rarePrimaryPixels": 68,
+        "addedVsRare": 29,
+        "removedVsRare": 14,
+        "symmetricDifference": 43,
+        "intersectionOverUnion": 0.5567010309278351,
+        "changedVsPreviousEpic": 49,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-spear-epic-1",
+        "rareId": "w-spear-rare-1",
+        "primaryPixels": 45,
+        "rarePrimaryPixels": 28,
+        "addedVsRare": 25,
+        "removedVsRare": 8,
+        "symmetricDifference": 33,
+        "intersectionOverUnion": 0.37735849056603776,
+        "changedVsPreviousEpic": 35,
+        "bounds": {
+          "minX": 2,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-spear-epic-2",
+        "rareId": "w-spear-rare-2",
+        "primaryPixels": 41,
+        "rarePrimaryPixels": 31,
+        "addedVsRare": 22,
+        "removedVsRare": 12,
+        "symmetricDifference": 34,
+        "intersectionOverUnion": 0.3584905660377358,
+        "changedVsPreviousEpic": 34,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-spear-epic-3",
+        "rareId": "w-spear-rare-3",
+        "primaryPixels": 54,
+        "rarePrimaryPixels": 33,
+        "addedVsRare": 28,
+        "removedVsRare": 7,
+        "symmetricDifference": 35,
+        "intersectionOverUnion": 0.4262295081967213,
+        "changedVsPreviousEpic": 37,
+        "bounds": {
+          "minX": 2,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-spear-epic-4",
+        "rareId": "w-spear-rare-4",
+        "primaryPixels": 57,
+        "rarePrimaryPixels": 35,
+        "addedVsRare": 29,
+        "removedVsRare": 7,
+        "symmetricDifference": 36,
+        "intersectionOverUnion": 0.4375,
+        "changedVsPreviousEpic": 40,
+        "bounds": {
+          "minX": 1,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gun-epic-1",
+        "rareId": "w-gun-rare-1",
+        "primaryPixels": 74,
+        "rarePrimaryPixels": 41,
+        "addedVsRare": 38,
+        "removedVsRare": 5,
+        "symmetricDifference": 43,
+        "intersectionOverUnion": 0.45569620253164556,
+        "changedVsPreviousEpic": 50,
+        "bounds": {
+          "minX": 3,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gun-epic-2",
+        "rareId": "w-gun-rare-2",
+        "primaryPixels": 79,
+        "rarePrimaryPixels": 47,
+        "addedVsRare": 45,
+        "removedVsRare": 13,
+        "symmetricDifference": 58,
+        "intersectionOverUnion": 0.3695652173913043,
+        "changedVsPreviousEpic": 57,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gun-epic-3",
+        "rareId": "w-gun-rare-3",
+        "primaryPixels": 78,
+        "rarePrimaryPixels": 57,
+        "addedVsRare": 26,
+        "removedVsRare": 5,
+        "symmetricDifference": 31,
+        "intersectionOverUnion": 0.6265060240963856,
+        "changedVsPreviousEpic": 38,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gun-epic-4",
+        "rareId": "w-gun-rare-4",
+        "primaryPixels": 73,
+        "rarePrimaryPixels": 64,
+        "addedVsRare": 28,
+        "removedVsRare": 19,
+        "symmetricDifference": 47,
+        "intersectionOverUnion": 0.4891304347826087,
+        "changedVsPreviousEpic": 50,
+        "bounds": {
+          "minX": 3,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-dagger-epic-1",
+        "rareId": "w-dagger-rare-1",
+        "primaryPixels": 40,
+        "rarePrimaryPixels": 26,
+        "addedVsRare": 22,
+        "removedVsRare": 8,
+        "symmetricDifference": 30,
+        "intersectionOverUnion": 0.375,
+        "changedVsPreviousEpic": 32,
+        "bounds": {
+          "minX": 4,
+          "maxX": 10,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-dagger-epic-2",
+        "rareId": "w-dagger-rare-2",
+        "primaryPixels": 43,
+        "rarePrimaryPixels": 30,
+        "addedVsRare": 25,
+        "removedVsRare": 12,
+        "symmetricDifference": 37,
+        "intersectionOverUnion": 0.32727272727272727,
+        "changedVsPreviousEpic": 37,
+        "bounds": {
+          "minX": 4,
+          "maxX": 10,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-dagger-epic-3",
+        "rareId": "w-dagger-rare-3",
+        "primaryPixels": 49,
+        "rarePrimaryPixels": 36,
+        "addedVsRare": 25,
+        "removedVsRare": 12,
+        "symmetricDifference": 37,
+        "intersectionOverUnion": 0.39344262295081966,
+        "changedVsPreviousEpic": 39,
+        "bounds": {
+          "minX": 3,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-dagger-epic-4",
+        "rareId": "w-dagger-rare-4",
+        "primaryPixels": 59,
+        "rarePrimaryPixels": 39,
+        "addedVsRare": 29,
+        "removedVsRare": 9,
+        "symmetricDifference": 38,
+        "intersectionOverUnion": 0.4411764705882353,
+        "changedVsPreviousEpic": 41,
+        "bounds": {
+          "minX": 3,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-staff-epic-1",
+        "rareId": "w-staff-rare-1",
+        "primaryPixels": 67,
+        "rarePrimaryPixels": 24,
+        "addedVsRare": 47,
+        "removedVsRare": 4,
+        "symmetricDifference": 51,
+        "intersectionOverUnion": 0.28169014084507044,
+        "changedVsPreviousEpic": 54,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-staff-epic-2",
+        "rareId": "w-staff-rare-2",
+        "primaryPixels": 45,
+        "rarePrimaryPixels": 33,
+        "addedVsRare": 25,
+        "removedVsRare": 13,
+        "symmetricDifference": 38,
+        "intersectionOverUnion": 0.3448275862068966,
+        "changedVsPreviousEpic": 39,
+        "bounds": {
+          "minX": 2,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-staff-epic-3",
+        "rareId": "w-staff-rare-3",
+        "primaryPixels": 57,
+        "rarePrimaryPixels": 28,
+        "addedVsRare": 35,
+        "removedVsRare": 6,
+        "symmetricDifference": 41,
+        "intersectionOverUnion": 0.3492063492063492,
+        "changedVsPreviousEpic": 44,
+        "bounds": {
+          "minX": 2,
+          "maxX": 11,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-staff-epic-4",
+        "rareId": "w-staff-rare-4",
+        "primaryPixels": 59,
+        "rarePrimaryPixels": 38,
+        "addedVsRare": 31,
+        "removedVsRare": 10,
+        "symmetricDifference": 41,
+        "intersectionOverUnion": 0.4057971014492754,
+        "changedVsPreviousEpic": 44,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-hammer-epic-1",
+        "rareId": "w-hammer-rare-1",
+        "primaryPixels": 75,
+        "rarePrimaryPixels": 37,
+        "addedVsRare": 41,
+        "removedVsRare": 3,
+        "symmetricDifference": 44,
+        "intersectionOverUnion": 0.4358974358974359,
+        "changedVsPreviousEpic": 44,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-hammer-epic-2",
+        "rareId": "w-hammer-rare-2",
+        "primaryPixels": 68,
+        "rarePrimaryPixels": 48,
+        "addedVsRare": 27,
+        "removedVsRare": 7,
+        "symmetricDifference": 34,
+        "intersectionOverUnion": 0.5466666666666666,
+        "changedVsPreviousEpic": 34,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-hammer-epic-3",
+        "rareId": "w-hammer-rare-3",
+        "primaryPixels": 70,
+        "rarePrimaryPixels": 43,
+        "addedVsRare": 36,
+        "removedVsRare": 9,
+        "symmetricDifference": 45,
+        "intersectionOverUnion": 0.43037974683544306,
+        "changedVsPreviousEpic": 45,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-hammer-epic-4",
+        "rareId": "w-hammer-rare-4",
+        "primaryPixels": 69,
+        "rarePrimaryPixels": 56,
+        "addedVsRare": 26,
+        "removedVsRare": 13,
+        "symmetricDifference": 39,
+        "intersectionOverUnion": 0.524390243902439,
+        "changedVsPreviousEpic": 41,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gauntlet-epic-1",
+        "rareId": "w-gauntlet-rare-1",
+        "primaryPixels": 80,
+        "rarePrimaryPixels": 62,
+        "addedVsRare": 21,
+        "removedVsRare": 3,
+        "symmetricDifference": 24,
+        "intersectionOverUnion": 0.7108433734939759,
+        "changedVsPreviousEpic": 24,
+        "bounds": {
+          "minX": 3,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gauntlet-epic-2",
+        "rareId": "w-gauntlet-rare-2",
+        "primaryPixels": 83,
+        "rarePrimaryPixels": 66,
+        "addedVsRare": 23,
+        "removedVsRare": 6,
+        "symmetricDifference": 29,
+        "intersectionOverUnion": 0.6741573033707865,
+        "changedVsPreviousEpic": 31,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gauntlet-epic-3",
+        "rareId": "w-gauntlet-rare-3",
+        "primaryPixels": 77,
+        "rarePrimaryPixels": 67,
+        "addedVsRare": 24,
+        "removedVsRare": 14,
+        "symmetricDifference": 38,
+        "intersectionOverUnion": 0.5824175824175825,
+        "changedVsPreviousEpic": 38,
+        "bounds": {
+          "minX": 1,
+          "maxX": 14,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "w-gauntlet-epic-4",
+        "rareId": "w-gauntlet-rare-4",
+        "primaryPixels": 96,
+        "rarePrimaryPixels": 71,
+        "addedVsRare": 29,
+        "removedVsRare": 4,
+        "symmetricDifference": 33,
+        "intersectionOverUnion": 0.67,
+        "changedVsPreviousEpic": 35,
+        "bounds": {
+          "minX": 3,
+          "maxX": 14,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-necklace-critical-epic-1",
+        "rareId": "a-necklace-critical-rare-1",
+        "primaryPixels": 53,
+        "rarePrimaryPixels": 29,
+        "addedVsRare": 30,
+        "removedVsRare": 6,
+        "symmetricDifference": 36,
+        "intersectionOverUnion": 0.3898305084745763,
+        "changedVsPreviousEpic": 37,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 12
+        }
+      },
+      {
+        "id": "a-necklace-critical-epic-2",
+        "rareId": "a-necklace-critical-rare-2",
+        "primaryPixels": 77,
+        "rarePrimaryPixels": 31,
+        "addedVsRare": 54,
+        "removedVsRare": 8,
+        "symmetricDifference": 62,
+        "intersectionOverUnion": 0.27058823529411763,
+        "changedVsPreviousEpic": 57,
+        "bounds": {
+          "minX": 1,
+          "maxX": 14,
+          "minY": 2,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-necklace-critical-epic-3",
+        "rareId": "a-necklace-critical-rare-3",
+        "primaryPixels": 77,
+        "rarePrimaryPixels": 33,
+        "addedVsRare": 51,
+        "removedVsRare": 7,
+        "symmetricDifference": 58,
+        "intersectionOverUnion": 0.30952380952380953,
+        "changedVsPreviousEpic": 53,
+        "bounds": {
+          "minX": 1,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 12
+        }
+      },
+      {
+        "id": "a-necklace-critical-epic-4",
+        "rareId": "a-necklace-critical-rare-4",
+        "primaryPixels": 61,
+        "rarePrimaryPixels": 35,
+        "addedVsRare": 43,
+        "removedVsRare": 17,
+        "symmetricDifference": 60,
+        "intersectionOverUnion": 0.23076923076923078,
+        "changedVsPreviousEpic": 59,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-necklace-party-epic-1",
+        "rareId": "a-necklace-party-rare-1",
+        "primaryPixels": 55,
+        "rarePrimaryPixels": 35,
+        "addedVsRare": 34,
+        "removedVsRare": 14,
+        "symmetricDifference": 48,
+        "intersectionOverUnion": 0.30434782608695654,
+        "changedVsPreviousEpic": 49,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-necklace-party-epic-2",
+        "rareId": "a-necklace-party-rare-2",
+        "primaryPixels": 55,
+        "rarePrimaryPixels": 37,
+        "addedVsRare": 37,
+        "removedVsRare": 19,
+        "symmetricDifference": 56,
+        "intersectionOverUnion": 0.24324324324324326,
+        "changedVsPreviousEpic": 53,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-necklace-party-epic-3",
+        "rareId": "a-necklace-party-rare-3",
+        "primaryPixels": 52,
+        "rarePrimaryPixels": 39,
+        "addedVsRare": 33,
+        "removedVsRare": 20,
+        "symmetricDifference": 53,
+        "intersectionOverUnion": 0.2638888888888889,
+        "changedVsPreviousEpic": 54,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-necklace-party-epic-4",
+        "rareId": "a-necklace-party-rare-4",
+        "primaryPixels": 63,
+        "rarePrimaryPixels": 41,
+        "addedVsRare": 43,
+        "removedVsRare": 21,
+        "symmetricDifference": 64,
+        "intersectionOverUnion": 0.23809523809523808,
+        "changedVsPreviousEpic": 59,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-ring-critical-epic-1",
+        "rareId": "a-ring-critical-rare-1",
+        "primaryPixels": 63,
+        "rarePrimaryPixels": 36,
+        "addedVsRare": 35,
+        "removedVsRare": 8,
+        "symmetricDifference": 43,
+        "intersectionOverUnion": 0.39436619718309857,
+        "changedVsPreviousEpic": 40,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-ring-critical-epic-2",
+        "rareId": "a-ring-critical-rare-2",
+        "primaryPixels": 71,
+        "rarePrimaryPixels": 40,
+        "addedVsRare": 55,
+        "removedVsRare": 24,
+        "symmetricDifference": 79,
+        "intersectionOverUnion": 0.16842105263157894,
+        "changedVsPreviousEpic": 78,
+        "bounds": {
+          "minX": 1,
+          "maxX": 14,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-ring-critical-epic-3",
+        "rareId": "a-ring-critical-rare-3",
+        "primaryPixels": 74,
+        "rarePrimaryPixels": 43,
+        "addedVsRare": 46,
+        "removedVsRare": 15,
+        "symmetricDifference": 61,
+        "intersectionOverUnion": 0.3146067415730337,
+        "changedVsPreviousEpic": 64,
+        "bounds": {
+          "minX": 1,
+          "maxX": 13,
+          "minY": 3,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-ring-critical-epic-4",
+        "rareId": "a-ring-critical-rare-4",
+        "primaryPixels": 61,
+        "rarePrimaryPixels": 47,
+        "addedVsRare": 43,
+        "removedVsRare": 29,
+        "symmetricDifference": 72,
+        "intersectionOverUnion": 0.2,
+        "changedVsPreviousEpic": 73,
+        "bounds": {
+          "minX": 1,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-ring-party-epic-1",
+        "rareId": "a-ring-party-rare-1",
+        "primaryPixels": 57,
+        "rarePrimaryPixels": 38,
+        "addedVsRare": 42,
+        "removedVsRare": 23,
+        "symmetricDifference": 65,
+        "intersectionOverUnion": 0.1875,
+        "changedVsPreviousEpic": 70,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-ring-party-epic-2",
+        "rareId": "a-ring-party-rare-2",
+        "primaryPixels": 81,
+        "rarePrimaryPixels": 42,
+        "addedVsRare": 51,
+        "removedVsRare": 12,
+        "symmetricDifference": 63,
+        "intersectionOverUnion": 0.3225806451612903,
+        "changedVsPreviousEpic": 56,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-ring-party-epic-3",
+        "rareId": "a-ring-party-rare-3",
+        "primaryPixels": 70,
+        "rarePrimaryPixels": 44,
+        "addedVsRare": 46,
+        "removedVsRare": 20,
+        "symmetricDifference": 66,
+        "intersectionOverUnion": 0.26666666666666666,
+        "changedVsPreviousEpic": 65,
+        "bounds": {
+          "minX": 2,
+          "maxX": 13,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-ring-party-epic-4",
+        "rareId": "a-ring-party-rare-4",
+        "primaryPixels": 53,
+        "rarePrimaryPixels": 48,
+        "addedVsRare": 23,
+        "removedVsRare": 18,
+        "symmetricDifference": 41,
+        "intersectionOverUnion": 0.4225352112676056,
+        "changedVsPreviousEpic": 44,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-charm-critical-epic-1",
+        "rareId": "a-charm-critical-rare-1",
+        "primaryPixels": 112,
+        "rarePrimaryPixels": 44,
+        "addedVsRare": 69,
+        "removedVsRare": 1,
+        "symmetricDifference": 70,
+        "intersectionOverUnion": 0.3805309734513274,
+        "changedVsPreviousEpic": 69,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-charm-critical-epic-2",
+        "rareId": "a-charm-critical-rare-2",
+        "primaryPixels": 83,
+        "rarePrimaryPixels": 50,
+        "addedVsRare": 49,
+        "removedVsRare": 16,
+        "symmetricDifference": 65,
+        "intersectionOverUnion": 0.3434343434343434,
+        "changedVsPreviousEpic": 62,
+        "bounds": {
+          "minX": 3,
+          "maxX": 11,
+          "minY": 2,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-charm-critical-epic-3",
+        "rareId": "a-charm-critical-rare-3",
+        "primaryPixels": 86,
+        "rarePrimaryPixels": 52,
+        "addedVsRare": 44,
+        "removedVsRare": 10,
+        "symmetricDifference": 54,
+        "intersectionOverUnion": 0.4375,
+        "changedVsPreviousEpic": 57,
+        "bounds": {
+          "minX": 1,
+          "maxX": 13,
+          "minY": 2,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-charm-critical-epic-4",
+        "rareId": "a-charm-critical-rare-4",
+        "primaryPixels": 87,
+        "rarePrimaryPixels": 62,
+        "addedVsRare": 36,
+        "removedVsRare": 11,
+        "symmetricDifference": 47,
+        "intersectionOverUnion": 0.5204081632653061,
+        "changedVsPreviousEpic": 46,
+        "bounds": {
+          "minX": 2,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-charm-party-epic-1",
+        "rareId": "a-charm-party-rare-1",
+        "primaryPixels": 71,
+        "rarePrimaryPixels": 51,
+        "addedVsRare": 37,
+        "removedVsRare": 17,
+        "symmetricDifference": 54,
+        "intersectionOverUnion": 0.38636363636363635,
+        "changedVsPreviousEpic": 51,
+        "bounds": {
+          "minX": 3,
+          "maxX": 12,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-charm-party-epic-2",
+        "rareId": "a-charm-party-rare-2",
+        "primaryPixels": 108,
+        "rarePrimaryPixels": 55,
+        "addedVsRare": 68,
+        "removedVsRare": 15,
+        "symmetricDifference": 83,
+        "intersectionOverUnion": 0.3252032520325203,
+        "changedVsPreviousEpic": 82,
+        "bounds": {
+          "minX": 1,
+          "maxX": 14,
+          "minY": 1,
+          "maxY": 13
+        }
+      },
+      {
+        "id": "a-charm-party-epic-3",
+        "rareId": "a-charm-party-rare-3",
+        "primaryPixels": 83,
+        "rarePrimaryPixels": 57,
+        "addedVsRare": 33,
+        "removedVsRare": 7,
+        "symmetricDifference": 40,
+        "intersectionOverUnion": 0.5555555555555556,
+        "changedVsPreviousEpic": 41,
+        "bounds": {
+          "minX": 1,
+          "maxX": 14,
+          "minY": 1,
+          "maxY": 14
+        }
+      },
+      {
+        "id": "a-charm-party-epic-4",
+        "rareId": "a-charm-party-rare-4",
+        "primaryPixels": 118,
+        "rarePrimaryPixels": 67,
+        "addedVsRare": 59,
+        "removedVsRare": 8,
+        "symmetricDifference": 67,
+        "intersectionOverUnion": 0.46825396825396826,
+        "changedVsPreviousEpic": 66,
+        "bounds": {
+          "minX": 2,
+          "maxX": 14,
+          "minY": 2,
+          "maxY": 14
+        }
+      }
+    ],
+    "unchangedDuringAnalysis": true
+  },
+  "assessment": {
+    "art": "All 56 epic primary masks are unique and each differs materially from its corresponding rare beyond palette or outline changes: 24–83 changed occupied coordinates, with intersection/union 0.1684–0.7108. Source contains authored forks, hooks, antlers, crescents, coils, claws, crowns and relic motifs rather than relying on a rarity recolor.",
+    "bounds": "Every icon is a valid 16×16 single frame; all primary pixels lie within x/y 1..14, leaving space for the cardinal outline within the 16×16 canvas. This verifies source icon bounds, not final held-prop visibility.",
+    "gripAndComposition": "Existing equipment fitting, hand placement, mirroring, draw order, composite dimensions and bounded caches remain unchanged. Epic weapons retain a common lower grip. Large new ornamentation still requires actual 2× held-view inspection.",
+    "faceFix": "The second idle pose moves head row 5 to row 6. Extending protected body rows from y<=5 to y<6+Number(pose===1) protects that extra row only for the bobbing pose. Earlier regression evidence records 1328 occlusions; the added test compares actual composed head pixel colors across compatible epic weapons, heroes, poses and both facings using heroEquipmentPose.",
+    "iconPreservation": "168 non-epic icons are byte-equivalent as serialized sprite objects to the preserved baseline. Their combined SHA256 is 6450b9b126485c4251fa4dd55963ff6f1e47d388f67bbfc8ca7b6c5eaf4960db.",
+    "lowerRarityCompositionLimit": "The face fix applies to equipment of every rarity. Exact preservation applies to the 168 icons, not to every lower-rarity equipped hero composite; restoring the bobbing head can intentionally change those composites.",
+    "uiAndEconomy": "All 22 previously tracked src/core files are unchanged. Widget HUD/game/index, menu economy/equipment/index and menu CSS match prior source bindings. Epic rarity UI token #de8aff is unchanged; new internal jewel colors do not replace the UI rarity token.",
+    "tests": "Two meaningful tests are additive: a captured full-object fingerprint for all 168 non-epic icons, and final head-pixel preservation. Cache golden changes retain 57960 equipped views and 3840 fever/KO cases with unchanged iteration logic and assertions; only documented expected digests/title/comments change for the requested art and head fix. Preserved mismatch log records exactly the new expected digests.",
+    "hostGateEvidence": "Canonical log records 88 test files / 1202 tests passing, then lint and all typecheck commands; journal records the exact canonical command exiting 0 at the Host source freeze. The reviewer did not rerun these gates."
+  },
+  "followUpVisualFocus": [
+    "Verify all 56 epic icons and the 32 held weapon silhouettes on native dark and light backgrounds at actual 2× scale.",
+    "Inspect gauntlet epic 1 and greatsword epic 3 closely: they have some of the highest overlap with paired rare primary masks, despite verified shape changes.",
+    "Inspect broad crowns, wings, antlers and hooked tips for preserved recognition after fitting, body occlusion, attack rotation and mirroring.",
+    "Confirm bobbing face visibility, hand contact and clipping in actual native composites; quantitative icon differences alone do not establish aesthetic quality."
+  ],
+  "limits": [
+    "This artifact approves the reviewed source snapshot only; native visual approval is explicitly pending.",
+    "Primary occupancy comparisons establish substantial geometry change but cannot establish attractive or readable motifs at actual display size.",
+    "The prior release's long performance observation belongs to its prior frozen source and packages; this review does not transfer that result to the new art.",
+    "Packaging, Windows hardware behavior, human enjoyment and deployment are outside this source review."
+  ]
+}

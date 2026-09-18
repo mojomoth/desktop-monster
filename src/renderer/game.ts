@@ -13,9 +13,9 @@
 // (2; size variety is in the native art), the field monster carries a type badge, and the
 // party is re-read from state every frame so the type match-up re-picks it.
 // v3 (SPEC F66): playReplay() takes over the field for the PvP battle scene —
-// the opponent's party mirrored on the right, one blow per BLOW_MS off the
-// same update(dt) clock, the field monster hidden and its events' presentation
-// suppressed until the scene hands the field back.
+// the opponent's party mirrored on the right, one blow per BLOW_MS off a
+// separate presentation clock. Hunting and all field animation stay paused
+// until the replay queue hands back the exact interrupted scene.
 // DOM-free on purpose — draws through GameCanvas (SpriteCanvas + clearRect)
 // so tests run under vitest's node environment.
 
@@ -24,13 +24,13 @@ import {
   createEngine,
   effectiveness,
   format,
+  heroReady,
   partyOrder,
   isSpeciesId,
   SPECIES_IDS,
   typeOf,
 } from '../core/index.js';
 import type {
-  BattleReplay,
   CollectionAction,
   Companion,
   Engine,
@@ -43,6 +43,8 @@ import type {
   SpeciesId,
   WireBlow,
 } from '../core/index.js';
+import type { BattleReplay, HeroCombatSnapshot, PvpPresentation, WireFighter } from '../shared/api.js';
+import { equipmentTemplate } from '../core/equipment.js';
 import {
   createHeroAnim,
   createMonsterAnim,
@@ -56,10 +58,12 @@ import {
 } from '../core/fsm.js';
 import type { HeroAnim, MonsterAnim } from '../core/fsm.js';
 import {
-  BOSS_HP_BAR_Y,
   COLORS,
   drawBoss,
   drawFeverAura,
+  drawEquippedHero,
+  equippedHeroSprite,
+  EQUIPPED_HERO_PADDING,
   drawFootBadge,
   drawParty,
   drawPartyBadges,
@@ -78,9 +82,13 @@ import {
   TRANSPARENT,
 } from './sprites/index.js';
 import type { SpeciesSprites, Sprite, SpriteCanvas } from './sprites/index.js';
+import { heroFormSprite } from './sprites/heroForms.js';
 import { createGameAudio } from './audio.js';
 import type { GameAudio } from './audio.js';
-import { COMPANION_ATTACK, EFFECTS, spawnEffect } from './effects.js';
+import {
+  COMPANION_ATTACK, EFFECTS, companionImpactOf, createImpactQueue, heroImpactOf,
+  spawnEffect, spawnImpact, tickImpacts,
+} from './effects.js';
 import {
   createDropPool,
   createParticlePool,
@@ -95,17 +103,20 @@ import {
 } from './anim.js';
 import {
   COUNTER_POP_MS,
+  COIN_COUNTER_Y,
   createBanner,
   createFloatPool,
   DEFEAT_TEXT,
   drawBanner,
   drawCounters,
+  drawFeverLabel,
   drawFloats,
   drawHpBar,
   drawLevelHud,
   FEVER_TEXT,
   floatColor,
   showBanner,
+  spawnFieldFloat,
   spawnFloat,
   tickBanner,
   tickFloats,
@@ -136,8 +147,13 @@ export const HERO_X = 66;
 export const HERO_Y = GROUND_Y - heroIdle.h * SPRITE_SCALE;
 /** Monster sprite left edge (right side; species art faces left already). */
 export const MONSTER_X = 150;
-/** Boxed HP bar above the monster (centered over it at draw time); above the tallest species (dragon 17 rows × 2 = 34 px); its frame row (64) differs from the hero XP bar's (78 for the 14-row hero), which is how the tests tell the two 40-px meters apart. */
-export const HP_BAR = { w: 40, h: 5, y: 64 } as const;
+/** Health bar follows the species' head, with room for a boss crown. */
+export const HP_BAR = { w: 40, h: 5, gap: 3 } as const;
+export function monsterHpBarY(monster: MonsterDef): number {
+  const art = speciesSpritesFor(monster.speciesId).idle;
+  const crown = monster.boss ? itemSprites.crown.h * SPRITE_SCALE : 0;
+  return GROUND_Y - art.h * SPRITE_SCALE - crown - HP_BAR.gap - HP_BAR.h;
+}
 /** ms per idle bob frame (GAME_ARCHITECTURE §4: 2-frame bob, 500 ms/frame). */
 export const IDLE_FRAME_MS = 500;
 /** ms per hero attack frame: 3 frames (wind-up/slash/recover) over 180 ms. */
@@ -150,7 +166,7 @@ export const DROP_LAND_X = 125;
 export const DROP_STAGGER_PX = 8;
 /** Drop flight destination: the top-right coin counter (icon position). */
 export const DROP_TARGET_X = VIEW_W - 12;
-export const DROP_TARGET_Y = 8;
+export const DROP_TARGET_Y = COIN_COUNTER_Y + 3;
 /** Sparkle burst size when a collected drop pops the counter. */
 const COLLECT_SPARKLE_COUNT = 6;
 /**
@@ -163,6 +179,22 @@ export const SLASH_OVERLAY_DY = 3 * SPRITE_SCALE;
 /** Where the slash arc lands — the origin of the hero slash effect (F36). */
 export const SWORD_TIP_X = HERO_X + heroAttack.w * SPRITE_SCALE;
 export const SWORD_TIP_Y = HERO_Y + SLASH_OVERLAY_DY + (heroSlash.h * SPRITE_SCALE) / 2;
+
+/** Spears, guns, spells and fists have their own strike poses. */
+const usesHeroSlash = (formId: string): boolean =>
+  heroFormSprite(formId) === heroIdle || [0, 4, 5, 8].includes((Number(formId.slice(1)) - 1) % 10);
+const usesEquippedSlash = (state: Readonly<GameState>): boolean => {
+  if (!state.equipment) return usesHeroSlash(state.hero?.equipped.formId ?? 'h00');
+  const id = state.equipment.loadout.weapon?.templateId;
+  const type = id ? equipmentTemplate(id)?.weaponType : undefined;
+  return type === 'sword' || type === 'greatsword' || type === 'dagger' || type === 'hammer';
+};
+
+/** All hero forms share the starter's 14px skeleton and forward strike anchor. */
+const heroSlashPosition = (sprite: Sprite): { x: number; y: number } => ({
+  x: HERO_X + (heroIdle.w + sprite.w) * SPRITE_SCALE / 2,
+  y: GROUND_Y - sprite.h * SPRITE_SCALE + SLASH_OVERLAY_DY,
+});
 /** One fever aura sparkle burst per this many ms while fever burns (F36). */
 export const FEVER_SPARKLE_MS = 100;
 /** Camera shake after a critical hit (user change 2026-09-06, toned down the same day): a very light 1-px, 120 ms tremor. */
@@ -181,6 +213,8 @@ export function shakeOffset(ageMs: number): { dx: number; dy: number } {
 /** Presentation switches (the renderer turns the shake on; tests keep it off for exact rects). */
 export interface GameOptions {
   screenShake?: boolean;
+  onReplayStatus?: (presentation: PvpPresentation | null) => void;
+  onReplayComplete?: (battleId: string) => void;
 }
 
 /** Every draw call shifted by (dx, dy): the whole world moves as one during a shake. */
@@ -202,13 +236,17 @@ function shifted(ctx: GameCanvas, dx: number, dy: number): GameCanvas {
 }
 
 // --- PvP battle scene (SPEC F66, GAME_DESIGN_V3 §6) ---------------------
-/** A whole replay aims to fit in this much presentation time. */
+/** Hard presentation limit, including the final result hold. */
 export const REPLAY_MS = 12_000;
-/** BLOW_MS = clamp(REPLAY_MS / blows, BLOW_MS_MIN, BLOW_MS_MAX). */
+/** Preferred beat range; long battles accelerate to honor REPLAY_MS. */
 export const BLOW_MS_MIN = 250;
 export const BLOW_MS_MAX = 600;
 /** Beat between the last blow and the VICTORY!/DEFEAT banner. */
 export const REPLAY_END_MS = 600;
+/** Main delivers at most five pending defenses and one attack. */
+export const REPLAY_QUEUE_SIZE = 6;
+/** Covers retained server receipts and delayed completion acknowledgements. */
+const REPLAY_HISTORY_SIZE = 128;
 /** Right edge the mirrored opponent group and its name hang from. */
 export const OPPONENT_ORIGIN_X = VIEW_W - 8;
 /** Baseline of the opponent's name, clear of its tallest member. */
@@ -224,7 +262,9 @@ export const BLOW_FLOAT_LIFT = 6;
 
 /** Per-blow pacing of a replay of `blows` blows, ms (§6). */
 export function blowMs(blows: number): number {
-  return Math.min(BLOW_MS_MAX, Math.max(BLOW_MS_MIN, REPLAY_MS / blows));
+  const count = Number.isFinite(blows) ? Math.max(0, Math.floor(blows)) : 0;
+  return Math.min(BLOW_MS_MAX, Math.max(BLOW_MS_MIN, REPLAY_MS / Math.max(1, count)),
+    (REPLAY_MS - REPLAY_END_MS) / Math.max(1, count - 1));
 }
 
 /** Wire damage is a decimal string — a corrupt one must never throw mid-frame. */
@@ -279,7 +319,7 @@ function speciesSpritesFor(speciesId: string): SpeciesSprites {
  * has to be visible the frame after a new monster spawns (§6).
  */
 function fieldParty(state: GameState): Companion[] {
-  return partyOrder(activeCompanions(state.companions, state.monster.type));
+  return partyOrder(activeCompanions(state.companions, state.monster.type, state.hero?.equipped));
 }
 
 /** Where a member of `party` stands, or null when it is not on the field. */
@@ -312,6 +352,27 @@ function opponentSlotOf(
 /** The battle scene in flight; null whenever the field owns the canvas. */
 interface BattleScene {
   name: string;
+  ownHero?: PvpPresentation['ownHero'];
+  opponentHero?: BattleReplay['opponentHero'];
+  ownCombat?: HeroCombatSnapshot;
+  opponentCombat?: HeroCombatSnapshot;
+  heroic: boolean;
+  ownFighters: (WireFighter & { remaining: bigint })[];
+  opponentFighters: (WireFighter & { remaining: bigint })[];
+  heroStartedAt: number;
+  rivalStartedAt: number;
+  heroHitUntil: number;
+  rivalHitUntil: number;
+  pendingHits: { blow: WireBlow; at: number }[];
+  presentation: PvpPresentation | null;
+  heroAnim: HeroAnim;
+  rivalAnim: HeroAnim;
+  floats: ReturnType<typeof createFloatPool>;
+  particles: ReturnType<typeof createParticlePool>;
+  impacts: ReturnType<typeof createImpactQueue>;
+  banner: ReturnType<typeof createBanner>;
+  hitCount: number;
+  resultShown: boolean;
   /** My side ('A') and theirs ('D'), back → front; a KO leaves its group. */
   mine: Companion[];
   theirs: Companion[];
@@ -424,9 +485,9 @@ export interface Game {
    */
   attack(source: InputSource): GameEvent[];
   /**
-   * Advance presentation time AND the engine clock by dtMs (non-finite/
-   * negative counts as 0). Returns the events the tick produced — companion
-   * volleys and fever transitions — so the save scheduler sees them too.
+   * Advance presentation and the engine clock by dtMs (invalid dt is 0).
+   * During replay only its scene advances; hunting emits no events or time.
+   * Otherwise return tick events so the save scheduler sees field progress.
    */
   update(dtMs: number): GameEvent[];
   /**
@@ -436,13 +497,19 @@ export interface Game {
    * back so the caller can persist them; a rejected action returns [].
    */
   apply(a: CollectionAction): GameEvent[];
+  beginEquipmentBatch(): void;
+  endEquipmentBatch(): GameEvent[];
+  refreshShop(now: number): GameEvent[];
   /**
    * Take the field for a PvP battle scene (SPEC F66): the opponent's party
    * stands mirrored on the right under its name, one blow per BLOW_MS off
-   * `update(dt)`, the field monster hidden and every field event's
-   * presentation suppressed until the scene hands the field back.
+   * `update(dt)`, preserving the live engine and field presentation until
+   * the queue drains. Legacy callers retain their end-of-replay banner.
    */
-  playReplay(replay: BattleReplay): void;
+  playReplay(replay: BattleReplay, won?: boolean): void;
+  /** Queue an already committed result; playback never applies its gold delta. */
+  enqueueReplay(presentation: PvpPresentation): void;
+  isReplaying(): boolean;
   /** Repaint the full VIEW_W×VIEW_H scene. */
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
@@ -474,13 +541,12 @@ export function createGame(
   let engine = initialEngine;
   let timeMs = 0;
   let heroAnim = createHeroAnim();
-  // The opponent's hero in a battle scene (F66): idles, swings on its side's blows.
-  let rivalAnim = createHeroAnim();
   // Boot straight into idle: the monster on screen at load (fresh or resumed)
   // is already alive — the spawn pop-in is for monsters born from a kill.
   let monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
   const floats = createFloatPool();
   const particles = createParticlePool();
+  const impacts = createImpactQueue();
   const drops = createDropPool();
   const banner = createBanner();
   // ms since the last drop arrived at the counter; Infinity = never popped.
@@ -500,12 +566,13 @@ export function createGame(
   let rosterBefore: readonly Companion[] = [];
   // The PvP battle scene, or null while the field owns the canvas (F66).
   let scene: BattleScene | null = null;
+  const sceneQueue: BattleScene[] = [];
+  const completedReplays = new Set<string>();
 
   /** Drop every in-flight presentation system (Reset Progress and rebirth). */
   const clearPresentation = (): void => {
     timeMs = 0;
     heroAnim = createHeroAnim();
-    rivalAnim = createHeroAnim();
     // Boot the monster straight into idle: the pop-in is for kill-born
     // spawns (T15 decision) — rebirth re-arms it right after this call.
     monsterAnim = tickMonster(createMonsterAnim(), MONSTER_SPAWNING_MS);
@@ -515,6 +582,7 @@ export function createGame(
     for (const p of particles) {
       p.active = false;
     }
+    for (const impact of impacts) impact.active = false;
     for (const d of drops) {
       d.active = false;
       d.arrived = false;
@@ -526,6 +594,8 @@ export function createGame(
     feverSparkleAgeMs = 0;
     shakeAgeMs = Number.POSITIVE_INFINITY;
     scene = null;
+    sceneQueue.length = 0;
+    options.onReplayStatus?.(null);
   };
 
   /**
@@ -551,7 +621,7 @@ export function createGame(
       if (lostId !== null) {
         // It is already off the roster: scatter the art it was drawn with,
         // where it stood. A benched loss was never on screen.
-        const party = partyOrder(activeCompanions(before, state.monster.type));
+        const party = partyOrder(activeCompanions(before, state.monster.type, state.hero?.equipped));
         const lost = party.find((c) => c.id === lostId);
         const slot = partySlotOf(party, lostId);
         if (lost !== undefined && slot !== null) {
@@ -583,14 +653,18 @@ export function createGame(
     }
     audio.attackTick();
     // The commanding hero swings with each of its side's blows (user change 2026-09-06).
-    if (mineActs) heroAnim = heroInput();
-    else rivalAnim = heroInput();
+    if (mineActs) s.heroAnim = heroInput();
+    else s.rivalAnim = heroInput();
     const from = slotCentre(actorSlot, actor.speciesId);
     const at = slotCentre(targetSlot, target.speciesId);
-    spawnCompanionAttack(particles, actor.speciesId, from, at, mineActs ? 1 : -1);
-    spawnEffect(particles, EFFECTS.hit[speciesKey(target.speciesId)], at.x, at.y, 1, hitCount++);
+    spawnCompanionAttack(s.particles, actor.speciesId, from, at, mineActs ? 1 : -1);
+    spawnImpact(s.particles, s.impacts, companionImpactOf(actor.speciesId), at.x, at.y, mineActs ? 1 : -1);
+    spawnImpact(s.particles, s.impacts,
+      heroImpactOf((mineActs ? s.ownHero?.formId : s.opponentHero?.formId) ?? 'h00'),
+      at.x, at.y - 5, mineActs ? 1 : -1);
+    spawnEffect(s.particles, EFFECTS.hit[speciesKey(target.speciesId)], at.x, at.y, 1, s.hitCount++);
     spawnFloat(
-      floats,
+      s.floats,
       at.x,
       at.y - BLOW_FLOAT_LIFT,
       format(wireDamage(blow.damage)),
@@ -603,7 +677,7 @@ export function createGame(
     audio.killArpeggio();
     const art = speciesSpritesFor(target.speciesId).idle;
     spawnSpriteScatter(
-      particles,
+      s.particles,
       art,
       0,
       targetSlot.x,
@@ -613,6 +687,55 @@ export function createGame(
     targets.splice(targets.indexOf(target), 1);
   };
 
+  /** New battles use actual hero turns. The old companion-only animation is
+   * deliberately separate so durable pre-upgrade receipts retain their shape. */
+  const playHeroicBlow = (s: BattleScene, blow: WireBlow): void => {
+    const own = blow.side === 'A';
+    const actors = own ? s.ownFighters : s.opponentFighters;
+    const targets = own ? s.opponentFighters : s.ownFighters;
+    const actor = actors.find(f => f.id === blow.actorId && f.kind === blow.actorKind);
+    const target = targets.find(f => f.id === blow.targetId && f.kind === blow.targetKind);
+    if (!actor || !target || actor.remaining <= 0n || target.remaining <= 0n) return;
+    const centre = (fighter: WireFighter, mine: boolean): { x: number; y: number } | null => {
+      if (fighter.kind === 'hero') return { x: (mine ? HERO_X : OPPONENT_HERO_X) + 14, y: GROUND_Y - 14 };
+      const slot = mine ? partySlotOf(s.mine, fighter.id) : opponentSlotOf(s.theirs, fighter.id);
+      return slot ? slotCentre(slot, fighter.speciesId ?? 'slime') : null;
+    };
+    const from = centre(actor, own), at = centre(target, !own);
+    if (!from || !at) return;
+    audio.attackTick();
+    if (actor.kind === 'hero') spawnImpact(s.particles, s.impacts, heroImpactOf(actor.formId ?? 'h00'), at.x, at.y, own ? 1 : -1);
+    else {
+      spawnCompanionAttack(s.particles, actor.speciesId ?? 'slime', from, at, own ? 1 : -1);
+      spawnImpact(s.particles, s.impacts, companionImpactOf(actor.speciesId ?? 'slime'), at.x, at.y, own ? 1 : -1);
+    }
+    const damage = wireDamage(blow.damage);
+    target.remaining = blow.ko || damage >= target.remaining ? 0n : target.remaining - damage;
+    spawnFloat(s.floats, at.x, at.y - BLOW_FLOAT_LIFT, format(damage), blow.crit ?? false,
+      actor.type && target.type ? floatColor(effectiveness(actor.type, target.type)) : COLORS.white);
+    if (target.kind === 'hero') {
+      if (own) s.rivalHitUntil = s.ageMs + 120; else s.heroHitUntil = s.ageMs + 120;
+    } else spawnEffect(s.particles, EFFECTS.hit[speciesKey(target.speciesId ?? 'slime')], at.x, at.y, 1, s.hitCount++);
+    if (!blow.ko) return;
+    audio.killArpeggio();
+    if (target.kind === 'hero') {
+      const mine = !own, combat = mine ? s.ownCombat : s.opponentCombat;
+      const sprite = equippedHeroSprite(target.formId ?? combat?.hero.formId ?? 'h00', combat?.loadout.weapon ?? null,
+        { flipX: !mine });
+      spawnSpriteScatter(s.particles, sprite, 0, (mine ? HERO_X : OPPONENT_HERO_X) - EQUIPPED_HERO_PADDING.x * SPRITE_SCALE,
+        HERO_Y - EQUIPPED_HERO_PADDING.y * SPRITE_SCALE, SPRITE_SCALE);
+      if (mine) s.heroAnim = createHeroAnim(); else s.rivalAnim = createHeroAnim();
+    } else {
+      const party = own ? s.theirs : s.mine;
+      const slot = own ? opponentSlotOf(party, target.id) : partySlotOf(party, target.id);
+      if (slot) {
+        const sprite = speciesSpritesFor(target.speciesId ?? 'slime').idle;
+        spawnSpriteScatter(s.particles, sprite, 0, slot.x, GROUND_Y - sprite.h * SPRITE_SCALE, SPRITE_SCALE);
+      }
+      const index = party.findIndex(c => c.id === target.id); if (index >= 0) party.splice(index, 1);
+    }
+  };
+
   /** Run the scene's clock: due blows, then the verdict + the field back. */
   const advanceScene = (dt: number): void => {
     const s = scene;
@@ -620,25 +743,63 @@ export function createGame(
       return;
     }
     s.ageMs += dt;
-    while (s.next < s.blows.length && s.ageMs >= s.next * s.blowMs) {
+    if (!s.heroic) { s.heroAnim = tickHero(s.heroAnim, dt); s.rivalAnim = tickHero(s.rivalAnim, dt); }
+    tickFloats(s.floats, dt);
+    tickParticles(s.particles, dt);
+    tickImpacts(s.particles, s.impacts, dt);
+    tickBanner(s.banner, dt);
+    if (s.heroic) {
+      const duration = Math.min(HERO_ATTACK_MS, 2 * s.blowMs);
+      // Process due actions and their strike impacts in chronological order.
+      // A delayed render frame therefore cannot put a KO after the next turn.
+      for (;;) {
+        const turnAt = s.next < s.blows.length ? s.next * s.blowMs : Infinity;
+        const hitAt = s.pendingHits[0]?.at ?? Infinity;
+        if (Math.min(turnAt, hitAt) > s.ageMs) break;
+        if (hitAt <= turnAt) {
+          const pending = s.pendingHits.shift()!; playHeroicBlow(s, pending.blow);
+        } else {
+          const blow = s.blows[s.next++]!;
+          if (blow.actorKind === 'hero') {
+            if (blow.side === 'A') s.heroStartedAt = turnAt; else s.rivalStartedAt = turnAt;
+            s.pendingHits.push({ blow, at: turnAt + duration / 3 });
+          } else playHeroicBlow(s, blow);
+        }
+      }
+      const motion = (start: number, fighters: BattleScene['ownFighters']): HeroAnim => {
+        const age = s.ageMs - start;
+        return fighters.some(f => f.kind === 'hero' && f.remaining > 0n) && age >= 0 && age < duration
+          ? { state: 'attack', t: age / duration * HERO_ATTACK_MS } : createHeroAnim();
+      };
+      s.heroAnim = motion(s.heroStartedAt, s.ownFighters); s.rivalAnim = motion(s.rivalStartedAt, s.opponentFighters);
+    } else while (s.next < s.blows.length && s.ageMs >= s.next * s.blowMs) {
       const blow = s.blows[s.next++];
       if (blow !== undefined) {
         playBlow(s, blow);
       }
     }
+    if (s.presentation && s.next === s.blows.length && s.pendingHits.length === 0 && !s.resultShown) {
+      s.resultShown = true;
+      showBanner(s.banner, s.presentation.won ? VICTORY_TEXT : DEFEAT_TEXT);
+    }
     if (s.ageMs < s.endsAt) {
       return;
     }
-    // The field comes back FIRST, so the verdict's own presentation lands on
-    // it instead of being suppressed as a scene event.
-    scene = null;
-    if (s.after !== null) {
+    scene = sceneQueue.shift() ?? null;
+    if (s.presentation) {
+      completedReplays.add(s.presentation.battleId);
+      if (completedReplays.size > REPLAY_HISTORY_SIZE) {
+        const oldest = completedReplays.values().next().value;
+        if (oldest !== undefined) completedReplays.delete(oldest);
+      }
+      options.onReplayComplete?.(s.presentation.battleId);
+    } else if (s.after !== null) {
       s.after();
-      return;
+    } else {
+      // Legacy uncommitted replay callers retain their original field banner.
+      showBanner(banner, s.mine.length > 0 && s.theirs.length === 0 ? VICTORY_TEXT : DEFEAT_TEXT);
     }
-    // Played on its own: the side still standing won, exactly as the server
-    // decided it (core simulateBattle).
-    showBanner(banner, s.mine.length > 0 && s.theirs.length === 0 ? VICTORY_TEXT : DEFEAT_TEXT);
+    options.onReplayStatus?.(scene?.presentation ?? null);
   };
 
   /**
@@ -646,14 +807,14 @@ export function createGame(
    * engine events through it, so a companion kill looks exactly like a hero
    * kill. An empty batch does nothing.
    */
-  const handleEvents = (events: readonly GameEvent[]): void => {
-    // Floats sit 6px above the ACTIVE hp bar — the boss bar is raised (§3).
-    const floatY = (): number => (target.boss ? BOSS_HP_BAR_Y : HP_BAR.y) - 6;
+  const handleEvents = (events: readonly GameEvent[], verdictScene?: BattleScene): void => {
+    // Glyphs plus their bottom outline extend 6px below the spawn coordinate
+    // at either damage scale. Leave another 2px clear above the boss HP bar.
+    const floatY = (): number => target.boss ? monsterHpBarY(target) - 8 : 58;
     for (const event of events) {
       if (scene !== null) {
-        // The engine keeps running under the battle scene: field events land
-        // on the state, only their presentation is suppressed (§6). Which
-        // monster is the target is bookkeeping, not presentation.
+        // Only explicit committed actions may arrive during playback; engine
+        // ticking and manual attacks are suspended until the queue drains.
         if (event.type === 'monsterSpawned') {
           target = event.monster;
         }
@@ -664,20 +825,25 @@ export function createGame(
       switch (event.type) {
         case 'attack':
           audio.attackTick();
-          spawnFloat(
+          spawnImpact(particles, impacts, heroImpactOf(engine.getState().hero?.equipped.formId ?? 'h00'),
+            monsterCentre(target).x, monsterCentre(target).y);
+          spawnFieldFloat(
             floats,
-            monsterCentre(target).x,
             floatY(),
             format(event.damage),
             event.crit,
           );
-          spawnEffect(
-            particles,
-            engine.getState().souls > 0 ? EFFECTS.heroSlashSouls : EFFECTS.heroSlash,
-            SWORD_TIP_X,
-            SWORD_TIP_Y,
-            1,
-          );
+          if (usesEquippedSlash(engine.getState())) {
+            const state = engine.getState();
+            const slash = heroSlashPosition(heroFormSprite(state.hero?.equipped.formId ?? 'h00', true));
+            spawnEffect(
+              particles,
+              state.souls > 0 ? EFFECTS.heroSlashSouls : EFFECTS.heroSlash,
+              slash.x,
+              slash.y + heroSlash.h * SPRITE_SCALE / 2,
+              1,
+            );
+          }
           if (event.crit) {
             // Critical hit: the camera shakes and hot sparks ring the monster.
             shakeAgeMs = 0;
@@ -686,10 +852,11 @@ export function createGame(
           }
           break;
         case 'companionAttack': {
+          spawnImpact(particles, impacts, companionImpactOf(event.speciesId),
+            monsterCentre(target).x, monsterCentre(target).y);
           // The float carries the match-up: yellow super, steel weak (§6).
-          spawnFloat(
+          spawnFieldFloat(
             floats,
-            monsterCentre(target).x,
             floatY(),
             format(event.damage),
             false,
@@ -749,6 +916,20 @@ export function createGame(
           }
           break;
         }
+        case 'companionReleased': {
+          // The draw used to vanish; now it says what it paid and whether the
+          // roster's weakest keeper is the one worth trading away (§6).
+          const centre = monsterCentre(target);
+          spawnFloat(
+            floats,
+            centre.x,
+            centre.y,
+            event.souls > 0 ? `RELEASED +${String(event.souls)}` : 'RELEASED',
+            false,
+            event.strongerThanWeakest ? COLORS.orange : COLORS.steel,
+          );
+          break;
+        }
         case 'feverStart':
           audio.feverStart();
           showBanner(banner, FEVER_TEXT);
@@ -784,10 +965,11 @@ export function createGame(
         case 'pvpResolved': {
           const show = pvpPresentation(event, rosterBefore);
           // A replay opened the scene first: the verdict waits for it (F53).
-          if (scene === null) {
+          const recipient = verdictScene ?? scene;
+          if (recipient === null) {
             show();
           } else {
-            scene.after = show;
+            recipient.after = show;
           }
           break;
         }
@@ -810,30 +992,72 @@ export function createGame(
     }
   };
 
-  /** SPEC F66 — see the Game interface. */
-  const playReplay = (replay: BattleReplay): void => {
-    // ponytail: my group is exactly the roster members the replay names —
-    // the party that was sent need not be the saved pvpParty.
-    const fought = new Set(replay.blows.map((b) => (b.side === 'A' ? b.actorId : b.targetId)));
-    const perBlow = blowMs(replay.blows.length);
-    scene = {
+  const makeScene = (replay: BattleReplay, ownParty: readonly Companion[], ownHero: PvpPresentation['ownHero'],
+    presentation: PvpPresentation | null, after: BattleScene['after']): BattleScene => {
+    const heroic = replay.ownFighters !== undefined && replay.opponentFighters !== undefined;
+    const perBlow = heroic ? Math.min(blowMs(replay.blows.length),
+      (REPLAY_MS - REPLAY_END_MS - ATTACK_FRAME_MS) / Math.max(1, replay.blows.length - 1)) : blowMs(replay.blows.length);
+    const next: BattleScene = {
       name: replay.opponentName,
-      mine: partyOrder(engine.getState().companions.filter((c) => fought.has(c.id))),
-      theirs: partyOrder(replay.opponentParty),
-      blows: replay.blows,
+      ownHero: ownHero ? { ...ownHero } : undefined,
+      opponentHero: replay.opponentHero ? { ...replay.opponentHero } : undefined,
+      ownCombat: presentation?.ownCombat ? structuredClone(presentation.ownCombat) : undefined,
+      opponentCombat: replay.opponentCombat ? structuredClone(replay.opponentCombat) : undefined,
+      heroic, ownFighters: (replay.ownFighters ?? []).map(f => ({ ...f, remaining: wireDamage(f.hp) })),
+      opponentFighters: (replay.opponentFighters ?? []).map(f => ({ ...f, remaining: wireDamage(f.hp) })),
+      heroStartedAt: -Infinity, rivalStartedAt: -Infinity, heroHitUntil: 0, rivalHitUntil: 0, pendingHits: [],
+      presentation,
+      heroAnim: createHeroAnim(), rivalAnim: createHeroAnim(),
+      floats: createFloatPool(), particles: createParticlePool(), impacts: createImpactQueue(),
+      banner: createBanner(), hitCount: 0, resultShown: false,
+      mine: partyOrder(ownParty.map(c => ({ ...c }))),
+      theirs: partyOrder(replay.opponentParty.map(c => ({ ...c }))),
+      blows: replay.blows.map(b => ({ ...b })),
       blowMs: perBlow,
       next: 0,
       ageMs: 0,
-      endsAt: Math.max(0, replay.blows.length - 1) * perBlow + REPLAY_END_MS,
-      after: null,
+      endsAt: Math.min(REPLAY_MS, Math.max(0, replay.blows.length - 1) * perBlow + REPLAY_END_MS + (heroic ? Math.min(ATTACK_FRAME_MS, perBlow * 2 / 3) : 0)),
+      after,
     };
-    showBanner(banner, `VS ${replay.opponentName}`);
+    showBanner(next.banner, `VS ${replay.opponentName}`);
+    return next;
+  };
+  const queueScene = (next: BattleScene): void => {
+    if (scene === null) {
+      scene = next;
+      options.onReplayStatus?.(next.presentation);
+    } else sceneQueue.push(next);
+  };
+  const legacyReplay = (replay: BattleReplay, won?: boolean): BattleScene => {
+    // Legacy callers have no historical own-party snapshot. New presentations
+    // always use the complete server snapshot, including untouched back rows.
+    const fought = new Set(replay.blows.map(b => b.side === 'A' ? b.actorId : b.targetId));
+    const state = engine.getState();
+    const next = makeScene(replay, state.companions.filter(c => fought.has(c.id)), state.hero?.equipped, null,
+      won === undefined ? null : () => showBanner(banner, won ? VICTORY_TEXT : DEFEAT_TEXT));
+    queueScene(next);
+    return next;
+  };
+  const enqueueReplay = (presentation: PvpPresentation): void => {
+    const id = presentation.battleId;
+    if (completedReplays.has(id)) { options.onReplayComplete?.(id); return; }
+    if (scene?.presentation?.battleId === id || sceneQueue.some(s => s.presentation?.battleId === id)) return;
+    // No acknowledgement on overflow: main retains the durable receipt and
+    // can redeliver it. Normal delivery is bounded to five defenses + one attack.
+    if (sceneQueue.length + Number(scene !== null) >= REPLAY_QUEUE_SIZE) return;
+    const snapshot = structuredClone(presentation);
+    queueScene(makeScene(snapshot.replay, snapshot.ownParty, snapshot.ownHero, snapshot, null));
   };
 
   return {
+    beginEquipmentBatch: (): void => { engine.beginEquipmentBatch(); },
+    endEquipmentBatch: (): GameEvent[] => { const events = engine.endEquipmentBatch(); handleEvents(events); return events; },
+    refreshShop: (now): GameEvent[] => { const events = engine.refreshShop(now); handleEvents(events); return events; },
     attack(source: InputSource): GameEvent[] {
-      // Any input (re)starts the 180ms attack — BongoCat spam feel (F20).
-      heroAnim = heroInput();
+      // PvP attacks are driven exclusively by the timed battle blows.
+      if (scene !== null) return [];
+      // Inputs still deal damage immediately; visual swings finish with one pending.
+      heroAnim = heroInput(heroAnim);
       const events = engine.attack(source);
       handleEvents(events);
       return events;
@@ -841,12 +1065,16 @@ export function createGame(
 
     update(dtMs: number): GameEvent[] {
       const dt = Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
+      if (scene !== null) {
+        advanceScene(dt);
+        return []; // Never catch up field time, including the scene's last frame.
+      }
       timeMs += dt;
       heroAnim = tickHero(heroAnim, dt);
-      rivalAnim = tickHero(rivalAnim, dt);
       monsterAnim = tickMonster(monsterAnim, dt);
       tickFloats(floats, dt);
       tickParticles(particles, dt);
+      tickImpacts(particles, impacts, dt);
       tickDrops(drops, dt);
       tickBanner(banner, dt);
       coinPopAgeMs += dt;
@@ -877,33 +1105,37 @@ export function createGame(
       } else {
         feverSparkleAgeMs = 0;
       }
-      advanceScene(dt);
       return events;
     },
 
     apply(a: CollectionAction): GameEvent[] {
       rosterBefore = engine.getState().companions;
+      let verdictScene: BattleScene | undefined;
       if (a.type === 'pvpResult' && a.replay !== undefined) {
         // The scene opens BEFORE the verdict lands, so the banner and the
         // pop-in/scatter wait until it ends (F53).
-        playReplay(a.replay);
+        verdictScene = legacyReplay(a.replay);
       }
       const events = engine.apply(a);
-      handleEvents(events);
+      handleEvents(events, verdictScene);
       return events;
     },
 
-    playReplay,
+    playReplay: (replay, won): void => { legacyReplay(replay, won); },
+    enqueueReplay,
+    isReplaying: (): boolean => scene !== null,
 
     draw(screen: GameCanvas): void {
       screen.clearRect(0, 0, VIEW_W, VIEW_H);
       // A critical hit shakes the world (everything but the top-right counters
       // and the banner) for SHAKE_MS; `ctx` is the shifted view of `screen`.
-      const shake = options.screenShake === true && shakeAgeMs < SHAKE_MS ? shakeOffset(shakeAgeMs) : null;
+      const shake = scene === null && options.screenShake === true && shakeAgeMs < SHAKE_MS ? shakeOffset(shakeAgeMs) : null;
       const ctx = shake === null ? screen : shifted(screen, shake.dx, shake.dy);
       drawField(ctx);
 
       const state = engine.getState();
+      const shownTime = scene?.ageMs ?? timeMs;
+      const shownHero = scene?.heroAnim ?? heroAnim;
 
       // Both party groups stand BEHIND the hero (drawn first): the 2x art of
       // a 5-member group reaches the hero's box, and the protagonist wins the
@@ -912,7 +1144,7 @@ export function createGame(
       // party that fought and the opponent's group mirrored on the right under
       // its name — the field monster is hidden while it plays (§6).
       const partyFrame =
-        Math.floor(timeMs / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length;
+        Math.floor(shownTime / IDLE_FRAME_MS) % monsterSprites.slime.idle.frames.length;
       const myParty = scene === null ? fieldParty(state) : scene.mine;
       drawParty(ctx, myParty, partyFrame, GROUND_Y);
       // Every monster wears its type under its feet (user change 2026-09-06).
@@ -926,43 +1158,70 @@ export function createGame(
         drawText(ctx, scene.name, OPPONENT_ORIGIN_X - textWidth(scene.name), OPPONENT_NAME_Y);
       }
 
-      const attacking = heroAnim.state === 'attack';
-      const heroSprite = attacking ? heroAttack : heroIdle;
+      const attacking = shownHero.state === 'attack';
+      const heroFormId = (scene === null ? state.hero?.equipped.formId : scene.ownCombat?.hero.formId ?? scene.ownHero?.formId) ?? 'h00';
+      const heroIdleSprite = heroFormSprite(heroFormId);
+      const heroSprite = attacking ? heroFormSprite(heroFormId, true) : heroIdleSprite;
+      const heroX = HERO_X + (heroIdle.w - heroSprite.w) * SPRITE_SCALE / 2;
+      const heroY = GROUND_Y - heroSprite.h * SPRITE_SCALE;
+      // Compact forms reserve transparent space for attack poses. Anchor labels
+      // to the idle silhouette so raised weapons never bounce the HUD.
+      const heroTop = heroY + Math.max(0,
+        heroIdleSprite.frames[0]?.findIndex((row) => /[^.]/.test(row)) ?? 0,
+      ) * SPRITE_SCALE;
       const heroFrame = attacking
-        ? Math.min(heroAttack.frames.length - 1, Math.floor(heroAnim.t / ATTACK_FRAME_MS))
-        : Math.floor(timeMs / IDLE_FRAME_MS) % heroIdle.frames.length;
-      if (state.fever.active) {
+        ? Math.min(heroSprite.frames.length - 1, Math.floor(shownHero.t / ATTACK_FRAME_MS))
+        : Math.floor(shownTime / IDLE_FRAME_MS) % heroSprite.frames.length;
+      const equipped = scene === null ? state.equipment !== undefined : scene.heroic;
+      const weapon = (scene === null ? state.equipment?.loadout.weapon : scene.ownCombat?.loadout.weapon) ?? null;
+      const heroAlive = !scene?.heroic || scene.ownFighters.some(f => f.kind === 'hero' && f.remaining > 0n);
+      if (scene === null && state.fever.active) {
         // Hue-cycling outline UNDER the hero — the real sprite lands on top.
-        drawFeverAura(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, SPRITE_SCALE, timeMs);
+        if (equipped) drawFeverAura(ctx, equippedHeroSprite(heroFormId, weapon, { attacking, frame: heroFrame }), 0,
+          heroX - EQUIPPED_HERO_PADDING.x * SPRITE_SCALE, heroY - EQUIPPED_HERO_PADDING.y * SPRITE_SCALE, SPRITE_SCALE, timeMs);
+        else drawFeverAura(ctx, heroSprite, heroFrame, heroX, heroY, SPRITE_SCALE, timeMs);
       }
-      drawSprite(ctx, heroSprite, heroFrame, HERO_X, HERO_Y, { scale: SPRITE_SCALE });
-      if (attacking && heroFrame === SLASH_FRAME && scene === null) {
+      if (heroAlive) {
+        if (equipped) drawEquippedHero(ctx, heroFormId, weapon, heroX, heroY,
+          { scale: SPRITE_SCALE, attacking, frame: heroFrame, timeMs: shownTime,
+            ...(scene?.heroic && scene.ageMs < scene.heroHitUntil ? { tint: COLORS.white } : {}) });
+        else drawSprite(ctx, heroSprite, heroFrame, heroX, heroY, { scale: SPRITE_SCALE });
+      }
+      if (scene === null && state.fever.active) {
+        drawFeverLabel(ctx, HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2), heroTop - (heroReady(state.level, state.hero) ? 12 : 0));
+      }
+      if (attacking && heroFrame === SLASH_FRAME && scene === null && usesEquippedSlash(state)) {
         // Slash arc in front of the blade, toward the monster. Not during a
         // replay: field presentation is suppressed there (§6).
+        const slash = heroSlashPosition(heroSprite);
         drawSprite(
           ctx,
           heroSlash,
           0,
-          HERO_X + heroAttack.w * SPRITE_SCALE,
-          HERO_Y + SLASH_OVERLAY_DY,
+          slash.x,
+          slash.y,
           { scale: SPRITE_SCALE },
         );
       }
 
-      if (scene !== null) {
+      if (scene !== null && (!scene.heroic || scene.opponentFighters.some(f => f.kind === 'hero' && f.remaining > 0n))) {
         // The opponent's hero: the same art mirrored (facing left) in the
         // rival palette, in front of its own party, swinging on its blows.
-        const rivalAttacking = rivalAnim.state === 'attack';
-        const rivalSprite = rivalAttacking ? heroAttack : heroIdle;
+        const rivalAttacking = scene.rivalAnim.state === 'attack';
+        const rivalId = scene.opponentCombat?.hero.formId ?? scene.opponentHero?.formId ?? 'h00';
+        const rivalSprite = heroFormSprite(rivalId, rivalAttacking);
         const rivalFrame = rivalAttacking
-          ? Math.min(heroAttack.frames.length - 1, Math.floor(rivalAnim.t / ATTACK_FRAME_MS))
-          : Math.floor(timeMs / IDLE_FRAME_MS) % heroIdle.frames.length;
-        drawSprite(
+          ? Math.min(rivalSprite.frames.length - 1, Math.floor(scene.rivalAnim.t / ATTACK_FRAME_MS))
+          : Math.floor(shownTime / IDLE_FRAME_MS) % rivalSprite.frames.length;
+        if (scene.heroic) drawEquippedHero(ctx, rivalId, scene.opponentCombat?.loadout.weapon ?? null,
+          OPPONENT_HERO_X, HERO_Y, { flipX: true, scale: SPRITE_SCALE, attacking: rivalAttacking, frame: rivalFrame,
+            timeMs: shownTime, ...(scene.ageMs < scene.rivalHitUntil ? { tint: COLORS.white } : {}) });
+        else drawSprite(
           ctx,
-          { ...rivalSprite, palette: HERO_RIVAL_PALETTE },
+          heroFormSprite(scene.opponentHero?.formId ?? 'h00') !== heroIdle ? rivalSprite : { ...rivalSprite, palette: HERO_RIVAL_PALETTE },
           rivalFrame,
-          OPPONENT_HERO_X,
-          HERO_Y,
+          OPPONENT_HERO_X + (heroIdle.w - rivalSprite.w) * SPRITE_SCALE / 2,
+          GROUND_Y - rivalSprite.h * SPRITE_SCALE,
           { flipX: true, scale: SPRITE_SCALE },
         );
       }
@@ -1015,33 +1274,49 @@ export function createGame(
       }
 
       for (const drop of drops) {
-        if (!drop.active) {
+        if (scene !== null || !drop.active) {
           continue;
         }
         const pos = dropPosition(drop);
         drawSprite(ctx, itemSpriteFor(drop.itemId), 0, Math.round(pos.x), Math.round(pos.y));
       }
-      drawParticles(ctx, particles);
+      drawParticles(ctx, scene?.particles ?? particles);
 
       if (scene === null && monsterAnim.state !== 'dying') {
         // No HP bar over the scatter — it pops back with the next monster,
         // and the battle scene hides it with the monster itself (§6).
-        const barY = state.monster.boss ? BOSS_HP_BAR_Y : HP_BAR.y;
+        const barY = monsterHpBarY(state.monster);
         const barX = Math.round(MONSTER_X + (species.idle.w * scale) / 2 - HP_BAR.w / 2);
         drawHpBar(ctx, barX, barY, HP_BAR.w, HP_BAR.h, state.monsterHp, state.monster.maxHp);
         // The type badge sits under the monster's feet, like every party member's (§6).
         drawFootBadge(ctx, state.monster.type, MONSTER_X, species.idle.w * scale, GROUND_Y);
       }
       // LV + XP gauge floats above the hero's head (Assumption 17).
-      drawLevelHud(
+      if (scene?.heroic) {
+        for (const [mine, fighters] of [[true, scene.ownFighters], [false, scene.opponentFighters]] as const) {
+          const hero = fighters.find(f => f.kind === 'hero');
+          const x = mine ? HERO_X : OPPONENT_HERO_X;
+          if (hero && hero.remaining > 0n) drawHpBar(ctx, x, HERO_Y - 6, 28, 4, hero.remaining, wireDamage(hero.hp));
+          const target = fighters.find(f => f.kind === 'companion' && f.remaining > 0n) ?? fighters.find(f => f.remaining > 0n);
+          if (target) {
+            const panelX = mine ? 8 : VIEW_W - 88;
+            drawText(ctx, target.kind === 'hero' ? 'HERO' : (target.speciesId ?? 'ALLY').toUpperCase().slice(0, 12), panelX, 68);
+            drawHpBar(ctx, panelX, 77, 80, 4, target.remaining, wireDamage(target.hp));
+          }
+        }
+      } else drawLevelHud(
         ctx,
         state,
         HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
-        HERO_Y - 2,
+        heroTop - 2,
       );
-      drawFloats(ctx, floats);
-      drawCounters(screen, state, VIEW_W, coinPopAgeMs < COUNTER_POP_MS);
-      drawBanner(screen, banner, VIEW_W);
+      drawFloats(ctx, scene?.floats ?? floats);
+      drawCounters(screen, state, VIEW_W, scene === null && coinPopAgeMs < COUNTER_POP_MS);
+      if (scene === null && state.equipment && state.equipment.bag.length >= state.equipment.capacity) {
+        const pending = state.equipment.temporary.length;
+        drawText(screen, pending ? `BAG FULL +${pending}` : 'BAG FULL', 8, 28, { color: COLORS.yellow });
+      }
+      drawBanner(screen, scene?.banner ?? banner, VIEW_W);
     },
 
     getState(): Readonly<GameState> {
@@ -1057,7 +1332,7 @@ export function createGame(
       clearPresentation();
     },
 
-    getHeroAnim: (): HeroAnim => heroAnim,
+    getHeroAnim: (): HeroAnim => scene?.heroAnim ?? heroAnim,
 
     getMonsterAnim: (): MonsterAnim => monsterAnim,
   };
@@ -1112,7 +1387,7 @@ export function createSaveScheduler(options: SaveSchedulerOptions): SaveSchedule
 
   return {
     onEvents(events: readonly GameEvent[]): void {
-      if (events.some((e) => e.type === 'monsterKilled' || e.type === 'levelUp')) {
+      if (events.some((e) => e.type === 'monsterKilled' || e.type === 'levelUp' || e.type === 'heroReady')) {
         saveNow();
         return;
       }

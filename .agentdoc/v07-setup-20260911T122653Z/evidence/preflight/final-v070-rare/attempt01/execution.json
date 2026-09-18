@@ -1,0 +1,38 @@
+{
+  "kind": "actual-native-design-preflight",
+  "startedAt": "2026-09-12T18:41:41.104432+00:00",
+  "pid": 81579,
+  "pgid": 81579,
+  "appVersion": "0.7.0",
+  "sourceDigest": "84e911f949feb04569668a77869ad43913dce1bf45c9afd34c9ff6cd239cc131",
+  "evaluationDigest": "c27f89371f34647649fd442fffd3b13849b7c20060409210fbe0ca62b90d6d2d",
+  "naturalMinutes": 0,
+  "fixtureDiagnostics": true,
+  "sourceArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/final-v070-rare/attempt01/source.tar.gz",
+    "sha256": "58992f790727f971faa5b78cc1e421f1640412794bf06740e10d29bd91b9c283"
+  },
+  "evaluationArchive": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/final-v070-rare/attempt01/evaluation.tar.gz",
+    "sha256": "4d1435a38b1a4f592936ee484ca3275d1c67248d30dd4acb0e99df8524525400"
+  },
+  "argv": [
+    "node",
+    ".harness/v7/loop/e2e.mjs",
+    ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/final-v070-rare/attempt01/journey.json",
+    "0",
+    "active"
+  ],
+  "endedAt": "2026-09-12T18:42:15.406921+00:00",
+  "exitCode": 0,
+  "log": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/final-v070-rare/attempt01/execution.log",
+    "sha256": "dfb9037279df2d3badc889e1b67219a96367874df4111f197ac88b243022885b"
+  },
+  "report": {
+    "path": ".agentdoc/v07-setup-20260911T122653Z/evidence/preflight/final-v070-rare/attempt01/journey.json",
+    "sha256": "b99bd36b02523fc9d33f136b8375c9553be535488573f65b3b19ef4af8b24443"
+  },
+  "status": "passed",
+  "checks": 42
+}
