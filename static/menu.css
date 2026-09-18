@@ -381,9 +381,9 @@ h3 { font-size: 12px; margin: 4px 0; }
 button[aria-disabled="true"] { opacity: .55; cursor: wait; }
 button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid #dad45e; outline-offset: 3px; }
 
-/* v0.5: seven short tabs wrap inside the original collection window. */
-.tabs { flex-wrap: wrap; }
-.tabs .tab { flex: 1 0 auto; min-height: 34px; }
+/* Eight tabs remain on one row in the 560px menu. */
+.tabs { flex-wrap: nowrap; }
+.tabs .tab { flex: 1 1 0; min-width: 0; min-height: 34px; white-space: nowrap; padding-inline: 8px; }
 [hidden] { display: none !important; }
 .next-level, .field-phase { color: #dad45e; line-height: 1.6; }
 .stack-change { color: #dad45e; font-size: 11px; }
@@ -462,3 +462,14 @@ button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px 
 .equipment-card .btn { margin:6px 6px 0 0; }
 .equipment-cost { max-height:100px; overflow:auto; font-variant-numeric:tabular-nums; }
 .equipment-countdown { font-variant-numeric:tabular-nums; color:#d6bc82; }
+
+.codex-summary { position: relative; list-style: none; padding-bottom: 16px; }
+.codex-summary::-webkit-details-marker { display: none; }
+.codex-summary::after { content: '▸'; position: absolute; right: 0; bottom: 0; color: #dad45e; }
+.codex-card[open] > .codex-summary::after { transform: rotate(90deg); }
+.menu-feedback:has(.result:empty):has(#cancel-selection[hidden]) { display: none; }
+.menu-feedback { margin-bottom: 8px; }
+.result[data-state="pending"] { color: #dad45e; }
+.hero-utility { margin-top: 16px; padding-top: 12px; border-top: 1px solid #42546a; }
+.equipment-equip-choice > summary { cursor: pointer; }
+.equipment-equip-options { display: grid; gap: 6px; }

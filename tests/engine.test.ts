@@ -173,7 +173,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const engine = createEngine(makeSaveV2({ monsterIndex: 40 }), counted.rng);
     engine.apply({ type: 'rebirth' });
     expect(counted.draws()).toBe(1);
-    expect(engine.getState().monster).toEqual(monsterForIndex(0, 'cindercoil'));
+    expect(engine.getState().monster).toEqual(monsterForIndex(0, 'cindercoil', 11, 1));
     expect(engine.toSave().monsterSpeciesId).toBe('cindercoil');
   });
 
@@ -647,6 +647,8 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.getState()).toEqual(before);
     expect(engine.toSave()).toEqual({
       ...upgradeSave(makeSaveV2({ monsterIndex: 10 })),
+      monsterCurveVersion: 10,
+      monsterCurveRebirths: 0,
       monsterSpeciesId: 'sopwit',
       progress: saveProgress(before.progress!),
       equipment: before.equipment,

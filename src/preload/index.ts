@@ -27,7 +27,7 @@ import type {
   SaveStatus,
   InputModePayload,
   InputPayload,
-  MenuActionPayload,
+  MenuActionPayload, ActionResultPayload,
   SaveStatePayload,
   PrepareStatePayload, ReleaseStatePayload, CheckpointInfo, OperationResult, LastBattleInfo, ExportPngPayload, ExportPngResult,
 } from '../shared/ipc.js';
@@ -118,6 +118,9 @@ const desmon = {
     subscribe('desmon:action', (payload) => {
       cb(payload);
     }),
+  reportActionResult: (result: ActionResultPayload): void => { ipcRenderer.send('desmon:action-result', result); },
+  onActionResult: (cb: (result: ActionResultPayload) => void): (() => void) =>
+    subscribe('desmon:action-result', payload => cb(payload as ActionResultPayload)),
   sendAction: (a: MenuActionPayload): Promise<void> =>
     ipcRenderer.invoke('desmon:menu-action', a) as Promise<void>,
   onStateChanged: (cb: (s: SaveStatePayload) => void): (() => void) =>

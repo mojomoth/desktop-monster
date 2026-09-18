@@ -1,0 +1,84 @@
+{
+  "version": 11,
+  "id": "curve-only-1",
+  "explorationSeeds": {
+    "first": 120001,
+    "count": 20
+  },
+  "heldOutSeeds": {
+    "first": 125001,
+    "count": 100
+  },
+  "continuationSeeds": {
+    "first": 125001,
+    "count": 20
+  },
+  "ordinaryProfiles": [
+    "ordinary",
+    "intermittent"
+  ],
+  "stressProfiles": [
+    "high",
+    "idle",
+    "wealthy",
+    "soul-farming"
+  ],
+  "profiles": {
+    "ordinary": "One keyboard input every500ms, immediate hero choice; menu equipment purchase/enhance/sell every30s; no companion management.",
+    "intermittent": "Same, input only during first15s of each60s; no invented onboarding input.",
+    "high": "Keyboard input every125ms on100ms ticks; fever enabled; same shopping and hero choice.",
+    "idle": "First120s at2/s then no inputs; same hero choices, no equipment purchases.",
+    "wealthy": "2/s; initialLv15, souls20, gold1000000, fiveLv5 companions atboss39; same shopping and hero choice.",
+    "soul-farming": "2/s, same shopping; use soul recovery atstage40 at every5s decision, while hero-ready choices take priority. Report separately, no universal legacy timer claim."
+  },
+  "simulation": {
+    "tickMs": 500,
+    "highTickMs": 100,
+    "decisionMs": 5000,
+    "shopVisitMs": 30000,
+    "firstCycleMaxHours": 12,
+    "firstThreeMaxHours": 18,
+    "tenCyclesMaxHours": 60,
+    "workers": 2
+  },
+  "gates": {
+    "ordinaryFirstThreeMinutes": {
+      "p10Minimum": 120,
+      "p50Minimum": 180,
+      "p50Maximum": 300,
+      "p90Maximum": 360
+    },
+    "ordinaryLaterMinutes": {
+      "cycles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "p50Minimum": 180,
+      "p50Maximum": 300
+    },
+    "highFirstThreeMinutes": {
+      "p10Minimum": 120,
+      "minimumArrivalFraction": 0.9
+    },
+    "negativeWallets": 0,
+    "duplicateItemIds": 0,
+    "invalidLoadouts": 0,
+    "currencyAccountingErrors": 0
+  },
+  "selection": [
+    "All applicable gates pass",
+    "minimum maximum absolute ordinary-cycle p50 deviation from240min",
+    "minimum maximum ordinary-cycle p90",
+    "fewest changed parameters againstv0.10",
+    "lexicographic candidateID"
+  ],
+  "quantiles": "Sort all scheduled trajectories, pad each missing cycle interval withInfinity, use floor((n-1)*p); serializeInfinity asnull and keep nonarrival count. Never use successful-only quantiles for gates.",
+  "sourceBinding": "Hash every current core.ts, protocol, candidate registration and evaluator before and after each run. Candidate changes occur only in isolated compiled copies of registered progression initializers. Failed rounds remain immutable. Heldout is run only after candidate choice; rule or code changes require new receipts and fresh heldout seed range.",
+  "longRunSampling": "100heldout seeds per ordinary profile throughcycle3; registered first20 continue throughcycle10. High and separate adversarial profiles20heldout seeds each. These denominators are reported separately.",
+  "humanFun": false
+}

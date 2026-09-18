@@ -62,7 +62,7 @@ describe('hero art redesign preserves published save and network identities', ()
       const restored = resumed.toSave();
       const freshEquipment = newEquipment();
       refreshEquipmentShop(freshEquipment, 0, 27);
-      expect({ ...restored, progress: undefined }, equipped.formId).toEqual({ ...migrated, progress: undefined, equipment: freshEquipment });
+      expect({ ...restored, progress: undefined }, equipped.formId).toEqual({ ...migrated, monsterCurveVersion: 10, monsterCurveRebirths: 0, progress: undefined, equipment: freshEquipment });
       expect(restored.progress?.heroCounts).toEqual(Object.fromEntries(collection.map((r) => [r.formId, 1])));
       expect(restored.progress?.reincarnationHistory).toEqual([]);
       expect(restored.progress?.playTimeMs).toBe(0);

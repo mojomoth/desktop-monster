@@ -23,8 +23,8 @@ import {
   activeCompanions,
   createEngine,
   effectiveness,
+  FEVER_MS,
   format,
-  heroReady,
   partyOrder,
   isSpeciesId,
   SPECIES_IDS,
@@ -103,17 +103,18 @@ import {
 } from './anim.js';
 import {
   COUNTER_POP_MS,
+  COIN_COUNTER_X,
   COIN_COUNTER_Y,
+  BAG_FULL_Y,
   createBanner,
   createFloatPool,
   DEFEAT_TEXT,
   drawBanner,
   drawCounters,
-  drawFeverLabel,
   drawFloats,
   drawHpBar,
   drawLevelHud,
-  FEVER_TEXT,
+  LEVEL_UP_TEXT,
   floatColor,
   showBanner,
   spawnFieldFloat,
@@ -164,9 +165,9 @@ export const SLASH_FRAME = 1;
 export const DROP_LAND_X = 125;
 /** Horizontal stagger between simultaneous drops so they never stack. */
 export const DROP_STAGGER_PX = 8;
-/** Drop flight destination: the top-right coin counter (icon position). */
-export const DROP_TARGET_X = VIEW_W - 12;
-export const DROP_TARGET_Y = COIN_COUNTER_Y + 3;
+/** Drop flight destination: the fixed top-left coin icon. */
+export const DROP_TARGET_X = COIN_COUNTER_X;
+export const DROP_TARGET_Y = COIN_COUNTER_Y;
 /** Sparkle burst size when a collected drop pops the counter. */
 const COLLECT_SPARKLE_COUNT = 6;
 /**
@@ -408,6 +409,18 @@ function monsterCentre(monster: MonsterDef): { x: number; y: number } {
   return { x: MONSTER_X + (art.w * scale) / 2, y: GROUND_Y - (art.h * scale) / 2 };
 }
 
+/** Damage clears the head, boss crown and HP bar without drifting off target. */
+export function monsterFloatAnchor(monster: MonsterDef): { x: number; y: number } {
+  return { x: monsterCentre(monster).x, y: monsterHpBarY(monster) - 8 };
+}
+
+/** Idle silhouette keeps the label stack stable during all attack poses. */
+export function heroHudTop(formId: string): number {
+  const idle = heroFormSprite(formId);
+  return GROUND_Y - idle.h * SPRITE_SCALE + Math.max(0,
+    idle.frames[0]?.findIndex(row => /[^.]/.test(row)) ?? 0) * SPRITE_SCALE;
+}
+
 function tintedIdleSprite(monster: MonsterDef): Sprite {
   const key = `${monster.speciesId}:${String(monster.tier)}`;
   const cached = tintedIdleCache.get(key);
@@ -497,6 +510,7 @@ export interface Game {
    * back so the caller can persist them; a rejected action returns [].
    */
   apply(a: CollectionAction): GameEvent[];
+  lastActionError(): string | null;
   beginEquipmentBatch(): void;
   endEquipmentBatch(): GameEvent[];
   refreshShop(now: number): GameEvent[];
@@ -810,7 +824,7 @@ export function createGame(
   const handleEvents = (events: readonly GameEvent[], verdictScene?: BattleScene): void => {
     // Glyphs plus their bottom outline extend 6px below the spawn coordinate
     // at either damage scale. Leave another 2px clear above the boss HP bar.
-    const floatY = (): number => target.boss ? monsterHpBarY(target) - 8 : 58;
+    const floatAnchor = (): { x: number; y: number } => monsterFloatAnchor(target);
     for (const event of events) {
       if (scene !== null) {
         // Only explicit committed actions may arrive during playback; engine
@@ -829,7 +843,8 @@ export function createGame(
             monsterCentre(target).x, monsterCentre(target).y);
           spawnFieldFloat(
             floats,
-            floatY(),
+            floatAnchor().x,
+            floatAnchor().y,
             format(event.damage),
             event.crit,
           );
@@ -857,7 +872,8 @@ export function createGame(
           // The float carries the match-up: yellow super, steel weak (§6).
           spawnFieldFloat(
             floats,
-            floatY(),
+            floatAnchor().x,
+            floatAnchor().y,
             format(event.damage),
             false,
             floatColor(event.effectiveness),
@@ -932,7 +948,6 @@ export function createGame(
         }
         case 'feverStart':
           audio.feverStart();
-          showBanner(banner, FEVER_TEXT);
           break;
         case 'itemDropped': {
           let slot = 0;
@@ -1050,6 +1065,7 @@ export function createGame(
   };
 
   return {
+    lastActionError: (): string | null => engine.lastActionError(),
     beginEquipmentBatch: (): void => { engine.beginEquipmentBatch(); },
     endEquipmentBatch: (): GameEvent[] => { const events = engine.endEquipmentBatch(); handleEvents(events); return events; },
     refreshShop: (now): GameEvent[] => { const events = engine.refreshShop(now); handleEvents(events); return events; },
@@ -1127,7 +1143,7 @@ export function createGame(
 
     draw(screen: GameCanvas): void {
       screen.clearRect(0, 0, VIEW_W, VIEW_H);
-      // A critical hit shakes the world (everything but the top-right counters
+      // A critical hit shakes the world (everything but the top-left counters
       // and the banner) for SHAKE_MS; `ctx` is the shifted view of `screen`.
       const shake = scene === null && options.screenShake === true && shakeAgeMs < SHAKE_MS ? shakeOffset(shakeAgeMs) : null;
       const ctx = shake === null ? screen : shifted(screen, shake.dx, shake.dy);
@@ -1166,9 +1182,7 @@ export function createGame(
       const heroY = GROUND_Y - heroSprite.h * SPRITE_SCALE;
       // Compact forms reserve transparent space for attack poses. Anchor labels
       // to the idle silhouette so raised weapons never bounce the HUD.
-      const heroTop = heroY + Math.max(0,
-        heroIdleSprite.frames[0]?.findIndex((row) => /[^.]/.test(row)) ?? 0,
-      ) * SPRITE_SCALE;
+      const heroTop = heroHudTop(heroFormId);
       const heroFrame = attacking
         ? Math.min(heroSprite.frames.length - 1, Math.floor(shownHero.t / ATTACK_FRAME_MS))
         : Math.floor(shownTime / IDLE_FRAME_MS) % heroSprite.frames.length;
@@ -1186,9 +1200,6 @@ export function createGame(
           { scale: SPRITE_SCALE, attacking, frame: heroFrame, timeMs: shownTime,
             ...(scene?.heroic && scene.ageMs < scene.heroHitUntil ? { tint: COLORS.white } : {}) });
         else drawSprite(ctx, heroSprite, heroFrame, heroX, heroY, { scale: SPRITE_SCALE });
-      }
-      if (scene === null && state.fever.active) {
-        drawFeverLabel(ctx, HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2), heroTop - (heroReady(state.level, state.hero) ? 12 : 0));
       }
       if (attacking && heroFrame === SLASH_FRAME && scene === null && usesEquippedSlash(state)) {
         // Slash arc in front of the blade, toward the monster. Not during a
@@ -1309,14 +1320,15 @@ export function createGame(
         state,
         HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
         heroTop - 2,
+        scene === null ? { levelUp: banner, ...(state.fever.active ? { feverAgeMs: FEVER_MS - state.fever.remainingMs } : {}) } : {},
       );
       drawFloats(ctx, scene?.floats ?? floats);
       drawCounters(screen, state, VIEW_W, scene === null && coinPopAgeMs < COUNTER_POP_MS);
       if (scene === null && state.equipment && state.equipment.bag.length >= state.equipment.capacity) {
         const pending = state.equipment.temporary.length;
-        drawText(screen, pending ? `BAG FULL +${pending}` : 'BAG FULL', 8, 28, { color: COLORS.yellow });
+        drawText(screen, pending ? `BAG FULL +${pending}` : 'BAG FULL', 8, BAG_FULL_Y, { color: COLORS.yellow });
       }
-      drawBanner(screen, scene?.banner ?? banner, VIEW_W);
+      if (scene !== null || banner.text !== LEVEL_UP_TEXT) drawBanner(screen, scene?.banner ?? banner, VIEW_W);
     },
 
     getState(): Readonly<GameState> {

@@ -23,7 +23,7 @@ import type {
   SaveStatus,
   InputModePayload,
   InputPayload,
-  MenuActionPayload,
+  MenuActionPayload, ActionResultPayload,
   SaveStatePayload,
   PrepareStatePayload, ReleaseStatePayload, CheckpointInfo, OperationResult, LastBattleInfo, ExportPngPayload, ExportPngResult,
 } from '../shared/ipc.js';
@@ -72,6 +72,8 @@ declare global {
       thefts(): Promise<NetResult<TheftsResult>>;
       reclaim(theftId: string): Promise<NetResult<ReclaimResult>>;
       onAction(cb: (a: MenuActionPayload) => void): () => void;
+      reportActionResult(result: ActionResultPayload): void;
+      onActionResult(cb: (result: ActionResultPayload) => void): () => void;
       sendAction(a: MenuActionPayload): Promise<void>;
       onStateChanged(cb: (s: SaveStatePayload) => void): () => void;
       reportMenuReady(): void;

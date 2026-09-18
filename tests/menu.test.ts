@@ -29,7 +29,7 @@ import { heroBuffText, heroCanvas, SILHOUETTE_COLOR } from '../src/menu/hero.js'
 import { newProgress as newCoreProgress } from '../src/core/progress.js';
 import { HERO_FORMS, heroRequiredLevel, newHeroProgress } from '../src/core/hero.js';
 import type { MenuBridge, MenuDocument, MenuElement } from '../src/menu/index.js';
-import type { GameSettings, InputModePayload, SaveStatus } from '../src/shared/ipc.js';
+import type { GameSettings, InputModePayload, SaveStatus, ActionResultPayload } from '../src/shared/ipc.js';
 import {
   battleEnabled,
   canRebirth,
@@ -470,6 +470,49 @@ describe('menu page', () => {
     ]);
   });
 
+  it('shows pending feedback until the matching applied result and prevents duplicate actions', async () => {
+    const doc = new FakeDoc(), fake = makeBridge();
+    let respond: (response: ActionResultPayload) => void = () => undefined;
+    fake.bridge.onActionResult = cb => { respond = cb; return () => undefined; };
+    mountMenu(doc, fake.bridge); fake.emit(saveWith(COMPANIONS));
+    button(doc, 0, 0).click(); button(doc, 1, 0).click();
+    await Promise.resolve();
+    expect(doc.el('result').attributes['data-state']).toBe('pending');
+    button(doc, 2, 3).click();
+    expect(fake.actions).toHaveLength(1);
+    respond({ action: { type: 'sacrifice', id: 'other' }, ok: true });
+    expect(doc.el('result').attributes['data-state']).toBe('pending');
+    respond({ action: fake.actions[0], ok: false, error: 'consume: bad ids' });
+    expect(doc.el('result').attributes['data-state']).toBe('error');
+    button(doc, 2, 3).click();
+    expect(fake.actions).toHaveLength(2);
+    respond({ action: fake.actions[1], ok: true });
+    expect(doc.el('result').textContent).toBe('반영했습니다.');
+  });
+  it('keeps growth selection through autosaves and consumes the intended material on the first click', () => {
+    const { doc, fake } = mounted();
+    button(doc, 0, 0).click();
+    fake.emit({ ...saveWith(COMPANIONS), coins: '99' });
+    expect(button(doc, 0, 0).textContent).toBe('취소');
+    expect(doc.el('result').textContent).toContain('성장 재료');
+    button(doc, 1, 0).click();
+    expect(fake.actions).toEqual([{ type: 'consume', targetId: 'c2', foodId: 'c3' }]);
+  });
+  it('cancels growth explicitly when the selected target disappears', () => {
+    const { doc, fake } = mounted();
+    button(doc, 0, 0).click();
+    fake.emit(saveWith(COMPANIONS.filter(c => c.id !== 'c2')));
+    expect(doc.el('result').textContent).toContain('선택을 취소');
+    expect(fake.actions).toEqual([]);
+  });
+  it('explains when the last growth material disappears during selection', () => {
+    const { doc, fake } = mounted();
+    button(doc, 0, 0).click();
+    fake.emit(saveWith(COMPANIONS.filter(c => c.id === 'c2')));
+    expect(doc.el('result').textContent).toContain('동료 재료가 없어');
+    expect(button(doc, 0, 0).textContent).toBe('성장');
+    expect(fake.actions).toEqual([]);
+  });
   it('tabs show one panel at a time', () => {
     const { doc } = mounted();
     doc.el('tab-battle').click();

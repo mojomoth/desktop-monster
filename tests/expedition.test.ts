@@ -19,7 +19,8 @@ import {
 } from '../src/core/index.js';
 import type { Companion, GameEvent, GameState, HeroProgress, SaveFile } from '../src/core/index.js';
 import { HERO_MAX_REINCARNATIONS, heroRequiredLevel, newHeroProgress } from '../src/core/hero.js';
-import { createGame } from '../src/renderer/game.js';
+import { createGame, VIEW_W } from '../src/renderer/game.js';
+import { drawCounters } from '../src/renderer/hud.js';
 import type { GameCanvas } from '../src/renderer/game.js';
 
 /** A save whose roster is already at the cap, so every capture is a release. */
@@ -195,9 +196,9 @@ describe('A5 — the offer keeps finding unseen forms past the top rank (H3)', (
 });
 
 describe('A1 — the removed expedition HUD stays absent from the complete frame', () => {
-  interface Rect { x: number; y: number; w: number; h: number }
+  interface Rect { x: number; y: number; w: number; h: number; color: string }
 
-  const paint = (hero?: HeroProgress, monsterIndex = 40, level = 1): Rect[] => {
+  const assertOnlyCounters = (hero?: HeroProgress, monsterIndex = 40, level = 1): void => {
     const engine = createEngine({ ...DEFAULT_SAVE, hero, level }, mulberry32(1));
     // Draw from a snapshot: the removed readout once consumed index, not HP.
     // Retain extreme-depth cases without allocating irrelevant enormous HP.
@@ -205,38 +206,46 @@ describe('A1 — the removed expedition HUD stays absent from the complete frame
       monster: { ...engine.getState().monster, index: monsterIndex } };
     const rects: Rect[] = [];
     const ctx: GameCanvas = { fillStyle: '', clearRect: () => undefined,
-      fillRect: (x, y, w, h) => { rects.push({ x, y, w, h }); } };
+      fillRect: (x, y, w, h) => { rects.push({ x, y, w, h, color: String(ctx.fillStyle) }); } };
     createGame({ ...engine, getState: () => state }).draw(ctx);
     expect(rects.length).toBeGreaterThan(0); // Exercise a full painted scene.
-    return rects.filter(rect => rect.x < 66 && rect.x + rect.w > 2
-      && rect.y < 38 && rect.y + rect.h > 16);
+    const inFormerReadout = (rect: Rect): boolean => rect.x < 66 && rect.x + rect.w > 2
+      && rect.y < 38 && rect.y + rect.h > 16;
+    const actual = rects.filter(inFormerReadout);
+    rects.length = 0;
+    drawCounters(ctx, state, VIEW_W);
+    const counters = rects.filter(inFormerReadout);
+    expect(counters.length).toBeGreaterThan(0);
+    // v0.11 places the two counters here. Any expedition meter, wait label or
+    // duplicate readiness label adds pixels beyond this exact expected drawing.
+    expect(actual).toEqual(counters);
   };
 
-  it('draws no left readout before the first offer or without saved hero progress', () => {
+  it('draws only counters in the former left readout before the first offer or without saved hero progress', () => {
     for (let level = 1; level < HERO_MIN_LEVEL; level++) {
-      expect(paint(newHeroProgress(), 40, level)).toEqual([]);
-      expect(paint(undefined, 40, level)).toEqual([]);
+      assertOnlyCounters(newHeroProgress(), 40, level);
+      assertOnlyCounters(undefined, 40, level);
     }
   });
 
   it('draws no completed meter or duplicate ready label when an offer becomes ready', () => {
     for (const reincarnations of [0, 1, 11]) {
       const hero = { ...newHeroProgress(), reincarnations };
-      expect(paint(hero, 40, heroRequiredLevel(reincarnations))).toEqual([]);
-      expect(paint(hero, 40, heroRequiredLevel(reincarnations) - 1)).toEqual([]);
+      assertOnlyCounters(hero, 40, heroRequiredLevel(reincarnations));
+      assertOnlyCounters(hero, 40, heroRequiredLevel(reincarnations) - 1);
     }
   });
 
   it('draws no wait label or gauge during a deferred offer, including its final millisecond', () => {
     for (const deferRemainingMs of [HERO_DEFER_MS, HERO_DEFER_MS / 4, 1, 0]) {
-      expect(paint({ ...newHeroProgress(), deferRemainingMs }, 40, HERO_MIN_LEVEL)).toEqual([]);
+      assertOnlyCounters({ ...newHeroProgress(), deferRemainingMs }, 40, HERO_MIN_LEVEL);
     }
   });
 
   it('does not resurrect a rest gauge from legacy saves with positive rest time', () => {
     for (const restRemainingMs of [90_000, 22_500, 1, 0]) {
       const save = parseSave({ ...DEFAULT_SAVE, hero: { ...newHeroProgress(), restRemainingMs } });
-      expect(paint(save.hero, 40, HERO_MIN_LEVEL)).toEqual([]);
+      assertOnlyCounters(save.hero, 40, HERO_MIN_LEVEL);
     }
   });
 
@@ -244,16 +253,16 @@ describe('A1 — the removed expedition HUD stays absent from the complete frame
     const old = { ...newHeroProgress(), reincarnations: 11, offerLevel: 12,
       choices: [{ formId: 'h01', buffPercent: 10 }, { formId: 'h02', buffPercent: 10 }, { formId: 'h03', buffPercent: 10 }] };
     for (const level of [11, 12, 100]) {
-      expect(paint(old, 40, level)).toEqual([]);
-      expect(paint({ ...old, choices: [] }, 40, level)).toEqual([]);
-      expect(paint({ ...old, reincarnations: HERO_MAX_REINCARNATIONS }, 40, level)).toEqual([]);
+      assertOnlyCounters(old, 40, level);
+      assertOnlyCounters({ ...old, choices: [] }, 40, level);
+      assertOnlyCounters({ ...old, reincarnations: HERO_MAX_REINCARNATIONS }, 40, level);
     }
   });
 
   it('draws no old meter or soul estimate at any previously covered depth', () => {
     for (const index of [0, 8, 100, 5000, 10_000_000]) {
-      expect(paint(newHeroProgress(), index, 1)).toEqual([]);
-      expect(paint(newHeroProgress(), index, HERO_MIN_LEVEL)).toEqual([]);
+      assertOnlyCounters(newHeroProgress(), index, 1);
+      assertOnlyCounters(newHeroProgress(), index, HERO_MIN_LEVEL);
     }
   });
 

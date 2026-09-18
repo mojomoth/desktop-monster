@@ -1,0 +1,35 @@
+{
+  "version": "0.11.0",
+  "baselineVersion": "0.10.0",
+  "observer": ".harness/v10/performance-v4.mjs",
+  "slots": [
+    "baseline-active",
+    "baseline-idle",
+    "candidate-active",
+    "candidate-idle"
+  ],
+  "performance": {
+    "sampleMs": 5000,
+    "warmupMinutes": 5,
+    "comparisonMinutes": 30,
+    "comparisonProfiles": [
+      "active",
+      "idle"
+    ],
+    "cpuP95Max": {
+      "baselineMultiplier": 1.1,
+      "baselineAddPercentagePoints": 1
+    },
+    "workingSetP95Max": {
+      "baselineMultiplier": 1.2,
+      "baselineAddMiB": 50
+    },
+    "crashUnresponsiveSaveProgressErrorsAllowed": 0
+  },
+  "latency": {
+    "samplesPerFamily": 100,
+    "visualP95Ms": 100,
+    "localResultP95Ms": 250
+  },
+  "isolation": "Frozen app bytes; owned synthetic userData, no hooks/no network; serial native observations."
+}

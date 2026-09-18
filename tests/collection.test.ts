@@ -235,8 +235,8 @@ describe('applyCollection lifecycle (SPEC F32, Assumption 26)', () => {
     expect(state.rebirths).toBe(3);
     expect(state.level).toBe(1);
     expect(state.xp).toBe(0);
-    expect(state.monster).toEqual(monsterForIndex(0));
-    expect(state.monsterHp).toBe(monsterForIndex(0).maxHp);
+    expect(state.monster).toEqual(monsterForIndex(0, undefined, 11, 3));
+    expect(state.monsterHp).toBe(monsterForIndex(0, undefined, 11, 3).maxHp);
     // Kept across the prestige (Assumption 5).
     expect(state.companions.map((c) => c.id)).toEqual(['c1', 'c2']);
     expect(state.items).toEqual({ gem: 2 });

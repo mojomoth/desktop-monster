@@ -1,0 +1,78 @@
+{
+  "version": "0.11.0",
+  "commands": [
+    {
+      "command": "npm run package",
+      "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/release-mac-1789707726431.log",
+      "logHash": "e16738f29e28897a47f11fa37daf8ab3b49b079aae7ca73d8a1fb2d7ac7c57bf",
+      "at": "2026-09-18T05:02:31.748Z"
+    },
+    {
+      "command": "npm run package:win",
+      "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/release-windows-1789707812952.log",
+      "logHash": "0064dd5f5d0664412b961ff708a1aabce2c7abe0009749dab34c54cd7a7e12b8",
+      "at": "2026-09-18T05:04:07.121Z"
+    },
+    {
+      "command": "npm run smoke",
+      "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/release-smoke-1789708408569.log",
+      "logHash": "3cd944f7c72e8f513672977af076a8c4aa7d769252648ea7dda31e368668f98b",
+      "at": "2026-09-18T05:13:33.870Z"
+    },
+    {
+      "command": "npm run smoke",
+      "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+      "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/release-smoke-1789713956420.log",
+      "logHash": "170d239220a9ea2eef2e13aa3be7b272b1647d92bac6beabf9b8e6c395634dd3",
+      "at": "2026-09-18T06:46:01.559Z"
+    },
+    {
+      "command": "npm run package",
+      "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+      "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/release-mac-1789713961639.log",
+      "logHash": "e16738f29e28897a47f11fa37daf8ab3b49b079aae7ca73d8a1fb2d7ac7c57bf",
+      "at": "2026-09-18T06:46:27.630Z"
+    },
+    {
+      "command": "npm run package:win",
+      "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+      "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/release-windows-1789713987772.log",
+      "logHash": "0064dd5f5d0664412b961ff708a1aabce2c7abe0009749dab34c54cd7a7e12b8",
+      "at": "2026-09-18T06:46:59.708Z"
+    }
+  ],
+  "source": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+  "packages": {
+    "macApp": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "sha256": "889c8b3a7dc6b427ff41d49f719138c8eaece8ffdb091e2e4075d956c2d03715"
+    },
+    "macDmg": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/DesMon-0.11.0-arm64.dmg",
+      "sha256": "c16ed4bfc04c0a8fe53392f4631d2e2dcf87c84c0e93d3ca96b06276b9c6d034"
+    },
+    "windowsInstaller": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/DesMon Setup 0.11.0.exe",
+      "sha256": "36d74023db9bbdbe1d90fc17540310e047fb2f81d1c9538845511799217928dd"
+    },
+    "windowsAppAsar": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/win-unpacked/resources/app.asar",
+      "sha256": "76ef9e0c3d4db2115a70855e30fce45330c69f86f1af0a199823555775e8664f"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "version": 11,
+  "reviewer": "/root/skills_harness",
+  "kind": "bounded-application-functional-regression-review",
+  "source": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+  "findings": [],
+  "verdict": "No new release-blocking functional regression found in reviewed scope",
+  "overallReleaseApproved": false,
+  "balanceApproved": false,
+  "sourceHashes": {
+    "src/menu/index.ts": "90ab4c984bcef21865fe49fcc71403cb4e1395edb45fd0626b6462e7434c2cd7",
+    "src/menu/equipment.ts": "12895099e5a4b19a55f262f744086c9c4d917c377c085d3e2b653768b1b5bc16",
+    "src/menu/codex.ts": "9c257ec795092ed4a681d3c212bd6e6a72b7e21671d821c6781cd871ee6d643b",
+    "src/menu/view.ts": "1fc0777e17acb8a5cfefa20cf936cbc611cf6de180f4ffbedc38fefa085dd57e",
+    "src/main/ipc.ts": "e72adaa2c73a0ac5fdc273d7ff64ee8e330da39683777a0a0b6934ec3b06a6f3",
+    "src/shared/ipc.ts": "df4fc363662da62fd317565a1c0a5c74e9ad229c0b12cde8b54f80b0a1d3c3a2",
+    "src/preload/index.ts": "620b232c35470937e7654e839abfe88bab5a6492b0f0af689d0599a6548b96c0",
+    "src/renderer/index.ts": "1b77dd8aff0556ba7ca2964f81019274e4f6a634c21a66626411ead950f0da60",
+    "src/renderer/game.ts": "7eb92fabbad1c0c4a0a132b2d5d4be146bbede863fd2426c06833266d9d946ec",
+    "src/core/equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+    "src/core/engine.ts": "7e14ce5271963e78fa0b95751a7a076edde1c7b824345bc631a1880a3f2f215c",
+    "src/core/save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+    "src/core/hero.ts": "b1f378ca004c640834804682e16d762dec21ea05fcb6e4413cf139441e34fc38",
+    "src/core/collection.ts": "90bde650b1ccf0a65a029ce4a6c64c144836272424131992774ee25c1f50d4be",
+    "src/core/monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+    "src/core/formulas.ts": "4ed9cc9bb9d1eb1abf7a4a1c49703589534be82da49c2d89e5a8f45281f43c92",
+    "src/core/progression.ts": "d0ecd6c334f46870e3bf51933d103129dcbe89488e4f67b3a8b4ee2e63794048",
+    "src/core/types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d",
+    "tests/menu.test.ts": "5f752a5f1a0a90be6acf9b1e6d1cb67d860b2282ece15858f939ed7a5e6dcfb8",
+    "tests/menuV9.test.ts": "12006ad29debd9f87206edf2cececc5552b29bd74583ae2cb5da7751c734facd",
+    "tests/equipmentMenuV10.test.ts": "8f71c403f07838bd4aa73edd60d0322997967432105b4ca59823a5f2aec26b0c",
+    "tests/equipmentV11.test.ts": "b148e3cfadf543a04940d9353c218ee659c6281a9c9851b60ec58ce12d0b31d3",
+    "tests/progressionV11.test.ts": "b92a9b0a421037c0597f27cce46f29a9c5c754e40c38b4a22e02f59bf7b5d2d1",
+    "tests/ipc.test.ts": "1ccd4052dd3d7d8d474be4f189ce6e6a541913a1a7568e55800b21aa2b1fd086",
+    "tests/runtimeV8.test.ts": "dfca41af136c01bac52f88d0655a52e4fb63ba79501a12b1a6c926cc345af2aa"
+  },
+  "evidenceReused": [
+    ".agentdoc/v11-20260918/reviews/CRITIC_NATIVE_PILOT_01.json",
+    ".agentdoc/v11-20260918/reviews/CRITIC_NATIVE_HARNESS_FOLLOWUP.md"
+  ],
+  "validation": "Read-only reinspection.15previously reviewed app files exactlymatch pilot01 source bindings; prior targeted unit/native evidence reused. No new tests or Electron launched.",
+  "reviewed": [
+    "Menu single-flight guard, matching negative/positive result, retry after rejection, growth autosave preservation/cancellation",
+    "Main payload narrowing, blocked/cancelled operation negative result, field-only result forwarding",
+    "Renderer paused rejection, immediate per-action engine error snapshot, feedback after apply distinct from dispatch/save",
+    "Manual physical-item swaps in full bag and temporary storage, stale atomicity, compatible-slot preservation, event-local new acquisition/enhancement/level-unlock upgrades",
+    "Additive save v4 curve metadata validation and serialization, legacy current encounter HP preservation, new-spawn/reset metadata, open existing offer preservation"
+  ],
+  "limits": [
+    "Performance/runtime source binding will refresh after all harness edits.",
+    "Corrected native HUD/actual-stage pilot still requires real packaged execution.",
+    "Curve migration correctness does not approve unselected gameplay balance, percentile targets, or legacy-rich stress behavior."
+  ]
+}

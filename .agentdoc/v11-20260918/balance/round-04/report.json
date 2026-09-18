@@ -1,0 +1,390 @@
+{
+  "mode": "explore",
+  "binding": {
+    "files": {
+      "battle.ts": "41cb8ec4edf044abe792ebe2fe167ebcd246cd51e2f82e16416670b345464ef5",
+      "bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "collection.ts": "90bde650b1ccf0a65a029ce4a6c64c144836272424131992774ee25c1f50d4be",
+      "discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+      "economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+      "engine.ts": "7e14ce5271963e78fa0b95751a7a076edde1c7b824345bc631a1880a3f2f215c",
+      "equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+      "fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "formulas.ts": "4ed9cc9bb9d1eb1abf7a4a1c49703589534be82da49c2d89e5a8f45281f43c92",
+      "fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+      "gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+      "hero.ts": "b1f378ca004c640834804682e16d762dec21ea05fcb6e4413cf139441e34fc38",
+      "index.ts": "d11597d322ea6e39ec8be7e264ada5d7b70f18fc03d9cf6d673b898d0e8917e6",
+      "input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+      "progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+      "progression.ts": "d0ecd6c334f46870e3bf51933d103129dcbe89488e4f67b3a8b4ee2e63794048",
+      "rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+      "types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d"
+    },
+    "coreHash": "5d7150b9747a5b820106cb7c0646eb22e6d59ec83196359021d2d6d72e1426b2",
+    "protocolHash": "02c28cdb7581ab5afd9f53ea12f841b9186c9de7654bbd9ab3786cfeff52b95e",
+    "candidatesHash": "d2c8d095ee074b6616b92b33fb98d025e394af4cc7e7b1ead38a45487f50cc11",
+    "scriptHash": "98436fa71896da26bedf8e54f920258565ccf3ffe61db88e6d46604047e06e42"
+  },
+  "after": {
+    "files": {
+      "battle.ts": "41cb8ec4edf044abe792ebe2fe167ebcd246cd51e2f82e16416670b345464ef5",
+      "bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "collection.ts": "90bde650b1ccf0a65a029ce4a6c64c144836272424131992774ee25c1f50d4be",
+      "discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+      "economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+      "engine.ts": "7e14ce5271963e78fa0b95751a7a076edde1c7b824345bc631a1880a3f2f215c",
+      "equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+      "fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "formulas.ts": "4ed9cc9bb9d1eb1abf7a4a1c49703589534be82da49c2d89e5a8f45281f43c92",
+      "fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+      "gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+      "hero.ts": "b1f378ca004c640834804682e16d762dec21ea05fcb6e4413cf139441e34fc38",
+      "index.ts": "d11597d322ea6e39ec8be7e264ada5d7b70f18fc03d9cf6d673b898d0e8917e6",
+      "input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+      "progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+      "progression.ts": "d0ecd6c334f46870e3bf51933d103129dcbe89488e4f67b3a8b4ee2e63794048",
+      "rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+      "types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d"
+    },
+    "coreHash": "5d7150b9747a5b820106cb7c0646eb22e6d59ec83196359021d2d6d72e1426b2",
+    "protocolHash": "02c28cdb7581ab5afd9f53ea12f841b9186c9de7654bbd9ab3786cfeff52b95e",
+    "candidatesHash": "d2c8d095ee074b6616b92b33fb98d025e394af4cc7e7b1ead38a45487f50cc11",
+    "scriptHash": "98436fa71896da26bedf8e54f920258565ccf3ffe61db88e6d46604047e06e42"
+  },
+  "reports": [
+    {
+      "candidate": {
+        "id": "R4-A",
+        "parameters": {
+          "heroMinLevel": 20,
+          "heroLevelStepCap": 0,
+          "fieldHpNumerator": 1130,
+          "fieldHpTailNumerator": 11800,
+          "fieldHpTailPolynomial": 0,
+          "fieldRebirthBonus": 0,
+          "fieldRebirthHalf": 1
+        }
+      },
+      "compiledFiles": {
+        "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+        "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+        "collection.js": "aa85e83d847b2e0ec7c5679ff347e425cdcd636c8fb7a11429420b68611a5f2d",
+        "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+        "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+        "engine.js": "b190ade5b97a13eea629133fe1d2e738465e50c0c975269260a90b12137d9b6a",
+        "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+        "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+        "formulas.js": "0eac42d47efbfe9215ce371a4b4cde5fd9795f7012a49a0e6b7b82653a2ada9b",
+        "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+        "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+        "hero.js": "9e22f629c22f0a957fff157875a988ec5f22ad5868edf7e73911c0efb6ae47e0",
+        "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+        "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+        "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+        "monsters.js": "85c2aba7e97f519a268c6ef70403ce859d6ab499dcbc8f247b77605709d24ee7",
+        "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+        "progression.js": "5e041659157bc817f20ceda803380be0647101fdaf965051f7174ca227c87d4a",
+        "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+        "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+        "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+        "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+      },
+      "rows": 60,
+      "raw": [
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-A-ordinary-1.jsonl",
+          "sha256": "bd4ca8092fcaf47ec22e149a64f29460683f6da144e39d3f303d7a5940a3ee58"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-A-intermittent-1.jsonl",
+          "sha256": "36c03d8b3ca93c827d327e0a1b727a1a9269d4f492b68e1ae19a271f89bd38a0"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-A-high-1.jsonl",
+          "sha256": "da49fb43329e5e3c68eeaa338370c00fc9cead8dd36619fe46a00d87880b32ec"
+        }
+      ],
+      "summaries": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 12,
+          "nonarrival": 8,
+          "p10": 61.416666666666664,
+          "p50": 180.41666666666666,
+          "p90": null
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 15,
+          "nonarrival": 5,
+          "p10": 89.83333333333333,
+          "p50": 118.33333333333333,
+          "p90": null
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 15,
+          "nonarrival": 5,
+          "p10": 27.083333333333332,
+          "p50": 125.66666666666667,
+          "p90": null
+        }
+      ],
+      "checks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "score": {
+        "maximumMedianDeviation": 121.66666666666667,
+        "maximumP90": null
+      },
+      "humanFun": false
+    },
+    {
+      "candidate": {
+        "id": "R4-B",
+        "parameters": {
+          "heroMinLevel": 21,
+          "heroLevelStepCap": 0,
+          "fieldHpNumerator": 1130,
+          "fieldHpTailNumerator": 11700,
+          "fieldHpTailPolynomial": 0,
+          "fieldRebirthBonus": 0,
+          "fieldRebirthHalf": 1
+        }
+      },
+      "compiledFiles": {
+        "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+        "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+        "collection.js": "aa85e83d847b2e0ec7c5679ff347e425cdcd636c8fb7a11429420b68611a5f2d",
+        "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+        "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+        "engine.js": "b190ade5b97a13eea629133fe1d2e738465e50c0c975269260a90b12137d9b6a",
+        "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+        "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+        "formulas.js": "0eac42d47efbfe9215ce371a4b4cde5fd9795f7012a49a0e6b7b82653a2ada9b",
+        "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+        "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+        "hero.js": "9e22f629c22f0a957fff157875a988ec5f22ad5868edf7e73911c0efb6ae47e0",
+        "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+        "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+        "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+        "monsters.js": "85c2aba7e97f519a268c6ef70403ce859d6ab499dcbc8f247b77605709d24ee7",
+        "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+        "progression.js": "bf14676d56f66e8c2332ddc992d51609e85e1fe0b10e6141c5236db3c0fd9e07",
+        "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+        "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+        "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+        "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+      },
+      "rows": 60,
+      "raw": [
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-B-ordinary-1.jsonl",
+          "sha256": "e0fdc13ebfba76d8deb7211d43be8d92068e15dfad2fd206ff955d80c1d58219"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-B-intermittent-1.jsonl",
+          "sha256": "9c034491ebcc0c8b94644ff0ad4d46b3c4be8f421a4aabb3839b03ab1e579ffa"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-B-high-1.jsonl",
+          "sha256": "bf30397d1823a7631386d08538a27e503faeee88e29962ba89d3746dec6fd2fe"
+        }
+      ],
+      "summaries": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 12,
+          "nonarrival": 8,
+          "p10": 97.5,
+          "p50": 442.5,
+          "p90": null
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 15,
+          "nonarrival": 5,
+          "p10": 105.16666666666667,
+          "p50": 171.83333333333334,
+          "p90": null
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 17,
+          "nonarrival": 3,
+          "p10": 48.583333333333336,
+          "p50": 124.5,
+          "p90": null
+        }
+      ],
+      "checks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "score": {
+        "maximumMedianDeviation": 202.5,
+        "maximumP90": null
+      },
+      "humanFun": false
+    },
+    {
+      "candidate": {
+        "id": "R4-C",
+        "parameters": {
+          "heroMinLevel": 22,
+          "heroLevelStepCap": 0,
+          "fieldHpNumerator": 1120,
+          "fieldHpTailNumerator": 11650,
+          "fieldHpTailPolynomial": 0,
+          "fieldRebirthBonus": 0,
+          "fieldRebirthHalf": 1
+        }
+      },
+      "compiledFiles": {
+        "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+        "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+        "collection.js": "aa85e83d847b2e0ec7c5679ff347e425cdcd636c8fb7a11429420b68611a5f2d",
+        "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+        "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+        "engine.js": "b190ade5b97a13eea629133fe1d2e738465e50c0c975269260a90b12137d9b6a",
+        "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+        "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+        "formulas.js": "0eac42d47efbfe9215ce371a4b4cde5fd9795f7012a49a0e6b7b82653a2ada9b",
+        "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+        "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+        "hero.js": "9e22f629c22f0a957fff157875a988ec5f22ad5868edf7e73911c0efb6ae47e0",
+        "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+        "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+        "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+        "monsters.js": "85c2aba7e97f519a268c6ef70403ce859d6ab499dcbc8f247b77605709d24ee7",
+        "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+        "progression.js": "ddf256b82fc45c36764830426ddfd49d68ab4b0b73ec000a79075c0786c168a1",
+        "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+        "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+        "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+        "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+      },
+      "rows": 60,
+      "raw": [
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-C-ordinary-1.jsonl",
+          "sha256": "848815b9299ae6aa7469bd691f860613db4e86d60c0ba0225e8d87d09957d92d"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-C-intermittent-1.jsonl",
+          "sha256": "a745257b5c2fc4eb10941ea15ce7c11ebc35f95b251d0fb4e5b59eec7783fc62"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/balance/round-04/R4-C-high-1.jsonl",
+          "sha256": "70c22d85427cd4f955db092c1cfeab5172de917a6e3ed3cc86694f0f34d4b3b2"
+        }
+      ],
+      "summaries": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 18,
+          "nonarrival": 2,
+          "p10": 73.83333333333333,
+          "p50": 169.5,
+          "p90": 406.1666666666667
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 15,
+          "nonarrival": 5,
+          "p10": 67.16666666666667,
+          "p50": 327.5,
+          "p90": null
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 20,
+          "arrived": 17,
+          "nonarrival": 3,
+          "p10": 45.75,
+          "p50": 116.25,
+          "p90": null
+        }
+      ],
+      "checks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "score": {
+        "maximumMedianDeviation": 87.5,
+        "maximumP90": null
+      },
+      "humanFun": false
+    }
+  ],
+  "completedAt": "2026-09-18T04:45:26.162Z"
+}

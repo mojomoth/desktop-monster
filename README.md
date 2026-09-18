@@ -1,5 +1,11 @@
 # DesMon — Desktop Monster
 
+## v0.11.0 개발
+
+v0.10.0 기준선은 `v0.10.0` 태그로 보존했습니다. HUD 배치·메뉴 반응·수동 장착과 반복 환생 곡선을 개선합니다. 실행은 [v11 하네스](.harness/v11/HARNESS.md), 기준은 [기능 계약](docs/v0.11/CONTRACT.md), 진행 상태는 [검증 기록](docs/v0.11/ACCEPTANCE.md)을 확인하세요.
+
+개발 검증본은 `release/mac-arm64/DesMon.app`, `release/DesMon-0.11.0-arm64.dmg`, `release/DesMon Setup 0.11.0.exe`에 있습니다. 테스트 1,230개·하네스 검사 49개·린트·타입 검사·smoke·양 플랫폼 패키징이 통과했습니다. 실제 Electron에서 HUD·메뉴·수동 장착을 확인했고 클릭 407건의 시각 반응 p95는 최대 25ms였습니다. 환생 밸런스는 아직 채택하지 않았으며 유휴 CPU 기준도 초과해 전체 v0.11 완료 상태는 아닙니다. [인계 기록](docs/v0.11/HANDOFF.md)에 남은 판단과 재개 방법을 정리했습니다.
+
 ## v0.10.0: 장비와 금화 경제
 
 무기 128종·악세사리 96종, 무기 1칸·악세사리 4칸을 추가합니다. 표시 공격력이 가장 높은 장비를 자동 장착하며, 보스 드롭·시간당 상점·가방 확장·무제한 강화를 제공합니다. +5까지 강화는 확정 성공이고 +6부터 실패하면 장비가 파괴됩니다. 영웅 변경 시 사라질 임시품은 확인 창에 표시합니다.
@@ -145,7 +151,7 @@ bottom-right corner of the work area (a 200×130 canvas drawn at 2×, every
 sprite pixel a chunky 2×2 block — the hero starts as the base adventurer and can unlock 70 additional forms, the five monsters original Pokémon/Digimon-style creatures, all drawn as
 code by the Codex CLI graphics worker): drag it by the invisible
 24-pixel strip along its top edge. A slime icon in the menu
-bar tray hosts the menu (`DesMon v0.10.0`, input-mode status,
+bar tray hosts the menu (`DesMon v0.11.0`, input-mode status,
 영웅과 모험 기록…, 설정, 진행 초기화, 종료).
 
 ## Gameplay
@@ -297,14 +303,16 @@ contains persistent **음소거** and **화면 흔들림** controls.
 npm run package
 ```
 
-With the version fixed at 0.10.0, packaging writes these paths under `release/`:
+With the version fixed at 0.11.0, packaging writes these paths under `release/`:
 
-- `release/DesMon-0.10.0-arm64.dmg`
+- `release/DesMon-0.11.0-arm64.dmg`
 - `release/mac-arm64/DesMon.app`
+
+`npm run package:win` creates `release/DesMon Setup 0.11.0.exe`.
 
 The `.app` path is reused by later builds and is not a versioned download.
 Use a versioned DMG and its verification record to identify a historical build.
-Current completion status is recorded in [0.10 acceptance](docs/v0.10/ACCEPTANCE.md).
+Current completion status is recorded in [0.11 acceptance](docs/v0.11/ACCEPTANCE.md).
 
 The build is intentionally **unsigned and un-notarized**
 (`mac.identity: null`, `notarize: false`, `hardenedRuntime: false`, and

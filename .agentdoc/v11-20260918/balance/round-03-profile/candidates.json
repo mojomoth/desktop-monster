@@ -1,0 +1,63 @@
+{
+  "version": 11,
+  "round": 3,
+  "stage": "first-three-cycle-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000
+  },
+  "candidateLevers": "Only current hero required-level parameters, fieldHP prefix/tail and a fixed saturating reset multiplier1+bonus*rebirths/(half+rebirths); never elapsedtime, liveparty power or PvP companion power.",
+  "candidates": [
+    {
+      "id": "R3-A",
+      "parameters": {
+        "heroMinLevel": 54,
+        "heroLevelStepCap": 1,
+        "fieldHpTailPolynomial": 2,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R3-B",
+      "parameters": {
+        "heroMinLevel": 55,
+        "heroLevelStepCap": 0,
+        "fieldHpTailPolynomial": 2,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R3-C",
+      "parameters": {
+        "heroMinLevel": 54,
+        "heroLevelStepCap": 1,
+        "fieldHpTailPolynomial": 3,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    }
+  ],
+  "rationale": "R2 failed with capture-drought tails: A ordinary median174/p90633min, intermittent median370, high p1060; B met high minimum but ordinary median566. R3 preserves the prefix and uses HP(index79)*((index+1)/80)^power afterwards. Level54/55 require about50k/60k kills; sustained existing companion attacks distribute progress over many encounters. No time condition or companion/PvP power change. Report increased gold/drop exposure, hero versus companion kills, roster-cap strength, serialization and processing costs. R3 cannot be final until cycles4-10 are also explored."
+}

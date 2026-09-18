@@ -101,7 +101,9 @@ describe('v0.8 save protection and last save status', () => {
       expect(await call(key,{})).toEqual({ok:false,error:'offline'});
     }
     expect(fake.onSave).not.toHaveBeenCalled();expect(fake.network).not.toHaveBeenCalled();
-    expect(fake.game.send).not.toHaveBeenCalled();
+    expect(fake.game.send.mock.calls).toEqual([[IPC.ACTION_RESULT, {
+      action: {type:'consume',targetId:'c1',foodId:'c2'}, ok:false, error:expect.any(String),
+    }]]);
     expect(readFileSync(file,'utf8')).toBe('{broken');
   });
   it('uses the verified startup snapshot even if the disk becomes unreadable before the renderer asks', () => {

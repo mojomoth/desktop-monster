@@ -324,7 +324,7 @@ describe('menu window (F52, src/main/menuWindow.ts)', () => {
   const windowTs = readFileSync(join(process.cwd(), 'src/main/window.ts'), 'utf8');
 
   it.each([
-    'width: 420',
+    'width: 560',
     'height: 640',
     'useContentSize: true',
     'frame: true',

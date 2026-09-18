@@ -1,0 +1,63 @@
+{
+  "version": 11,
+  "round": 2,
+  "stage": "first-cycle-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 1,
+  "maxHours": 12,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000
+  },
+  "candidateLevers": "Only current hero required-level parameters, fieldHP prefix/tail and a fixed saturating reset multiplier1+bonus*rebirths/(half+rebirths); never elapsedtime, liveparty power or PvP companion power.",
+  "candidates": [
+    {
+      "id": "R2-A",
+      "parameters": {
+        "heroMinLevel": 21,
+        "heroLevelStepCap": 0,
+        "fieldHpTailNumerator": 11200,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R2-B",
+      "parameters": {
+        "heroMinLevel": 23,
+        "heroLevelStepCap": 0,
+        "fieldHpTailNumerator": 11250,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R2-C",
+      "parameters": {
+        "heroMinLevel": 25,
+        "heroLevelStepCap": 0,
+        "fieldHpTailNumerator": 11300,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    }
+  ],
+  "rationale": "R1 preserved at .agentdoc/v11-20260918/balance/round-01/report.json: all candidates too fast, ordinary median80-83min and high median25-26min. Explore a wider fixed level/tail frontier, preserving captures and PvP. R2 cannot be adopted as final production parameters because repeated-cycle gates are not evaluated."
+}

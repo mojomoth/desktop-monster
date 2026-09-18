@@ -63,7 +63,7 @@ import { mountCodex } from './codex.js';
 import { mountShop } from './economy.js';
 import { mountProfile } from './profile.js';
 import { NICK_RE } from '../shared/api.js';
-import type { GameSettings, SettingsResult, ConnectInputResult, InputModePayload, SaveStatus } from '../shared/ipc.js';
+import type { GameSettings, SettingsResult, ConnectInputResult, InputModePayload, SaveStatus, ActionResultPayload } from '../shared/ipc.js';
 
 /** The element surface this page touches — a real DOM element satisfies it. */
 export interface MenuElement {
@@ -101,6 +101,7 @@ export interface MenuBridge {
   onSaveFailed?(cb: () => void): () => void;
   onStateChanged(cb: (save: unknown) => void): () => void;
   sendAction(a: CollectionAction): Promise<void>;
+  onActionResult?(cb: (result: ActionResultPayload) => void): () => void;
   getIdentity(): Promise<IdentityPayload>;
   setName(name: string): Promise<IdentityPayload>;
   getLeaderboard(n?: number, metric?: LeaderboardMetric): Promise<NetResult<LeaderboardResult>>;
@@ -272,6 +273,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   const nameSaveBtn = doc.querySelector('#save-name');
   const rebirthBtn = doc.querySelector('#rebirth');
   const result = doc.querySelector('#result');
+  const cancelSelection = doc.querySelector('#cancel-selection');
   const saveStatus = doc.querySelector('#save-status');
   const ranking = doc.querySelector('#ranking');
   const nameField = doc.querySelector('#name');
@@ -309,6 +311,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   let save: SaveFile = DEFAULT_SAVE;
   let loadBlocked = api.getSaveStatus !== undefined;
   let pending: Pending | null = null;
+  let actionPending: CollectionAction | null = null;
   let reincarnation: Companion | null = null;
   let rank: NetResult<LeaderboardResult> | null = null;
   /** The previewed opponent — null before `Find opponent`, or once it expired. */
@@ -381,7 +384,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   // Autosaves update numbers frequently. Keep the gallery and actionable
   // choices mounted so scrolling, keyboard focus and an open details survive.
   const heroSections = heroEl ? [div('hero-heading'), div('hero-controls')] : [];
-  heroEl?.replaceChildren(...heroSections);
+  heroEl?.replaceChildren(...heroSections, div('hero-utility', rebirthBtn));
   let heroControlsKey = '';
   let rosterKey = '';
 
@@ -397,12 +400,18 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   };
 
   const send = (a: CollectionAction): void => {
-    if (loadBlocked) return;
+    if (loadBlocked || actionPending) return;
     if (replaying) { result.textContent = 'PvP 재생이 끝난 뒤 다시 시도하세요.'; return; }
     pending = null;
     reincarnation = null;
-    result.textContent = '';
-    void api.sendAction(a).catch(() => { result.textContent = '요청을 보내지 못했습니다. 다시 시도해 주세요.'; });
+    if (api.onActionResult) actionPending = a;
+    result.textContent = '요청을 처리하고 있습니다…';
+    result.setAttribute?.('data-state', 'pending');
+    void api.sendAction(a).catch(() => {
+      actionPending = null;
+      result.textContent = '요청을 보내지 못했습니다. 다시 시도해 주세요.';
+      result.setAttribute?.('data-state', 'error');
+    });
     render();
   };
   const updateCodex = codexEl ? mountCodex(doc, codexEl, send) : undefined;
@@ -410,8 +419,17 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   const updateShop = shopEl ? mountShop(doc, shopEl, send) : undefined;
   const updateProfile = profileStatsEl ? mountProfile(doc, profileStatsEl) : undefined;
 
+  const hasGrowthChoice = (kind: Pending['kind'], id: string): boolean => kind === 'consume'
+    ? save.companions.some(food => consumeTargets(save, food.id).includes(id))
+    : fuseCandidates(save).some(pair => pair.includes(id));
   const select = (kind: Pending['kind'], row: RosterRow, hint: string): void => {
+    if (!hasGrowthChoice(kind, row.id)) {
+      result.textContent = kind === 'consume' ? '성장 재료로 사용할 다른 동료가 없습니다.' : '융합할 수 있는 같은 종류·별의 동료가 없습니다.';
+      result.setAttribute?.('data-state', 'error');
+      return;
+    }
     pending = { kind, id: row.id };
+    result.setAttribute?.('data-state', 'selection');
     result.textContent = `${row.name} · ${hint}`;
     render();
   };
@@ -422,6 +440,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
     result.textContent = '';
     render();
   };
+  cancelSelection?.addEventListener('click', cancel);
 
   const speciesCanvas = (row: { speciesId: string; stars: number }): MenuElement => {
     const canvas = doc.createElement('canvas');
@@ -684,7 +703,8 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   const render = (): void => {
     if (loadBlocked) return;
     expireMatch();
-    if (heroEl) {
+    if (cancelSelection) cancelSelection.hidden = pending === null && reincarnation === null;
+    if (heroEl && !heroEl.hidden) {
       const parts = heroPanel(doc, save, send);
       heroSections[0]?.replaceChildren(parts[0], ...(save.companions.length >= 30 ? [div('roster-shortcut',
         span('muted', '동료 30/30 · 새 동료를 맞을 자리가 없어요'), button('동료 관리', false, () => activateTab('roster')))] : []));
@@ -706,14 +726,14 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
         }
       }
     }
-    updateShop?.(save);
-    updateInventory?.(save);
-    updateCodex?.(save);
-    updateProfile?.(save);
+    if (!shopEl?.hidden) updateShop?.(save);
+    if (!inventoryEl?.hidden) updateInventory?.(save);
+    if (!codexEl?.hidden) updateCodex?.(save);
+    if (!doc.querySelector('#profile')?.hidden) updateProfile?.(save);
     // Keep an unchanged confirmation mounted during frequent save updates.
     const nextRosterKey = JSON.stringify([save.companions, save.pvpParty, save.hero?.equipped,
       save.releasedCount, pending, reincarnation]);
-    if (rosterKey !== nextRosterKey) {
+    if (!roster.hidden && rosterKey !== nextRosterKey) {
       rosterKey = nextRosterKey;
       const rows = rosterRows(save);
       roster.replaceChildren(
@@ -724,9 +744,11 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
       );
     }
     rebirthBtn.disabled = replaying || !canRebirth(save);
-    ranking.replaceChildren(rankTools, ...(rank === null ? [span('muted', '순위를 불러오는 중…')] : leaderboardRows(rank).map(rankRow)));
+    if (!ranking.hidden) ranking.replaceChildren(rankTools, ...(rank === null ? [span('muted', '순위를 불러오는 중…')] : leaderboardRows(rank).map(rankRow)));
     for (const [key, control] of rankButtons) control.setAttribute?.('aria-pressed', String(key === rankMetric));
 
+    // Hidden panels retain their nodes and are refreshed when their tab opens.
+    if (doc.querySelector('#battle')?.hidden) return;
     // Battle tab (F75): opponent preview, party editor, live preview, inbox.
     opponentEl.replaceChildren(...opponentPanel());
     findBtn.disabled = replaying || matchLoading || battleLoading;
@@ -839,6 +861,8 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
         if (!r.ok && r.error === 'cooldown') startCooldown(r.retryAfterSec ?? 0);
         if (r.ok) { startCooldown(60); loadThefts(); }
         battleFeedback = { opponentId, text: pvpResultText(r) };
+        const opponent = opponents.find(entry => entry.playerId === opponentId);
+        if (doc.querySelector('#battle')?.hidden && opponent) directoryRows.get(opponentId)?.update(opponent);
         result.textContent = battleFeedback.text; render();
       };
       void api.battleOpponent(opponentId).then(done, () => done({ ok: false, error: 'network' }));
@@ -1077,10 +1101,31 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
     if (status) status.hidden = !active;
     render();
   });
+  api.onActionResult?.(response => {
+    if (!actionPending || !response.action || typeof response.action !== 'object') return;
+    const actual = response.action as Record<string, unknown>;
+    if (!Object.entries(actionPending).every(([key, value]) => JSON.stringify(actual[key]) === JSON.stringify(value))) return;
+    actionPending = null;
+    result.setAttribute?.('data-state', response.ok ? 'success' : 'error');
+    result.textContent = response.ok ? '반영했습니다.'
+      : /full/i.test(response.error ?? '') ? '가방에 빈자리가 없습니다. 장비를 정리한 뒤 다시 시도해 주세요.'
+      : /gold/i.test(response.error ?? '') ? '금화가 부족합니다.'
+      : /stale|missing|replacement|changed/i.test(response.error ?? '') ? '대상이 변경됐습니다. 현재 장비나 동료를 다시 선택해 주세요.'
+      : '요청이 취소됐거나 현재 조건에서 사용할 수 없습니다. 표시된 조건을 확인해 주세요.';
+    render();
+  });
   api.onStateChanged((raw) => {
     // Trust boundary: the payload is whatever main read off disk.
     save = parseSave(raw);
-    pending = null;
+    if (pending && !save.companions.some(companion => companion.id === pending?.id)) {
+      pending = null;
+      result.textContent = '선택한 동료가 없어져 선택을 취소했습니다.';
+      result.setAttribute?.('data-state', 'error');
+    } else if (pending && !hasGrowthChoice(pending.kind, pending.id)) {
+      pending = null;
+      result.textContent = '사용할 수 있는 동료 재료가 없어 선택을 취소했습니다.';
+      result.setAttribute?.('data-state', 'error');
+    }
     if (reincarnation && !matchesConfirmation(reincarnation)) {
       reincarnation = null;
       result.textContent = '동료가 변경되어 환생 확인을 취소했습니다. 다시 확인해 주세요.';

@@ -1,0 +1,63 @@
+{
+  "version": 11,
+  "round": 1,
+  "stage": "first-cycle-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 1,
+  "maxHours": 12,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000
+  },
+  "candidateLevers": "Only current hero required-level parameters, fieldHP prefix/tail and a fixed saturating reset multiplier1+bonus*rebirths/(half+rebirths); never elapsedtime, liveparty power or PvP companion power.",
+  "candidates": [
+    {
+      "id": "R1-A",
+      "parameters": {
+        "heroMinLevel": 19,
+        "heroLevelStepCap": 0,
+        "fieldHpTailNumerator": 10950,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R1-B",
+      "parameters": {
+        "heroMinLevel": 19,
+        "heroLevelStepCap": 0,
+        "fieldHpTailNumerator": 11000,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R1-C",
+      "parameters": {
+        "heroMinLevel": 19,
+        "heroLevelStepCap": 0,
+        "fieldHpTailNumerator": 11050,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    }
+  ],
+  "rationale": "Planning probes showed raisinglevel alone accelerates latercycles; first establish a several-hour first frontier with unchanged captures/PvP, then preregister reset-multiplier candidates using only exploration results. R1 cannot be adopted as final production parameters because repeated-cycle gates are not evaluated."
+}

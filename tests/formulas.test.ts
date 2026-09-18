@@ -144,7 +144,7 @@ describe('exact field HP tail boundaries', () => {
   it('start0 uses the tail for every exponent while retaining base HP10', async () => {
     await withParameters({ fieldHpNumerator: 5, fieldHpDenominator: 4, fieldHpTailStartIndex: 0,
       fieldHpTailNumerator: 6, fieldHpTailDenominator: 5 }, (formulas) => {
-      expect([0, 1, 2, 3, 4, 5].map(formulas.fieldMonsterMaxHp)).toEqual([10n, 12n, 14n, 17n, 20n, 24n]);
+      expect([0, 1, 2, 3, 4, 5].map(index => formulas.fieldMonsterMaxHp(index))).toEqual([10n, 12n, 14n, 17n, 20n, 24n]);
       expect(formulas.fieldMonsterMaxHp(5000)).toBe(10n * 6n ** 5000n / 5n ** 5000n);
       expect(formulas.monsterMaxHp(5000)).toBe(monsterMaxHp(5000));
     });
@@ -153,7 +153,7 @@ describe('exact field HP tail boundaries', () => {
   it('keeps different denominators exact and multiplies bosses after the final floor', async () => {
     await withParameters({ fieldHpNumerator: 5, fieldHpDenominator: 4, fieldHpTailStartIndex: 2,
       fieldHpTailNumerator: 6, fieldHpTailDenominator: 5 }, (formulas, monsters) => {
-      expect([0, 1, 2, 3, 4, 7, 8].map(formulas.fieldMonsterMaxHp)).toEqual([10n, 12n, 15n, 18n, 22n, 38n, 46n]);
+      expect([0, 1, 2, 3, 4, 7, 8].map(index => formulas.fieldMonsterMaxHp(index))).toEqual([10n, 12n, 15n, 18n, 22n, 38n, 46n]);
       // Intermediate prefix floor gives21; applying the boss multiplier before
       // the final floor gives194. Both would change the registered contract.
       expect(formulas.fieldMonsterMaxHp(4)).toBe(22n);

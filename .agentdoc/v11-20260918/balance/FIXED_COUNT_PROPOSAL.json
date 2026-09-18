@@ -1,0 +1,194 @@
+{
+  "kind": "analytic-proposal-not-simulation",
+  "adopted": false,
+  "inputs": {
+    "baseCompanionDps": 4230,
+    "baseHeroHit": 344,
+    "meanCritMultiplier": 1.1,
+    "assumedSoulsPerCycle": 20,
+    "highFeverMeanMultiplier": 1.6666666666666667
+  },
+  "targetTradeoffs": [
+    {
+      "ordinaryMinutes": 240,
+      "requiredC_over_meanHeroHit_forHigh": 28.0,
+      "requiredC_over_meanHeroHit_forIntermittent": 5.5,
+      "jointRequiredC_over_meanHeroHit": 28.0,
+      "asymptoticIllustrativeK": 50.095508274231676
+    },
+    {
+      "ordinaryMinutes": 260,
+      "requiredC_over_meanHeroHit_forHigh": 18.0,
+      "requiredC_over_meanHeroHit_forIntermittent": 9.25,
+      "jointRequiredC_over_meanHeroHit": 18.0,
+      "asymptoticIllustrativeK": 32.204255319148935
+    },
+    {
+      "ordinaryMinutes": 270,
+      "requiredC_over_meanHeroHit_forHigh": 15.142857142857142,
+      "requiredC_over_meanHeroHit_forIntermittent": 13.0,
+      "jointRequiredC_over_meanHeroHit": 15.142857142857142,
+      "asymptoticIllustrativeK": 27.092468760553867
+    },
+    {
+      "ordinaryMinutes": 280,
+      "requiredC_over_meanHeroHit_forHigh": 13.0,
+      "requiredC_over_meanHeroHit_forIntermittent": 20.5,
+      "jointRequiredC_over_meanHeroHit": 20.5,
+      "asymptoticIllustrativeK": 36.67706855791962
+    },
+    {
+      "ordinaryMinutes": 290,
+      "requiredC_over_meanHeroHit_forHigh": 11.333333333333334,
+      "requiredC_over_meanHeroHit_forIntermittent": 43.0,
+      "jointRequiredC_over_meanHeroHit": 43.0,
+      "asymptoticIllustrativeK": 76.93238770685579
+    }
+  ],
+  "illustrations": [
+    {
+      "K": 0,
+      "completedHeroCycles": 0,
+      "illustrativeSouls": 0,
+      "M": 1.0,
+      "C_over_meanHeroHit": 11.178646934460886,
+      "highMinutesIfOrdinary270": 111.3186352863363,
+      "intermittentMinutesIfOrdinary270": 304.6786748732803
+    },
+    {
+      "K": 0,
+      "completedHeroCycles": 1,
+      "illustrativeSouls": 20,
+      "M": 1.0,
+      "C_over_meanHeroHit": 0.425853216550891,
+      "highMinutesIfOrdinary270": 46.64076277869381,
+      "intermittentMinutesIfOrdinary270": 707.4343500244659
+    },
+    {
+      "K": 0,
+      "completedHeroCycles": 2,
+      "illustrativeSouls": 40,
+      "M": 1.0,
+      "C_over_meanHeroHit": 0.1817666168205022,
+      "highMinutesIfOrdinary270": 43.19925127151491,
+      "intermittentMinutesIfOrdinary270": 864.0449268237342
+    },
+    {
+      "K": 0,
+      "completedHeroCycles": 9,
+      "illustrativeSouls": 180,
+      "M": 1.0,
+      "C_over_meanHeroHit": 0.01900322470796581,
+      "highMinutesIfOrdinary270": 40.78792753130511,
+      "intermittentMinutesIfOrdinary270": 1050.3419723025547
+    },
+    {
+      "K": 10,
+      "completedHeroCycles": 0,
+      "illustrativeSouls": 0,
+      "M": 1.0,
+      "C_over_meanHeroHit": 11.178646934460886,
+      "highMinutesIfOrdinary270": 111.3186352863363,
+      "intermittentMinutesIfOrdinary270": 304.6786748732803
+    },
+    {
+      "K": 10,
+      "completedHeroCycles": 1,
+      "illustrativeSouls": 20,
+      "M": 13.5,
+      "C_over_meanHeroHit": 5.749018423437028,
+      "highMinutesIfOrdinary270": 91.30404410957098,
+      "intermittentMinutesIfOrdinary270": 334.81017858437446
+    },
+    {
+      "K": 10,
+      "completedHeroCycles": 2,
+      "illustrativeSouls": 40,
+      "M": 31.0,
+      "C_over_meanHeroHit": 5.634765121435569,
+      "highMinutesIfOrdinary270": 90.71164326315429,
+      "intermittentMinutesIfOrdinary270": 336.01719739601504
+    },
+    {
+      "K": 10,
+      "completedHeroCycles": 9,
+      "illustrativeSouls": 180,
+      "M": 293.5,
+      "C_over_meanHeroHit": 5.5774464517879645,
+      "highMinutesIfOrdinary270": 90.41069169733305,
+      "intermittentMinutesIfOrdinary270": 336.63983026635316
+    },
+    {
+      "K": 28,
+      "completedHeroCycles": 0,
+      "illustrativeSouls": 0,
+      "M": 1.0,
+      "C_over_meanHeroHit": 11.178646934460886,
+      "highMinutesIfOrdinary270": 111.3186352863363,
+      "intermittentMinutesIfOrdinary270": 304.6786748732803
+    },
+    {
+      "K": 28,
+      "completedHeroCycles": 1,
+      "illustrativeSouls": 20,
+      "M": 36.0,
+      "C_over_meanHeroHit": 15.330715795832075,
+      "highMinutesIfOrdinary270": 120.33818351284175,
+      "intermittentMinutesIfOrdinary270": 295.5831767320735
+    },
+    {
+      "K": 28,
+      "completedHeroCycles": 2,
+      "illustrativeSouls": 40,
+      "M": 85.0,
+      "C_over_meanHeroHit": 15.45016242974269,
+      "highMinutesIfOrdinary270": 120.55039371637028,
+      "intermittentMinutesIfOrdinary270": 295.39159094986934
+    },
+    {
+      "K": 28,
+      "completedHeroCycles": 9,
+      "illustrativeSouls": 180,
+      "M": 820.0,
+      "C_over_meanHeroHit": 15.582644260531964,
+      "highMinutesIfOrdinary270": 120.78324799960009,
+      "intermittentMinutesIfOrdinary270": 295.1824260637227
+    },
+    {
+      "K": 52,
+      "completedHeroCycles": 0,
+      "illustrativeSouls": 0,
+      "M": 1.0,
+      "C_over_meanHeroHit": 11.178646934460886,
+      "highMinutesIfOrdinary270": 111.3186352863363,
+      "intermittentMinutesIfOrdinary270": 304.6786748732803
+    },
+    {
+      "K": 52,
+      "completedHeroCycles": 1,
+      "illustrativeSouls": 20,
+      "M": 66.0,
+      "C_over_meanHeroHit": 28.106312292358805,
+      "highMinutesIfOrdinary270": 135.0794994479205,
+      "intermittentMinutesIfOrdinary270": 284.1577144184426
+    },
+    {
+      "K": 52,
+      "completedHeroCycles": 2,
+      "illustrativeSouls": 40,
+      "M": 157.0,
+      "C_over_meanHeroHit": 28.53735884081885,
+      "highMinutesIfOrdinary270": 135.39709188519393,
+      "intermittentMinutesIfOrdinary270": 283.9475495075219
+    },
+    {
+      "K": 52,
+      "completedHeroCycles": 9,
+      "illustrativeSouls": 180,
+      "M": 1522.0,
+      "C_over_meanHeroHit": 28.92290800552396,
+      "highMinutesIfOrdinary270": 135.67487956651243,
+      "intermittentMinutesIfOrdinary270": 283.7647849058279
+    }
+  ]
+}

@@ -1,0 +1,3441 @@
+{
+  "kind": "candidate",
+  "startedAt": "2026-09-18T06:55:58.228Z",
+  "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+  "appHash": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34",
+  "referenceCwd": "/Users/jeongyounglee/work/repo/desktop-monster",
+  "metrics": [
+    {
+      "at": 1789714566243,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.689845,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 157376,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.548551,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 72608,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.055927,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 41744,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.591985,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 111600,
+            "peakWorkingSetSize": 111600
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.037925,
+            "percentCPUUsage": 0,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 34704,
+            "peakWorkingSetSize": 34720
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714571245,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.709862,
+            "percentCPUUsage": 0.033349234072204546,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 138704,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.848341,
+            "percentCPUUsage": 0.49944972066201454,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 67696,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.05822,
+            "percentCPUUsage": 0.0038201241005548624,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 39760,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.895276,
+            "percentCPUUsage": 0.5052802604384703,
+            "idleWakeupsPerSecond": 868
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 106224,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.039595,
+            "percentCPUUsage": 0.0027822054272531246,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 32352,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714576244,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.754204,
+            "percentCPUUsage": 0.0739077382345321,
+            "idleWakeupsPerSecond": 8
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 138960,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 1.347118,
+            "percentCPUUsage": 0.8312925061224816,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 67984,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.05925,
+            "percentCPUUsage": 0.0017166484701928825,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 39664,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 1.405927,
+            "percentCPUUsage": 0.8510718934928402,
+            "idleWakeupsPerSecond": 851
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 104256,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.04259,
+            "percentCPUUsage": 0.00499156983021196,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 32848,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714581244,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.765214,
+            "percentCPUUsage": 0.01835242251977261,
+            "idleWakeupsPerSecond": 1
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 111200,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 1.677455,
+            "percentCPUUsage": 0.5506718010268721,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 58720,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.059913,
+            "percentCPUUsage": 0.0011052294456329133,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 36480,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 1.737304,
+            "percentCPUUsage": 0.5524126638974102,
+            "idleWakeupsPerSecond": 873
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 87776,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.044636,
+            "percentCPUUsage": 0.003410740130608342,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 32256,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714586245,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.7819,
+            "percentCPUUsage": 0.027801142555981664,
+            "idleWakeupsPerSecond": 1
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 101696,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 2.006233,
+            "percentCPUUsage": 0.5477851935883784,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 56640,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.060658,
+            "percentCPUUsage": 0.0012412630079364857,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 35984,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 2.086989,
+            "percentCPUUsage": 0.582618632706524,
+            "idleWakeupsPerSecond": 866
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 96176,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.046863,
+            "percentCPUUsage": 0.0037104540902699666,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 32192,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714591244,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.841457,
+            "percentCPUUsage": 0.09928207906212183,
+            "idleWakeupsPerSecond": 3
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 108912,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 2.52858,
+            "percentCPUUsage": 0.8707591029231002,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 57200,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.061693,
+            "percentCPUUsage": 0.0017253233255912156,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 36064,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 2.614515,
+            "percentCPUUsage": 0.8793739152978115,
+            "idleWakeupsPerSecond": 843
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 88896,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.050086,
+            "percentCPUUsage": 0.005372676729891886,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 32528,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714596248,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.886017,
+            "percentCPUUsage": 0.07421510201378749,
+            "idleWakeupsPerSecond": 7
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 93264,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 2.854517,
+            "percentCPUUsage": 0.5428666755540792,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 50656,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.062428,
+            "percentCPUUsage": 0.001224212586464386,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 29584,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 2.956316,
+            "percentCPUUsage": 0.5693024995471244,
+            "idleWakeupsPerSecond": 882
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 81568,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.051805,
+            "percentCPUUsage": 0.002863159561034167,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 26640,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    },
+    {
+      "at": 1789714601245,
+      "processes": [
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 1.01379,
+            "percentCPUUsage": 0.21306306558686564,
+            "idleWakeupsPerSecond": 11
+          },
+          "pid": 11798,
+          "type": "Browser",
+          "creationTime": 1789714558235.15,
+          "memory": {
+            "workingSetSize": 104000,
+            "peakWorkingSetSize": 170752
+          },
+          "sandboxed": false
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 3.209753,
+            "percentCPUUsage": 0.5923465772740851,
+            "idleWakeupsPerSecond": 153
+          },
+          "pid": 11834,
+          "type": "GPU",
+          "creationTime": 1789714560626.542,
+          "serviceName": "GPU",
+          "memory": {
+            "workingSetSize": 48688,
+            "peakWorkingSetSize": 77808
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.063328,
+            "percentCPUUsage": 0.0015007245498126496,
+            "idleWakeupsPerSecond": 0
+          },
+          "pid": 11835,
+          "type": "Utility",
+          "creationTime": 1789714560635.4,
+          "serviceName": "network.mojom.NetworkService",
+          "name": "Network Service",
+          "memory": {
+            "workingSetSize": 28608,
+            "peakWorkingSetSize": 46832
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 3.333661,
+            "percentCPUUsage": 0.6292124946532487,
+            "idleWakeupsPerSecond": 870
+          },
+          "pid": 11836,
+          "type": "Tab",
+          "creationTime": 1789714560935.515,
+          "memory": {
+            "workingSetSize": 75600,
+            "peakWorkingSetSize": 112512
+          },
+          "sandboxed": true
+        },
+        {
+          "cpu": {
+            "cumulativeCPUUsage": 0.053986,
+            "percentCPUUsage": 0.0036367550980102997,
+            "idleWakeupsPerSecond": 2
+          },
+          "pid": 11904,
+          "type": "Utility",
+          "creationTime": 1789714566191.651,
+          "serviceName": "tracing.mojom.TracingService",
+          "name": "Tracing Service",
+          "memory": {
+            "workingSetSize": 26272,
+            "peakWorkingSetSize": 35136
+          },
+          "sandboxed": true
+        }
+      ]
+    }
+  ],
+  "errors": [
+    "Error: Cannot find context with specified id\n    at WebSocket.<anonymous> (file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/package-check.mjs:31:38)\n    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)\n    at WebSocket.dispatchEvent (node:internal/event_target:761:26)\n    at fireEvent (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/util.js:71:10)\n    at websocketMessageReceived (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/util.js:115:3)\n    at ByteParser.run (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/receiver.js:268:15)\n    at ByteParser._write (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/receiver.js:80:10)\n    at writeOrBuffer (node:internal/streams/writable:564:12)\n    at _write (node:internal/streams/writable:493:10)\n    at Writable.write (node:internal/streams/writable:502:10)",
+    "Cleanup: Error: Cannot find context with specified id"
+  ],
+  "before": {
+    "save": {
+      "version": 4,
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": "0",
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {},
+      "monsterIndex": 1000,
+      "monsterSpeciesId": "slime",
+      "monsterHp": "309470158987657483911710",
+      "monsterCurveVersion": 10,
+      "monsterCurveRebirths": 0,
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "releasedCount": 0,
+      "rebirths": 0,
+      "bestIndex": 1000,
+      "pvpParty": [],
+      "progress": {
+        "playTimeMs": 5078.100000071526,
+        "speciesKills": {},
+        "seenMonsters": [
+          "slime"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": "0",
+        "rareMisses": 0,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      },
+      "equipment": {
+        "bag": [],
+        "loadout": {
+          "weapon": null,
+          "accessories": []
+        },
+        "temporary": [],
+        "capacity": 24,
+        "expansions": 0,
+        "revision": 1,
+        "temporaryRevision": 0,
+        "heroChangeSerial": 0,
+        "nextId": 13,
+        "rngState": 1511859835,
+        "acquired": {},
+        "shop": {
+          "serial": 1,
+          "nextRefreshAt": 1789714800000,
+          "lastObservedAt": 1789714566180,
+          "stock": [
+            {
+              "id": "e1",
+              "templateId": "w-sword-common-2",
+              "enhancement": "0",
+              "roll": 91,
+              "seed": 4195786334,
+              "attempts": "0"
+            },
+            {
+              "id": "e2",
+              "templateId": "a-ring-critical-rare-4",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 1741702388,
+              "attempts": "0"
+            },
+            {
+              "id": "e3",
+              "templateId": "a-necklace-critical-uncommon-4",
+              "enhancement": "0",
+              "roll": 95,
+              "seed": 2376515373,
+              "attempts": "0"
+            },
+            {
+              "id": "e4",
+              "templateId": "a-ring-party-common-4",
+              "enhancement": "0",
+              "roll": 95,
+              "seed": 669793123,
+              "attempts": "0"
+            },
+            {
+              "id": "e5",
+              "templateId": "a-ring-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 846698085,
+              "attempts": "0"
+            },
+            {
+              "id": "e6",
+              "templateId": "w-gauntlet-uncommon-1",
+              "enhancement": "0",
+              "roll": 96,
+              "seed": 2296688774,
+              "attempts": "0"
+            },
+            {
+              "id": "e7",
+              "templateId": "w-staff-rare-2",
+              "enhancement": "0",
+              "roll": 110,
+              "seed": 1063148692,
+              "attempts": "0"
+            },
+            {
+              "id": "e8",
+              "templateId": "a-charm-critical-rare-2",
+              "enhancement": "0",
+              "roll": 94,
+              "seed": 617003775,
+              "attempts": "0"
+            },
+            {
+              "id": "e9",
+              "templateId": "w-gun-common-1",
+              "enhancement": "0",
+              "roll": 96,
+              "seed": 2353218730,
+              "attempts": "0"
+            },
+            {
+              "id": "e10",
+              "templateId": "a-ring-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 91,
+              "seed": 3921050484,
+              "attempts": "0"
+            },
+            {
+              "id": "e11",
+              "templateId": "a-necklace-party-uncommon-3",
+              "enhancement": "0",
+              "roll": 103,
+              "seed": 2920968207,
+              "attempts": "0"
+            },
+            {
+              "id": "e12",
+              "templateId": "a-charm-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 103,
+              "seed": 3956544747,
+              "attempts": "0"
+            }
+          ],
+          "boughtIds": []
+        }
+      }
+    },
+    "state": {
+      "level": 1,
+      "xp": 0,
+      "killCount": 0,
+      "coins": "0",
+      "pvpGoldNet": "0",
+      "pvpGoldDebt": "0",
+      "items": {},
+      "monster": {
+        "index": 1000,
+        "speciesId": "slime",
+        "name": "Slime Lv.10",
+        "maxHp": "309470158987657483911730",
+        "curveVersion": 10,
+        "curveRebirths": 0,
+        "tier": 9,
+        "boss": false,
+        "type": "water"
+      },
+      "monsterHp": "309470158987657483911710",
+      "companions": [
+        {
+          "id": "c1",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c2",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c3",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c4",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        {
+          "id": "c5",
+          "speciesId": "slime",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        }
+      ],
+      "nextCompanionId": 6,
+      "earlyCaptureUsed": 5,
+      "souls": 0,
+      "releasedCount": 0,
+      "rebirths": 0,
+      "bestIndex": 1000,
+      "pvpParty": [],
+      "fever": {
+        "active": false,
+        "remainingMs": 0
+      },
+      "equipment": {
+        "bag": [],
+        "loadout": {
+          "weapon": null,
+          "accessories": []
+        },
+        "temporary": [],
+        "capacity": 24,
+        "expansions": 0,
+        "revision": 1,
+        "temporaryRevision": 0,
+        "heroChangeSerial": 0,
+        "nextId": 13,
+        "rngState": 1511859835,
+        "acquired": {},
+        "shop": {
+          "serial": 1,
+          "nextRefreshAt": 1789714800000,
+          "lastObservedAt": 1789714566180,
+          "stock": [
+            {
+              "id": "e1",
+              "templateId": "w-sword-common-2",
+              "enhancement": "0",
+              "roll": 91,
+              "seed": 4195786334,
+              "attempts": "0"
+            },
+            {
+              "id": "e2",
+              "templateId": "a-ring-critical-rare-4",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 1741702388,
+              "attempts": "0"
+            },
+            {
+              "id": "e3",
+              "templateId": "a-necklace-critical-uncommon-4",
+              "enhancement": "0",
+              "roll": 95,
+              "seed": 2376515373,
+              "attempts": "0"
+            },
+            {
+              "id": "e4",
+              "templateId": "a-ring-party-common-4",
+              "enhancement": "0",
+              "roll": 95,
+              "seed": 669793123,
+              "attempts": "0"
+            },
+            {
+              "id": "e5",
+              "templateId": "a-ring-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 100,
+              "seed": 846698085,
+              "attempts": "0"
+            },
+            {
+              "id": "e6",
+              "templateId": "w-gauntlet-uncommon-1",
+              "enhancement": "0",
+              "roll": 96,
+              "seed": 2296688774,
+              "attempts": "0"
+            },
+            {
+              "id": "e7",
+              "templateId": "w-staff-rare-2",
+              "enhancement": "0",
+              "roll": 110,
+              "seed": 1063148692,
+              "attempts": "0"
+            },
+            {
+              "id": "e8",
+              "templateId": "a-charm-critical-rare-2",
+              "enhancement": "0",
+              "roll": 94,
+              "seed": 617003775,
+              "attempts": "0"
+            },
+            {
+              "id": "e9",
+              "templateId": "w-gun-common-1",
+              "enhancement": "0",
+              "roll": 96,
+              "seed": 2353218730,
+              "attempts": "0"
+            },
+            {
+              "id": "e10",
+              "templateId": "a-ring-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 91,
+              "seed": 3921050484,
+              "attempts": "0"
+            },
+            {
+              "id": "e11",
+              "templateId": "a-necklace-party-uncommon-3",
+              "enhancement": "0",
+              "roll": 103,
+              "seed": 2920968207,
+              "attempts": "0"
+            },
+            {
+              "id": "e12",
+              "templateId": "a-charm-party-uncommon-4",
+              "enhancement": "0",
+              "roll": 103,
+              "seed": 3956544747,
+              "attempts": "0"
+            }
+          ],
+          "boughtIds": []
+        }
+      },
+      "progress": {
+        "playTimeMs": 5078.100000071526,
+        "speciesKills": {},
+        "seenMonsters": [
+          "slime"
+        ],
+        "seenHeroes": [],
+        "heroCounts": {},
+        "reincarnationHistory": [],
+        "pvpWins": 0,
+        "pvpLosses": 0,
+        "goldSpent": "0",
+        "rareMisses": 0,
+        "trainingLevel": 0,
+        "lureRemaining": 0,
+        "shopSerial": 0,
+        "legacyHistory": false,
+        "codex": {
+          "acknowledgedHeroes": [],
+          "acknowledgedMonsters": [],
+          "goal": null
+        }
+      }
+    },
+    "animation": {
+      "state": "idle",
+      "t": 5078.100000071526
+    },
+    "motions": [
+      {
+        "state": "idle",
+        "t": 75.50000007152556,
+        "replaying": false,
+        "at": 251.20000004768372
+      },
+      {
+        "state": "idle",
+        "t": 75.50000007152556,
+        "replaying": false,
+        "at": 264.39999997615814
+      },
+      {
+        "state": "idle",
+        "t": 89.50000007152559,
+        "replaying": false,
+        "at": 277.60000002384186
+      },
+      {
+        "state": "idle",
+        "t": 102.80000007152555,
+        "replaying": false,
+        "at": 291
+      },
+      {
+        "state": "idle",
+        "t": 116.20000007152558,
+        "replaying": false,
+        "at": 304.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 129.5000000715256,
+        "replaying": false,
+        "at": 317.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 142.80000007152555,
+        "replaying": false,
+        "at": 331
+      },
+      {
+        "state": "idle",
+        "t": 156.20000007152558,
+        "replaying": false,
+        "at": 344.39999997615814
+      },
+      {
+        "state": "idle",
+        "t": 169.5000000715256,
+        "replaying": false,
+        "at": 357.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 182.80000007152555,
+        "replaying": false,
+        "at": 371
+      },
+      {
+        "state": "idle",
+        "t": 195.30000007152555,
+        "replaying": false,
+        "at": 388.10000002384186
+      },
+      {
+        "state": "idle",
+        "t": 213.0000000715256,
+        "replaying": false,
+        "at": 396.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 222.0000000715256,
+        "replaying": false,
+        "at": 411.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 236.30000007152555,
+        "replaying": false,
+        "at": 423.5
+      },
+      {
+        "state": "idle",
+        "t": 248.60000007152556,
+        "replaying": false,
+        "at": 437.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 263.0000000715256,
+        "replaying": false,
+        "at": 450
+      },
+      {
+        "state": "idle",
+        "t": 275.2000000715256,
+        "replaying": false,
+        "at": 464.39999997615814
+      },
+      {
+        "state": "idle",
+        "t": 289.6000000715256,
+        "replaying": false,
+        "at": 477.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 303.0000000715256,
+        "replaying": false,
+        "at": 491
+      },
+      {
+        "state": "idle",
+        "t": 316.3000000715256,
+        "replaying": false,
+        "at": 504.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 329.6000000715256,
+        "replaying": false,
+        "at": 517.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 343.0000000715256,
+        "replaying": false,
+        "at": 531
+      },
+      {
+        "state": "idle",
+        "t": 356.3000000715256,
+        "replaying": false,
+        "at": 544.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 369.60000007152564,
+        "replaying": false,
+        "at": 557.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 382.9000000715256,
+        "replaying": false,
+        "at": 570.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 395.60000007152564,
+        "replaying": false,
+        "at": 584.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 409.70000007152555,
+        "replaying": false,
+        "at": 597.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 423.0000000715256,
+        "replaying": false,
+        "at": 611
+      },
+      {
+        "state": "idle",
+        "t": 436.3000000715256,
+        "replaying": false,
+        "at": 624.5
+      },
+      {
+        "state": "idle",
+        "t": 449.70000007152555,
+        "replaying": false,
+        "at": 637.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 463.0000000715256,
+        "replaying": false,
+        "at": 651.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 476.3000000715256,
+        "replaying": false,
+        "at": 664.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 489.70000007152555,
+        "replaying": false,
+        "at": 677.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 503.0000000715256,
+        "replaying": false,
+        "at": 691.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 516.3000000715256,
+        "replaying": false,
+        "at": 704.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 529.7000000715256,
+        "replaying": false,
+        "at": 717.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 543.0000000715256,
+        "replaying": false,
+        "at": 731.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 556.4000000715256,
+        "replaying": false,
+        "at": 744.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 569.7000000715256,
+        "replaying": false,
+        "at": 757.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 583.0000000715256,
+        "replaying": false,
+        "at": 771.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 596.4000000715256,
+        "replaying": false,
+        "at": 783.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 609.0000000715256,
+        "replaying": false,
+        "at": 797.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 623.1000000715256,
+        "replaying": false,
+        "at": 811.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 636.4000000715256,
+        "replaying": false,
+        "at": 824.5
+      },
+      {
+        "state": "idle",
+        "t": 649.7000000715256,
+        "replaying": false,
+        "at": 837.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 663.0000000715256,
+        "replaying": false,
+        "at": 851.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 676.4000000715256,
+        "replaying": false,
+        "at": 864.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 689.7000000715256,
+        "replaying": false,
+        "at": 878.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 703.1000000715256,
+        "replaying": false,
+        "at": 891.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 716.4000000715256,
+        "replaying": false,
+        "at": 904.5
+      },
+      {
+        "state": "idle",
+        "t": 729.7000000715256,
+        "replaying": false,
+        "at": 917.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 743.1000000715256,
+        "replaying": false,
+        "at": 933.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 756.4000000715256,
+        "replaying": false,
+        "at": 944.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 769.8000000715256,
+        "replaying": false,
+        "at": 957.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 783.1000000715256,
+        "replaying": false,
+        "at": 971.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 796.4000000715256,
+        "replaying": false,
+        "at": 984.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 809.8000000715256,
+        "replaying": false,
+        "at": 998.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 823.2000000715256,
+        "replaying": false,
+        "at": 1011.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 836.5000000715256,
+        "replaying": false,
+        "at": 1025
+      },
+      {
+        "state": "idle",
+        "t": 849.8000000715257,
+        "replaying": false,
+        "at": 1038.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 863.2000000715256,
+        "replaying": false,
+        "at": 1051.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 876.5000000715255,
+        "replaying": false,
+        "at": 1064.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 889.8000000715257,
+        "replaying": false,
+        "at": 1079.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 903.2000000715256,
+        "replaying": false,
+        "at": 1091.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 916.5000000715255,
+        "replaying": false,
+        "at": 1104.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 929.9000000715256,
+        "replaying": false,
+        "at": 1117.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 943.2000000715256,
+        "replaying": false,
+        "at": 1131.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 956.5000000715255,
+        "replaying": false,
+        "at": 1144.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 969.8000000715257,
+        "replaying": false,
+        "at": 1158.1000000238419
+      },
+      {
+        "state": "idle",
+        "t": 983.2000000715256,
+        "replaying": false,
+        "at": 1171.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 996.6000000715256,
+        "replaying": false,
+        "at": 1184.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1009.8000000715257,
+        "replaying": false,
+        "at": 1198
+      },
+      {
+        "state": "idle",
+        "t": 1023.2000000715256,
+        "replaying": false,
+        "at": 1211.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1036.6000000715258,
+        "replaying": false,
+        "at": 1225.5
+      },
+      {
+        "state": "idle",
+        "t": 1049.9000000715257,
+        "replaying": false,
+        "at": 1238
+      },
+      {
+        "state": "idle",
+        "t": 1063.2000000715257,
+        "replaying": false,
+        "at": 1251.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1076.6000000715258,
+        "replaying": false,
+        "at": 1264.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1089.9000000715257,
+        "replaying": false,
+        "at": 1278.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1103.2000000715257,
+        "replaying": false,
+        "at": 1291.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1116.6000000715258,
+        "replaying": false,
+        "at": 1304.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1130.0000000715256,
+        "replaying": false,
+        "at": 1318.1000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1143.2000000715257,
+        "replaying": false,
+        "at": 1332.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1156.7000000715257,
+        "replaying": false,
+        "at": 1343.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1169.0000000715256,
+        "replaying": false,
+        "at": 1358.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1183.3000000715258,
+        "replaying": false,
+        "at": 1371.5
+      },
+      {
+        "state": "idle",
+        "t": 1196.7000000715257,
+        "replaying": false,
+        "at": 1384.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1210.0000000715256,
+        "replaying": false,
+        "at": 1398.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1223.3000000715258,
+        "replaying": false,
+        "at": 1411.5
+      },
+      {
+        "state": "idle",
+        "t": 1236.7000000715257,
+        "replaying": false,
+        "at": 1424.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1250.0000000715256,
+        "replaying": false,
+        "at": 1439
+      },
+      {
+        "state": "idle",
+        "t": 1263.3000000715258,
+        "replaying": false,
+        "at": 1451.5
+      },
+      {
+        "state": "idle",
+        "t": 1276.6000000715258,
+        "replaying": false,
+        "at": 1464.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1289.1000000715258,
+        "replaying": false,
+        "at": 1477.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1302.9000000715257,
+        "replaying": false,
+        "at": 1491.5
+      },
+      {
+        "state": "idle",
+        "t": 1316.7000000715257,
+        "replaying": false,
+        "at": 1504.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1330.0000000715256,
+        "replaying": false,
+        "at": 1518.1000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1343.4000000715257,
+        "replaying": false,
+        "at": 1532.5
+      },
+      {
+        "state": "idle",
+        "t": 1356.7000000715257,
+        "replaying": false,
+        "at": 1545
+      },
+      {
+        "state": "idle",
+        "t": 1370.1000000715258,
+        "replaying": false,
+        "at": 1558.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1383.4000000715257,
+        "replaying": false,
+        "at": 1571.5
+      },
+      {
+        "state": "idle",
+        "t": 1396.7000000715257,
+        "replaying": false,
+        "at": 1585.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1410.0000000715256,
+        "replaying": false,
+        "at": 1598.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1423.4000000715257,
+        "replaying": false,
+        "at": 1611.5
+      },
+      {
+        "state": "idle",
+        "t": 1436.7000000715257,
+        "replaying": false,
+        "at": 1625.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1450.1000000715258,
+        "replaying": false,
+        "at": 1638.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1463.3000000715258,
+        "replaying": false,
+        "at": 1652.1000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1476.7000000715257,
+        "replaying": false,
+        "at": 1665.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1490.1000000715258,
+        "replaying": false,
+        "at": 1678.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1503.3000000715258,
+        "replaying": false,
+        "at": 1692.1000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1516.8000000715258,
+        "replaying": false,
+        "at": 1704.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1529.1000000715258,
+        "replaying": false,
+        "at": 1718.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1543.4000000715257,
+        "replaying": false,
+        "at": 1732.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1556.7000000715257,
+        "replaying": false,
+        "at": 1744.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1569.2000000715257,
+        "replaying": false,
+        "at": 1758.5
+      },
+      {
+        "state": "idle",
+        "t": 1583.4000000715257,
+        "replaying": false,
+        "at": 1772.5
+      },
+      {
+        "state": "idle",
+        "t": 1596.8000000715258,
+        "replaying": false,
+        "at": 1785.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1610.1000000715258,
+        "replaying": false,
+        "at": 1798.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1623.4000000715257,
+        "replaying": false,
+        "at": 1811.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1636.8000000715258,
+        "replaying": false,
+        "at": 1825
+      },
+      {
+        "state": "idle",
+        "t": 1650.1000000715258,
+        "replaying": false,
+        "at": 1838.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1663.5000000715256,
+        "replaying": false,
+        "at": 1851.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1676.8000000715258,
+        "replaying": false,
+        "at": 1865.3999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1690.1000000715258,
+        "replaying": false,
+        "at": 1878.1000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1703.4000000715257,
+        "replaying": false,
+        "at": 1891.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1716.9000000715257,
+        "replaying": false,
+        "at": 1905.5
+      },
+      {
+        "state": "idle",
+        "t": 1730.1000000715258,
+        "replaying": false,
+        "at": 1919.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1743.5000000715256,
+        "replaying": false,
+        "at": 1931.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1756.8000000715258,
+        "replaying": false,
+        "at": 1945
+      },
+      {
+        "state": "idle",
+        "t": 1770.1000000715258,
+        "replaying": false,
+        "at": 1958.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1783.5000000715256,
+        "replaying": false,
+        "at": 1971.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1796.9000000715257,
+        "replaying": false,
+        "at": 1985.8999999761581
+      },
+      {
+        "state": "idle",
+        "t": 1810.2000000715257,
+        "replaying": false,
+        "at": 1998.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1823.6000000715258,
+        "replaying": false,
+        "at": 2011.6000000238419
+      },
+      {
+        "state": "idle",
+        "t": 1836.9000000715257,
+        "replaying": false,
+        "at": 2026.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1850.2000000715257,
+        "replaying": false,
+        "at": 2038.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1863.3000000715258,
+        "replaying": false,
+        "at": 2051.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1876.8000000715258,
+        "replaying": false,
+        "at": 2065.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1890.200000071526,
+        "replaying": false,
+        "at": 2078.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1903.5000000715256,
+        "replaying": false,
+        "at": 2091.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 1916.9000000715257,
+        "replaying": false,
+        "at": 2104.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1929.5000000715256,
+        "replaying": false,
+        "at": 2118.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 1943.5000000715256,
+        "replaying": false,
+        "at": 2131.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1956.9000000715257,
+        "replaying": false,
+        "at": 2145.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 1970.200000071526,
+        "replaying": false,
+        "at": 2158.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1983.6000000715255,
+        "replaying": false,
+        "at": 2171.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 1996.9000000715257,
+        "replaying": false,
+        "at": 2185
+      },
+      {
+        "state": "idle",
+        "t": 2010.3000000715258,
+        "replaying": false,
+        "at": 2197.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2022.8000000715258,
+        "replaying": false,
+        "at": 2211.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2036.9000000715257,
+        "replaying": false,
+        "at": 2256.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2049.900000071526,
+        "replaying": false,
+        "at": 2256.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2076.900000071526,
+        "replaying": false,
+        "at": 2264.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2089.400000071526,
+        "replaying": false,
+        "at": 2278.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2103.6000000715258,
+        "replaying": false,
+        "at": 2291.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2116.900000071526,
+        "replaying": false,
+        "at": 2305.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2130.200000071526,
+        "replaying": false,
+        "at": 2318.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2143.6000000715258,
+        "replaying": false,
+        "at": 2331.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 2157.000000071526,
+        "replaying": false,
+        "at": 2345
+      },
+      {
+        "state": "idle",
+        "t": 2170.300000071526,
+        "replaying": false,
+        "at": 2357.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 2183.200000071526,
+        "replaying": false,
+        "at": 2371.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2197.000000071526,
+        "replaying": false,
+        "at": 2385
+      },
+      {
+        "state": "idle",
+        "t": 2210.300000071526,
+        "replaying": false,
+        "at": 2398.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 2223.700000071526,
+        "replaying": false,
+        "at": 2411.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2236.6000000715258,
+        "replaying": false,
+        "at": 2425
+      },
+      {
+        "state": "idle",
+        "t": 2250.400000071526,
+        "replaying": false,
+        "at": 2438.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2263.700000071526,
+        "replaying": false,
+        "at": 2451.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2277.000000071526,
+        "replaying": false,
+        "at": 2465.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2290.400000071526,
+        "replaying": false,
+        "at": 2478.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 2303.700000071526,
+        "replaying": false,
+        "at": 2491.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2317.1000000715258,
+        "replaying": false,
+        "at": 2505
+      },
+      {
+        "state": "idle",
+        "t": 2330.300000071526,
+        "replaying": false,
+        "at": 2518.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2343.300000071526,
+        "replaying": false,
+        "at": 2531.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2357.1000000715258,
+        "replaying": false,
+        "at": 2544.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2370.000000071526,
+        "replaying": false,
+        "at": 2558.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 2383.700000071526,
+        "replaying": false,
+        "at": 2571.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2397.000000071526,
+        "replaying": false,
+        "at": 2585.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2410.400000071526,
+        "replaying": false,
+        "at": 2598.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 2423.800000071526,
+        "replaying": false,
+        "at": 2611.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2437.1000000715258,
+        "replaying": false,
+        "at": 2625.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2450.400000071526,
+        "replaying": false,
+        "at": 2638.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2463.400000071526,
+        "replaying": false,
+        "at": 2651.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2477.1000000715258,
+        "replaying": false,
+        "at": 2665.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2490.500000071526,
+        "replaying": false,
+        "at": 2678
+      },
+      {
+        "state": "idle",
+        "t": 2503.300000071526,
+        "replaying": false,
+        "at": 2691.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 2517.1000000715258,
+        "replaying": false,
+        "at": 2704.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2530.000000071526,
+        "replaying": false,
+        "at": 2717.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2543.1000000715258,
+        "replaying": false,
+        "at": 2731.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 2557.200000071526,
+        "replaying": false,
+        "at": 2745.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2570.400000071526,
+        "replaying": false,
+        "at": 2758.5
+      },
+      {
+        "state": "idle",
+        "t": 2583.800000071526,
+        "replaying": false,
+        "at": 2772
+      },
+      {
+        "state": "idle",
+        "t": 2597.200000071526,
+        "replaying": false,
+        "at": 2785.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2610.500000071526,
+        "replaying": false,
+        "at": 2798.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 2623.800000071526,
+        "replaying": false,
+        "at": 2811.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 2637.1000000715258,
+        "replaying": false,
+        "at": 2825.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2650.500000071526,
+        "replaying": false,
+        "at": 2838.5
+      },
+      {
+        "state": "idle",
+        "t": 2663.800000071526,
+        "replaying": false,
+        "at": 2851
+      },
+      {
+        "state": "idle",
+        "t": 2676.300000071526,
+        "replaying": false,
+        "at": 2864.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2690.000000071526,
+        "replaying": false,
+        "at": 2878.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 2703.900000071526,
+        "replaying": false,
+        "at": 2891.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2716.6000000715258,
+        "replaying": false,
+        "at": 2905.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2730.500000071526,
+        "replaying": false,
+        "at": 2918.5
+      },
+      {
+        "state": "idle",
+        "t": 2743.900000071526,
+        "replaying": false,
+        "at": 2932
+      },
+      {
+        "state": "idle",
+        "t": 2757.200000071526,
+        "replaying": false,
+        "at": 2945.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2770.500000071526,
+        "replaying": false,
+        "at": 2958.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2783.900000071526,
+        "replaying": false,
+        "at": 2971.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 2796.800000071526,
+        "replaying": false,
+        "at": 2985.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2810.500000071526,
+        "replaying": false,
+        "at": 2998.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 2823.900000071526,
+        "replaying": false,
+        "at": 3011.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 2837.300000071526,
+        "replaying": false,
+        "at": 3025.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2850.6000000715258,
+        "replaying": false,
+        "at": 3037.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2863.000000071526,
+        "replaying": false,
+        "at": 3051.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 2877.300000071526,
+        "replaying": false,
+        "at": 3065.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2890.6000000715258,
+        "replaying": false,
+        "at": 3078.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2903.300000071526,
+        "replaying": false,
+        "at": 3092
+      },
+      {
+        "state": "idle",
+        "t": 2917.200000071526,
+        "replaying": false,
+        "at": 3104.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2930.000000071526,
+        "replaying": false,
+        "at": 3118.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 2943.900000071526,
+        "replaying": false,
+        "at": 3132
+      },
+      {
+        "state": "idle",
+        "t": 2957.300000071526,
+        "replaying": false,
+        "at": 3145.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 2970.6000000715258,
+        "replaying": false,
+        "at": 3158
+      },
+      {
+        "state": "idle",
+        "t": 2983.300000071526,
+        "replaying": false,
+        "at": 3172.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 2997.300000071526,
+        "replaying": false,
+        "at": 3185.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3010.6000000715258,
+        "replaying": false,
+        "at": 3198.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3024.000000071526,
+        "replaying": false,
+        "at": 3211.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3036.6000000715258,
+        "replaying": false,
+        "at": 3225.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3050.6000000715258,
+        "replaying": false,
+        "at": 3238.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3064.000000071526,
+        "replaying": false,
+        "at": 3252
+      },
+      {
+        "state": "idle",
+        "t": 3077.400000071526,
+        "replaying": false,
+        "at": 3265.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3090.6000000715258,
+        "replaying": false,
+        "at": 3278.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3104.000000071526,
+        "replaying": false,
+        "at": 3291.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3116.6000000715258,
+        "replaying": false,
+        "at": 3305.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3130.700000071526,
+        "replaying": false,
+        "at": 3318.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3144.000000071526,
+        "replaying": false,
+        "at": 3332.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 3157.300000071526,
+        "replaying": false,
+        "at": 3345.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3170.6000000715258,
+        "replaying": false,
+        "at": 3358.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3183.900000071526,
+        "replaying": false,
+        "at": 3371.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3196.6000000715258,
+        "replaying": false,
+        "at": 3385.5
+      },
+      {
+        "state": "idle",
+        "t": 3210.800000071526,
+        "replaying": false,
+        "at": 3398.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3224.1000000715258,
+        "replaying": false,
+        "at": 3412.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 3237.300000071526,
+        "replaying": false,
+        "at": 3424.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3250.000000071526,
+        "replaying": false,
+        "at": 3438.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3264.000000071526,
+        "replaying": false,
+        "at": 3451.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3276.6000000715258,
+        "replaying": false,
+        "at": 3465.5
+      },
+      {
+        "state": "idle",
+        "t": 3290.800000071526,
+        "replaying": false,
+        "at": 3478.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3304.000000071526,
+        "replaying": false,
+        "at": 3492.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 3317.400000071526,
+        "replaying": false,
+        "at": 3505.5
+      },
+      {
+        "state": "idle",
+        "t": 3330.700000071526,
+        "replaying": false,
+        "at": 3518.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3344.000000071526,
+        "replaying": false,
+        "at": 3532.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 3357.400000071526,
+        "replaying": false,
+        "at": 3545.5
+      },
+      {
+        "state": "idle",
+        "t": 3370.800000071526,
+        "replaying": false,
+        "at": 3558
+      },
+      {
+        "state": "idle",
+        "t": 3383.300000071526,
+        "replaying": false,
+        "at": 3572.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3397.400000071526,
+        "replaying": false,
+        "at": 3584.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3410.000000071526,
+        "replaying": false,
+        "at": 3598.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3424.1000000715258,
+        "replaying": false,
+        "at": 3612.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3437.400000071526,
+        "replaying": false,
+        "at": 3625.5
+      },
+      {
+        "state": "idle",
+        "t": 3450.800000071526,
+        "replaying": false,
+        "at": 3638.7999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3464.1000000715258,
+        "replaying": false,
+        "at": 3652.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3477.500000071526,
+        "replaying": false,
+        "at": 3664.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3490.000000071526,
+        "replaying": false,
+        "at": 3678.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 3504.200000071526,
+        "replaying": false,
+        "at": 3692.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3517.500000071526,
+        "replaying": false,
+        "at": 3705.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3530.800000071526,
+        "replaying": false,
+        "at": 3718.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 3544.200000071526,
+        "replaying": false,
+        "at": 3732.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3557.500000071526,
+        "replaying": false,
+        "at": 3745.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3570.800000071526,
+        "replaying": false,
+        "at": 3758.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 3584.1000000715258,
+        "replaying": false,
+        "at": 3771.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3596.700000071526,
+        "replaying": false,
+        "at": 3785.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3610.900000071526,
+        "replaying": false,
+        "at": 3798.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 3624.200000071526,
+        "replaying": false,
+        "at": 3812.2000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3637.500000071526,
+        "replaying": false,
+        "at": 3824.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3650.000000071526,
+        "replaying": false,
+        "at": 3839
+      },
+      {
+        "state": "idle",
+        "t": 3664.200000071526,
+        "replaying": false,
+        "at": 3852.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3677.6000000715258,
+        "replaying": false,
+        "at": 3865.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3690.900000071526,
+        "replaying": false,
+        "at": 3878.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 3704.200000071526,
+        "replaying": false,
+        "at": 3892.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3717.500000071526,
+        "replaying": false,
+        "at": 3905.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3730.900000071526,
+        "replaying": false,
+        "at": 3919
+      },
+      {
+        "state": "idle",
+        "t": 3744.300000071526,
+        "replaying": false,
+        "at": 3932.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3757.6000000715258,
+        "replaying": false,
+        "at": 3945.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3770.900000071526,
+        "replaying": false,
+        "at": 3959
+      },
+      {
+        "state": "idle",
+        "t": 3784.300000071526,
+        "replaying": false,
+        "at": 3972.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3797.6000000715258,
+        "replaying": false,
+        "at": 3985.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 3811.000000071526,
+        "replaying": false,
+        "at": 3999
+      },
+      {
+        "state": "idle",
+        "t": 3824.300000071526,
+        "replaying": false,
+        "at": 4011.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3836.6000000715258,
+        "replaying": false,
+        "at": 4025.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3851.000000071526,
+        "replaying": false,
+        "at": 4038.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 3864.300000071526,
+        "replaying": false,
+        "at": 4052.2999999523163
+      },
+      {
+        "state": "idle",
+        "t": 3877.6000000715258,
+        "replaying": false,
+        "at": 4065.7000000476837
+      },
+      {
+        "state": "idle",
+        "t": 3891.000000071526,
+        "replaying": false,
+        "at": 4079.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 3904.300000071526,
+        "replaying": false,
+        "at": 4092.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3917.6000000715258,
+        "replaying": false,
+        "at": 4105.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 3931.0000000715263,
+        "replaying": false,
+        "at": 4119
+      },
+      {
+        "state": "idle",
+        "t": 3944.3000000715256,
+        "replaying": false,
+        "at": 4132.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3957.700000071526,
+        "replaying": false,
+        "at": 4145.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 3971.0000000715263,
+        "replaying": false,
+        "at": 4159.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 3984.400000071526,
+        "replaying": false,
+        "at": 4172.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 3997.6000000715258,
+        "replaying": false,
+        "at": 4185.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4011.0000000715263,
+        "replaying": false,
+        "at": 4199.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4024.3000000715256,
+        "replaying": false,
+        "at": 4212.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4037.700000071526,
+        "replaying": false,
+        "at": 4225.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 4051.0000000715263,
+        "replaying": false,
+        "at": 4238.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4063.5000000715263,
+        "replaying": false,
+        "at": 4252.5
+      },
+      {
+        "state": "idle",
+        "t": 4077.700000071526,
+        "replaying": false,
+        "at": 4265.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4091.1000000715258,
+        "replaying": false,
+        "at": 4279.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4104.400000071526,
+        "replaying": false,
+        "at": 4292.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4117.700000071526,
+        "replaying": false,
+        "at": 4305.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4131.100000071526,
+        "replaying": false,
+        "at": 4319.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4144.400000071526,
+        "replaying": false,
+        "at": 4332.5
+      },
+      {
+        "state": "idle",
+        "t": 4157.700000071526,
+        "replaying": false,
+        "at": 4345.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4171.100000071526,
+        "replaying": false,
+        "at": 4359.200000047684
+      },
+      {
+        "state": "idle",
+        "t": 4184.500000071526,
+        "replaying": false,
+        "at": 4372.5
+      },
+      {
+        "state": "idle",
+        "t": 4197.800000071526,
+        "replaying": false,
+        "at": 4385.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 4211.100000071526,
+        "replaying": false,
+        "at": 4399.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4224.400000071526,
+        "replaying": false,
+        "at": 4412.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4237.800000071526,
+        "replaying": false,
+        "at": 4425.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4251.000000071526,
+        "replaying": false,
+        "at": 4439.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4264.400000071526,
+        "replaying": false,
+        "at": 4452.5
+      },
+      {
+        "state": "idle",
+        "t": 4277.800000071526,
+        "replaying": false,
+        "at": 4465.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4291.100000071526,
+        "replaying": false,
+        "at": 4479.200000047684
+      },
+      {
+        "state": "idle",
+        "t": 4304.400000071526,
+        "replaying": false,
+        "at": 4492.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4317.800000071526,
+        "replaying": false,
+        "at": 4505.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 4331.100000071526,
+        "replaying": false,
+        "at": 4519.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4344.500000071526,
+        "replaying": false,
+        "at": 4532.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4357.800000071526,
+        "replaying": false,
+        "at": 4545.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4371.200000071526,
+        "replaying": false,
+        "at": 4559.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4384.500000071526,
+        "replaying": false,
+        "at": 4572.5
+      },
+      {
+        "state": "idle",
+        "t": 4397.800000071526,
+        "replaying": false,
+        "at": 4585.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4411.200000071526,
+        "replaying": false,
+        "at": 4599.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4424.500000071526,
+        "replaying": false,
+        "at": 4612.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4437.900000071526,
+        "replaying": false,
+        "at": 4625.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 4451.100000071526,
+        "replaying": false,
+        "at": 4639.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4464.500000071526,
+        "replaying": false,
+        "at": 4652.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4477.800000071526,
+        "replaying": false,
+        "at": 4665.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4491.200000071526,
+        "replaying": false,
+        "at": 4679.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4504.500000071526,
+        "replaying": false,
+        "at": 4692.5
+      },
+      {
+        "state": "idle",
+        "t": 4517.900000071526,
+        "replaying": false,
+        "at": 4705.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 4531.200000071526,
+        "replaying": false,
+        "at": 4719.200000047684
+      },
+      {
+        "state": "idle",
+        "t": 4544.500000071526,
+        "replaying": false,
+        "at": 4732.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4557.900000071526,
+        "replaying": false,
+        "at": 4745.899999976158
+      },
+      {
+        "state": "idle",
+        "t": 4571.200000071526,
+        "replaying": false,
+        "at": 4759.200000047684
+      },
+      {
+        "state": "idle",
+        "t": 4584.600000071526,
+        "replaying": false,
+        "at": 4772.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4597.900000071526,
+        "replaying": false,
+        "at": 4785.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4610.900000071526,
+        "replaying": false,
+        "at": 4799.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4624.500000071526,
+        "replaying": false,
+        "at": 4812.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4637.900000071526,
+        "replaying": false,
+        "at": 4826
+      },
+      {
+        "state": "idle",
+        "t": 4651.200000071526,
+        "replaying": false,
+        "at": 4839
+      },
+      {
+        "state": "idle",
+        "t": 4664.400000071526,
+        "replaying": false,
+        "at": 4852.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4677.900000071526,
+        "replaying": false,
+        "at": 4866
+      },
+      {
+        "state": "idle",
+        "t": 4691.200000071526,
+        "replaying": false,
+        "at": 4879.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4704.600000071526,
+        "replaying": false,
+        "at": 4892.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 4718.000000071526,
+        "replaying": false,
+        "at": 4906
+      },
+      {
+        "state": "idle",
+        "t": 4731.300000071526,
+        "replaying": false,
+        "at": 4919.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4744.600000071526,
+        "replaying": false,
+        "at": 4932.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4758.000000071526,
+        "replaying": false,
+        "at": 4946.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4771.300000071526,
+        "replaying": false,
+        "at": 4959.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4784.700000071526,
+        "replaying": false,
+        "at": 4972.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4798.000000071526,
+        "replaying": false,
+        "at": 4986
+      },
+      {
+        "state": "idle",
+        "t": 4811.300000071526,
+        "replaying": false,
+        "at": 4999.299999952316
+      },
+      {
+        "state": "idle",
+        "t": 4824.600000071526,
+        "replaying": false,
+        "at": 5012.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4838.000000071526,
+        "replaying": false,
+        "at": 5026.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4851.300000071526,
+        "replaying": false,
+        "at": 5039.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4864.700000071526,
+        "replaying": false,
+        "at": 5052.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4878.000000071526,
+        "replaying": false,
+        "at": 5066.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 4891.300000071526,
+        "replaying": false,
+        "at": 5079.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4904.700000071526,
+        "replaying": false,
+        "at": 5092.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 4918.000000071526,
+        "replaying": false,
+        "at": 5106
+      },
+      {
+        "state": "idle",
+        "t": 4931.400000071526,
+        "replaying": false,
+        "at": 5119.5
+      },
+      {
+        "state": "idle",
+        "t": 4944.700000071526,
+        "replaying": false,
+        "at": 5132.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4958.100000071526,
+        "replaying": false,
+        "at": 5146.200000047684
+      },
+      {
+        "state": "idle",
+        "t": 4971.400000071526,
+        "replaying": false,
+        "at": 5159.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 4984.800000071526,
+        "replaying": false,
+        "at": 5172.700000047684
+      },
+      {
+        "state": "idle",
+        "t": 4998.000000071526,
+        "replaying": false,
+        "at": 5185.600000023842
+      },
+      {
+        "state": "idle",
+        "t": 5010.800000071526,
+        "replaying": false,
+        "at": 5199.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 5024.700000071526,
+        "replaying": false,
+        "at": 5212.799999952316
+      },
+      {
+        "state": "idle",
+        "t": 5038.100000071526,
+        "replaying": false,
+        "at": 5226.100000023842
+      },
+      {
+        "state": "idle",
+        "t": 5051.400000071526,
+        "replaying": false,
+        "at": 5239.399999976158
+      },
+      {
+        "state": "idle",
+        "t": 5064.700000071526,
+        "replaying": false,
+        "at": 5252.799999952316
+      }
+    ],
+    "replaying": false,
+    "paused": false,
+    "generation": 1
+  },
+  "start": {
+    "start": 5314.700000047684,
+    "timeOrigin": 1789714560928.2
+  },
+  "runtime": {
+    "version": 1,
+    "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+    "appHash": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34",
+    "launcherHash": "5ebbaeb7f39a6338255eca32f05b8fed902bde09b5eadced1ea5f998364dcd9c",
+    "startedAt": "2026-09-18T06:55:58.234Z",
+    "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-PU17Ax",
+    "metadata": {
+      "version": "0.11.0",
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+      "userData": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-v010-ui-PU17Ax",
+      "runtime": {
+        "node": "22.22.1",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.5",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.2.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "140",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "4.2.4",
+        "simdutf": "7.3.3",
+        "sqlite": "3.51.2",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.2.231.22-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "39.8.10",
+        "chrome": "142.0.7444.265"
+      }
+    },
+    "diagnostics": null,
+    "errors": [
+      "Error: Cannot find context with specified id",
+      "Error: Cannot find context with specified id"
+    ],
+    "isolation": {
+      "globalHooks": false,
+      "permissionPrompts": false,
+      "network": "in-process production createApp/MemoryStore; two synthetic accounts only",
+      "notifications": false,
+      "input": "none from launcher; UI cases use native sendInputEvent",
+      "clock": "real time; one debugger pause to install read-only closure observer",
+      "data": "owned fixture directory only"
+    },
+    "packageBinding": {
+      "checked": 119,
+      "mismatches": [],
+      "passed": true
+    },
+    "finishedAt": "2026-09-18T06:56:46.346Z",
+    "exitCode": 0,
+    "signal": null,
+    "appUnchanged": true,
+    "passed": false
+  },
+  "finishedAt": "2026-09-18T06:56:46.350Z"
+}

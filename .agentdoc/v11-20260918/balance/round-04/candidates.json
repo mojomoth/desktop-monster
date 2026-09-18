@@ -1,0 +1,68 @@
+{
+  "version": 11,
+  "round": 4,
+  "stage": "bounded-first-frontier-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 1,
+  "maxHours": 12,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000
+  },
+  "candidateLevers": "Only current hero required-level parameters, fieldHP prefix/tail and a fixed saturating reset multiplier1+bonus*rebirths/(half+rebirths); never elapsedtime, liveparty power or PvP companion power.",
+  "candidates": [
+    {
+      "id": "R4-A",
+      "parameters": {
+        "heroMinLevel": 20,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1130,
+        "fieldHpTailNumerator": 11800,
+        "fieldHpTailPolynomial": 0,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R4-B",
+      "parameters": {
+        "heroMinLevel": 21,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1130,
+        "fieldHpTailNumerator": 11700,
+        "fieldHpTailPolynomial": 0,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    },
+    {
+      "id": "R4-C",
+      "parameters": {
+        "heroMinLevel": 22,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailNumerator": 11650,
+        "fieldHpTailPolynomial": 0,
+        "fieldRebirthBonus": 0,
+        "fieldRebirthHalf": 1
+      }
+    }
+  ],
+  "rationale": "R3 was cancelled as design-inadmissible: an ordinary released-slot capture near stage50000 creates a3033-digit PvP companion. R4 tests bounded first-rebirth frontiers near127/152/183 instead, lowering prefix growth to expose more early capture opportunities before steeper fixed tails. No timer, party-reactive HP, companion/capture/PvP formula change, or heldout seeds. Report whole-profile quantiles and capture-drought stall stages; this first-cycle screen cannot qualify for adoption."
+}

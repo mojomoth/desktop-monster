@@ -1,0 +1,638 @@
+{
+  "diagnosticOnly": true,
+  "completedPair": false,
+  "replacesRegisteredPerformance": false,
+  "method": {
+    "durationMs": 60000,
+    "warmupMs": 5000,
+    "order": [
+      "baseline",
+      "candidate"
+    ],
+    "attemptsPerApp": 1,
+    "inputs": 0,
+    "scene": "Same serialized save: five level-1/star-0 boss-index-7 slimes, same empty loadout, index-1000 normal slime with frozen legacy curve; no kills permitted.",
+    "observation": "v10 production launcher/controls with isolated native boundaries; one startup debugger pause installs read-only game observer, then resumes/detaches. Controls add one rAF motion observer; diagnostic adds one rAF timestamp observer. Field CDP CPU sampler at 1000us and Chromium devtools.timeline trace run together. app.getAppMetrics sampled every 5s. All observer/profiler overhead retained, uncalibrated and not subtracted; this instrumented 60s pair cannot replace registered uninstrumented 30min results.",
+    "traceCategories": [
+      "devtools.timeline"
+    ],
+    "cpuSamplingIntervalUs": 1000
+  },
+  "runs": [
+    {
+      "kind": "baseline",
+      "errors": [],
+      "runtimePassed": true,
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+      "fixedScene": true,
+      "raf": {
+        "count": 4499,
+        "elapsedMs": 60005.300000071526,
+        "hz": 74.9767103904928,
+        "p50Ms": 13.30000000000291,
+        "p95Ms": 14.100000000002183,
+        "maxMs": 15.799999999999272
+      },
+      "cpu": {
+        "totalSamples": 12,
+        "meanPercent": 1.237794691961667,
+        "p95Percent": 1.6669745982224582,
+        "byType": {
+          "Browser": {
+            "meanPercent": 0.019720422827513163,
+            "cumulativeCpuSecondsDelta": 0.14197499999999996,
+            "pidsBefore": [
+              10841
+            ],
+            "pidsAfter": [
+              10841
+            ]
+          },
+          "GPU": {
+            "meanPercent": 0.6053105583308085,
+            "cumulativeCpuSecondsDelta": 4.358110999999999,
+            "pidsBefore": [
+              10847
+            ],
+            "pidsAfter": [
+              10847
+            ]
+          },
+          "Utility": {
+            "meanPercent": 0.005106070494200337,
+            "cumulativeCpuSecondsDelta": 0.03676299999999999,
+            "pidsBefore": [
+              10848,
+              10917
+            ],
+            "pidsAfter": [
+              10848,
+              10917
+            ]
+          },
+          "Tab": {
+            "meanPercent": 0.6076576403091448,
+            "cumulativeCpuSecondsDelta": 4.375033,
+            "pidsBefore": [
+              10849
+            ],
+            "pidsAfter": [
+              10849
+            ]
+          }
+        }
+      },
+      "cpuProfile": {
+        "durationMs": 60022.239,
+        "samples": 47805,
+        "topSelfMs": [
+          {
+            "functionAndLocation": "(idle) |  | 0",
+            "ms": 58448.377
+          },
+          {
+            "functionAndLocation": "(program) |  | 0",
+            "ms": 766.064
+          },
+          {
+            "functionAndLocation": "fillRect |  | 0",
+            "ms": 282.139
+          },
+          {
+            "functionAndLocation": "drawSprite | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/sprite.js | 23",
+            "ms": 130.115
+          },
+          {
+            "functionAndLocation": "drawParty | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/party.js | 47",
+            "ms": 54.236
+          },
+          {
+            "functionAndLocation": "(garbage collector) |  | 0",
+            "ms": 30.55
+          },
+          {
+            "functionAndLocation": "draw | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/game.js | 837",
+            "ms": 29.434
+          },
+          {
+            "functionAndLocation": "drawCounters | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 82",
+            "ms": 28.194
+          },
+          {
+            "functionAndLocation": "paint | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/equippedHero.js | 214",
+            "ms": 20.783
+          },
+          {
+            "functionAndLocation": "drawScaledText | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 174",
+            "ms": 20.055
+          },
+          {
+            "functionAndLocation": "record |  | 4",
+            "ms": 19.859
+          },
+          {
+            "functionAndLocation": "requestAnimationFrame |  | 0",
+            "ms": 15.807
+          },
+          {
+            "functionAndLocation": "getState | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/engine.js | 424",
+            "ms": 12.807
+          },
+          {
+            "functionAndLocation": "ratio | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/bignum.js | 28",
+            "ms": 12.6
+          },
+          {
+            "functionAndLocation": "drawMeter | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 26",
+            "ms": 10.125
+          },
+          {
+            "functionAndLocation": "layersFor | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/equippedHero.js | 179",
+            "ms": 9.745
+          },
+          {
+            "functionAndLocation": "drawEquippedHero | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/equippedHero.js | 211",
+            "ms": 8.758
+          },
+          {
+            "functionAndLocation": "(anonymous) | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/collection.js | 57",
+            "ms": 7.742
+          },
+          {
+            "functionAndLocation": "drawOutlinedText | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 201",
+            "ms": 7.517
+          },
+          {
+            "functionAndLocation": "drawTypeBadge | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/party.js | 65",
+            "ms": 7.489
+          },
+          {
+            "functionAndLocation": "drawParticles | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/anim.js | 93",
+            "ms": 6.434
+          },
+          {
+            "functionAndLocation": "settleFrame | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/index.js | 89",
+            "ms": 6.388
+          },
+          {
+            "functionAndLocation": "drawField | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/game.js | 247",
+            "ms": 6.383
+          },
+          {
+            "functionAndLocation": "copyProgress | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/progress.js | 21",
+            "ms": 5.137
+          },
+          {
+            "functionAndLocation": "clearRect |  | 0",
+            "ms": 5.036
+          },
+          {
+            "functionAndLocation": "handleEvents | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/game.js | 574",
+            "ms": 5.007
+          },
+          {
+            "functionAndLocation": "glyphIndex | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/font.js | 116",
+            "ms": 3.851
+          },
+          {
+            "functionAndLocation": "frame | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/index.js | 180",
+            "ms": 3.802
+          },
+          {
+            "functionAndLocation": "(anonymous) | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/game.js | 874",
+            "ms": 3.606
+          },
+          {
+            "functionAndLocation": "copyEquipment | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/equipment.js | 88",
+            "ms": 2.82
+          },
+          {
+            "functionAndLocation": "drawText | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/sprites/font.js | 131",
+            "ms": 2.532
+          },
+          {
+            "functionAndLocation": "(anonymous) | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/formulas.js | 14",
+            "ms": 2.529
+          },
+          {
+            "functionAndLocation": "rect | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 60",
+            "ms": 2.522
+          },
+          {
+            "functionAndLocation": "executeJavaScript |  | 0",
+            "ms": 2.512
+          },
+          {
+            "functionAndLocation": "drawSkullIcon | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 59",
+            "ms": 2.508
+          },
+          {
+            "functionAndLocation": "activeCompanions | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/collection.js | 51",
+            "ms": 2.506
+          },
+          {
+            "functionAndLocation": "drawLevelHud | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 47",
+            "ms": 2.45
+          },
+          {
+            "functionAndLocation": "typeOf | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/monsters.js | 399",
+            "ms": 2.441
+          },
+          {
+            "functionAndLocation": "update | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/game.js | 783",
+            "ms": 2.413
+          },
+          {
+            "functionAndLocation": "partyOrder | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/collection.js | 84",
+            "ms": 2.355
+          },
+          {
+            "functionAndLocation": "tintedIdleSprite | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/game.js | 232",
+            "ms": 1.319
+          },
+          {
+            "functionAndLocation": "(anonymous) | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/equipment.js | 87",
+            "ms": 1.295
+          },
+          {
+            "functionAndLocation": "idNum | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/collection.js | 43",
+            "ms": 1.286
+          },
+          {
+            "functionAndLocation": "tickFloats | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/renderer/hud.js | 158",
+            "ms": 1.286
+          },
+          {
+            "functionAndLocation": "effectivePower | file:///Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app/Contents/Resources/app.asar/dist/web/core/types-chart.js | 26",
+            "ms": 1.285
+          }
+        ]
+      },
+      "trace": {
+        "events": 92862,
+        "bufferUsage": {
+          "percentage": 0.13351167738437653,
+          "value": 0
+        },
+        "processes": {
+          "10841": "Browser",
+          "10849": "Renderer",
+          "10917": "Service: tracing.mojom.TracingService"
+        },
+        "threads": {
+          "0:0": "swapper",
+          "10849:46091790": "CrRendererMain",
+          "10917:46092138": "PerfettoTrace",
+          "10849:46091797": "ThreadPoolForegroundWorker",
+          "10849:46091816": "ThreadPoolForegroundWorker",
+          "10849:46091828": "ThreadPoolForegroundWorker",
+          "10849:46091826": "ThreadPoolForegroundWorker",
+          "10849:46091831": "ThreadPoolForegroundWorker",
+          "10849:46091832": "ThreadPoolForegroundWorker",
+          "10849:46091827": "ThreadPoolForegroundWorker",
+          "10849:46091834": "ThreadPoolForegroundWorker",
+          "10841:46091631": "CrBrowserMain",
+          "10917:46094978": "ThreadPoolForegroundWorker"
+        },
+        "topDurations": [
+          {
+            "name": "Renderer | CrRendererMain | FireAnimationFrame",
+            "count": 13504,
+            "durationUs": 1455317,
+            "maxUs": 2313
+          },
+          {
+            "name": "Renderer | CrRendererMain | FunctionCall",
+            "count": 13510,
+            "durationUs": 1389077,
+            "maxUs": 3443
+          },
+          {
+            "name": "Renderer | CrRendererMain | PrePaint",
+            "count": 4502,
+            "durationUs": 114516,
+            "maxUs": 323
+          },
+          {
+            "name": "Renderer | CrRendererMain | MajorGC",
+            "count": 1,
+            "durationUs": 13820,
+            "maxUs": 13820
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MARK_COMPACTOR",
+            "count": 1,
+            "durationUs": 13461,
+            "maxUs": 13461
+          },
+          {
+            "name": "Renderer | CrRendererMain | MinorGC",
+            "count": 45,
+            "durationUs": 13419,
+            "maxUs": 2195
+          },
+          {
+            "name": "Renderer | ThreadPoolForegroundWorker | V8.GC_MC_BACKGROUND_MARKING",
+            "count": 15,
+            "durationUs": 11252,
+            "maxUs": 1628
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_SCAVENGER",
+            "count": 45,
+            "durationUs": 10088,
+            "maxUs": 777
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_SCAVENGER_SCAVENGE",
+            "count": 45,
+            "durationUs": 9568,
+            "maxUs": 764
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_INCREMENTAL_START",
+            "count": 1,
+            "durationUs": 9142,
+            "maxUs": 9142
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_MARK",
+            "count": 1,
+            "durationUs": 8850,
+            "maxUs": 8850
+          },
+          {
+            "name": "Browser | CrBrowserMain | MajorGC",
+            "count": 2,
+            "durationUs": 8405,
+            "maxUs": 5384
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MARK_COMPACTOR",
+            "count": 2,
+            "durationUs": 8360,
+            "maxUs": 5364
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_MARK_EMBEDDER_PROLOGUE",
+            "count": 2,
+            "durationUs": 7232,
+            "maxUs": 7042
+          },
+          {
+            "name": "Browser | 46091687 | V8.GC_MC_BACKGROUND_MARKING",
+            "count": 2,
+            "durationUs": 6134,
+            "maxUs": 3156
+          },
+          {
+            "name": "Browser | 46091686 | V8.GC_MC_BACKGROUND_MARKING",
+            "count": 4,
+            "durationUs": 5986,
+            "maxUs": 3036
+          },
+          {
+            "name": "Browser | 46091688 | V8.GC_MC_BACKGROUND_MARKING",
+            "count": 2,
+            "durationUs": 5986,
+            "maxUs": 3121
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_SCAVENGER_SCAVENGE_PARALLEL_PHASE",
+            "count": 45,
+            "durationUs": 5479,
+            "maxUs": 665
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_MARK_FULL_CLOSURE_PARALLEL",
+            "count": 1,
+            "durationUs": 5294,
+            "maxUs": 5294
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_MARK_FULL_CLOSURE_PARALLEL_JOIN",
+            "count": 1,
+            "durationUs": 5271,
+            "maxUs": 5271
+          },
+          {
+            "name": "Renderer | CrRendererMain | Layerize",
+            "count": 3554,
+            "durationUs": 5253,
+            "maxUs": 109
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_EVACUATE",
+            "count": 4,
+            "durationUs": 4438,
+            "maxUs": 2319
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_INCREMENTAL",
+            "count": 48,
+            "durationUs": 4304,
+            "maxUs": 641
+          },
+          {
+            "name": "Renderer | ThreadPoolForegroundWorker | V8.GC_SCAVENGER_BACKGROUND_SCAVENGE_PARALLEL",
+            "count": 69,
+            "durationUs": 3445,
+            "maxUs": 633
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_SCAVENGER_SCAVENGE_PARALLEL",
+            "count": 45,
+            "durationUs": 3320,
+            "maxUs": 480
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_MARK_FULL_CLOSURE_SERIAL",
+            "count": 1,
+            "durationUs": 2948,
+            "maxUs": 2948
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_MARK_EMBEDDER_TRACING",
+            "count": 3,
+            "durationUs": 2930,
+            "maxUs": 2928
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_EVACUATE_COPY",
+            "count": 2,
+            "durationUs": 2813,
+            "maxUs": 1653
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_EVACUATE_COPY_PARALLEL",
+            "count": 2,
+            "durationUs": 2473,
+            "maxUs": 1581
+          },
+          {
+            "name": "Browser | 46091688 | V8.GC_MC_BACKGROUND_EVACUATE_COPY",
+            "count": 2,
+            "durationUs": 2309,
+            "maxUs": 1445
+          },
+          {
+            "name": "Browser | 46091686 | V8.GC_MC_BACKGROUND_EVACUATE_COPY",
+            "count": 2,
+            "durationUs": 2234,
+            "maxUs": 1475
+          },
+          {
+            "name": "Renderer | CrRendererMain | EvaluateScript",
+            "count": 2,
+            "durationUs": 1946,
+            "maxUs": 1492
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_HEAP_EXTERNAL_WEAK_GLOBAL_HANDLES",
+            "count": 2,
+            "durationUs": 1841,
+            "maxUs": 1818
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_EVACUATE_UPDATE_POINTERS",
+            "count": 2,
+            "durationUs": 1359,
+            "maxUs": 751
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_EVACUATE",
+            "count": 2,
+            "durationUs": 1178,
+            "maxUs": 1177
+          },
+          {
+            "name": "Renderer | CrRendererMain | v8.compile",
+            "count": 2,
+            "durationUs": 1173,
+            "maxUs": 1122
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_CLEAR",
+            "count": 1,
+            "durationUs": 1148,
+            "maxUs": 1148
+          },
+          {
+            "name": "Browser | 46091687 | V8.GC_MC_BACKGROUND_EVACUATE_COPY",
+            "count": 1,
+            "durationUs": 1059,
+            "maxUs": 1059
+          },
+          {
+            "name": "Renderer | ThreadPoolForegroundWorker | V8.GC_MC_BACKGROUND_SWEEPING",
+            "count": 5,
+            "durationUs": 1026,
+            "maxUs": 239
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_INCREMENTAL_START",
+            "count": 2,
+            "durationUs": 906,
+            "maxUs": 559
+          },
+          {
+            "name": "Browser | CrBrowserMain | V8.GC_MC_CLEAR",
+            "count": 2,
+            "durationUs": 815,
+            "maxUs": 548
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_SCAVENGER_SCAVENGE_ROOTS",
+            "count": 45,
+            "durationUs": 796,
+            "maxUs": 55
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_SCAVENGER_SCAVENGE_WEAK_GLOBAL_HANDLES_IDENTIFY",
+            "count": 45,
+            "durationUs": 767,
+            "maxUs": 35
+          },
+          {
+            "name": "Browser | 46091686 | V8.GC_MC_BACKGROUND_SWEEPING",
+            "count": 9,
+            "durationUs": 754,
+            "maxUs": 326
+          },
+          {
+            "name": "Renderer | CrRendererMain | V8.GC_MC_INCREMENTAL_EXTERNAL_PROLOGUE",
+            "count": 1,
+            "durationUs": 751,
+            "maxUs": 751
+          }
+        ],
+        "paintEvents": [
+          {
+            "name": "Renderer | CrRendererMain | PrePaint",
+            "count": 4502,
+            "durationUs": 114516,
+            "maxUs": 323
+          }
+        ]
+      },
+      "scene": {
+        "beforeIndex": 1000,
+        "afterIndex": 1000,
+        "beforeKills": 0,
+        "afterKills": 0,
+        "companions": [
+          {
+            "id": "c1",
+            "speciesId": "slime",
+            "bossIndex": 7,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "id": "c2",
+            "speciesId": "slime",
+            "bossIndex": 7,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "id": "c3",
+            "speciesId": "slime",
+            "bossIndex": 7,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "id": "c4",
+            "speciesId": "slime",
+            "bossIndex": 7,
+            "level": 1,
+            "stars": 0
+          },
+          {
+            "id": "c5",
+            "speciesId": "slime",
+            "bossIndex": 7,
+            "level": 1,
+            "stars": 0
+          }
+        ],
+        "loadout": {
+          "weapon": null,
+          "accessories": []
+        },
+        "beforeHp": "309470158987657483911710",
+        "afterHp": "309470158987657483911404"
+      }
+    },
+    {
+      "kind": "candidate",
+      "errors": [
+        "Error: Cannot find context with specified id\n    at WebSocket.<anonymous> (file:///Users/jeongyounglee/work/repo/desktop-monster/.harness/v7/loop/package-check.mjs:31:38)\n    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:826:20)\n    at WebSocket.dispatchEvent (node:internal/event_target:761:26)\n    at fireEvent (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/util.js:71:10)\n    at websocketMessageReceived (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/util.js:115:3)\n    at ByteParser.run (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/receiver.js:268:15)\n    at ByteParser._write (/Users/jeongyounglee/work/repo/desktop-monster/node_modules/undici/lib/web/websocket/receiver.js:80:10)\n    at writeOrBuffer (node:internal/streams/writable:564:12)\n    at _write (node:internal/streams/writable:493:10)\n    at Writable.write (node:internal/streams/writable:502:10)",
+        "Cleanup: Error: Cannot find context with specified id"
+      ],
+      "runtimePassed": false,
+      "appHash": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34"
+    }
+  ]
+}

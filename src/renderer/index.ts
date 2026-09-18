@@ -7,6 +7,7 @@
 // collection action (F53).
 
 import { createEngine, parseSave } from '../core/index.js';
+import type { ActionResultPayload } from '../shared/ipc.js';
 import type { CollectionAction } from '../core/index.js';
 import { setupWindowDrag } from './drag.js';
 import { createGame, createSaveScheduler } from './game.js';
@@ -94,14 +95,20 @@ async function boot(): Promise<void> {
     const events: GameEvent[] = [];
     game.beginEquipmentBatch();
     const mutations = actions.splice(0);
+    const results: ActionResultPayload[] = [];
     try {
-      for (const action of mutations) events.push(...game.apply(action));
+      for (const action of mutations) {
+        events.push(...game.apply(action));
+        const error = game.lastActionError();
+        results.push({ action, ok: error === null, ...(error ? { error } : {}) });
+      }
       for (const source of inputs.splice(0)) events.push(...game.attack(source));
       events.push(...game.update(dt));
       events.push(...game.refreshShop(Date.now()));
     } finally { game.endEquipmentBatch(); }
     saves.onEvents(events);
     if (mutations.length) saves.flush();
+    for (const result of results) window.desmon.reportActionResult(result);
   };
   window.desmon.onInput(event => { if (!paused) inputs.push(event.source); });
 
@@ -137,7 +144,7 @@ async function boot(): Promise<void> {
   // so the menu's requests are applied HERE and persisted immediately — the
   // flush's SAVE_STATE is what main relays back as STATE_CHANGED.
   window.desmon.onAction((payload) => {
-    if (paused) return;
+    if (paused) { window.desmon.reportActionResult({ action: payload, ok: false, error: '진행을 저장하는 중입니다. 잠시 후 다시 시도해 주세요.' }); return; }
     // Trust boundary: main already narrowed the menu payload (narrowAction).
     const a = payload as CollectionAction;
     actions.push(a);

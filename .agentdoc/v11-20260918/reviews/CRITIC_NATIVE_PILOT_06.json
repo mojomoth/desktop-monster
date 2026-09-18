@@ -1,0 +1,101 @@
+{
+  "reviewer": "/root/skills_harness",
+  "scope": "partial-ui-hud-equipment-native",
+  "source": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+  "sourceUnchanged": true,
+  "currentDigest": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+  "report": {
+    "path": ".agentdoc/v11-20260918/native/pilot-06.json",
+    "sha256": "1734c4c7b567859f19586a59d9533fc0220d4f964c60258f446d5375763eb260"
+  },
+  "nativeRecomputationPassed": true,
+  "checks": [
+    {
+      "name": "menu-live-updates",
+      "checks": 11,
+      "screenshots": 6,
+      "runtimePassed": true
+    },
+    {
+      "name": "manual-equipment",
+      "checks": 111,
+      "screenshots": 5,
+      "runtimePassed": true
+    },
+    {
+      "name": "equipment-restart",
+      "checks": 4,
+      "screenshots": 1,
+      "runtimePassed": true
+    },
+    {
+      "name": "hud-states",
+      "checks": 39,
+      "screenshots": 10,
+      "runtimePassed": true
+    }
+  ],
+  "latency": [
+    {
+      "name": "tabs",
+      "samples": 100,
+      "visualP95Ms": 25,
+      "localResultP95Ms": 25
+    },
+    {
+      "name": "disclosures",
+      "samples": 100,
+      "visualP95Ms": 24.200000047683716,
+      "localResultP95Ms": 24.200000047683716
+    },
+    {
+      "name": "growth-selection",
+      "samples": 100,
+      "visualP95Ms": 23.5,
+      "localResultP95Ms": 23.5
+    },
+    {
+      "name": "equipment-actions",
+      "samples": 107,
+      "visualP95Ms": 23.399999976158142,
+      "localResultP95Ms": 35.700000047683716,
+      "calibrationNote": "Intervals include pinned Chromium timestamp coarsening, observed clock offsets and calculated epoch rounding. Raw same-clock deltas are retained with measurement bounds. orderResolved=false means the short stage cannot be ordered by clock readings alone. ACK is distinct from the observed core apply return.",
+      "pipelines": 107
+    }
+  ],
+  "inputTrace": {
+    "requests": 21,
+    "events": 42,
+    "ipc": 0,
+    "modes": 0,
+    "everyRequestMatchedExactlyOneTrustedKeyPair": true
+  },
+  "sourceHashes": {
+    ".harness/v11/ui-cases.mjs": "6a545c164171e637cba50738e2e9842e3969035bb274470de8052275a4c13245",
+    ".harness/v11/runtime.mjs": "9cb5055844fbdbfa2127c3ef543321b98d48d3a99418c803a611c5ddf377317a",
+    ".harness/v11/runtime.test.mjs": "9ada6287e1e9898c48ccaa500a82b0dd552ac7772b071b14e5baec3f64b7d62b",
+    ".harness/v11/final-check.mjs": "8af588206bbb37bd3d74c3725d9766f82331f0c52adc8a85ea5ed18ea61b1ee0"
+  },
+  "releaseApproved": false,
+  "open": [
+    "balance acceptance",
+    "idle CPU performance budget",
+    "pilot05 duplicate-input origin unexplained; retained"
+  ],
+  "independentVisualReview": {
+    "viewedPNGs": 22,
+    "decodedHudPNGs": 10,
+    "recomputedAssertedRegions": 35,
+    "method": "Pillow RGBA palette/ink/bounds recomputation"
+  },
+  "priorFunctionalBindings": {
+    "review": "CRITIC_FUNCTIONAL_REVIEW.json",
+    "checked": 25,
+    "changed": []
+  },
+  "nodeChecks": {
+    "command": "node --test .harness/v11/runtime.test.mjs .harness/v11/final-check.test.mjs",
+    "passed": 31,
+    "failed": 0
+  }
+}

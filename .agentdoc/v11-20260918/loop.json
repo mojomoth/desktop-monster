@@ -1,0 +1,1060 @@
+{
+  "version": 11,
+  "run": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918",
+  "createdAt": "2026-09-18T04:11:51.223Z",
+  "source": "d6f4564f7133f30d7bbff4373f3947296fd795b38c15bcd99180b195d0b6526d",
+  "agents": {
+    "Host": "/root",
+    "Designer": "/root/menu_review",
+    "Balance": "/root/balance",
+    "Critic": "/root/skills_harness"
+  },
+  "history": [
+    {
+      "at": "2026-09-18T04:11:51.328Z",
+      "action": "register",
+      "id": "Host",
+      "arg": "/root"
+    },
+    {
+      "at": "2026-09-18T04:11:51.372Z",
+      "action": "register",
+      "id": "Designer",
+      "arg": "/root/menu_review"
+    },
+    {
+      "at": "2026-09-18T04:11:51.420Z",
+      "action": "register",
+      "id": "Balance",
+      "arg": "/root/balance"
+    },
+    {
+      "at": "2026-09-18T04:11:51.464Z",
+      "action": "register",
+      "id": "Critic",
+      "arg": "/root/skills_harness"
+    },
+    {
+      "at": "2026-09-18T04:11:51.524Z",
+      "action": "start",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T04:11:51.578Z",
+      "action": "implemented",
+      "id": "V11-01",
+      "arg": "Runner/config/contract handoff; independent validator implementation and final-source AC remain required before verification"
+    },
+    {
+      "at": "2026-09-18T04:11:51.634Z",
+      "action": "start",
+      "id": "V11-02"
+    },
+    {
+      "at": "2026-09-18T04:11:51.690Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T04:11:51.745Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T04:23:45.019Z",
+      "action": "claim",
+      "id": "V11-02",
+      "arg": "[\"tests/formulas.test.ts\",\"tests/progressionV7.test.ts\",\"tests/engine.test.ts\",\"tests/save.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T04:23:45.056Z",
+      "action": "claim",
+      "id": "V11-04",
+      "arg": "[\"tests/packaging.test.ts\",\"tests/window.test.ts\",\"package.json\",\"package-lock.json\",\"README.md\",\"eslint.config.mjs\"]"
+    },
+    {
+      "at": "2026-09-18T04:23:45.091Z",
+      "action": "claim",
+      "id": "V11-03",
+      "arg": "[\".harness/v11/runtime.mjs\",\".harness/v11/ui-cases.mjs\"]"
+    },
+    {
+      "at": "2026-09-18T04:28:37.628Z",
+      "action": "claim",
+      "id": "V11-01",
+      "arg": "[\".harness/v11/release.mjs\",\".harness/v11/run-performance.mjs\"]"
+    },
+    {
+      "at": "2026-09-18T04:36:24.480Z",
+      "action": "claim",
+      "id": "V11-01",
+      "arg": "[\".harness/v11/final-check.mjs\",\".harness/v11/final-check.test.mjs\",\".harness/v11/performance-report.mjs\",\".harness/v11/performance.test.mjs\"]"
+    },
+    {
+      "at": "2026-09-18T04:36:24.567Z",
+      "action": "claim",
+      "id": "V11-03",
+      "arg": "[\".harness/v11/runtime.test.mjs\"]"
+    },
+    {
+      "at": "2026-09-18T04:43:25.759Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "HUD implementation and native harness ready; targeted tests passed; native screenshots and latency execution pending baseline observation completion."
+    },
+    {
+      "at": "2026-09-18T04:43:45.718Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T04:44:38.313Z",
+      "action": "claim",
+      "id": "V11-04",
+      "arg": "[\"src/main/tray.ts\",\"tests/tray.test.ts\",\"tests/runtimeV8.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T04:44:38.398Z",
+      "action": "claim",
+      "id": "V11-02",
+      "arg": "[\"tests/collection.test.ts\",\"tests/heroArtCompatibility.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T04:44:38.482Z",
+      "action": "claim",
+      "id": "V11-03",
+      "arg": "[\"tests/expedition.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T04:44:38.618Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T04:44:38.717Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T04:46:20.022Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "HUD, native harness and updated expedition counter regression checks implemented; native execution pending serial baseline completion."
+    },
+    {
+      "at": "2026-09-18T04:47:16.262Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T04:57:04.531Z",
+      "action": "invalidate",
+      "id": "V11-02",
+      "arg": "Balance candidates failed; source retained while awaiting explicit field-curve scope decision."
+    },
+    {
+      "at": "2026-09-18T04:57:04.709Z",
+      "action": "sync"
+    },
+    {
+      "at": "2026-09-18T04:57:04.826Z",
+      "action": "start",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T04:57:04.923Z",
+      "action": "implemented",
+      "id": "V11-01",
+      "arg": "Updated AC to include all harness self-tests and removed nonexistent menu test; retained all prior receipts."
+    },
+    {
+      "at": "2026-09-18T04:57:05.024Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T04:57:05.121Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "HUD and native test implementation retained; actual native execution pending."
+    },
+    {
+      "at": "2026-09-18T04:57:05.219Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T04:57:05.318Z",
+      "action": "implemented",
+      "id": "V11-04",
+      "arg": "Menu, IPC, manual equip UI and regression fixes implemented; final-source evidence still pending."
+    },
+    {
+      "at": "2026-09-18T04:57:57.334Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T04:58:50.655Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T04:58:53.067Z",
+      "action": "check",
+      "id": "V11-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T04:59:17.265Z",
+      "action": "verify",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T04:59:17.369Z",
+      "action": "verify",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T04:59:19.125Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:00:42.659Z",
+      "action": "verify",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T05:18:26.355Z",
+      "action": "invalidate",
+      "id": "V11-03",
+      "arg": "Native boss end screenshot was invisible because debugger startup aged its float100ms before observed anchor; strengthen actual raster evidence and rerun native."
+    },
+    {
+      "at": "2026-09-18T05:18:30.580Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T05:21:14.614Z",
+      "action": "invalidate",
+      "id": "V11-04",
+      "arg": "Correct v0.11 package documentation paths; native review confirmed implemented menu/equipment behavior."
+    },
+    {
+      "at": "2026-09-18T05:21:22.756Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T05:21:31.681Z",
+      "action": "implemented",
+      "id": "V11-04",
+      "arg": "Menu/manual IPC implemented and native scenario independently reviewed; corrected v0.11 artifact documentation. Final-source checks will be refreshed after HUD observer correction."
+    },
+    {
+      "at": "2026-09-18T05:28:27.119Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:28:30.980Z",
+      "action": "start",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T05:37:39.052Z",
+      "action": "implemented",
+      "id": "V11-01",
+      "arg": "Harness and independent validators implemented. Root reviewed stage provenance, calibrated timing, raw evidence and package/source binding; final source receipts await native harness freeze."
+    },
+    {
+      "at": "2026-09-18T05:43:38.408Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "HUD implemented; native harness now validates actual raster phases/rise, duplicate clicks, and source-bound main IPC/core apply timing. Final native pilot waits for serial performance cleanup."
+    },
+    {
+      "at": "2026-09-18T05:44:09.864Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T05:45:01.069Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:45:03.416Z",
+      "action": "check",
+      "id": "V11-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:45:19.508Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:45:54.693Z",
+      "action": "verify",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T05:45:54.796Z",
+      "action": "verify",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T05:45:54.900Z",
+      "action": "verify",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T05:57:29.696Z",
+      "action": "invalidate",
+      "id": "V11-03",
+      "arg": "Add actual native companion growth completion; refresh source-bound checks"
+    },
+    {
+      "at": "2026-09-18T05:57:29.767Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T05:58:48.628Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Native trusted growth completion and durable save coverage added; ready for Electron pilot"
+    },
+    {
+      "at": "2026-09-18T05:59:17.071Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T05:59:30.483Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:59:32.815Z",
+      "action": "check",
+      "id": "V11-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:59:34.311Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T05:59:34.367Z",
+      "action": "verify",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T05:59:34.421Z",
+      "action": "verify",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T05:59:34.476Z",
+      "action": "verify",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T06:15:16.840Z",
+      "action": "invalidate",
+      "id": "V11-03",
+      "arg": "Actual native clock probes require explicit timer precision calibration"
+    },
+    {
+      "at": "2026-09-18T06:15:16.901Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T06:18:26.560Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T06:18:26.610Z",
+      "action": "start",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T06:23:27.414Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Account for measured pinned Chromium timer precision in native pipeline calibration"
+    },
+    {
+      "at": "2026-09-18T06:23:56.276Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T06:26:23.026Z",
+      "action": "implemented",
+      "id": "V11-01",
+      "arg": "Explicit Chromium precision validation and independent performance verification complete; idle performance remains failed"
+    },
+    {
+      "at": "2026-09-18T06:26:23.082Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T06:27:06.813Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Fix HUD evidence glyph handling to match actual drawText space semantics"
+    },
+    {
+      "at": "2026-09-18T06:29:08.342Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T06:35:26.367Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "HUD evidence now uses read-only actual animation ages and unchanged pixel rise curves; focused38checks pass"
+    },
+    {
+      "at": "2026-09-18T06:42:54.747Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T06:42:55.641Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T06:42:57.991Z",
+      "action": "check",
+      "id": "V11-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T06:42:59.399Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T06:42:59.454Z",
+      "action": "verify",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T06:42:59.508Z",
+      "action": "verify",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T06:42:59.562Z",
+      "action": "verify",
+      "id": "V11-04"
+    }
+  ],
+  "tasks": [
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-01-ac-1789707530016.log",
+          "logHash": "9a03907bfb2f64862e7053da735a800d2c8b505cb73391dc9f31238a1479fb4c",
+          "artifacts": {},
+          "at": "2026-09-18T04:58:50.653Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "45962c3aa800a4416ff28d6da0d41d32bb5b18ed170ea332f2253b35b539338e",
+          "after": "45962c3aa800a4416ff28d6da0d41d32bb5b18ed170ea332f2253b35b539338e",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-01-ac-1789709306217.log",
+          "logHash": "30eb4f71ba112f842f8b9dbce5a0ffe56c50865c49c74cc28a43ab1da6135268",
+          "artifacts": {},
+          "at": "2026-09-18T05:28:27.117Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "after": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-01-ac-1789710300178.log",
+          "logHash": "ac567e87a8c0d104f03c9694d8262e0010d9200da9c0b39e3f45baa819996813",
+          "artifacts": {},
+          "at": "2026-09-18T05:45:01.066Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "after": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-01-ac-1789711169527.log",
+          "logHash": "28a9f8de7c3f3a2eab0a7d231641325f07fee2aee0c14f9fc343bb5b0a61a4f3",
+          "artifacts": {},
+          "at": "2026-09-18T05:59:30.481Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "after": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-01-ac-1789712305501.log",
+          "logHash": "e39ab8f6a469335db9375ece7c9685f6691e27de13bc093be719c0dee60c2c17",
+          "artifacts": {},
+          "at": "2026-09-18T06:18:26.558Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-01-ac-1789713774800.log",
+          "logHash": "3f15fec256c6b4e0074ecd07752c1345d2c82b4e0850d1f651d3a8c9899002f8",
+          "artifacts": {},
+          "at": "2026-09-18T06:42:55.639Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.705Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-18T06:18:26.597Z",
+      "source": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+      "handoff": "Explicit Chromium precision validation and independent performance verification complete; idle performance remains failed",
+      "implementedSource": "5d88be04ba209901b5b4865fc7906a3923f5ccf5188b6d9c62adba222b27409d",
+      "id": "V11-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v11/run.mjs",
+        ".harness/v11/run.test.mjs",
+        ".harness/v11/config.json",
+        ".harness/v11/HARNESS.md",
+        ".harness/v11/vendor",
+        ".harness/v11/agents",
+        "docs/v0.11/CONTRACT.md",
+        "docs/v0.11/ACCEPTANCE.md",
+        "docs/v0.11/PERFORMANCE_PROTOCOL.json",
+        ".harness/v11/release.mjs",
+        ".harness/v11/run-performance.mjs",
+        ".harness/v11/final-check.mjs",
+        ".harness/v11/final-check.test.mjs",
+        ".harness/v11/performance-report.mjs",
+        ".harness/v11/performance.test.mjs"
+      ],
+      "ac": "node --test .harness/v11/*.test.mjs",
+      "verifiedSource": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f"
+    },
+    {
+      "id": "V11-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/core",
+        "tests/equipmentV11.test.ts",
+        "tests/progressionV11.test.ts",
+        ".harness/v11/balance.mjs",
+        ".harness/v11/balance-verify.mjs",
+        ".harness/v11/balance-verify.test.mjs",
+        "docs/v0.11/EVALUATION_PROTOCOL.json",
+        "docs/v0.11/BALANCE_CANDIDATE.json",
+        "tests/formulas.test.ts",
+        "tests/progressionV7.test.ts",
+        "tests/engine.test.ts",
+        "tests/save.test.ts",
+        "tests/collection.test.ts",
+        "tests/heroArtCompatibility.test.ts"
+      ],
+      "ac": "npx vitest run tests/equipmentV11.test.ts tests/progressionV11.test.ts tests/save.test.ts tests/engine.test.ts",
+      "status": "pending",
+      "checks": [],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.520Z",
+          "reason": "Balance candidates failed; source retained while awaiting explicit field-curve scope decision."
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root/balance",
+      "startedAt": "2026-09-18T04:11:51.620Z",
+      "source": "d6f4564f7133f30d7bbff4373f3947296fd795b38c15bcd99180b195d0b6526d"
+    },
+    {
+      "id": "V11-03",
+      "owner": "Designer",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/renderer/hud.ts",
+        "src/renderer/game.ts",
+        "tests/hud-v09.test.ts",
+        "tests/hudV11.test.ts",
+        "tests/renderer.test.ts",
+        "tests/effects-v09.test.ts",
+        ".harness/v11/runtime.mjs",
+        ".harness/v11/ui-cases.mjs",
+        ".harness/v11/runtime.test.mjs",
+        "tests/expedition.test.ts"
+      ],
+      "ac": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+          "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-03-ac-1789707530734.log",
+          "logHash": "6df4efcdec050d48d218646e77331711d37d0ee7946df3a9698b060d37f61cc7",
+          "artifacts": {},
+          "at": "2026-09-18T04:58:53.065Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+          "before": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "after": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-03-ac-1789710301143.log",
+          "logHash": "15694de91d7e180b1023731b5c60897ab827e67353df61ce149a19153002fb83",
+          "artifacts": {},
+          "at": "2026-09-18T05:45:03.413Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+          "before": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "after": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-03-ac-1789711170532.log",
+          "logHash": "ed3159f821cefeb6a433000467b9abe14294987028a5ff100a962ba09520185d",
+          "artifacts": {},
+          "at": "2026-09-18T05:59:32.813Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts",
+          "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-03-ac-1789713775690.log",
+          "logHash": "f4a0b8b465a515c7cd9517b463b90e6e9199e0fde392a50e72ed256853d8b2cf",
+          "artifacts": {},
+          "at": "2026-09-18T06:42:57.989Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T05:18:26.351Z",
+          "reason": "Native boss end screenshot was invisible because debugger startup aged its float100ms before observed anchor; strengthen actual raster evidence and rerun native."
+        },
+        {
+          "at": "2026-09-18T05:57:29.692Z",
+          "reason": "Add actual native companion growth completion; refresh source-bound checks"
+        },
+        {
+          "at": "2026-09-18T06:15:16.834Z",
+          "reason": "Actual native clock probes require explicit timer precision calibration"
+        }
+      ],
+      "agent": "/root/menu_review",
+      "startedAt": "2026-09-18T06:29:08.281Z",
+      "source": "138cd1b6de54a6ac4f0342f9f902f5802baefb06b799f62970631dca9611e2db",
+      "handoff": "HUD evidence now uses read-only actual animation ages and unchanged pixel rise curves; focused38checks pass",
+      "implementedSource": "580bf1b6202d1b18de708622c05577aabb871b1574aae51a843269a0df6369ba",
+      "verifiedSource": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f"
+    },
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "d4c2b9d431148be590b4371a70490cec5303e622e666fd2afcc33206ffba60e5",
+          "after": "d4c2b9d431148be590b4371a70490cec5303e622e666fd2afcc33206ffba60e5",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789706605874.log",
+          "logHash": "ae1b8f04d954db9752447fdefae451db76ab66e58d8f356436980b333a1b53bd",
+          "artifacts": {},
+          "at": "2026-09-18T04:43:45.715Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "55a0f87a8e42cf283afdfb201de2641d84c57336f4e3128ed33adca2b347c096",
+          "after": "8c5328484fb8e77afbf3dea0d91973800a738cc2d9d606e4bff682b2864594d1",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789706804575.log",
+          "logHash": "3f3327b2e02da4bf5dceae02a44401b475d95c93654ce56b9a93e1f155dc7922",
+          "artifacts": {},
+          "at": "2026-09-18T04:47:16.259Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789707447979.log",
+          "logHash": "d312ad0b75552d725193cbcc492db6356b82fc079f72059aef30f7f0dc80e012",
+          "artifacts": {},
+          "at": "2026-09-18T04:57:57.331Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts",
+          "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-ac-1789707557486.log",
+          "logHash": "e41ba3ba01de284d0cf81988978a61fc445cc17c0a08a30db6fcd4959ebf553f",
+          "artifacts": {},
+          "at": "2026-09-18T04:59:19.122Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "after": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789710218496.log",
+          "logHash": "5bf8ce3780a2bbe354b3bdb8c0198d75635cfdb98016deb08330da169e761cc9",
+          "artifacts": {},
+          "at": "2026-09-18T05:44:09.862Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts",
+          "before": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "after": "1b7aaa0cc21d4edada0f2c562e8b3b878056e91af77e6a5597256baacb139642",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-ac-1789710317967.log",
+          "logHash": "84dcf3efa3572d292bb58b381346b3f3243c64696657447bad75d1bcebe4ab39",
+          "artifacts": {},
+          "at": "2026-09-18T05:45:19.505Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "after": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789711128683.log",
+          "logHash": "b617b11715d0638df11b218a3d8dd39670fb51c32265fadb95245da320e97796",
+          "artifacts": {},
+          "at": "2026-09-18T05:59:17.068Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts",
+          "before": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "after": "848ab4f6c9323392dd1e3acf9d8ef132471dea0eb35d03b9b2cc78df71fac296",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-ac-1789711172867.log",
+          "logHash": "a70caba49eaa383b20099b881646e8de6e6c0fb9e79900aa71bd946706b005ba",
+          "artifacts": {},
+          "at": "2026-09-18T05:59:34.308Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "5d88be04ba209901b5b4865fc7906a3923f5ccf5188b6d9c62adba222b27409d",
+          "after": "5d88be04ba209901b5b4865fc7906a3923f5ccf5188b6d9c62adba222b27409d",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789712607465.log",
+          "logHash": "9d3f8b9fca00df865cb2561ffe1352955b17b27fbc91c88dc1a481fb73bd2d00",
+          "artifacts": {},
+          "at": "2026-09-18T06:23:56.274Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-gates-1789713745488.log",
+          "logHash": "7a263a0bfe4d14c44457141a6a991dc845eaba651b6ab4828a0731b9f7192248",
+          "artifacts": {},
+          "at": "2026-09-18T06:42:54.744Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts",
+          "before": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "after": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/evidence/V11-04-ac-1789713778040.log",
+          "logHash": "4eae0aed6400137b097b9b4ca733523a906c64f7809a887ed9fd60257ca163a5",
+          "artifacts": {},
+          "at": "2026-09-18T06:42:59.397Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T05:21:14.607Z",
+          "reason": "Correct v0.11 package documentation paths; native review confirmed implemented menu/equipment behavior."
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-18T05:21:22.724Z",
+      "source": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "id": "V11-04",
+      "owner": "Host",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/menu",
+        "src/main/ipc.ts",
+        "src/main/menuWindow.ts",
+        "src/shared/ipc.ts",
+        "src/preload",
+        "src/renderer/index.ts",
+        "src/renderer/global.d.ts",
+        "static",
+        "tests/menu.test.ts",
+        "tests/equipmentMenuV10.test.ts",
+        "tests/ipc.test.ts",
+        "tests/packaging.test.ts",
+        "tests/window.test.ts",
+        "package.json",
+        "package-lock.json",
+        "README.md",
+        "eslint.config.mjs",
+        "src/main/tray.ts",
+        "tests/tray.test.ts",
+        "tests/runtimeV8.test.ts"
+      ],
+      "ac": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts",
+      "handoff": "Menu/manual IPC implemented and native scenario independently reviewed; corrected v0.11 artifact documentation. Final-source checks will be refreshed after HUD observer correction.",
+      "implementedSource": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+      "verifiedSource": "27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f"
+    },
+    {
+      "id": "V11-05",
+      "owner": "Balance",
+      "dependencies": [
+        "V11-02",
+        "V11-04"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/balance-verify.mjs {runDir}/balance/final.json",
+      "artifacts": [
+        "{runDir}/balance/final.json"
+      ],
+      "status": "pending",
+      "checks": [],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.531Z",
+          "reason": "Balance candidates failed; source retained while awaiting explicit field-curve scope decision."
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T05:21:14.614Z",
+          "reason": "Correct v0.11 package documentation paths; native review confirmed implemented menu/equipment behavior."
+        }
+      ]
+    },
+    {
+      "id": "V11-06",
+      "owner": "Host",
+      "dependencies": [
+        "V11-02",
+        "V11-03",
+        "V11-04"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/runtime.mjs verify {runDir}/native/final.json",
+      "artifacts": [
+        "{runDir}/native/final.json"
+      ],
+      "status": "pending",
+      "checks": [],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.531Z",
+          "reason": "Balance candidates failed; source retained while awaiting explicit field-curve scope decision."
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T05:18:26.355Z",
+          "reason": "Native boss end screenshot was invisible because debugger startup aged its float100ms before observed anchor; strengthen actual raster evidence and rerun native."
+        },
+        {
+          "at": "2026-09-18T05:21:14.614Z",
+          "reason": "Correct v0.11 package documentation paths; native review confirmed implemented menu/equipment behavior."
+        },
+        {
+          "at": "2026-09-18T05:57:29.696Z",
+          "reason": "Add actual native companion growth completion; refresh source-bound checks"
+        },
+        {
+          "at": "2026-09-18T06:15:16.840Z",
+          "reason": "Actual native clock probes require explicit timer precision calibration"
+        }
+      ]
+    },
+    {
+      "id": "V11-07",
+      "owner": "Critic",
+      "dependencies": [
+        "V11-05",
+        "V11-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/final-check.mjs reviews {runDir}",
+      "artifacts": [
+        "{runDir}/reviews/final.json"
+      ],
+      "status": "pending",
+      "checks": [],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.531Z",
+          "reason": "Balance candidates failed; source retained while awaiting explicit field-curve scope decision."
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T05:18:26.355Z",
+          "reason": "Native boss end screenshot was invisible because debugger startup aged its float100ms before observed anchor; strengthen actual raster evidence and rerun native."
+        },
+        {
+          "at": "2026-09-18T05:21:14.614Z",
+          "reason": "Correct v0.11 package documentation paths; native review confirmed implemented menu/equipment behavior."
+        },
+        {
+          "at": "2026-09-18T05:57:29.696Z",
+          "reason": "Add actual native companion growth completion; refresh source-bound checks"
+        },
+        {
+          "at": "2026-09-18T06:15:16.840Z",
+          "reason": "Actual native clock probes require explicit timer precision calibration"
+        }
+      ]
+    },
+    {
+      "id": "V11-08",
+      "owner": "Host",
+      "dependencies": [
+        "V11-07"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/final-check.mjs final {runDir}",
+      "artifacts": [
+        "{runDir}/performance/comparison.json",
+        "{runDir}/release.json"
+      ],
+      "status": "pending",
+      "checks": [],
+      "invalidations": [
+        {
+          "at": "2026-09-18T04:57:04.531Z",
+          "reason": "Balance candidates failed; source retained while awaiting explicit field-curve scope decision."
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T04:57:04.706Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T05:18:26.355Z",
+          "reason": "Native boss end screenshot was invisible because debugger startup aged its float100ms before observed anchor; strengthen actual raster evidence and rerun native."
+        },
+        {
+          "at": "2026-09-18T05:21:14.614Z",
+          "reason": "Correct v0.11 package documentation paths; native review confirmed implemented menu/equipment behavior."
+        },
+        {
+          "at": "2026-09-18T05:57:29.696Z",
+          "reason": "Add actual native companion growth completion; refresh source-bound checks"
+        },
+        {
+          "at": "2026-09-18T06:15:16.840Z",
+          "reason": "Actual native clock probes require explicit timer precision calibration"
+        }
+      ]
+    }
+  ]
+}

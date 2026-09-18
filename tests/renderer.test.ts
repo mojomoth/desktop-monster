@@ -57,6 +57,8 @@ import {
   HERO_Y,
   HP_BAR,
   monsterHpBarY,
+  monsterFloatAnchor,
+  heroHudTop,
   IDLE_FRAME_MS,
   MONSTER_X,
   OPPONENT_HERO_X,
@@ -85,7 +87,6 @@ import {
   CRIT_FLOAT_SCALE,
   FLOAT_SCALE,
   DEFEAT_TEXT,
-  FEVER_TEXT,
   VICTORY_TEXT,
   drawBanner,
   drawCounters,
@@ -99,7 +100,7 @@ import {
   FLOAT_RISE_PX,
   FLOAT_POOL_SIZE,
   floatColor,
-  LEVEL_UP_TEXT,
+  LEVEL_UP_MS,
   showBanner,
   spawnFloat,
   spawnFieldFloat,
@@ -328,14 +329,14 @@ describe('drawLevelHud (LV + XP bar above the hero, Assumption 17)', () => {
   });
 });
 
-describe('drawCounters (top-right kills + coins)', () => {
-  it('right-aligns both rows inside the view', () => {
+describe('drawCounters (top-left kills + coins)', () => {
+  it('left-aligns both rows inside the view', () => {
     const { ctx, calls } = makeCtx();
     drawCounters(ctx, stateFixture({ killCount: 128, coins: 9999n }), VIEW_W);
     expect(calls.length).toBeGreaterThan(0);
     for (const c of calls) {
-      expect(c.x + c.w).toBeLessThanOrEqual(VIEW_W - 1);
-      expect(c.x).toBeGreaterThan(VIEW_W / 2);
+      expect(c.x + c.w).toBeLessThan(VIEW_W / 2);
+      expect(c.x).toBeGreaterThanOrEqual(1);
     }
   });
 
@@ -361,14 +362,14 @@ describe('drawCounters (top-right kills + coins)', () => {
   });
 });
 
-describe('LEVEL UP! banner (T15)', () => {
+describe('PvP result banner', () => {
   it('draws nothing until shown and nothing after it expires', () => {
     const banner = createBanner();
     const before = makeCtx();
     drawBanner(before.ctx, banner, VIEW_W);
     expect(before.calls).toEqual([]);
 
-    showBanner(banner);
+    showBanner(banner, VICTORY_TEXT);
     tickBanner(banner, BANNER_MS);
     expect(banner.active).toBe(false);
     const after = makeCtx();
@@ -378,7 +379,7 @@ describe('LEVEL UP! banner (T15)', () => {
 
   it('draws a centered double-size banner that flashes yellow/white', () => {
     const banner = createBanner();
-    showBanner(banner);
+    showBanner(banner, VICTORY_TEXT);
 
     const fresh = makeCtx();
     drawBanner(fresh.ctx, banner, VIEW_W);
@@ -402,20 +403,20 @@ describe('LEVEL UP! banner (T15)', () => {
     expect(flashed.calls.every((c) => c.fillStyle === COLORS.white)).toBe(true);
   });
 
-  it('banner text is configurable: FEVER! and LEVEL UP! both render', () => {
+  it('banner text is configurable: victory and defeat both render', () => {
     const banner = createBanner();
-    showBanner(banner, FEVER_TEXT);
+    showBanner(banner, VICTORY_TEXT);
     const fever = makeCtx();
     drawBanner(fever.ctx, banner, VIEW_W);
 
-    showBanner(banner);
+    showBanner(banner, DEFEAT_TEXT);
     const levelUp = makeCtx();
     drawBanner(levelUp.ctx, banner, VIEW_W);
 
     expect(fever.calls.length).toBeGreaterThan(0);
     expect(levelUp.calls.length).toBeGreaterThan(0);
     expect(fever.calls).not.toEqual(levelUp.calls);
-    expect(banner.text).toBe(LEVEL_UP_TEXT);
+    expect(banner.text).toBe(DEFEAT_TEXT);
   });
 });
 
@@ -701,11 +702,9 @@ describe('createGame (scene orchestration)', () => {
 
     const after = makeCtx();
     game.draw(after.ctx);
-    // The damage number paints between the HP bar and the counters — a
-    // region that held no pixels before the attack. x starts right of the
-    // hero's LV/XP HUD (which ends at HERO_X + 14 * SPRITE_SCALE - 1).
+    // Damage starts above the target's own HP bar, clear of the hero HUD.
     const floatRegion = (calls: RectCall[]): RectCall[] =>
-      calls.filter((c) => c.y >= COIN_COUNTER_Y + 12 && c.y < monsterHpBarY(game.getState().monster) && c.x >= 95 && c.x <= 145);
+      calls.filter((c) => c.y >= COIN_COUNTER_Y + 12 && c.y < monsterHpBarY(game.getState().monster) && c.x >= 120);
     expect(floatRegion(before.calls)).toEqual([]);
     expect(floatRegion(after.calls).length).toBeGreaterThan(0);
   });
@@ -999,7 +998,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     // Arrival pops the counter: the coin count flashes white this frame.
     expect(
       done.calls.some(
-        (c) => c.w === COUNTER_SCALE && c.y >= COIN_COUNTER_Y && c.y < COIN_COUNTER_Y + 10 && c.x > 130 && c.fillStyle === COLORS.white,
+        (c) => c.w === COUNTER_SCALE && c.y >= COIN_COUNTER_Y && c.y < COIN_COUNTER_Y + 10 && c.x < 66 && c.fillStyle === COLORS.white,
       ),
     ).toBe(true);
   });
@@ -1037,7 +1036,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     expect(laterTop).toBeLessThan(earlyTop);
   });
 
-  it('a level-up shows the flashing banner and hero sparkles', () => {
+  it('a level-up shows its outlined head label and hero sparkles', () => {
     const save: SaveFileV1 = { ...killSave, xp: 19 }; // +5 xp on kill → level 2
     const game = createGame(createEngine(save, mulberry32(7)));
     const events = game.attack('keyboard');
@@ -1046,10 +1045,10 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     const bannerPixels = (calls: RectCall[]): RectCall[] =>
       calls.filter(
         (c) =>
-          c.w === BANNER_SCALE &&
-          c.h === BANNER_SCALE &&
-          c.y >= BANNER_Y &&
-          c.y < BANNER_Y + 5 * BANNER_SCALE,
+          c.w === 1 &&
+          c.h === 1 &&
+          c.x >= 62 && c.x <= 98 &&
+          c.y >= 71 && c.y <= 77,
       );
 
     const during = makeCtx();
@@ -1065,7 +1064,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     );
     expect(heroCenter.length).toBeGreaterThanOrEqual(SPARKLE_COUNT);
 
-    game.update(BANNER_MS); // banner lifetime over
+    game.update(LEVEL_UP_MS); // level-up lifetime over
     const after = makeCtx();
     game.draw(after.ctx);
     expect(bannerPixels(after.calls)).toEqual([]);
@@ -1110,6 +1109,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     // Level 5000 deals 5000 damage a hit: the float reads '5.00A', not '5000'.
     const game = createGame(createEngine({ ...v2, level: 5000 }, mulberry32(42)));
     const hitBarY = monsterHpBarY(game.getState().monster);
+    const anchor = monsterFloatAnchor(game.getState().monster);
     const hit = game.attack('keyboard')[0];
     if (hit?.type !== 'attack') {
       throw new Error('expected an attack event');
@@ -1119,10 +1119,10 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     const { ctx, calls } = makeCtx();
     game.draw(ctx);
     const floatRegion = (cs: RectCall[]): RectCall[] =>
-      cs.filter((c) => c.w === FLOAT_SCALE && c.h === FLOAT_SCALE && c.y >= COIN_COUNTER_Y + 12 && c.y < hitBarY && c.x >= 95 && c.x <= 145);
+      cs.filter((c) => c.w === FLOAT_SCALE && c.h === FLOAT_SCALE && c.y >= anchor.y - 6 && c.y < hitBarY && c.x >= 120);
     const rendered = (text: string): string[] => {
       const pool = createFloatPool();
-      spawnFieldFloat(pool, 58, text, hit.crit);
+      spawnFieldFloat(pool, anchor.x, anchor.y, text, hit.crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return keys(ref.calls);
@@ -1631,9 +1631,11 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       game.draw(ctx);
 
       const pool = createFloatPool();
+      const anchor = monsterFloatAnchor(monster);
       spawnFieldFloat(
         pool,
-        58,
+        anchor.x,
+        anchor.y,
         format(volley.damage),
         false,
         floatColor(expected),
@@ -1652,7 +1654,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     expect(new Set((['super', 'weak', 'normal'] as const).map(floatColor)).size).toBe(3);
   });
 
-  it('fever draws a hue-cycling aura behind the hero and a FEVER banner', () => {
+  it('fever draws a hue-cycling aura behind the hero and only one head label', () => {
     // Monster 100 has millions of HP — 20 inputs light fever without a kill.
     const game = createGame(
       createEngine(
@@ -1691,13 +1693,13 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     expect(litAura.every((c) => litPainted.has(rectKey(c)))).toBe(true);
 
     const feverLabel = makeCtx();
-    drawFeverLabel(feverLabel.ctx, HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2), HERO_Y);
+    drawFeverLabel(feverLabel.ctx, HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2), heroHudTop('h00') - 26);
     expect(feverLabel.calls.some((c) => c.fillStyle === COLORS.yellow)).toBe(true);
     expect(feverLabel.calls.some((c) => c.fillStyle === COLORS.void)).toBe(true);
     expect(feverLabel.calls.every((c) => c.y < HERO_Y)).toBe(true);
     expect(feverLabel.calls.every((c) => litPainted.has(rectKey(c)))).toBe(true);
 
-    // FEVER!, not LEVEL UP!, flashes above the scene.
+    // No duplicate fever or level-up label occupies the old top banner.
     const bannerBox = (cs: RectCall[]): RectCall[] =>
       cs.filter(
         (c) =>
@@ -1706,15 +1708,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
           c.y >= BANNER_Y &&
           c.y < BANNER_Y + 5 * BANNER_SCALE,
       );
-    const banner = createBanner();
-    showBanner(banner, FEVER_TEXT);
-    const feverRef = makeCtx();
-    drawBanner(feverRef.ctx, banner, VIEW_W);
-    showBanner(banner, LEVEL_UP_TEXT);
-    const levelRef = makeCtx();
-    drawBanner(levelRef.ctx, banner, VIEW_W);
-    expect(keys(bannerBox(lit.calls))).toEqual(keys(feverRef.calls));
-    expect(keys(bannerBox(lit.calls))).not.toEqual(keys(levelRef.calls));
+    expect(bannerBox(lit.calls)).toEqual([]);
 
     // The aura cycles hue with time and sheds sparkles every 100 ms.
     game.update(4 * FEVER_SPARKLE_MS);
@@ -2060,6 +2054,8 @@ describe('game toSave/reset (T16 persistence wiring)', () => {
       earlyCaptureUsed: 0,
       pvpGoldNet: '0',
       pvpGoldDebt: '0',
+      monsterCurveVersion: 11,
+      monsterCurveRebirths: 0,
       monsterSpeciesId: createEngine(null, mulberry32(1)).getState().monster.speciesId,
       progress: createEngine(null, mulberry32(1)).toSave().progress,
       equipment: createEngine(null, mulberry32(1)).toSave().equipment,
@@ -2578,7 +2574,8 @@ describe('battle scene replay (T66, SPEC F66)', () => {
     // …but nothing of the field's presentation painted: no damage float.
     const floatRef = (damage: bigint, crit: boolean): RectCall[] => {
       const pool = createFloatPool();
-      spawnFieldFloat(pool, 58, format(damage), crit);
+      const anchor = monsterFloatAnchor(game.getState().monster);
+      spawnFieldFloat(pool, anchor.x, anchor.y, format(damage), crit);
       const ref = makeCtx();
       drawFloats(ref.ctx, pool);
       return ref.calls;

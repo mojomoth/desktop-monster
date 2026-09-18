@@ -1,0 +1,391 @@
+{
+  "version": 1,
+  "kind": "v11-performance-comparison",
+  "passed": false,
+  "observations": {
+    "baseline-active": {
+      "slot": "baseline-active",
+      "profile": "active",
+      "durationMs": 1800061.829708,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5454.351167000001,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 1.0244531503128174,
+        "median": 1.3445447985639771,
+        "p95": 2.0380305937182523,
+        "max": 2.4391064273803225
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 180.96875,
+        "median": 195.453125,
+        "p95": 216.765625,
+        "max": 233.546875
+      },
+      "summary": {
+        "cpuP95": 2.0380305937182523,
+        "workingSetMiBP95": 216.765625,
+        "initialMemoryMedian": 195.453125,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 3570,
+        "expected": 3600,
+        "fraction": 0.9916666666666667,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797269.0077499999,
+            "expectedInputs": 3594.5380155,
+            "actualInputs": 3565
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 60.5042910000775,
+          "expectedInputs": 0.121008582000155,
+          "actualInputs": 0,
+          "totalAtShutdown": 3570
+        }
+      }
+    },
+    "baseline-idle": {
+      "slot": "baseline-idle",
+      "profile": "idle",
+      "durationMs": 1800057.17425,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5065.020333,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 0.9671342404719669,
+        "median": 1.1156092249045635,
+        "p95": 1.3919052796931066,
+        "max": 2.013105850426656
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 157.828125,
+        "median": 180.28125,
+        "p95": 200.328125,
+        "max": 223.90625
+      },
+      "summary": {
+        "cpuP95": 1.3919052796931066,
+        "workingSetMiBP95": 200.328125,
+        "initialMemoryMedian": 180.28125,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1796774.605375,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 54.884083999786526,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      }
+    },
+    "candidate-active": {
+      "slot": "candidate-active",
+      "profile": "active",
+      "durationMs": 1800048.351375,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5041.7237910002,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 0.990047522394165,
+        "median": 1.3366493305340268,
+        "p95": 1.9112625456894665,
+        "max": 2.3891839758692504
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 167.09375,
+        "median": 190.5625,
+        "p95": 210.53125,
+        "max": 227.25
+      },
+      "summary": {
+        "cpuP95": 1.9112625456894665,
+        "workingSetMiBP95": 210.53125,
+        "initialMemoryMedian": 190.5625,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 3574,
+        "expected": 3600,
+        "fraction": 0.9927777777777778,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1796963.224375,
+            "expectedInputs": 3593.92644875,
+            "actualInputs": 3568
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 44.795000000158325,
+          "expectedInputs": 0.08959000000031665,
+          "actualInputs": 0,
+          "totalAtShutdown": 3574
+        }
+      }
+    },
+    "candidate-idle": {
+      "slot": "candidate-idle",
+      "profile": "idle",
+      "durationMs": 1800056.168625,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5044.536957999924,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 0.8736493330897347,
+        "median": 1.4180325794573203,
+        "p95": 2.4309339847820723,
+        "max": 2.9140872800893285
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 160.390625,
+        "median": 190.921875,
+        "p95": 216.671875,
+        "max": 233.609375
+      },
+      "summary": {
+        "cpuP95": 2.4309339847820723,
+        "workingSetMiBP95": 216.671875,
+        "initialMemoryMedian": 190.921875,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1796892.422458,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 53.708667000057176,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      }
+    }
+  },
+  "comparisons": [
+    {
+      "profile": "active",
+      "cpu": {
+        "baseline": 2.0380305937182523,
+        "candidate": 1.9112625456894665,
+        "limit": 3.0380305937182523,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 216.765625,
+        "candidate": 210.53125,
+        "limit": 266.765625,
+        "passed": true
+      }
+    },
+    {
+      "profile": "idle",
+      "cpu": {
+        "baseline": 1.3919052796931066,
+        "candidate": 2.4309339847820723,
+        "limit": 2.3919052796931064,
+        "passed": false
+      },
+      "workingSetMiB": {
+        "baseline": 200.328125,
+        "candidate": 216.671875,
+        "limit": 250.328125,
+        "passed": true
+      }
+    }
+  ],
+  "artifacts": {
+    "baseline-active": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json",
+      "sha256": "a3a700f9eb43e2957dbd65cef273d946d0599fe8b2efbfb6a1275a95d773b785",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json.samples.jsonl",
+        "sha256": "422310b876623fd5c01b8e4ad4683411f0cc7b0ba2ff44ac3f07f2bdedd05cb1"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json.lifecycle.json",
+        "sha256": "5ae2ab4becebd300d44a0e920586171a17b7bba4020a85fe141196cf17eeaea0"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json.start.png",
+          "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json.end.png",
+          "sha256": "36eb89b5309e9c50eb13b231e521d9d5f93b89324bf47356f5092b72a7885959"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app",
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac"
+    },
+    "baseline-idle": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json",
+      "sha256": "a36b50e296670ef5e9008369378af910d575ebec2a0098dbd4f6016ca6f8c6d2",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json.samples.jsonl",
+        "sha256": "6900a7ad14d1bb8b2317f75936ea2c6014d1ed9830961b151dfd21fb9e45877d"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json.lifecycle.json",
+        "sha256": "93ca4458e6a34c263a068bbfe0299ac32188d9a55192351425dd72d4aa18ed7a"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json.start.png",
+          "sha256": "60e07d9e63943ea5d4d64abafc420ad7854887a1801afe856c777b48a13ea0c0"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json.end.png",
+          "sha256": "0eb5f55b08e2750bf0208947d0cdedbce7c4ad13e9b0ad89c7ab5a584c1119ad"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app",
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac"
+    },
+    "candidate-active": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-active.json",
+      "sha256": "7fedefc0b26c3bb589592efdf459fe03a0ce491997d4bf0d317d350100d2006a",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-active.json.samples.jsonl",
+        "sha256": "de04c3d00174504a351b9a6443a351e1e60a4ad17562ba80099bb486ba907c19"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-active.json.lifecycle.json",
+        "sha256": "318040e397249a3c101554839f1e3a3cf08682a4da931b7fc2bc70a3631535fc"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-active.json.start.png",
+          "sha256": "e104f8fb1f76ec8549df02c73135726998fed8d77e10d85b5cb84ac30ee5341a"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-active.json.end.png",
+          "sha256": "b3537cd331696bb97c85a9192756ccf5d5540ae3f33d366cf96cac251b305ef0"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "appHash": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34"
+    },
+    "candidate-idle": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-idle.json",
+      "sha256": "c8abdb1f74611d2329744d30b42057936da42cba52aff1d07b50d4b45e7f6dd6",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-idle.json.samples.jsonl",
+        "sha256": "8cb0479b15a75535a164412add7fe0fe211600819caf30c6f9bec2e55bdcbc06"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-idle.json.lifecycle.json",
+        "sha256": "cd9861f87e336d374e5dcb79506aec008448493dcb060080433a196d36671d86"
+      },
+      "screenshots": [
+        {
+          "name": "start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-idle.json.start.png",
+          "sha256": "e104f8fb1f76ec8549df02c73135726998fed8d77e10d85b5cb84ac30ee5341a"
+        },
+        {
+          "name": "end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/candidate-idle.json.end.png",
+          "sha256": "0ad49c02227de73d98c197a69c9247a293d32fdc790f43362404869852c18fb0"
+        }
+      ],
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "appHash": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34"
+    }
+  },
+  "protocol": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.11/PERFORMANCE_PROTOCOL.json",
+    "sha256": "7a776e39bdd7b242bfad65bbbe85dcb554ee391f5c575f55b36ab29eac887bdd",
+    "performance": {
+      "sampleMs": 5000,
+      "warmupMinutes": 5,
+      "comparisonMinutes": 30,
+      "comparisonProfiles": [
+        "active",
+        "idle"
+      ],
+      "cpuP95Max": {
+        "baselineMultiplier": 1.1,
+        "baselineAddPercentagePoints": 1
+      },
+      "workingSetP95Max": {
+        "baselineMultiplier": 1.2,
+        "baselineAddMiB": 50
+      },
+      "crashUnresponsiveSaveProgressErrorsAllowed": 0
+    }
+  },
+  "observers": {
+    "baseline": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-v4.mjs",
+      "sha256": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345"
+    },
+    "candidate": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.harness/v10/performance-v4.mjs",
+      "sha256": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345"
+    }
+  },
+  "verifierHash": "f360e3831a3abec2229bea0414f0dfef576e72e527f98db5091260e60df5972b",
+  "coverage": {
+    "minimumFraction": 0.95,
+    "maximumGapSamples": 2,
+    "inputJitter": 2
+  },
+  "limitations": [
+    "Regression budgets only; no battery-life or human-enjoyment claim.",
+    "Synthetic input has measured scheduling loss; counts and closeout intervals are reported.",
+    "Input counts describe emitted IPC events; engine progress is checked separately.",
+    "Working-set sums may count shared pages more than once; they are not unique physical RAM.",
+    "Permission/audio experience, environment power/thermal conditions, and successful menu choices need separate evidence.",
+    "Hashes bind the available artifacts; they do not independently authenticate their original capture."
+  ]
+}

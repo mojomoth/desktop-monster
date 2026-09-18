@@ -1,0 +1,156 @@
+{
+  "version": 11,
+  "productVersion": "0.11.0",
+  "tasks": [
+    {
+      "id": "V11-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v11/run.mjs",
+        ".harness/v11/run.test.mjs",
+        ".harness/v11/config.json",
+        ".harness/v11/HARNESS.md",
+        ".harness/v11/vendor",
+        ".harness/v11/agents",
+        "docs/v0.11/CONTRACT.md",
+        "docs/v0.11/ACCEPTANCE.md",
+        "docs/v0.11/PERFORMANCE_PROTOCOL.json",
+        ".harness/v11/release.mjs",
+        ".harness/v11/run-performance.mjs",
+        ".harness/v11/final-check.mjs",
+        ".harness/v11/final-check.test.mjs",
+        ".harness/v11/performance-report.mjs",
+        ".harness/v11/performance.test.mjs"
+      ],
+      "ac": "node --test .harness/v11/*.test.mjs"
+    },
+    {
+      "id": "V11-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/core",
+        "tests/equipmentV11.test.ts",
+        "tests/progressionV11.test.ts",
+        ".harness/v11/balance.mjs",
+        ".harness/v11/balance-verify.mjs",
+        ".harness/v11/balance-verify.test.mjs",
+        "docs/v0.11/EVALUATION_PROTOCOL.json",
+        "docs/v0.11/BALANCE_CANDIDATE.json",
+        "tests/formulas.test.ts",
+        "tests/progressionV7.test.ts",
+        "tests/engine.test.ts",
+        "tests/save.test.ts",
+        "tests/collection.test.ts",
+        "tests/heroArtCompatibility.test.ts"
+      ],
+      "ac": "npx vitest run tests/equipmentV11.test.ts tests/progressionV11.test.ts tests/save.test.ts tests/engine.test.ts"
+    },
+    {
+      "id": "V11-03",
+      "owner": "Designer",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/renderer/hud.ts",
+        "src/renderer/game.ts",
+        "tests/hud-v09.test.ts",
+        "tests/hudV11.test.ts",
+        "tests/renderer.test.ts",
+        "tests/effects-v09.test.ts",
+        ".harness/v11/runtime.mjs",
+        ".harness/v11/ui-cases.mjs",
+        ".harness/v11/runtime.test.mjs",
+        "tests/expedition.test.ts"
+      ],
+      "ac": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts"
+    },
+    {
+      "id": "V11-04",
+      "owner": "Host",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/menu",
+        "src/main/ipc.ts",
+        "src/main/menuWindow.ts",
+        "src/shared/ipc.ts",
+        "src/preload",
+        "src/renderer/index.ts",
+        "src/renderer/global.d.ts",
+        "static",
+        "tests/menu.test.ts",
+        "tests/equipmentMenuV10.test.ts",
+        "tests/ipc.test.ts",
+        "tests/packaging.test.ts",
+        "tests/window.test.ts",
+        "package.json",
+        "package-lock.json",
+        "README.md",
+        "eslint.config.mjs",
+        "src/main/tray.ts",
+        "tests/tray.test.ts",
+        "tests/runtimeV8.test.ts"
+      ],
+      "ac": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts"
+    },
+    {
+      "id": "V11-05",
+      "owner": "Balance",
+      "dependencies": [
+        "V11-02",
+        "V11-04"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/balance-verify.mjs {runDir}/balance/final.json",
+      "artifacts": [
+        "{runDir}/balance/final.json"
+      ]
+    },
+    {
+      "id": "V11-06",
+      "owner": "Host",
+      "dependencies": [
+        "V11-02",
+        "V11-03",
+        "V11-04"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/runtime.mjs verify {runDir}/native/final.json",
+      "artifacts": [
+        "{runDir}/native/final.json"
+      ]
+    },
+    {
+      "id": "V11-07",
+      "owner": "Critic",
+      "dependencies": [
+        "V11-05",
+        "V11-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/final-check.mjs reviews {runDir}",
+      "artifacts": [
+        "{runDir}/reviews/final.json"
+      ]
+    },
+    {
+      "id": "V11-08",
+      "owner": "Host",
+      "dependencies": [
+        "V11-07"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/final-check.mjs final {runDir}",
+      "artifacts": [
+        "{runDir}/performance/comparison.json",
+        "{runDir}/release.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8533 @@
+
+> desmon@0.11.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ❯ tests/tray.test.ts (38 tests | 2 failed) 22ms
+   ✓ tray icon pixel matrix (F23: sprites-as-code, no asset file) > is a 16×16 matrix whose every char is in the palette 4ms
+   ✓ tray icon pixel matrix (F23: sprites-as-code, no asset file) > uses at least one transparent and one opaque pixel 0ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > starts with the PNG signature and frames IHDR, IDAT, IEND in order 1ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > declares a 16×16, 8-bit, RGBA, non-interlaced image in IHDR 0ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > writes a valid CRC-32 over type+data for every chunk 0ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > inflates IDAT to filter-0 scanlines that reproduce the matrix exactly 4ms
+   ✓ pure-code PNG encoder (trayIcon.ts) > encodes unknown palette chars as transparent instead of throwing 0ms
+   ✓ tray menu template (F23) > offers all five scales, marks the current one, and shows the running version 0ms
+   ✓ tray menu template (F23) > tray menu lists title, status, separator, Collection & Battle, Reset Progress, Quit in that order 0ms
+   × tray menu template (F23) > pins the title to package.json version and the disabled rows 4ms
+     → expected 'DesMon v0.10.0' to be 'DesMon v0.11.0' // Object.is equality
+   ✓ tray menu template (F23) > in fallback mode the status row opens the Accessibility settings 0ms
+   ✓ tray menu template (F23) > Collection & Battle, Reset Progress and Quit invoke their actions 0ms
+   ✓ tray menu template (F23) > spells the collection label with the ellipsis character (F23/F52) 0ms
+   ✓ setupTray controller (F23: build once, rebuild on mode change) > sets the tooltip and builds the initial menu from getInputMode() 1ms
+   ✓ setupTray controller (F23: build once, rebuild on mode change) > refresh(mode) rebuilds the menu and applies it to the tray 0ms
+   ✓ setupTray controller (F23: build once, rebuild on mode change) > keeps a module-scope reference to the live tray (GC keep-alive) 0ms
+   ✓ tray wiring (source contract, src/main/index.ts) > creates the Tray from the code-encoded PNG via nativeImage 0ms
+   ✓ tray wiring (source contract, src/main/index.ts) > wires the menu actions to reset IPC, the settings deep link and quit 0ms
+   ✓ tray wiring (source contract, src/main/index.ts) > rebuilds the menu from the global-input mode-change path 0ms
+   × menu window (F52, src/main/menuWindow.ts) > declares width: 420 4ms
+     → expected '// Collection & Battle window (SPEC F…' to contain 'width: 420'
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares height: 640 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares useContentSize: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares frame: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares resizable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares minimizable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares maximizable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares fullscreenable: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares alwaysOnTop: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares show: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares title: 'DesMon — 영웅과 모험 기록' 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares contextIsolation: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares nodeIntegration: false 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares sandbox: true 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > declares loadFile('static/menu.html') 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > uses the same preload path as the overlay window 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > shows on ready-to-show and only then steals focus (accessory app) 0ms
+   ✓ menu window (F52, src/main/menuWindow.ts) > keeps a single window: focuses the existing one and drops it on close 0ms
+   ✓ menu window wiring (source contract, src/main/index.ts) > uses one menu opener for the tray and fresh guide, never opening it under SMOKE 0ms
+ ❯ tests/heroArtCompatibility.test.ts (2 tests | 1 failed) 18ms
+   ✓ hero art redesign preserves published save and network identities > keeps every existing form id, rank, element and buff target unchanged 2ms
+   × hero art redesign preserves published save and network identities > loads all collected looks and exact pending rolls, retaining each equipped id on the wire 15ms
+     → h01: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+ ✓ tests/ipcV5.test.ts (7 tests) 17ms
+ ❯ tests/runtimeV8.test.ts (9 tests | 1 failed) 45ms
+   ✓ v0.8 shared preferences and input start > retains every preference when scale and other fields are edited in either order 8ms
+   ✓ v0.8 shared preferences and input start > distinguishes new and legacy defaults and preserves an explicit fallback after a save exists 2ms
+   ✓ v0.8 shared preferences and input start > rejects malformed patches atomically and reports filesystem failures without changing prior values 5ms
+   ✓ v0.8 shared preferences and input start > does not start until requested, starts once across repeated clicks, and cleans up the same owner 1ms
+   ✓ v0.8 save protection and last save status > distinguishes absence, valid legacy/current formats, malformed JSON and unsupported formats 4ms
+   × v0.8 save protection and last save status > blocks every mutation and online call after an invalid existing save without changing any original byte 10ms
+     → expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      "desmon:action-result",
+      Object {
+        "action": Object {
+          "foodId": "c2",
+          "targetId": "c1",
+          "type": "consume",
+        },
+        "error": "상태가 바뀌었거나 요청이 취소됐습니다. 현재 상태를 확인해 주세요.",
+        "ok": false,
+      },
+    ]
+
+
+Number of calls: 1
+
+   ✓ v0.8 save protection and last save status > uses the verified startup snapshot even if the disk becomes unreadable before the renderer asks 3ms
+   ✓ v0.8 save protection and last save status > does not create progress if fresh preferences could not be persisted 1ms
+   ✓ v0.8 save protection and last save status > keeps write failure through menu reopen and state reads, and clears it only after a real successful retry 9ms
+ ❯ tests/menuV9.test.ts (14 tests | 1 failed) 55ms
+   ✓ v0.9 direct opponent battle menu > starts the clicked directory opponent immediately without requesting a preview or forwarding rewards 11ms
+   ✓ v0.9 direct opponent battle menu > locks repeat battle clicks and party controls through pending live-save rerenders, then unlocks on failure 5ms
+   ✓ v0.9 direct opponent battle menu > keeps immediate failure {"ok":false,"error":"busy"} beside its opponent through state updates and directory reorder 3ms
+   ✓ v0.9 direct opponent battle menu > keeps immediate failure {"ok":false,"error":"storage"} beside its opponent through state updates and directory reorder 2ms
+   ✓ v0.9 direct opponent battle menu > keeps immediate failure {"ok":false,"error":"sync-required"} beside its opponent through state updates and directory reorder 3ms
+   ✓ v0.9 direct opponent battle menu > keeps immediate failure {"ok":false,"error":"stale-party"} beside its opponent through state updates and directory reorder 2ms
+   ✓ v0.9 direct opponent battle menu > keeps immediate failure {"ok":false,"error":"network"} beside its opponent through state updates and directory reorder 1ms
+   ✓ v0.9 direct opponent battle menu > keeps immediate failure {"ok":false,"error":"cooldown","retryAfterSec":12} beside its opponent through state updates and directory reorder 10ms
+   ✓ v0.9 direct opponent battle menu > shows rejected IPC beside the clicked opponent and permits a successful retry 4ms
+   ✓ v0.9 direct opponent battle menu > explains blocked buttons while refreshing an existing directory 1ms
+   × v0.9 direct opponent battle menu > keeps feedback without scrolling back when focus has moved away from the battle 9ms
+     → expected '전투를 준비하고 있습니다…' to contain '연결'
+   ✓ v0.9 direct opponent battle menu > leaves successful reclaim application to main 1ms
+   ✓ v0.9 metric ranking controls > defaults to level and sends independent refresh requests for all four metrics 1ms
+   ✓ v0.9 metric ranking controls > ignores an older metric response after a newer tab request completes 1ms
+ ✓ tests/heroForms.test.ts (8 tests) 871ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  703ms
+ ✓ tests/performanceV8.test.ts (6 tests) 574ms
+   ✓ v0.8 performance evidence validation > binds reports, raw samples, screenshots, app bytes and observer source before accepting a matrix  313ms
+ ✓ tests/heroRendering.test.ts (5 tests) 731ms
+ ✓ tests/onlineV91.test.ts (10 tests) 402ms
+ ✓ tests/loot.test.ts (11 tests) 449ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 192ms
+ ✓ tests/sprites.test.ts (34 tests) 282ms
+ ✓ tests/measurementV8.test.ts (6 tests) 1812ms
+   ✓ v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly  1408ms
+   ✓ v0.8 collection policy measurement > chooses the actual third rare card and records the existing consume policy without species protection  300ms
+ ✓ tests/engine.test.ts (45 tests) 1423ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent  985ms
+ ❯ tests/collection.test.ts (21 tests | 1 failed) 242ms
+   ✓ companion power and party selection (SPEC F32/F61, Assumptions 24/44) > companionPower is floor(monsterMaxHp(bossIndex)/20), at least 1, times level times 2^stars 3ms
+   ✓ companion power and party selection (SPEC F32/F61, Assumptions 24/44) > activeCompanions picks the 5 highest effective powers against the enemy type 1ms
+   ✓ companion power and party selection (SPEC F32/F61, Assumptions 24/44) > the party changes when the enemy type changes 0ms
+   ✓ companion power and party selection (SPEC F32/F61, Assumptions 24/44) > pvpParty resolves ids in order and falls back to autoParty when empty 0ms
+   ✓ companion power and party selection (SPEC F32/F61, Assumptions 24/44) > partyOrder sorts by size descending keeping party order on ties 0ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > consume adds 1 plus food stars levels beyond 10 and removes the food 2ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > fuse needs same species and stars and yields stars+1 at level 1 0ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > reincarnate needs level 10 and resets to level 1 with stars+1 0ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > sacrifice removes the companion and adds 1 plus stars souls 0ms
+   × applyCollection lifecycle (SPEC F32, Assumption 26) > rebirth needs monsterIndex 40 or more, adds floor(index/8) souls and resets the run 15ms
+     → expected { index: +0, speciesId: 'slime', …(7) } to deeply equal { index: +0, speciesId: 'slime', …(7) }
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > setPvpParty drops unknown ids and caps at 5 2ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > addCompanion refuses a full roster of 30 and removeCompanions ignores unknown ids 1ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > pvpResult preserves the server transfer id and removes the lost one 1ms
+   ✓ applyCollection lifecycle (SPEC F32, Assumption 26) > rejects an unknown action type and hands back fresh objects every time 1ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp keeps the deterministic verdict and roster independent of former steal rolls 3ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp never steals and does not consume loot randomness 1ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > a losing attacker never loses a companion 0ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp with an empty loser roster steals nothing 0ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp never moves into a full roster of 30 1ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp is reproducible without consuming RNG 1ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp leaves companions untouched over 10000 seeded wins 205ms
+ ✓ tests/replayV91.test.ts (14 tests) 175ms
+ ✓ tests/onlineV9.test.ts (8 tests) 234ms
+ ❯ tests/expedition.test.ts (16 tests | 6 failed) 1827ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  1554ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > pays exactly one soul on every RELEASES_PER_SOUL-th release and persists the tally 8ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > flags whether the released boss beat the roster's weakest keeper 18ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > leaves the RNG stream untouched: an open roster plays exactly as before 43ms
+   ✓ A5 — the offer keeps finding unseen forms past the top rank (H3) > offers an unseen form in slot 0 once the top rank is fully collected 10ms
+   ✓ A5 — the offer keeps finding unseen forms past the top rank (H3) > still guarantees the newest rank while that rank has anything unseen 10ms
+   ✓ A5 — the offer keeps finding unseen forms past the top rank (H3) > always offers three distinct elements and keeps the roll range 16ms
+   ✓ A5 — the offer keeps finding unseen forms past the top rank (H3) > consumes the same number of RNG draws as the previous rule 0ms
+   ✓ A5 — the offer keeps finding unseen forms past the top rank (H3) > drives the binder past the old 14-form ceiling under an always-accept policy 2ms
+   × A1 — the removed expedition HUD stays absent from the complete frame > draws no left readout before the first offer or without saved hero progress 90ms
+     → expected [ Array(221) ] to deeply equal []
+   × A1 — the removed expedition HUD stays absent from the complete frame > draws no completed meter or duplicate ready label when an offer becomes ready 14ms
+     → expected [ Array(221) ] to deeply equal []
+   × A1 — the removed expedition HUD stays absent from the complete frame > draws no wait label or gauge during a deferred offer, including its final millisecond 13ms
+     → expected [ Array(221) ] to deeply equal []
+   × A1 — the removed expedition HUD stays absent from the complete frame > does not resurrect a rest gauge from legacy saves with positive rest time 6ms
+     → expected [ Array(221) ] to deeply equal []
+   × A1 — the removed expedition HUD stays absent from the complete frame > stays absent for a retained offer and for the reincarnation cap 10ms
+     → expected [ Array(221) ] to deeply equal []
+   × A1 — the removed expedition HUD stays absent from the complete frame > draws no old meter or soul estimate at any previously covered depth 25ms
+     → expected [ Array(221) ] to deeply equal []
+   ✓ A1 — the removed expedition HUD stays absent from the complete frame > drawing the complete frame changes neither the saved state nor the RNG stream 6ms
+ ✓ tests/net.test.ts (45 tests) 138ms
+ ✓ tests/progressionV5.test.ts (12 tests) 146ms
+ ✓ tests/hud-v09.test.ts (3 tests) 791ms
+   ✓ v0.9 HUD readability > fits compact outlined counters below the drag strip with transparent space between rows  301ms
+   ✓ v0.9 HUD readability > keeps monster-centered normal/critical damage clear of counters throughout its rise  445ms
+ ✓ tests/equipmentV10.test.ts (10 tests) 52ms
+ ✓ tests/equipmentRendering.test.ts (6 tests) 78ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 99ms
+ ✓ tests/codexV7.test.ts (10 tests) 137ms
+ ✓ tests/progressionV7.test.ts (45 tests) 541ms
+ ✓ tests/hudV11.test.ts (8 tests) 2185ms
+   ✓ v0.11 head labels and field damage > stacks every combination above every idle hero without overlaps or cropped outlines  784ms
+   ✓ v0.11 head labels and field damage > keeps the head anchor fixed through every hero attack pose in the complete scene  502ms
+   ✓ v0.11 head labels and field damage > anchors every monster and crown above its HP bar and keeps long rising hits inside the field  806ms
+ ✓ tests/progressV5.test.ts (12 tests) 81ms
+ ✓ tests/server/pvp.test.ts (14 tests) 26ms
+ ✓ tests/audio.test.ts (15 tests) 22ms
+ ✓ tests/recoveryV9.test.ts (21 tests) 20ms
+ ✓ tests/onlineV10.test.ts (7 tests) 49ms
+ ✓ tests/share.test.ts (5 tests) 79ms
+ ✓ tests/onlineV8.test.ts (3 tests) 19ms
+ ✓ tests/renderer.test.ts (104 tests) 493ms
+ ✓ tests/menu.test.ts (67 tests) 406ms
+ ✓ tests/anim.test.ts (14 tests) 23ms
+ ✓ tests/v10Critic.test.ts (7 tests) 98ms
+ ✓ tests/hero.test.ts (17 tests) 142ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 75ms
+ ✓ tests/effects-v09.test.ts (6 tests) 215ms
+ ✓ tests/recoveryCaptureV9.test.ts (5 tests) 28ms
+ ✓ tests/equipmentSprites.test.ts (15 tests) 3823ms
+   ✓ v0.10 equipment production art > registers 224 structurally distinct icons, not palette swaps  339ms
+   ✓ v0.10 equipment production art > proves all eight representative motions and every h00 weapon at all five poses in both directions  391ms
+   ✓ v0.10 equipment production art > renders every compatible hero/weapon pairing with visible grips, integer pixels and grounded feet  1737ms
+   ✓ v0.10 equipment production art > keeps the complete bobbing head visible with every compatible epic weapon  696ms
+ ✓ tests/pvpAbuseV91.test.ts (8 tests) 64ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 15ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 44ms
+ ✓ tests/goldV91.test.ts (15 tests) 17ms
+ ✓ tests/progressV6.test.ts (15 tests) 31ms
+ ✓ tests/shareV9.test.ts (9 tests) 54ms
+ ✓ tests/formulas.test.ts (21 tests) 87ms
+ ✓ tests/server/opponents.test.ts (10 tests) 112ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 45ms
+ ✓ tests/globalInput.test.ts (20 tests) 20ms
+ ✓ tests/v10Review.test.ts (7 tests) 60ms
+ ✓ tests/shareUiV9.test.ts (6 tests) 37ms
+ ✓ tests/progressV7.test.ts (5 tests) 15ms
+ ✓ tests/server/app.test.ts (18 tests) 42ms
+ ✓ tests/progressionV11.test.ts (5 tests) 112ms
+ ✓ tests/persistence.test.ts (10 tests) 11ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 24ms
+ ✓ tests/identity.test.ts (8 tests) 11ms
+ ✓ tests/save.test.ts (15 tests) 19ms
+ ✓ tests/server/v09.test.ts (9 tests) 39ms
+ ✓ tests/equipmentV11.test.ts (8 tests) 34ms
+ ✓ tests/recoveryV10.test.ts (4 tests) 21ms
+ ✓ tests/server/backendReviewV10.test.ts (5 tests) 14ms
+ ✓ tests/settings.test.ts (4 tests) 28ms
+ ✓ tests/window.test.ts (29 tests) 4ms
+ ✓ tests/server/pgTransaction.test.ts (10 tests) 9ms
+ ✓ tests/fever.test.ts (4 tests) 15ms
+ ✓ tests/ipc.test.ts (62 tests) 16ms
+ ✓ tests/typeChart.test.ts (4 tests) 6ms
+ ✓ tests/equipmentMenuV10.test.ts (5 tests) 22ms
+ ✓ tests/fsm.test.ts (12 tests) 7ms
+ ✓ tests/effects.test.ts (7 tests) 8ms
+ ✓ tests/packaging.test.ts (16 tests) 11ms
+ ✓ tests/defenseV91.test.ts (1 test) 3ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 4ms
+ ✓ tests/server/http.test.ts (9 tests) 8ms
+ ✓ tests/platformV9.test.ts (3 tests) 5ms
+ ✓ tests/drag.test.ts (7 tests) 5ms
+ ✓ tests/heroMenuReadiness.test.ts (4 tests) 4ms
+ ✓ tests/thefts.test.ts (5 tests) 4ms
+ ✓ tests/deploy.test.ts (7 tests) 4ms
+ ✓ tests/battle.test.ts (5 tests) 4ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/bignum.test.ts (7 tests) 2ms
+ ✓ tests/scaffold.test.ts (1 test) 2ms
+ ✓ tests/rendererInput.test.ts (8 tests) 9ms
+ ✓ tests/balance.test.ts (3 tests) 6660ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  6622ms
+ ✓ tests/equippedHeroCache.test.ts (4 tests) 18511ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 57,960 equipped hero views  17380ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 3,840 fever/KO composites  1117ms
+
+ Test Files  6 failed | 85 passed (91)
+      Tests  12 failed | 1218 passed (1230)
+   Start at  13:43:26
+   Duration  19.08s (transform 2.81s, setup 0ms, collect 12.76s, tests 45.42s, environment 13ms, prepare 6.13s)
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/collection.test.ts > applyCollection lifecycle (SPEC F32, Assumption 26) > rebirth needs monsterIndex 40 or more, adds floor(index/8) souls and resets the run
+AssertionError: expected { index: +0, speciesId: 'slime', …(7) } to deeply equal { index: +0, speciesId: 'slime', …(7) }
+
+- Expected
++ Received
+
+@@ -1,8 +1,8 @@
+  {
+    "boss": false,
+-   "curveRebirths": 0,
++   "curveRebirths": 3,
+    "curveVersion": 11,
+    "index": 0,
+    "maxHp": 10n,
+    "name": "Slime Lv.1",
+    "speciesId": "slime",
+
+ ❯ tests/collection.test.ts:238:27
+    236|     expect(state.level).toBe(1);
+    237|     expect(state.xp).toBe(0);
+    238|     expect(state.monster).toEqual(monsterForIndex(0));
+       |                           ^
+    239|     expect(state.monsterHp).toBe(monsterForIndex(0).maxHp);
+    240|     // Kept across the prestige (Assumption 5).
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  tests/expedition.test.ts > A1 — the removed expedition HUD stays absent from the complete frame > draws no left readout before the first offer or without saved hero progress
+AssertionError: expected [ Array(221) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 3,
++     "w": 7,
++     "x": 2,
++     "y": 24,
++   },
++   {
++     "h": 6,
++     "w": 5,
++     "x": 3,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 3,
++     "x": 4,
++     "y": 29,
++   },
++   {
++     "h": 3,
++     "w": 5,
++     "x": 3,
++     "y": 24,
++   },
++   {
++     "h": 2,
++     "w": 3,
++     "x": 4,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++ ]
+
+ ❯ tests/expedition.test.ts:217:51
+    215|   it('draws no left readout before the first offer or without saved he…
+    216|     for (let level = 1; level < HERO_MIN_LEVEL; level++) {
+    217|       expect(paint(newHeroProgress(), 40, level)).toEqual([]);
+       |                                                   ^
+    218|       expect(paint(undefined, 40, level)).toEqual([]);
+    219|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  tests/expedition.test.ts > A1 — the removed expedition HUD stays absent from the complete frame > draws no completed meter or duplicate ready label when an offer becomes ready
+AssertionError: expected [ Array(221) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 3,
++     "w": 7,
++     "x": 2,
++     "y": 24,
++   },
++   {
++     "h": 6,
++     "w": 5,
++     "x": 3,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 3,
++     "x": 4,
++     "y": 29,
++   },
++   {
++     "h": 3,
++     "w": 5,
++     "x": 3,
++     "y": 24,
++   },
++   {
++     "h": 2,
++     "w": 3,
++     "x": 4,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++ ]
+
+ ❯ tests/expedition.test.ts:225:66
+    223|     for (const reincarnations of [0, 1, 11]) {
+    224|       const hero = { ...newHeroProgress(), reincarnations };
+    225|       expect(paint(hero, 40, heroRequiredLevel(reincarnations))).toEqu…
+       |                                                                  ^
+    226|       expect(paint(hero, 40, heroRequiredLevel(reincarnations) - 1)).t…
+    227|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  tests/expedition.test.ts > A1 — the removed expedition HUD stays absent from the complete frame > draws no wait label or gauge during a deferred offer, including its final millisecond
+AssertionError: expected [ Array(221) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 3,
++     "w": 7,
++     "x": 2,
++     "y": 24,
++   },
++   {
++     "h": 6,
++     "w": 5,
++     "x": 3,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 3,
++     "x": 4,
++     "y": 29,
++   },
++   {
++     "h": 3,
++     "w": 5,
++     "x": 3,
++     "y": 24,
++   },
++   {
++     "h": 2,
++     "w": 3,
++     "x": 4,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++ ]
+
+ ❯ tests/expedition.test.ts:232:85
+    230|   it('draws no wait label or gauge during a deferred offer, including …
+    231|     for (const deferRemainingMs of [HERO_DEFER_MS, HERO_DEFER_MS / 4, …
+    232|       expect(paint({ ...newHeroProgress(), deferRemainingMs }, 40, HER…
+       |                                                                                     ^
+    233|     }
+    234|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  tests/expedition.test.ts > A1 — the removed expedition HUD stays absent from the complete frame > does not resurrect a rest gauge from legacy saves with positive rest time
+AssertionError: expected [ Array(221) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 3,
++     "w": 7,
++     "x": 2,
++     "y": 24,
++   },
++   {
++     "h": 6,
++     "w": 5,
++     "x": 3,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 3,
++     "x": 4,
++     "y": 29,
++   },
++   {
++     "h": 3,
++     "w": 5,
++     "x": 3,
++     "y": 24,
++   },
++   {
++     "h": 2,
++     "w": 3,
++     "x": 4,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++ ]
+
+ ❯ tests/expedition.test.ts:239:52
+    237|     for (const restRemainingMs of [90_000, 22_500, 1, 0]) {
+    238|       const save = parseSave({ ...DEFAULT_SAVE, hero: { ...newHeroProg…
+    239|       expect(paint(save.hero, 40, HERO_MIN_LEVEL)).toEqual([]);
+       |                                                    ^
+    240|     }
+    241|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  tests/expedition.test.ts > A1 — the removed expedition HUD stays absent from the complete frame > stays absent for a retained offer and for the reincarnation cap
+AssertionError: expected [ Array(221) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 3,
++     "w": 7,
++     "x": 2,
++     "y": 24,
++   },
++   {
++     "h": 6,
++     "w": 5,
++     "x": 3,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 3,
++     "x": 4,
++     "y": 29,
++   },
++   {
++     "h": 3,
++     "w": 5,
++     "x": 3,
++     "y": 24,
++   },
++   {
++     "h": 2,
++     "w": 3,
++     "x": 4,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++ ]
+
+ ❯ tests/expedition.test.ts:247:37
+    245|       choices: [{ formId: 'h01', buffPercent: 10 }, { formId: 'h02', b…
+    246|     for (const level of [11, 12, 100]) {
+    247|       expect(paint(old, 40, level)).toEqual([]);
+       |                                     ^
+    248|       expect(paint({ ...old, choices: [] }, 40, level)).toEqual([]);
+    249|       expect(paint({ ...old, reincarnations: HERO_MAX_REINCARNATIONS }…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  tests/expedition.test.ts > A1 — the removed expedition HUD stays absent from the complete frame > draws no old meter or soul estimate at any previously covered depth
+AssertionError: expected [ Array(221) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 29,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 24,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 26,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 28,
++   },
++   {
++     "h": 3,
++     "w": 7,
++     "x": 2,
++     "y": 24,
++   },
++   {
++     "h": 6,
++     "w": 5,
++     "x": 3,
++     "y": 23,
++   },
++   {
++     "h": 1,
++     "w": 3,
++     "x": 4,
++     "y": 29,
++   },
++   {
++     "h": 3,
++     "w": 5,
++     "x": 3,
++     "y": 24,
++   },
++   {
++     "h": 2,
++     "w": 3,
++     "x": 4,
++     "y": 27,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 25,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 28,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 10,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 14,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 12,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 11,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 13,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 8,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 33,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 34,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 35,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 36,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 2,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 3,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 4,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 5,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 6,
++     "y": 37,
++   },
++   {
++     "h": 1,
++     "w": 1,
++     "x": 7,
++     "y": 37,
++   },
++ ]
+
+ ❯ tests/expedition.test.ts:255:50
+    253|   it('draws no old meter or soul estimate at any previously covered de…
+    254|     for (const index of [0, 8, 100, 5000, 10_000_000]) {
+    255|       expect(paint(newHeroProgress(), index, 1)).toEqual([]);
+       |                                                  ^
+    256|       expect(paint(newHeroProgress(), index, HERO_MIN_LEVEL)).toEqual(…
+    257|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL  tests/heroArtCompatibility.test.ts > hero art redesign preserves published save and network identities > loads all collected looks and exact pending rolls, retaining each equipped id on the wire
+AssertionError: h01: expected { Object (version, level, ...) } to deeply equal { Object (version, level, ...) }
+
+- Expected
++ Received
+
+@@ -367,10 +367,12 @@
+    "items": {
+      "bone": 3,
+    },
+    "killCount": 233,
+    "level": 27,
++   "monsterCurveRebirths": 0,
++   "monsterCurveVersion": 10,
+    "monsterHp": "1",
+    "monsterIndex": 40,
+    "monsterSpeciesId": "golem",
+    "nextCompanionId": 3,
+    "progress": undefined,
+
+ ❯ tests/heroArtCompatibility.test.ts:65:69
+     63|       const freshEquipment = newEquipment();
+     64|       refreshEquipmentShop(freshEquipment, 0, 27);
+     65|       expect({ ...restored, progress: undefined }, equipped.formId).to…
+       |                                                                     ^
+     66|       expect(restored.progress?.heroCounts).toEqual(Object.fromEntries…
+     67|       expect(restored.progress?.reincarnationHistory).toEqual([]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL  tests/menuV9.test.ts > v0.9 direct opponent battle menu > keeps feedback without scrolling back when focus has moved away from the battle
+AssertionError: expected '전투를 준비하고 있습니다…' to contain '연결'
+
+Expected: "연결"
+Received: "전투를 준비하고 있습니다…"
+
+ ❯ tests/menuV9.test.ts:226:48
+    224|     f.doc.el('tab-roster').focus(); f.doc.el('tab-roster').click();
+    225|     pending.resolve({ ok: false, error: 'network' }); await flush();
+    226|     expect(f.feedback('player-1').textContent).toContain('연결');
+       |                                                ^
+    227|     expect(f.feedback('player-1').scrolls).toBe(1);
+    228|     expect(f.doc.activeElement).toBe(f.doc.el('tab-roster'));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL  tests/runtimeV8.test.ts > v0.8 save protection and last save status > blocks every mutation and online call after an invalid existing save without changing any original byte
+AssertionError: expected "spy" to not be called at all, but actually been called 1 times
+
+Received: 
+
+  1st spy call:
+
+    Array [
+      "desmon:action-result",
+      Object {
+        "action": Object {
+          "foodId": "c2",
+          "targetId": "c1",
+          "type": "consume",
+        },
+        "error": "상태가 바뀌었거나 요청이 취소됐습니다. 현재 상태를 확인해 주세요.",
+        "ok": false,
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ tests/runtimeV8.test.ts:104:32
+    102|     }
+    103|     expect(fake.onSave).not.toHaveBeenCalled();expect(fake.network).no…
+    104|     expect(fake.game.send).not.toHaveBeenCalled();
+       |                                ^
+    105|     expect(readFileSync(file,'utf8')).toBe('{broken');
+    106|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL  tests/tray.test.ts > tray menu template (F23) > pins the title to package.json version and the disabled rows
+AssertionError: expected 'DesMon v0.10.0' to be 'DesMon v0.11.0' // Object.is equality
+
+Expected: "DesMon v0.11.0"
+Received: "DesMon v0.10.0"
+
+ ❯ tests/tray.test.ts:198:24
+    196|       readFileSync(join(process.cwd(), 'package.json'), 'utf8'),
+    197|     ) as { version: string };
+    198|     expect(TRAY_TITLE).toBe(`DesMon v${pkg.version}`);
+       |                        ^
+    199|     const template = buildTrayMenuTemplate(GLOBAL_MODE, noopActions());
+    200|     expect(template[0]?.enabled).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL  tests/tray.test.ts > menu window (F52, src/main/menuWindow.ts) > declares width: 420
+AssertionError: expected '// Collection & Battle window (SPEC F…' to contain 'width: 420'
+
+- Expected
++ Received
+
+- width: 420
++ // Collection & Battle window (SPEC F52). A framed, fixed-size DOM window,
++ // opened ONLY from the tray item — this app is an accessory (LSUIElement,
++ // dock hidden), so a plain show() would leave the window behind the frontmost
++ // app: app.focus({ steal: true }) is what actually brings it forward.
++
++ import { app, BrowserWindow } from 'electron';
++ import * as path from 'node:path';
++
++ // Singleton reference (Assumption 29): a second tray click must focus the
++ // existing window, not stack a new one. Dropped on 'closed'.
++ let menuWindow: BrowserWindow | null = null;
++
++ /** The live menu window, if any (used by tests). */
++ export function getMenuWindow(): BrowserWindow | null {
++   return menuWindow;
++ }
++
++ /** Focus the open Collection & Battle window, or create and show it. */
++ export function showMenuWindow(): BrowserWindow {
++   if (menuWindow !== null) {
++     menuWindow.focus();
++     app.focus({ steal: true });
++     return menuWindow;
++   }
++
++   const win = new BrowserWindow({
++     width: 560,
++     height: 640,
++     useContentSize: true,
++     frame: true,
++     resizable: false,
++     minimizable: false,
++     maximizable: false,
++     fullscreenable: false,
++     alwaysOnTop: true,
++     show: false, // show on 'ready-to-show' to avoid white flash
++     title: 'DesMon — 영웅과 모험 기록',
++     webPreferences: {
++       preload: path.join(__dirname, '../preload/index.js'),
++       contextIsolation: true,
++       nodeIntegration: false,
++       sandbox: true,
++     },
++   });
++   menuWindow = win;
++
++   // Relative path resolves against the app root in dev AND inside the asar.
++   void win.loadFile('static/menu.html');
++   win.once('ready-to-show', () => {
++     win.show();
++     app.focus({ steal: true }); // accessory app: show() alone stays behind
++   });
++   win.on('closed', () => {
++     menuWindow = null;
++   });
++
++   return win;
++ }
++
+
+ ❯ tests/tray.test.ts:343:26
+    341|     "loadFile('static/menu.html')",
+    342|   ])('declares %s', (literal) => {
+    343|     expect(menuWindowTs).toContain(literal);
+       |                          ^
+    344|   });
+    345| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+

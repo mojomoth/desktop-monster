@@ -1,0 +1,372 @@
+{
+  "version": 11,
+  "reviewer": "/root/menu_review",
+  "reviewedAt": "2026-09-18T05:27:09.304Z",
+  "passed": false,
+  "pilot": {
+    "path": ".agentdoc/v11-20260918/native/pilot-01.json",
+    "sha256": "22e742478e44f90275b63c3b63b5feddd4e9b6fbb571148a134d7d72e256e76c"
+  },
+  "preservedOriginal": true,
+  "findings": [
+    {
+      "id": "HUD-PILOT-01",
+      "severity": "failed-visual-acceptance",
+      "screenshot": {
+        "name": "hud-boss-damage-end",
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-boss-damage-end.png",
+        "sha256": "7d9a16b9923d5f976331335fff16396a41578e5ebb6d12ab0199627c2b977bea",
+        "timing": {
+          "before": {
+            "now": 959.5,
+            "levelAge": null,
+            "feverAge": null,
+            "damageAge": 512.2999999523163,
+            "state": {
+              "level": 17,
+              "xp": 5464,
+              "killCount": 0,
+              "coins": "1000000000000000000000000000000000",
+              "pvpGoldNet": "0",
+              "pvpGoldDebt": "0",
+              "items": {},
+              "monster": {
+                "index": 999,
+                "speciesId": "slime",
+                "name": "Slime Lv.10 BOSS",
+                "maxHp": "1480718464055777434984355",
+                "curveVersion": 10,
+                "curveRebirths": 0,
+                "tier": 9,
+                "boss": true,
+                "type": "water"
+              },
+              "monsterHp": "11322",
+              "companions": [],
+              "nextCompanionId": 9007199254740991,
+              "earlyCaptureUsed": 5,
+              "souls": 0,
+              "releasedCount": 0,
+              "rebirths": 0,
+              "bestIndex": 1000,
+              "pvpParty": [],
+              "fever": {
+                "active": false,
+                "remainingMs": 0
+              },
+              "hero": {
+                "equipped": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "collection": [],
+                "reincarnations": 0,
+                "choices": [],
+                "deferRemainingMs": 0,
+                "offerSerial": 0
+              },
+              "equipment": {
+                "bag": [
+                  {
+                    "id": "e2",
+                    "templateId": "w-sword-common-1",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2457839508,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e3",
+                    "templateId": "w-sword-common-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2636259588,
+                    "attempts": "0"
+                  }
+                ],
+                "loadout": {
+                  "weapon": {
+                    "id": "e1",
+                    "templateId": "w-sword-rare-4",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2415756626,
+                    "attempts": "0"
+                  },
+                  "accessories": [
+                    {
+                      "id": "e8",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 3903839165,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e9",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 341849373,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e10",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 3983229662,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e11",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 700859472,
+                      "attempts": "0"
+                    }
+                  ]
+                },
+                "temporary": [],
+                "capacity": 64,
+                "expansions": 0,
+                "revision": 0,
+                "temporaryRevision": 0,
+                "heroChangeSerial": 0,
+                "nextId": 12,
+                "rngState": 1639813333,
+                "acquired": {},
+                "shop": {
+                  "serial": 7,
+                  "nextRefreshAt": 1789711879187,
+                  "lastObservedAt": 1789708280537,
+                  "stock": [
+                    {
+                      "id": "e4",
+                      "templateId": "w-sword-common-1",
+                      "enhancement": "0",
+                      "roll": 90,
+                      "seed": 3185687930,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e5",
+                      "templateId": "w-sword-uncommon-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 2214809258,
+                      "attempts": "0"
+                    }
+                  ],
+                  "boughtIds": []
+                }
+              },
+              "progress": {
+                "playTimeMs": 679.0999999046326,
+                "speciesKills": {},
+                "seenMonsters": [
+                  "slime"
+                ],
+                "seenHeroes": [],
+                "heroCounts": {},
+                "reincarnationHistory": [],
+                "pvpWins": 0,
+                "pvpLosses": 0,
+                "goldSpent": "0",
+                "rareMisses": 0,
+                "trainingLevel": 0,
+                "lureRemaining": 0,
+                "shopSerial": 0,
+                "legacyHistory": false,
+                "codex": {
+                  "acknowledgedHeroes": [],
+                  "acknowledgedMonsters": [],
+                  "goal": null
+                }
+              }
+            }
+          },
+          "after": {
+            "now": 976.6000000238419,
+            "levelAge": null,
+            "feverAge": null,
+            "damageAge": 529.3999999761581,
+            "state": {
+              "level": 17,
+              "xp": 5464,
+              "killCount": 0,
+              "coins": "1000000000000000000000000000000000",
+              "pvpGoldNet": "0",
+              "pvpGoldDebt": "0",
+              "items": {},
+              "monster": {
+                "index": 999,
+                "speciesId": "slime",
+                "name": "Slime Lv.10 BOSS",
+                "maxHp": "1480718464055777434984355",
+                "curveVersion": 10,
+                "curveRebirths": 0,
+                "tier": 9,
+                "boss": true,
+                "type": "water"
+              },
+              "monsterHp": "11322",
+              "companions": [],
+              "nextCompanionId": 9007199254740991,
+              "earlyCaptureUsed": 5,
+              "souls": 0,
+              "releasedCount": 0,
+              "rebirths": 0,
+              "bestIndex": 1000,
+              "pvpParty": [],
+              "fever": {
+                "active": false,
+                "remainingMs": 0
+              },
+              "hero": {
+                "equipped": {
+                  "formId": "h00",
+                  "buffPercent": 0
+                },
+                "collection": [],
+                "reincarnations": 0,
+                "choices": [],
+                "deferRemainingMs": 0,
+                "offerSerial": 0
+              },
+              "equipment": {
+                "bag": [
+                  {
+                    "id": "e2",
+                    "templateId": "w-sword-common-1",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2457839508,
+                    "attempts": "0"
+                  },
+                  {
+                    "id": "e3",
+                    "templateId": "w-sword-common-2",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2636259588,
+                    "attempts": "0"
+                  }
+                ],
+                "loadout": {
+                  "weapon": {
+                    "id": "e1",
+                    "templateId": "w-sword-rare-4",
+                    "enhancement": "0",
+                    "roll": 100,
+                    "seed": 2415756626,
+                    "attempts": "0"
+                  },
+                  "accessories": [
+                    {
+                      "id": "e8",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 3903839165,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e9",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 341849373,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e10",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 3983229662,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e11",
+                      "templateId": "a-ring-critical-common-1",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 700859472,
+                      "attempts": "0"
+                    }
+                  ]
+                },
+                "temporary": [],
+                "capacity": 64,
+                "expansions": 0,
+                "revision": 0,
+                "temporaryRevision": 0,
+                "heroChangeSerial": 0,
+                "nextId": 12,
+                "rngState": 1639813333,
+                "acquired": {},
+                "shop": {
+                  "serial": 7,
+                  "nextRefreshAt": 1789711879187,
+                  "lastObservedAt": 1789708280550,
+                  "stock": [
+                    {
+                      "id": "e4",
+                      "templateId": "w-sword-common-1",
+                      "enhancement": "0",
+                      "roll": 90,
+                      "seed": 3185687930,
+                      "attempts": "0"
+                    },
+                    {
+                      "id": "e5",
+                      "templateId": "w-sword-uncommon-2",
+                      "enhancement": "0",
+                      "roll": 100,
+                      "seed": 2214809258,
+                      "attempts": "0"
+                    }
+                  ],
+                  "boughtIds": []
+                }
+              },
+              "progress": {
+                "playTimeMs": 692.4999999046325,
+                "speciesKills": {},
+                "seenMonsters": [
+                  "slime"
+                ],
+                "seenHeroes": [],
+                "heroCounts": {},
+                "reincarnationHistory": [],
+                "pvpWins": 0,
+                "pvpLosses": 0,
+                "goldSpent": "0",
+                "rareMisses": 0,
+                "trainingLevel": 0,
+                "lureRemaining": 0,
+                "shopSerial": 0,
+                "legacyHistory": false,
+                "codex": {
+                  "acknowledgedHeroes": [],
+                  "acknowledgedMonsters": [],
+                  "goal": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "finding": "No damage glyph ink remains in native PNG despite recorded damageAge 512.3–529.4ms.",
+      "evidence": "All 24,640 native pixels in damage ROI x244..397, y0..159 are transparent. Start glyph logical top62 equals source float age100ms (age0 top67); first queued attack is aged by the startup frame before observer damageAt. Pure spawn + tick100 + tick512 expires at612ms.",
+      "fix": "Settle three field animation frames before first input and enforce captured-PNG ink, bounds, rise and glyph/color-phase assertions."
+    }
+  ],
+  "additionalReview": {
+    "feverWhitePhase": "Confirmed 848 white native ink pixels, zero yellow, in fever ROI x108..219, y100..124; correct phase.",
+    "normalCriticalBounds": "Large overlapping numbers remain within right-side canvas bounds; overlap is multiple pool entries, not crop."
+  },
+  "next": "Requires a new native output path after serial performance observations. Existing pilot and PNGs must not be overwritten."
+}

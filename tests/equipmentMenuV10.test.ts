@@ -7,7 +7,7 @@ import type { CollectionAction } from '../src/core/collection.js';
 import type { SpriteCanvas } from '../src/renderer/sprites/index.js';
 class Element implements MenuElement {
   className = ''; textContent: string | null = ''; hidden = false; disabled = false;
-  width = 0; height = 0; children: Element[] = []; attributes = new Map<string, string>();
+  open = false; width = 0; height = 0; children: Element[] = []; attributes = new Map<string, string>();
   callbacks: (() => void)[] = [];
   append(...children: unknown[]): void { this.children.push(...children as Element[]); }
   replaceChildren(...children: unknown[]): void { this.children = children as Element[]; }
@@ -34,7 +34,7 @@ describe('v10 equipment menu', () => {
     expect(sent).toEqual([{ type: 'equipmentSell', itemId: equipment.loadout.accessories[0]!.id, revision: 7 }]);
     const before = root.find('equipment-card')[0]; update(save);
     expect(root.find('equipment-card')[0]).toBe(before);
-    root.find('equipment-pages')[0]!.children[1]!.click();
+    root.find('equipment-pages').find(el => !el.hidden)!.children[1]!.click();
     expect(root.find('equipment-card')[4]!.attributes.get('data-item-id')).toBe(equipment.bag[24]!.id);
   });
   it('reveals rare main stat and requirement, hides only secondary until ownership, retains countdown', () => {
@@ -54,6 +54,39 @@ describe('v10 equipment menu', () => {
     update(parseSave({ level: 5, coins: '1000000', equipment }));
     expect(root.find('equipment-bonus')[0]!.textContent).not.toContain('???');
     expect(root.find('equipment-card')[0]!.attributes.get('style')).toContain('--rarity-color:');
+  });
+  it('retains live disclosure nodes and uses updated affordability and revision after wallet changes', () => {
+    const equipment = newEquipment();
+    equipment.bag = [createEquipmentItem(equipment, 'w-sword-common-1')];
+    const root = new Element(), sent: CollectionAction[] = [];
+    const update = mountEquipment(doc, root, action => sent.push(action), 'inventory', () => 0);
+    update(parseSave({ coins: '0', equipment }));
+    const details = root.find('equipment-details')[0]!, preview = root.find('equipment-enhance-preview')[0]!;
+    details.open = true; preview.open = true;
+    expect(root.find('equipment-enhance')[0]!.disabled).toBe(true);
+    equipment.revision++;
+    update(parseSave({ coins: '10000', level: 2, equipment }));
+    expect(root.find('equipment-details')[0]).toBe(details);
+    expect(root.find('equipment-enhance-preview')[0]).toBe(preview);
+    expect(details.open && preview.open).toBe(true);
+    root.find('equipment-enhance')[0]!.click();
+    expect(sent).toEqual([{ type: 'equipmentEnhance', itemId: equipment.bag[0]!.id, revision: equipment.revision }]);
+  });
+  it('offers exact manual accessory replacement and retains it across a gold-only update', () => {
+    const equipment = newEquipment();
+    equipment.loadout.accessories = Array.from({ length: 4 }, () => createEquipmentItem(equipment, 'a-ring-critical-common-1'));
+    const chosen = createEquipmentItem(equipment, 'a-ring-critical-common-1'); equipment.bag = [chosen];
+    const root = new Element(), sent: CollectionAction[] = [];
+    const update = mountEquipment(doc, root, action => sent.push(action), 'inventory', () => 0);
+    update(parseSave({ equipment }));
+    const card = root.find('equipment-card').find(el => el.attributes.get('data-item-id') === chosen.id)!;
+    const choice = card.find('equipment-equip-choice')[0]!; choice.open = true;
+    const button = card.find('equipment-replace')[2]!;
+    update(parseSave({ coins: '9', equipment }));
+    expect(card.find('equipment-replace')[2]).toBe(button);
+    expect(choice.open).toBe(true);
+    button.click();
+    expect(sent).toEqual([{ type: 'equipmentEquip', itemId: chosen.id, replaceId: equipment.loadout.accessories[2]!.id, revision: equipment.revision }]);
   });
   it('never labels a positive high-stage chance as zero and exposes rational odds', () => {
     expect(successText(5n)).toBe('100%');

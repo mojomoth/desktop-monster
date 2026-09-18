@@ -13,13 +13,14 @@ import { IPC } from '../src/shared/ipc.js';
 
 const relay = vi.hoisted(() => ({
   handlers: new Map<string, (...args: unknown[]) => unknown>(),
+  events: new Map<string, (...args: unknown[]) => unknown>(),
   match: vi.fn(), pvp: vi.fn(),
   game: { id: 1, send: vi.fn(), getURL: () => 'file:///app/static/index.html' }, menu: { id: 2, send: vi.fn(), getURL: () => 'file:///app/static/menu.html' },
 }));
 vi.mock('electron', () => ({
   app: { getPath: () => '/injected/v7-test' }, shell: { openExternal: vi.fn() },
   BrowserWindow: { getAllWindows: () => [{ webContents: relay.game }, { webContents: relay.menu }] },
-  ipcMain: { handle: (name: string, fn: (...args: unknown[]) => unknown) => relay.handlers.set(name, fn), on: vi.fn() },
+  ipcMain: { handle: (name: string, fn: (...args: unknown[]) => unknown) => relay.handlers.set(name, fn), on: (name: string, fn: (...args: unknown[]) => unknown) => relay.events.set(name, fn) },
 }));
 vi.mock('../src/main/globalInput.js', () => ({ getCurrentInputMode: vi.fn() }));
 vi.mock('../src/main/persistence.js', () => ({ readSaveFile: vi.fn(), readSaveFileResult: vi.fn(() => ({ kind: 'missing' })), writeSaveFile: vi.fn() }));
@@ -52,6 +53,24 @@ describe('v0.9 main-owned companion IPC', () => {
     expect(relay.menu.send).not.toHaveBeenCalled();
   });
 
+  it('validates manual equipment IDs and revisions and only forwards field-owned results', async () => {
+    relay.game.send.mockClear(); relay.menu.send.mockClear(); registerIpcHandlers();
+    const send = (payload: unknown) => relay.handlers.get(IPC.MENU_ACTION)!({ sender: relay.menu }, payload);
+    const valid = { type: 'equipmentEquip', itemId: 'e1', replaceId: 'e2', revision: 0 };
+    for (const invalid of [{ ...valid, revision: -1 }, { ...valid, itemId: 'bad' }, { ...valid, replaceId: 2 }]) await send(invalid);
+    expect(relay.game.send).not.toHaveBeenCalled();
+    await send(valid);
+    expect(relay.game.send).toHaveBeenCalledExactlyOnceWith(IPC.ACTION, valid);
+    relay.game.send.mockClear();
+    const receive = relay.events.get(IPC.ACTION_RESULT)!;
+    receive({ sender: relay.menu }, { action: valid, ok: true });
+    receive({ sender: relay.game }, { action: valid, ok: 1 });
+    receive({ sender: relay.game }, { action: valid, ok: false, error: 'x'.repeat(241) });
+    expect(relay.menu.send).not.toHaveBeenCalled();
+    receive({ sender: relay.game }, { action: valid, ok: false, error: 'Stale equipment action' });
+    expect(relay.menu.send).toHaveBeenCalledExactlyOnceWith(IPC.ACTION_RESULT, { action: valid, ok: false, error: 'Stale equipment action' });
+    expect(relay.game.send).not.toHaveBeenCalled();
+  });
   it('drops missing/malformed confirmations and relays an exact safe-integer snapshot', () => {
     relay.game.send.mockClear(); relay.menu.send.mockClear();
     registerIpcHandlers();
@@ -119,6 +138,7 @@ describe('shared IPC channels (src/shared/ipc.ts)', () => {
       THEFTS: 'desmon:thefts',
       RECLAIM: 'desmon:reclaim',
       ACTION: 'desmon:action',
+      ACTION_RESULT: 'desmon:action-result',
       MENU_ACTION: 'desmon:menu-action',
       STATE_CHANGED: 'desmon:state-changed',
       MENU_READY: 'desmon:menu-ready',
@@ -267,7 +287,7 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     // committed first, then delivered as a single RELEASE_STATE transaction.
     expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(2);
     expect(mainIpcTs.lastIndexOf('webContents.send(')).toBeLessThan(mainIpcTs.indexOf('ipcMain.handle'));
-    expect(mainIpcTs.match(/IPC\.ACTION/g)).toHaveLength(1);
+    expect(mainIpcTs.match(/IPC\.ACTION\b/g)).toHaveLength(1);
     expect(mainIpcTs).toContain('sendToAll(IPC.RELEASE_STATE, state)');
     const coordinator = read('src/main/coordinator.ts');
     expect(coordinator).toContain("{ type: 'syncPvpProgress', wins: me.value.wins, losses: me.value.losses }");

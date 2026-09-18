@@ -1,0 +1,293 @@
+{
+  "version": 11,
+  "kind": "critic-native-pilot-and-baseline-review",
+  "reviewer": "/root/skills_harness",
+  "source": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+  "createdAt": "2026-09-18T05:19:37.841Z",
+  "overallReleaseApproved": false,
+  "verdicts": {
+    "ui": "approved for reviewed source and pilot scenarios",
+    "manualEquipment": "approved for reviewed implementation subset; balance/core release remains pending",
+    "visual": "changes-requested: native boss end-frame acceptance is unsupported",
+    "native": "structural/latency checks pass; visual acceptance remains incomplete",
+    "baseline": "integrity verified; candidate comparison not yet reviewed"
+  },
+  "sourceHashes": {
+    "src/menu/index.ts": "90ab4c984bcef21865fe49fcc71403cb4e1395edb45fd0626b6462e7434c2cd7",
+    "src/menu/equipment.ts": "12895099e5a4b19a55f262f744086c9c4d917c377c085d3e2b653768b1b5bc16",
+    "src/menu/codex.ts": "9c257ec795092ed4a681d3c212bd6e6a72b7e21671d821c6781cd871ee6d643b",
+    "src/main/ipc.ts": "e72adaa2c73a0ac5fdc273d7ff64ee8e330da39683777a0a0b6934ec3b06a6f3",
+    "src/main/menuWindow.ts": "659cc97944bb869f50849e5e9adf9dd695834d31bae714fa4572495abaa39632",
+    "src/main/tray.ts": "18b961d4f5b313260745c1ae92ddfbef45fce187d11e9a1dc85d7667e899eff7",
+    "src/shared/ipc.ts": "df4fc363662da62fd317565a1c0a5c74e9ad229c0b12cde8b54f80b0a1d3c3a2",
+    "src/preload/index.ts": "620b232c35470937e7654e839abfe88bab5a6492b0f0af689d0599a6548b96c0",
+    "src/renderer/index.ts": "1b77dd8aff0556ba7ca2964f81019274e4f6a634c21a66626411ead950f0da60",
+    "static/menu.html": "3395b61418431a55f07c71bcd970a09d83b948d9fe4cd51a1a248c84ee325366",
+    "static/menu.css": "990eca329ec1acc4a06ce7a22d4aab077af4c15ba78dd0dd3cf8f237e0e6790d",
+    "tests/runtimeV8.test.ts": "dfca41af136c01bac52f88d0655a52e4fb63ba79501a12b1a6c926cc345af2aa",
+    "tests/tray.test.ts": "716bd49e3f919977b514d98692b3cb89a18dea37526b134a4ca026b592adee97",
+    "tests/menuV9.test.ts": "12006ad29debd9f87206edf2cececc5552b29bd74583ae2cb5da7751c734facd",
+    "src/renderer/hud.ts": "521989b6527555283bc95bad6d324971fb1b711931d84645428eb79e10068ab3",
+    "src/renderer/game.ts": "7eb92fabbad1c0c4a0a132b2d5d4be146bbede863fd2426c06833266d9d946ec",
+    "tests/expedition.test.ts": "6a253bee2e86931b8aecbeef7d364880927d01fcf85c6b578fb618916abf0cc1",
+    "src/core/equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+    "src/core/engine.ts": "7e14ce5271963e78fa0b95751a7a076edde1c7b824345bc631a1880a3f2f215c",
+    "tests/equipmentV11.test.ts": "b148e3cfadf543a04940d9353c218ee659c6281a9c9851b60ec58ce12d0b31d3",
+    "tests/hudV11.test.ts": "5a77dbb2ad34717934dcd7d1f8a89708a07e669df9a2ea174706df289a17bccb",
+    ".harness/v11/runtime.mjs": "c25022784916b87557ac22869a53db2cf5dd8829c6b2dce8c68b96a4ccdeac96",
+    ".harness/v11/ui-cases.mjs": "069137fa7fe67e583af2e4de9d8c4b3ad1f6ca823a20401760918980f4ea9a1c",
+    ".harness/v11/runtime.test.mjs": "5307a044af38837df12ea6e62ef9558892f9c8787aacb54a2917db5e1c3c8052"
+  },
+  "native": {
+    "path": ".agentdoc/v11-20260918/native/pilot-01.json",
+    "sha256": "22e742478e44f90275b63c3b63b5feddd4e9b6fbb571148a134d7d72e256e76c",
+    "appHash": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34",
+    "scenarioChecks": [
+      {
+        "name": "menu-live-updates",
+        "checks": 8,
+        "allPassed": true,
+        "runtimePassed": true
+      },
+      {
+        "name": "manual-equipment",
+        "checks": 110,
+        "allPassed": true,
+        "runtimePassed": true
+      },
+      {
+        "name": "equipment-restart",
+        "checks": 4,
+        "allPassed": true,
+        "runtimePassed": true
+      },
+      {
+        "name": "hud-states",
+        "checks": 9,
+        "allPassed": true,
+        "runtimePassed": true
+      }
+    ],
+    "latency": [
+      {
+        "name": "tabs",
+        "samples": 100,
+        "visualP95Ms": 25.100000023841858,
+        "localResultP95Ms": 25.100000023841858
+      },
+      {
+        "name": "disclosures",
+        "samples": 100,
+        "visualP95Ms": 24,
+        "localResultP95Ms": 24
+      },
+      {
+        "name": "growth-selection",
+        "samples": 100,
+        "visualP95Ms": 22.699999928474426,
+        "localResultP95Ms": 22.699999928474426
+      },
+      {
+        "name": "equipment-actions",
+        "samples": 108,
+        "visualP95Ms": 24.200000047683716,
+        "localResultP95Ms": 36.39999997615814
+      }
+    ],
+    "screenshotHashes": {
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/menu-live-updates/inventory-live-page-two.png": "b0d5fb065e88b011a4827f5063290f94d8aede34ed45951f22bf52a4182f1291",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/menu-live-updates/shop-live-disclosure.png": "fb9ab768d382b9d92541807b81ab32f2de39fe5fe9387b25295680a684f71eee",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/menu-live-updates/growth-live-selection.png": "091a95f664b56849f18807c936af514e5df58c901d8a43e7cc53e9cf2d71df18",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/menu-live-updates/codex-heroes.png": "1258c3c68151f09149405b758d5f52a1c43978a238c05842c94e0af88c54121c",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/menu-live-updates/codex-monsters.png": "a6b57d18785d733e9b674ebead440981f9139727c12f1f511b0d7ba3707408e0",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/manual-equipment/manual-weaker.png": "6454e98a3a9a608073d7a3df1acd8e137baaac0ffc63daf8562680ebcdcb6a72",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/manual-equipment/full-bag-accessory-swap.png": "3e3418b38e33df5b1ff60ff99faea0606b318156ebeed3ac24ed042c301f785f",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/manual-equipment/hud-full-bag-counters.png": "5a980577ba6c8c42fdfcd703e390cadd44c774342bf1a770670390eb5fbba666",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/manual-equipment/stronger-new-purchase.png": "34d640b1090c63ed95c4338cdff08e7f7be14f6cc0e1db79df783a2af16dd7dc",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/manual-equipment/hero-change-compatibility.png": "2219ce6f6a53ba9921773ed9a1f733b59c5667ca3e350a72fcccbcb1643c25f2",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/equipment-restart/restarted-manual-loadout.png": "cae19e9c51d2c351b30255bb9ac62b71517f613f814834966371c5df4b54e9b5",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-boss-damage-start.png": "4f82314e3fb81b5dc650ebc9b2ab188b76c6637f2276de07af460035f28ec08d",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-boss-damage-end.png": "7d9a16b9923d5f976331335fff16396a41578e5ebb6d12ab0199627c2b977bea",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-normal-damage-start-combined-start.png": "8f4580f13917ddb20c2299eff412671d528da9ccb01bd25ebcabb42415a9b06f",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-fever-white-phase.png": "9e2c3b7850e23ee7d91b7e4358a81cc99437fbb2b5fdd5a4e37b0c4cdcad317b",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-normal-damage-end.png": "45301f44e6f2ee958bccc0c2c4d64ce0d65b9bd30c6643fd000325d853cc8b30",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-combined-level-white.png": "03561e5bf891b2e28f243fd2813ff2331ddfdc5a77d6f775624aa86af40b0eb3",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-combined-middle.png": "e7b274ccd1b93cc77f9b6ccc0f2467dfe90db67970986a58bd7d224bd0790ba9",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-combined-end.png": "98bc2aec5c1db4c8078585efaa965c2fae5d2df5f7558f768b7048b826c076f2",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-combined-expired.png": "e85f34a0a895ce6debc58ef0cd01c1ca30fd3b3ec48e4688613ff3730798d376"
+    },
+    "actualPngsViewed": 20
+  },
+  "baseline": [
+    {
+      "path": ".agentdoc/v11-20260918/performance/attempt01/baseline-active.json",
+      "sha256": "a3a700f9eb43e2957dbd65cef273d946d0599fe8b2efbfb6a1275a95d773b785",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json.samples.jsonl",
+        "sha256": "422310b876623fd5c01b8e4ad4683411f0cc7b0ba2ff44ac3f07f2bdedd05cb1"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json.lifecycle.json",
+        "sha256": "5ae2ab4becebd300d44a0e920586171a17b7bba4020a85fe141196cf17eeaea0"
+      },
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+      "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+      "independentProcessSumCpuP95": 2.0380305937182523,
+      "independentProcessSumWorkingSetMiBP95": 216.765625,
+      "finalKills": 70,
+      "finalPlayTimeMs": 1799075.6999999285,
+      "slot": "baseline-active",
+      "profile": "active",
+      "durationMs": 1800061.829708,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5454.351167000001,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 1.0244531503128174,
+        "median": 1.3445447985639771,
+        "p95": 2.0380305937182523,
+        "max": 2.4391064273803225
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 180.96875,
+        "median": 195.453125,
+        "p95": 216.765625,
+        "max": 233.546875
+      },
+      "summary": {
+        "cpuP95": 2.0380305937182523,
+        "workingSetMiBP95": 216.765625,
+        "initialMemoryMedian": 195.453125,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 3570,
+        "expected": 3600,
+        "fraction": 0.9916666666666667,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1797269.0077499999,
+            "expectedInputs": 3594.5380155,
+            "actualInputs": 3565
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 60.5042910000775,
+          "expectedInputs": 0.121008582000155,
+          "actualInputs": 0,
+          "totalAtShutdown": 3570
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918/performance/attempt01/baseline-idle.json",
+      "sha256": "a36b50e296670ef5e9008369378af910d575ebec2a0098dbd4f6016ca6f8c6d2",
+      "raw": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json.samples.jsonl",
+        "sha256": "6900a7ad14d1bb8b2317f75936ea2c6014d1ed9830961b151dfd21fb9e45877d"
+      },
+      "lifecycle": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json.lifecycle.json",
+        "sha256": "93ca4458e6a34c263a068bbfe0299ac32188d9a55192351425dd72d4aa18ed7a"
+      },
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+      "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+      "independentProcessSumCpuP95": 1.3919052796931066,
+      "independentProcessSumWorkingSetMiBP95": 200.328125,
+      "finalKills": 33,
+      "finalPlayTimeMs": 1795002.5000000237,
+      "slot": "baseline-idle",
+      "profile": "idle",
+      "durationMs": 1800057.17425,
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "maximumSampleGapMs": 5065.020333,
+      "initialFixtureSamples": [],
+      "cpu": {
+        "samples": 301,
+        "min": 0.9671342404719669,
+        "median": 1.1156092249045635,
+        "p95": 1.3919052796931066,
+        "max": 2.013105850426656
+      },
+      "workingSetMiB": {
+        "samples": 301,
+        "min": 157.828125,
+        "median": 180.28125,
+        "p95": 200.328125,
+        "max": 223.90625
+      },
+      "summary": {
+        "cpuP95": 1.3919052796931066,
+        "workingSetMiBP95": 200.328125,
+        "initialMemoryMedian": 180.28125,
+        "finalMemoryMedian": null
+      },
+      "input": {
+        "actual": 0,
+        "expected": 0,
+        "fraction": null,
+        "phases": [
+          {
+            "startMs": 0,
+            "endMs": 1800000,
+            "measuredFromMs": 0,
+            "measuredThroughMs": 1796774.605375,
+            "expectedInputs": 0,
+            "actualInputs": 0
+          }
+        ],
+        "closeout": {
+          "elapsedMs": 54.884083999786526,
+          "expectedInputs": 0,
+          "actualInputs": 0,
+          "totalAtShutdown": 0
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "C11-NATIVE-01",
+      "severity": "acceptance-blocker",
+      "scope": "native HUD evidence",
+      "file": ".harness/v11/ui-cases.mjs",
+      "line": 312,
+      "description": "boss-damage-end-still-visible only checks inferred damageAge 500..600ms. Pilot PNG has no damage ink, so passed:true does not substantiate visibility at the end of animation.",
+      "evidence": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/native/attempt-pilot-01-1789708245083/hud-states/hud-boss-damage-end.png",
+        "damageAgeBeforeMs": 512.2999999523163,
+        "damageAgeAfterMs": 529.3999999761581,
+        "roiNativePixels": [
+          244,
+          0,
+          400,
+          152
+        ],
+        "opaquePixelCount": 0
+      },
+      "required": "Warm up first-frame scheduling, observe the actual presentation clock or derive a justified capture age, and require visible damage pixels with upward displacement in new native captures. Keep failed pilot evidence."
+    }
+  ],
+  "visualChecks": {
+    "counters": "top-left; full-bag label below counters; screenshots show clear hero stack and monster HP/crown spacing",
+    "levelUp": "above REBIRTH READY, outlined yellow/white with valid expiry capture",
+    "fever": "one hero-head label; exact white-phase ROI has848white and0yellow pixels; combined-start/middle yellow. Initial subjective yellow concern retracted after palette counts.",
+    "normalDamage": "native start and near-end visible above monster; upward displacement clear; several recent hits overlap inside monster-side reserved region",
+    "menu": "all8tabs fit560px; equipment/shop disclosures and focused controls survive live saves; growth instruction and cancel near roster; codex arrows lower-right",
+    "manual": "weaker selection retained,full-bag explicit accessory replacement,stale revision rejected,unrelated sale/weak purchase retained choice,stronger new purchase upgrades,hero compatibility keeps stored gear,restart keeps manual weapon"
+  },
+  "limits": [
+    "No Electron or additional performance observation launched by this review.",
+    "Baseline validation uses Critic-authored checker plus independent process-sum/quantile recomputation; Host independently reviews checker implementation.",
+    "Previously executed targeted source tests are supporting review context; no new test invocation claimed here.",
+    "Four native scenarios and synthetic local clicks do not prove human fun, global-hook accessibility, real Windows hardware, production deployment, or every menu/error path.",
+    "No balance winner/heldout approval; no overall release approval; candidate performance remains pending."
+  ]
+}

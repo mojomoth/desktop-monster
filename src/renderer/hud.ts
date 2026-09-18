@@ -1,8 +1,6 @@
 // HUD painting (SPEC F21 + T14/T15 presentation): boxed monster HP bar,
-// above-hero `LV n` + XP bar, top-right kill/coin counters (with a collection
-// pop flash), the pooled floating-damage-number system — numbers rise 8px
-// and fade over 600ms; crits draw double-size and yellow (Manual M2) — and
-// the flashing "LEVEL UP!" banner (Manual M3).
+// above-hero labels and XP bar, top-left kill/coin counters (with a collection
+// pop flash), pooled floating damage and PvP result banners.
 // DOM-free on purpose — everything draws through SpriteCanvas so the tests
 // run under vitest's node environment (same pattern as sprites/sprite.ts).
 
@@ -31,6 +29,9 @@ export const COUNTER_TOP = 24;
 export const COUNTER_SCALE = 1;
 export const COUNTER_ROW_GAP = 10;
 export const COIN_COUNTER_Y = COUNTER_TOP + COUNTER_ROW_GAP;
+export const COIN_COUNTER_X = HUD_MARGIN;
+export const COUNTER_TEXT_X = HUD_MARGIN + 9;
+export const BAG_FULL_Y = COIN_COUNTER_Y + 12;
 /** XP progress bar box size (above the hero, under the LV text). */
 export const XP_BAR_W = 40;
 export const XP_BAR_H = 4;
@@ -84,15 +85,26 @@ export function drawLevelHud(
   state: Readonly<GameState>,
   cx: number,
   bottom: number,
+  effects: { levelUp?: Banner; feverAgeMs?: number } = {},
 ): void {
   const barX = Math.round(cx - XP_BAR_W / 2);
   const barY = bottom - XP_BAR_H;
   drawMeter(ctx, barX, barY, XP_BAR_W, XP_BAR_H, state.xp / xpToNext(state.level), COLORS.cyan);
   const label = `LV ${String(state.level)}`;
-  drawOutlinedText(ctx, label, Math.round(cx - textWidth(label) / 2), barY - FONT_H - 2, 1, COLORS.white);
+  let labelY = barY - FONT_H - 2;
+  drawOutlinedText(ctx, label, Math.round(cx - textWidth(label) / 2), labelY, 1, COLORS.white);
   if (heroReady(state.level, state.hero)) {
     const ready = 'REBIRTH READY';
-    drawOutlinedText(ctx, ready, Math.round(cx - textWidth(ready) / 2), barY - 2 * (FONT_H + 2), 1, COLORS.yellow);
+    labelY -= FONT_H + 2;
+    drawOutlinedText(ctx, ready, Math.round(cx - textWidth(ready) / 2), labelY, 1, COLORS.yellow);
+  }
+  if (effects.levelUp?.active && effects.levelUp.text === LEVEL_UP_TEXT) {
+    labelY -= FONT_H + 2;
+    const color = Math.floor(effects.levelUp.ageMs / LEVEL_UP_FLASH_MS) % 2 === 0 ? COLORS.yellow : COLORS.white;
+    drawOutlinedText(ctx, LEVEL_UP_TEXT, Math.round(cx - textWidth(LEVEL_UP_TEXT) / 2), labelY, 1, color);
+  }
+  if (effects.feverAgeMs !== undefined) {
+    drawFeverLabel(ctx, cx, labelY - FONT_H * 2 - 3, effects.feverAgeMs);
   }
 }
 
@@ -118,7 +130,7 @@ function drawSkullIcon(ctx: SpriteCanvas, x: number, y: number): void {
 export const COUNTER_POP_MS = 150;
 
 /**
- * Top-right HUD: skull × killCount row, coin × coins row (right-aligned).
+ * Top-left HUD: fixed skull/coin icons and left-aligned counts.
  * While `coinPop` is set (a collected drop just arrived, T15) the coin row
  * pops: the count flashes white and the icon lifts one pixel.
  */
@@ -129,14 +141,14 @@ export function drawCounters(
   coinPop = false,
 ): void {
   const kills = format(state.killCount);
-  const killsX = viewW - HUD_MARGIN - textWidth(kills) * COUNTER_SCALE;
+  const killsX = Math.min(COUNTER_TEXT_X, viewW - HUD_MARGIN - textWidth(kills) * COUNTER_SCALE);
   const coins = format(state.coins);
-  const coinsX = viewW - HUD_MARGIN - textWidth(coins) * COUNTER_SCALE;
+  const coinsX = Math.min(COUNTER_TEXT_X, viewW - HUD_MARGIN - textWidth(coins) * COUNTER_SCALE);
   drawOutlinedText(ctx, kills, killsX, COUNTER_TOP, COUNTER_SCALE, COLORS.white);
-  drawSkullIcon(ctx, killsX - 8, COUNTER_TOP);
+  drawSkullIcon(ctx, HUD_MARGIN + 1, COUNTER_TOP);
 
   drawOutlinedText(ctx, coins, coinsX, COIN_COUNTER_Y, COUNTER_SCALE, coinPop ? COLORS.white : COLORS.yellow);
-  const iconX = coinsX - 9;
+  const iconX = COIN_COUNTER_X;
   const iconY = COIN_COUNTER_Y - (coinPop ? 1 : 0);
   for (const [ox, oy] of [[-1, 0], [1, 0], [0, -1], [0, 1]] as const) {
     drawSprite(ctx, itemSprites.coin, 0, iconX + ox, iconY + oy, { scale: COUNTER_SCALE, tint: COLORS.void });
@@ -158,6 +170,8 @@ export interface FloatingNumber {
   color?: string;
   /** Field-only fit for long suffixes; target-position PvP keeps its default. */
   scale?: number;
+  /** Field labels fit above the monster; replay labels keep their original rise. */
+  field?: boolean;
 }
 
 /** Fixed pool size — key-mashing can never grow an unbounded array. */
@@ -166,6 +180,10 @@ export const FLOAT_POOL_SIZE = 16;
 export const FLOAT_LIFE_MS = 600;
 /** Total rise over the lifetime, game pixels. */
 export const FLOAT_RISE_PX = 14;
+export const FIELD_FLOAT_RISE_PX = 28;
+/** Ink bounds reserve one pixel each for outline and camera shake. */
+export const FIELD_FLOAT_LEFT = 122;
+export const FIELD_FLOAT_RIGHT = 197;
 /** Age fraction past which a float draws in its dim fade color. */
 export const FLOAT_FADE_RATIO = 2 / 3;
 /** Pixel scale of normal damage numbers (user change 2026-09-06: readable 2x glyphs with a 1-px outline). */
@@ -204,6 +222,7 @@ export function spawnFloat(
   crit: boolean,
   color?: string,
   scale?: number,
+  field = false,
 ): void {
   let slot = pool.find((f) => !f.active);
   if (slot === undefined) {
@@ -223,14 +242,17 @@ export function spawnFloat(
   slot.crit = crit;
   slot.color = color;
   slot.scale = scale;
+  slot.field = field;
   slot.ageMs = 0;
 }
 
-/** Keep glyphs in x[68,143], leaving room for outline and 1px camera shake. */
-export function spawnFieldFloat(pool: FloatingNumber[], y: number, text: string, crit: boolean, color?: string): void {
+/** Center on the monster, fitting long labels into its side of the field. */
+export function spawnFieldFloat(pool: FloatingNumber[], cx: number, y: number, text: string, crit: boolean, color?: string): void {
   const width = textWidth(crit ? `${text}!` : text);
-  const scale = Math.max(1, Math.min(crit ? CRIT_FLOAT_SCALE : FLOAT_SCALE, Math.floor(75 / Math.max(1, width))));
-  spawnFloat(pool, Math.floor(143 - width * scale / 2), y, text, crit, color, scale);
+  const scale = Math.max(1, Math.min(crit ? CRIT_FLOAT_SCALE : FLOAT_SCALE,
+    Math.floor((FIELD_FLOAT_RIGHT - FIELD_FLOAT_LEFT) / Math.max(1, width))));
+  const x = Math.max(FIELD_FLOAT_LEFT, Math.min(FIELD_FLOAT_RIGHT - width * scale, Math.round(cx - width * scale / 2)));
+  spawnFloat(pool, x + width * scale / 2, y, text, crit, color, scale, true);
 }
 
 /** Age every active slot; slots past FLOAT_LIFE_MS deactivate. */
@@ -309,19 +331,20 @@ export function drawFloats(ctx: SpriteCanvas, pool: FloatingNumber[]): void {
         ? COLORS.orange
         : COLORS.steel
       : (f.color ?? (f.crit ? COLORS.yellow : COLORS.white));
-    const rise = Math.round(FLOAT_RISE_PX * (f.crit ? CRIT_RISE_MULT : 1) * (f.ageMs / FLOAT_LIFE_MS));
+    const rise = Math.round((f.field ? FIELD_FLOAT_RISE_PX : FLOAT_RISE_PX) * (f.crit ? CRIT_RISE_MULT : 1) * (f.ageMs / FLOAT_LIFE_MS));
     const x = Math.round(f.x - (textWidth(text) * scale) / 2);
-    const y = f.y - rise - (scale - 1) * FONT_H;
+    const top = f.y - rise - (scale - 1) * FONT_H;
+    const y = f.field ? Math.max(2, top) : top;
     drawOutlinedText(ctx, text, x, y, scale, color);
   }
 }
 
 /** Draw the active fever state directly above the hero, with a dark outline. */
-export function drawFeverLabel(ctx: SpriteCanvas, cx: number, heroTop: number): void {
+export function drawFeverLabel(ctx: SpriteCanvas, cx: number, top: number, ageMs = 0): void {
   const scale = 2;
   const x = Math.round(cx - (textWidth(FEVER_TEXT) * scale) / 2);
-  const y = heroTop - 26;
-  drawOutlinedText(ctx, FEVER_TEXT, x, y, scale, COLORS.yellow);
+  const color = Math.floor(ageMs / FEVER_FLASH_MS) % 2 === 0 ? COLORS.yellow : COLORS.white;
+  drawOutlinedText(ctx, FEVER_TEXT, x, top, scale, color);
 }
 
 // ---------------------------------------------------------------------------
@@ -337,6 +360,9 @@ export const VICTORY_TEXT = 'VICTORY!';
 export const DEFEAT_TEXT = 'DEFEAT';
 /** Banner lifetime, ms. */
 export const BANNER_MS = 1200;
+export const LEVEL_UP_MS = 2400;
+export const LEVEL_UP_FLASH_MS = 600;
+export const FEVER_FLASH_MS = 200;
 /** Banner pixel scale. */
 export const BANNER_SCALE = 2;
 /** Flash cadence: the banner alternates yellow/white every interval. */
@@ -363,13 +389,13 @@ export function showBanner(banner: Banner, text = LEVEL_UP_TEXT): void {
   banner.text = text;
 }
 
-/** Age the banner; it deactivates after BANNER_MS. */
+/** Level-up lingers above the hero; PvP banners retain their short duration. */
 export function tickBanner(banner: Banner, dtMs: number): void {
   if (!banner.active) {
     return;
   }
   banner.ageMs += dtMs;
-  if (banner.ageMs >= BANNER_MS) {
+  if (banner.ageMs >= (banner.text === LEVEL_UP_TEXT ? LEVEL_UP_MS : BANNER_MS)) {
     banner.active = false;
   }
 }

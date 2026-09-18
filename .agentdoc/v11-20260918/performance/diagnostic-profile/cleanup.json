@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-09-18T06:57:45.526Z",
+  "command": [
+    "ps",
+    "-p",
+    "10841,10847,10848,10849,10917,11798,11834,11835,11836,11904",
+    "-o",
+    "pid=,ppid=,command="
+  ],
+  "observedPids": [
+    10841,
+    10847,
+    10848,
+    10849,
+    10917,
+    11798,
+    11834,
+    11835,
+    11836,
+    11904
+  ],
+  "status": 1,
+  "stdout": "",
+  "allObservedOwnedPidsAbsent": true,
+  "runtimeExit": [
+    {
+      "kind": "baseline",
+      "exitCode": 0,
+      "signal": null,
+      "finishedAt": "2026-09-18T06:55:58.217Z"
+    },
+    {
+      "kind": "candidate",
+      "exitCode": 0,
+      "signal": null,
+      "finishedAt": "2026-09-18T06:56:46.346Z"
+    }
+  ],
+  "rootExternalInterferenceStatement": "Root reports only read-only git diff/file reads, clock and collaboration waits since 06:54 UTC; no app quit/launch, main inspector calls, packaging or process signals.",
+  "cause": "Unresolved; do not infer a product crash or an external quit from inspector context loss plus exit code 0."
+}

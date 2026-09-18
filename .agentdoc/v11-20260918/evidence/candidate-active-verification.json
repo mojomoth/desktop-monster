@@ -1,0 +1,56 @@
+{
+  "report": {
+    "path": ".agentdoc/v11-20260918/performance/attempt01/candidate-active.json",
+    "sha256": "7fedefc0b26c3bb589592efdf459fe03a0ce491997d4bf0d317d350100d2006a"
+  },
+  "verified": {
+    "slot": "candidate-active",
+    "profile": "active",
+    "durationMs": 1800048.351375,
+    "rawSamples": 360,
+    "stableSamples": 301,
+    "maximumSampleGapMs": 5041.7237910002,
+    "initialFixtureSamples": [],
+    "cpu": {
+      "samples": 301,
+      "min": 0.990047522394165,
+      "median": 1.3366493305340268,
+      "p95": 1.9112625456894665,
+      "max": 2.3891839758692504
+    },
+    "workingSetMiB": {
+      "samples": 301,
+      "min": 167.09375,
+      "median": 190.5625,
+      "p95": 210.53125,
+      "max": 227.25
+    },
+    "summary": {
+      "cpuP95": 1.9112625456894665,
+      "workingSetMiBP95": 210.53125,
+      "initialMemoryMedian": 190.5625,
+      "finalMemoryMedian": null
+    },
+    "input": {
+      "actual": 3574,
+      "expected": 3600,
+      "fraction": 0.9927777777777778,
+      "phases": [
+        {
+          "startMs": 0,
+          "endMs": 1800000,
+          "measuredFromMs": 0,
+          "measuredThroughMs": 1796963.224375,
+          "expectedInputs": 3593.92644875,
+          "actualInputs": 3568
+        }
+      ],
+      "closeout": {
+        "elapsedMs": 44.795000000158325,
+        "expectedInputs": 0.08959000000031665,
+        "actualInputs": 0,
+        "totalAtShutdown": 3574
+      }
+    }
+  }
+}

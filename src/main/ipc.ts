@@ -21,7 +21,7 @@ import type {
 } from '../shared/api.js';
 import { IPC } from '../shared/ipc.js';
 import type {
-  GameSettings,
+  GameSettings, ActionResultPayload,
   SettingsResult,
   ConnectInputResult,
   SaveStatus,
@@ -123,6 +123,10 @@ function narrowAction(payload: unknown): CollectionAction | null {
         return str('itemId') && /^e[1-9]\d*$/.test(String(a['itemId'])) &&
           Number.isSafeInteger(a['revision']) && Number(a['revision']) >= 0 &&
           Number.isSafeInteger(a['shopSerial']) && Number(a['shopSerial']) >= 0;
+      case 'equipmentEquip':
+        return str('itemId') && /^e[1-9]\d*$/.test(String(a['itemId'])) &&
+          Number.isSafeInteger(a['revision']) && Number(a['revision']) >= 0 &&
+          (a['replaceId'] === undefined || str('replaceId') && /^e[1-9]\d*$/.test(String(a['replaceId'])));
       case 'equipmentSell':
       case 'equipmentEnhance':
       case 'equipmentMove':
@@ -351,10 +355,12 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
 
   // Menu → game relay (SPEC F51). Unknown/malformed actions are ignored.
   ipcMain.handle(IPC.MENU_ACTION, async (event, payload: unknown): Promise<void> => {
-    if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');
-    if (coordinatorBlocked() || coordinator?.pending || confirming) return;
     let action = narrowAction(payload);
     if (action === null || ['addCompanion', 'removeCompanions', 'pvpResult'].includes(action.type)) return;
+    let relayed = false;
+    try {
+    if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');
+    if (coordinatorBlocked() || coordinator?.pending || confirming) return;
     if (action.type === 'heroEquip' || action.type === 'heroChoose' || action.type === 'rebirth') {
       const change = action;
       const current = coordinator?.latest ?? parseSave(latestSave);
@@ -398,6 +404,19 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
       }
     }
     sendToOthers(event.sender, IPC.ACTION, action);
+    relayed = true;
+    } finally {
+      if (!relayed) event.sender.send(IPC.ACTION_RESULT, { action: payload, ok: false,
+        error: '상태가 바뀌었거나 요청이 취소됐습니다. 현재 상태를 확인해 주세요.' });
+    }
+  });
+  ipcMain.on(IPC.ACTION_RESULT, (event, payload: unknown) => {
+    if (event.sender.id !== field()?.id || !payload || typeof payload !== 'object') return;
+    const result = payload as Partial<ActionResultPayload>;
+    const action = narrowAction(result.action);
+    if (!action || typeof result.ok !== 'boolean' || result.error !== undefined &&
+      (typeof result.error !== 'string' || result.error.length > 240)) return;
+    sendToOthers(event.sender, IPC.ACTION_RESULT, { action, ok: result.ok, ...(result.error ? { error: result.error } : {}) });
   });
 
   ipcMain.handle(IPC.GET_IDENTITY, (): IdentityPayload => session.identity());

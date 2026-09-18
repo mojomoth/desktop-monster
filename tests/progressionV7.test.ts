@@ -17,6 +17,9 @@ const protocol = JSON.parse(readFileSync('docs/v0.7/EVALUATION_PROTOCOL.json', '
 const noRestUpdate = JSON.parse(readFileSync('docs/v0.9/NO_REST_UPDATE.json', 'utf8')) as {
   productionParameters: ProgressionParameters;
 };
+const v11Registration = JSON.parse(readFileSync('docs/v0.11/BALANCE_CANDIDATE.json', 'utf8')) as {
+  selected: string | null; candidates: { id: string; parameters: Partial<ProgressionParameters> }[];
+};
 const collection = (): HeroRoll[] => STANDARD_HERO_FORMS.slice(0, 10).map(({ id }) => ({ formId: id, buffPercent: 10 }));
 const pendingChoices = (id = 'h01'): HeroRoll[] => {
   const others = STANDARD_HERO_FORMS.filter((form) => form.type !== heroForm(id)!.type)
@@ -34,9 +37,11 @@ const progressedSave = (): SaveFile => {
 
 describe('v0.9 registered no-rest update with unchanged v0.7 progression rules', () => {
   it('binds every production parameter to the new registration and preserves named v0.7 content milestones', () => {
-    expect(Object.keys(PROGRESSION_PARAMETERS)).toHaveLength(21);
+    expect(Object.keys(PROGRESSION_PARAMETERS)).toHaveLength(24);
     expect(Object.isFrozen(PROGRESSION_PARAMETERS)).toBe(true);
-    expect(PROGRESSION_PARAMETERS).toEqual(noRestUpdate.productionParameters);
+    const selected = v11Registration.candidates.find(candidate => candidate.id === v11Registration.selected);
+    expect(PROGRESSION_PARAMETERS).toEqual({ ...noRestUpdate.productionParameters,
+      fieldHpTailPolynomial: 0, fieldRebirthBonus: 0, fieldRebirthHalf: 1, ...selected?.parameters });
     for (const milestone of protocol.milestones) {
       const definition = milestone.kind === 'hero' ? rareHero(milestone.id) : rareMonster(milestone.id);
       expect(definition, milestone.id).toBeDefined();
@@ -85,7 +90,7 @@ describe('v0.9 registered no-rest update with unchanged v0.7 progression rules',
     const resumed = createEngine(parseSave(serializeSave(ready.toSave())), mulberry32(10002));
     expect(resumed.toSave()).toEqual(ready.toSave());
     expect(heroReadiness(level, resumed.getState().hero).status).toBe('ready');
-    expect(level).toBeLessThanOrEqual(HERO_MIN_LEVEL + 6);
+    expect(level).toBeLessThanOrEqual(HERO_MIN_LEVEL + PROGRESSION_PARAMETERS.heroLevelStepCap);
   });
 
   it.each([12, 18, 26, Number.MAX_SAFE_INTEGER])('preserves the exact existing offer level %s without a new upper clamp', (offerLevel) => {
@@ -97,7 +102,8 @@ describe('v0.9 registered no-rest update with unchanged v0.7 progression rules',
     expect(restored.toSave().hero?.choices).toEqual(raw.hero.choices);
     expect(heroReadiness(offerLevel - 1, restored.getState().hero)).toMatchObject({ status: 'level', requiredLevel: offerLevel });
     expect(heroReadiness(offerLevel, restored.getState().hero).status).toBe('ready');
-    expect(heroReadiness(offerLevel, { ...restored.getState().hero!, choices: [] }).requiredLevel).toBe(HERO_MIN_LEVEL + 6);
+    expect(heroReadiness(offerLevel, { ...restored.getState().hero!, choices: [] }).requiredLevel)
+      .toBe(heroRequiredLevel(restored.getState().hero!.reincarnations));
   });
 
   it.each([undefined, null, -1, 11, 12.5, Infinity, NaN, Number.MAX_SAFE_INTEGER + 1, '26'])('uses legacy level12 for an absent or invalid offer marker %s', (offerLevel) => {

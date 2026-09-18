@@ -23,6 +23,7 @@ export default tseslint.config(
       '.agentdoc/v10-*/reviews/**/.harness/**',
       '.agentdoc/v10-*/**/source-*/**',
       '.agentdoc/v10-*/pilot-package/**',
+      '.agentdoc/v11-*/**',
     ],
   },
   js.configs.recommended,

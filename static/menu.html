@@ -38,7 +38,11 @@
       <button class="tab" id="tab-ranking" type="button">순위</button>
       <button class="tab" id="tab-profile" type="button">내 기록</button>
     </div>
-    <div class="panel" id="hero"></div>
+    <div class="menu-feedback">
+      <p class="result" id="result" role="status" aria-live="polite"></p>
+      <button class="btn" id="cancel-selection" type="button" hidden>선택 취소</button>
+    </div>
+    <div class="panel" id="hero"><button class="btn" id="rebirth" type="button" disabled>영혼 회귀 · 외형 유지</button></div>
     <div class="panel" id="inventory" hidden></div>
     <div class="panel" id="shop" hidden></div>
     <div class="panel" id="codex" hidden></div>
@@ -52,6 +56,7 @@
       <p class="muted" id="name-rule">영문·숫자·_·- 1–16자. 오프라인에서도 변경할 수 있습니다.</p>
       <p class="muted" id="name-status" role="status" aria-live="polite"></p>
       <div id="profile-stats"></div>
+      <button class="btn" id="share-open" type="button">내보내기</button>
       <details id="user-settings">
         <summary>소리와 효과</summary>
         <button class="btn" id="mute-toggle" type="button" aria-pressed="false">음소거 끔</button>
@@ -99,13 +104,6 @@
       <button class="btn" id="battle-go" type="button" hidden>대전 시작</button>
       <div id="thefts"></div>
     </div>
-    <div class="footer">
-      <button class="btn" id="rebirth" type="button" disabled>영혼 회귀 · 외형 유지</button>
-      <button class="btn" id="share-open" type="button">내보내기</button>
-    </div>
-    <!-- #result is shared: the roster tab writes its consume prompt here too, so
-         it stays outside the panels instead of moving into the Battle tab. -->
-    <p class="result" id="result"></p>
     </main>
     <script type="module" src="../dist/web/menu/index.js"></script>
     <script type="module" src="../dist/web/menu/recoveryUi.js"></script>

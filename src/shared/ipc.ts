@@ -66,6 +66,8 @@ export const IPC = {
   RECLAIM: 'desmon:reclaim',
   /** main → game window (send): a validated collection action to apply (F51). */
   ACTION: 'desmon:action',
+  /** field → main → menu: applied/rejected result, distinct from dispatch acknowledgment. */
+  ACTION_RESULT: 'desmon:action-result',
   /** menu → main (invoke): a collection action, relayed as ACTION (F51). */
   MENU_ACTION: 'desmon:menu-action',
   /** main → menu (send): the save just written, or the one on disk (F51). */
@@ -159,3 +161,5 @@ export interface MoveWindowPayload {
  * preload may only carry type imports); main narrows it before relaying.
  */
 export type MenuActionPayload = unknown;
+
+export interface ActionResultPayload { action: MenuActionPayload; ok: boolean; error?: string }

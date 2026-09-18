@@ -1,0 +1,35 @@
+{
+  "before": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf",
+  "packages": {
+    "macApp": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "sha256": "889c8b3a7dc6b427ff41d49f719138c8eaece8ffdb091e2e4075d956c2d03715"
+    },
+    "macDmg": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/DesMon-0.11.0-arm64.dmg",
+      "sha256": "71b96eb65df9d678998d71d51e8a9d8ad23f9fb25b4bfac35e9727ad53c432e7"
+    },
+    "windowsInstaller": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/DesMon Setup 0.11.0.exe",
+      "sha256": "4e417c8a693fd014e3509fc07852a7bcb3842a461aa2ef1a517e67a448041b2c"
+    },
+    "windowsAppAsar": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/win-unpacked/resources/app.asar",
+      "sha256": "76ef9e0c3d4db2115a70855e30fce45330c69f86f1af0a199823555775e8664f"
+    }
+  },
+  "validation": {
+    "macAsar": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar",
+    "installerPayloads": {
+      "macPayloadHash": "889c8b3a7dc6b427ff41d49f719138c8eaece8ffdb091e2e4075d956c2d03715",
+      "windowsPayloadHash": "a95affccd2b6cac660fbced9b91f3182b41165e33db64959d404917c5a601725",
+      "extractor": {
+        "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+        "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+      },
+      "macDmgHash": "71b96eb65df9d678998d71d51e8a9d8ad23f9fb25b4bfac35e9727ad53c432e7",
+      "windowsInstallerHash": "4e417c8a693fd014e3509fc07852a7bcb3842a461aa2ef1a517e67a448041b2c"
+    }
+  },
+  "after": "8e1e8a65ef7d691d8b2e2ef41dcc16ef1480107b5b60f701098b8161014af1bf"
+}

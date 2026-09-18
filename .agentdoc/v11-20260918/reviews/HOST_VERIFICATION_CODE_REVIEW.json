@@ -1,0 +1,63 @@
+{
+  "reviewer": "/root",
+  "implementedBy": [
+    "/root/skills_harness"
+  ],
+  "scope": "verification",
+  "verdict": "code-reviewed-performance-pending",
+  "at": "2026-09-18T05:38:02.869Z",
+  "sourceHashes": {
+    ".harness/v11/final-check.mjs": "153b9e39f1356089a38ab683f9b66777c0ca76aa1ef0d92cae8d7274c597a69f",
+    ".harness/v11/final-check.test.mjs": "25db01ebd6b4f5d7c6febf14cd38b2fa00fa5388bc11913a1245e3605781f77d",
+    ".harness/v11/performance-report.mjs": "f360e3831a3abec2229bea0414f0dfef576e72e527f98db5091260e60df5972b",
+    ".harness/v11/performance.test.mjs": "703fd3eb526f5e152f6edf4d237c292c996d012a1a6c33e6d020fe404d344460",
+    ".harness/v11/vendor/awesome-gamedev-agent-skills/SOURCES.json": "6fc3ab5e74df4faaa088a7f0a2f93e7c6dddda3ccf9071f2267340c4ba58cd21",
+    ".harness/v11/agents/designer.md": "605c76a2ead06b9925147544b23802b6ba853c9c70cb359c532264380700f024",
+    ".harness/v11/agents/critic.md": "2c4d63593549427c526a2ac9890b6f4643679c1284c4d4e52526c54d304b0ca6",
+    ".harness/v11/agents/balance.md": "751d60aa28027c1d08e67f31567ff725a759a2a629dc0cfe5f798342049dbcd9",
+    ".harness/v11/agents/playtester.md": "9d959ebe18b87b81271b405fc02a66797d072f12cca7d4bcaa13f7250b6a4696"
+  },
+  "vendor": {
+    "commit": "b105e1cf617adf0b68ed98790a716bbb60993179",
+    "files": 10
+  },
+  "latency": [
+    {
+      "name": "tabs",
+      "samples": 100,
+      "visualP95Ms": 25.100000023841858,
+      "localResultP95Ms": 25.100000023841858
+    },
+    {
+      "name": "disclosures",
+      "samples": 100,
+      "visualP95Ms": 24,
+      "localResultP95Ms": 24
+    },
+    {
+      "name": "growth-selection",
+      "samples": 100,
+      "visualP95Ms": 22.699999928474426,
+      "localResultP95Ms": 22.699999928474426
+    },
+    {
+      "name": "equipment-actions",
+      "samples": 108,
+      "visualP95Ms": 24.200000047683716,
+      "localResultP95Ms": 36.39999997615814
+    }
+  ],
+  "findings": [],
+  "notes": [
+    "Reviewed source/protocol/log/artifact bindings, latest-failure rejection, non-self-author review enforcement and installer extraction equality.",
+    "Reviewed raw per-process metrics, save/input cadence, censored-duration rejection, same-machine/runtime/fixture comparison, unique save isolation and serial cleanup checks.",
+    "Native boolean assertions require independent scenario and pixel inspection; the pilot boss-end false positive is not released as approved evidence.",
+    "Final measured CPU/RAM comparison and current-source native evidence are still pending. This record is not final release approval.",
+    "Independently reviewed new conditional-CDP ingress/core-apply source anchors, raw before/after clock offset intersections, same-clock apply duration, uncertainty-bounded cross-clock causal chain and complete raw trace matching. 21 checker/performance tests passed after this change. The earlier pilot remains historical end-to-end evidence and cannot satisfy the new pipeline requirement."
+  ],
+  "checks": {
+    "command": "node --test .harness/v11/final-check.test.mjs .harness/v11/performance.test.mjs",
+    "passed": 21,
+    "failed": 0
+  }
+}

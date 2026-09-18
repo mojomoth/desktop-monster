@@ -4,7 +4,7 @@ import { heroRequiredLevel, newHeroProgress } from '../src/core/hero.js';
 import {
   BANNER_Y, COIN_COUNTER_Y, COUNTER_SCALE, COUNTER_TOP, drawCounters,
   createFloatPool, drawFloats, spawnFieldFloat, tickFloats,
-  HUD_MARGIN, XP_BAR_H, XP_BAR_W,
+  COUNTER_TEXT_X, XP_BAR_H, XP_BAR_W,
 } from '../src/renderer/hud.js';
 import { createGame, VIEW_W, VIEW_H } from '../src/renderer/game.js';
 import type { GameCanvas } from '../src/renderer/game.js';
@@ -20,7 +20,7 @@ function canvas() {
 }
 
 describe('v0.9 HUD readability', () => {
-  it('clears the old top-left readout while preserving the head labels, XP and counters in the full frame', () => {
+  it('places counters top-left while preserving the head labels and XP in the full frame', () => {
     const cases = [
       { hero: newHeroProgress(), level: 1, ready: false },
       { hero: { ...newHeroProgress(), deferRemainingMs: HERO_DEFER_MS }, level: heroRequiredLevel(0), ready: false },
@@ -32,7 +32,7 @@ describe('v0.9 HUD readability', () => {
       const out = canvas();
       createGame(engine).draw(out.ctx);
       expect(out.clears).toEqual([{ x: 0, y: 0, w: VIEW_W, h: VIEW_H }]);
-      expect(out.rects.filter(rect => rect.x < 66 && rect.x + rect.w > 2 && rect.y < 38 && rect.y + rect.h > 16)).toEqual([]);
+      expect(out.rects.filter(rect => rect.x > 146 && rect.y < 38 && rect.y + rect.h > 16)).toEqual([]);
       const label = canvas();
       const levelText = `LV ${item.level}`;
       drawText(label.ctx, levelText, Math.round(80 - textWidth(levelText) / 2), 79);
@@ -45,7 +45,7 @@ describe('v0.9 HUD readability', () => {
       expect(out.rects).toContainEqual({ x: 60, y: 86, w: XP_BAR_W, h: XP_BAR_H, color: COLORS.steel });
       expect(out.rects).toContainEqual({ x: 61, y: 87, w: Math.max(1, Math.round((XP_BAR_W - 2) * 3 / xpToNext(item.level))), h: XP_BAR_H - 2, color: COLORS.cyan });
       const counters = canvas(); drawCounters(counters.ctx, engine.getState(), VIEW_W);
-      expect(out.rects.filter(rect => rect.x >= 146 && rect.y >= 23 && rect.y < 51)).toEqual(counters.rects);
+      expect(out.rects.filter(rect => rect.x < 66 && rect.y >= 23 && rect.y < 41)).toEqual(counters.rects);
       expect(engine.toSave()).toEqual(before);
     }
   });
@@ -60,13 +60,13 @@ describe('v0.9 HUD readability', () => {
         const right = canvas();
         drawCounters(right.ctx, state, VIEW_W, pop);
         for (const rect of right.rects) {
-          expect(rect.x).toBeGreaterThan(146);
-          expect(rect.x + rect.w).toBeLessThanOrEqual(VIEW_W - HUD_MARGIN + 1); // outline extends 1px past the ink
+          expect(rect.x).toBeGreaterThanOrEqual(1);
+          expect(rect.x + rect.w).toBeLessThan(66);
           expect(rect.y).toBeGreaterThanOrEqual(23);
           expect(rect.y + rect.h).toBeLessThanOrEqual(41);
           expect(rect.y <= 31 && rect.y + rect.h > 31).toBe(false); // no opaque panel joining the rows
         }
-        const textX = VIEW_W - HUD_MARGIN - textWidth(format(value));
+        const textX = COUNTER_TEXT_X;
         const text = right.rects.filter(rect => rect.x >= textX - 1 && rect.y >= COIN_COUNTER_Y - 1);
         const color = pop ? COLORS.white : COLORS.yellow;
         const reference = canvas(); drawText(reference.ctx, format(value), textX, COIN_COUNTER_Y, { color });
@@ -79,20 +79,20 @@ describe('v0.9 HUD readability', () => {
     expect(BANNER_Y).toBe(4);
   });
 
-  it('keeps the existing normal/critical damage lane clear of counters throughout its rise', () => {
+  it('keeps monster-centered normal/critical damage clear of counters throughout its rise', () => {
     for (const text of ['1.00A', '1.00AA', '1.00AAA']) {
       for (const crit of [false, true]) {
         for (const age of [0, 300, 599]) {
           const pool = createFloatPool();
-          spawnFieldFloat(pool, 58, text, crit);
+          spawnFieldFloat(pool, 168, 58, text, crit);
           tickFloats(pool, age);
           const out = canvas(); drawFloats(out.ctx, pool);
           expect(out.rects.length).toBeGreaterThan(0);
           for (const shake of [-1, 0, 1]) {
             for (const rect of out.rects) {
               const x = rect.x + shake;
-              expect(x).toBeGreaterThanOrEqual(66);
-              expect(x + rect.w).toBeLessThanOrEqual(146);
+              expect(x).toBeGreaterThanOrEqual(120);
+              expect(x + rect.w).toBeLessThanOrEqual(VIEW_W);
             }
           }
         }
