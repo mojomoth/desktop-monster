@@ -1,0 +1,201 @@
+{
+  "version": 11,
+  "at": "2026-09-18T07:58:30.158Z",
+  "purpose": "Preregister reuse of original attempt01 baseline before new candidate observation; prior failed candidate is retained unchanged.",
+  "protocolPath": "/Users/jeongyounglee/work/repo/desktop-monster/docs/v0.11/PERFORMANCE_PROTOCOL.json",
+  "protocolHash": "7a776e39bdd7b242bfad65bbbe85dcb554ee391f5c575f55b36ab29eac887bdd",
+  "records": [
+    {
+      "profile": "active",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-active.json",
+      "sha256": "a3a700f9eb43e2957dbd65cef273d946d0599fe8b2efbfb6a1275a95d773b785",
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app",
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+      "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+      "machine": {
+        "platform": "darwin",
+        "arch": "arm64",
+        "os": "25.2.0",
+        "cpu": "Apple M2 Pro",
+        "logicalCpus": 12
+      },
+      "runtime": {
+        "node": "22.22.1",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.5",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.2.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "140",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "4.2.4",
+        "simdutf": "7.3.3",
+        "sqlite": "3.51.2",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.2.231.22-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "39.8.10",
+        "chrome": "142.0.7444.265"
+      },
+      "validation": {
+        "slot": "baseline-active",
+        "profile": "active",
+        "durationMs": 1800061.829708,
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "maximumSampleGapMs": 5454.351167000001,
+        "initialFixtureSamples": [],
+        "cpu": {
+          "samples": 301,
+          "min": 1.0244531503128174,
+          "median": 1.3445447985639771,
+          "p95": 2.0380305937182523,
+          "max": 2.4391064273803225
+        },
+        "workingSetMiB": {
+          "samples": 301,
+          "min": 180.96875,
+          "median": 195.453125,
+          "p95": 216.765625,
+          "max": 233.546875
+        },
+        "summary": {
+          "cpuP95": 2.0380305937182523,
+          "workingSetMiBP95": 216.765625,
+          "initialMemoryMedian": 195.453125,
+          "finalMemoryMedian": null
+        },
+        "input": {
+          "actual": 3570,
+          "expected": 3600,
+          "fraction": 0.9916666666666667,
+          "phases": [
+            {
+              "startMs": 0,
+              "endMs": 1800000,
+              "measuredFromMs": 0,
+              "measuredThroughMs": 1797269.0077499999,
+              "expectedInputs": 3594.5380155,
+              "actualInputs": 3565
+            }
+          ],
+          "closeout": {
+            "elapsedMs": 60.5042910000775,
+            "expectedInputs": 0.121008582000155,
+            "actualInputs": 0,
+            "totalAtShutdown": 3570
+          }
+        }
+      }
+    },
+    {
+      "profile": "idle",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/performance/attempt01/baseline-idle.json",
+      "sha256": "a36b50e296670ef5e9008369378af910d575ebec2a0098dbd4f6016ca6f8c6d2",
+      "appPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app",
+      "appHash": "b6596a49bac90aed7165a1ec833fa51514d892d27af2140e3dd4a8530dc7a3ac",
+      "observerHash": "bcfea7692cc9b8ea1e75530805256781c8d8a55f8cb4eb9e330a451f6fa5e345",
+      "machine": {
+        "platform": "darwin",
+        "arch": "arm64",
+        "os": "25.2.0",
+        "cpu": "Apple M2 Pro",
+        "logicalCpus": 12
+      },
+      "runtime": {
+        "node": "22.22.1",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.5",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.2.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "140",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "4.2.4",
+        "simdutf": "7.3.3",
+        "sqlite": "3.51.2",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.2.231.22-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "39.8.10",
+        "chrome": "142.0.7444.265"
+      },
+      "validation": {
+        "slot": "baseline-idle",
+        "profile": "idle",
+        "durationMs": 1800057.17425,
+        "rawSamples": 360,
+        "stableSamples": 301,
+        "maximumSampleGapMs": 5065.020333,
+        "initialFixtureSamples": [],
+        "cpu": {
+          "samples": 301,
+          "min": 0.9671342404719669,
+          "median": 1.1156092249045635,
+          "p95": 1.3919052796931066,
+          "max": 2.013105850426656
+        },
+        "workingSetMiB": {
+          "samples": 301,
+          "min": 157.828125,
+          "median": 180.28125,
+          "p95": 200.328125,
+          "max": 223.90625
+        },
+        "summary": {
+          "cpuP95": 1.3919052796931066,
+          "workingSetMiBP95": 200.328125,
+          "initialMemoryMedian": 180.28125,
+          "finalMemoryMedian": null
+        },
+        "input": {
+          "actual": 0,
+          "expected": 0,
+          "fraction": null,
+          "phases": [
+            {
+              "startMs": 0,
+              "endMs": 1800000,
+              "measuredFromMs": 0,
+              "measuredThroughMs": 1796774.605375,
+              "expectedInputs": 0,
+              "actualInputs": 0
+            }
+          ],
+          "closeout": {
+            "elapsedMs": 54.884083999786526,
+            "expectedInputs": 0,
+            "actualInputs": 0,
+            "totalAtShutdown": 0
+          }
+        }
+      }
+    }
+  ]
+}

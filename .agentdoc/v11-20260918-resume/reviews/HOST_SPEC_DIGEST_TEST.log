@@ -1,0 +1,45 @@
+TAP version 13
+# Subtest: latest failure, stale source, changed log or artifact rejects earlier success
+ok 1 - latest failure, stale source, changed log or artifact rejects earlier success
+  ---
+  duration_ms: 2.647375
+  ...
+# Subtest: configuration rejects unknown dependencies, duplicate IDs and cycles
+ok 2 - configuration rejects unknown dependencies, duplicate IDs and cycles
+  ---
+  duration_ms: 0.194458
+  ...
+# Subtest: invalidation preserves attempts and reopens only affected descendants
+ok 3 - invalidation preserves attempts and reopens only affected descendants
+  ---
+  duration_ms: 1.067959
+  ...
+# Subtest: ownership prevents parent/child overlaps and required artifact omissions
+ok 4 - ownership prevents parent/child overlaps and required artifact omissions
+  ---
+  duration_ms: 0.072084
+  ...
+# Subtest: changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+ok 5 - changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+  ---
+  duration_ms: 0.294541
+  ...
+# Subtest: live ownership extensions retain work, reject traversal and reject another live owner
+ok 6 - live ownership extensions retain work, reject traversal and reject another live owner
+  ---
+  duration_ms: 0.37975
+  ...
+# Subtest: source and protocol changes invalidate receipts while generated reports do not
+ok 7 - source and protocol changes invalidate receipts while generated reports do not
+  ---
+  duration_ms: 5.211333
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 61.663708

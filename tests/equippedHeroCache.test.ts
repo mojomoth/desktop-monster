@@ -25,7 +25,9 @@ function fingerprint(composite: boolean): { sha256: string; count: number } {
     for (const timeMs of [0, 120, 240, 360, 480, 600]) for (const tint of [undefined, '#ffffff']) {
       const pixels = new Map<string, string>();
       const ctx = { fillStyle: '', fillRect(x: number, y: number, w: number, h: number) {
-        pixels.set(`${x},${y},${w},${h}`, String(ctx.fillStyle));
+        // Normalize strips to the original 2px art cells; keep golden hashes.
+        if (w % 2 !== 0 || h !== 2) throw Error('Non-pixel-aligned hero rectangle');
+        for (let px = x; px < x + w; px += 2) pixels.set(`${px},${y},2,2`, String(ctx.fillStyle));
       } };
       const opts = { attacking: pose >= 2, frame: pose >= 2 ? pose - 2 : pose, flipX, timeMs, tint };
       if (composite) drawSprite(ctx, equippedHeroSprite(formId, weapon, opts), 0, 5, 7, { scale: 2 });

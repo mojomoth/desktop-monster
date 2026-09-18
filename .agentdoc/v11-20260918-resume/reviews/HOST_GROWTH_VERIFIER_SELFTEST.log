@@ -1,0 +1,80 @@
+TAP version 13
+# Subtest: censored ordinary and stress trajectories must finish their registered exposure
+ok 1 - censored ordinary and stress trajectories must finish their registered exposure
+  ---
+  duration_ms: 1.795542
+  ...
+# Subtest: ten-cycle continuations may stop at18h only when first three cycles failed
+ok 2 - ten-cycle continuations may stop at18h only when first three cycles failed
+  ---
+  duration_ms: 0.492417
+  ...
+# Subtest: management keeps its20 exploration seeds separate from the280 heldout schedule and pacing verdict
+ok 3 - management keeps its20 exploration seeds separate from the280 heldout schedule and pacing verdict
+  ---
+  duration_ms: 1.844292
+  ...
+# Subtest: management rejects shortened/corrupt schedules, changed policy, and inconsistent reward telemetry
+ok 4 - management rejects shortened/corrupt schedules, changed policy, and inconsistent reward telemetry
+  ---
+  duration_ms: 0.872958
+  ...
+# Subtest: management cannot substitute another candidate, evaluator, compiled artifact, or pacing pass
+ok 5 - management cannot substitute another candidate, evaluator, compiled artifact, or pacing pass
+  ---
+  duration_ms: 0.807416
+  ...
+# Subtest: growth diagnostic retains60 trajectories and23 guards including later cycles without replacing heldout
+ok 6 - growth diagnostic retains60 trajectories and23 guards including later cycles without replacing heldout
+  ---
+  duration_ms: 1.177125
+  ...
+# Subtest: growth censored rows remain in every scheduled quantile and never turn null into a pass
+ok 7 - growth censored rows remain in every scheduled quantile and never turn null into a pass
+  ---
+  duration_ms: 0.921083
+  ...
+# Subtest: growth actions independently enumerate actual volley gains, preserve owned stats and follow capture/consume continuity
+ok 8 - growth actions independently enumerate actual volley gains, preserve owned stats and follow capture/consume continuity
+  ---
+  duration_ms: 3.588167
+  ...
+# Subtest: growth accepts zero marginal gain only with the registered target/food tie break
+ok 9 - growth accepts zero marginal gain only with the registered target/food tie break
+  ---
+  duration_ms: 0.241375
+  ...
+# Subtest: growth report binding cannot omit guards or substitute a different code/candidate
+ok 10 - growth report binding cannot omit guards or substitute a different code/candidate
+  ---
+  duration_ms: 0.934792
+  ...
+# Subtest: approved field curve candidates preserve raw/PvP, XP, capture and no-timer parameters
+ok 11 - approved field curve candidates preserve raw/PvP, XP, capture and no-timer parameters
+  ---
+  duration_ms: 11.055292
+  ...
+# Subtest: reject hidden source tuning, changed tie-break baselines and fixed-registration contradictions
+ok 12 - reject hidden source tuning, changed tie-break baselines and fixed-registration contradictions
+  ---
+  duration_ms: 2.103459
+  ...
+# Subtest: candidate mutation rejects frozen keys, regex/path injection and invalid numeric domains
+ok 13 - candidate mutation rejects frozen keys, regex/path injection and invalid numeric domains
+  ---
+  duration_ms: 7.274792
+  ...
+# Subtest: progression scope parses literal source without executing expressions or accepting duplicates
+ok 14 - progression scope parses literal source without executing expressions or accepting duplicates
+  ---
+  duration_ms: 0.763875
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 282.651166

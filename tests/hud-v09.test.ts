@@ -19,6 +19,12 @@ function canvas() {
   return { ctx, rects, clears };
 }
 
+/** Preserve glyph-cell geometry when drawSprite batches adjacent 1px cells. */
+function glyphCells(rects: ReturnType<typeof canvas>['rects']) {
+  return rects.flatMap(rect => rect.h === 1 && Number.isInteger(rect.w) && rect.w > 1
+    ? Array.from({ length: rect.w }, (_, i) => ({ ...rect, x: rect.x + i, w: 1 })) : [rect]);
+}
+
 describe('v0.9 HUD readability', () => {
   it('places counters top-left while preserving the head labels and XP in the full frame', () => {
     const cases = [
@@ -37,8 +43,8 @@ describe('v0.9 HUD readability', () => {
       const levelText = `LV ${item.level}`;
       drawText(label.ctx, levelText, Math.round(80 - textWidth(levelText) / 2), 79);
       if (item.ready) drawText(label.ctx, 'REBIRTH READY', 55, 72, { color: COLORS.yellow });
-      const headText = out.rects.filter(rect => rect.x >= 54 && rect.x < 107 && rect.y >= 71 && rect.y < 85);
-      expect(headText.filter(rect => rect.color !== COLORS.void)).toEqual(label.rects);
+      const headText = glyphCells(out.rects).filter(rect => rect.x >= 54 && rect.x < 107 && rect.y >= 71 && rect.y < 85);
+      expect(headText.filter(rect => rect.color !== COLORS.void)).toEqual(glyphCells(label.rects));
       expect(headText.some(rect => rect.color === COLORS.void)).toBe(true);
       expect(headText.every(rect => rect.w === 1 && rect.h === 1)).toBe(true); // outlined glyphs, no background panel
       expect(out.rects.some(rect => rect.x >= 54 && rect.x < 107 && rect.y <= 85 && rect.y + rect.h > 85)).toBe(false);
@@ -67,10 +73,10 @@ describe('v0.9 HUD readability', () => {
           expect(rect.y <= 31 && rect.y + rect.h > 31).toBe(false); // no opaque panel joining the rows
         }
         const textX = COUNTER_TEXT_X;
-        const text = right.rects.filter(rect => rect.x >= textX - 1 && rect.y >= COIN_COUNTER_Y - 1);
+        const text = glyphCells(right.rects).filter(rect => rect.x >= textX - 1 && rect.y >= COIN_COUNTER_Y - 1);
         const color = pop ? COLORS.white : COLORS.yellow;
         const reference = canvas(); drawText(reference.ctx, format(value), textX, COIN_COUNTER_Y, { color });
-        expect(text.filter(rect => rect.color === color)).toEqual(reference.rects);
+        expect(text.filter(rect => rect.color === color)).toEqual(glyphCells(reference.rects));
         expect(text.some(rect => rect.color === COLORS.void)).toBe(true);
         // Only glyph pixels and their outline are painted; empty surrounding space stays clear.
         expect(text.every(rect => rect.w === 1 && rect.h === 1)).toBe(true);

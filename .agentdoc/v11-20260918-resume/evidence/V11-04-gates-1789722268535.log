@@ -1,0 +1,335 @@
+
+> desmon@0.11.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/loot.test.ts (11 tests) 550ms
+   ✓ mulberry32 deterministic RNG (SPEC F06, Assumption 15) > outputs stay in [0, 1) and are roughly uniform over 10000 draws  329ms
+ ✓ tests/heroForms.test.ts (8 tests) 1177ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  922ms
+ ✓ tests/heroRendering.test.ts (5 tests) 740ms
+ ✓ tests/performanceV8.test.ts (6 tests) 588ms
+   ✓ v0.8 performance evidence validation > binds reports, raw samples, screenshots, app bytes and observer source before accepting a matrix  354ms
+ ✓ tests/measurementV8.test.ts (6 tests) 1504ms
+   ✓ v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly  1115ms
+   ✓ v0.8 collection policy measurement > chooses the actual third rare card and records the existing consume policy without species protection  337ms
+ ✓ tests/onlineV91.test.ts (10 tests) 410ms
+ ✓ tests/engine.test.ts (45 tests) 1956ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent  1449ms
+ ✓ tests/spriteRasterV11.test.ts (2 tests) 1507ms
+   ✓ v11 sprite strip raster equivalence > preserves every registered frame pixel with mirror, tint, scale and clipping  1489ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 250ms
+ ✓ tests/hero.test.ts (17 tests) 189ms
+ ✓ tests/progressionV7.test.ts (45 tests) 651ms
+ ✓ tests/progressionV11.test.ts (15 tests) 435ms
+ ✓ tests/hud-v09.test.ts (3 tests) 847ms
+   ✓ v0.9 HUD readability > keeps monster-centered normal/critical damage clear of counters throughout its rise  569ms
+ ✓ tests/sprites.test.ts (34 tests) 519ms
+ ✓ tests/collection.test.ts (21 tests) 408ms
+   ✓ resolvePvp (SPEC F37/F62, Assumption 34) > resolvePvp leaves companions untouched over 10000 seeded wins  347ms
+ ✓ tests/expedition.test.ts (16 tests) 2403ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  1994ms
+ ✓ tests/pvpAbuseV91.test.ts (8 tests) 148ms
+ ✓ tests/codexV7.test.ts (10 tests) 257ms
+ ✓ tests/replayV91.test.ts (14 tests) 332ms
+ ✓ tests/share.test.ts (6 tests) 64ms
+ ✓ tests/onlineV9.test.ts (8 tests) 277ms
+ ✓ tests/hudV11.test.ts (8 tests) 3044ms
+   ✓ v0.11 head labels and field damage > stacks every combination above every idle hero without overlaps or cropped outlines  1094ms
+   ✓ v0.11 head labels and field damage > keeps the head anchor fixed through every hero attack pose in the complete scene  464ms
+   ✓ v0.11 head labels and field damage > anchors every monster and crown above its HP bar and keeps long rising hits inside the field  1393ms
+ ✓ tests/recoveryCaptureV9.test.ts (5 tests) 44ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 157ms
+ ✓ tests/server/opponents.test.ts (10 tests) 208ms
+ ✓ tests/net.test.ts (45 tests) 294ms
+ ✓ tests/progressV5.test.ts (12 tests) 269ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 34ms
+ ❯ tests/progressionV5.test.ts (12 tests | 2 failed) 323ms
+   × v0.5 reincarnation requirements and persistent offers > uses the declared exact sequence and keeps the plateau finite 7ms
+     → expected [ Array(15) ] to deeply equal [ Array(15) ]
+   ✓ v0.5 reincarnation requirements and persistent offers > honors an existing level12 offer once without discounting new offers or paid rerolls 7ms
+   × v0.5 reincarnation requirements and persistent offers > stores the new level on opening and rejects same-element or locked rare restored offers 2ms
+     → expected 26 to be 27 // Object.is equality
+   ✓ v0.5 repeat mastery and actual candidate previews > strictly improves a max raw roll and ignores candidate stack payloads 1ms
+   ✓ v0.5 repeat mastery and actual candidate previews > improves a nonconsecutive return and does not award mastery for equipping 0ms
+   ✓ v0.5 repeat mastery and actual candidate previews > keeps raw rolls bounded separately from stacks and prevents maximum-count overflow 0ms
+   ✓ v0.5 repeat mastery and actual candidate previews > preserves 70 owned forms and independently repairs malformed mastery 2ms
+   ✓ v0.5 choice identity and secret eligibility > keeps first-slot progression while owned and lower-rank heroes remain selectable 150ms
+   ✓ v0.5 choice identity and secret eligibility > unlocks the exact h01-repeat rare and keeps art discovery separate from owning it 11ms
+   ✓ v0.5 choice identity and secret eligibility > samples every rare after its requirements without sacrificing three real elements 134ms
+   ✓ v0.5 predictable gold purchases > uses exact affordable prices, bounded benefits, and a single transaction revision 1ms
+   ✓ v0.5 predictable gold purchases > refuses insufficient gold, malformed/stale input and maxed training without state mutation 8ms
+ ❯ tests/renderer.test.ts (104 tests | 1 failed) 1297ms
+   ✓ drawMeter / drawHpBar (boxed bars) > keeps the bar three pixels above every species and its boss crown 35ms
+   ✓ drawMeter / drawHpBar (boxed bars) > paints a steel frame with a void interior 2ms
+   ✓ drawMeter / drawHpBar (boxed bars) > fills proportionally inside the box 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > paints no fill at ratio 0 and a full interior at ratio 1 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > clamps out-of-range and non-finite ratios into the box 1ms
+   ✓ drawMeter / drawHpBar (boxed bars) > keeps at least 1px of fill while hp is nonzero 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > drawHpBar fills red in proportion to hp/maxHp 0ms
+   ✓ drawMeter / drawHpBar (boxed bars) > drawHpBar takes bigint hp and maxHp 0ms
+   ✓ drawLevelHud (LV + XP bar above the hero, Assumption 17) > hugs the anchor: the XP bar box ends at `bottom`, centered on `cx` 3ms
+   ✓ drawLevelHud (LV + XP bar above the hero, Assumption 17) > paints the LV label centered above the bar (never overlapping the hero) 1ms
+   ✓ drawLevelHud (LV + XP bar above the hero, Assumption 17) > fills the XP bar in proportion to xp/xpToNext(level) 2ms
+   ✓ drawCounters (top-left kills + coins) > left-aligns both rows inside the view 12ms
+   ✓ drawCounters (top-left kills + coins) > draws the coin count in yellow next to the coin icon 1ms
+   ✓ drawCounters (top-left kills + coins) > pops the coin row on collection: the count flashes white (T15) 3ms
+   ✓ PvP result banner > draws nothing until shown and nothing after it expires 1ms
+   ✓ PvP result banner > draws a centered double-size banner that flashes yellow/white 2ms
+   ✓ PvP result banner > banner text is configurable: victory and defeat both render 0ms
+   ✓ floating damage numbers (fixed pool) > keeps a boss critical hit visible for the full 600 ms, without a height cutoff 0ms
+   ✓ floating damage numbers (fixed pool) > never moves an existing number when another hit arrives 0ms
+   ✓ floating damage numbers (fixed pool) > keeps rapid hits at the requested position, including wide labels near the edge 1ms
+   ✓ floating damage numbers (fixed pool) > preserves the original position and independent age of every hit in a mixed burst 0ms
+   ✓ floating damage numbers (fixed pool) > keeps every pooled hit visible through a sustained mixed critical burst 44ms
+   ✓ floating damage numbers (fixed pool) > floatColor maps super to yellow, weak to steel and normal to white 0ms
+   ✓ floating damage numbers (fixed pool) > pre-allocates an inactive pool of the fixed size 0ms
+   ✓ floating damage numbers (fixed pool) > never grows under key-mash: overflow recycles the oldest slot 0ms
+   ✓ floating damage numbers (fixed pool) > expires a float after its lifetime 0ms
+   ✓ floating damage numbers (fixed pool) > rises as it ages and draws crits in yellow 0ms
+   ✓ floating damage numbers (fixed pool) > uses the expanded rise distance for readable damage motion 0ms
+   ✓ floating damage numbers (fixed pool) > fades to a dim color in the last third of its life 0ms
+   ✓ floating damage numbers (fixed pool) > draws crit numbers triple-size with a bang and normal numbers double-size, both outlined 1ms
+   ✓ floating damage numbers (fixed pool) > a critical hit shakes the world for SHAKE_MS and rings the monster with sparks 10ms
+   ✓ createGame (scene orchestration) > draws the full scene: clear, field strip, hero left, monster right, HUD 17ms
+   ✓ createGame (scene orchestration) > attack() steps the engine and spawns a floating damage number 6ms
+   ✓ createGame (scene orchestration) > update() advances the idle bob to the second frame after IDLE_FRAME_MS 1ms
+   ✓ createGame (scene orchestration) > update() treats non-finite and negative dt as 0 2ms
+   ✓ createGame (scene orchestration) > tints the monster per tier at draw time (tier 1 uses shifted colors) 1ms
+   ✓ combat presentation (core FSMs, T14) > attack() completes the current swing and queues only one more on rapid input 1ms
+   ✓ combat presentation (core FSMs, T14) > draws the attack pose instead of the idle bob while attacking 1ms
+   ✓ combat presentation (core FSMs, T14) > shows the slash arc overlay only during the attack frame after wind-up 6ms
+   ✓ combat presentation (core FSMs, T14) > flashes the monster white for the hit duration, then returns to color 4ms
+   ✓ combat presentation (core FSMs, T14) > a killing blow plays the 500ms dying scatter, then spawns the next monster 3ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > the dying monster scatters into its own pixels, which then move 8ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > the item drop arcs through the gap, then flies off to the coin counter 2ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > the next monster pops in bottom-up during spawning 1ms
+   ✓ kill/loot/spawn/level-up presentation (T15) > a level-up shows its outlined head label and hero sparkles 4ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > update() ticks the engine and returns companion events to the save scheduler 2ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > damage floats use the letter-suffix format 3ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a monster hit spawns the species hit effect 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a boss draws at species size plus one with a crown and its hp bar raised 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a boss spawn fires the shockwave effect 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > active companions draw as an overlapping party group left of the hero, flipped to face right, star-tinted 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a companion volley spawns per-species attacks from each slot 7ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a capture shows the sparkle effect and the new companion appears 2ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > the field monster shows a type badge under its feet 1ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > party members and the opponent group wear type badges under their feet 4ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > a normal monster draws at its species size 2ms
+   × engine tick, bosses, companions and fever (T37, SPEC F36) > the field party is re-read from state every frame so a new monster changes it 930ms
+     → expected '0,120,200,2,#346524|0,122,200,8,#4424…' to contain '18,86,2,2,#140c1c|36,86,4,2,#140c1c|1…'
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > companion floats are coloured by effectiveness 2ms
+   ✓ engine tick, bosses, companions and fever (T37, SPEC F36) > fever draws a hue-cycling aura behind the hero and only one head label 9ms
+   ✓ collection actions in the game window (T47, SPEC F53) > apply() forwards collection actions to the engine and reports its events 2ms
+   ✓ collection actions in the game window (T47, SPEC F53) > apply(removeCompanions) never touches in-flight presentation 3ms
+   ✓ collection actions in the game window (T47, SPEC F53) > a won pvp shows the VICTORY banner and pops the stolen companion in 1ms
+   ✓ collection actions in the game window (T47, SPEC F53) > a lost pvp shows the DEFEAT banner and scatters the lost companion 1ms
+   ✓ collection actions in the game window (T47, SPEC F53) > a rebirth flushes presentation and restarts at monster 0 4ms
+   ✓ createSaveScheduler (T16 save policy) > saves immediately on a kill and on a level-up 0ms
+   ✓ createSaveScheduler (T16 save policy) > debounces a damage-only attack by 500ms 0ms
+   ✓ createSaveScheduler (T16 save policy) > coalesces key-mash damage into one trailing save 0ms
+   ✓ createSaveScheduler (T16 save policy) > a kill cancels the pending damage debounce (no double save) 0ms
+   ✓ createSaveScheduler (T16 save policy) > flush() saves immediately and cancels any pending debounce 0ms
+   ✓ createSaveScheduler (T16 save policy) > an empty event batch neither saves nor schedules 0ms
+   ✓ game toSave/reset (T16 persistence wiring) > toSave() mirrors the wrapped engine snapshot 42ms
+   ✓ game toSave/reset (T16 persistence wiring) > reset() returns progress to the defaults with idle animations 11ms
+   ✓ game toSave/reset (T16 persistence wiring) > reset() clears every in-flight presentation system 1ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires reportFirstFrame 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires parseSave 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires createEngine 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires createGame 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires onInput 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires requestAnimationFrame 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires setupFallbackInput 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires setupWindowDrag 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires moveWindowBy 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires createSaveScheduler 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires saveState 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > wires onReset 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > persists via the scheduler on both input paths and on blur (T16) 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > onReset requests main confirmation; committed replacement installs a fresh engine 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > applies menu actions through the engine and flushes the save (F53) 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > disables image smoothing and clamps dt to 100ms 0ms
+   ✓ renderer boot source contract (src/renderer/index.ts) > reports the first frame exactly once, after drawing 0ms
+   ✓ smoke sequence source contract (src/main/index.ts, SPEC F18) > drives a core SimulatedInputDriver over the real input channel 1ms
+   ✓ smoke sequence source contract (src/main/index.ts, SPEC F18) > prints SMOKE_OK and exits 0 only from the first-frame path 2ms
+   ✓ smoke sequence source contract (src/main/index.ts, SPEC F18) > keeps the 20s watchdog failure exit 2ms
+   ✓ window.desmon declaration stays in sync with the preload bridge > declares every method the preload exposes 6ms
+   ✓ battle scene replay (T66, SPEC F66) > hides the hero slash overlay while a replay owns the field 1ms
+   ✓ battle scene replay (T66, SPEC F66) > playReplay draws the opponent party mirrored on the right with its name 1ms
+   ✓ battle scene replay (T66, SPEC F66) > playReplay draws the opponent hero mirrored beside mine in the rival palette 1ms
+   ✓ battle scene replay (T66, SPEC F66) > the opponent hero swings when its side lands a blow 7ms
+   ✓ battle scene replay (T66, SPEC F66) > each blow spawns a styled attack then a float at the target 2ms
+   ✓ battle scene replay (T66, SPEC F66) > companion attack styles differ: golem slashes on the target, dragon breathes from the actor 1ms
+   ✓ battle scene replay (T66, SPEC F66) > a ko scatters the target and removes it from the opponent group 6ms
+   ✓ battle scene replay (T66, SPEC F66) > the field monster is hidden while a replay plays and returns afterwards 13ms
+   ✓ battle scene replay (T66, SPEC F66) > replay pacing clamps to 12 s 7ms
+   ✓ battle scene replay (T66, SPEC F66) > blocks manual attacks during PvP and restores them when the replay ends 4ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 187ms
+ ✓ tests/formulas.test.ts (21 tests) 218ms
+ ✓ tests/effects-v09.test.ts (6 tests) 333ms
+ ✓ tests/menu.test.ts (70 tests) 682ms
+ ✓ tests/onlineV10.test.ts (7 tests) 50ms
+ ✓ tests/recoveryV10.test.ts (4 tests) 94ms
+ ✓ tests/server/app.test.ts (18 tests) 61ms
+ ✓ tests/progressV6.test.ts (15 tests) 38ms
+ ✓ tests/recoveryV9.test.ts (21 tests) 93ms
+ ✓ tests/equipmentRendering.test.ts (6 tests) 120ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 225ms
+ ✓ tests/shareV9.test.ts (9 tests) 111ms
+ ✓ tests/server/v09.test.ts (9 tests) 60ms
+ ✓ tests/menuV9.test.ts (14 tests) 128ms
+ ✓ tests/server/pvp.test.ts (14 tests) 69ms
+ ✓ tests/equipmentSprites.test.ts (15 tests) 5577ms
+   ✓ v0.10 equipment production art > registers 224 structurally distinct icons, not palette swaps  470ms
+   ✓ v0.10 equipment production art > preserves all 71 complete costumes and separate skin-coloured hands  386ms
+   ✓ v0.10 equipment production art > proves all eight representative motions and every h00 weapon at all five poses in both directions  378ms
+   ✓ v0.10 equipment production art > renders every compatible hero/weapon pairing with visible grips, integer pixels and grounded feet  2334ms
+   ✓ v0.10 equipment production art > preserves every visible weapon and contour pixel in fever/KO composites in both directions  694ms
+   ✓ v0.10 equipment production art > keeps the complete bobbing head visible with every compatible epic weapon  892ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 51ms
+ ✓ tests/v10Critic.test.ts (7 tests) 120ms
+ ✓ tests/equipmentV10.test.ts (10 tests) 57ms
+ ✓ tests/renderer-field-v11.test.ts (7 tests) 35ms
+ ✓ tests/audio.test.ts (16 tests) 35ms
+ ✓ tests/shareUiV9.test.ts (6 tests) 22ms
+ ✓ tests/goldV91.test.ts (15 tests) 74ms
+ ✓ tests/equipmentV11.test.ts (8 tests) 39ms
+ ✓ tests/tray.test.ts (38 tests) 68ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 78ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 122ms
+ ✓ tests/identity.test.ts (8 tests) 71ms
+ ✓ tests/runtimeV8.test.ts (9 tests) 71ms
+ ✓ tests/heroMenuReadiness.test.ts (4 tests) 5ms
+ ✓ tests/save.test.ts (15 tests) 79ms
+ ✓ tests/v10Review.test.ts (7 tests) 31ms
+ ✓ tests/onlineV8.test.ts (3 tests) 19ms
+ ✓ tests/packaging.test.ts (16 tests) 16ms
+ ✓ tests/ipc.test.ts (62 tests) 21ms
+ ✓ tests/ipcV5.test.ts (7 tests) 25ms
+ ✓ tests/globalInput.test.ts (20 tests) 19ms
+ ✓ tests/progressV7.test.ts (5 tests) 23ms
+ ✓ tests/drag.test.ts (7 tests) 4ms
+ ✓ tests/settings.test.ts (4 tests) 14ms
+ ✓ tests/server/backendReviewV10.test.ts (5 tests) 16ms
+ ✓ tests/server/http.test.ts (9 tests) 8ms
+ ✓ tests/equipmentMenuV10.test.ts (5 tests) 50ms
+ ✓ tests/fever.test.ts (4 tests) 63ms
+ ✓ tests/persistence.test.ts (10 tests) 15ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 8ms
+ ✓ tests/server/pgTransaction.test.ts (10 tests) 8ms
+ ✓ tests/effects.test.ts (7 tests) 7ms
+ ✓ tests/platformV9.test.ts (3 tests) 8ms
+ ✓ tests/typeChart.test.ts (4 tests) 14ms
+ ✓ tests/fsm.test.ts (12 tests) 7ms
+ ✓ tests/anim.test.ts (14 tests) 70ms
+ ✓ tests/bignum.test.ts (7 tests) 5ms
+ ✓ tests/share-field-v11.test.ts (2 tests) 9ms
+ ✓ tests/window.test.ts (29 tests) 5ms
+ ✓ tests/input.test.ts (9 tests) 5ms
+ ✓ tests/battle.test.ts (5 tests) 4ms
+ ✓ tests/thefts.test.ts (5 tests) 6ms
+ ✓ tests/deploy.test.ts (7 tests) 5ms
+ ✓ tests/defenseV91.test.ts (1 test) 5ms
+ ✓ tests/rendererInput.test.ts (8 tests) 6ms
+ ✓ tests/scaffold.test.ts (1 test) 2ms
+ ✓ tests/balance.test.ts (3 tests) 12224ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  12173ms
+ ✓ tests/equippedHeroCache.test.ts (4 tests) 21169ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 57,960 equipped hero views  20093ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 3,840 fever/KO composites  1058ms
+
+ Test Files  2 failed | 92 passed (94)
+      Tests  3 failed | 1253 passed (1256)
+   Start at  18:04:29
+   Duration  22.10s (transform 3.65s, setup 0ms, collect 19.10s, tests 63.75s, environment 18ms, prepare 10.05s)
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/progressionV5.test.ts > v0.5 reincarnation requirements and persistent offers > uses the declared exact sequence and keeps the plateau finite
+AssertionError: expected [ Array(15) ] to deeply equal [ Array(15) ]
+
+- Expected
++ Received
+
+  [
+    26,
+-   27,
+-   27,
+-   28,
+-   28,
+-   29,
+-   29,
+-   30,
+-   30,
+-   31,
+-   31,
+-   32,
+-   32,
+-   32,
+-   32,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
++   26,
+  ]
+
+ ❯ tests/progressionV5.test.ts:28:8
+     26|   it('uses the declared exact sequence and keeps the plateau finite', …
+     27|     expect(Array.from({ length: 15 }, (_, r) => heroRequiredLevel(r)))
+     28|       .toEqual([0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 6].map((step…
+       |        ^
+     29|     expect(heroRequiredLevel(500_000)).toBe(HERO_MIN_LEVEL + 6);
+     30|     expect(heroRequiredLevel(Number.NaN)).toBe(HERO_MIN_LEVEL);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/progressionV5.test.ts > v0.5 reincarnation requirements and persistent offers > stores the new level on opening and rejects same-element or locked rare restored offers
+AssertionError: expected 26 to be 27 // Object.is equality
+
+- Expected
++ Received
+
+- 27
++ 26
+
+ ❯ tests/progressionV5.test.ts:62:43
+     60|     const result = applyHeroAction(state(hero), { type: 'heroOffer' },…
+     61|     if ('error' in result) throw new Error(result.error);
+     62|     expect(result.state.hero?.offerLevel).toBe(HERO_MIN_LEVEL + 1);
+       |                                           ^
+     63|     expect(parseHeroProgress(result.state.hero)).toEqual(result.state.…
+     64|     const duplicateType = { ...hero, choices: [choices()[0]!, { formId…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/renderer.test.ts > engine tick, bosses, companions and fever (T37, SPEC F36) > the field party is re-read from state every frame so a new monster changes it
+AssertionError: expected '0,120,200,2,#346524|0,122,200,8,#4424…' to contain '18,86,2,2,#140c1c|36,86,4,2,#140c1c|1…'
+
+Expected: "18,86,2,2,#140c1c|36,86,4,2,#140c1c|12,88,2,2,#140c1c|16,88,2,2,#140c1c|18,88,2,2,#dad45e|20,88,2,2,#140c1c|34,88,2,2,#140c1c|36,88,2,2,#d27d2c|38,88,2,2,#dad45e|40,88,2,2,#140c1c|10,90,2,2,#140c1c|12,90,2,2,#dad45e|14,90,2,2,#140c1c|16,90,4,2,#d27d2c|20,90,2,2,#dad45e|22,90,2,2,#140c1c|34,90,2,2,#140c1c|36,90,2,2,#d27d2c|38,90,4,2,#dad45e|42,90,2,2,#140c1c|8,92,2,2,#140c1c|10,92,10,2,#d27d2c|20,92,2,2,#dad45e|22,92,2,2,#140c1c|32,92,4,2,#140c1c|36,92,8,2,#d04648|44,92,2,2,#140c1c|10,94,2,2,#140c1c|12,94,6,2,#d27d2c|18,94,2,2,#140c1c|20,94,4,2,#d27d2c|24,94,2,2,#140c1c|28,94,4,2,#140c1c|32,94,6,2,#d04648|38,94,4,2,#140c1c|42,94,4,2,#d04648|46,94,2,2,#140c1c|12,96,2,2,#140c1c|14,96,4,2,#d27d2c|18,96,2,2,#140c1c|20,96,4,2,#d04648|24,96,2,2,#d27d2c|26,96,2,2,#140c1c|28,96,6,2,#d04648|34,96,2,2,#dad45e|36,96,2,2,#140c1c|38,96,2,2,#deeed6|40,96,2,2,#dad45e|42,96,4,2,#d04648|46,96,2,2,#140c1c|10,98,2,2,#140c1c|14,98,2,2,#140c1c|16,98,2,2,#d04648|18,98,2,2,#442434|20,98,6,2,#d04648|26,98,2,2,#140c1c|28,98,6,2,#d04648|34,98,2,2,#dad45e|36,98,4,2,#140c1c|40,98,2,2,#dad45e|42,98,4,2,#d04648|46,98,2,2,#140c1c|12,100,4,2,#140c1c|16,100,2,2,#d04648|18,100,2,2,#442434|20,100,8,2,#d04648|28,100,2,2,#140c1c|30,100,16,2,#d04648|46,100,2,2,#140c1c|10,102,2,2,#140c1c|12,102,2,2,#dad45e|14,102,2,2,#140c1c|16,102,2,2,#d04648|18,102,4,2,#442434|22,102,8,2,#d04648|30,102,2,2,#140c1c|32,102,8,2,#442434|40,102,2,2,#deeed6|42,102,4,2,#140c1c|8,104,2,2,#140c1c|10,104,4,2,#dad45e|14,104,4,2,#140c1c|18,104,4,2,#442434|22,104,8,2,#d04648|30,104,2,2,#140c1c|32,104,12,2,#442434|44,104,2,2,#140c1c|8,106,2,2,#140c1c|10,106,2,2,#dad45e|12,106,2,2,#d27d2c|14,106,2,2,#d04648|16,106,2,2,#140c1c|18,106,4,2,#442434|22,106,10,2,#d04648|32,106,2,2,#140c1c|34,106,2,2,#442434|36,106,8,2,#d04648|44,106,2,2,#140c1c|8,108,2,2,#140c1c|10,108,2,2,#442434|12,108,8,2,#d04648|20,108,2,2,#442434|22,108,4,2,#d27d2c|26,108,8,2,#d04648|34,108,10,2,#140c1c|8,110,2,2,#140c1c|10,110,2,2,#442434|12,110,8,2,#d04648|20,110,2,2,#442434|22,110,6,2,#d27d2c|28,110,8,2,#d04648|36,110,2,2,#140c1c|8,112,2,2,#140c1c|10,112,2,2,#442434|12,112,8,2,#d04648|20,112,2,2,#442434|22,112,8,2,#d27d2c|30,112,6,2,#d04648|36,112,2,2,#140c1c|10,114,8,2,#140c1c|18,114,2,2,#d04648|20,114,2,2,#442434|22,114,8,2,#d27d2c|30,114,2,2,#442434|32,114,4,2,#d04648|36,114,2,2,#140c1c|14,116,2,2,#140c1c|16,116,2,2,#442434|18,116,4,2,#d04648|22,116,10,2,#140c1c|32,116,2,2,#442434|34,116,4,2,#d04648|38,116,2,2,#140c1c|12,118,2,2,#140c1c|14,118,6,2,#dad45e|20,118,2,2,#140c1c|30,118,2,2,#140c1c|32,118,6,2,#dad45e|38,118,2,2,#140c1c|29,94,2,2,#140c1c|43,94,2,2,#140c1c|27,96,2,2,#140c1c|29,96,2,2,#deeed6|31,96,4,2,#140c1c|41,96,2,2,#140c1c|43,96,2,2,#597dce|45,96,2,2,#140c1c|25,98,2,2,#140c1c|27,98,8,2,#deeed6|35,98,2,2,#140c1c|41,98,2,2,#140c1c|43,98,2,2,#6dc2ca|45,98,2,2,#140c1c|23,100,2,2,#140c1c|25,100,2,2,#8595a1|27,100,10,2,#deeed6|37,100,2,2,#140c1c|43,100,2,2,#140c1c|21,102,2,2,#140c1c|23,102,2,2,#8595a1|25,102,2,2,#deeed6|27,102,2,2,#140c1c|29,102,2,2,#6dc2ca|31,102,2,2,#deeed6|33,102,2,2,#140c1c|35,102,2,2,#6dc2ca|37,102,2,2,#deeed6|39,102,2,2,#140c1c|19,104,2,2,#140c1c|21,104,4,2,#8595a1|25,104,2,2,#deeed6|27,104,4,2,#140c1c|31,104,2,2,#deeed6|33,104,4,2,#140c1c|37,104,4,2,#deeed6|41,104,2,2,#140c1c|19,106,2,2,#140c1c|21,106,4,2,#8595a1|25,106,18,2,#deeed6|43,106,2,2,#140c1c|19,108,2,2,#140c1c|21,108,4,2,#8595a1|25,108,4,2,#deeed6|29,108,8,2,#140c1c|37,108,6,2,#deeed6|43,108,2,2,#140c1c|19,110,2,2,#140c1c|21,110,4,2,#8595a1|25,110,10,2,#deeed6|35,110,4,2,#597dce|39,110,2,2,#deeed6|41,110,2,2,#140c1c|19,112,2,2,#140c1c|21,112,4,2,#8595a1|25,112,2,2,#140c1c|27,112,6,2,#deeed6|33,112,2,2,#140c1c|35,112,6,2,#deeed6|41,112,2,2,#140c1c|19,114,2,2,#140c1c|21,114,2,2,#8595a1|23,114,2,2,#140c1c|27,114,2,2,#140c1c|29,114,2,2,#deeed6|31,114,2,2,#140c1c|35,114,2,2,#140c1c|37,114,2,2,#deeed6|39,114,2,2,#140c1c|21,116,2,2,#140c1c|23,116,2,2,#8595a1|25,116,2,2,#140c1c|29,116,2,2,#140c1c|31,116,2,2,#deeed6|33,116,2,2,#140c1c|37,116,2,2,#140c1c|39,116,2,2,#deeed6|41,116,2,2,#140c1c|23,118,2,2,#140c1c|31,118,2,2,#140c1c|39,118,2,2,#140c1c|30,100,4,2,#140c1c|38,100,2,2,#140c1c|48,100,2,2,#140c1c|56,100,4,2,#140c1c|30,102,2,2,#140c1c|32,102,2,2,#4e4a4e|34,102,4,2,#140c1c|38,102,2,2,#d2aa99|40,102,2,2,#140c1c|46,102,2,2,#140c1c|48,102,2,2,#d2aa99|50,102,2,2,#140c1c|54,102,2,2,#140c1c|56,102,2,2,#4e4a4e|58,102,2,2,#140c1c|30,104,2,2,#140c1c|32,104,2,2,#442434|34,104,2,2,#4e4a4e|36,104,2,2,#140c1c|38,104,2,2,#30346d|40,104,8,2,#140c1c|48,104,2,2,#30346d|50,104,4,2,#140c1c|54,104,2,2,#4e4a4e|56,104,2,2,#442434|58,104,2,2,#140c1c|30,106,2,2,#140c1c|32,106,4,2,#442434|36,106,2,2,#140c1c|38,106,6,2,#30346d|44,106,6,2,#597dce|50,106,2,2,#140c1c|52,106,2,2,#4e4a4e|54,106,4,2,#442434|58,106,2,2,#140c1c|30,108,2,2,#140c1c|32,108,4,2,#442434|36,108,2,2,#140c1c|38,108,2,2,#4e4a4e|40,108,2,2,#d04648|42,108,2,2,#deeed6|44,108,2,2,#30346d|46,108,2,2,#d04648|48,108,2,2,#deeed6|50,108,2,2,#140c1c|52,108,6,2,#442434|58,108,2,2,#140c1c|32,110,2,2,#140c1c|34,110,2,2,#442434|36,110,2,2,#140c1c|38,110,2,2,#4e4a4e|40,110,2,2,#140c1c|42,110,2,2,#d04648|44,110,2,2,#30346d|46,110,2,2,#140c1c|48,110,2,2,#d04648|50,110,2,2,#140c1c|52,110,4,2,#442434|56,110,2,2,#140c1c|34,112,4,2,#140c1c|38,112,2,2,#4e4a4e|40,112,2,2,#30346d|42,112,2,2,#deeed6|44,112,2,2,#140c1c|46,112,2,2,#deeed6|48,112,2,2,#30346d|50,112,6,2,#140c1c|38,114,2,2,#140c1c|40,114,2,2,#4e4a4e|42,114,6,2,#30346d|48,114,2,2,#140c1c|38,116,2,2,#140c1c|40,116,2,2,#4e4a4e|42,116,4,2,#140c1c|46,116,2,2,#30346d|48,116,2,2,#140c1c|38,118,4,2,#140c1c|46,118,4,2,#140c1c|41,100,4,2,#140c1c|49,100,2,2,#140c1c|59,100,2,2,#140c1c|67,100,4,2,#140c1c|41,102,2,2,#140c1c|43,102,2,2,#4e4a4e|45,102,4,2,#140c1c|49,102,2,2,#d2aa99|51,102,2,2,#140c1c|57,102,2,2,#140c1c|59,102,2,2,#d2aa99|61,102,2,2,#140c1c|65,102,2,2,#140c1c|67,102,2,2,#4e4a4e|69,102,2,2,#140c1c|41,104,2,2,#140c1c|43,104,2,2,#442434|45,104,2,2,#4e4a4e|47,104,2,2,#140c1c|49,104,2,2,#30346d|51,104,8,2,#140c1c|59,104,2,2,#30346d|61,104,4,2,#140c1c|65,104,2,2,#4e4a4e|67,104,2,2,#442434|69,104,2,2,#140c1c|41,106,2,2,#140c1c|43,106,4,2,#442434|47,106,2,2,#140c1c|49,106,6,2,#30346d|55,106,6,2,#597dce|61,106,2,2,#140c1c|63,106,2,2,#4e4a4e|65,106,4,2,#442434|69,106,2,2,#140c1c|41,108,2,2,#140c1c|43,108,4,2,#442434|47,108,2,2,#140c1c|49,108,2,2,#4e4a4e|51,108,2,2,#d04648|53,108,2,2,#deeed6|55,108,2,2,#30346d|57,108,2,2,#d04648|59,108,2,2,#deeed6|61,108,2,2,#140c1c|63,108,6,2,#442434|69,108,2,2,#140c1c|43,110,2,2,#140c1c|45,110,2,2,#442434|47,110,2,2,#140c1c|49,110,2,2,#4e4a4e|51,110,2,2,#140c1c|53,110,2,2,#d04648|55,110,2,2,#30346d|57,110,2,2,#140c1c|59,110,2,2,#d04648|61,110,2,2,#140c1c|63,110,4,2,#442434|67,110,2,2,#140c1c|45,112,4,2,#140c1c|49,112,2,2,#4e4a4e|51,112,2,2,#30346d|53,112,2,2,#deeed6|55,112,2,2,#140c1c|57,112,2,2,#deeed6|59,112,2,2,#30346d|61,112,6,2,#140c1c|49,114,2,2,#140c1c|51,114,2,2,#4e4a4e|53,114,6,2,#30346d|59,114,2,2,#140c1c|49,116,2,2,#140c1c|51,116,2,2,#4e4a4e|53,116,4,2,#140c1c|57,116,2,2,#30346d|59,116,2,2,#140c1c|49,118,4,2,#140c1c|57,118,4,2,#140c1c|58,102,4,2,#140c1c|70,102,4,2,#140c1c|56,104,2,2,#140c1c|58,104,2,2,#346524|60,104,2,2,#6daa2c|62,104,8,2,#140c1c|70,104,2,2,#6daa2c|72,104,2,2,#deeed6|74,104,2,2,#140c1c|54,106,2,2,#140c1c|56,106,2,2,#346524|58,106,16,2,#6daa2c|74,106,2,2,#deeed6|76,106,2,2,#140c1c|52,108,2,2,#140c1c|54,108,2,2,#346524|56,108,4,2,#6daa2c|60,108,2,2,#140c1c|62,108,2,2,#deeed6|64,108,2,2,#6daa2c|66,108,2,2,#140c1c|68,108,2,2,#deeed6|70,108,6,2,#6daa2c|76,108,2,2,#140c1c|52,110,2,2,#140c1c|54,110,2,2,#346524|56,110,2,2,#30346d|58,110,2,2,#6dc2ca|60,110,4,2,#140c1c|64,110,2,2,#6daa2c|66,110,4,2,#140c1c|70,110,6,2,#6daa2c|76,110,2,2,#140c1c|52,112,2,2,#140c1c|54,112,2,2,#346524|56,112,4,2,#30346d|60,112,16,2,#6daa2c|76,112,2,2,#140c1c|52,114,2,2,#140c1c|54,114,2,2,#346524|56,114,4,2,#30346d|60,114,2,2,#6daa2c|62,114,2,2,#140c1c|64,114,2,2,#deeed6|66,114,2,2,#140c1c|68,114,4,2,#deeed6|72,114,2,2,#140c1c|74,114,2,2,#6daa2c|76,114,2,2,#140c1c|52,116,2,2,#140c1c|54,116,8,2,#346524|62,116,2,2,#6daa2c|64,116,8,2,#140c1c|72,116,4,2,#6daa2c|76,116,2,2,#140c1c|54,118,22,2,#140c1c"
+Received: "0,120,200,2,#346524|0,122,200,8,#442434|18,86,2,2,#140c1c|36,86,4,2,#140c1c|12,88,2,2,#140c1c|16,88,2,2,#140c1c|18,88,2,2,#dad45e|20,88,2,2,#140c1c|34,88,2,2,#140c1c|36,88,2,2,#d27d2c|38,88,2,2,#dad45e|40,88,2,2,#140c1c|10,90,2,2,#140c1c|12,90,2,2,#dad45e|14,90,2,2,#140c1c|16,90,4,2,#d27d2c|20,90,2,2,#dad45e|22,90,2,2,#140c1c|34,90,2,2,#140c1c|36,90,2,2,#d27d2c|38,90,4,2,#dad45e|42,90,2,2,#140c1c|8,92,2,2,#140c1c|10,92,10,2,#d27d2c|20,92,2,2,#dad45e|22,92,2,2,#140c1c|32,92,4,2,#140c1c|36,92,8,2,#d04648|44,92,2,2,#140c1c|10,94,2,2,#140c1c|12,94,6,2,#d27d2c|18,94,2,2,#140c1c|20,94,4,2,#d27d2c|24,94,2,2,#140c1c|28,94,4,2,#140c1c|32,94,6,2,#d04648|38,94,4,2,#140c1c|42,94,4,2,#d04648|46,94,2,2,#140c1c|12,96,2,2,#140c1c|14,96,4,2,#d27d2c|18,96,2,2,#140c1c|20,96,4,2,#d04648|24,96,2,2,#d27d2c|26,96,2,2,#140c1c|28,96,6,2,#d04648|34,96,2,2,#dad45e|36,96,2,2,#140c1c|38,96,2,2,#deeed6|40,96,2,2,#dad45e|42,96,4,2,#d04648|46,96,2,2,#140c1c|10,98,2,2,#140c1c|14,98,2,2,#140c1c|16,98,2,2,#d04648|18,98,2,2,#442434|20,98,6,2,#d04648|26,98,2,2,#140c1c|28,98,6,2,#d04648|34,98,2,2,#dad45e|36,98,4,2,#140c1c|40,98,2,2,#dad45e|42,98,4,2,#d04648|46,98,2,2,#140c1c|12,100,4,2,#140c1c|16,100,2,2,#d04648|18,100,2,2,#442434|20,100,8,2,#d04648|28,100,2,2,#140c1c|30,100,16,2,#d04648|46,100,2,2,#140c1c|10,102,2,2,#140c1c|12,102,2,2,#dad45e|14,102,2,2,#140c1c|16,102,2,2,#d04648|18,102,4,2,#442434|22,102,8,2,#d04648|30,102,2,2,#140c1c|32,102,8,2,#442434|40,102,2,2,#deeed6|42,102,4,2,#140c1c|8,104,2,2,#140c1c|10,104,4,2,#dad45e|14,104,4,2,#140c1c|18,104,4,2,#442434|22,104,8,2,#d04648|30,104,2,2,#140c1c|32,104,12,2,#442434|44,104,2,2,#140c1c|8,106,2,2,#140c1c|10,106,2,2,#dad45e|12,106,2,2,#d27d2c|14,106,2,2,#d04648|16,106,2,2,#140c1c|18,106,4,2,#442434|22,106,10,2,#d04648|32,106,2,2,#140c1c|34,106,2,2,#442434|36,106,8,2,#d04648|44,106,2,2,#140c1c|8,108,2,2,#140c1c|10,108,2,2,#442434|12,108,8,2,#d04648|20,108,2,2,#442434|22,108,4,2,#d27d2c|26,108,8,2,#d04648|34,108,10,2,#140c1c|8,110,2,2,#140c1c|10,110,2,2,#442434|12,110,8,2,#d04648|20,110,2,2,#442434|22,110,6,2,#d27d2c|28,110,8,2,#d04648|36,110,2,2,#140c1c|8,112,2,2,#140c1c|10,112,2,2,#442434|12,112,8,2,#d04648|20,112,2,2,#442434|22,112,8,2,#d27d2c|30,112,6,2,#d04648|36,112,2,2,#140c1c|10,114,8,2,#140c1c|18,114,2,2,#d04648|20,114,2,2,#442434|22,114,8,2,#d27d2c|30,114,2,2,#442434|32,114,4,2,#d04648|36,114,2,2,#140c1c|14,116,2,2,#140c1c|16,116,2,2,#442434|18,116,4,2,#d04648|22,116,10,2,#140c1c|32,116,2,2,#442434|34,116,4,2,#d04648|38,116,2,2,#140c1c|12,118,2,2,#140c1c|14,118,6,2,#dad45e|20,118,2,2,#140c1c|30,118,2,2,#140c1c|32,118,6,2,#dad45e|38,118,2,2,#140c1c|21,88,10,2,#140c1c|19,90,2,2,#140c1c|21,90,4,2,#757161|25,90,4,2,#8595a1|29,90,2,2,#140c1c|37,90,10,2,#140c1c|19,92,2,2,#140c1c|21,92,2,2,#4e4a4e|23,92,2,2,#854c30|25,92,2,2,#757161|27,92,2,2,#8595a1|29,92,2,2,#140c1c|35,92,2,2,#140c1c|37,92,4,2,#757161|41,92,4,2,#8595a1|45,92,8,2,#140c1c|19,94,2,2,#140c1c|21,94,2,2,#4e4a4e|23,94,2,2,#757161|25,94,2,2,#854c30|27,94,4,2,#757161|31,94,2,2,#140c1c|35,94,14,2,#140c1c|49,94,4,2,#8595a1|53,94,2,2,#140c1c|19,96,2,2,#140c1c|21,96,2,2,#4e4a4e|23,96,4,2,#757161|27,96,2,2,#854c30|29,96,4,2,#757161|33,96,2,2,#140c1c|35,96,2,2,#4e4a4e|37,96,2,2,#140c1c|39,96,2,2,#dad45e|41,96,2,2,#deeed6|43,96,2,2,#140c1c|45,96,2,2,#dad45e|47,96,2,2,#deeed6|49,96,2,2,#140c1c|51,96,2,2,#757161|53,96,2,2,#8595a1|55,96,2,2,#140c1c|19,98,2,2,#140c1c|21,98,2,2,#4e4a4e|23,98,10,2,#757161|33,98,2,2,#140c1c|35,98,2,2,#4e4a4e|37,98,2,2,#140c1c|39,98,4,2,#dad45e|43,98,2,2,#140c1c|45,98,4,2,#dad45e|49,98,2,2,#140c1c|51,98,4,2,#757161|55,98,2,2,#140c1c|21,100,2,2,#140c1c|23,100,2,2,#4e4a4e|25,100,8,2,#757161|33,100,2,2,#140c1c|35,100,2,2,#4e4a4e|37,100,18,2,#757161|55,100,2,2,#140c1c|21,102,2,2,#140c1c|23,102,2,2,#4e4a4e|25,102,8,2,#757161|33,102,2,2,#140c1c|35,102,2,2,#4e4a4e|37,102,2,2,#757161|39,102,2,2,#140c1c|41,102,6,2,#442434|47,102,2,2,#140c1c|49,102,4,2,#757161|53,102,2,2,#140c1c|21,104,2,2,#140c1c|23,104,2,2,#4e4a4e|25,104,2,2,#757161|27,104,2,2,#854c30|29,104,4,2,#757161|33,104,2,2,#140c1c|35,104,10,2,#4e4a4e|45,104,2,2,#140c1c|47,104,6,2,#4e4a4e|53,104,2,2,#140c1c|21,106,2,2,#140c1c|23,106,2,2,#4e4a4e|25,106,2,2,#854c30|27,106,6,2,#757161|33,106,2,2,#140c1c|35,106,2,2,#757161|37,106,2,2,#dad45e|39,106,2,2,#757161|41,106,2,2,#dad45e|43,106,2,2,#757161|45,106,2,2,#140c1c|47,106,2,2,#4e4a4e|49,106,2,2,#854c30|51,106,2,2,#8595a1|53,106,2,2,#140c1c|21,108,2,2,#140c1c|23,108,2,2,#4e4a4e|25,108,2,2,#854c30|27,108,6,2,#757161|33,108,2,2,#140c1c|35,108,2,2,#757161|37,108,6,2,#dad45e|43,108,2,2,#757161|45,108,2,2,#140c1c|47,108,2,2,#4e4a4e|49,108,2,2,#854c30|51,108,2,2,#757161|53,108,2,2,#140c1c|19,110,2,2,#140c1c|21,110,4,2,#4e4a4e|25,110,4,2,#757161|29,110,2,2,#8595a1|31,110,2,2,#4e4a4e|33,110,2,2,#140c1c|35,110,4,2,#757161|39,110,2,2,#dad45e|41,110,4,2,#757161|45,110,2,2,#140c1c|47,110,2,2,#854c30|49,110,4,2,#757161|53,110,2,2,#140c1c|19,112,2,2,#140c1c|21,112,4,2,#4e4a4e|25,112,6,2,#757161|31,112,2,2,#4e4a4e|33,112,2,2,#140c1c|35,112,4,2,#757161|39,112,2,2,#dad45e|41,112,2,2,#757161|43,112,2,2,#140c1c|45,112,4,2,#4e4a4e|49,112,4,2,#757161|53,112,2,2,#8595a1|55,112,2,2,#140c1c|19,114,2,2,#140c1c|21,114,2,2,#4e4a4e|23,114,6,2,#757161|29,114,2,2,#140c1c|33,114,2,2,#140c1c|35,114,2,2,#4e4a4e|37,114,4,2,#757161|41,114,2,2,#140c1c|45,114,2,2,#140c1c|47,114,2,2,#4e4a4e|49,114,6,2,#757161|55,114,2,2,#140c1c|19,116,2,2,#140c1c|21,116,6,2,#4e4a4e|27,116,2,2,#757161|29,116,2,2,#140c1c|33,116,2,2,#140c1c|35,116,4,2,#4e4a4e|39,116,2,2,#757161|41,116,2,2,#140c1c|45,116,2,2,#140c1c|47,116,6,2,#4e4a4e|53,116,2,2,#757161|55,116,2,2,#140c1c|19,118,12,2,#140c1c|33,118,10,2,#140c1c|45,118,12,2,#140c1c|30,100,4,2,#140c1c|38,100,2,2,#140c1c|48,100,2,2,#140c1c|56,100,4,2,#140c1c|30,102,2,2,#140c1c|32,102,2,2,#4e4a4e|34,102,4,2,#140c1c|38,102,2,2,#d2aa99|40,102,2,2,#140c1c|46,102,2,2,#140c1c|48,102,2,2,#d2aa99|50,102,2,2,#140c1c|54,102,2,2,#140c1c|56,102,2,2,#4e4a4e|58,102,2,2,#140c1c|30,104,2,2,#140c1c|32,104,2,2,#442434|34,104,2,2,#4e4a4e|36,104,2,2,#140c1c|38,104,2,2,#30346d|40,104,8,2,#140c1c|48,104,2,2,#30346d|50,104,4,2,#140c1c|54,104,2,2,#4e4a4e|56,104,2,2,#442434|58,104,2,2,#140c1c|30,106,2,2,#140c1c|32,106,4,2,#442434|36,106,2,2,#140c1c|38,106,6,2,#30346d|44,106,6,2,#597dce|50,106,2,2,#140c1c|52,106,2,2,#4e4a4e|54,106,4,2,#442434|58,106,2,2,#140c1c|30,108,2,2,#140c1c|32,108,4,2,#442434|36,108,2,2,#140c1c|38,108,2,2,#4e4a4e|40,108,2,2,#d04648|42,108,2,2,#deeed6|44,108,2,2,#30346d|46,108,2,2,#d04648|48,108,2,2,#deeed6|50,108,2,2,#140c1c|52,108,6,2,#442434|58,108,2,2,#140c1c|32,110,2,2,#140c1c|34,110,2,2,#442434|36,110,2,2,#140c1c|38,110,2,2,#4e4a4e|40,110,2,2,#140c1c|42,110,2,2,#d04648|44,110,2,2,#30346d|46,110,2,2,#140c1c|48,110,2,2,#d04648|50,110,2,2,#140c1c|52,110,4,2,#442434|56,110,2,2,#140c1c|34,112,4,2,#140c1c|38,112,2,2,#4e4a4e|40,112,2,2,#30346d|42,112,2,2,#deeed6|44,112,2,2,#140c1c|46,112,2,2,#deeed6|48,112,2,2,#30346d|50,112,6,2,#140c1c|38,114,2,2,#140c1c|40,114,2,2,#4e4a4e|42,114,6,2,#30346d|48,114,2,2,#140c1c|38,116,2,2,#140c1c|40,116,2,2,#4e4a4e|42,116,4,2,#140c1c|46,116,2,2,#30346d|48,116,2,2,#140c1c|38,118,4,2,#140c1c|46,118,4,2,#140c1c|41,100,4,2,#140c1c|49,100,2,2,#140c1c|59,100,2,2,#140c1c|67,100,4,2,#140c1c|41,102,2,2,#140c1c|43,102,2,2,#4e4a4e|45,102,4,2,#140c1c|49,102,2,2,#d2aa99|51,102,2,2,#140c1c|57,102,2,2,#140c1c|59,102,2,2,#d2aa99|61,102,2,2,#140c1c|65,102,2,2,#140c1c|67,102,2,2,#4e4a4e|69,102,2,2,#140c1c|41,104,2,2,#140c1c|43,104,2,2,#442434|45,104,2,2,#4e4a4e|47,104,2,2,#140c1c|49,104,2,2,#30346d|51,104,8,2,#140c1c|59,104,2,2,#30346d|61,104,4,2,#140c1c|65,104,2,2,#4e4a4e|67,104,2,2,#442434|69,104,2,2,#140c1c|41,106,2,2,#140c1c|43,106,4,2,#442434|47,106,2,2,#140c1c|49,106,6,2,#30346d|55,106,6,2,#597dce|61,106,2,2,#140c1c|63,106,2,2,#4e4a4e|65,106,4,2,#442434|69,106,2,2,#140c1c|41,108,2,2,#140c1c|43,108,4,2,#442434|47,108,2,2,#140c1c|49,108,2,2,#4e4a4e|51,108,2,2,#d04648|53,108,2,2,#deeed6|55,108,2,2,#30346d|57,108,2,2,#d04648|59,108,2,2,#deeed6|61,108,2,2,#140c1c|63,108,6,2,#442434|69,108,2,2,#140c1c|43,110,2,2,#140c1c|45,110,2,2,#442434|47,110,2,2,#140c1c|49,110,2,2,#4e4a4e|51,110,2,2,#140c1c|53,110,2,2,#d04648|55,110,2,2,#30346d|57,110,2,2,#140c1c|59,110,2,2,#d04648|61,110,2,2,#140c1c|63,110,4,2,#442434|67,110,2,2,#140c1c|45,112,4,2,#140c1c|49,112,2,2,#4e4a4e|51,112,2,2,#30346d|53,112,2,2,#deeed6|55,112,2,2,#140c1c|57,112,2,2,#deeed6|59,112,2,2,#30346d|61,112,6,2,#140c1c|49,114,2,2,#140c1c|51,114,2,2,#4e4a4e|53,114,6,2,#30346d|59,114,2,2,#140c1c|49,116,2,2,#140c1c|51,116,2,2,#4e4a4e|53,116,4,2,#140c1c|57,116,2,2,#30346d|59,116,2,2,#140c1c|49,118,4,2,#140c1c|57,118,4,2,#140c1c|58,102,4,2,#140c1c|70,102,4,2,#140c1c|56,104,2,2,#140c1c|58,104,2,2,#346524|60,104,2,2,#6daa2c|62,104,8,2,#140c1c|70,104,2,2,#6daa2c|72,104,2,2,#deeed6|74,104,2,2,#140c1c|54,106,2,2,#140c1c|56,106,2,2,#346524|58,106,16,2,#6daa2c|74,106,2,2,#deeed6|76,106,2,2,#140c1c|52,108,2,2,#140c1c|54,108,2,2,#346524|56,108,4,2,#6daa2c|60,108,2,2,#140c1c|62,108,2,2,#deeed6|64,108,2,2,#6daa2c|66,108,2,2,#140c1c|68,108,2,2,#deeed6|70,108,6,2,#6daa2c|76,108,2,2,#140c1c|52,110,2,2,#140c1c|54,110,2,2,#346524|56,110,2,2,#30346d|58,110,2,2,#6dc2ca|60,110,4,2,#140c1c|64,110,2,2,#6daa2c|66,110,4,2,#140c1c|70,110,6,2,#6daa2c|76,110,2,2,#140c1c|52,112,2,2,#140c1c|54,112,2,2,#346524|56,112,4,2,#30346d|60,112,16,2,#6daa2c|76,112,2,2,#140c1c|52,114,2,2,#140c1c|54,114,2,2,#346524|56,114,4,2,#30346d|60,114,2,2,#6daa2c|62,114,2,2,#140c1c|64,114,2,2,#deeed6|66,114,2,2,#140c1c|68,114,4,2,#deeed6|72,114,2,2,#140c1c|74,114,2,2,#6daa2c|76,114,2,2,#140c1c|52,116,2,2,#140c1c|54,116,8,2,#346524|62,116,2,2,#6daa2c|64,116,8,2,#140c1c|72,116,4,2,#6daa2c|76,116,2,2,#140c1c|54,118,22,2,#140c1c|25,122,7,7,#140c1c|26,123,5,5,#d04648|27,123,3,1,#deeed6|27,124,1,1,#deeed6|27,125,2,1,#deeed6|27,126,1,1,#deeed6|27,127,1,1,#deeed6|35,122,7,7,#140c1c|36,123,5,5,#854c30|37,123,3,1,#deeed6|37,124,1,1,#deeed6|37,125,3,1,#deeed6|37,126,1,1,#deeed6|37,127,3,1,#deeed6|42,122,7,7,#140c1c|43,123,5,5,#6dc2ca|44,123,1,1,#deeed6|46,123,1,1,#deeed6|44,124,1,1,#deeed6|46,124,1,1,#deeed6|44,125,1,1,#deeed6|46,125,1,1,#deeed6|44,126,3,1,#deeed6|45,127,1,1,#deeed6|53,122,7,7,#140c1c|54,123,5,5,#6dc2ca|55,123,1,1,#deeed6|57,123,1,1,#deeed6|55,124,1,1,#deeed6|57,124,1,1,#deeed6|55,125,1,1,#deeed6|57,125,1,1,#deeed6|55,126,3,1,#deeed6|56,127,1,1,#deeed6|62,122,7,7,#140c1c|63,123,5,5,#597dce|65,123,1,1,#deeed6|64,124,1,1,#deeed6|66,124,1,1,#deeed6|64,125,3,1,#deeed6|64,126,1,1,#deeed6|66,126,1,1,#deeed6|64,127,1,1,#deeed6|66,127,1,1,#deeed6|74,94,2,2,#140c1c|76,94,2,2,#140c1c|78,94,2,2,#140c1c|80,94,2,2,#140c1c|82,94,2,2,#140c1c|84,94,2,2,#140c1c|72,96,2,2,#140c1c|74,96,2,2,#dad45e|76,96,2,2,#854c30|78,96,2,2,#854c30|80,96,2,2,#854c30|82,96,2,2,#854c30|84,96,2,2,#854c30|86,96,2,2,#140c1c|70,98,2,2,#140c1c|72,98,2,2,#854c30|74,98,2,2,#854c30|76,98,2,2,#854c30|78,98,2,2,#d2aa99|80,98,2,2,#d2aa99|82,98,2,2,#d2aa99|84,98,2,2,#d2aa99|86,98,2,2,#140c1c|70,100,2,2,#140c1c|72,100,2,2,#854c30|74,100,2,2,#d2aa99|76,100,2,2,#d2aa99|78,100,2,2,#d2aa99|80,100,2,2,#140c1c|82,100,2,2,#d2aa99|84,100,2,2,#140c1c|86,100,2,2,#140c1c|72,102,2,2,#140c1c|74,102,2,2,#d2aa99|76,102,2,2,#d2aa99|78,102,2,2,#d2aa99|80,102,2,2,#d2aa99|82,102,2,2,#d2aa99|84,102,2,2,#d2aa99|86,102,2,2,#140c1c|72,104,2,2,#140c1c|74,104,2,2,#140c1c|76,104,2,2,#d2aa99|78,104,2,2,#d2aa99|80,104,2,2,#d2aa99|82,104,2,2,#140c1c|84,104,2,2,#140c1c|72,106,2,2,#140c1c|74,106,2,2,#6daa2c|76,106,2,2,#6daa2c|78,106,2,2,#6daa2c|80,106,2,2,#6daa2c|82,106,2,2,#6daa2c|84,106,2,2,#140c1c|70,108,2,2,#140c1c|72,108,2,2,#6daa2c|74,108,2,2,#6daa2c|76,108,2,2,#6daa2c|78,108,2,2,#6daa2c|80,108,2,2,#6daa2c|82,108,2,2,#6daa2c|70,110,2,2,#140c1c|72,110,2,2,#6daa2c|74,110,2,2,#6daa2c|76,110,2,2,#6daa2c|78,110,2,2,#6daa2c|80,110,2,2,#6daa2c|84,110,2,2,#140c1c|72,112,2,2,#140c1c|74,112,2,2,#6daa2c|76,112,2,2,#6daa2c|78,112,2,2,#6daa2c|80,112,2,2,#6daa2c|82,112,2,2,#140c1c|70,114,2,2,#140c1c|72,114,2,2,#4e4a4e|74,114,2,2,#4e4a4e|76,114,2,2,#140c1c|80,114,2,2,#140c1c|82,114,2,2,#4e4a4e|84,114,2,2,#4e4a4e|86,114,2,2,#140c1c|88,114,2,2,#140c1c|68,116,2,2,#140c1c|70,116,2,2,#854c30|72,116,2,2,#854c30|74,116,2,2,#854c30|76,116,2,2,#140c1c|80,116,2,2,#140c1c|82,116,2,2,#854c30|84,116,2,2,#854c30|86,116,2,2,#854c30|88,116,2,2,#140c1c|68,118,2,2,#140c1c|70,118,2,2,#140c1c|72,118,2,2,#140c1c|74,118,2,2,#140c1c|76,118,2,2,#140c1c|80,118,2,2,#140c1c|82,118,2,2,#140c1c|84,118,2,2,#140c1c|86,118,2,2,#140c1c|88,118,2,2,#140c1c|84,108,2,2,#d2aa99|82,110,2,2,#d2aa99|164,100,6,2,#140c1c|158,102,6,2,#140c1c|164,102,6,2,#854c30|170,102,6,2,#140c1c|156,104,2,2,#140c1c|158,104,2,2,#d2aa99|160,104,16,2,#854c30|176,104,2,2,#140c1c|154,106,2,2,#140c1c|156,106,2,2,#d2aa99|158,106,4,2,#140c1c|162,106,2,2,#854c30|164,106,4,2,#140c1c|168,106,4,2,#854c30|172,106,4,2,#442434|176,106,2,2,#140c1c|152,108,4,2,#140c1c|156,108,6,2,#d2aa99|162,108,10,2,#854c30|172,108,6,2,#442434|178,108,2,2,#140c1c|154,110,2,2,#140c1c|156,110,2,2,#deeed6|158,110,2,2,#d2aa99|160,110,2,2,#deeed6|162,110,2,2,#d2aa99|164,110,2,2,#deeed6|166,110,4,2,#854c30|170,110,4,2,#442434|174,110,2,2,#140c1c|176,110,2,2,#442434|178,110,2,2,#140c1c|150,112,4,2,#140c1c|154,112,4,2,#8595a1|158,112,2,2,#140c1c|162,112,4,2,#140c1c|166,112,2,2,#8595a1|168,112,2,2,#140c1c|170,112,2,2,#854c30|172,112,6,2,#442434|178,112,2,2,#140c1c|150,114,2,2,#140c1c|152,114,2,2,#8595a1|154,114,2,2,#deeed6|156,114,2,2,#8595a1|158,114,2,2,#140c1c|160,114,4,2,#8595a1|164,114,2,2,#deeed6|166,114,2,2,#8595a1|168,114,2,2,#140c1c|170,114,6,2,#442434|176,114,2,2,#140c1c|152,116,2,2,#140c1c|154,116,6,2,#8595a1|160,116,2,2,#140c1c|162,116,6,2,#8595a1|168,116,2,2,#140c1c|170,116,4,2,#442434|174,116,2,2,#140c1c|150,118,2,2,#140c1c|152,118,6,2,#8595a1|158,118,2,2,#140c1c|162,118,2,2,#140c1c|164,118,6,2,#8595a1|170,118,8,2,#140c1c|71,78,4,1,#dad45e|70,79,6,1,#dad45e|70,80,2,1,#dad45e|72,80,2,1,#d27d2c|74,80,2,1,#dad45e|70,81,2,1,#dad45e|72,81,2,1,#d27d2c|74,81,2,1,#dad45e|70,82,6,1,#dad45e|71,83,4,1,#d27d2c|75,78,1,1,#dad45e|78,78,1,1,#dad45e|81,78,1,1,#dad45e|75,79,2,1,#dad45e|78,79,1,1,#dad45e|80,79,2,1,#dad45e|75,80,7,1,#dad45e|75,81,3,1,#dad45e|78,81,1,1,#d04648|79,81,3,1,#dad45e|75,82,7,1,#dad45e|75,83,7,1,#d27d2c|145,90,40,5,#8595a1|146,91,38,3,#140c1c|146,91,38,3,#d04648|162,122,7,7,#140c1c|163,123,5,5,#854c30|164,123,3,1,#deeed6|164,124,1,1,#deeed6|164,125,3,1,#deeed6|164,126,1,1,#deeed6|164,127,3,1,#deeed6|60,86,40,4,#8595a1|61,87,38,2,#140c1c|61,87,10,2,#6dc2ca|72,79,1,1,#140c1c|72,80,1,1,#140c1c|72,81,1,1,#140c1c|72,82,1,1,#140c1c|72,83,3,1,#140c1c|76,79,1,1,#140c1c|78,79,1,1,#140c1c|76,80,1,1,#140c1c|78,80,1,1,#140c1c|76,81,1,1,#140c1c|78,81,1,1,#140c1c|76,82,1,1,#140c1c|78,82,1,1,#140c1c|77,83,1,1,#140c1c|85,79,1,1,#140c1c|84,80,2,1,#140c1c|85,81,1,1,#140c1c|85,82,1,1,#140c1c|84,83,3,1,#140c1c|74,79,1,1,#140c1c|74,80,1,1,#140c1c|74,81,1,1,#140c1c|74,82,1,1,#140c1c|74,83,3,1,#140c1c|78,79,1,1,#140c1c|80,79,1,1,#140c1c|78,80,1,1,#140c1c|80,80,1,1,#140c1c|78,81,1,1,#140c1c|80,81,1,1,#140c1c|78,82,1,1,#140c1c|80,82,1,1,#140c1c|79,83,1,1,#140c1c|87,79,1,1,#140c1c|86,80,2,1,#140c1c|87,81,1,1,#140c1c|87,82,1,1,#140c1c|86,83,3,1,#140c1c|73,78,1,1,#140c1c|73,79,1,1,#140c1c|73,80,1,1,#140c1c|73,81,1,1,#140c1c|73,82,3,1,#140c1c|77,78,1,1,#140c1c|79,78,1,1,#140c1c|77,79,1,1,#140c1c|79,79,1,1,#140c1c|77,80,1,1,#140c1c|79,80,1,1,#140c1c|77,81,1,1,#140c1c|79,81,1,1,#140c1c|78,82,1,1,#140c1c|86,78,1,1,#140c1c|85,79,2,1,#140c1c|86,80,1,1,#140c1c|86,81,1,1,#140c1c|85,82,3,1,#140c1c|73,80,1,1,#140c1c|73,81,1,1,#140c1c|73,82,1,1,#140c1c|73,83,1,1,#140c1c|73,84,3,1,#140c1c|77,80,1,1,#140c1c|79,80,1,1,#140c1c|77,81,1,1,#140c1c|79,81,1,1,#140c1c|77,82,1,1,#140c1c|79,82,1,1,#140c1c|77,83,1,1,#140c1c|79,83,1,1,#140c1c|78,84,1,1,#140c1c|86,80,1,1,#140c1c|85,81,2,1,#140c1c|86,82,1,1,#140c1c|86,83,1,1,#140c1c|85,84,3,1,#140c1c|73,79,1,1,#deeed6|73,80,1,1,#deeed6|73,81,1,1,#deeed6|73,82,1,1,#deeed6|73,83,3,1,#deeed6|77,79,1,1,#deeed6|79,79,1,1,#deeed6|77,80,1,1,#deeed6|79,80,1,1,#deeed6|77,81,1,1,#deeed6|79,81,1,1,#deeed6|77,82,1,1,#deeed6|79,82,1,1,#deeed6|78,83,1,1,#deeed6|86,79,1,1,#deeed6|85,80,2,1,#deeed6|86,81,1,1,#deeed6|86,82,1,1,#deeed6|85,83,3,1,#deeed6|11,24,1,1,#140c1c|10,25,2,1,#140c1c|11,26,1,1,#140c1c|11,27,1,1,#140c1c|10,28,3,1,#140c1c|13,24,1,1,#140c1c|12,25,2,1,#140c1c|13,26,1,1,#140c1c|13,27,1,1,#140c1c|12,28,3,1,#140c1c|12,23,1,1,#140c1c|11,24,2,1,#140c1c|12,25,1,1,#140c1c|12,26,1,1,#140c1c|11,27,3,1,#140c1c|12,25,1,1,#140c1c|11,26,2,1,#140c1c|12,27,1,1,#140c1c|12,28,1,1,#140c1c|11,29,3,1,#140c1c|12,24,1,1,#deeed6|11,25,2,1,#deeed6|12,26,1,1,#deeed6|12,27,1,1,#deeed6|11,28,3,1,#deeed6|2,24,7,3,#140c1c|3,23,5,6,#140c1c|4,29,3,1,#140c1c|3,24,5,3,#deeed6|4,27,3,2,#deeed6|4,25,1,1,#140c1c|6,25,1,1,#140c1c|5,28,1,1,#140c1c|11,34,1,1,#140c1c|10,35,2,1,#140c1c|11,36,1,1,#140c1c|11,37,1,1,#140c1c|10,38,3,1,#140c1c|13,34,1,1,#140c1c|12,35,2,1,#140c1c|13,36,1,1,#140c1c|13,37,1,1,#140c1c|12,38,3,1,#140c1c|12,33,1,1,#140c1c|11,34,2,1,#140c1c|12,35,1,1,#140c1c|12,36,1,1,#140c1c|11,37,3,1,#140c1c|12,35,1,1,#140c1c|11,36,2,1,#140c1c|12,37,1,1,#140c1c|12,38,1,1,#140c1c|11,39,3,1,#140c1c|12,34,1,1,#dad45e|11,35,2,1,#dad45e|12,36,1,1,#dad45e|12,37,1,1,#dad45e|11,38,3,1,#dad45e|2,34,4,1,#140c1c|1,35,6,1,#140c1c|1,36,2,1,#140c1c|3,36,2,1,#140c1c|5,36,2,1,#140c1c|1,37,2,1,#140c1c|3,37,2,1,#140c1c|5,37,2,1,#140c1c|1,38,6,1,#140c1c|2,39,4,1,#140c1c|4,34,4,1,#140c1c|3,35,6,1,#140c1c|3,36,2,1,#140c1c|5,36,2,1,#140c1c|7,36,2,1,#140c1c|3,37,2,1,#140c1c|5,37,2,1,#140c1c|7,37,2,1,#140c1c|3,38,6,1,#140c1c|4,39,4,1,#140c1c|3,33,4,1,#140c1c|2,34,6,1,#140c1c|2,35,2,1,#140c1c|4,35,2,1,#140c1c|6,35,2,1,#140c1c|2,36,2,1,#140c1c|4,36,2,1,#140c1c|6,36,2,1,#140c1c|2,37,6,1,#140c1c|3,38,4,1,#140c1c|3,35,4,1,#140c1c|2,36,6,1,#140c1c|2,37,2,1,#140c1c|4,37,2,1,#140c1c|6,37,2,1,#140c1c|2,38,2,1,#140c1c|4,38,2,1,#140c1c|6,38,2,1,#140c1c|2,39,6,1,#140c1c|3,40,4,1,#140c1c|3,34,4,1,#dad45e|2,35,6,1,#dad45e|2,36,2,1,#dad45e|4,36,2,1,#d27d2c|6,36,2,1,#dad45e|2,37,2,1,#dad45e|4,37,2,1,#d27d2c|6,37,2,1,#dad45e|2,38,6,1,#dad45e|3,39,4,1,#d27d2c"
+
+ ❯ tests/renderer.test.ts:1597:21
+    1595|     drawParty(now.ctx, after, frame, GROUND_Y);
+    1596|     expect(now.calls.length).toBeGreaterThan(0);
+    1597|     expect(painted).toContain(now.calls.map(rectKey).join('|'));
+       |                     ^
+    1598| 
+    1599|     // The party the PREVIOUS monster picked is gone — nothing was cac…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+

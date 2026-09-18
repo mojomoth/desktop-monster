@@ -1,0 +1,726 @@
+{
+  "kind": "read-only reward pacing review",
+  "humanFun": "not measured",
+  "quantiles": "nearest rank ceil(n*p), no interpolation",
+  "scope": "R7-A complete files only; R7-B/C cancellation is not a candidate failure. R9 A/B/C complete first-three files. Whole-run longestKillGap is not localized to a cycle.",
+  "files": [
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r7-explore/R7-A-high-3.jsonl",
+      "sha256": "8f796b9a90a8d406d1a3767b94397273228119990006504944c805cc1af48f7a",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.075,
+        "p50": 0.09833333333333333,
+        "p90": 0.6133333333333333,
+        "max": 1.0583333333333333
+      },
+      "firstLevel15Minutes": {
+        "p10": 0.355,
+        "p50": 0.455,
+        "p90": 0.5466666666666666,
+        "max": 0.5483333333333333
+      },
+      "level23to24Minutes": {
+        "p10": 35.20666666666666,
+        "p50": 41.501666666666665,
+        "p90": 58.95166666666667,
+        "max": 71.045
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 6.555,
+        "p50": 7.95,
+        "p90": 10.065,
+        "max": 13.073333333333334
+      },
+      "purchasedBeforeFirstAccepted": 10,
+      "neverPurchasedWithinRun": 3,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "90": {
+          "denominator": 19,
+          "noWeapon": 0
+        },
+        "120": {
+          "denominator": 13,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 1,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r7-explore/R7-A-intermittent-10.jsonl",
+      "sha256": "8d8f973a0006dab37a06fc97d4cc7fe09ee78b5339a1679a7f9b98c8c6bd119e",
+      "n": 20,
+      "cyclesWanted": 10,
+      "participantsMissingAnyWantedCycle": 1,
+      "totalMissingCycles": 8,
+      "firstCompanionMinutes": {
+        "p10": 2.033333333333333,
+        "p50": 4.125,
+        "p90": 22.2,
+        "max": 36.00833333333333
+      },
+      "firstLevel15Minutes": {
+        "p10": 7.033333333333333,
+        "p50": 9.125,
+        "p90": 12.033333333333333,
+        "max": 13.083333333333334
+      },
+      "level23to24Minutes": {
+        "p10": 70.11666666666666,
+        "p50": 93.89166666666667,
+        "p90": 142.66666666666666,
+        "max": 242.36666666666667
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 15.9,
+        "p50": 20.366666666666667,
+        "p90": 25.483333333333334,
+        "max": 30.425
+      },
+      "purchasedBeforeFirstAccepted": 8,
+      "neverPurchasedWithinRun": 3,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 8
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 3
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 2
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 1
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r7-explore/R7-A-ordinary-10.jsonl",
+      "sha256": "dcd17cc3e7942e6436017d6a3bac7964649971071b10ab64e45718ab9f1b20a1",
+      "n": 20,
+      "cyclesWanted": 10,
+      "participantsMissingAnyWantedCycle": 1,
+      "totalMissingCycles": 8,
+      "firstCompanionMinutes": {
+        "p10": 0.5333333333333333,
+        "p50": 1.125,
+        "p90": 5.7,
+        "max": 9.008333333333333
+      },
+      "firstLevel15Minutes": {
+        "p10": 2.1,
+        "p50": 2.525,
+        "p90": 3.1416666666666666,
+        "max": 3.3333333333333335
+      },
+      "level23to24Minutes": {
+        "p10": 68.175,
+        "p50": 87.98333333333333,
+        "p90": 113.38333333333334,
+        "max": 280.2416666666667
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 16.6,
+        "p50": 20.575,
+        "p90": 25.55,
+        "max": 44.391666666666666
+      },
+      "purchasedBeforeFirstAccepted": 6,
+      "neverPurchasedWithinRun": 1,
+      "zeroKill30MinuteIntervals": [
+        {
+          "seed": 120009,
+          "before": {
+            "cycle": 1,
+            "elapsedMs": 28800000,
+            "kills": 255,
+            "stage": 255,
+            "level": 23,
+            "gold": "3347",
+            "spent": "13400",
+            "souls": 0,
+            "roster": 7,
+            "attack": "927",
+            "heroKills": 74,
+            "companionKills": 181,
+            "weaponId": "e15"
+          },
+          "after": {
+            "cycle": 1,
+            "elapsedMs": 30600000,
+            "kills": 255,
+            "stage": 255,
+            "level": 23,
+            "gold": "3347",
+            "spent": "13400",
+            "souls": 0,
+            "roster": 7,
+            "attack": "927",
+            "heroKills": 74,
+            "companionKills": 181,
+            "weaponId": "e15"
+          }
+        }
+      ],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 4
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-A-high-3.jsonl",
+      "sha256": "67458a68702704dde2f8383a975f72d945ca1b61c4aaf4290d18f0b325f897f0",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.075,
+        "p50": 0.09833333333333333,
+        "p90": 0.43666666666666665,
+        "max": 0.8283333333333334
+      },
+      "firstLevel15Minutes": {
+        "p10": 0.39,
+        "p50": 0.54,
+        "p90": 0.5683333333333334,
+        "max": 0.5866666666666667
+      },
+      "level23to24Minutes": {
+        "p10": 45.21666666666667,
+        "p50": 56.306666666666665,
+        "p90": 70.63333333333334,
+        "max": 82.97
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 6.845,
+        "p50": 9.163333333333334,
+        "p90": 12.0,
+        "max": 12.476666666666667
+      },
+      "purchasedBeforeFirstAccepted": 9,
+      "neverPurchasedWithinRun": 4,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "120": {
+          "denominator": 13,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 1,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-A-intermittent-3.jsonl",
+      "sha256": "515b25d413a814d3a2a374e7004a2642d07b4b1ac7239fee95438f1c3671e10b",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 2.033333333333333,
+        "p50": 3.1416666666666666,
+        "p90": 14.166666666666666,
+        "max": 28.0
+      },
+      "firstLevel15Minutes": {
+        "p10": 6.5,
+        "p50": 9.05,
+        "p90": 12.175,
+        "max": 14.208333333333334
+      },
+      "level23to24Minutes": {
+        "p10": 81.61666666666666,
+        "p50": 118.05,
+        "p90": 155.83333333333334,
+        "max": 159.425
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 14.4,
+        "p50": 17.316666666666666,
+        "p90": 22.366666666666667,
+        "max": 26.333333333333332
+      },
+      "purchasedBeforeFirstAccepted": 10,
+      "neverPurchasedWithinRun": 5,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 6
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-A-ordinary-3.jsonl",
+      "sha256": "1fb98726b49474522434dfedf76e3f7f5e0376a6229798249a0d0be4562bc24e",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.5333333333333333,
+        "p50": 0.8916666666666667,
+        "p90": 2.191666666666667,
+        "max": 5.341666666666667
+      },
+      "firstLevel15Minutes": {
+        "p10": 2.216666666666667,
+        "p50": 2.566666666666667,
+        "p90": 3.4166666666666665,
+        "max": 3.7083333333333335
+      },
+      "level23to24Minutes": {
+        "p10": 83.45,
+        "p50": 98.00833333333334,
+        "p90": 134.30833333333334,
+        "max": 159.25
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 11.5,
+        "p50": 15.891666666666667,
+        "p90": 20.425,
+        "max": 25.775
+      },
+      "purchasedBeforeFirstAccepted": 11,
+      "neverPurchasedWithinRun": 2,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 2
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-B-high-3.jsonl",
+      "sha256": "653a479d09f292c6f4d153a0c6f591e80ef3cc5da7dd887d5fd8457552b0735f",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.075,
+        "p50": 0.09833333333333333,
+        "p90": 0.44666666666666666,
+        "max": 1.3166666666666667
+      },
+      "firstLevel15Minutes": {
+        "p10": 0.43333333333333335,
+        "p50": 0.5233333333333333,
+        "p90": 0.575,
+        "max": 0.6083333333333333
+      },
+      "level23to24Minutes": {
+        "p10": 47.79,
+        "p50": 60.43833333333333,
+        "p90": 85.54333333333334,
+        "max": 113.76
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 6.416666666666667,
+        "p50": 9.038333333333334,
+        "p90": 10.785,
+        "max": 12.481666666666667
+      },
+      "purchasedBeforeFirstAccepted": 8,
+      "neverPurchasedWithinRun": 4,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "120": {
+          "denominator": 18,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 2,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-B-intermittent-3.jsonl",
+      "sha256": "0e53202420ef428ad694fb6708b1c081002f6b6daac3f25a5d37ee609dbda487",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 2.033333333333333,
+        "p50": 3.1416666666666666,
+        "p90": 4.233333333333333,
+        "max": 11.216666666666667
+      },
+      "firstLevel15Minutes": {
+        "p10": 6.058333333333334,
+        "p50": 8.225,
+        "p90": 13.025,
+        "max": 15.1
+      },
+      "level23to24Minutes": {
+        "p10": 96.68333333333334,
+        "p50": 126.58333333333333,
+        "p90": 154.825,
+        "max": 161.51666666666668
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 14.516666666666667,
+        "p50": 18.75,
+        "p90": 23.033333333333335,
+        "max": 25.233333333333334
+      },
+      "purchasedBeforeFirstAccepted": 9,
+      "neverPurchasedWithinRun": 2,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 6
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 2
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-B-ordinary-3.jsonl",
+      "sha256": "594b61b5b86bd83af53982186a3ab983e94c1cf32441cb9e837762047cb4c118",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.5333333333333333,
+        "p50": 0.8916666666666667,
+        "p90": 1.2333333333333334,
+        "max": 2.966666666666667
+      },
+      "firstLevel15Minutes": {
+        "p10": 2.05,
+        "p50": 2.6083333333333334,
+        "p90": 3.5166666666666666,
+        "max": 3.9
+      },
+      "level23to24Minutes": {
+        "p10": 91.84166666666667,
+        "p50": 111.20833333333333,
+        "p90": 154.85833333333332,
+        "max": 204.95833333333334
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 13.858333333333333,
+        "p50": 16.833333333333332,
+        "p90": 24.183333333333334,
+        "max": 33.81666666666667
+      },
+      "purchasedBeforeFirstAccepted": 10,
+      "neverPurchasedWithinRun": 2,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 4
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-C-high-3.jsonl",
+      "sha256": "66d5e5ef11db8dbb5c80d9fdd2a116d0879679c6d72ffcd58e9d3b4ecacd8cc0",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.075,
+        "p50": 0.1,
+        "p90": 0.29833333333333334,
+        "max": 0.30833333333333335
+      },
+      "firstLevel15Minutes": {
+        "p10": 0.425,
+        "p50": 0.5216666666666666,
+        "p90": 0.6116666666666667,
+        "max": 0.6133333333333333
+      },
+      "level23to24Minutes": {
+        "p10": 52.72833333333333,
+        "p50": 69.67666666666666,
+        "p90": 87.57,
+        "max": 117.76666666666667
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 7.666666666666667,
+        "p50": 10.546666666666667,
+        "p90": 13.168333333333333,
+        "max": 18.138333333333332
+      },
+      "purchasedBeforeFirstAccepted": 6,
+      "neverPurchasedWithinRun": 4,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 0
+        },
+        "120": {
+          "denominator": 19,
+          "noWeapon": 0
+        },
+        "180": {
+          "denominator": 6,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-C-intermittent-3.jsonl",
+      "sha256": "286d76f577db3c3dc5009734da1821104d571f4e34fa17d437059af9285e31e8",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 1,
+      "totalMissingCycles": 1,
+      "firstCompanionMinutes": {
+        "p10": 2.033333333333333,
+        "p50": 3.0,
+        "p90": 4.233333333333333,
+        "max": 30.058333333333334
+      },
+      "firstLevel15Minutes": {
+        "p10": 6.175,
+        "p50": 9.108333333333333,
+        "p90": 13.05,
+        "max": 13.575
+      },
+      "level23to24Minutes": {
+        "p10": 96.45833333333333,
+        "p50": 119.94166666666666,
+        "p90": 165.05,
+        "max": 236.66666666666666
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 14.983333333333333,
+        "p50": 18.875,
+        "p90": 24.583333333333332,
+        "max": 28.216666666666665
+      },
+      "purchasedBeforeFirstAccepted": 8,
+      "neverPurchasedWithinRun": 6,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 6
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 2
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 2
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 0
+        }
+      }
+    },
+    {
+      "path": ".agentdoc/v11-20260918-resume/balance/r9-explore/R9-C-ordinary-3.jsonl",
+      "sha256": "bbef0b2248b20f583a87756de9eecf5c2b98054def89af87aee274722e17cc8a",
+      "n": 20,
+      "cyclesWanted": 3,
+      "participantsMissingAnyWantedCycle": 0,
+      "totalMissingCycles": 0,
+      "firstCompanionMinutes": {
+        "p10": 0.5333333333333333,
+        "p50": 0.75,
+        "p90": 1.2333333333333334,
+        "max": 7.625
+      },
+      "firstLevel15Minutes": {
+        "p10": 2.158333333333333,
+        "p50": 2.725,
+        "p90": 3.3666666666666667,
+        "max": 3.95
+      },
+      "level23to24Minutes": {
+        "p10": 82.7,
+        "p50": 126.625,
+        "p90": 167.675,
+        "max": 185.65
+      },
+      "wholeRunLongestKillGapMinutes": {
+        "p10": 13.95,
+        "p50": 18.5,
+        "p90": 23.491666666666667,
+        "max": 27.458333333333332
+      },
+      "purchasedBeforeFirstAccepted": 5,
+      "neverPurchasedWithinRun": 3,
+      "zeroKill30MinuteIntervals": [],
+      "firstCycleWeaponCheckpoints": {
+        "30": {
+          "denominator": 20,
+          "noWeapon": 3
+        },
+        "60": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "90": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "120": {
+          "denominator": 20,
+          "noWeapon": 1
+        },
+        "180": {
+          "denominator": 20,
+          "noWeapon": 1
+        }
+      }
+    }
+  ]
+}

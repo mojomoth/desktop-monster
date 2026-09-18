@@ -1,0 +1,96 @@
+{
+  "version": 11,
+  "round": 12,
+  "stage": "early-capture-floor-and-longer-ramp-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R12-A",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10980,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R12-B",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 11000,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R12-C",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 11020,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "R11identifiedearlycapturequota inversion: fiveearlylow-indexcaptures spendpermanentguarantee beforelateFbase, leavingseed120001ordinaryweakcrew atstage79~60min. Registeredconstantfieldfloor10000 prevents this withoutchangingcapturequota/rawPvP. Fcap79max14630 retains46percentcapturegain; HPprefix1080through79 thenfixedrampuntil159/plateau, requiredlevel26frontier<400 distributesrewards. G25preferred;Rfractiontestedtooffsetretainedtypecoverage. Fieldfloor/source/HPcapexplicitapprovedDesigner/Critic/Host. Originalgates+newgrowthp10guardunchanged."
+}

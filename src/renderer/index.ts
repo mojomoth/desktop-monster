@@ -13,6 +13,7 @@ import { setupWindowDrag } from './drag.js';
 import { createGame, createSaveScheduler } from './game.js';
 import type { GameOptions } from './game.js';
 import { setupFallbackInput } from './input.js';
+import { createGameAudio } from './audio.js';
 import type { GameEvent } from '../core/index.js';
 import type { InputSource } from '../shared/ipc.js';
 import type { SaveStatus } from '../shared/ipc.js';
@@ -53,6 +54,8 @@ async function boot(): Promise<void> {
   const loaded = await window.desmon.loadState();
   const engine = createEngine(loaded == null ? null : parseSave(loaded));
   const settings = await window.desmon.getSettings();
+  let muted = settings.muted;
+  const audio = createGameAudio({ isMuted: () => muted });
   const completing = new Set<string>();
   const completeReplay = (id: string): void => {
     if (completing.has(id)) return;
@@ -74,8 +77,8 @@ async function boot(): Promise<void> {
         ? `${presentation.role === 'defense' ? 'PvP 발생' : 'PvP'} · 상대 ${presentation.replay.opponentName}와 전투 중` : '';
     },
   };
-  window.desmon.onSettingsChanged((next) => { options.screenShake = next.screenShake; });
-  let game = createGame(engine, undefined, options);
+  window.desmon.onSettingsChanged((next) => { options.screenShake = next.screenShake; muted = next.muted; });
+  let game = createGame(engine, audio, options);
   let generation = await window.desmon.getGeneration();
   let paused = false;
 
@@ -164,7 +167,7 @@ async function boot(): Promise<void> {
   });
   window.desmon.onReleaseState((release) => {
     if (release.generation <= generation) return;
-    if (release.replace) game = createGame(createEngine(parseSave(release.save)), undefined, options);
+    if (release.replace) game = createGame(createEngine(parseSave(release.save)), audio, options);
     else for (const action of release.actions) game.apply(action as CollectionAction);
     for (const replay of release.replays ?? []) game.enqueueReplay(replay);
     generation = release.generation;

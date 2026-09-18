@@ -6,7 +6,7 @@ The user-approved contract is docs/v0.11/CONTRACT.md. Host owns journal and inte
 Host /root: menu/IPC/native packaging. Designer /root/menu_review: HUD. Balance /root/balance: equipment/progression and experiments. Critic /root/skills_harness: independent product review and evidence validators; Host independently reviews validator changes. Designer judgement was reviewed by Critic before implementation; Balance protocol is independently reviewed before measurement. Host observes native tests as Playtester; this is not a separate invented identity.
 
 ## Resume
-Read .agentdoc/v11-20260918/loop.json, sessions and latest failed receipt; inspect queue.json/lifecycle and owned processes before starting any native observation. Use run.mjs init/register/start/implemented/check/verify/status/next. Dependencies permit implemented handoff; final status requires AC and canonical gates bound to final inputs. File locks reject overlap. Retain failed attempts. No source edits during final measurements.
+Read .agentdoc/v11-20260918-resume/PLAN.md and loop.json for the expanded-scope continuation; .agentdoc/v11-20260918 remains the historical checkpoint. Inspect queue.json/lifecycle and owned processes before starting any native observation. Use run.mjs init/register/start/implemented/check/verify/status/next. Dependencies permit implemented handoff; final status requires AC and canonical gates bound to final inputs. File locks reject overlap. Retain failed attempts. No source edits during final measurements.
 
 ## Inputs and outputs
 Digest includes production source/tests/configuration, contract/protocol/candidate, v11 harness/vendor, and imported v10/v7 helpers. Generated evidence/reviews/reports/package bytes are separately hashed artifacts and excluded from the input digest. Do not put changing result reports under the hashed harness. Changes invalidate relevant final evidence.
@@ -22,3 +22,5 @@ Digest includes production source/tests/configuration, contract/protocol/candida
 - node .harness/v11/release.mjs RUN collect (binds macOS and Windows artifacts after all three commands pass).
 
 Performance observations are serial and real30min per profile, never shortened or time-accelerated. Native actions use sendInputEvent, production DOM/IPC/core/save, isolated fixture userData, simulated input and no production server. Human fun, real Windows hardware, global hooks and live database remain explicit unperformed checks.
+
+The continuation reuses the original attempt01 baseline active/idle observations only while baseline app, observer, protocol, machine/runtime and artifact hashes remain identical. Capture fresh candidate active/idle observations after the implemented performance changes; retain the failed original candidate comparison. Do not choose a different baseline or change budgets after seeing the new results.

@@ -1,0 +1,22 @@
+{
+  "at": "2026-09-18T07:38:39.497Z",
+  "purpose": "Preserve historical candidate bytes before final builds overwrite release paths; original native/performance reports and failures remain unchanged.",
+  "asar": "d1c7dfe681fd4c572ad8a2c9fd929921960cd805194140bec78bbab975e6bb34",
+  "artifacts": [
+    {
+      "original": "release/mac-arm64/DesMon.app",
+      "preserved": ".agentdoc/v11-20260918-resume/preservation/DesMon-0.11.0-checkpoint.app",
+      "sha256": "889c8b3a7dc6b427ff41d49f719138c8eaece8ffdb091e2e4075d956c2d03715"
+    },
+    {
+      "original": "release/DesMon-0.11.0-arm64.dmg",
+      "preserved": ".agentdoc/v11-20260918-resume/preservation/checkpoint-release/DesMon-0.11.0-arm64.dmg",
+      "sha256": "c16ed4bfc04c0a8fe53392f4631d2e2dcf87c84c0e93d3ca96b06276b9c6d034"
+    },
+    {
+      "original": "release/DesMon Setup 0.11.0.exe",
+      "preserved": ".agentdoc/v11-20260918-resume/preservation/checkpoint-release/DesMon Setup 0.11.0.exe",
+      "sha256": "36d74023db9bbdbe1d90fc17540310e047fb2f81d1c9538845511799217928dd"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "version": 11,
+  "round": 18,
+  "stage": "full-qualifying-exploration",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 10,
+  "maxHours": 60,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R18-A",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10935,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 9,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128,
+        "fieldHpResumeIndex": 399,
+        "fieldCompanionFeverMultiplier": 2,
+        "fieldRebirthCountCap": 3
+      }
+    },
+    {
+      "id": "R18-B",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10935,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 9,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128,
+        "fieldHpResumeIndex": 399,
+        "fieldCompanionFeverMultiplier": 2,
+        "fieldRebirthCountCap": 4
+      }
+    },
+    {
+      "id": "R18-C",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10935,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 9,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128,
+        "fieldHpResumeIndex": 399,
+        "fieldCompanionFeverMultiplier": 2,
+        "fieldRebirthCountCap": 5
+      }
+    }
+  ],
+  "rationale": "R17all180originalgroupspass; deterministicwinnerApassesreserve20x10 butgrowthordinarycycle10nonnullfails(0/20arrived60h;twoat10thstage351/362). Designer/Critic/RootapprovedfixedRcountcap3/4/5, preservingfirst3/4immediateherocycles andflatteninglaterHPwithoutchangingG25/types/FEVER2/M/rawPvP/savedcounts. R17capnullfaileddataretained. Freshscreens/full20x10 andunchangedgrowth60/reserve20/management20/no-reset20/heldout280 required; soul-farmingstressmustusecappedR too. No numericalgate/policy/exposure relaxation. Completedr18screen9 andcomparedsaveHash+fullcyclearrays againstR17-A:all9identical first3. Same3countcapsnowregisteredforfull20seed10cyclequalifying, no selection/adoption yet.",
+  "profileCycles": {
+    "ordinary": 10,
+    "intermittent": 10,
+    "high": 3
+  }
+}

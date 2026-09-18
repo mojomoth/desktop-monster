@@ -1,0 +1,78 @@
+{
+  "version": 11,
+  "round": 6,
+  "stage": "scaled-continuous-field-tail-first-three-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R6-A",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldCompanionTailScale": 8,
+        "fieldHeroCycleBonus": 52
+      }
+    },
+    {
+      "id": "R6-B",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1122,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldCompanionTailScale": 12,
+        "fieldHeroCycleBonus": 52
+      }
+    },
+    {
+      "id": "R6-C",
+      "parameters": {
+        "heroMinLevel": 25,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1118,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldCompanionTailScale": 12,
+        "fieldHeroCycleBonus": 52
+      }
+    }
+  ],
+  "rationale": "R5first3 screen failed: earlyfieldquadratic too hero-heavy, ordinaryfirst408m vs high108m. Continuousquadratic gain scale8/12 raises companion share while fixedHPtail4 shifts waitlater amongbounded258\u2013309frontiers. Fixed acceptedM untouched; resetR1/2 tested. Registration before measurements; noadoptionfromscreen."
+}

@@ -1,0 +1,1049 @@
+"use strict";
+// Menu DOM binder — SPEC F54/F55/F75 (Assumption 29; GAME_DESIGN_V2 §9,
+// GAME_DESIGN_V3 §7). A thin binder over src/menu/view.ts: it owns no game
+// state, it renders the save main sends and forwards every button press as a
+// CollectionAction.
+//
+// DOM-free by injection (same policy as renderer/input.ts): mountMenu takes
+// the document and the preload bridge as parameters — production passes the
+// real globals in the boot at the bottom, tests pass fakes — so it runs under
+// vitest's node environment. The menu NEVER imports electron or net; the
+// bridge is its only way out.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mountMenu = mountMenu;
+const index_js_1 = require("../core/index.js");
+const index_js_2 = require("../renderer/sprites/index.js");
+const view_js_1 = require("./view.js");
+const equipment_js_1 = require("./equipment.js");
+const hero_js_1 = require("./hero.js");
+const codex_js_1 = require("./codex.js");
+const economy_js_1 = require("./economy.js");
+const profile_js_1 = require("./profile.js");
+const api_js_1 = require("../shared/api.js");
+/** Tab ids — each is both the tab button (`#tab-<id>`) and its panel (`#<id>`). */
+const PANELS = ['hero', 'codex', 'roster', 'inventory', 'shop', 'battle', 'ranking', 'profile'];
+/**
+ * Card art: species idle frame at the uniform 1x scale (2026-09-04) on a fixed
+ * buffer sized to the LARGEST species, each smaller species centred + bottom-
+ * aligned. CSS (`canvas.species`) scales the buffer to the on-screen card, so
+ * bigger species read bigger in the menu too.
+ */
+const CARD_SCALE = 1;
+const CARD_W = Math.max(...index_js_1.SPECIES_IDS.map((id) => index_js_2.monsterSprites[id].idle.w));
+const CARD_H = Math.max(...index_js_1.SPECIES_IDS.map((id) => index_js_2.monsterSprites[id].idle.h));
+/** NICK_RE's ceiling — the name field also carries it as `maxlength`. */
+const NAME_MAX = 16;
+/** The `#opponent` panel before the first `Find opponent` (F75). */
+const NO_OPPONENT = '아직 선택한 상대가 없습니다';
+/** The menu reuses the main process preferences; it never writes a second copy. */
+function mountPreferences(doc, api) {
+    const welcome = doc.querySelector('#welcome');
+    const connect = doc.querySelector('#connect-input');
+    const skip = doc.querySelector('#skip-welcome');
+    const permission = doc.querySelector('#input-permission');
+    const inputStatus = doc.querySelector('#input-status');
+    const welcomeStatus = doc.querySelector('#welcome-status');
+    const settingsStatus = doc.querySelector('#settings-status');
+    const mute = doc.querySelector('#mute-toggle');
+    const shake = doc.querySelector('#shake-toggle');
+    let settings;
+    let mode;
+    let busy = false;
+    let keepWelcome = false;
+    let sawSettings = false;
+    let sawInput = false;
+    let settingsRevision = 0;
+    let inputRevision = 0;
+    const render = () => {
+        if (welcome)
+            welcome.hidden = !settings || (settings.welcomeSeen && !keepWelcome);
+        if (connect) {
+            connect.disabled = busy || !settings || mode?.mode === 'global';
+            connect.textContent = busy ? '연결 중…' : mode?.mode === 'global' ? '전체 입력 연결됨' : '전체 입력 연결';
+        }
+        if (skip) {
+            skip.disabled = busy || !settings;
+            skip.textContent = settings?.globalInputRequested || mode?.mode === 'global' ? '계속하기' : '창에서 시작';
+        }
+        if (permission)
+            permission.hidden = !keepWelcome && !settings?.globalInputRequested;
+        if (inputStatus)
+            inputStatus.textContent = mode?.mode === 'global'
+                ? '전체 입력 연결됨 · 다른 앱에서 입력해도 공격합니다.'
+                : '현재 게임 창에서만 반응합니다. 전체 입력에는 macOS 접근성 권한이 필요합니다.';
+        if (mute) {
+            mute.disabled = busy || !settings;
+            mute.textContent = `음소거 ${settings?.muted ? '켬' : '끔'}`;
+            mute.setAttribute?.('aria-pressed', String(settings?.muted ?? false));
+        }
+        if (shake) {
+            shake.disabled = busy || !settings;
+            shake.textContent = `화면 흔들림 ${settings?.screenShake ? '켬' : '끔'}`;
+            shake.setAttribute?.('aria-pressed', String(settings?.screenShake ?? true));
+        }
+    };
+    const update = (patch, status, dismiss = false) => {
+        if (!api.updateSettings || busy || !settings)
+            return;
+        const revision = settingsRevision;
+        busy = true;
+        render();
+        void api.updateSettings(patch).then((reply) => {
+            if (revision === settingsRevision)
+                settings = reply.settings;
+            if (reply.ok && dismiss)
+                keepWelcome = false;
+            if (status)
+                status.textContent = reply.ok ? '설정을 저장했습니다.'
+                    : '설정을 저장하지 못했습니다. 현재 표시된 상태를 확인하고 다시 시도하세요.';
+        }, () => {
+            if (status)
+                status.textContent = '설정을 저장하지 못했습니다. 다시 시도하세요.';
+        }).finally(() => { busy = false; render(); });
+    };
+    mute?.addEventListener('click', () => update({ muted: !settings?.muted }, settingsStatus));
+    shake?.addEventListener('click', () => update({ screenShake: !settings?.screenShake }, settingsStatus));
+    skip?.addEventListener('click', () => update({ welcomeSeen: true,
+        ...(!settings?.globalInputRequested && mode?.mode !== 'global' ? { globalInputRequested: false } : {}) }, welcomeStatus, true));
+    connect?.addEventListener('click', () => {
+        if (!api.connectGlobalInput || busy || !settings || mode?.mode === 'global')
+            return;
+        const revision = inputRevision;
+        busy = true;
+        keepWelcome = true;
+        if (welcomeStatus)
+            welcomeStatus.textContent = '접근성 권한을 확인합니다. 입력한 글자는 저장하지 않습니다.';
+        render();
+        void api.connectGlobalInput().then((reply) => {
+            if (revision === inputRevision)
+                mode = reply.mode;
+            if (welcomeStatus)
+                welcomeStatus.textContent = !reply.ok
+                    ? '연결 설정을 완료하지 못했습니다. 현재 입력 상태를 확인하고 다시 시도하세요.'
+                    : mode?.mode === 'global' ? '연결되었습니다. 계속하기를 누르면 메뉴를 볼 수 있습니다.'
+                        : '아직 전체 입력이 연결되지 않았습니다. 접근성 설정에서 DesMon을 허용하세요. 허용했는데도 연결되지 않으면 앱을 다시 실행하세요.';
+        }, () => {
+            if (welcomeStatus)
+                welcomeStatus.textContent = '연결 요청을 보내지 못했습니다. 앱을 다시 실행해 주세요.';
+        }).finally(() => { busy = false; render(); });
+    });
+    permission?.addEventListener('click', () => {
+        void api.openAccessibilitySettings?.().catch(() => {
+            if (welcomeStatus)
+                welcomeStatus.textContent = '시스템 설정 → 개인정보 보호 및 보안 → 손쉬운 사용에서 DesMon을 허용하세요.';
+        });
+    });
+    api.onSettingsChanged?.((next) => { sawSettings = true; settingsRevision++; settings = next; render(); });
+    api.onInputMode?.((next) => { sawInput = true; inputRevision++; mode = next; render(); });
+    void api.getSettings?.().then((next) => {
+        if (!sawSettings)
+            settings = next;
+        render();
+    }, () => { if (settingsStatus)
+        settingsStatus.textContent = '설정을 불러오지 못했습니다. 앱을 다시 실행하세요.'; });
+    void api.getInputMode?.().then((next) => {
+        if (!sawInput)
+            mode = next;
+        render();
+    }, () => { if (inputStatus)
+        inputStatus.textContent = '입력 연결 상태를 확인하지 못했습니다.'; });
+    render();
+}
+/** Species art key for a runtime species id (unknown ids fall back to slime). */
+function speciesKey(speciesId) {
+    return (0, index_js_1.isSpeciesId)(speciesId) ? speciesId : index_js_1.SPECIES_IDS[0];
+}
+/**
+ * Bind the Collection & Battle page: boot reports the menu ready, every
+ * `desmon:state-changed` re-renders the roster, and the card buttons send
+ * consume/fuse/reincarnate/sacrifice/rebirth back through the bridge.
+ * Ranking loads on tab open; Battle names the player, finds an opponent
+ * (`pvpMatch`), edits the party and fights it (`pvp`), then plays the theft
+ * inbox — all of them take the identity's `online` flag as their offline
+ * answer, so a server-less build never calls the network. Roster changes the
+ * server made (`removed`, the stolen companion, a reclaim) reach the game ONLY
+ * from here, as actions.
+ */
+function mountMenu(doc, api) {
+    const roster = doc.querySelector('#roster');
+    const heroEl = doc.querySelector('#hero');
+    const shopEl = doc.querySelector('#shop');
+    const inventoryEl = doc.querySelector('#inventory');
+    const codexEl = doc.querySelector('#codex');
+    const profileStatsEl = doc.querySelector('#profile-stats');
+    const nameStatus = doc.querySelector('#name-status');
+    const nameSaveBtn = doc.querySelector('#save-name');
+    const rebirthBtn = doc.querySelector('#rebirth');
+    const result = doc.querySelector('#result');
+    const cancelSelection = doc.querySelector('#cancel-selection');
+    const saveStatus = doc.querySelector('#save-status');
+    const ranking = doc.querySelector('#ranking');
+    const nameField = doc.querySelector('#name');
+    const battleBtn = doc.querySelector('#battle-go');
+    const findBtn = doc.querySelector('#find');
+    const opponentEl = doc.querySelector('#opponent');
+    const opponentsEl = doc.querySelector('#opponents');
+    const partyEl = doc.querySelector('#party');
+    const picksEl = doc.querySelector('#picks');
+    const autoBtn = doc.querySelector('#auto');
+    const savePartyBtn = doc.querySelector('#save-party');
+    const previewEl = doc.querySelector('#preview');
+    const theftsEl = doc.querySelector('#thefts');
+    // The page ships its own markup (static/menu.html); without it there is
+    // nothing to bind and nothing to report ready for.
+    if (!roster ||
+        !rebirthBtn ||
+        !result ||
+        !ranking ||
+        !nameField ||
+        !battleBtn ||
+        !findBtn ||
+        !opponentEl ||
+        !partyEl ||
+        !picksEl ||
+        !autoBtn ||
+        !savePartyBtn ||
+        !previewEl ||
+        !theftsEl) {
+        return;
+    }
+    let save = index_js_1.DEFAULT_SAVE;
+    let loadBlocked = api.getSaveStatus !== undefined;
+    let pending = null;
+    let actionPending = null;
+    let reincarnation = null;
+    let rank = null;
+    /** The previewed opponent — null before `Find opponent`, or once it expired. */
+    let match = null;
+    let opponents = [];
+    let selectedOpponentId = null;
+    let directoryNote = '상대 목록을 불러오세요.';
+    let directoryLoading = false;
+    let matchLoading = false;
+    let battleLoading = false;
+    let replaying = false;
+    /** What the `#opponent` panel says while no match is loaded. */
+    let opponentNote = NO_OPPONENT;
+    /** Use the server's existing expiry boundary; never send a stale preview. */
+    const expireMatch = () => {
+        if (match === null || Date.now() <= match.expiresAt)
+            return false;
+        match = null;
+        selectedOpponentId = null;
+        opponentNote = '상대 미리보기가 만료됐습니다. 다시 선택하세요.';
+        return true;
+    };
+    /** The ids picked for my party, and the saved party they were synced from. */
+    let picked = [];
+    let syncedIds = '';
+    let inbox = [];
+    /** Seconds left on the PvP cooldown; `ticker` runs while it counts down. */
+    let cooldown = 0;
+    let ticker = null;
+    // One identity call per page: its `name` fills the field and its `online`
+    // decides whether a tab may touch the network at all.
+    const identity = api.getIdentity();
+    const tabs = PANELS.map((id) => ({
+        id,
+        tab: doc.querySelector(`#tab-${id}`),
+        panel: doc.querySelector(`#${id}`),
+    }));
+    const activateTab = (id) => {
+        if (loadBlocked)
+            return;
+        for (const other of tabs) {
+            if (other.tab)
+                other.tab.className = other.id === id ? 'tab active' : 'tab';
+            other.tab?.setAttribute?.('aria-selected', String(other.id === id));
+            if (other.panel)
+                other.panel.hidden = other.id !== id;
+        }
+        if (id === 'ranking')
+            openRanking();
+        if (id === 'battle') {
+            loadThefts();
+            if (api.pvpOpponents)
+                loadOpponents();
+        }
+        render();
+    };
+    for (const t of tabs) {
+        t.tab?.addEventListener('click', () => activateTab(t.id));
+    }
+    const span = (className, text) => {
+        const e = doc.createElement('span');
+        e.className = className;
+        e.textContent = text;
+        return e;
+    };
+    const div = (className, ...children) => {
+        const e = doc.createElement('div');
+        e.className = className;
+        e.append(...children);
+        return e;
+    };
+    // Autosaves update numbers frequently. Keep the gallery and actionable
+    // choices mounted so scrolling, keyboard focus and an open details survive.
+    const heroSections = heroEl ? [div('hero-heading'), div('hero-controls')] : [];
+    heroEl?.replaceChildren(...heroSections, div('hero-utility', rebirthBtn));
+    let heroControlsKey = '';
+    let rosterKey = '';
+    // A disabled button carries no listener: the page re-renders after every
+    // action, so a stale handler can never fire.
+    const button = (label, disabled, onClick) => {
+        const b = doc.createElement('button');
+        b.className = 'btn';
+        b.textContent = label;
+        b.disabled = disabled;
+        if (!disabled)
+            b.addEventListener('click', onClick);
+        return b;
+    };
+    const send = (a) => {
+        if (loadBlocked || actionPending)
+            return;
+        if (replaying) {
+            result.textContent = 'PvP 재생이 끝난 뒤 다시 시도하세요.';
+            return;
+        }
+        pending = null;
+        reincarnation = null;
+        if (api.onActionResult)
+            actionPending = a;
+        result.textContent = '요청을 처리하고 있습니다…';
+        result.setAttribute?.('data-state', 'pending');
+        void api.sendAction(a).catch(() => {
+            actionPending = null;
+            result.textContent = '요청을 보내지 못했습니다. 다시 시도해 주세요.';
+            result.setAttribute?.('data-state', 'error');
+        });
+        render();
+    };
+    const updateCodex = codexEl ? (0, codex_js_1.mountCodex)(doc, codexEl, send) : undefined;
+    const updateInventory = inventoryEl ? (0, equipment_js_1.mountEquipment)(doc, inventoryEl, send, 'inventory') : undefined;
+    const updateShop = shopEl ? (0, economy_js_1.mountShop)(doc, shopEl, send) : undefined;
+    const updateProfile = profileStatsEl ? (0, profile_js_1.mountProfile)(doc, profileStatsEl) : undefined;
+    const hasGrowthChoice = (kind, id) => kind === 'consume'
+        ? save.companions.some(food => (0, view_js_1.consumeTargets)(save, food.id).includes(id))
+        : (0, view_js_1.fuseCandidates)(save).some(pair => pair.includes(id));
+    const select = (kind, row, hint) => {
+        if (!hasGrowthChoice(kind, row.id)) {
+            result.textContent = kind === 'consume' ? '성장 재료로 사용할 다른 동료가 없습니다.' : '융합할 수 있는 같은 종류·별의 동료가 없습니다.';
+            result.setAttribute?.('data-state', 'error');
+            return;
+        }
+        pending = { kind, id: row.id };
+        result.setAttribute?.('data-state', 'selection');
+        result.textContent = `${row.name} · ${hint}`;
+        render();
+    };
+    const cancel = () => {
+        pending = null;
+        reincarnation = null;
+        result.textContent = '';
+        render();
+    };
+    cancelSelection?.addEventListener('click', cancel);
+    const speciesCanvas = (row) => {
+        const canvas = doc.createElement('canvas');
+        canvas.className = 'species';
+        canvas.width = CARD_W;
+        canvas.height = CARD_H;
+        const ctx = canvas.getContext?.('2d');
+        if (ctx) {
+            const idle = index_js_2.monsterSprites[speciesKey(row.speciesId)].idle;
+            // Stars are the card's palette tier, the way monster tiers tint the
+            // overlay art (GAME_ARCHITECTURE §4); DrawSpriteOptions has no palette.
+            const tinted = { ...idle, palette: (0, index_js_2.paletteForTier)(idle.palette, row.stars) };
+            const dx = Math.floor((CARD_W - idle.w) / 2);
+            (0, index_js_2.drawSprite)(ctx, tinted, 0, dx, CARD_H - idle.h, { scale: CARD_SCALE });
+        }
+        return canvas;
+    };
+    /** The companion behind a card — its type badge comes from the live roster. */
+    const byId = (id) => save.companions.find((c) => c.id === id);
+    const matchesConfirmation = (expected) => {
+        const current = byId(expected.id);
+        return current !== undefined && current.speciesId === expected.speciesId && current.bossIndex === expected.bossIndex &&
+            current.level === expected.level && current.stars === expected.stars;
+    };
+    /** The saved PvP party (auto until the player saves one of their own). */
+    const savedParty = () => (0, index_js_1.pvpParty)(save.companions, save.pvpParty, save.hero?.equipped);
+    const card = (row) => {
+        const c = byId(row.id);
+        const isPending = pending?.id === row.id;
+        const busy = pending !== null || reincarnation !== null;
+        const fusable = (0, view_js_1.fuseCandidates)(save).some(([a, b]) => pending === null ? a === row.id || b === row.id : isPair(pending.id, row.id, a, b));
+        const consume = pending?.kind === 'consume'
+            ? isPending
+                ? button('취소', false, cancel)
+                : button('이 동료를 재료로', !(0, view_js_1.consumeTargets)(save, row.id).includes(pending.id), () => {
+                    if (pending)
+                        send({ type: 'consume', targetId: pending.id, foodId: row.id });
+                })
+            : button('성장', busy || !save.companions.some((food) => (0, view_js_1.consumeTargets)(save, food.id).includes(row.id)), () => {
+                select('consume', row, '성장 재료로 쓸 동료를 선택하세요. 재료는 사라집니다.');
+            });
+        const fuse = pending?.kind === 'fuse'
+            ? isPending
+                ? button('취소', false, cancel)
+                : button('이 동료와 융합', !fusable, () => {
+                    if (pending)
+                        send({ type: 'fuse', aId: pending.id, bId: row.id });
+                })
+            : button('융합', busy || !fusable, () => {
+                select('fuse', row, '같은 종·같은 별의 동료를 선택하세요. 둘이 하나가 됩니다.');
+            });
+        const buttons = div('row', consume, fuse, button('환생', busy || !row.maxLevel, () => {
+            const current = byId(row.id);
+            if (pending || reincarnation || !current || !(0, index_js_1.companionReincarnationPreview)(current))
+                return;
+            reincarnation = { ...current };
+            result.textContent = '';
+            render();
+        }), button('방출', busy, () => {
+            send({ type: 'sacrifice', id: row.id });
+        }));
+        const el = doc.createElement('div');
+        el.className = 'card';
+        el.setAttribute?.('data-companion-id', row.id);
+        const hunting = span('hunting-power', `사냥 공격력 ${(0, index_js_1.format)(c ? (0, index_js_1.fieldCompanionPower)(c, save.hero?.reincarnations ?? 0, save.monsterCurveVersion ?? 10) : 0n)}`);
+        hunting.setAttribute?.('title', '레벨·별·영웅 환생 효과를 포함합니다. 영웅 버프·장비·상성·피버 효과는 전투 중 적용됩니다.');
+        el.append(speciesCanvas(row), span('name', row.name), span('stars', row.starText), div('companion-stats', span('power', `PvP ${row.power}`), hunting), 
+        // v3 (F75): the elemental badge, and the mark of a PvP party member.
+        ...(c ? [span((0, view_js_1.miniRow)(c).typeClass, (0, view_js_1.miniRow)(c).typeBadge)] : []), ...(savedParty().some((m) => m.id === row.id) ? [span('pvp-mark', '★ PvP')] : []), buttons);
+        const expected = reincarnation;
+        const preview = expected?.id === row.id && c ? (0, index_js_1.companionReincarnationPreview)(c) : null;
+        if (expected && preview) {
+            const power = span('reincarnation-power', `기본 힘 ${(0, index_js_1.format)(preview.beforePower)} → ${(0, index_js_1.format)(preview.afterPower)}`);
+            power.setAttribute?.('title', `${preview.beforePower} → ${preview.afterPower}`);
+            power.setAttribute?.('aria-label', `기본 힘 ${preview.beforePower}에서 ${preview.afterPower}로 변경`);
+            el.append(div('row reincarnation-confirmation', span('reincarnation-result', `${row.name} · Lv.${expected.level} → Lv.${preview.level} · ★${expected.stars} → ★${preview.stars}`), power, span('muted', '환생하면 레벨이 초기화되어 기본 힘이 감소합니다.'), button('환생 확인', false, () => {
+                if (reincarnation !== expected)
+                    return;
+                if (!matchesConfirmation(expected)) {
+                    reincarnation = null;
+                    result.textContent = '동료가 변경되어 환생 확인을 취소했습니다. 다시 확인해 주세요.';
+                    render();
+                    return;
+                }
+                const { speciesId, bossIndex, level, stars } = expected;
+                send({ type: 'reincarnate', id: expected.id, expected: { speciesId, bossIndex, level, stars } });
+            }), button('취소', false, () => { if (reincarnation === expected)
+                cancel(); })));
+        }
+        return el;
+    };
+    /**
+     * A full roster used to swallow captures in silence. Say what the releases
+     * already paid, and put the single obvious trade — the weakest keeper —
+     * one click away, without choosing it for the player.
+     */
+    const rosterFullNotice = (rows) => {
+        const released = save.releasedCount ?? 0;
+        const weakest = rows.reduce((min, row) => {
+            const c = byId(row.id);
+            const m = min ? byId(min.id) : undefined;
+            return c && (!m || (0, index_js_1.companionPower)(c) < (0, index_js_1.companionPower)(m)) ? row : min;
+        }, undefined);
+        return [
+            span('muted', `동료 30/30 · 보관함이 가득 찼습니다. 포획에 성공한 새 보스는 놓아주며 ${index_js_1.RELEASES_PER_SOUL}마리마다 영혼 1개를 얻습니다. 지금까지 ${released}마리 · 영혼 ${Math.floor(released / index_js_1.RELEASES_PER_SOUL)}개. 성장·융합·방출로 자리를 만들면 새 동료를 맞을 수 있습니다.`),
+            ...(weakest
+                ? [div('row', button(`가장 약한 ${weakest.name} 방출`, pending !== null || reincarnation !== null, () => {
+                        send({ type: 'sacrifice', id: weakest.id });
+                    }))]
+                : []),
+        ];
+    };
+    const rankRow = (r) => {
+        // ponytail: the leaderboard borrows the card's styled columns — `.power`
+        // is the right-aligned number, `.stars` the small badge — instead of new CSS.
+        return div('row', span('rank', r.rank), span('name', r.name), span('power', r.deepest), span('stars', r.rebirths));
+    };
+    /** A `.card.mini`; `pick` makes it a roster toggle button (F75 §3). */
+    const miniCard = (m, pick = false) => {
+        const el = doc.createElement(pick ? 'button' : 'div');
+        el.className = pick && picked.includes(m.id) ? 'card mini pick selected' : pick ? 'card mini pick' : 'card mini';
+        el.append(speciesCanvas(m), span('name', m.name), span('stars', m.starText), span(m.typeClass, m.typeBadge));
+        if (pick) {
+            el.disabled = replaying || battleLoading || matchLoading;
+            el.addEventListener('click', () => {
+                if (replaying || battleLoading || matchLoading)
+                    return;
+                picked = (0, view_js_1.togglePick)(picked, m.id);
+                render();
+            });
+        }
+        return el;
+    };
+    // Native buttons retain Tab/Shift+Tab and Enter/Space behavior. Keep them mounted
+    // and use aria-disabled during requests so the focused selection is not detached.
+    const directoryRows = new Map();
+    let battleFeedback = null;
+    const directoryStatus = span('muted', directoryNote);
+    let directoryIds = '';
+    const renderDirectory = () => {
+        if (!opponentsEl)
+            return;
+        const focusedId = [...directoryRows].find(([, nodes]) => nodes.select === doc.activeElement)?.[0];
+        for (const id of directoryRows.keys()) {
+            if (!opponents.some(opponent => opponent.playerId === id))
+                directoryRows.delete(id);
+        }
+        for (const opponent of opponents) {
+            const id = opponent.playerId;
+            if (!directoryRows.has(id)) {
+                const art = span('opponent-hero', '');
+                const name = span('name', '');
+                const heroName = span('opponent-hero-name', '');
+                const record = span('record', '');
+                const depth = span('muted', '');
+                const party = div('party');
+                const select = button('전투', false, () => {
+                    if (directoryRows.get(id)?.select === select && !directoryLoading && !matchLoading && !battleLoading && !replaying && cooldown <= 0)
+                        find(id);
+                });
+                const status = span('battle-status', '');
+                status.setAttribute?.('role', 'status');
+                status.setAttribute?.('aria-live', 'polite');
+                const row = div('opponent-card', art, name, heroName, record, depth, party, select, status);
+                row.setAttribute?.('data-player-id', id);
+                let contentKey = '';
+                directoryRows.set(id, { row, select, update(next) {
+                        const key = JSON.stringify(next);
+                        if (contentKey !== key) {
+                            contentKey = key;
+                            art.replaceChildren((0, hero_js_1.heroCanvas)(doc, next.hero.formId, 64));
+                            name.textContent = `#${next.rank} ${next.name}`;
+                            heroName.textContent = (0, index_js_1.heroForm)(next.hero.formId)?.name ?? '수습 영웅';
+                            record.textContent = `${next.wins}승 ${next.losses}패`;
+                            depth.textContent = `최고 몬스터 ${next.bestIndex}`;
+                            party.replaceChildren(...(next.party.length ? next.party.map(c => miniCard((0, view_js_1.miniRow)(c))) : [span('muted', '동료 파티 없음')]));
+                        }
+                        const selected = selectedOpponentId === id;
+                        row.className = `opponent-card${selected ? ' selected' : ''}`;
+                        select.textContent = replaying ? '전투 재생 중…' : directoryLoading ? '목록 갱신 중…' : matchLoading || battleLoading
+                            ? selected ? '전투 중…' : '다른 전투 진행 중…' : cooldown > 0 ? `전투 · ${cooldown}초` : '전투';
+                        select.setAttribute?.('aria-label', `#${next.rank} ${next.name} · ${select.textContent}`);
+                        select.setAttribute?.('aria-pressed', String(selected));
+                        select.setAttribute?.('aria-disabled', String(replaying || directoryLoading || matchLoading || battleLoading || cooldown > 0));
+                        const message = battleFeedback?.opponentId === id ? battleFeedback.text : '';
+                        // Keep the completed message through autosaves without repeating live announcements.
+                        if (status.textContent !== message) {
+                            status.textContent = message;
+                            if (message && doc.activeElement === select)
+                                status.scrollIntoView?.({ block: 'nearest' });
+                        }
+                    } });
+            }
+            directoryRows.get(id).update(opponent);
+        }
+        directoryStatus.textContent = directoryNote;
+        const ids = JSON.stringify(opponents.map(opponent => opponent.playerId));
+        if (directoryIds !== ids) {
+            directoryIds = ids;
+            opponentsEl.replaceChildren(...(opponents.length ? opponents.map(opponent => directoryRows.get(opponent.playerId).row) : [directoryStatus]));
+            if (focusedId)
+                (directoryRows.get(focusedId)?.select ?? findBtn).focus?.();
+        }
+    };
+    /** The `#opponent` panel: the previewed party, the bot line, or the note. */
+    const opponentPanel = () => {
+        if (match === null)
+            return [span('name', opponentNote)];
+        if (match.bot)
+            return [span('name', '훈련용 허수아비 · 동료 없음')];
+        const { name, bestIndex, rebirths } = match.opponent;
+        return [
+            ...(match.opponent.hero ? [(0, hero_js_1.heroCanvas)(doc, match.opponent.hero.formId)] : []),
+            span('name', name),
+            span('power', `최고 단계 ${String(bestIndex)}`),
+            span('stars', `♻×${String(rebirths)}`),
+            div('party', ...(0, view_js_1.opponentRows)(match).map((m) => miniCard(m))),
+        ];
+    };
+    const theftRow = (t) => div('row', span('name', t.text), button('되찾기', false, () => {
+        reclaim(t.id);
+    }));
+    const render = () => {
+        if (loadBlocked)
+            return;
+        expireMatch();
+        if (cancelSelection)
+            cancelSelection.hidden = pending === null && reincarnation === null;
+        if (heroEl && !heroEl.hidden) {
+            const parts = (0, hero_js_1.heroPanel)(doc, save, send);
+            heroSections[0]?.replaceChildren(parts[0], ...(save.companions.length >= 30 ? [div('roster-shortcut', span('muted', '동료 30/30 · 새 동료를 맞을 자리가 없어요'), button('동료 관리', false, () => activateTab('roster')))] : []));
+            const controlsKey = JSON.stringify([save.hero?.choices, save.hero?.collection, save.hero?.offerSerial,
+                save.hero?.reincarnations, save.hero?.deferRemainingMs,
+                (0, index_js_1.heroReady)(save.level, save.hero), save.level >= (0, index_js_1.heroRequiredLevel)(save.hero?.reincarnations ?? 0), String(BigInt(save.coins) < (0, index_js_1.heroRerollCost)(save.hero?.reincarnations ?? 0) ? save.coins : (0, index_js_1.heroRerollCost)(save.hero?.reincarnations ?? 0))]);
+            if (controlsKey !== heroControlsKey) {
+                const focusedAction = doc.activeElement?.getAttribute?.('data-hero-action');
+                const focusedChoice = doc.activeElement?.getAttribute?.('data-hero-choice');
+                const rulesOpen = doc.querySelector('.hero-rules')?.open;
+                heroControlsKey = controlsKey;
+                heroSections[1]?.replaceChildren(parts[1]);
+                const rules = doc.querySelector('.hero-rules');
+                if (rules && rulesOpen)
+                    rules.open = true;
+                if (focusedAction) {
+                    const replacement = doc.querySelector(focusedChoice
+                        ? `[data-hero-choice="${focusedChoice}"]` : `[data-hero-action="${focusedAction}"]`);
+                    (replacement && !replacement.disabled ? replacement : doc.querySelector('#tab-hero'))?.focus?.();
+                }
+            }
+        }
+        if (!shopEl?.hidden)
+            updateShop?.(save);
+        if (!inventoryEl?.hidden)
+            updateInventory?.(save);
+        if (!codexEl?.hidden)
+            updateCodex?.(save);
+        if (!doc.querySelector('#profile')?.hidden)
+            updateProfile?.(save);
+        // Keep an unchanged confirmation mounted during frequent save updates.
+        const nextRosterKey = JSON.stringify([save.companions, save.pvpParty, save.hero?.equipped,
+            save.hero?.reincarnations, save.monsterCurveVersion, save.releasedCount, pending, reincarnation]);
+        if (!roster.hidden && rosterKey !== nextRosterKey) {
+            rosterKey = nextRosterKey;
+            const rows = (0, view_js_1.rosterRows)(save);
+            roster.replaceChildren(...(rows.length >= 30 ? rosterFullNotice(rows) : []), ...(rows.length === 0
+                ? [span('row', '아직 동료가 없습니다. 보스를 처치하면 동료로 포획할 수 있습니다.')]
+                : rows.map(card)));
+        }
+        rebirthBtn.disabled = replaying || !(0, view_js_1.canRebirth)(save);
+        if (!ranking.hidden)
+            ranking.replaceChildren(rankTools, ...(rank === null ? [span('muted', '순위를 불러오는 중…')] : (0, view_js_1.leaderboardRows)(rank).map(rankRow)));
+        for (const [key, control] of rankButtons)
+            control.setAttribute?.('aria-pressed', String(key === rankMetric));
+        // Hidden panels retain their nodes and are refreshed when their tab opens.
+        if (doc.querySelector('#battle')?.hidden)
+            return;
+        // Battle tab (F75): opponent preview, party editor, live preview, inbox.
+        opponentEl.replaceChildren(...opponentPanel());
+        findBtn.disabled = replaying || matchLoading || battleLoading;
+        if (api.pvpOpponents)
+            findBtn.textContent = directoryLoading ? '목록을 불러오는 중…' : '목록 새로고침';
+        autoBtn.disabled = replaying || battleLoading || matchLoading;
+        savePartyBtn.disabled = replaying || battleLoading || matchLoading;
+        findBtn.setAttribute?.('aria-disabled', String(directoryLoading || matchLoading || battleLoading));
+        renderDirectory();
+        partyEl.replaceChildren(...Array.from({ length: index_js_1.PARTY_SIZE }, (_, i) => {
+            const c = picked[i] === undefined ? undefined : byId(picked[i]);
+            return div('slot', ...(c ? [miniCard((0, view_js_1.miniRow)(c))] : []));
+        }));
+        picksEl.replaceChildren(...save.companions.map((c) => miniCard((0, view_js_1.miniRow)(c), true)));
+        previewEl.textContent = (0, view_js_1.partyPreview)(picked.flatMap((id) => byId(id) ?? []), match?.opponent.party ?? [], save.hero?.equipped);
+        theftsEl.replaceChildren(...(0, view_js_1.theftRows)(inbox, Date.now()).map(theftRow));
+        battleBtn.textContent = cooldown > 0 ? `대전 시작 (${String(cooldown)}초)` : '대전 시작';
+        battleBtn.disabled = replaying || directoryLoading || battleLoading || matchLoading || !(0, view_js_1.battleEnabled)({ match, party: picked, cooldownUntil: cooldown });
+    };
+    /** Fire-and-forget bridge call: a rejected invoke must not break the page. */
+    const settle = (p, use) => {
+        void p.then(use, () => undefined);
+    };
+    /** Run `fn` only when the server is reachable; otherwise answer `offline`. */
+    const online = (fn, offline) => {
+        void identity.then(id => { if (id.online)
+            fn();
+        else
+            offline(); }, offline);
+    };
+    /** The server stripped these companions from my roster — tell the game. */
+    const forwardRemoved = (removed) => {
+        if (!api.battleOpponent && removed.length > 0)
+            void api.sendAction({ type: 'removeCompanions', ids: removed });
+    };
+    /** Client countdown from the server's retryAfterSec; 0 re-arms the button. */
+    const startCooldown = (sec) => {
+        cooldown = Math.max(0, Math.ceil(sec));
+        if (cooldown === 0 || ticker !== null)
+            return;
+        ticker = setInterval(() => {
+            cooldown -= 1;
+            if (cooldown <= 0) {
+                clearInterval(ticker);
+                ticker = null;
+            }
+            render();
+        }, 1000);
+    };
+    let rankMetric = 'level';
+    let rankRequest = 0;
+    const rankButtons = ['level', 'pvpWins', 'bestIndex', 'rebirths'].map(key => {
+        const label = { level: '레벨', pvpWins: 'PvP 승수', bestIndex: '최고 단계', rebirths: '환생' }[key];
+        return [key, button(label, false, () => { rankMetric = key; openRanking(); })];
+    });
+    const rankTools = div('rank-tools', ...rankButtons.map(([, control]) => control), button('새로고침', false, () => openRanking()));
+    const openRanking = () => {
+        const request = ++rankRequest;
+        rank = null;
+        render();
+        const show = (r) => {
+            if (request !== rankRequest)
+                return;
+            if (r.ok)
+                forwardRemoved(r.value.removed);
+            rank = r;
+            render();
+        };
+        online(() => {
+            settle(api.getLeaderboard(undefined, rankMetric), show);
+        }, () => {
+            show({ ok: false, error: 'offline' });
+        });
+    };
+    /** Refresh the directory without leaving a match for a removed opponent armed. */
+    const loadOpponents = () => {
+        if (!api.pvpOpponents || replaying || directoryLoading || matchLoading || battleLoading)
+            return;
+        directoryLoading = true;
+        directoryNote = '상대 목록을 불러오는 중…';
+        render();
+        const show = (r) => {
+            directoryLoading = false;
+            opponents = r.ok ? r.value.opponents : [];
+            directoryNote = r.ok ? '아직 대전 상대가 없습니다. 나중에 목록을 새로고침하세요.' : '서버에 연결할 수 없습니다. 목록 새로고침으로 다시 시도하세요.';
+            if (!r.ok || (selectedOpponentId !== null && !opponents.some(opponent => opponent.playerId === selectedOpponentId))) {
+                match = null;
+                selectedOpponentId = null;
+                opponentNote = r.ok ? '선택한 상대가 목록에 없습니다. 목록을 새로고침하고 다시 선택하세요.' : directoryNote;
+            }
+            render();
+        };
+        online(() => { void api.pvpOpponents().then(show, () => show({ ok: false, error: 'network' })); }, () => show({ ok: false, error: 'offline' }));
+    };
+    const find = (opponentId) => {
+        if (replaying || directoryLoading || matchLoading || battleLoading || (opponentId !== undefined && !opponents.some(opponent => opponent.playerId === opponentId)))
+            return;
+        if (api.battleOpponent && opponentId !== undefined) {
+            battleFeedback = { opponentId, text: '전투를 준비하고 있습니다…' };
+            battleLoading = true;
+            selectedOpponentId = opponentId;
+            render();
+            const done = (r) => {
+                battleLoading = false;
+                selectedOpponentId = null;
+                if (!r.ok && r.error === 'cooldown')
+                    startCooldown(r.retryAfterSec ?? 0);
+                if (r.ok) {
+                    startCooldown(60);
+                    loadThefts();
+                }
+                battleFeedback = { opponentId, text: (0, view_js_1.pvpResultText)(r) };
+                const opponent = opponents.find(entry => entry.playerId === opponentId);
+                if (doc.querySelector('#battle')?.hidden && opponent)
+                    directoryRows.get(opponentId)?.update(opponent);
+                result.textContent = battleFeedback.text;
+                render();
+            };
+            void api.battleOpponent(opponentId).then(done, () => done({ ok: false, error: 'network' }));
+            return;
+        }
+        matchLoading = true;
+        match = null;
+        selectedOpponentId = opponentId ?? null;
+        opponentNote = '상대 미리보기를 불러오는 중…';
+        const show = (r) => {
+            matchLoading = false;
+            const mismatch = r.ok && opponentId !== undefined && (r.value.bot || r.value.opponent.playerId !== opponentId);
+            match = r.ok && !mismatch ? r.value : null;
+            if (match) {
+                opponentNote = NO_OPPONENT;
+                result.textContent = '';
+            }
+            else {
+                selectedOpponentId = null;
+                opponentNote = mismatch ? '선택한 상대와 응답이 일치하지 않습니다. 목록을 새로고침하세요.' : '상대를 불러오지 못했습니다. 목록을 새로고침하고 다시 선택하세요.';
+                result.textContent = r.ok ? opponentNote : (0, view_js_1.pvpResultText)(r);
+            }
+            render();
+            if (!match && opponentId !== undefined && doc.activeElement === directoryRows.get(opponentId)?.select)
+                findBtn.focus?.();
+        };
+        online(() => {
+            void api.pvpMatch(opponentId).then(show, () => show({ ok: false, error: 'network' }));
+        }, () => {
+            show({ ok: false, error: 'offline' });
+        });
+        render();
+    };
+    /**
+     * Step 2 (F55/F75 §4): the loaded match plus my picked party. A win only
+     * reaches the game from here — `removed` first, then the verdict with the
+     * replay the game window plays (F66).
+     */
+    const pvp = () => {
+        if (expireMatch()) {
+            render();
+            findBtn.focus?.();
+            return;
+        }
+        const loaded = match;
+        if (loaded === null || directoryLoading || matchLoading || battleLoading)
+            return;
+        const selectedId = selectedOpponentId;
+        battleLoading = true;
+        const show = (r) => {
+            battleLoading = false;
+            if (r.ok && selectedId !== null && (r.value.bot || r.value.opponent.playerId !== selectedId)) {
+                match = null;
+                selectedOpponentId = null;
+                opponentNote = '선택한 상대와 전투 결과가 일치하지 않습니다. 목록을 새로고침하세요.';
+                result.textContent = opponentNote;
+                render();
+                findBtn.focus?.();
+                return;
+            }
+            if (r.ok) {
+                const { win, stolen, opponent, blows, removed } = r.value;
+                forwardRemoved(removed);
+                void api.sendAction({
+                    type: 'pvpResult',
+                    won: win,
+                    stolen,
+                    lostId: null,
+                    replay: { opponentName: opponent.name, opponentParty: opponent.party, blows,
+                        ...(opponent.hero ? { opponentHero: opponent.hero } : {}) },
+                });
+                // The server consumed the match: the next battle needs a new one.
+                match = null;
+                selectedOpponentId = null;
+                opponentNote = NO_OPPONENT;
+                loadThefts();
+                if (api.pvpOpponents)
+                    loadOpponents();
+            }
+            else if (r.error === 'cooldown') {
+                startCooldown(r.retryAfterSec ?? 0);
+            }
+            else {
+                match = null;
+                selectedOpponentId = null;
+                opponentNote = r.error === 'expired' ? '상대 미리보기가 만료됐습니다. 다시 선택하세요.' : '전투를 완료하지 못했습니다. 상대를 다시 선택하세요.';
+            }
+            result.textContent = r.ok || r.error !== 'expired' ? (0, view_js_1.pvpResultText)(r) : '';
+            render();
+            if (!r.ok && r.error !== 'cooldown')
+                findBtn.focus?.();
+        };
+        online(() => {
+            // The identity promise may settle after the existing match expires.
+            if (expireMatch() || match !== loaded) {
+                battleLoading = false;
+                render();
+                findBtn.focus?.();
+                return;
+            }
+            void api.pvp(loaded.matchId, [...picked]).then(show, () => show({ ok: false, error: 'network' }));
+        }, () => {
+            show({ ok: false, error: 'offline' });
+        });
+        render();
+    };
+    /** The theft inbox (F75 §5) — refreshed on tab open and after every battle. */
+    const loadThefts = () => {
+        const show = (r) => {
+            inbox = r.ok ? r.value.thefts : [];
+            render();
+        };
+        online(() => {
+            settle(api.thefts(), show);
+        }, () => {
+            show({ ok: false, error: 'offline' });
+        });
+    };
+    /** Take a stolen companion back: the game gets it as an `addCompanion`. */
+    const reclaim = (theftId) => {
+        settle(api.reclaim(theftId), (r) => {
+            if (r.ok) {
+                if (!api.battleOpponent)
+                    void api.sendAction({ type: 'addCompanion', companion: r.value.companion });
+                loadThefts();
+                return;
+            }
+            // Only a settled window drops the row; a network hiccup keeps it.
+            if (r.error === 'expired' || r.error === 'gone') {
+                inbox = inbox.filter((t) => t.id !== theftId);
+                result.textContent =
+                    r.error === 'expired' ? '되찾을 수 있는 시간이 지났습니다.' : '상대가 더 이상 이 동료를 가지고 있지 않습니다.';
+            }
+            render();
+        });
+    };
+    rebirthBtn.addEventListener('click', () => {
+        if ((0, view_js_1.canRebirth)(save))
+            send({ type: 'rebirth' });
+    });
+    findBtn.addEventListener('click', () => { if (api.pvpOpponents)
+        loadOpponents();
+    else
+        find(); });
+    battleBtn.addEventListener('click', () => {
+        if ((0, view_js_1.battleEnabled)({ match, party: picked, cooldownUntil: cooldown }))
+            pvp();
+    });
+    autoBtn.addEventListener('click', () => {
+        if (replaying || battleLoading || matchLoading)
+            return;
+        picked = (0, index_js_1.autoParty)(save.companions, save.hero?.equipped).map((c) => c.id);
+        render();
+    });
+    savePartyBtn.addEventListener('click', () => {
+        if (replaying || battleLoading || matchLoading)
+            return;
+        void api.sendAction({ type: 'setPvpParty', ids: [...picked] });
+        render();
+    });
+    // The field is the only writer of the name; main validates and answers with
+    // the identity it kept, so the field always shows what the server will see.
+    let namePending = false;
+    let editedName = false;
+    const saveName = () => {
+        editedName = true;
+        const proposed = (nameField.value ?? '').slice(0, NAME_MAX);
+        if (namePending)
+            return;
+        if (!api_js_1.NICK_RE.test(proposed)) {
+            if (nameStatus)
+                nameStatus.textContent = '영문·숫자·_·-를 사용해 1–16자로 입력하세요.';
+            return;
+        }
+        namePending = true;
+        if (nameSaveBtn)
+            nameSaveBtn.disabled = true;
+        if (nameStatus)
+            nameStatus.textContent = '이름 저장 중…';
+        void api.setName(proposed).then((id) => {
+            // A reply for an older edit must not overwrite what the player is typing now.
+            if ((nameField.value ?? '').slice(0, NAME_MAX) === proposed)
+                nameField.value = id.name;
+            if (nameStatus)
+                nameStatus.textContent = id.name === proposed ? '이름을 저장했습니다.' : '이름을 저장하지 못했습니다. 다시 시도하세요.';
+        }, () => {
+            if (nameStatus)
+                nameStatus.textContent = '이름을 저장하지 못했습니다. 다시 시도하세요.';
+        }).finally(() => {
+            namePending = false;
+            if (nameSaveBtn)
+                nameSaveBtn.disabled = false;
+        });
+    };
+    nameField.addEventListener('change', saveName);
+    nameSaveBtn?.addEventListener('click', saveName);
+    settle(identity, (id) => {
+        if (!editedName && !nameField.value)
+            nameField.value = id.name;
+    });
+    const gameContent = doc.querySelector('#game-content');
+    const recovery = doc.querySelector('#save-recovery');
+    const recoveryStatus = doc.querySelector('#recovery-status');
+    if (gameContent)
+        gameContent.hidden = loadBlocked;
+    const showSaveStatus = (next) => {
+        loadBlocked = next.state === 'load-error';
+        const settingsBlocked = loadBlocked && next.reason === 'settings-write';
+        const recoveryTitle = doc.querySelector('#recovery-title');
+        const recoveryDescription = doc.querySelector('#recovery-description');
+        if (recoveryTitle)
+            recoveryTitle.textContent = settingsBlocked ? '처음 시작할 설정을 저장하지 못했습니다' : '저장 데이터를 열지 못했습니다';
+        if (recoveryDescription)
+            recoveryDescription.textContent = settingsBlocked
+                ? '저장 폴더 권한을 확인하고 앱을 다시 실행하세요. 설정이 저장되기 전에는 게임을 시작하지 않습니다.'
+                : '기존 파일을 보호하기 위해 게임을 시작하지 않았습니다. 저장 폴더의 파일을 확인한 뒤 앱을 다시 실행하세요.';
+        if (gameContent)
+            gameContent.hidden = loadBlocked;
+        if (recovery)
+            recovery.hidden = !loadBlocked;
+        const status = saveStatus ?? result;
+        status.hidden = next.state === 'ready';
+        status.textContent = next.state === 'write-error'
+            ? '저장하지 못했습니다. 앱을 닫지 마세요. 다음 자동 저장 때 다시 시도합니다.'
+            : settingsBlocked ? '처음 시작할 설정을 저장하지 못했습니다. 저장 폴더 권한을 확인하고 앱을 다시 실행하세요.'
+                : next.state === 'load-error' ? '저장 데이터를 읽지 못해 게임을 시작하지 않았습니다. 기존 파일은 그대로 두었습니다.' : '';
+        render();
+    };
+    let sawSaveStatus = false;
+    api.onSaveStatus?.((next) => { sawSaveStatus = true; showSaveStatus(next); });
+    if (!api.onSaveStatus)
+        api.onSaveFailed?.(() => showSaveStatus({ state: 'write-error' }));
+    void api.getSaveStatus?.().then((next) => {
+        if (!sawSaveStatus)
+            showSaveStatus(next);
+    }, () => {
+        if (!sawSaveStatus)
+            showSaveStatus({ state: 'load-error' });
+    });
+    doc.querySelector('#open-save-folder')?.addEventListener('click', () => {
+        void api.openSaveFolder?.().catch(() => {
+            if (recoveryStatus)
+                recoveryStatus.textContent = '저장 폴더를 열지 못했습니다. 파일을 지우지 말고 앱을 종료해 주세요.';
+        });
+    });
+    doc.querySelector('#recovery-quit')?.addEventListener('click', () => {
+        void api.quit?.().catch(() => {
+            if (recoveryStatus)
+                recoveryStatus.textContent = '종료 요청을 보내지 못했습니다. 메뉴 막대에서 DesMon을 종료하세요.';
+        });
+    });
+    mountPreferences(doc, api);
+    api.onPvpPlayback?.(active => {
+        replaying = active;
+        const status = doc.querySelector('#pvp-playback-status');
+        if (status)
+            status.hidden = !active;
+        render();
+    });
+    api.onActionResult?.(response => {
+        if (!actionPending || !response.action || typeof response.action !== 'object')
+            return;
+        const actual = response.action;
+        if (!Object.entries(actionPending).every(([key, value]) => JSON.stringify(actual[key]) === JSON.stringify(value)))
+            return;
+        actionPending = null;
+        result.setAttribute?.('data-state', response.ok ? 'success' : 'error');
+        result.textContent = response.ok ? '반영했습니다.'
+            : /full/i.test(response.error ?? '') ? '가방에 빈자리가 없습니다. 장비를 정리한 뒤 다시 시도해 주세요.'
+                : /gold/i.test(response.error ?? '') ? '금화가 부족합니다.'
+                    : /stale|missing|replacement|changed/i.test(response.error ?? '') ? '대상이 변경됐습니다. 현재 장비나 동료를 다시 선택해 주세요.'
+                        : '요청이 취소됐거나 현재 조건에서 사용할 수 없습니다. 표시된 조건을 확인해 주세요.';
+        render();
+    });
+    api.onStateChanged((raw) => {
+        // Trust boundary: the payload is whatever main read off disk.
+        save = (0, index_js_1.parseSave)(raw);
+        if (pending && !save.companions.some(companion => companion.id === pending?.id)) {
+            pending = null;
+            result.textContent = '선택한 동료가 없어져 선택을 취소했습니다.';
+            result.setAttribute?.('data-state', 'error');
+        }
+        else if (pending && !hasGrowthChoice(pending.kind, pending.id)) {
+            pending = null;
+            result.textContent = '사용할 수 있는 동료 재료가 없어 선택을 취소했습니다.';
+            result.setAttribute?.('data-state', 'error');
+        }
+        if (reincarnation && !matchesConfirmation(reincarnation)) {
+            reincarnation = null;
+            result.textContent = '동료가 변경되어 환생 확인을 취소했습니다. 다시 확인해 주세요.';
+        }
+        // Re-seed the editor only when the SAVED party moved: an autosave must not
+        // throw away the picks the player is still editing.
+        const ids = savedParty().map((c) => c.id);
+        if (ids.join(',') !== syncedIds) {
+            syncedIds = ids.join(',');
+            picked = ids;
+        }
+        render();
+    });
+    setInterval(() => { if (!shopEl?.hidden && !loadBlocked)
+        updateShop?.(save); }, 1000);
+    render();
+    api.reportMenuReady();
+}
+/** True when the unordered pair {x, y} is the unordered pair {a, b}. */
+function isPair(x, y, a, b) {
+    return (a === x && b === y) || (a === y && b === x);
+}
+if (typeof document !== 'undefined') {
+    mountMenu(document, window.desmon);
+}

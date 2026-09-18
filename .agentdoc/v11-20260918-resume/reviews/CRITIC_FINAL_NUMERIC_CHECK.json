@@ -1,0 +1,150 @@
+{
+  "reviewer": "/root/skills_harness",
+  "manifest": ".agentdoc/v11-20260918-resume/balance/final.json",
+  "manifestSha256": "3262d05c04dbd4fae4cc0b0ee420de9648bf08ce903fb26c8c29c505c3af65cb",
+  "manifestSource": "152417cbee25bd61167f81d666c23225a05b5c64f49f431313fbf84dadfb8dac",
+  "overallSourceAtCheck": "787ad4a4c196ebe52f2888ad8c365d88d625211278f65fdc9178ccedac9335cb",
+  "selected": "R18-B",
+  "independentFullVerifierPassed": true,
+  "heldoutTrajectories": 280,
+  "originalGroups": 23,
+  "originalGroupsPassed": true,
+  "firstThree": [
+    {
+      "profile": "ordinary",
+      "cycle": 1,
+      "n": 100,
+      "arrived": 100,
+      "nonarrival": 0,
+      "p10": 202.41666666666666,
+      "p50": 224.41666666666666,
+      "p90": 244
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 2,
+      "n": 100,
+      "arrived": 100,
+      "nonarrival": 0,
+      "p10": 188.25,
+      "p50": 228,
+      "p90": 250.58333333333334
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 3,
+      "n": 100,
+      "arrived": 100,
+      "nonarrival": 0,
+      "p10": 199.75,
+      "p50": 221.25,
+      "p90": 262.3333333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 1,
+      "n": 100,
+      "arrived": 100,
+      "nonarrival": 0,
+      "p10": 202.83333333333334,
+      "p50": 222.75,
+      "p90": 257.3333333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 2,
+      "n": 100,
+      "arrived": 100,
+      "nonarrival": 0,
+      "p10": 190.83333333333334,
+      "p50": 218,
+      "p90": 248.91666666666666
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 3,
+      "n": 100,
+      "arrived": 100,
+      "nonarrival": 0,
+      "p10": 201.08333333333334,
+      "p50": 221.33333333333334,
+      "p90": 265.9166666666667
+    },
+    {
+      "profile": "high",
+      "cycle": 1,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 134.91666666666666,
+      "p50": 148,
+      "p90": 156.83333333333334
+    },
+    {
+      "profile": "high",
+      "cycle": 2,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 132.25,
+      "p50": 161.25,
+      "p90": 177.66666666666666
+    },
+    {
+      "profile": "high",
+      "cycle": 3,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 143,
+      "p50": 167.08333333333334,
+      "p90": 192.41666666666666
+    }
+  ],
+  "laterMedianRange": [
+    214.58333333333334,
+    255.08333333333334
+  ],
+  "stress": [
+    {
+      "profile": "idle",
+      "rows": 20,
+      "arrivedCycles": 60,
+      "nonarrivalCycles": 0,
+      "minimumSouls": 143,
+      "maximumSouls": 153,
+      "minimumSoulResets": 0,
+      "maximumSoulResets": 0
+    },
+    {
+      "profile": "wealthy",
+      "rows": 20,
+      "arrivedCycles": 60,
+      "nonarrivalCycles": 0,
+      "minimumSouls": 164,
+      "maximumSouls": 174,
+      "minimumSoulResets": 0,
+      "maximumSoulResets": 0
+    },
+    {
+      "profile": "soul-farming",
+      "rows": 20,
+      "arrivedCycles": 0,
+      "nonarrivalCycles": 60,
+      "minimumSouls": 60769,
+      "maximumSouls": 61229,
+      "minimumSoulResets": 6474,
+      "maximumSoulResets": 6477
+    }
+  ],
+  "growthMissingCycleArrivals": 118,
+  "releaseApproved": false,
+  "coreReviewVerdict": "pending resolution of the measured finite-soul-farming first-reincarnation shortcut",
+  "finiteSoulFarmDiagnostic": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/finite-soul-farm-r18-b/result.json",
+    "sha256": "91f5741e3db9c2673ae0f5066d9b2e64a31c295788f83d1a4f59fc4db8eb0e09",
+    "firstHeroMinutesIncludingFarming": 6.333333333333333,
+    "originalQuantitativePassUnchanged": true,
+    "singleTrajectoryNotP10Failure": true
+  }
+}

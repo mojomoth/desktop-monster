@@ -1,0 +1,129 @@
+{
+  "version": 11,
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "reviewer": "/root/skills_harness",
+  "overallReleaseApproved": false,
+  "reviews": [
+    {
+      "scope": "core",
+      "verdict": "approved",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root/balance"
+      ],
+      "evidence": {
+        "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_CORE_SCOPE.json",
+        "sha256": "a57988a33a5480fc8312d5f6ab3a978c3ca059a702d9ceb6f2e9d461438ea410"
+      },
+      "sourceHashes": {
+        "src/core/equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+        "src/core/engine.ts": "8484cf119aab746b86400062abee5fc7aa9261214e49552a9a0fbf05130552dd",
+        "src/core/hero.ts": "5d35d3cc29f2113f82e1538cbd51f8887e1ba052019c751e7277fcc33f429693",
+        "src/core/collection.ts": "47b0edab26436932cb6a723539c9b35b3eb22b3534567fe9750e993c6a9369f1",
+        "src/core/formulas.ts": "bf1013d844f9fba0a1173f2173486723372df684c3e8d22acdf94ed847a8f942",
+        "src/core/save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+        "src/core/progression.ts": "7873047a7cedb8606f98c28583e69c0b7579c94c67026c627b79d7b6ae54cd7c",
+        "src/core/types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d",
+        "src/core/monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+        "src/core/fever.ts": "0afa61bd670596c1292d74e7c0a607cd48c29bde64fd7ab7d09b59334193e036",
+        "src/core/index.ts": "3dc0f4c575ba789b96efb89556801e08eb9a49f0cab409f5344f354c760e94d7",
+        "tests/equipmentV11.test.ts": "b148e3cfadf543a04940d9353c218ee659c6281a9c9851b60ec58ce12d0b31d3",
+        "tests/progressionV11.test.ts": "6138e6e877a32244e6cc57d87ebe4922c90f41ceb4f0902c3035707f89b2e097",
+        "tests/progressionV5.test.ts": "3a73dc1a24838b7ccb3b6c973b8f5834c27d80f62bcf86566176d7977a209972",
+        "tests/fever.test.ts": "f2501425e6ae44ee5a3cf6aebdaadf44c229c337f4eec2f85440616c5cb350c4",
+        "tests/engine.test.ts": "2c457f9578309a517518baecc140623c94cf03e6198cf6a6f9ab35a2f35614a4",
+        ".harness/v11/balance.mjs": "b7ec9c7d02cd1b557fe945c48fa556618c96304c1d881da36fe8f45c38e80114",
+        "docs/v0.11/EVALUATION_PROTOCOL.json": "8dc56ef5ad874fbecd1985191a439faab10849aa38beb133b9503a6a4358ee59",
+        "docs/v0.11/BALANCE_CANDIDATE.json": "b93d379450807773bb3753fd506a636cd55e5df8e987ce02c62e8d7b8f188ac9"
+      }
+    },
+    {
+      "scope": "ui",
+      "verdict": "approved",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root",
+        "/root/menu_review"
+      ],
+      "evidence": {
+        "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_UI_SCOPE.json",
+        "sha256": "a933bac727a2529307fc53d5529cf54c8fed81c92ac5b6787c434f2f13fe6685"
+      },
+      "sourceHashes": {
+        "src/menu/index.ts": "c6a71091e5b1098c822f40af0cfa788e18b2a92ac362c714b9c50bf88716c81d",
+        "src/menu/equipment.ts": "12895099e5a4b19a55f262f744086c9c4d917c377c085d3e2b653768b1b5bc16",
+        "src/menu/codex.ts": "9c257ec795092ed4a681d3c212bd6e6a72b7e21671d821c6781cd871ee6d643b",
+        "src/menu/share.ts": "9b1146b4a8d7a526d7de124102b4b720447ea42d08399f7663d54b684ee90cb8",
+        "src/main/ipc.ts": "e72adaa2c73a0ac5fdc273d7ff64ee8e330da39683777a0a0b6934ec3b06a6f3",
+        "src/main/menuWindow.ts": "659cc97944bb869f50849e5e9adf9dd695834d31bae714fa4572495abaa39632",
+        "src/main/tray.ts": "18b961d4f5b313260745c1ae92ddfbef45fce187d11e9a1dc85d7667e899eff7",
+        "src/shared/ipc.ts": "df4fc363662da62fd317565a1c0a5c74e9ad229c0b12cde8b54f80b0a1d3c3a2",
+        "src/preload/index.ts": "620b232c35470937e7654e839abfe88bab5a6492b0f0af689d0599a6548b96c0",
+        "src/renderer/index.ts": "0c60262af643662ea047800d0d4f7aea578fb8cb6f092c27c1029050b2a5da07",
+        "static/menu.html": "3395b61418431a55f07c71bcd970a09d83b948d9fe4cd51a1a248c84ee325366",
+        "static/menu.css": "559419c9953805bfa9fa83bd5141841355cd9d7c65871665af5b940771a0b931",
+        "tests/runtimeV8.test.ts": "dfca41af136c01bac52f88d0655a52e4fb63ba79501a12b1a6c926cc345af2aa",
+        "tests/tray.test.ts": "716bd49e3f919977b514d98692b3cb89a18dea37526b134a4ca026b592adee97",
+        "tests/menuV9.test.ts": "12006ad29debd9f87206edf2cececc5552b29bd74583ae2cb5da7751c734facd",
+        "tests/menu.test.ts": "871607496b9d225f1a8aed5428a5d79bfb93679e8de6c1463b4fe730eb42e01f",
+        "tests/share.test.ts": "b141cf01600813180fa2156c1733e870ab796c0246c7707f044c0c97a8a03e7f",
+        "tests/share-field-v11.test.ts": "093c983cbe3ada54441dba7575c6519e881054becb3e0d045e5fba82ab661f4c"
+      }
+    },
+    {
+      "scope": "visual",
+      "verdict": "approved",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root/menu_review",
+        "/root"
+      ],
+      "evidence": {
+        "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_VISUAL_SCOPE.json",
+        "sha256": "ec102e6cb3504762fe5a05ffc73d2e2e7246aaab08c6ed386cde5fc61037f011"
+      },
+      "sourceHashes": {
+        "src/renderer/hud.ts": "521989b6527555283bc95bad6d324971fb1b711931d84645428eb79e10068ab3",
+        "src/renderer/game.ts": "2eb9bfeb4ef3c1b27a21f1f543c4558da3a0e1f980399f9a97bc7904f073b654",
+        "src/renderer/sprites/sprite.ts": "d01951c90479e2be639b30f6670e99f6839a58ce4f8a49039b5d9cf2d720d19f",
+        "src/renderer/audio.ts": "1776966851492f4608999cf93d2ee59c3ada2b87c47123c996f8027520f34744",
+        "tests/expedition.test.ts": "6a253bee2e86931b8aecbeef7d364880927d01fcf85c6b578fb618916abf0cc1",
+        "tests/renderer.test.ts": "5cd5f007a23dcce62530fd16e6892b7f0dd7f2269147e63b78baac6541eb41bb",
+        "tests/renderer-field-v11.test.ts": "c04e8df9c142d0a00cbf01a219c753c485eb5aa5ee3fd913ad1e4ab9a8f31d98",
+        "tests/spriteRasterV11.test.ts": "06ef007873b08773eef32500d359e90444bb174d845435a1c0dadd6962c81f14",
+        "tests/sprites.test.ts": "00389bd14c74a32a74b7fdbaa3220abbabd20f045cba01084d18cba21a86e4b4",
+        "tests/equippedHeroCache.test.ts": "dc3632d34037945972c39036174846b080244525346e60876635d8ae9db72511",
+        "tests/audio.test.ts": "ac1eeeda6834bfe8ffc99a34ba789a0321fb25e2910af31cd802a2cd1d5967ce",
+        "tests/hud-v09.test.ts": "b8b6246fd65514014bd0ef9cad23d744477c73e9d837395a2aaff9d3a46dfe3e",
+        "tests/heroJobStudies.test.ts": "12e7d10526251b2979c481e2afe5b065194820f32f7d780a13e364f7614db5dc"
+      }
+    },
+    {
+      "scope": "orchestration",
+      "verdict": "approved",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root",
+        "/root/menu_review"
+      ],
+      "evidence": {
+        "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_ORCHESTRATION_SCOPE.json",
+        "sha256": "bf40be5fcbfbc85dddb99f0f0270c39691a4147e16e79512416ac7b8ecf9b65a"
+      },
+      "sourceHashes": {
+        ".harness/v11/run.mjs": "63e6638f36f3b8dd5274276046917f4ca7d15ecf7047ddbfd03290caec0fa710",
+        ".harness/v11/run.test.mjs": "072769196b674625425d016acd507475274a96527cb1f52043699f69b37aa5f7",
+        ".harness/v11/config.json": "b36f6845d52e737aca018f9e22f2f194775a60901025115048ea499ffef2715f",
+        ".harness/v11/runtime.mjs": "4facb16b9317ff36d6d90c3cb70d91133c44615ab3211b6a70c38a5cac9c71b3",
+        ".harness/v11/runtime.test.mjs": "c89ee37a99f100db427f72a431ce2ca0c67c2e5836823aedc90b1ecf7d1584d3",
+        ".harness/v11/ui-cases.mjs": "78af77b498d909965686276d22a04e4f079d2d20913b96bb37a9cfe02f89562d",
+        ".harness/v11/release.mjs": "c72f989fb48e1e8336e78e9a76455e2bb5a0811a442edd1b416c3cd68a433b26",
+        ".harness/v11/run-performance.mjs": "762dcfe35592a676cec7b7345365d06a766777f5607a7daa366abc80fd16994a",
+        ".harness/v11/HARNESS.md": "768d8479d76269de6bb521666456e71a548d03831c9202e929bea83339a7e7dc",
+        "SPEC.md": "e1e18481c2e27138944963c90c7e37e74bdd5336b1e15b4ba8ba1592d535ff28",
+        "docs/v0.11/CONTRACT.md": "43196204117622b8a0289f94661a209f32bbb274bcc81a7ee9324ba040db6a10",
+        "docs/v0.11/PERFORMANCE_PROTOCOL.json": "7a776e39bdd7b242bfad65bbbe85dcb554ee391f5c575f55b36ab29eac887bdd"
+      }
+    }
+  ]
+}

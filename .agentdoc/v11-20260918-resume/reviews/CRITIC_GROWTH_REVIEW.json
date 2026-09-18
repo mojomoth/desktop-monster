@@ -1,0 +1,28 @@
+{
+  "reviewer": "/root/skills_harness",
+  "at": "2026-09-18T07:49:57.595Z",
+  "source": "08f8c4cbb0157ffe1aff9e7d94391cc310d16e84219935c699322d1fb33e0f65",
+  "verdict": "growth-risk-confirmed-design-bound-reviewed-final-measurement-pending",
+  "files": {
+    "src/core/collection.ts": "2f3c677365d6ee3aa3ccd151482e0a9c6fc4b1c7da8a3c58f2bd281485189ec0",
+    "src/core/formulas.ts": "b0634b432c1e624c213fd312bb0d26c001862c8679d9446ebe3ceb5d2fe3f002",
+    ".harness/v11/balance.mjs": "d733ee5ed755f908bc7e44d6f7fe5cd781a7a71695426f6221d962fe69369eb3",
+    "tests/progressionV11.test.ts": "d15928a10e7aeba5afa928d5f8db961c913e0565281a54ff1001fc2d2408b267",
+    ".harness/v11/runtime.mjs": "dbdd3a3e911b8cf7b5dc1abf933720780a80ce3bb3c6dc17225ec003324ff308",
+    ".harness/v11/ui-cases.mjs": "f0a9856acf3fe52ec9b8700ae8c84a2824709d3fe90d01f26750c7cb930d2e51",
+    ".harness/v11/runtime.test.mjs": "8dca7d69054c61518fb51779cb5706db42db723a855ff8c28714f2962983464a",
+    "tests/renderer-field-v11.test.ts": "60530e1ee739ddb58f9e3e4891a8fcd4a3046c1f89ffe86ac6617ed944ec9308",
+    "tests/share-field-v11.test.ts": "1993370d4b5e7943d5de444acea94656aebbf5aec3b5f32cbee3002c3efbcf9d"
+  },
+  "counterexample": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/growth-counterexample/result.json",
+    "sha256": "d9777005745f00964a2e50bb2d1b1c4ee962c153db09276d5d62c23d897e9e11"
+  },
+  "checks": {
+    "node": 50,
+    "vitest": 19,
+    "actualR11GrowthTrajectories": 9,
+    "actualR11GrowthActions": 253
+  },
+  "releaseApproved": false
+}

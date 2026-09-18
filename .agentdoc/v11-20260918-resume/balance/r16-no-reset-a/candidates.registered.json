@@ -1,0 +1,104 @@
+{
+  "version": 11,
+  "round": 16,
+  "stage": "first-three-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R16-A",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 10,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128,
+        "fieldHpResumeIndex": 399
+      }
+    },
+    {
+      "id": "R16-B",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 9,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128,
+        "fieldHpResumeIndex": 399
+      }
+    },
+    {
+      "id": "R16-C",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 8,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128,
+        "fieldHpResumeIndex": 399
+      }
+    }
+  ],
+  "rationale": "R15 all180 complete, later ordinary medians still305\u2013319 while reserveA20x10 p10>=120 all10. Register slightlylowerfixedHPtail10950 and resetbonus10/16,9/16,8/16 with floor14000. First3screen first; qualifying20/10 and growth/reserve checks remain mandatory, no prediction of guardpass from ratios. FixedHP resume399 closes unlimited flat no-reset farming without modifying targetfrontier368; new no-reset high20x24h sourcebound actualrelease diagnostic. No raw/PvP/timer changes.",
+  "profileCycles": {
+    "ordinary": 3,
+    "intermittent": 3,
+    "high": 3
+  }
+}

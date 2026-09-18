@@ -1,0 +1,22 @@
+# v0.11 completion after expanded-scope approval
+
+User authorization, 2026-09-18: “조정하는 범위를 넓히고 남은 문제를 모두 해결하도록 계획하고 실행해”. This supersedes the pending-amendment restriction in the historical checkpoint.
+
+## Completion
+
+All eight V11 tasks are verified for source `9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b`. R19-B fresh heldout280/original23 targets, finite80 and registered guards, native183 checks/28 PNG/407 clicks, full active/idle performance, smoke and both installers passed. Final literal AC is recorded in loop.json; source remained unchanged. Historical rejected rounds, failures and consumed seeds remain preserved. DESMON_SKIP_NET=1; external human/Windows/global-hook/live-DB/deploy limitations are explicit in docs/v0.11/HANDOFF.md.
+
+## Executed work
+1. Adopt a field-only companion base curve and fixed total-encounter-reset multiplier with matching fixed field HP; preserve owned/PvP stats, existing assets, legacy current encounter and valid offers. Designer → Critic review precedes registered numerical experiments. No elapsed-time gate or live-power scaling. Original quantitative pacing/sample/selection gates remain.
+2. Implement coherent field damage, party selection, menu/share hunting-power displays and migration. Explore bounded preregistered candidates with the actual core, including first three cycles early; select before untouched held-out validation through cycle ten and separate adversarial profiles. A normal collection-growth policy must also be examined: the original simulation never consumes/fuses companions, so its ordinary timing alone cannot exclude a practical growth shortcut. Register a separate growth-aware diagnostic before qualifying experiments; preserve the original denominators and quantitative gates, and reject demonstrated trivial rebirth shortcuts in independent design review.
+3. Address renderer cost using observed hot paths and pixel-equivalent drawing, then diagnose remaining native failures with lifecycle provenance. Preserve all old failures; no lowering CPU/RAM, latency or stability gates.
+4. Freeze source, run full gates/task AC, native state/latency/restart checks and independent review. Reuse the completed attempt01 baseline active/idle 30-minute observations with identical frozen app/observer/protocol/machine/runtime; run fresh serial candidate active/idle 30-minute observations after the implemented performance changes. Critic agreed before candidate measurement; the original failed candidate and baseline selection remain unchanged. If a measurement protocol needs a demonstrated correction, register and review it before new measurements; retain the earlier failure.
+5. Build smoke/macOS/Windows packages, verify installer payloads and source/evidence hashes, complete journal and local commits. DESMON_SKIP_NET=1. Human enjoyment and unavailable real Windows/global-hook/live-database checks remain distinct from automated evidence.
+
+## Work ownership
+Host: contract/journal, menus/share, sprite draw optimization, native/performance orchestration, final integration/packages. Designer /root/menu_review: design, renderer field-party integration and native cases. Balance /root/balance: core/progression/experiments and registered numeric protocols. Critic /root/skills_harness: independent design/balance/native review and verifier code (Host separately reviews it). Max four agents. Native Electron execution is serial and owned by Host.
+
+Baseline: c2b20bb (annotated v0.10.0); previous development checkpoint:5d3d1d9. Old evidence: .agentdoc/v11-20260918. New evidence stays in this directory; no historical result is overwritten.
+
+## Historical finite recovery correction
+R18-B passed the original280 heldout trajectories and registered diagnostics, but an independent actual-core strategy of50 legal soul recoveries followed by hero selection reached the first hero in6m20s including preparation. Final approval was withheld. Designer→Critic approved evaluating shared M(total encounter resets) on both HP and companion field power, preserving normal t=r arithmetic, stored history, legacy encounters and raw/PvP stats. Root started02/03/04 implementation; new80 finite-farm trajectories and empty-party diagnostics precede a fresh126001–126100 original heldout run. Old125001 results remain consumed historical evidence. No time gate, new eligibility restriction or weakened acceptance is implied.

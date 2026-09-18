@@ -1,0 +1,5647 @@
+{
+  "version": 11,
+  "passed": true,
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "balance": {
+    "passed": true,
+    "selected": "R19-B",
+    "ordinaryTrajectories": 200,
+    "continuedTrajectories": 40,
+    "adversarialTrajectories": 80,
+    "managementTrajectories": 20,
+    "growthTrajectories": 60,
+    "reserveGrowthTrajectories": 20,
+    "noResetTrajectories": 20,
+    "finiteFarmTrajectories": 80,
+    "humanFun": false
+  },
+  "latency": [
+    {
+      "name": "tabs",
+      "samples": 100,
+      "visualP95Ms": 31.700000047683716,
+      "localResultP95Ms": 31.700000047683716
+    },
+    {
+      "name": "disclosures",
+      "samples": 100,
+      "visualP95Ms": 31.5,
+      "localResultP95Ms": 31.5
+    },
+    {
+      "name": "growth-selection",
+      "samples": 100,
+      "visualP95Ms": 30.100000023841858,
+      "localResultP95Ms": 30.100000023841858
+    },
+    {
+      "name": "equipment-actions",
+      "samples": 107,
+      "visualP95Ms": 31.299999952316284,
+      "localResultP95Ms": 46.60000002384186,
+      "pipelines": [
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,0]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.3999999761581421,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.271240234375,
+            "maximum": 32.93017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.48974609375,
+              "maximumMs": 0.83544921875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.17919921875,
+              "maximumMs": 11.494384765625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.3999999761581421,
+              "minimumMs": 0.19902341365814208,
+              "maximumMs": 0.600976538658142,
+              "orderResolved": true
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 5.0712890625,
+              "maximumMs": 5.730224609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.200000047683716,
+              "minimumMs": 26.999023485183717,
+              "maximumMs": 27.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,1]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.06298828125,
+              "maximumMs": 0.40869140625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.7060546875,
+              "maximumMs": 13.021240234375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.271240234375,
+              "maximumMs": 4.93017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.600000023841858,
+              "minimumMs": 28.39902346134186,
+              "maximumMs": 28.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,2]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.20000004768371582,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.671142578125,
+            "maximum": 33.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0302734375,
+              "maximumMs": 0.3759765625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.438720703125,
+              "maximumMs": 11.75390625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.20000004768371582,
+              "minimumMs": -0.0009765148162841908,
+              "maximumMs": 0.40097661018371583,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.87109375,
+              "maximumMs": 4.530029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.800000071525574,
+              "minimumMs": 28.599023509025574,
+              "maximumMs": 29.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,3]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 18.071044921875,
+            "maximum": 18.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0712890625,
+              "maximumMs": 0.4169921875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.397705078125,
+              "maximumMs": 9.712890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.171142578125,
+              "maximumMs": 2.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 15.899999976158142,
+              "minimumMs": 15.699023413658143,
+              "maximumMs": 16.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,4]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.771240234375,
+            "maximum": 33.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.02978515625,
+              "maximumMs": 0.37548828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.7392578125,
+              "maximumMs": 11.054443359375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.771240234375,
+              "maximumMs": 4.43017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29,
+              "minimumMs": 28.7990234375,
+              "maximumMs": 29.2009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,5]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.071044921875,
+            "maximum": 31.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.066162109375,
+              "maximumMs": 0.411865234375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.702880859375,
+              "maximumMs": 12.01806640625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.97119140625,
+              "maximumMs": 4.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.100000023841858,
+              "minimumMs": 26.89902346134186,
+              "maximumMs": 27.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,6]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.071044921875,
+            "maximum": 32.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.05810546875,
+              "maximumMs": 0.40380859375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.2109375,
+              "maximumMs": 13.526123046875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.271240234375,
+              "maximumMs": 4.93017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.800000071525574,
+              "minimumMs": 27.599023509025574,
+              "maximumMs": 28.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,7]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.19999992847442627,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.100341796875,
+              "maximumMs": 0.446044921875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.96875,
+              "maximumMs": 12.283935546875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.19999992847442627,
+              "minimumMs": -0.0009766340255737416,
+              "maximumMs": 0.4009764909744263,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.571044921875,
+              "maximumMs": 4.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.299999952316284,
+              "minimumMs": 29.099023389816285,
+              "maximumMs": 29.500976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,8]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.1708984375,
+            "maximum": 32.829833984375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0810546875,
+              "maximumMs": 0.4267578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.587890625,
+              "maximumMs": 11.903076171875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.6708984375,
+              "maximumMs": 4.329833984375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.5,
+              "minimumMs": 28.2990234375,
+              "maximumMs": 28.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,9]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.1708984375,
+            "maximum": 32.829833984375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.1396484375,
+              "maximumMs": 0.4853515625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.2294921875,
+              "maximumMs": 12.544677734375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.571044921875,
+              "maximumMs": 4.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.600000023841858,
+              "minimumMs": 28.39902346134186,
+              "maximumMs": 28.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,10]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.1708984375,
+            "maximum": 32.829833984375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.12890625,
+              "maximumMs": 0.474609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.239990234375,
+              "maximumMs": 12.55517578125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.6708984375,
+              "maximumMs": 4.329833984375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.5,
+              "minimumMs": 28.2990234375,
+              "maximumMs": 28.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,11]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.026123046875,
+              "maximumMs": 0.371826171875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.04296875,
+              "maximumMs": 12.358154296875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.1708984375,
+              "maximumMs": 4.829833984375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.59999990463257,
+              "minimumMs": 28.39902334213257,
+              "maximumMs": 28.800976467132568,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,12]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.108154296875,
+              "maximumMs": 0.453857421875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.960693359375,
+              "maximumMs": 11.27587890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.87109375,
+              "maximumMs": 4.530029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29,
+              "minimumMs": 28.7990234375,
+              "maximumMs": 29.2009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,13]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.122314453125,
+              "maximumMs": 0.468017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.24658203125,
+              "maximumMs": 11.561767578125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.77099609375,
+              "maximumMs": 4.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.09999990463257,
+              "minimumMs": 28.89902334213257,
+              "maximumMs": 29.300976467132568,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,14]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.171142578125,
+            "maximum": 34.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.1240234375,
+              "maximumMs": 0.4697265625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.44482421875,
+              "maximumMs": 9.760009765625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.37109375,
+              "maximumMs": 5.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.799999952316284,
+              "minimumMs": 29.599023389816285,
+              "maximumMs": 30.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,15]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.192626953125,
+              "maximumMs": 0.538330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.076416015625,
+              "maximumMs": 11.3916015625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.571044921875,
+              "maximumMs": 4.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.199999928474426,
+              "minimumMs": 28.999023365974427,
+              "maximumMs": 29.400976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,16]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.071044921875,
+            "maximum": 31.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.048095703125,
+              "maximumMs": 0.393798828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.620849609375,
+              "maximumMs": 10.93603515625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.27099609375,
+              "maximumMs": 3.929931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.799999952316284,
+              "minimumMs": 27.599023389816285,
+              "maximumMs": 28.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,17]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.171142578125,
+            "maximum": 33.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.069580078125,
+              "maximumMs": 0.415283203125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.699462890625,
+              "maximumMs": 13.0146484375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.37109375,
+              "maximumMs": 4.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.799999952316284,
+              "minimumMs": 29.599023389816285,
+              "maximumMs": 30.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,18]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.37109375,
+            "maximum": 33.030029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.173583984375,
+              "maximumMs": 0.519287109375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.6953125,
+              "maximumMs": 12.010498046875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.5712890625,
+              "maximumMs": 4.230224609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.800000071525574,
+              "minimumMs": 28.599023509025574,
+              "maximumMs": 29.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,19]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.1708984375,
+            "maximum": 34.829833984375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.142578125,
+              "maximumMs": 0.48828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.726318359375,
+              "maximumMs": 10.04150390625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.37109375,
+              "maximumMs": 5.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.800000071525574,
+              "minimumMs": 29.599023509025574,
+              "maximumMs": 30.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,20]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.071044921875,
+            "maximum": 33.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.114501953125,
+              "maximumMs": 0.460205078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.8544921875,
+              "maximumMs": 12.169677734375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.571044921875,
+              "maximumMs": 4.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.5,
+              "minimumMs": 29.2990234375,
+              "maximumMs": 29.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,21]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.37109375,
+            "maximum": 33.030029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.043701171875,
+              "maximumMs": 0.389404296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.8251953125,
+              "maximumMs": 11.140380859375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.47119140625,
+              "maximumMs": 4.130126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.90000009536743,
+              "minimumMs": 28.699023532867432,
+              "maximumMs": 29.10097665786743,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,22]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.162109375,
+              "maximumMs": 0.5078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.0068359375,
+              "maximumMs": 12.322021484375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.47119140625,
+              "maximumMs": 4.130126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.40000009536743,
+              "minimumMs": 29.199023532867432,
+              "maximumMs": 29.60097665786743,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,23]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.771240234375,
+            "maximum": 33.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.114990234375,
+              "maximumMs": 0.460693359375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.65380859375,
+              "maximumMs": 10.968994140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.5712890625,
+              "maximumMs": 4.230224609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.200000047683716,
+              "minimumMs": 28.999023485183717,
+              "maximumMs": 29.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,24]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.0712890625,
+            "maximum": 31.730224609375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.04931640625,
+              "maximumMs": 0.39501953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.7197265625,
+              "maximumMs": 11.034912109375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.97119140625,
+              "maximumMs": 4.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.100000023841858,
+              "minimumMs": 26.89902346134186,
+              "maximumMs": 27.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,25]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.671142578125,
+            "maximum": 35.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.1015625,
+              "maximumMs": 0.447265625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.0673828125,
+              "maximumMs": 11.382568359375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.571044921875,
+              "maximumMs": 4.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 31.100000023841858,
+              "minimumMs": 30.89902346134186,
+              "maximumMs": 31.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,26]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.05078125,
+              "maximumMs": 0.396484375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.518310546875,
+              "maximumMs": 10.83349609375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.671142578125,
+              "maximumMs": 4.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.200000047683716,
+              "minimumMs": 28.999023485183717,
+              "maximumMs": 29.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,27]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.009765625,
+              "maximumMs": 0.35546875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.75927734375,
+              "maximumMs": 11.074462890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.671142578125,
+              "maximumMs": 4.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.200000047683716,
+              "minimumMs": 28.999023485183717,
+              "maximumMs": 29.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,28]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.071044921875,
+            "maximum": 31.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.069091796875,
+              "maximumMs": 0.414794921875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.499755859375,
+              "maximumMs": 10.81494140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.671142578125,
+              "maximumMs": 4.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.399999976158142,
+              "minimumMs": 27.199023413658143,
+              "maximumMs": 27.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,29]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.114990234375,
+              "maximumMs": 0.460693359375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.654052734375,
+              "maximumMs": 13.96923828125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.37109375,
+              "maximumMs": 4.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.399999976158142,
+              "minimumMs": 29.199023413658143,
+              "maximumMs": 29.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,30]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0439453125,
+              "maximumMs": 0.3896484375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.3251953125,
+              "maximumMs": 11.640380859375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.800000071525574,
+              "minimumMs": 29.599023509025574,
+              "maximumMs": 30.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,31]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.470947265625,
+            "maximum": 33.1298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.005859375,
+              "maximumMs": 0.33984375,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.27490234375,
+              "maximumMs": 11.590087890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.27099609375,
+              "maximumMs": 3.929931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.200000047683716,
+              "minimumMs": 28.999023485183717,
+              "maximumMs": 29.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,32]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 16.970947265625,
+            "maximum": 17.6298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.066162109375,
+              "maximumMs": 0.411865234375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.90283203125,
+              "maximumMs": 10.218017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.37109375,
+              "maximumMs": 2.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 15.600000023841858,
+              "minimumMs": 15.399023461341859,
+              "maximumMs": 15.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,33]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.37109375,
+            "maximum": 35.030029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.03369140625,
+              "maximumMs": 0.37939453125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.035400390625,
+              "maximumMs": 11.3505859375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.470947265625,
+              "maximumMs": 4.1298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.899999976158142,
+              "minimumMs": 30.699023413658143,
+              "maximumMs": 31.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,34]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 16.27099609375,
+            "maximum": 16.929931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0927734375,
+              "maximumMs": 0.4384765625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.7763671875,
+              "maximumMs": 10.091552734375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.470947265625,
+              "maximumMs": 2.1298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 14.799999952316284,
+              "minimumMs": 14.599023389816285,
+              "maximumMs": 15.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,35]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.771240234375,
+            "maximum": 32.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.087158203125,
+              "maximumMs": 0.432861328125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.181884765625,
+              "maximumMs": 12.4970703125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.600000023841858,
+              "minimumMs": 28.39902346134186,
+              "maximumMs": 28.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,36]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.171142578125,
+            "maximum": 34.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.010986328125,
+              "maximumMs": 0.334716796875,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.47998046875,
+              "maximumMs": 11.795166015625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 31.100000023841858,
+              "minimumMs": 30.89902346134186,
+              "maximumMs": 31.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,37]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.09423828125,
+              "maximumMs": 0.43994140625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.6748046875,
+              "maximumMs": 11.989990234375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.800000071525574,
+              "minimumMs": 29.599023509025574,
+              "maximumMs": 30.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,38]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.0322265625,
+              "maximumMs": 0.3134765625,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.701171875,
+              "maximumMs": 12.016357421875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.970947265625,
+              "maximumMs": 3.6298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.899999976158142,
+              "minimumMs": 29.699023413658143,
+              "maximumMs": 30.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,39]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 30.970947265625,
+            "maximum": 31.6298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.02099609375,
+              "maximumMs": 0.36669921875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.048095703125,
+              "maximumMs": 12.36328125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.27099609375,
+              "maximumMs": 3.929931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.700000047683716,
+              "minimumMs": 27.499023485183717,
+              "maximumMs": 27.900976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,40]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.671142578125,
+            "maximum": 32.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.02490234375,
+              "maximumMs": 0.37060546875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.044189453125,
+              "maximumMs": 13.359375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.600000023841858,
+              "minimumMs": 28.39902346134186,
+              "maximumMs": 28.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,41]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.19999992847442627,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.671142578125,
+            "maximum": 18.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0517578125,
+              "maximumMs": 0.3974609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.017333984375,
+              "maximumMs": 11.33251953125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.19999992847442627,
+              "minimumMs": -0.0009766340255737416,
+              "maximumMs": 0.4009764909744263,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.77099609375,
+              "maximumMs": 2.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 15.899999976158142,
+              "minimumMs": 15.699023413658143,
+              "maximumMs": 16.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,42]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.970947265625,
+            "maximum": 18.6298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0400390625,
+              "maximumMs": 0.3857421875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.52880859375,
+              "maximumMs": 9.843994140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.37109375,
+              "maximumMs": 2.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.600000023841858,
+              "minimumMs": 16.39902346134186,
+              "maximumMs": 16.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,43]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0185546875,
+              "maximumMs": 0.3642578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.05029296875,
+              "maximumMs": 11.365478515625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.97119140625,
+              "maximumMs": 3.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.90000009536743,
+              "minimumMs": 29.699023532867432,
+              "maximumMs": 30.10097665786743,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,44]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.19999992847442627,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 30.571044921875,
+            "maximum": 31.22998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.04150390625,
+              "maximumMs": 0.38720703125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.027587890625,
+              "maximumMs": 12.3427734375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.19999992847442627,
+              "minimumMs": -0.0009766340255737416,
+              "maximumMs": 0.4009764909744263,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.40000009536743,
+              "minimumMs": 27.199023532867432,
+              "maximumMs": 27.60097665786743,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,45]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.771240234375,
+            "maximum": 33.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.03076171875,
+              "maximumMs": 0.37646484375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.83837890625,
+              "maximumMs": 14.153564453125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.671142578125,
+              "maximumMs": 3.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.100000023841858,
+              "minimumMs": 29.89902346134186,
+              "maximumMs": 30.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,46]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.47119140625,
+            "maximum": 34.130126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0732421875,
+              "maximumMs": 0.4189453125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.095947265625,
+              "maximumMs": 11.4111328125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.37109375,
+              "maximumMs": 4.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.100000023841858,
+              "minimumMs": 29.89902346134186,
+              "maximumMs": 30.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,47]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.05859375,
+              "maximumMs": 0.404296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.410400390625,
+              "maximumMs": 11.7255859375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.571044921875,
+              "maximumMs": 3.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.300000071525574,
+              "minimumMs": 30.099023509025574,
+              "maximumMs": 30.500976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,48]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 30.970947265625,
+            "maximum": 31.6298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.028076171875,
+              "maximumMs": 0.373779296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.140869140625,
+              "maximumMs": 12.4560546875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.571044921875,
+              "maximumMs": 5.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 26.40000009536743,
+              "minimumMs": 26.199023532867432,
+              "maximumMs": 26.60097665786743,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,49]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.09521484375,
+              "maximumMs": 0.44091796875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.673828125,
+              "maximumMs": 13.989013671875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.87109375,
+              "maximumMs": 3.530029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.899999976158142,
+              "minimumMs": 29.699023413658143,
+              "maximumMs": 30.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,50]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.00244140625,
+              "maximumMs": 0.34814453125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.7666015625,
+              "maximumMs": 11.081787109375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.671142578125,
+              "maximumMs": 3.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.100000023841858,
+              "minimumMs": 29.89902346134186,
+              "maximumMs": 30.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,51]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.01904296875,
+              "maximumMs": 0.32666015625,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.7880859375,
+              "maximumMs": 12.103271484375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.571044921875,
+              "maximumMs": 3.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.200000047683716,
+              "minimumMs": 29.999023485183717,
+              "maximumMs": 30.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,52]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.09814453125,
+              "maximumMs": 0.44384765625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.870849609375,
+              "maximumMs": 12.18603515625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.600000023841858,
+              "minimumMs": 29.39902346134186,
+              "maximumMs": 29.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,53]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.064208984375,
+              "maximumMs": 0.409912109375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.704833984375,
+              "maximumMs": 12.02001953125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.700000047683716,
+              "minimumMs": 29.499023485183717,
+              "maximumMs": 29.900976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,54]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.042724609375,
+              "maximumMs": 0.388427734375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.726318359375,
+              "maximumMs": 12.04150390625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.97119140625,
+              "maximumMs": 3.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.899999976158142,
+              "minimumMs": 29.699023413658143,
+              "maximumMs": 30.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,55]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.97119140625,
+            "maximum": 18.630126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0244140625,
+              "maximumMs": 0.3701171875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.3447265625,
+              "maximumMs": 9.659912109375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.671142578125,
+              "maximumMs": 2.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.299999952316284,
+              "minimumMs": 16.099023389816285,
+              "maximumMs": 16.500976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,56]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.27099609375,
+            "maximum": 31.929931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.005126953125,
+              "maximumMs": 0.340576171875,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.3740234375,
+              "maximumMs": 11.689208984375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.77099609375,
+              "maximumMs": 3.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.5,
+              "minimumMs": 28.2990234375,
+              "maximumMs": 28.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,57]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.97119140625,
+            "maximum": 18.630126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.073974609375,
+              "maximumMs": 0.419677734375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.795166015625,
+              "maximumMs": 12.1103515625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.571044921875,
+              "maximumMs": 2.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.399999976158142,
+              "minimumMs": 16.199023413658143,
+              "maximumMs": 16.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,58]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.87109375,
+            "maximum": 18.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.0556640625,
+              "maximumMs": 0.2900390625,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.524658203125,
+              "maximumMs": 9.83984375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.571044921875,
+              "maximumMs": 2.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.299999952316284,
+              "minimumMs": 16.099023389816285,
+              "maximumMs": 16.500976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,59]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.171142578125,
+            "maximum": 31.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.00390625,
+              "maximumMs": 0.341796875,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.173095703125,
+              "maximumMs": 11.48828125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28,
+              "minimumMs": 27.7990234375,
+              "maximumMs": 28.2009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,60]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.20000004768371582,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.37109375,
+            "maximum": 35.030029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.033447265625,
+              "maximumMs": 0.312255859375,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.90234375,
+              "maximumMs": 11.217529296875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.20000004768371582,
+              "minimumMs": -0.0009765148162841908,
+              "maximumMs": 0.40097661018371583,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.970947265625,
+              "maximumMs": 3.6298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 31.399999976158142,
+              "minimumMs": 31.199023413658143,
+              "maximumMs": 31.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,61]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.01220703125,
+              "maximumMs": 0.35791015625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.7568359375,
+              "maximumMs": 12.072021484375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.699999928474426,
+              "minimumMs": 29.499023365974427,
+              "maximumMs": 29.900976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,62]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.106689453125,
+              "maximumMs": 0.452392578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.562255859375,
+              "maximumMs": 11.87744140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.699999928474426,
+              "minimumMs": 29.499023365974427,
+              "maximumMs": 29.900976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,63]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.97119140625,
+            "maximum": 18.630126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.02392578125,
+              "maximumMs": 0.36962890625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.645263671875,
+              "maximumMs": 9.96044921875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.571044921875,
+              "maximumMs": 2.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.399999976158142,
+              "minimumMs": 16.199023413658143,
+              "maximumMs": 16.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,64]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.171142578125,
+            "maximum": 32.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.118408203125,
+              "maximumMs": 0.464111328125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.3505859375,
+              "maximumMs": 10.665771484375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.071044921875,
+              "maximumMs": 4.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.09999990463257,
+              "minimumMs": 27.89902334213257,
+              "maximumMs": 28.300976467132568,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,65]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.37109375,
+            "maximum": 32.030029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.026123046875,
+              "maximumMs": 0.371826171875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.343017578125,
+              "maximumMs": 12.658203125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.0712890625,
+              "maximumMs": 3.730224609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.300000071525574,
+              "minimumMs": 28.099023509025574,
+              "maximumMs": 28.500976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,66]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.470947265625,
+            "maximum": 32.1298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.112548828125,
+              "maximumMs": 0.458251953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.95654296875,
+              "maximumMs": 12.271728515625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.37109375,
+              "maximumMs": 4.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.100000023841858,
+              "minimumMs": 27.89902346134186,
+              "maximumMs": 28.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,67]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.571044921875,
+            "maximum": 32.22998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.07568359375,
+              "maximumMs": 0.42138671875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.4931640625,
+              "maximumMs": 12.808349609375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.5,
+              "minimumMs": 28.2990234375,
+              "maximumMs": 28.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,68]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.87109375,
+            "maximum": 34.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.15087890625,
+              "maximumMs": 0.49658203125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.1181640625,
+              "maximumMs": 11.433349609375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.800000071525574,
+              "minimumMs": 30.599023509025574,
+              "maximumMs": 31.000976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,69]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.771240234375,
+            "maximum": 18.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.108154296875,
+              "maximumMs": 0.453857421875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.160888671875,
+              "maximumMs": 10.47607421875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.571044921875,
+              "maximumMs": 2.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.199999928474426,
+              "minimumMs": 15.999023365974427,
+              "maximumMs": 16.400976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,70]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.771240234375,
+            "maximum": 33.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0380859375,
+              "maximumMs": 0.3837890625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.631103515625,
+              "maximumMs": 10.9462890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.600000023841858,
+              "minimumMs": 29.39902346134186,
+              "maximumMs": 29.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,71]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 15.970947265625,
+            "maximum": 16.6298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.00244140625,
+              "maximumMs": 0.34814453125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.16650390625,
+              "maximumMs": 10.481689453125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.470947265625,
+              "maximumMs": 2.1298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 14.5,
+              "minimumMs": 14.2990234375,
+              "maximumMs": 14.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,72]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0869140625,
+              "maximumMs": 0.4326171875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.48193359375,
+              "maximumMs": 12.797119140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.600000023841858,
+              "minimumMs": 29.39902346134186,
+              "maximumMs": 29.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,73]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.071044921875,
+            "maximum": 31.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.03466796875,
+              "maximumMs": 0.38037109375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.63427734375,
+              "maximumMs": 10.949462890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.97119140625,
+              "maximumMs": 3.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.100000023841858,
+              "minimumMs": 27.89902346134186,
+              "maximumMs": 28.300976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,74]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.017333984375,
+              "maximumMs": 0.363037109375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 12.8515625,
+              "maximumMs": 13.166748046875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.600000023841858,
+              "minimumMs": 29.39902346134186,
+              "maximumMs": 29.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,75]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.271240234375,
+            "maximum": 32.93017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.077392578125,
+              "maximumMs": 0.423095703125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.791748046875,
+              "maximumMs": 11.10693359375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.37109375,
+              "maximumMs": 5.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.899999976158142,
+              "minimumMs": 27.699023413658143,
+              "maximumMs": 28.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,76]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 18.071044921875,
+            "maximum": 18.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.075927734375,
+              "maximumMs": 0.421630859375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.4931640625,
+              "maximumMs": 10.808349609375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.571044921875,
+              "maximumMs": 2.22998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.5,
+              "minimumMs": 16.2990234375,
+              "maximumMs": 16.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,77]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.671142578125,
+            "maximum": 33.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.060546875,
+              "maximumMs": 0.40625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.6083984375,
+              "maximumMs": 10.923583984375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.470947265625,
+              "maximumMs": 4.1298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.199999928474426,
+              "minimumMs": 28.999023365974427,
+              "maximumMs": 29.400976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,78]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 18.171142578125,
+            "maximum": 18.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0869140625,
+              "maximumMs": 0.4326171875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 8.68212890625,
+              "maximumMs": 8.997314453125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.77099609375,
+              "maximumMs": 2.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.399999976158142,
+              "minimumMs": 16.199023413658143,
+              "maximumMs": 16.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,79]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.072021484375,
+              "maximumMs": 0.417724609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.096923828125,
+              "maximumMs": 10.412109375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.799999952316284,
+              "minimumMs": 29.599023389816285,
+              "maximumMs": 30.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,80]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.071044921875,
+            "maximum": 34.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.064697265625,
+              "maximumMs": 0.410400390625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.30419921875,
+              "maximumMs": 10.619384765625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.77099609375,
+              "maximumMs": 4.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.299999952316284,
+              "minimumMs": 30.099023389816285,
+              "maximumMs": 30.500976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,81]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.20000004768371582,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.00927734375,
+              "maximumMs": 0.35498046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.959716796875,
+              "maximumMs": 11.27490234375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.20000004768371582,
+              "minimumMs": -0.0009765148162841908,
+              "maximumMs": 0.40097661018371583,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.071044921875,
+              "maximumMs": 3.72998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.699999928474426,
+              "minimumMs": 29.499023365974427,
+              "maximumMs": 29.900976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,82]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.08837890625,
+              "maximumMs": 0.43408203125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.980712890625,
+              "maximumMs": 11.2958984375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.47119140625,
+              "maximumMs": 4.130126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.399999976158142,
+              "minimumMs": 29.199023413658143,
+              "maximumMs": 29.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,83]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 18.071044921875,
+            "maximum": 18.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.067626953125,
+              "maximumMs": 0.413330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 8.801513671875,
+              "maximumMs": 9.11669921875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.77099609375,
+              "maximumMs": 2.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.300000071525574,
+              "minimumMs": 16.099023509025574,
+              "maximumMs": 16.500976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,84]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.671142578125,
+            "maximum": 33.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0810546875,
+              "maximumMs": 0.4267578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.988037109375,
+              "maximumMs": 11.30322265625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 10.37109375,
+              "maximumMs": 11.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 22.299999952316284,
+              "minimumMs": 22.099023389816285,
+              "maximumMs": 22.500976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,85]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.20000004768371582,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.671142578125,
+            "maximum": 33.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0986328125,
+              "maximumMs": 0.4443359375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.770263671875,
+              "maximumMs": 12.08544921875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.20000004768371582,
+              "minimumMs": -0.0009765148162841908,
+              "maximumMs": 0.40097661018371583,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.271240234375,
+              "maximumMs": 3.93017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.399999976158142,
+              "minimumMs": 29.199023413658143,
+              "maximumMs": 29.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,86]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 16.97119140625,
+            "maximum": 17.630126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.081298828125,
+              "maximumMs": 0.427001953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.087646484375,
+              "maximumMs": 9.40283203125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.771240234375,
+              "maximumMs": 2.43017578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 15.199999928474426,
+              "minimumMs": 14.999023365974427,
+              "maximumMs": 15.400976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,87]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 17.970947265625,
+            "maximum": 18.6298828125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.013671875,
+              "maximumMs": 0.359375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.355224609375,
+              "maximumMs": 10.67041015625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.77099609375,
+              "maximumMs": 2.429931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.200000047683716,
+              "minimumMs": 15.999023485183717,
+              "maximumMs": 16.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,88]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.0712890625,
+            "maximum": 33.730224609375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.038330078125,
+              "maximumMs": 0.384033203125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.630615234375,
+              "maximumMs": 9.94580078125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.87109375,
+              "maximumMs": 4.530029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.199999928474426,
+              "minimumMs": 28.999023365974427,
+              "maximumMs": 29.400976490974426,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,89]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.19999992847442627,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.87109375,
+            "maximum": 32.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0986328125,
+              "maximumMs": 0.4443359375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.7705078125,
+              "maximumMs": 12.085693359375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.19999992847442627,
+              "minimumMs": -0.0009766340255737416,
+              "maximumMs": 0.4009764909744263,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.700000047683716,
+              "minimumMs": 28.499023485183717,
+              "maximumMs": 28.900976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,90]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.87109375,
+            "maximum": 33.530029296875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.071044921875,
+              "maximumMs": 0.416748046875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.7978515625,
+              "maximumMs": 12.113037109375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.37109375,
+              "maximumMs": 4.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.5,
+              "minimumMs": 29.2990234375,
+              "maximumMs": 29.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,91]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.20000004768371582,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.671142578125,
+            "maximum": 33.330078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.07470703125,
+              "maximumMs": 0.42041015625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.79443359375,
+              "maximumMs": 11.109619140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.20000004768371582,
+              "minimumMs": -0.0009765148162841908,
+              "maximumMs": 0.40097661018371583,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 15.27099609375,
+              "maximumMs": 15.929931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 17.399999976158142,
+              "minimumMs": 17.199023413658143,
+              "maximumMs": 17.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,92]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 18.071044921875,
+            "maximum": 18.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.037353515625,
+              "maximumMs": 0.383056640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 8.731689453125,
+              "maximumMs": 9.046875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.671142578125,
+              "maximumMs": 2.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.399999976158142,
+              "minimumMs": 16.199023413658143,
+              "maximumMs": 16.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,93]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.771240234375,
+            "maximum": 33.43017578125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0498046875,
+              "maximumMs": 0.3955078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.019287109375,
+              "maximumMs": 11.33447265625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.97119140625,
+              "maximumMs": 3.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.799999952316284,
+              "minimumMs": 29.599023389816285,
+              "maximumMs": 30.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,94]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 18.071044921875,
+            "maximum": 18.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.085205078125,
+              "maximumMs": 0.430908203125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.683837890625,
+              "maximumMs": 9.9990234375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.671142578125,
+              "maximumMs": 2.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 16.399999976158142,
+              "minimumMs": 16.199023413658143,
+              "maximumMs": 16.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,95]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 30.97119140625,
+            "maximum": 31.630126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.06591796875,
+              "maximumMs": 0.41162109375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 10.5029296875,
+              "maximumMs": 10.818115234375,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 27.799999952316284,
+              "minimumMs": 27.599023389816285,
+              "maximumMs": 28.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,96]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 31.77099609375,
+            "maximum": 32.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.063720703125,
+              "maximumMs": 0.409423828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.005126953125,
+              "maximumMs": 13.3203125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.27099609375,
+              "maximumMs": 3.929931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.5,
+              "minimumMs": 28.2990234375,
+              "maximumMs": 28.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,97]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.09999990463256836,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.071044921875,
+            "maximum": 33.72998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.040771484375,
+              "maximumMs": 0.386474609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.42822265625,
+              "maximumMs": 11.743408203125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.09999990463256836,
+              "minimumMs": -0.10097665786743165,
+              "maximumMs": 0.30097646713256837,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.47119140625,
+              "maximumMs": 4.130126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.600000023841858,
+              "minimumMs": 29.39902346134186,
+              "maximumMs": 29.800976586341857,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,98]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.97119140625,
+            "maximum": 34.630126953125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.031494140625,
+              "maximumMs": 0.377197265625,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.03759765625,
+              "maximumMs": 11.352783203125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.171142578125,
+              "maximumMs": 3.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.799999952316284,
+              "minimumMs": 30.599023389816285,
+              "maximumMs": 31.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e3\",null,99]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.04443359375,
+              "maximumMs": 0.39013671875,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 8.12451171875,
+              "maximumMs": 8.439697265625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 3.27099609375,
+              "maximumMs": 3.929931640625,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.5,
+              "minimumMs": 29.2990234375,
+              "maximumMs": 29.7009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e6\",\"e9\",101]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.7999999523162842,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.5712890625,
+            "maximum": 34.230224609375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 7.13623046875,
+              "maximumMs": 7.48193359375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 3.6328125,
+              "maximumMs": 3.947998046875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.7999999523162842,
+              "minimumMs": 0.5990233898162842,
+              "maximumMs": 1.0009765148162841,
+              "orderResolved": true
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 7.5712890625,
+              "maximumMs": 8.230224609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 26,
+              "minimumMs": 25.7990234375,
+              "maximumMs": 26.2009765625,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentBuy\",\"e4\",null,102]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.3999999761581421,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.77099609375,
+            "maximum": 33.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.06591796875,
+              "maximumMs": 0.41162109375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 13.802978515625,
+              "maximumMs": 14.1181640625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.3999999761581421,
+              "minimumMs": 0.19902341365814208,
+              "maximumMs": 0.600976538658142,
+              "orderResolved": true
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.970947265625,
+              "maximumMs": 2.6298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.799999952316284,
+              "minimumMs": 30.599023389816285,
+              "maximumMs": 31.000976514816283,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentSell\",\"e4\",null,104]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.3999999761581421,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.571044921875,
+            "maximum": 33.22998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": -0.034912109375,
+              "maximumMs": 0.310791015625,
+              "orderResolved": false
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 9.803955078125,
+              "maximumMs": 10.119140625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.3999999761581421,
+              "minimumMs": 0.19902341365814208,
+              "maximumMs": 0.600976538658142,
+              "orderResolved": true
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 2.671142578125,
+              "maximumMs": 3.330078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.899999976158142,
+              "minimumMs": 29.699023413658143,
+              "maximumMs": 30.10097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentBuy\",\"e5\",null,105]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.30000007152557373,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 32.6708984375,
+            "maximum": 33.329833984375
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.044189453125,
+              "maximumMs": 0.389892578125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 8.52490234375,
+              "maximumMs": 8.840087890625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.30000007152557373,
+              "minimumMs": 0.09902350902557372,
+              "maximumMs": 0.5009766340255737,
+              "orderResolved": true
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.37109375,
+              "maximumMs": 5.030029296875,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 28.300000071525574,
+              "minimumMs": 28.099023509025574,
+              "maximumMs": 28.500976634025573,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,107]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 33.571044921875,
+            "maximum": 34.22998046875
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.024658203125,
+              "maximumMs": 0.370361328125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.84423828125,
+              "maximumMs": 12.159423828125,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0,
+              "minimumMs": -0.2009765625,
+              "maximumMs": 0.2009765625,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.171142578125,
+              "maximumMs": 4.830078125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 29.399999976158142,
+              "minimumMs": 29.199023413658143,
+              "maximumMs": 29.60097653865814,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e7\",null,108]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 16.171142578125,
+            "maximum": 16.830078125
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.00244140625,
+              "maximumMs": 0.34814453125,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.36669921875,
+              "maximumMs": 11.681884765625,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 1.97119140625,
+              "maximumMs": 2.630126953125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 14.200000047683716,
+              "minimumMs": 13.999023485183717,
+              "maximumMs": 14.400976610183715,
+              "orderResolved": true
+            }
+          ]
+        },
+        {
+          "key": "[\"equipmentEquip\",\"e2\",null,111]",
+          "calibrationWidthMs": {
+            "menu": 0.143359375,
+            "field": 0.11284179687500001
+          },
+          "applyDurationMs": 0.10000002384185791,
+          "applyDurationErrorMs": 0.2009765625,
+          "applyToFeedbackMs": {
+            "minimum": 34.77099609375,
+            "maximum": 35.429931640625
+          },
+          "stages": [
+            {
+              "from": "click",
+              "to": "ipcEntry",
+              "minimumMs": 0.0517578125,
+              "maximumMs": 0.3974609375,
+              "orderResolved": true
+            },
+            {
+              "from": "ipcEntry",
+              "to": "applyStart",
+              "minimumMs": 11.6171875,
+              "maximumMs": 11.932373046875,
+              "orderResolved": true
+            },
+            {
+              "from": "applyStart",
+              "to": "applyEnd",
+              "rawDeltaMs": 0.10000002384185791,
+              "minimumMs": -0.1009765386581421,
+              "maximumMs": 0.3009765863418579,
+              "orderResolved": false
+            },
+            {
+              "from": "applyEnd",
+              "to": "ack",
+              "minimumMs": 4.470947265625,
+              "maximumMs": 5.1298828125,
+              "orderResolved": true
+            },
+            {
+              "from": "ack",
+              "to": "resultPaint",
+              "rawDeltaMs": 30.299999952316284,
+              "minimumMs": 30.099023389816285,
+              "maximumMs": 30.500976514816283,
+              "orderResolved": true
+            }
+          ]
+        }
+      ],
+      "calibrationNote": "Intervals include pinned Chromium timestamp coarsening, observed clock offsets and calculated epoch rounding. Raw same-clock deltas are retained with measurement bounds. orderResolved=false means the short stage cannot be ordered by clock readings alone. ACK is distinct from the observed core apply return."
+    }
+  ],
+  "vendor": {
+    "commit": "b105e1cf617adf0b68ed98790a716bbb60993179",
+    "files": 10
+  },
+  "installerPayloads": {
+    "macPayloadHash": "9c8ccf14fe9043df99ced9d13a1f0de43a3ce047f4e14d2414c05c2825d29eaa",
+    "windowsPayloadHash": "72cd37c40fa1da45897335231fc58632f420abf4c593f7d387a63e9f5c3d17f9",
+    "extractor": {
+      "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+      "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+    },
+    "macDmgHash": "1401152a102382e221ff9a77dc80e73a128b6b1012ebe4dcce694cadbc49c89e",
+    "windowsInstallerHash": "6fbc96ec11d9bb00f59e67e735f3e179d6e2f6ec7d7d84b31601ac8844311118"
+  },
+  "externalChecks": {
+    "windowsHardware": {
+      "performed": false,
+      "note": "Windows NSIS packaging and extracted payload validation passed on macOS; no real Windows device execution."
+    },
+    "postgresql": {
+      "performed": false,
+      "note": "Deterministic store/stream tests only; no live PostgreSQL verification."
+    },
+    "humanFun": {
+      "performed": false,
+      "note": "Registered accelerated playtime and actual Electron interaction are distinct from human enjoyment; no human fun session."
+    },
+    "productionDeploy": {
+      "performed": false,
+      "note": "DESMON_SKIP_NET=1. No remote push or production deployment."
+    },
+    "globalInput": {
+      "performed": false,
+      "note": "Synthetic input on isolated Electron; no real Accessibility permission/global hook certification."
+    }
+  }
+}

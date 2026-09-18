@@ -15,6 +15,7 @@ const swordEquipment = () => ({ ...newEquipment(), loadout: { weapon: {
 }, accessories: [] } });
 import {
   activeCompanions,
+  activeFieldCompanions,
   attackDelayOf,
   createEngine,
   FEVER_INPUTS,
@@ -156,6 +157,13 @@ interface ClearCall {
   y: number;
   w: number;
   h: number;
+}
+
+/** Restore individual art cells when a painter batches a horizontal strip. */
+function artCells(calls: RectCall[]): RectCall[] {
+  return calls.flatMap(call => (call.h === 1 || call.h === 2) && call.w > call.h && call.w % call.h === 0
+    ? Array.from({ length: call.w / call.h }, (_, i) => ({ ...call, x: call.x + i * call.h, w: call.h }))
+    : [call]);
 }
 
 function makeCtx(): { ctx: GameCanvas; calls: RectCall[]; clears: ClearCall[] } {
@@ -915,7 +923,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     y: GROUND_Y - (artOf('slime').h * MONSTER_SCALE) / 2,
   };
   const monsterBox = (calls: RectCall[]): string[] =>
-    calls
+    artCells(calls)
       .filter(
         (c) =>
           c.w === MONSTER_SCALE &&
@@ -977,7 +985,7 @@ describe('kill/loot/spawn/level-up presentation (T15)', () => {
     // Coin pixels (orange core) in the gap between hero and monster, near
     // the ground — a region nothing else paints in orange 1px cells.
     const corridor = (calls: RectCall[]): RectCall[] =>
-      calls.filter(
+      artCells(calls).filter(
         (c) =>
           c.w === 1 &&
           c.fillStyle === COLORS.orange &&
@@ -1200,7 +1208,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
     // The boss band starts at the crown and ends at the ground; the raised hp
     // bar and its type badge sit above it on the taller v3 field.
     const bossBand = (cs: RectCall[]): RectCall[] =>
-      cs.filter(
+      artCells(cs).filter(
         (c) =>
           c.x >= MONSTER_X &&
           c.y >= top - crown.h * scale &&
@@ -1208,7 +1216,7 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
           ((c.w === scale && c.h === scale) || (c.w === 1 && c.h === 1)),
       );
     expect(ref.calls.length).toBeGreaterThan(0);
-    expect(keys(bossBand(calls))).toEqual(keys(ref.calls));
+    expect(keys(bossBand(calls))).toEqual(keys(artCells(ref.calls)));
     expect(bossBand(calls).some((c) => c.w === scale)).toBe(true);
     // Uniform scale (2026-09-04): the crown (its own 1× rects above the head)
     // is what marks the boss, not a bigger pixel grid.
@@ -1542,9 +1550,9 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
         { scale },
       );
       expect(ref.calls.length).toBeGreaterThan(0);
-      expect(ref.calls.every((c) => c.w === scale && c.h === scale)).toBe(true);
-      const painted = new Set(calls.map(rectKey));
-      expect(ref.calls.every((c) => painted.has(rectKey(c)))).toBe(true);
+      expect(artCells(ref.calls).every((c) => c.w === scale && c.h === scale)).toBe(true);
+      const painted = new Set(artCells(calls).map(rectKey));
+      expect(artCells(ref.calls).every((c) => painted.has(rectKey(c)))).toBe(true);
       // …and it fits the field.
       expect(MONSTER_X + idle.w * scale).toBeLessThanOrEqual(VIEW_W);
     }
@@ -1568,16 +1576,23 @@ describe('engine tick, bosses, companions and fever (T37, SPEC F36)', () => {
       ),
     );
     const partyFor = (state: GameState): Companion[] =>
-      partyOrder(activeCompanions(state.companions, state.monster.type));
+      partyOrder(activeFieldCompanions(state.companions, state.monster.type, state.hero?.equipped,
+        state.monster.curveRebirths ?? 0, state.monster.curveVersion ?? 10));
+    expect(game.getState().monster.curveVersion).toBe(10);
     const before = partyFor(game.getState());
+    expect(before.map((c) => c.id).sort()).toEqual(['c1', 'c2', 'c3', 'c4', 'c6']);
 
     expect(game.attack('keyboard').some((e) => e.type === 'monsterKilled')).toBe(true);
     const elapsed = MONSTER_DYING_MS + MONSTER_SPAWNING_MS;
     game.update(elapsed);
     const state = game.getState();
-    expect(state.monster.type).not.toBe('water'); // monster 0 was the water slime
+    expect(state.monster.type).toBe('earth'); // seeded spawn replaces the water slime
+    expect(state.monster.curveVersion).toBe(11);
     const after = partyFor(state);
     expect(after.map((c) => c.id)).not.toEqual(before.map((c) => c.id));
+    // Hunting power distinguishes normal earth hits from weak dark hits;
+    // the legacy raw-power-1 floor made those hits tie instead.
+    expect(after.map((c) => c.id).sort()).toEqual(['c1', 'c2', 'c4', 'c5', 'c6']);
 
     const { ctx, calls } = makeCtx();
     game.draw(ctx);

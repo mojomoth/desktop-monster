@@ -1,0 +1,52 @@
+{
+  "version": 11,
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "scope": "ui",
+  "verdict": "approved",
+  "reviewer": "/root/skills_harness",
+  "implementedBy": [
+    "/root",
+    "/root/menu_review"
+  ],
+  "conclusion": "No unresolved material correctness finding. Actual correlated action results govern pending/success/rejection; stale/duplicate equipment actions are covered. Stable disclosure DOM, growth consume/restart state, tabs/codex/footer changes and field-versus-PvP preview/snapshot consumers are source-reviewed and confirmed by the final native evidence.",
+  "reviewedFiles": {
+    "src/menu/index.ts": "c6a71091e5b1098c822f40af0cfa788e18b2a92ac362c714b9c50bf88716c81d",
+    "src/menu/equipment.ts": "12895099e5a4b19a55f262f744086c9c4d917c377c085d3e2b653768b1b5bc16",
+    "src/menu/codex.ts": "9c257ec795092ed4a681d3c212bd6e6a72b7e21671d821c6781cd871ee6d643b",
+    "src/menu/share.ts": "9b1146b4a8d7a526d7de124102b4b720447ea42d08399f7663d54b684ee90cb8",
+    "src/main/ipc.ts": "e72adaa2c73a0ac5fdc273d7ff64ee8e330da39683777a0a0b6934ec3b06a6f3",
+    "src/main/menuWindow.ts": "659cc97944bb869f50849e5e9adf9dd695834d31bae714fa4572495abaa39632",
+    "src/main/tray.ts": "18b961d4f5b313260745c1ae92ddfbef45fce187d11e9a1dc85d7667e899eff7",
+    "src/shared/ipc.ts": "df4fc363662da62fd317565a1c0a5c74e9ad229c0b12cde8b54f80b0a1d3c3a2",
+    "src/preload/index.ts": "620b232c35470937e7654e839abfe88bab5a6492b0f0af689d0599a6548b96c0",
+    "src/renderer/index.ts": "0c60262af643662ea047800d0d4f7aea578fb8cb6f092c27c1029050b2a5da07",
+    "static/menu.html": "3395b61418431a55f07c71bcd970a09d83b948d9fe4cd51a1a248c84ee325366",
+    "static/menu.css": "559419c9953805bfa9fa83bd5141841355cd9d7c65871665af5b940771a0b931",
+    "tests/runtimeV8.test.ts": "dfca41af136c01bac52f88d0655a52e4fb63ba79501a12b1a6c926cc345af2aa",
+    "tests/tray.test.ts": "716bd49e3f919977b514d98692b3cb89a18dea37526b134a4ca026b592adee97",
+    "tests/menuV9.test.ts": "12006ad29debd9f87206edf2cececc5552b29bd74583ae2cb5da7751c734facd",
+    "tests/menu.test.ts": "871607496b9d225f1a8aed5428a5d79bfb93679e8de6c1463b4fe730eb42e01f",
+    "tests/share.test.ts": "b141cf01600813180fa2156c1733e870ab796c0246c7707f044c0c97a8a03e7f",
+    "tests/share-field-v11.test.ts": "093c983cbe3ada54441dba7575c6519e881054becb3e0d045e5fba82ab661f4c"
+  },
+  "comprehensiveReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_SOURCE_REVIEW.json",
+    "sha256": "b0c103ee7d2ec4cf2039fd5927dc7c8ba05d0d4fe2e424063cf51974bc7cc084"
+  },
+  "nativeReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_NATIVE_REVIEW.json",
+    "sha256": "c4619cb3495f7d3435e93dfb9f1dde28a5521a1487fa099545134ffd20efdf86"
+  },
+  "balanceReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_BALANCE_REVIEW.json",
+    "sha256": "c078ef971ae405d23255ba3312294484b4c101ff888269dda7300f2a2fb8d4ff"
+  },
+  "unresolvedFindings": [],
+  "overallReleaseApproved": false,
+  "limitations": [
+    "This approves four independent source/functionality scopes, not the complete release. The verification scope is authored by this reviewer and requires Host approval.",
+    "Quiet final candidate active/idle CPU/RAM comparison remains pending; the prior failed idle comparison stays preserved.",
+    "Simulation approval is policy-bound: aggressive growth retains all 118 missing scheduled cycles, no-reset observed no roster-release branch, and human fun is not certified.",
+    "Final package payload and external-check dispositions must be attached by the Host; native package binding has passed."
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "version": 11,
+  "reviewer": "/root/skills_harness",
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "verdict": "approved",
+  "performanceApproved": true,
+  "releasePayloadBindingApproved": true,
+  "overallReleaseApproved": false,
+  "scope": "Independent final performance, native/package continuity and actual installer payload review; final five-scope/task-journal convergence remains Host-owned.",
+  "comparison": {
+    "path": ".agentdoc/v11-20260918-resume/performance/comparison.json",
+    "sha256": "5faf1075470c64fd6a9181c48eb4430cea215c4e75cdd7029d36118ee11a5865"
+  },
+  "recomputation": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_PERFORMANCE_RECOMPUTATION.json",
+    "sha256": "bd3640d5df615778fb10a4e03af3c4eeb19d51fdcde92f9b84f8d9a7698f4fd9"
+  },
+  "packageBinding": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_PACKAGE_BINDING.json",
+    "sha256": "f6558182f18d8edd3bb852db18ddf84c2afce3c7f5384c40c0b56c6e5a72e537"
+  },
+  "release": {
+    "path": ".agentdoc/v11-20260918-resume/release.json",
+    "sha256": "059883a28d8c3736d971925e3e7af49769791dc4c6ec9ef029b33c230c046c03"
+  },
+  "native": {
+    "path": ".agentdoc/v11-20260918-resume/native/final.json",
+    "sha256": "93e0674a6af7c02e943cad7e29359e34568bdf148e394fbed51d19f347bc1a7d"
+  },
+  "nativeReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_NATIVE_REVIEW.json",
+    "sha256": "c4619cb3495f7d3435e93dfb9f1dde28a5521a1487fa099545134ffd20efdf86"
+  },
+  "sourceScopeReceipts": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_SCOPES.json",
+    "sha256": "e9d3fa329a8b571f309f397c8a86bdd7eaf4a0b4ad937e389c004ca1ea67107d"
+  },
+  "verification": {
+    "fourSlots": {
+      "rawSamplesEach": 360,
+      "rawTotal": 1440,
+      "stableSamplesEach": 301,
+      "warmupMinutes": 5,
+      "durationMinutesEach": 30,
+      "reportRecomputationIdentical": true,
+      "processSumQuantilesIndependentlyRecomputed": true
+    },
+    "integrity": "Read and verified all four raw JSONL streams, reports, screenshots and lifecycle hashes. Process totals, p95 values, input cadence, persisted play-time progression, error-free rows, unchanged observer/app hashes, identical initial fixture/runtime/machine, unique save directories, serial process lifetimes and completed owned-process cleanup agree. The recorded baseline pair is unchanged from the original attempt; no replacement baseline or threshold change was used.",
+    "lifecycle": [
+      {
+        "slot": "baseline-active",
+        "startedAt": "2026-09-18T04:10:40.483Z",
+        "finishedAt": "2026-09-18T04:40:40.554Z",
+        "cleanupFinishedAt": "2026-09-18T04:40:41.540Z",
+        "mainPid": 26121,
+        "state": "complete",
+        "remaining": [],
+        "errors": 0
+      },
+      {
+        "slot": "baseline-idle",
+        "startedAt": "2026-09-18T04:40:43.105Z",
+        "finishedAt": "2026-09-18T05:10:43.167Z",
+        "cleanupFinishedAt": "2026-09-18T05:10:44.165Z",
+        "mainPid": 65196,
+        "state": "complete",
+        "remaining": [],
+        "errors": 0
+      },
+      {
+        "slot": "candidate-active",
+        "startedAt": "2026-09-18T10:08:57.421Z",
+        "finishedAt": "2026-09-18T10:38:57.483Z",
+        "cleanupFinishedAt": "2026-09-18T10:38:58.530Z",
+        "mainPid": 35571,
+        "state": "complete",
+        "remaining": [],
+        "errors": 0
+      },
+      {
+        "slot": "candidate-idle",
+        "startedAt": "2026-09-18T10:39:00.216Z",
+        "finishedAt": "2026-09-18T11:09:00.280Z",
+        "cleanupFinishedAt": "2026-09-18T11:09:01.319Z",
+        "mainPid": 69890,
+        "state": "complete",
+        "remaining": [],
+        "errors": 0
+      }
+    ],
+    "finalPackage": "Independently reran validateReleaseCommands, validatePackages and validateNative. Mounted the actual DMG read-only and extracted actual NSIS app payload; their complete hashes equal the verified macOS/Windows app directories. Both ASAR archives bind the current compiled/static files and package 0.11.0; installer resources/builder hashes agree. Owned mount/scratch cleanup completed. No Electron application was launched.",
+    "macAppAsarSha256": "31c94f63d3c0181d5289bb9655ec38586c02d8a6f4875a5e16cc337e8f623d1d",
+    "installerPayloads": {
+      "macPayloadHash": "9c8ccf14fe9043df99ced9d13a1f0de43a3ce047f4e14d2414c05c2825d29eaa",
+      "windowsPayloadHash": "72cd37c40fa1da45897335231fc58632f420abf4c593f7d387a63e9f5c3d17f9",
+      "extractor": {
+        "path": "/Users/jeongyounglee/Library/Caches/electron-builder/7zip@1.0.0/7zip-darwin-arm64-fti70/bin/7za",
+        "sha256": "bd5765978a541323758d82ad1d30df76a2e3c86341f12d6b0524d837411e9b4a"
+      },
+      "macDmgHash": "1401152a102382e221ff9a77dc80e73a128b6b1012ebe4dcce694cadbc49c89e",
+      "windowsInstallerHash": "6fbc96ec11d9bb00f59e67e735f3e179d6e2f6ec7d7d84b31601ac8844311118"
+    },
+    "nativeContinuity": "The same macOS ASAR is used by all five final native scenarios and both new performance slots. Current digest remains unchanged after validation; the previously approved 183 checks, 28 PNGs and 407 trusted native latency samples remain valid."
+  },
+  "comparisons": [
+    {
+      "profile": "active",
+      "cpu": {
+        "baseline": 2.0380305937182523,
+        "candidate": 2.1060716382711355,
+        "limit": 3.0380305937182523,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 216.765625,
+        "candidate": 261.578125,
+        "limit": 266.765625,
+        "passed": true
+      },
+      "cpuIncreasePercentagePoints": 0.06804104455288318,
+      "ramIncreaseMiB": 44.8125,
+      "cpuMarginPercentagePoints": 0.9319589554471168,
+      "ramMarginMiB": 5.1875
+    },
+    {
+      "profile": "idle",
+      "cpu": {
+        "baseline": 1.3919052796931066,
+        "candidate": 2.149374943656222,
+        "limit": 2.3919052796931064,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 200.328125,
+        "candidate": 215.734375,
+        "limit": 250.328125,
+        "passed": true
+      },
+      "cpuIncreasePercentagePoints": 0.7574696639631153,
+      "ramIncreaseMiB": 15.40625,
+      "cpuMarginPercentagePoints": 0.24253033603688445,
+      "ramMarginMiB": 34.59375
+    }
+  ],
+  "progression": [
+    {
+      "slot": "baseline-active",
+      "initial": {
+        "level": 1,
+        "kills": 0,
+        "companions": 5
+      },
+      "final": {
+        "level": 16,
+        "kills": 70,
+        "companions": 8,
+        "playTimeMs": 1799075.6999999285
+      }
+    },
+    {
+      "slot": "baseline-idle",
+      "initial": {
+        "level": 1,
+        "kills": 0,
+        "companions": 5
+      },
+      "final": {
+        "level": 12,
+        "kills": 33,
+        "companions": 6,
+        "playTimeMs": 1795002.5000000237
+      }
+    },
+    {
+      "slot": "candidate-active",
+      "initial": {
+        "level": 1,
+        "kills": 0,
+        "companions": 5
+      },
+      "final": {
+        "level": 21,
+        "kills": 317,
+        "companions": 14,
+        "playTimeMs": 1799134.9000000001
+      }
+    },
+    {
+      "slot": "candidate-idle",
+      "initial": {
+        "level": 1,
+        "kills": 0,
+        "companions": 5
+      },
+      "final": {
+        "level": 21,
+        "kills": 170,
+        "companions": 11,
+        "playTimeMs": 1800005.599999976
+      }
+    }
+  ],
+  "newScreenshots": [
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/performance/attempt02/candidate-active.json.start.png",
+      "sha256": "e104f8fb1f76ec8549df02c73135726998fed8d77e10d85b5cb84ac30ee5341a",
+      "slot": "candidate-active",
+      "viewed": true
+    },
+    {
+      "name": "end",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/performance/attempt02/candidate-active.json.end.png",
+      "sha256": "3babc398371fe526f087d365f85895f22e7badb587f3f86431c4c10f9df034c9",
+      "slot": "candidate-active",
+      "viewed": true
+    },
+    {
+      "name": "start",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/performance/attempt02/candidate-idle.json.start.png",
+      "sha256": "e104f8fb1f76ec8549df02c73135726998fed8d77e10d85b5cb84ac30ee5341a",
+      "slot": "candidate-idle",
+      "viewed": true
+    },
+    {
+      "name": "end",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/performance/attempt02/candidate-idle.json.end.png",
+      "sha256": "08920011f94806efb27a93f296e696d41518df3fc48e960a97bbfdbf5bf745c6",
+      "slot": "candidate-idle",
+      "viewed": true
+    }
+  ],
+  "screenshotObservations": [
+    "Both new starts visibly show the same level-1, zero-kill, five-slime fixture with the new upper-left counters.",
+    "Active end shows level21/317 kills and idle end level21/170 kills, matching saved progression. Head-level and monster damage remain visible, with no missing/corrupted scene. The active endpoint contains concurrent floating hit numbers as expected."
+  ],
+  "priorFailedComparison": {
+    "path": ".agentdoc/v11-20260918/performance/comparison.json",
+    "sha256": "f7a546a622e3d0d91bc51726a3c21becb8ed92df0c42ca0cc1978a156da09552",
+    "passed": false,
+    "idleCpu": {
+      "baseline": 1.3919052796931066,
+      "candidate": 2.4309339847820723,
+      "limit": 2.3919052796931064,
+      "passed": false
+    },
+    "disposition": "Preserved as a failed earlier candidate observation. The fresh pair uses the final changed package; the earlier failure was not erased or reclassified."
+  },
+  "findings": [],
+  "caveats": [
+    "Both current CPU p95 values exceed the original baseline: active +0.0680410446 percentage points and idle +0.7574696640 points. They pass the preregistered regression budget; this is not a claim of lower CPU than v0.10.0.",
+    "Active working-set p95 is 261.578125MiB against 266.765625MiB, leaving 5.1875MiB. The observed post-warmup active maximum is 418.453125MiB; p95 acceptance does not cap transient peaks.",
+    "The initial fixture, observer, machine and runtime match, but final progression differs by design: baseline/candidate kills are70/317 active and33/170 idle. This measures whole-product regression under the same initial/input protocol and does not isolate sprite batching or any single optimization causally.",
+    "The CPU/RAM report is two 30-minute candidate observations with five-minute warmup, not a long-duration memory soak, battery-life test or thermal/power-controlled experiment. Working-set sums may count shared pages more than once.",
+    "Active IPC scheduling delivers3570 baseline and3567 candidate inputs of3600 nominal; measured coverage passes the unchanged95% policy. Both idle observations have zero emitted input.",
+    "PNG and lifecycle evidence is source/artifact-bound, but hashes do not independently authenticate capture provenance. Native result paint remains a double-rAF proxy rather than physical display timing.",
+    "Windows hardware, live PostgreSQL/deployment, actual global input permissions/audio experience and human fun are not certified by this review. Existing explicit external-check dispositions must remain visible.",
+    "Host must complete final literal AC receipts and assemble independent verification approval; this reviewer does not approve their own verifier implementation."
+  ]
+}

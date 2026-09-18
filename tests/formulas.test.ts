@@ -92,7 +92,7 @@ describe('exact field HP tail boundaries', () => {
   ) => void): Promise<void> => {
     vi.resetModules();
     vi.doMock('../src/core/progression.js', () => ({
-      PROGRESSION_PARAMETERS: Object.freeze({ ...PROGRESSION_PARAMETERS, ...parameters }),
+      PROGRESSION_PARAMETERS: Object.freeze({ ...PROGRESSION_PARAMETERS, fieldHpTailPolynomial: 0, fieldHpIndexCap: null, fieldHpResumeIndex: null, ...parameters }),
     }));
     try {
       const formulas = await import('../src/core/formulas.js');

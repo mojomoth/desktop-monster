@@ -1,0 +1,907 @@
+{
+  "mode": "growth-screen",
+  "diagnostic": true,
+  "binding": {
+    "files": {
+      "battle.ts": "41cb8ec4edf044abe792ebe2fe167ebcd246cd51e2f82e16416670b345464ef5",
+      "bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "collection.ts": "1965b76a17292df0ed97b2dcace60dee3435c17fb821cef5b7d7e283019ef1df",
+      "discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+      "economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+      "engine.ts": "271582b90bb5006bc7cf72cfb1e35decbdf9e402b1377591bbf717cf9e509464",
+      "equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+      "fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "formulas.ts": "b0634b432c1e624c213fd312bb0d26c001862c8679d9446ebe3ceb5d2fe3f002",
+      "fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+      "gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+      "hero.ts": "4f342b906624ada81d02671102a429031da85b69c93787e38e4dfe4fc15d6308",
+      "index.ts": "d11597d322ea6e39ec8be7e264ada5d7b70f18fc03d9cf6d673b898d0e8917e6",
+      "input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "monsters.ts": "1ce3aed70d2590478af6acd41861b4e95959bd25dbf2b0e82ddb3f118bc3ee78",
+      "progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+      "progression.ts": "bfe477da25a844c3e7503761e582edf266c27e5ab9428fee649293641f899540",
+      "rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+      "types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d"
+    },
+    "coreHash": "807c7e826b6a5372ca76d53406f2e787ab92d74c8c4d350e029290e1a43c5af3",
+    "protocolHash": "a2c98471f0c65931b8053916d4041ce8bf03518d22d17624e831238c11cfbd56",
+    "candidatesHash": "67173c44bdfd83ff5aea3537fae1177c61cc69aff0c64426ee794027ec60ebd3",
+    "scriptHash": "4efd27758e7035de4b13dda0ce73717f7be2148d77d55b1fe0fc0484658c5846"
+  },
+  "after": {
+    "files": {
+      "battle.ts": "41cb8ec4edf044abe792ebe2fe167ebcd246cd51e2f82e16416670b345464ef5",
+      "bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+      "collection.ts": "1965b76a17292df0ed97b2dcace60dee3435c17fb821cef5b7d7e283019ef1df",
+      "discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+      "economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+      "engine.ts": "271582b90bb5006bc7cf72cfb1e35decbdf9e402b1377591bbf717cf9e509464",
+      "equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+      "fever.ts": "b1e11bb4028875c955172687608a74236fcd2c2f117f424d796e1005b80d7f87",
+      "formulas.ts": "b0634b432c1e624c213fd312bb0d26c001862c8679d9446ebe3ceb5d2fe3f002",
+      "fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+      "gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+      "hero.ts": "4f342b906624ada81d02671102a429031da85b69c93787e38e4dfe4fc15d6308",
+      "index.ts": "d11597d322ea6e39ec8be7e264ada5d7b70f18fc03d9cf6d673b898d0e8917e6",
+      "input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+      "loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+      "monsters.ts": "1ce3aed70d2590478af6acd41861b4e95959bd25dbf2b0e82ddb3f118bc3ee78",
+      "progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+      "progression.ts": "bfe477da25a844c3e7503761e582edf266c27e5ab9428fee649293641f899540",
+      "rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+      "save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+      "types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+      "types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d"
+    },
+    "coreHash": "807c7e826b6a5372ca76d53406f2e787ab92d74c8c4d350e029290e1a43c5af3",
+    "protocolHash": "a2c98471f0c65931b8053916d4041ce8bf03518d22d17624e831238c11cfbd56",
+    "candidatesHash": "67173c44bdfd83ff5aea3537fae1177c61cc69aff0c64426ee794027ec60ebd3",
+    "scriptHash": "4efd27758e7035de4b13dda0ce73717f7be2148d77d55b1fe0fc0484658c5846"
+  },
+  "reports": [
+    {
+      "candidate": {
+        "id": "R11-A",
+        "parameters": {
+          "heroMinLevel": 24,
+          "heroLevelStepCap": 0,
+          "fieldHpNumerator": 1120,
+          "fieldHpTailStartIndex": 31,
+          "fieldHpTailNumerator": 12190,
+          "fieldHpTailPolynomial": 0,
+          "fieldHpIndexCap": 79,
+          "fieldRebirthBonus": 1,
+          "fieldRebirthHalf": 1,
+          "fieldRebirthBonusScale": 4,
+          "fieldCompanionTailPolynomial": 1,
+          "fieldCompanionTailScale": 256,
+          "fieldCompanionIndexCap": 79,
+          "fieldCompanionGrowthBonus": 25,
+          "fieldHeroCycleBonus": 128
+        }
+      },
+      "compiledFiles": {
+        "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+        "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+        "collection.js": "ef72ac8aff342c8e74435690a8c5593fab649722fe134ef990a235f5b0142390",
+        "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+        "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+        "engine.js": "db72dfdb31411e848a4adcf684687746075c9c067459731bebd6d000a962364a",
+        "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+        "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+        "formulas.js": "09142f06634467fb62e9c2257fc5fe56532fbf96774f97e35481bcda52187c3b",
+        "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+        "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+        "hero.js": "61393330dac7cdcf77aa4e87dc8cff19dae2fee23d97553ea5b7b8fb3ca0750d",
+        "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+        "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+        "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+        "monsters.js": "79de30b4114c58b417491cf7bb415f0ad5935dc4bcddeead01581ec359147744",
+        "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+        "progression.js": "b572af647ba17404e939c96a2ae9c84dbc609ff1156c18441b26a169bf41fb8d",
+        "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+        "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+        "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+        "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+      },
+      "rows": 3,
+      "raw": [
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-A-ordinary-3.jsonl",
+          "sha256": "d6c16162565928548571992aa89761d47f88a5cb590e5ab67e9147525335aa95"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-A-intermittent-3.jsonl",
+          "sha256": "1ba24a7c53e4fe5dce0f8befb2d0f50802ee992dd5ed3354e6cc4355f912076e"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-A-high-3.jsonl",
+          "sha256": "4422f5a81d1bc11a85997ee56e0eb81086c6557147be83216eded5a7ed8fd057"
+        }
+      ],
+      "summaries": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 316.3333333333333,
+          "p50": 316.3333333333333,
+          "p90": 316.3333333333333
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 205.83333333333334,
+          "p50": 205.83333333333334,
+          "p90": 205.83333333333334
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 213.83333333333334,
+          "p50": 213.83333333333334,
+          "p90": 213.83333333333334
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 361.8333333333333,
+          "p50": 361.8333333333333,
+          "p90": 361.8333333333333
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 211,
+          "p50": 211,
+          "p90": 211
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 242.33333333333334,
+          "p50": 242.33333333333334,
+          "p90": 242.33333333333334
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 165.16666666666666,
+          "p50": 165.16666666666666,
+          "p90": 165.16666666666666
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 134.25,
+          "p50": 134.25,
+          "p90": 134.25
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 122.66666666666667,
+          "p50": 122.66666666666667,
+          "p90": 122.66666666666667
+        }
+      ],
+      "checks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "passed": true
+        }
+      ],
+      "passed": false,
+      "score": {
+        "maximumMedianDeviation": 121.83333333333331,
+        "maximumP90": 361.8333333333333
+      },
+      "humanFun": false,
+      "growthChecks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 1,
+          "p10": 316.3333333333333,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "n": 1,
+          "p10": 205.83333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "n": 1,
+          "p10": 213.83333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 1,
+          "p10": 361.8333333333333,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "n": 1,
+          "p10": 211,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "n": 1,
+          "p10": 242.33333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 1,
+          "p10": 165.16666666666666,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "n": 1,
+          "p10": 134.25,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "n": 1,
+          "p10": 122.66666666666667,
+          "nonarrival": 0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "candidate": {
+        "id": "R11-B",
+        "parameters": {
+          "heroMinLevel": 24,
+          "heroLevelStepCap": 0,
+          "fieldHpNumerator": 1120,
+          "fieldHpTailStartIndex": 31,
+          "fieldHpTailNumerator": 12200,
+          "fieldHpTailPolynomial": 0,
+          "fieldHpIndexCap": 79,
+          "fieldRebirthBonus": 1,
+          "fieldRebirthHalf": 1,
+          "fieldRebirthBonusScale": 4,
+          "fieldCompanionTailPolynomial": 1,
+          "fieldCompanionTailScale": 256,
+          "fieldCompanionIndexCap": 79,
+          "fieldCompanionGrowthBonus": 50,
+          "fieldHeroCycleBonus": 128
+        }
+      },
+      "compiledFiles": {
+        "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+        "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+        "collection.js": "ef72ac8aff342c8e74435690a8c5593fab649722fe134ef990a235f5b0142390",
+        "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+        "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+        "engine.js": "db72dfdb31411e848a4adcf684687746075c9c067459731bebd6d000a962364a",
+        "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+        "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+        "formulas.js": "09142f06634467fb62e9c2257fc5fe56532fbf96774f97e35481bcda52187c3b",
+        "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+        "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+        "hero.js": "61393330dac7cdcf77aa4e87dc8cff19dae2fee23d97553ea5b7b8fb3ca0750d",
+        "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+        "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+        "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+        "monsters.js": "79de30b4114c58b417491cf7bb415f0ad5935dc4bcddeead01581ec359147744",
+        "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+        "progression.js": "deb3f94a61325ae165cd7e43a9dbac81f8360e4a28793aedfb82b50b3acb166e",
+        "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+        "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+        "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+        "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+      },
+      "rows": 3,
+      "raw": [
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-B-ordinary-3.jsonl",
+          "sha256": "5ff5027dfc821172c4d9d16b0c69738f89a95c059f15fbe8fb2edab50f813276"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-B-intermittent-3.jsonl",
+          "sha256": "5f3037fa90fa2986e23c510081f742d8b51310c34c5c3e4f41551b218590ead0"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-B-high-3.jsonl",
+          "sha256": "91dca9909b8a2962938b390c0e56ab1bb549bf485f45c27a97c794034a57f542"
+        }
+      ],
+      "summaries": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 260.8333333333333,
+          "p50": 260.8333333333333,
+          "p90": 260.8333333333333
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 196.25,
+          "p50": 196.25,
+          "p90": 196.25
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 197.83333333333334,
+          "p50": 197.83333333333334,
+          "p90": 197.83333333333334
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 430.3333333333333,
+          "p50": 430.3333333333333,
+          "p90": 430.3333333333333
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 239.33333333333334,
+          "p50": 239.33333333333334,
+          "p90": 239.33333333333334
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 279,
+          "p50": 279,
+          "p90": 279
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 169.5,
+          "p50": 169.5,
+          "p90": 169.5
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 119.75,
+          "p50": 119.75,
+          "p90": 119.75
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 131.83333333333334,
+          "p50": 131.83333333333334,
+          "p90": 131.83333333333334
+        }
+      ],
+      "checks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "passed": true
+        }
+      ],
+      "passed": false,
+      "score": {
+        "maximumMedianDeviation": 190.33333333333331,
+        "maximumP90": 430.3333333333333
+      },
+      "humanFun": false,
+      "growthChecks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 1,
+          "p10": 260.8333333333333,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "n": 1,
+          "p10": 196.25,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "n": 1,
+          "p10": 197.83333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 1,
+          "p10": 430.3333333333333,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "n": 1,
+          "p10": 239.33333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "n": 1,
+          "p10": 279,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 1,
+          "p10": 169.5,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "n": 1,
+          "p10": 119.75,
+          "nonarrival": 0,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "n": 1,
+          "p10": 131.83333333333334,
+          "nonarrival": 0,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "candidate": {
+        "id": "R11-C",
+        "parameters": {
+          "heroMinLevel": 24,
+          "heroLevelStepCap": 0,
+          "fieldHpNumerator": 1120,
+          "fieldHpTailStartIndex": 31,
+          "fieldHpTailNumerator": 12210,
+          "fieldHpTailPolynomial": 0,
+          "fieldHpIndexCap": 79,
+          "fieldRebirthBonus": 1,
+          "fieldRebirthHalf": 1,
+          "fieldRebirthBonusScale": 4,
+          "fieldCompanionTailPolynomial": 1,
+          "fieldCompanionTailScale": 256,
+          "fieldCompanionIndexCap": 79,
+          "fieldCompanionGrowthBonus": 100,
+          "fieldHeroCycleBonus": 128
+        }
+      },
+      "compiledFiles": {
+        "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+        "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+        "collection.js": "ef72ac8aff342c8e74435690a8c5593fab649722fe134ef990a235f5b0142390",
+        "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+        "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+        "engine.js": "db72dfdb31411e848a4adcf684687746075c9c067459731bebd6d000a962364a",
+        "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+        "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+        "formulas.js": "09142f06634467fb62e9c2257fc5fe56532fbf96774f97e35481bcda52187c3b",
+        "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+        "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+        "hero.js": "61393330dac7cdcf77aa4e87dc8cff19dae2fee23d97553ea5b7b8fb3ca0750d",
+        "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+        "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+        "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+        "monsters.js": "79de30b4114c58b417491cf7bb415f0ad5935dc4bcddeead01581ec359147744",
+        "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+        "progression.js": "589ca797119b8f2b6599b83c12e1aab7db394623bd9928c2c9bb9480d5d87686",
+        "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+        "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+        "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+        "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+      },
+      "rows": 3,
+      "raw": [
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-C-ordinary-3.jsonl",
+          "sha256": "d06ad488181294e414504ac560663d365e8f1666392dcec2f3b277578c5789ea"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-C-intermittent-3.jsonl",
+          "sha256": "3e22924ff81525544068602f2e4456db678fe828c60fe51084da3f303261d788"
+        },
+        {
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r11-growth-screen/R11-C-high-3.jsonl",
+          "sha256": "b7b483d08299949e7635cd4dfe34673f6e1de5d58173a529129ed867a390417e"
+        }
+      ],
+      "summaries": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 255.75,
+          "p50": 255.75,
+          "p90": 255.75
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 131.83333333333334,
+          "p50": 131.83333333333334,
+          "p90": 131.83333333333334
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 170.08333333333334,
+          "p50": 170.08333333333334,
+          "p90": 170.08333333333334
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 336.4166666666667,
+          "p50": 336.4166666666667,
+          "p90": 336.4166666666667
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 184.16666666666666,
+          "p50": 184.16666666666666,
+          "p90": 184.16666666666666
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 229.33333333333334,
+          "p50": 229.33333333333334,
+          "p90": 229.33333333333334
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 172.75,
+          "p50": 172.75,
+          "p90": 172.75
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 95.75,
+          "p50": 95.75,
+          "p90": 95.75
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "n": 1,
+          "arrived": 1,
+          "nonarrival": 0,
+          "p10": 87.25,
+          "p50": 87.25,
+          "p90": 87.25
+        }
+      ],
+      "checks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "passed": false
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "passed": false
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "passed": false
+        }
+      ],
+      "passed": false,
+      "score": {
+        "maximumMedianDeviation": 108.16666666666666,
+        "maximumP90": 336.4166666666667
+      },
+      "humanFun": false,
+      "growthChecks": [
+        {
+          "profile": "ordinary",
+          "cycle": 1,
+          "n": 1,
+          "p10": 255.75,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 2,
+          "n": 1,
+          "p10": 131.83333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "ordinary",
+          "cycle": 3,
+          "n": 1,
+          "p10": 170.08333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 1,
+          "n": 1,
+          "p10": 336.4166666666667,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 2,
+          "n": 1,
+          "p10": 184.16666666666666,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "intermittent",
+          "cycle": 3,
+          "n": 1,
+          "p10": 229.33333333333334,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 1,
+          "n": 1,
+          "p10": 172.75,
+          "nonarrival": 0,
+          "passed": true
+        },
+        {
+          "profile": "high",
+          "cycle": 2,
+          "n": 1,
+          "p10": 95.75,
+          "nonarrival": 0,
+          "passed": false
+        },
+        {
+          "profile": "high",
+          "cycle": 3,
+          "n": 1,
+          "p10": 87.25,
+          "nonarrival": 0,
+          "passed": false
+        }
+      ]
+    }
+  ],
+  "completedAt": "2026-09-18T07:43:58.865Z"
+}

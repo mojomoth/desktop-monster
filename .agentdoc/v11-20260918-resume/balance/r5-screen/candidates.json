@@ -1,0 +1,75 @@
+{
+  "version": 11,
+  "round": 5,
+  "stage": "approved-field-curve-first-three-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R5-A",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 2,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldHeroCycleBonus": 52
+      }
+    },
+    {
+      "id": "R5-B",
+      "parameters": {
+        "heroMinLevel": 25,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1118,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 2,
+        "fieldRebirthBonus": 3,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldHeroCycleBonus": 52
+      }
+    },
+    {
+      "id": "R5-C",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1122,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 2,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldHeroCycleBonus": 64
+      }
+    }
+  ],
+  "rationale": "Approved scope amendment. Bounded first-rebirth frontiers around220-320, quadratic field growth removes exponential capture droughts. Fixed accepted-cycle M appears on companions andHP; total-resetR accounts for retained roster. Screen first3including highFEVER before complete20seed/10cycle selection. No heldout used."
+}

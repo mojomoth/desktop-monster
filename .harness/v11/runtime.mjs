@@ -8,10 +8,80 @@ import { pathToFileURL } from 'node:url';
 import { launchRuntime } from '../v10/launcher.mjs';
 import { digest, ROOT, sha } from './run.mjs';
 import { validateNative } from './final-check.mjs';
-import { menuLiveCases, manualEquipmentCases, equipmentRestartCase, hudCases, latencyFamilies } from './ui-cases.mjs';
+import { menuLiveCases, manualEquipmentCases, equipmentRestartCase, hudCases, fieldPartyCases, latencyFamilies } from './ui-cases.mjs';
+
+/** Serialized into the owned main process; observation never blocks a quit. */
+export function instrumentLifecycle(p, outputDir) {
+  if (p.v11Lifecycle) throw Error('Lifecycle diagnostics already installed');
+  const path = outputDir + '/lifecycle.jsonl';
+  const record = (event, details = {}) => {
+    try { p.fs.appendFileSync(path, JSON.stringify({ at: new Date().toISOString(), event, ...details }) + '\n'); }
+    catch (error) { console.error('V11 lifecycle logging failed', String(error)); }
+  };
+  p.v11Lifecycle = { path };
+  for (const name of ['quit', 'exit']) {
+    const original = p.e.app[name];
+    p.e.app[name] = function (...args) {
+      record('app.' + name, { args, stack: new Error('Observed app.' + name).stack });
+      return original.apply(this, args);
+    };
+  }
+  for (const event of ['before-quit', 'will-quit', 'window-all-closed']) p.e.app.on(event, () => record(event));
+  p.e.app.on('quit', (_event, exitCode) => record('quit', { exitCode }));
+  p.e.app.on('render-process-gone', (_event, contents, details) => record('render-process-gone', { id: contents.id, details }));
+  p.e.app.on('child-process-gone', (_event, details) => record('child-process-gone', { details }));
+  p.require('node:process').on('exit', exitCode => record('process-exit', { exitCode }));
+  const watch = window => {
+    const id = window.id;
+    window.on('close', () => record('window-close', { id }));
+    window.on('closed', () => record('window-closed', { id }));
+  };
+  for (const window of p.e.BrowserWindow.getAllWindows()) watch(window);
+  p.e.app.on('browser-window-created', (_event, window) => watch(window));
+  try {
+    const tray = p.require(p.e.app.getAppPath() + '/dist/electron/main/tray.js').getActiveTray();
+    tray?.setTitle?.('자동 검증'); tray?.setToolTip?.('DesMon 자동 검증 전용 · 사용자 저장 미사용');
+    record('diagnostic-tray-marker', { available: Boolean(tray) });
+  } catch (error) { record('diagnostic-tray-marker-unavailable', { error: String(error) }); }
+  record('installed', { note: 'Pass-through observation in isolated native fixture; no quit prevention.' });
+  return { path };
+}
 
 export function fixture(core, gear, kind, now = Date.now()) {
   const equipment = gear.newEquipment(now, 71111);
+  if (kind === 'field') {
+    assert([1, 2].includes(core.PROGRESSION_PARAMETERS.fieldCompanionTailPolynomial), 'Native field scenario requires an adopted field curve');
+    const hero = core.newHeroProgress(); hero.reincarnations = 1;
+    const companions = [
+      ...Array.from({ length: 4 }, (_, i) => ({ id: 'c' + (i + 1), speciesId: 'slime', bossIndex: 151, level: 10, stars: 0 })),
+      { id: 'c5', speciesId: 'slime', bossIndex: 31, level: 10, stars: 1 },
+      { id: 'c6', speciesId: 'slime', bossIndex: 95, level: 1, stars: 0 },
+      { id: 'c7', speciesId: 'slime', bossIndex: 7, level: 1, stars: 1 },
+    ];
+    const trained = companions[4], target = companions[5];
+    const curve = core.PROGRESSION_PARAMETERS;
+    if (curve.fieldCompanionGrowthBonus !== null && curve.fieldCompanionIndexCap === 79) {
+      // Equal capped capture bases distinguish Q2 from Q1, then consumed Q3.
+      // Raw/PvP still ranks the index95 capture above index79/star1.
+      trained.bossIndex = 79;
+      trained.level = 1;
+    } else {
+      const trainedUnit = core.fieldCompanionPower({ ...trained, level: 1 }, 0, 11);
+      const targetPower = core.fieldCompanionPower(target, 0, 11);
+      trained.level = Number((2n * targetPower + trainedUnit - 1n) / trainedUnit);
+    }
+    const targetPower = core.fieldCompanionPower(target, 0, 11);
+    assert(Number.isSafeInteger(trained.level) && trained.level > 0, 'Invalid discriminating fixture level');
+    assert(core.fieldCompanionPower(trained, 0, 11) > targetPower &&
+      core.fieldCompanionPower(trained, 0, 11) < core.fieldCompanionPower({ ...target, level: 3 }, 0, 11) &&
+      core.companionPower(trained) < core.companionPower(target), 'Fixture must reverse field/PvP membership and reverse it again after growth');
+    // A rich synthetic hero gives one intentional native input control of the
+    // legacy→new spawn. Ordinary companion volleys cannot kill this old target.
+    const save = core.createEngine(core.parseSave({ ...core.DEFAULT_SAVE, hero, equipment, companions, rebirths: 1,
+      souls: 1_000_000_000_000_000, monsterIndex: 1000, monsterSpeciesId: 'slime',
+      monsterCurveVersion: 10, monsterCurveRebirths: 1, monsterHp: '500000000000000', bestIndex: 1000, nextCompanionId: 8 })).toSave();
+    return { save, ids: { trained: 'c5', target: 'c6', food: 'c7' } };
+  }
   const item = (template, roll = 100) => { const value = gear.createEquipmentItem(equipment, template); value.roll = roll; return value; };
   const previous = item(kind === 'menu' ? 'w-sword-epic-4' : 'w-sword-rare-4', kind === 'menu' ? 110 : 100);
   const manual = item('w-sword-common-1'), alternate = item('w-sword-common-2');
@@ -74,11 +144,13 @@ export async function run(outputArg, appArg) {
   let active, name;
   const launch = async (scenario, save, userData) => {
     name = scenario; active = await launchRuntime({ appPath, outputDir: join(directory, scenario),
-      ...(userData ? { userData } : { save, settings, identity }) }); return active;
+      ...(userData ? { userData } : { save, settings, identity }) });
+    await active.evaluate(`(${instrumentLifecycle.toString()})(__v010Runtime,${JSON.stringify(active.outputDir)})`);
+    return active;
   };
   const finish = async ui => {
-    const runtime = await active.close(); active = null;
-    result.attempts.push({ name, ui, runtime });
+    const path = join(active.outputDir, 'lifecycle.jsonl'), runtime = await active.close(); active = null;
+    result.attempts.push({ name, ui, runtime, lifecycle: { path, sha256: sha(readFileSync(path)) } });
     assert(runtime.passed && ui.passed, 'Native scenario failed: ' + name);
   };
   try {
@@ -90,6 +162,8 @@ export async function run(outputArg, appArg) {
     await finish(ui);
     await finish(await equipmentRestartCase(await launch('equipment-restart', undefined, userData), ui.expectedOnRestart));
     await finish(await hudCases(await launch('hud-states', fixture(core, gear, 'hud').save), core.FEVER_INPUTS));
+    const field = fixture(core, gear, 'field');
+    await finish(await fieldPartyCases(await launch('field-party', field.save), field.ids));
   } catch (error) {
     result.errors.push(String(error));
     if (active) {
@@ -109,13 +183,14 @@ export async function run(outputArg, appArg) {
           field:await p.field.webContents.executeJavaScript('globalThis.__v11FieldTiming&&({rows:__v11FieldTiming.rows,overflow:__v11FieldTiming.overflow})'),
           pauseCount:state.pauseCount,locations:state.locations,probes:state.probes,resolutionObservations:state.resolutionObservations};}finally{await state.cleanup();}})()`); }
       catch (pipelineError) { ui.pipelineObservationError = String(pipelineError); }
-      result.attempts.push({ name, ui, runtime: await active.close() }); active = null;
+      const path = join(active.outputDir, 'lifecycle.jsonl'), runtime = await active.close();
+      result.attempts.push({ name, ui, runtime, ...(existsSync(path) ? { lifecycle: { path, sha256: sha(readFileSync(path)) } } : {}) }); active = null;
     }
   }
   for (const attempt of result.attempts) for (const shot of attempt.ui?.screenshots ?? []) result.artifacts[shot.path] = sha(readFileSync(shot.path));
   result.latency.families = latencyFamilies(result.attempts.flatMap(attempt => attempt.ui?.samples ?? []));
   result.sourceUnchanged = result.source === digest();
-  result.passed = result.sourceUnchanged && result.errors.length === 0 && result.attempts.length === 4;
+  result.passed = result.sourceUnchanged && result.errors.length === 0 && result.attempts.length === 5;
   result.finishedAt = new Date().toISOString();
   writeFileSync(output, JSON.stringify(result, null, 2) + '\n');
   if (result.passed) {

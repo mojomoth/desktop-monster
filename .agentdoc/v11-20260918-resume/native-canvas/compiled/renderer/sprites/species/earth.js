@@ -1,0 +1,1345 @@
+"use strict";
+// GENERATED ART — earth-type species (SPEC F19, Assumption 4).
+// Drawn by the Codex CLI (`gpt-6-astra`) from the roster briefs and
+// mechanically validated (rectangular w×h frames, palette membership,
+// DB16 colours, size band per hidden species size). Monsters face LEFT.
+// Regenerate rather than hand-edit: see .agentdoc/roster/README.md.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.earthSprites = void 0;
+const palette_js_1 = require("../palette.js");
+// Lichenwing (earth, size 2, 17x14)
+// A fat left-facing moth holds two tall lichen wings upright, each with a
+// black-ringed square white eyespot and stepped outer notch, above its
+// compound eye and forward plumed antennae.
+const lichenwingPalette = { e: palette_js_1.COLORS.void, g: palette_js_1.COLORS.green, G: palette_js_1.COLORS.forest, w: palette_js_1.COLORS.white, f: palette_js_1.COLORS.gray, b: palette_js_1.COLORS.brown, y: palette_js_1.COLORS.yellow };
+const lichenwingIdle = {
+    w: 17,
+    h: 14,
+    palette: lichenwingPalette,
+    frames: [
+        [
+            '......eee...eee..',
+            '.....eggGe.eggGe.',
+            '....eeeeGeeeeeeGe',
+            '....ewweGeGewweGe',
+            '.eyyewweGeGewweGe',
+            '.eyyeeeeGeGeeeee.',
+            '...eeeegGe.egGGe.',
+            'eyye.eegGe.egGe..',
+            'eyyeefeeGe.eGee..',
+            '...eyyefeeeeffe..',
+            '..efeeefffffffGe.',
+            '.efeeeefyfffffGGe',
+            '..effffefffffGGe.',
+            '...eeeeeeeeeeee..',
+        ],
+        [
+            '......eee...eee..',
+            '.....eggGe.eggGe.',
+            '....eeeeGeeeeeeGe',
+            '....ewweGeGewweGe',
+            '.eyyewweGeGewweGe',
+            '.eyyeeeeGeGeeeee.',
+            '...eeeegGe.egGGe.',
+            '.eyye.egGe.egGe..',
+            '.eyyefeeGe.eGee..',
+            '...eyyefeeeeffe..',
+            '..efeeefffffffGe.',
+            '.efeeeefyfffffGGe',
+            '..effffefffffGGe.',
+            '...eeeeeeeeeeee..',
+        ],
+    ],
+};
+const lichenwingHit = {
+    w: 17,
+    h: 14,
+    palette: lichenwingPalette,
+    frames: [
+        [
+            '.................',
+            '.......eee...eee.',
+            '......eggGe.eggGe',
+            '.....eeeeGeeeeeee',
+            '..eyyewweGeGewwee',
+            '..eyyewweGeGewwee',
+            '....eeeeeGeGeeeee',
+            '.....eeegGe.egGe.',
+            '..eyye.egGe.egGe.',
+            '..eyyeeefeeeeffe.',
+            '....efeeefffffGGe',
+            '...efeefffyfffGGe',
+            '....effffffffGGe.',
+            '....eeeeeeeeeeee.',
+        ],
+    ],
+};
+// Sumpfang (earth, size 2, 17x14)
+// A blunt mud-eel rears left in a tall S above its hollow tail ring, with a
+// single forked bone spade under its flat mouth.
+const sumpfangPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, G: palette_js_1.COLORS.forest, g: palette_js_1.COLORS.gray, w: palette_js_1.COLORS.white };
+const sumpfangIdle = {
+    w: 17,
+    h: 14,
+    palette: sumpfangPalette,
+    frames: [
+        [
+            '...eeeeee........',
+            '.eegggbbbge......',
+            'egwgbwbbbGe......',
+            'egebbebbbGGe.....',
+            'eeeeeeeebbGGe....',
+            '.ewwe...ebGGGe...',
+            '.ewewe...ebGGe...',
+            '.e.e.e..ebGGe....',
+            '.......ebGGe.....',
+            '......ebGGe......',
+            '....eeebGGeeee...',
+            '..eeggbbGGbbbgee.',
+            '.egbGe......eGbGe',
+            '..eeeeeeeeeeeee..',
+        ],
+        [
+            '.................',
+            '...eeeeee........',
+            '.eegwgbwge.......',
+            'egbebbeebGe......',
+            'egbbbbbbGGGe.....',
+            '.eeeeeeebGGGe....',
+            '..ewwe..ebGGe....',
+            '..ewewe.ebGGe....',
+            '..e.e.eebGGe.....',
+            '......ebGGe......',
+            '....eeebGGeeee...',
+            '..eeggbbGGbbbgee.',
+            '.egbGe......eGbGe',
+            '..eeeeeeeeeeeee..',
+        ],
+    ],
+};
+const sumpfangHit = {
+    w: 17,
+    h: 14,
+    palette: sumpfangPalette,
+    frames: [
+        [
+            '.................',
+            '.................',
+            '.....eeeeee......',
+            '...eegggbbbgee...',
+            '..eggegbegbbbGe..',
+            '..egbbeebebbbGGe.',
+            '..eeeeeeeebbGGe..',
+            '...ewwe..ebGGe...',
+            '...eweweebGGe....',
+            '...e.e.ebGGe.....',
+            '.....eebGGeeee...',
+            '...eegbbGGbbbgee.',
+            '..egGe......eGbGe',
+            '...eeeeeeeeeeee..',
+        ],
+    ],
+};
+// Bramblebear (earth, size 3, 20x17)
+// A low-snouted bark bear plants thorn-hook paws beneath a moss cape, four
+// separated back thorns and one outlined red shoulder berry.
+const bramblebearPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, m: palette_js_1.COLORS.maroon, G: palette_js_1.COLORS.forest, g: palette_js_1.COLORS.green, r: palette_js_1.COLORS.red };
+const bramblebearIdle = {
+    w: 20,
+    h: 17,
+    palette: bramblebearPalette,
+    frames: [
+        [
+            '......e...e.........',
+            '.....eb..eb...e.....',
+            '.....eeeeeee.eb...e.',
+            '....eggggggGeeee.eb.',
+            '...eggggggGGGGGeeee.',
+            '...eggGGggGGGbbbbbbe',
+            '..eeGGGGGeebbmbbbbbe',
+            '.ebbeGGGerrebmbbbbbe',
+            '.ebbbeeGerrebbbbbme.',
+            'ebrebbeGGeebbbbbbme.',
+            'ebbbbbeGGGbbmbbbbme.',
+            'ebbbbeebbbmbbmbbbme.',
+            '.eeeeebbbmmeebbmmme.',
+            '...ebbbmemme.ebbmme.',
+            '..ebbbbeeme..ebbme..',
+            '.egegege.ee.egegbme.',
+            'eeeeeeee.ee.eeeeeee.',
+        ],
+        [
+            '......e...e.........',
+            '.....eb..eb...e.....',
+            '.....eeeeeee.eb...e.',
+            '....eggggggGeeee.eb.',
+            '...eggggggGGGGGeeee.',
+            '...egggGggGGGbbbbbbe',
+            '..eeGGGGGeebbmbbbbbe',
+            '.ebbeGGGerrebmbbbbbe',
+            '.ebbbeeGerrebbbbbme.',
+            'ebrebbeGGeebbbbbbme.',
+            'ebbbbbeGGGbbbmbbbme.',
+            '.ebbbeebbbmbbmbbbme.',
+            '.eeeeebbbmmeebbmmme.',
+            '...ebbbmemme.ebbmme.',
+            '..ebbbbeeme..ebbme..',
+            '.egegege.ee.egegbme.',
+            'eeeeeeee.ee.eeeeeee.',
+        ],
+    ],
+};
+const bramblebearHit = {
+    w: 20,
+    h: 17,
+    palette: bramblebearPalette,
+    frames: [
+        [
+            '....................',
+            '.......e...e........',
+            '......eb..eb...e....',
+            '......eeeeeee.eb...e',
+            '.....eggggggGeeee.eb',
+            '....eggggggGGGGGeeee',
+            '....eggGGggGGbbbbbbe',
+            '...eeGGGGGeebmbbbbbe',
+            '..ebbeGGGerrebmbbbme',
+            '..ebbbeGGerrebbbbmme',
+            '.ebeeebeGGeebbbbbmme',
+            '.ebbbbbeGGbmbbbbmme.',
+            '..eeeeebbbmmeebbmmme',
+            '....ebbbmemme.ebbmme',
+            '...ebbbbeeme..ebbme.',
+            '..egegege.ee.egegbme',
+            '.eeeeeeee.ee.eeeeeee',
+        ],
+    ],
+};
+// Fellstump (earth, size 3, 20x17)
+// An armless walking stump shoves its flat ringed cut top left, with a huge
+// pale spiral eye and a buried broken axe bleeding orange rust.
+const fellstumpPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, g: palette_js_1.COLORS.gray, s: palette_js_1.COLORS.steel, o: palette_js_1.COLORS.orange, w: palette_js_1.COLORS.white };
+const fellstumpIdle = {
+    w: 20,
+    h: 17,
+    palette: fellstumpPalette,
+    frames: [
+        [
+            '.eeeeeeeeeeeeeee....',
+            '.ewwwwwwwwwwwgge....',
+            '.ewbbbbbbbbbbgge....',
+            '.ewbwwwwwwwbggge....',
+            '.egggggggggggbbe....',
+            '.egsssssbbgbbbbe....',
+            '.eswwwwwsbgbbbbe....',
+            '.eswbbbwsggbbbbee...',
+            '.eswbebwsgbbbegsse..',
+            '.eswbeewsgbboegssse.',
+            '.eswwwwssgbbooegge..',
+            '..essssgbgbbooebe...',
+            '.eeebbbgbgbboobbe...',
+            '...ebbbgbeebbbbbe...',
+            '..eebbbbe..ebbbbe...',
+            '.ebbebbe...ebebbbe..',
+            'eee.eeee..eee.eeeee.',
+        ],
+        [
+            '.eeeeeeeeeeeeeee....',
+            '.ewwwwwwwwwwwgge....',
+            '.ewbbbbbbbbbbgge....',
+            '.ewbwwwwwwwbggge....',
+            '.egggggggggggbbe....',
+            '.egsssssbggbbbbe....',
+            '.eswwwwwsbgbbbbe....',
+            '.eswbbbwsggbbbbee...',
+            '.eswbebwsgbbbegsse..',
+            '.eswbeewsgbboegssse.',
+            '.eswwwwssgbbooegge..',
+            '..essssgbgbbooebe...',
+            '..eebbbgbgbboobbe...',
+            '...ebbbgbeebbbbbe...',
+            '...ebbbbe..ebbbbe...',
+            '..bbebbe...ebebbbe..',
+            'eee.eeee..eee.eeeee.',
+        ],
+    ],
+};
+const fellstumpHit = {
+    w: 20,
+    h: 17,
+    palette: fellstumpPalette,
+    frames: [
+        [
+            '....................',
+            '...eeeeeeeeeeeeeee..',
+            '...ewwwwwwwwwwwgge..',
+            '...ewbbbbbbbbbbgge..',
+            '...ewbwwwwwwwbggge..',
+            '...egggggggggggbbe..',
+            '...egsssssbbgbbbbe..',
+            '...eswwwssbbgbbbee..',
+            '...esweeebgbbbegsse.',
+            '...eswwwssgbboegssse',
+            '...essssgbgbbooegge.',
+            '....eebbgbgbbooebe..',
+            '...eeebbgbgbboobbe..',
+            '.....ebbgeebbbbbe...',
+            '....ebbbe..ebbbbe...',
+            '...ebbbe....ebbbee..',
+            '..eeeeee....eeeeeee.',
+        ],
+    ],
+};
+// Quarryback (earth, size 3, 20x17)
+// An ancient low-headed tortoise carries three quarry strata stepping down
+// to its tail, a vertical cut and dark bore-hole, all supported by four
+// column legs.
+const quarrybackPalette = { e: palette_js_1.COLORS.void, s: palette_js_1.COLORS.slate, g: palette_js_1.COLORS.gray, t: palette_js_1.COLORS.steel, b: palette_js_1.COLORS.brown, w: palette_js_1.COLORS.white };
+const quarrybackIdle = {
+    w: 20,
+    h: 17,
+    palette: quarrybackPalette,
+    frames: [
+        [
+            '......eeeeeee.......',
+            '......ettttse.......',
+            '......egeetse.......',
+            '......egeetse.......',
+            '......egggtse.......',
+            '......eeeeeseeee....',
+            '......egggtsttse....',
+            '......eggstsgsse....',
+            '......eeeeeseeseeee.',
+            '......egggtsggsggse.',
+            '.eeeeeeggstsggsgsse.',
+            'eesssseeeeeseeessse.',
+            'ewwgggggggggggssssee',
+            'eegggggssssssssssse.',
+            'eeeeeege.ese.ege.ese',
+            '.....ege.ese.ege.ese',
+            '.....eee.eee.eee.eee',
+        ],
+        [
+            '......eeeeeee.......',
+            '......ettttse.......',
+            '......egeetse.......',
+            '......egeetse.......',
+            '......egggtse.......',
+            '......eeeeeseeee....',
+            '......egggtsttse....',
+            '......eggstsgsse....',
+            '......eeeeeseeseeee.',
+            '.eeeeeegggtsggsggse.',
+            'eessseeggstsggsgsse.',
+            'ewwgggeeeeeseeessse.',
+            'eegggggggggggggsssee',
+            'eeeeegggsssssssssee.',
+            'eeeeeege.ese.ege.ese',
+            '.....ege.ese.ege.ese',
+            '.....eee.eee.eee.eee',
+        ],
+    ],
+};
+const quarrybackHit = {
+    w: 20,
+    h: 17,
+    palette: quarrybackPalette,
+    frames: [
+        [
+            '....................',
+            '.......eeeeeee......',
+            '.......ettttse......',
+            '.......egeetse......',
+            '.......egggtse......',
+            '.......eeeeeseeee...',
+            '.......egggtsttse...',
+            '.......eggstsgsse...',
+            '.......eeeeeseeseee.',
+            '.......egggtsggsgse.',
+            '.......eggstsggssse.',
+            '...eeeeeeeeeseeessse',
+            '..essssgggggggssssee',
+            '.eesegggssssssssssse',
+            '..eeeeege.ese.ege.se',
+            '......ege.ese.ege.se',
+            '......eee.eee.eee.ee',
+        ],
+    ],
+};
+// Kabulk (earth, size 3, 20x15)
+// A low six-clawed navy beetle sights left along one level milky quartz brow
+// lance, its cracked root below paired orange eyes and a steel-lit shoulder
+// ridge.
+const kabulkPalette = { e: palette_js_1.COLORS.void, n: palette_js_1.COLORS.navy, s: palette_js_1.COLORS.slate, t: palette_js_1.COLORS.steel, o: palette_js_1.COLORS.orange, w: palette_js_1.COLORS.white };
+const kabulkIdle = {
+    w: 20,
+    h: 15,
+    palette: kabulkPalette,
+    frames: [
+        [
+            '....................',
+            '.........eeeeee.....',
+            '.......eetttnnnee...',
+            '......etttnnnnnnne..',
+            '.....ettnnnnnnnnnne.',
+            '.....ennnnnnnnnnnne.',
+            '.eeeeenooneoonnnnne.',
+            'ewwwwsennnnnnnnnnne.',
+            '.eewtteeeeeetnnnnne.',
+            '.....etttttteennnne.',
+            '....eennnnnnsseeee..',
+            '...eseesneesneesnee.',
+            '.eseeseeseeseeseese.',
+            'eseeseeseeseeseese..',
+            'ee.ee.ee.ee.ee.ee...',
+        ],
+        [
+            '....................',
+            '....................',
+            '.........eeeeee.....',
+            '.......eetttnnnee...',
+            '......etttnnnnnnne..',
+            '.....ettnnnnnnnnnne.',
+            '.eeeeenooneoonnnnne.',
+            'ewwwwsennnnnnnnnnne.',
+            '.eewtteeeeeetnnnnne.',
+            '.....etttttteennnne.',
+            '....eennnnnnsseeee..',
+            '...eseesneesneesnee.',
+            '.eseeseeseeseeseese.',
+            'eseeseeseeseeseese..',
+            'ee.ee.ee.ee.ee.ee...',
+        ],
+    ],
+};
+const kabulkHit = {
+    w: 20,
+    h: 15,
+    palette: kabulkPalette,
+    frames: [
+        [
+            '....................',
+            '....................',
+            '....................',
+            '..........eeeeee....',
+            '........eettnnnnee..',
+            '.......ettnnnnnnnne.',
+            '......ennnnnnnnnnnne',
+            '..eeeeeneenennnnnnne',
+            '.ewwwwsenonnonnnnnne',
+            '..eewtteeeeeetnnnnne',
+            '......etttttteeeeeee',
+            '.....eennnnnnsseeee.',
+            '..eseeseeseeseeseese',
+            '..eseeseeseeseeseese',
+            '..ee.ee.ee.ee.ee.eee',
+        ],
+    ],
+};
+// Quagmaw (earth, size 3, 20x17)
+// A layered peat slab rides on two buried log struts, with a peeled root
+// lip, three broken-branch teeth, widely separated yellow eyes, and one log
+// breaking through its top.
+const quagmawPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, m: palette_js_1.COLORS.maroon, f: palette_js_1.COLORS.forest, g: palette_js_1.COLORS.gray, y: palette_js_1.COLORS.yellow };
+const quagmawIdle = {
+    w: 20,
+    h: 17,
+    palette: quagmawPalette,
+    frames: [
+        [
+            '...........eeeeee...',
+            '...........egbbbe...',
+            '...........ebbbbe...',
+            '...eeeeeeeeeeebeee..',
+            '..eyyyebbbeyyyebbbbe',
+            '..eyeyebbbeyeyeebbbe',
+            '.eeyyyegbbeyyyeegbbe',
+            'eggggggeebbeeeggbbbe',
+            'eeeggmeeegegggbbbmme',
+            '.eeggmegggemmmmmmmme',
+            '.eemmmegggemmbbbbmme',
+            '.eeggmmeemeggbbbbmge',
+            '.eeggmmeeeegggmmmge.',
+            '.eebbbbbbbbbbbbmmee.',
+            '...eeeeeeeeeeeeeee..',
+            '.....ebbe.....ebbe..',
+            '....eeeee....eeeee..',
+        ],
+        [
+            '...........eeeeee...',
+            '...........egbbbe...',
+            '...........ebbbbe...',
+            '...eeeeeeeeeeebeee..',
+            '..eyyyebbbeyyyebbbbe',
+            '..eyeyebbbeyeyeebbbe',
+            '.eeyyyebbbeyyyeegbbe',
+            'eggggggeebbeeeggbbbe',
+            'eeeggmeeegegggbbbmme',
+            '.eeggmegggemmmmmmmme',
+            '.eemmmegggemmbbbbmme',
+            '.eeggmmeemeggbbbbmge',
+            '.eeggmmeeeegggmmmge.',
+            '.eebbbbbbbbbbbbmmee.',
+            '...eeeeeemeeeeeeee..',
+            '.....egbe.....egbe..',
+            '....eeeee....eeeee..',
+        ],
+    ],
+};
+const quagmawHit = {
+    w: 20,
+    h: 17,
+    palette: quagmawPalette,
+    frames: [
+        [
+            '....................',
+            '....................',
+            '.............eeee...',
+            '.............egbe...',
+            '.......eeeeeeebbeee.',
+            '....eeeebbbbbbebbbbe',
+            '...egyeebbbbgyyebbbe',
+            '..eeeeygbbbeeeegbbbe',
+            '.eggggggeebbbggggbbe',
+            '.eeeggggmeegggbbbmme',
+            '....gggmgggemmmmmme.',
+            '...emmmmgggemmbbbmme',
+            '..emgggmemmeggbbbge.',
+            '..eeggbbbbbbbbbmmee.',
+            '....eeeeeeeeeeeeeee.',
+            '......ebbe.....ebbe.',
+            '.....eeeee....eeeee.',
+        ],
+    ],
+};
+// Wickerhusk (earth, size 3, 18x17)
+// A stooped branch-and-rope figure has a green-eyed woven knot for a head,
+// dangling narrow arms, and paired ribs around a dark chest holding twelve
+// pale stones.
+const wickerhuskPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, s: palette_js_1.COLORS.skin, y: palette_js_1.COLORS.yellow, g: palette_js_1.COLORS.green, a: palette_js_1.COLORS.gray };
+const wickerhuskIdle = {
+    w: 18,
+    h: 17,
+    palette: wickerhuskPalette,
+    frames: [
+        [
+            '......eeee........',
+            '....eeybbbe.......',
+            '....ebgbgbe.......',
+            '.....ebbbbe.......',
+            '.....eebbeee......',
+            '...eeebeeeebee....',
+            '...ebebeeeebebe...',
+            '...ebebysssbebe...',
+            '...ebebsassbebe...',
+            '...ebebssasbebe...',
+            '...ebebeeeebebe...',
+            '...eb..ebybe.be...',
+            '...ee..ebbe..ee...',
+            '......eb..be......',
+            '......eb..be......',
+            '......eb..be......',
+            '.....eee..eee.....',
+        ],
+        [
+            '......eeee........',
+            '....eeybbbe.......',
+            '....ebgbgbe.......',
+            '.....ebbbbe.......',
+            '.....eebbeee......',
+            '...eeebeeeebee....',
+            '...ebebeeeebebe...',
+            '...ebebysssbebe...',
+            '...ebebsassbebe...',
+            '...ebebssasbebe...',
+            '...ebebeeeebebe...',
+            '...eb..ebybe..be..',
+            '...ee..ebbe...ee..',
+            '......eb..be......',
+            '......eb..be......',
+            '......eb..be......',
+            '.....eee..eee.....',
+        ],
+    ],
+};
+const wickerhuskHit = {
+    w: 18,
+    h: 17,
+    palette: wickerhuskPalette,
+    frames: [
+        [
+            '..................',
+            '.......eeee.......',
+            '.....eeybbbe......',
+            '.....ebeeebe......',
+            '......ebbbbe......',
+            '......eebbeee.....',
+            '....eeebeeeebee...',
+            '....ebebeeeebebe..',
+            '....ebebysssbebe..',
+            '....ebebsassbebe..',
+            '....ebebssasbebe..',
+            '....ebebeeeebebe..',
+            '....eb..ebybe.be..',
+            '....ee..ebbe..ee..',
+            '.......eb..be.....',
+            '.......eb..be.....',
+            '......eee..eee....',
+        ],
+    ],
+};
+// Grumblode (earth, size 1, 15x11)
+// A squat left-leaning river boulder has a deep chipped crown notch, low
+// round eyes, a cracked mouth and two blunt near-side knuckle stones beneath
+// a dirt-flat belly.
+const grumblodePalette = { e: palette_js_1.COLORS.void, s: palette_js_1.COLORS.slate, g: palette_js_1.COLORS.gray, b: palette_js_1.COLORS.brown, w: palette_js_1.COLORS.white };
+const grumblodeIdle = {
+    w: 15,
+    h: 11,
+    palette: grumblodePalette,
+    frames: [
+        [
+            '...eee....ee...',
+            '..ewgge..egge..',
+            '.ewggge.egggge.',
+            '.egggggeeggggse',
+            'ewwgwwgggggggse',
+            'eewgewgggggggse',
+            'eggggggggggssse',
+            '.eeeegegsssssse',
+            'eeggebbeeggbbe.',
+            'ewggsebewggsbe.',
+            'eeeeee.eeeeeee.',
+        ],
+        [
+            '...eee....ee...',
+            '..ewgge..egge..',
+            '.ewggge.egggge.',
+            '.egggggeeggggse',
+            'ewwgwwgggggggse',
+            'eewgewgggggggse',
+            'egggggggggggsse',
+            '.eeegeegsssssse',
+            'eeggebbeeggbbe.',
+            'ewggsebewggsbe.',
+            'eeeeee.eeeeeee.',
+        ],
+    ],
+};
+const grumblodeHit = {
+    w: 15,
+    h: 11,
+    palette: grumblodePalette,
+    frames: [
+        [
+            '...............',
+            '.....eee....ee.',
+            '....ewgge..egge',
+            '...ewggge.eggse',
+            '...egggggeeggse',
+            '..eggeggeggggse',
+            '..egeggeggggsse',
+            '..egggggeesssse',
+            '..eeegebbeggbbe',
+            '.ewggsebewggsbe',
+            '.eeeeee.eeeeeee',
+        ],
+    ],
+};
+// Chirrgrit (earth, size 1, 15x11)
+// A low left-facing burrow cricket rasps two strapped stone plates above a
+// massive Z-folded jumping leg, scattering brown dust.
+const chirrgritPalette = { e: palette_js_1.COLORS.void, f: palette_js_1.COLORS.forest, s: palette_js_1.COLORS.slate, g: palette_js_1.COLORS.gray, b: palette_js_1.COLORS.brown, w: palette_js_1.COLORS.white };
+const chirrgritIdle = {
+    w: 15,
+    h: 11,
+    palette: chirrgritPalette,
+    frames: [
+        [
+            '...............',
+            '......eeee.eee.',
+            '.....eggggeggge',
+            '..eeeeggeeggee.',
+            '.essssfeeffssse',
+            'eswwssffessgsse',
+            'esewssffeessse.',
+            'essssffeeessebb',
+            '.eeeeeee.sssebb',
+            '..e..e..esssse.',
+            '.ee..ee.eeeeee.',
+        ],
+        [
+            '...............',
+            '.......eee.....',
+            '.....eegggeeee.',
+            '..eeeeggeeggge.',
+            '.essssfeeffssee',
+            'eswwssffessgsse',
+            'esewssffeessse.',
+            'essssffeeessee.',
+            '.eeeeeee.sssebb',
+            '..e..e..esssebb',
+            '.ee..ee.eeeeee.',
+        ],
+    ],
+};
+const chirrgritHit = {
+    w: 15,
+    h: 11,
+    palette: chirrgritPalette,
+    frames: [
+        [
+            '...............',
+            '...............',
+            '.......eeeeeee.',
+            '......eggegggge',
+            '....eeeeeeggee.',
+            '...essssfeessse',
+            '..eseessffessse',
+            '..esseffffeesse',
+            '...eeeeeeeessse',
+            '....e..e.essebb',
+            '...ee..eeeeeebb',
+        ],
+    ],
+};
+// Gillstub (earth, size 1, 15x11)
+// A flat gray fungus cap shows dark grinning gills above a tall pale
+// left-facing stalk and root feet, venting a detached white spore square.
+const gillstubPalette = { e: palette_js_1.COLORS.void, g: palette_js_1.COLORS.gray, s: palette_js_1.COLORS.slate, p: palette_js_1.COLORS.skin, b: palette_js_1.COLORS.brown, w: palette_js_1.COLORS.white };
+const gillstubIdle = {
+    w: 15,
+    h: 11,
+    palette: gillstubPalette,
+    frames: [
+        [
+            '...eeeeeeeeeee.',
+            'ww.ewwgggggggse',
+            'ww.eggggggsssse',
+            '...eseseesessee',
+            '....epppppeeee.',
+            '....epepepe....',
+            '....ewppppe....',
+            '....eeppppe....',
+            '....eppppbe....',
+            '...epppepbbbe..',
+            '...eeeee.eeee..',
+        ],
+        [
+            'ww.eeeeeeeeeee.',
+            'ww.ewwgggggggse',
+            '...eggggggsssse',
+            '...eseseesessee',
+            '....epppppeeee.',
+            '....epepepe....',
+            '....ewppppe....',
+            '....eeppppe....',
+            '....eppppbe....',
+            '...epppepbbbe..',
+            '...eeeee.eeee..',
+        ],
+    ],
+};
+const gillstubHit = {
+    w: 15,
+    h: 11,
+    palette: gillstubPalette,
+    frames: [
+        [
+            '...............',
+            '.ww..eeeeeeeeee',
+            '.ww.ewwggggggse',
+            '....egggggsssse',
+            '....eseseesesee',
+            '......eppppeee.',
+            '......eeepee...',
+            '......ewpppe...',
+            '.....eepppbe...',
+            '....epppepbbe..',
+            '....eeeee.eeee.',
+        ],
+    ],
+};
+// Cobbleroll (earth, size 1, 15x11)
+// A low left-facing pillbug carries three orange-edged overlapping steel
+// armour bands above a blunt head and exactly three pin legs.
+const cobblerollPalette = { e: palette_js_1.COLORS.void, s: palette_js_1.COLORS.steel, b: palette_js_1.COLORS.brown, o: palette_js_1.COLORS.orange, w: palette_js_1.COLORS.white, g: palette_js_1.COLORS.slate };
+const cobblerollIdle = {
+    w: 15,
+    h: 11,
+    palette: cobblerollPalette,
+    frames: [
+        [
+            '.........eeeee.',
+            '......eeeeoooe.',
+            '....eeeooessse.',
+            '...eeooesessse.',
+            '..eowsessessse.',
+            '.eesssessesssbe',
+            'eoeeoeessesssbe',
+            'ebbeessesesse..',
+            'ebbesssssebbe..',
+            '.eeeeeeeeeee...',
+            '..eb..eb..eb...',
+        ],
+        [
+            '.........eeeee.',
+            '......eeeeoooe.',
+            '....eeeooessse.',
+            '...eeooesessse.',
+            '..eowsessessse.',
+            '.eesssessesssbe',
+            'eoeeoeessesssbe',
+            'ebbeessesesse..',
+            'ebbesssssebbe..',
+            '.eeeeeeeeeee...',
+            '..eb..eb...eb..',
+        ],
+    ],
+};
+const cobblerollHit = {
+    w: 15,
+    h: 11,
+    palette: cobblerollPalette,
+    frames: [
+        [
+            '...............',
+            '..........eeeee',
+            '.......eeeeoooe',
+            '.....eeeooessse',
+            '....eeooesessse',
+            '...eossesesesbe',
+            '..eeeesesesssbe',
+            '.eoeeessesesse.',
+            '.ebbeesssssebe.',
+            '..eeeeeeeeeee..',
+            '...eb..eb..eb..',
+        ],
+    ],
+};
+// Flintwren (earth, size 1, 15x11)
+// A stout left-facing stone bird folds its wings vertically, braces on its
+// long tail, and sparks from three swept-back flint crest chips.
+const flintwrenPalette = { e: palette_js_1.COLORS.void, g: palette_js_1.COLORS.gray, s: palette_js_1.COLORS.steel, w: palette_js_1.COLORS.white, y: palette_js_1.COLORS.yellow, b: palette_js_1.COLORS.brown };
+const flintwrenIdle = {
+    w: 15,
+    h: 11,
+    palette: flintwrenPalette,
+    frames: [
+        [
+            '.......eee.....',
+            '.....eewge.ee..',
+            '....ewggeeewge.',
+            '...eewggeewggee',
+            '..ewewggggeewge',
+            'eeywwwggesgbeee',
+            '.eeegggesggbbe.',
+            '....eggessgebbe',
+            '....ebgeeeeebbe',
+            '.....b...b...be',
+            '....ebe.ebe..ee',
+        ],
+        [
+            '..y....eee.....',
+            '...y.eewge.ee..',
+            '..y.ewggeeewge.',
+            '...eewggeewggee',
+            '..ewewggggeewge',
+            'eeywwwggesgbeee',
+            '.eeegggesggbbe.',
+            '....eggesggebbe',
+            '....ebgeeeeebbe',
+            '.....b...b...be',
+            '....ebe.ebe..ee',
+        ],
+    ],
+};
+const flintwrenHit = {
+    w: 15,
+    h: 11,
+    palette: flintwrenPalette,
+    frames: [
+        [
+            '...............',
+            '.........eee...',
+            '.......eewgeee.',
+            '......ewggeewge',
+            '.....eewggeewge',
+            '....egeegggeeee',
+            '..eeyggggesgbe.',
+            '...eeegggesgbbe',
+            '.....ebgeeeeebe',
+            '......b...b..be',
+            '.....ebe.ebe.ee',
+        ],
+    ],
+};
+// Moldwarp (earth, size 1, 15x11)
+// A blind earth-furred burrower faces left over whiskers and crossed broad
+// steel shovel-claws, with a low barrel back and wedge tail.
+const moldwarpPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, m: palette_js_1.COLORS.maroon, p: palette_js_1.COLORS.skin, s: palette_js_1.COLORS.steel, w: palette_js_1.COLORS.white };
+const moldwarpIdle = {
+    w: 15,
+    h: 11,
+    palette: moldwarpPalette,
+    frames: [
+        [
+            '...............',
+            '......eeeee....',
+            '....eebbbbbee..',
+            '...epbbbbbbbbe.',
+            '..epeebeebbmme.',
+            '.eepppbbbbbmmme',
+            '..ewpwpwbbmmeme',
+            'eesse.eesebmmme',
+            'eswsesswsemmme.',
+            '.esssesssemme..',
+            'essse.essseeee.',
+        ],
+        [
+            '...............',
+            '.......eee.....',
+            '....eeebbbeee..',
+            '...epbbbbbbbbe.',
+            '..epeebeebbmme.',
+            '.eepppbbbbbmmme',
+            '..ewpwpwbbmmeme',
+            'eesse.eesebmmme',
+            'eswsesswsemmme.',
+            '.esssesssemme..',
+            'essse.essseeee.',
+        ],
+    ],
+};
+const moldwarpHit = {
+    w: 15,
+    h: 11,
+    palette: moldwarpPalette,
+    frames: [
+        [
+            '...............',
+            '...............',
+            '.......eeeeee..',
+            '.....eepbbbbbe.',
+            '....epbbbbbmmme',
+            '...eepebeebmmme',
+            '....ewpwpwbmmme',
+            '..eesse.eesemme',
+            '..eswsesswsemme',
+            '...esssesssemme',
+            '..essse.essseee',
+        ],
+    ],
+};
+// Spadeling (earth, size 1, 15x11)
+// A tilted steel trowel peers left through cyan rust holes, its down-left
+// blade point balanced on twitching root fingers.
+const spadelingPalette = { e: palette_js_1.COLORS.void, s: palette_js_1.COLORS.steel, g: palette_js_1.COLORS.gray, b: palette_js_1.COLORS.brown, o: palette_js_1.COLORS.orange, c: palette_js_1.COLORS.cyan, m: palette_js_1.COLORS.slate };
+const spadelingIdle = {
+    w: 15,
+    h: 11,
+    palette: spadelingPalette,
+    frames: [
+        [
+            '.........eee...',
+            '........ebbe...',
+            '.....eeeobe....',
+            '....esssee.....',
+            '...esocosge....',
+            '..esscesggge...',
+            '..esseeeggme...',
+            '.esssggmme.....',
+            '..eeeeebee.....',
+            '.....ebebbe....',
+            '....ee.e.ee....',
+        ],
+        [
+            '........eee....',
+            '........ebbe...',
+            '.....eeeobe....',
+            '....esssee.....',
+            '...esocosge....',
+            '..esscesggge...',
+            '..esseeeggme...',
+            '.esssggmme.....',
+            '..eeeeebee.....',
+            '.....ebbebe....',
+            '....ee..eee....',
+        ],
+    ],
+};
+const spadelingHit = {
+    w: 15,
+    h: 11,
+    palette: spadelingPalette,
+    frames: [
+        [
+            '...............',
+            '..........eee..',
+            '.........ebbe..',
+            '......eeeobe...',
+            '.....essssee...',
+            '....esoeosgge..',
+            '...esseeeegme..',
+            '..essssggmme...',
+            '...eeeeebee....',
+            '......ebbbee...',
+            '.....ee.e.ee...',
+        ],
+    ],
+};
+// Helmdelver (earth, size 2, 17x14)
+// A low brown burrower peers left below a dented steel helmet shield, its
+// burning rim lamp casting a yellow wedge over paired flat digging claws.
+const helmdelverPalette = { e: palette_js_1.COLORS.void, m: palette_js_1.COLORS.maroon, b: palette_js_1.COLORS.brown, s: palette_js_1.COLORS.steel, g: palette_js_1.COLORS.gray, y: palette_js_1.COLORS.yellow, w: palette_js_1.COLORS.white };
+const helmdelverIdle = {
+    w: 17,
+    h: 14,
+    palette: helmdelverPalette,
+    frames: [
+        [
+            '......eee.eee....',
+            '.....eswseesge...',
+            '....eswsssssgge..',
+            '...eesssssssggge.',
+            '.yyeywsssssgggge.',
+            'yy.eeyeeeeeeeeee.',
+            '.....eebbbbmmme..',
+            '..eeeebbbbbmmmme.',
+            '.ebwbwbbbbbmmmme.',
+            'ebbbbbbbbbmmmmme.',
+            '.eeemmbbbbmmmme..',
+            '..ebbbe..ebbbe...',
+            '.ebssbbeebssbbe..',
+            '.eeeeee..eeeeee..',
+        ],
+        [
+            '.................',
+            '......eee.eee....',
+            '.....eswseesge...',
+            '....eswsssssgge..',
+            '...eesssssssggge.',
+            '.yyeywsssssgggge.',
+            'yy.eeyeeeeeeeeee.',
+            '..eeeebbbbbmmmme.',
+            '.ebwbwbbbbbmmmme.',
+            'ebbbbbbbbbmmmmme.',
+            '.eeemmbbbbmmmme..',
+            '..ebbbe..ebbbe...',
+            '.ebssbbeebssbbe..',
+            '.eeeeee..eeeeee..',
+        ],
+    ],
+};
+const helmdelverHit = {
+    w: 17,
+    h: 14,
+    palette: helmdelverPalette,
+    frames: [
+        [
+            '.................',
+            '.................',
+            '........eee.eee..',
+            '.......eswseesge.',
+            '......eswssssgge.',
+            '.....eywssssgggge',
+            '...yyeeyeeeeeeeee',
+            '..yy...eebbbmmme.',
+            '....eeeebbbbmmmme',
+            '...ebebebbbbmmmme',
+            '..ebbbbbbbbmmmme.',
+            '...eeebbbeebbbe..',
+            '...ebssbbeebssbbe',
+            '...eeeeee..eeeeee',
+        ],
+    ],
+};
+// Thornhare (earth, size 2, 17x14)
+// A lean left-facing hare of bare dead cane coils inside leafless bramble
+// beneath two forked ears tipped with white thorns.
+const thornharePalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, g: palette_js_1.COLORS.gray, s: palette_js_1.COLORS.slate, m: palette_js_1.COLORS.maroon, w: palette_js_1.COLORS.white };
+const thornhareIdle = {
+    w: 17,
+    h: 14,
+    palette: thornharePalette,
+    frames: [
+        [
+            '...w...ww...w....',
+            '...eg.eseg.ge....',
+            '....ege..ege.....',
+            '.....ge...ge.....',
+            '.....eg..ege.....',
+            '...eeeg.ege......',
+            '..egwwwgge.eeee..',
+            '.egbwewgeeggbggew',
+            'emgggbbeegbeegbe.',
+            '.eeeegbgbebgbgbe.',
+            '.....ebeegebgbge.',
+            '....egbe.ebebgbe.',
+            '...egbe...egbgee.',
+            '..eeee....eeeeee.',
+        ],
+        [
+            '...w...ww...w....',
+            '...eg.eseg.ge....',
+            '....ege..ege.....',
+            '.....ge...ge.....',
+            '.....eg..ege.....',
+            '...eeeg.ege......',
+            '..egwwwgge.eeee..',
+            '.egbwewgeegggbgew',
+            'emgggbbeegbeegbe.',
+            '.eeeegbgbeebgbge.',
+            '.....ebeegbgbgge.',
+            '....egbe.ebebgbe.',
+            '...egbe...egbgee.',
+            '..eeee....eeeeee.',
+        ],
+    ],
+};
+const thornhareHit = {
+    w: 17,
+    h: 14,
+    palette: thornharePalette,
+    frames: [
+        [
+            '.................',
+            '....w...ww....w..',
+            '....eg.eseg..ge..',
+            '.....ege..gege...',
+            '......ge...ge....',
+            '......eg..ege....',
+            '.....eeg.ege.....',
+            '....egwgge.eeee..',
+            '..emgbebgeeggbgew',
+            '...eeegbgegbeegbe',
+            '......ebgbebgbgbe',
+            '.....egbeegbgbge.',
+            '....egbe..egbgee.',
+            '...eeee....eeeeee',
+        ],
+    ],
+};
+// Cairnlith (earth, size 2, 17x14)
+// Three left-leaning slate slabs bear twin cyan vein eyes, a chiselled
+// mouth, and a green lichen strip above a broad grounded base.
+const cairnlithPalette = { e: palette_js_1.COLORS.void, s: palette_js_1.COLORS.slate, g: palette_js_1.COLORS.gray, t: palette_js_1.COLORS.steel, l: palette_js_1.COLORS.green, c: palette_js_1.COLORS.cyan };
+const cairnlithIdle = {
+    w: 17,
+    h: 14,
+    palette: cairnlithPalette,
+    frames: [
+        [
+            '..eeeeeeeeee.....',
+            '.ettttggggsse....',
+            'eccssccssssse....',
+            'eeseeeesssse.....',
+            '.eeeeeeeeee......',
+            '.................',
+            '...eeeeeeeeeeee..',
+            '..etttlllggsssse.',
+            '...eeeeeeeeeeee..',
+            '.................',
+            '....eeeeeeeeeee..',
+            '...ettttgggsssse.',
+            '..egggggsssssssse',
+            '..eeeeeeeeeeeeeee',
+        ],
+        [
+            '...eeeeeeeeee....',
+            '..ettttggggsse...',
+            '.eccssccssssse...',
+            '.eeseeeesssse....',
+            '..eeeeeeeeee.....',
+            '.................',
+            '...eeeeeeeeeeee..',
+            '..etttlllggsssse.',
+            '...eeeeeeeeeeee..',
+            '.................',
+            '....eeeeeeeeeee..',
+            '...ettttgggsssse.',
+            '..egggggsssssssse',
+            '..eeeeeeeeeeeeeee',
+        ],
+    ],
+};
+const cairnlithHit = {
+    w: 17,
+    h: 14,
+    palette: cairnlithPalette,
+    frames: [
+        [
+            '.................',
+            '...eeeeeeeeeee...',
+            '..etesetesgssse..',
+            '..esceescessse...',
+            '...eeeeeeeeee....',
+            '.................',
+            '....eeeeeeeeeeee.',
+            '...etttlllggssse.',
+            '....eeeeeeeeeeee.',
+            '.................',
+            '....eeeeeeeeeee..',
+            '...ettttgggsssse.',
+            '..egggggsssssssse',
+            '..eeeeeeeeeeeeeee',
+        ],
+    ],
+};
+// Drusehog (earth, size 2, 17x14)
+// A low left-snouted stone hedgehog on four short paws, carrying five
+// upright citrine needles with two clear pixels between their yellow-lit
+// shafts.
+const drusehogPalette = { e: palette_js_1.COLORS.void, s: palette_js_1.COLORS.slate, g: palette_js_1.COLORS.gray, o: palette_js_1.COLORS.orange, y: palette_js_1.COLORS.yellow, w: palette_js_1.COLORS.white, n: palette_js_1.COLORS.skin };
+const drusehogIdle = {
+    w: 17,
+    h: 14,
+    palette: drusehogPalette,
+    frames: [
+        [
+            '.................',
+            '...e..e..e..e..e.',
+            '...y..y..y..y..y.',
+            '...y..y..y..y..y.',
+            '...o..o..o..o..o.',
+            '..eyoeyoeyoeyoeye',
+            '..eeooeooeooeooee',
+            '.ewwwessggggggsse',
+            '.eweewssgggssssse',
+            'enneeessssssssse.',
+            'eennssssssssssse.',
+            '.essssessesssse..',
+            '..ese.ese.ese.ese',
+            '..eee.eee.eee.eee',
+        ],
+        [
+            '.................',
+            '...e..e..e..e..e.',
+            '...y..y..y..y..y.',
+            '...y..y..y..y..y.',
+            '...o..o..o..o..o.',
+            '..eyoeyoeyoeyoeye',
+            '..eeooeooeooeooee',
+            '.ewwwesgggggsssse',
+            '.eweewssgggssssse',
+            'enneeessssssssse.',
+            'eennssssggssssse.',
+            '.essssessesssse..',
+            '..ese.ese.ese.ese',
+            '..eee.eee.eee.eee',
+        ],
+    ],
+};
+const drusehogHit = {
+    w: 17,
+    h: 14,
+    palette: drusehogPalette,
+    frames: [
+        [
+            '.................',
+            '.................',
+            '....e..e..e..e..e',
+            '....y..y..y..y..y',
+            '....y..y..y..y..y',
+            '....o..o..o..o..o',
+            '....eyoeyoeyoeyoe',
+            '...eeooeooeooeooe',
+            '..essessgggggssse',
+            '..eseesssssssssse',
+            '.enneesssssssssse',
+            '.eennssessessssse',
+            '...ese.ese.eseese',
+            '...eee.eee.eeeeee',
+        ],
+    ],
+};
+// Terrakin (earth, size 2, 17x14)
+// A thin hollow clay sentry faces left in a rigid marching stance, with a
+// cylindrical slit helmet, a broken shoulder notch, a diagonal crack and a
+// long steel-tipped spear.
+const terrakinPalette = { e: palette_js_1.COLORS.void, b: palette_js_1.COLORS.brown, o: palette_js_1.COLORS.orange, k: palette_js_1.COLORS.skin, s: palette_js_1.COLORS.steel, w: palette_js_1.COLORS.white, m: palette_js_1.COLORS.maroon };
+const terrakinIdle = {
+    w: 17,
+    h: 14,
+    palette: terrakinPalette,
+    frames: [
+        [
+            '......eeeee......',
+            '.....ekooobe.....',
+            '.....eweeeebe....',
+            '.....eoooobe.....',
+            '......ebbbe......',
+            '.ee...eekeee.....',
+            'esse..ekooee.....',
+            'essboooekmobe....',
+            '.ee...eekomobe...',
+            '.......eobbme....',
+            '........ebbe.....',
+            '.......eobeobe...',
+            '.......ebe.ebe...',
+            '......ebbe.ebbbe.',
+        ],
+        [
+            '......eeeee......',
+            '.....ekooobe.....',
+            '.....eweeeebe....',
+            '.....eoooobe.....',
+            '......ebbbe......',
+            '.ee...eeoeee.....',
+            'esse..ekkoee.....',
+            'essboooekmobe....',
+            '.ee...eeokmobe...',
+            '.......eobbme....',
+            '........ebbe.....',
+            '.......eobeobe...',
+            '.......ebe.ebe...',
+            '......ebbe.ebbbe.',
+        ],
+    ],
+};
+const terrakinHit = {
+    w: 17,
+    h: 14,
+    palette: terrakinPalette,
+    frames: [
+        [
+            '.................',
+            '.......eeeee.....',
+            '......ekooobe....',
+            '......eeeweebe...',
+            '......eoooobe....',
+            '.......ebbbe.....',
+            '..ee...eekeee....',
+            '.esse..ekooee....',
+            '.essboooekmobe...',
+            '..ee...ekomobe...',
+            '........ebbme....',
+            '........eobeobe..',
+            '........ebe.ebe..',
+            '.......ebbe.ebbbe',
+        ],
+    ],
+};
+/** The 20 generated earth-type species, keyed by species id. */
+exports.earthSprites = {
+    lichenwing: { idle: lichenwingIdle, hit: lichenwingHit },
+    sumpfang: { idle: sumpfangIdle, hit: sumpfangHit },
+    bramblebear: { idle: bramblebearIdle, hit: bramblebearHit },
+    fellstump: { idle: fellstumpIdle, hit: fellstumpHit },
+    quarryback: { idle: quarrybackIdle, hit: quarrybackHit },
+    kabulk: { idle: kabulkIdle, hit: kabulkHit },
+    quagmaw: { idle: quagmawIdle, hit: quagmawHit },
+    wickerhusk: { idle: wickerhuskIdle, hit: wickerhuskHit },
+    grumblode: { idle: grumblodeIdle, hit: grumblodeHit },
+    chirrgrit: { idle: chirrgritIdle, hit: chirrgritHit },
+    gillstub: { idle: gillstubIdle, hit: gillstubHit },
+    cobbleroll: { idle: cobblerollIdle, hit: cobblerollHit },
+    flintwren: { idle: flintwrenIdle, hit: flintwrenHit },
+    moldwarp: { idle: moldwarpIdle, hit: moldwarpHit },
+    spadeling: { idle: spadelingIdle, hit: spadelingHit },
+    helmdelver: { idle: helmdelverIdle, hit: helmdelverHit },
+    thornhare: { idle: thornhareIdle, hit: thornhareHit },
+    cairnlith: { idle: cairnlithIdle, hit: cairnlithHit },
+    drusehog: { idle: drusehogIdle, hit: drusehogHit },
+    terrakin: { idle: terrakinIdle, hit: terrakinHit },
+};

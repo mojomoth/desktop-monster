@@ -1,0 +1,181 @@
+{
+  "reviewer": "/root/skills_harness",
+  "releaseApproved": false,
+  "checks": [
+    {
+      "name": "r17-explore",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r17-explore/report.json",
+      "sha256": "06c1ab9d5ff5e681224a0c3f1d213689c850aba6b7651ae9f367ac57c667ffab",
+      "archiveVerified": true,
+      "reports": [
+        {
+          "candidate": "R17-A",
+          "rows": 60,
+          "originalPassed": true,
+          "score": {
+            "maximumMedianDeviation": 30.416666666666686,
+            "maximumP90": 295.3333333333333
+          },
+          "reservePassed": null,
+          "growthPassed": null,
+          "extraFailures": [],
+          "growthActions": 0,
+          "nineCycleOrdinary": []
+        },
+        {
+          "candidate": "R17-B",
+          "rows": 60,
+          "originalPassed": true,
+          "score": {
+            "maximumMedianDeviation": 39.083333333333314,
+            "maximumP90": 295.9166666666667
+          },
+          "reservePassed": null,
+          "growthPassed": null,
+          "extraFailures": [],
+          "growthActions": 0,
+          "nineCycleOrdinary": []
+        },
+        {
+          "candidate": "R17-C",
+          "rows": 60,
+          "originalPassed": true,
+          "score": {
+            "maximumMedianDeviation": 46,
+            "maximumP90": 305.1666666666667
+          },
+          "reservePassed": null,
+          "growthPassed": null,
+          "extraFailures": [],
+          "growthActions": 0,
+          "nineCycleOrdinary": []
+        }
+      ]
+    },
+    {
+      "name": "r17-reserve-a",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r17-reserve-a/report.json",
+      "sha256": "d8a00a19dc2e6d8b1cfba61e19b517c88ad67541b1955b6b6d83e02aa5ff32eb",
+      "archiveVerified": true,
+      "reports": [
+        {
+          "candidate": "R17-A",
+          "rows": 20,
+          "originalPassed": true,
+          "score": {
+            "maximumMedianDeviation": null,
+            "maximumP90": null
+          },
+          "reservePassed": true,
+          "growthPassed": null,
+          "extraFailures": [],
+          "growthActions": 2374,
+          "nineCycleOrdinary": []
+        }
+      ]
+    },
+    {
+      "name": "r17-growth-a",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r17-growth-a/report.json",
+      "sha256": "e883332f4760e85c3941873e888c439dde08a12e4fb92e168feabcc329646ba4",
+      "archiveVerified": true,
+      "reports": [
+        {
+          "candidate": "R17-A",
+          "rows": 60,
+          "originalPassed": false,
+          "score": {
+            "maximumMedianDeviation": null,
+            "maximumP90": null
+          },
+          "reservePassed": null,
+          "growthPassed": false,
+          "extraFailures": [
+            {
+              "profile": "ordinary",
+              "cycle": 10,
+              "n": 20,
+              "arrived": 0,
+              "nonarrival": 20,
+              "p10": null,
+              "passed": false
+            }
+          ],
+          "growthActions": 5609,
+          "nineCycleOrdinary": [
+            {
+              "seed": 120001,
+              "durationHours": 60,
+              "stage": 351
+            },
+            {
+              "seed": 120002,
+              "durationHours": 60,
+              "stage": 212
+            },
+            {
+              "seed": 120003,
+              "durationHours": 60,
+              "stage": 214
+            },
+            {
+              "seed": 120004,
+              "durationHours": 60,
+              "stage": 362
+            },
+            {
+              "seed": 120006,
+              "durationHours": 60,
+              "stage": 263
+            },
+            {
+              "seed": 120007,
+              "durationHours": 60,
+              "stage": 314
+            },
+            {
+              "seed": 120009,
+              "durationHours": 60,
+              "stage": 215
+            },
+            {
+              "seed": 120011,
+              "durationHours": 60,
+              "stage": 199
+            },
+            {
+              "seed": 120013,
+              "durationHours": 60,
+              "stage": 241
+            },
+            {
+              "seed": 120014,
+              "durationHours": 60,
+              "stage": 332
+            },
+            {
+              "seed": 120015,
+              "durationHours": 60,
+              "stage": 175
+            },
+            {
+              "seed": 120016,
+              "durationHours": 60,
+              "stage": 188
+            },
+            {
+              "seed": 120017,
+              "durationHours": 60,
+              "stage": 239
+            },
+            {
+              "seed": 120018,
+              "durationHours": 60,
+              "stage": 215
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

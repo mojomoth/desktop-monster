@@ -18,9 +18,11 @@ Do not import sample engine formulas, add an engine, or build unrelated RPG syst
 
 - Register policies, input/action schedules, starting saves, candidates, horizon,
   percentile calculation and numerical targets before measuring candidates.
-- Tune required hero level, field HP and fixed rebirth-count difficulty only; freeze XP. No new timer, hard minimum playtime,
-  power-reactive scaling or changes to companion/PvP stats. Preserve pending
-  offers and current-monster curve compatibility for existing saves.
+- Tune only the explicitly approved, preregistered scope in `docs/v0.11/CONTRACT.md`;
+  freeze XP, capture rules and owned companion/PvP stats. No new timer, hard minimum
+  playtime or power-reactive scaling. Preserve pending offers, saved history and
+  current-monster curve compatibility; shared field scaling uses the same encounter
+  total-reset snapshot for HP, companion damage, selection and displays.
 - Measure first, second and third rebirth intervals separately. Ordinary 2/s and
   intermittent 15s/min at 2/s use the registered p50 180–300 minute target,
   p10 >=120 and p90 <=360. Continue the registered subset through cycles 4–10;
@@ -28,7 +30,10 @@ Do not import sample engine formulas, add an engine, or build unrelated RPG syst
   visible, including outcomes outside targets.
 - Compare at least three registered candidates on exploration seeds. Freeze the
   selected source/parameters before at least 100 held-out seeds per ordinary and
-  intermittent policy. Never fit to holdouts or widen limits after seeing data.
+  intermittent policy. Never fit to holdouts, reuse a consumed range as unseen,
+  or widen limits after seeing data. Keep separately registered management,
+  growth, reserve, no-reset and finite-recovery diagnostics bound to the same code;
+  finite-recovery intervals include every preparation minute.
 - Keep missing arrivals in unconditional denominators; report censored runs,
   minima/maxima, p10/p50/p90, stalls, level cadence, gold conservation, equipment
   use and meaningful intermediate rewards. Correlated checkpoints are not new

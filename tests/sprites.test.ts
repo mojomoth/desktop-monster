@@ -72,6 +72,16 @@ function makeCtx(): { ctx: SpriteCanvas; calls: RectCall[] } {
   return { ctx, calls };
 }
 
+/** Inspect art pixels independently of how adjacent cells are batched. */
+function spritePixels(calls: RectCall[]): RectCall[] {
+  return calls.flatMap(call => {
+    expect(call.h).toBe(UNIT_SCALE);
+    expect(call.w % UNIT_SCALE).toBe(0);
+    return Array.from({ length: call.w / UNIT_SCALE }, (_, i) =>
+      ({ ...call, x: call.x + i * UNIT_SCALE, w: UNIT_SCALE }));
+  });
+}
+
 describe('sprite registry integrity (SPEC F19)', () => {
   it('registry is non-empty and includes the hero art with the mandated frame counts', () => {
     const sprites = allSprites();
@@ -307,9 +317,10 @@ describe('item art (SPEC F19 part 2)', () => {
 
 describe('boss and companion art helpers (SPEC F40)', () => {
   it('drawBoss draws the species art at the uniform scale with a crown', () => {
-    const { ctx, calls } = makeCtx();
+    const { ctx, calls: rectangles } = makeCtx();
     const species = monsterSprites.slime;
     drawBoss(ctx, species, 'idle', 0, 118, 92, 1);
+    const calls = spritePixels(rectangles);
 
     // Uniform scale (2026-09-04): the boss no longer scales up; the crown marks it.
     expect(BOSS_HP_BAR_Y).toBe(56);
@@ -330,8 +341,9 @@ describe('boss and companion art helpers (SPEC F40)', () => {
   });
 
   it('drawCompanion paints the species idle frame flipped and tinted by stars at its slot', () => {
-    const { ctx, calls } = makeCtx();
+    const { ctx, calls: rectangles } = makeCtx();
     drawCompanion(ctx, 'dragon', 0, 1, 1, 92);
+    const calls = spritePixels(rectangles);
 
     const idle = monsterSprites.dragon.idle;
     const slotY = 92 - 10 - 14 * 1;

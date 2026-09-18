@@ -1,0 +1,13 @@
+# Approved field curve: independent execution review
+
+Reviewer `/root/skills_harness`, 2026-09-18. Root relayed the user's expanded approval of field-only companion power and a fixed accepted-hero-count multiplier with matching HP. Reviewed the prior Designer/FIXED_COUNT proposals and `DESIGNER_FIELD_EXECUTION.md`; implementation may proceed within these boundaries. This is not numerical candidate acceptance.
+
+- `M(r)` must use accepted `hero.reincarnations`, never total resets, souls, elapsed time, current damage, equipment or party strength. Missing legacy hero history means zero. Soul recovery cannot increase M.
+- F preserves the original base through index31, then the registered polynomial base. Preserve full level/stars and existing combat modifiers. Use BigInt before products; floor F as defined, then apply rational M with one final floor. HP uses the same rational M multiplied by fixed R(total resets), with one final division.
+- Keep owned `companionPower`, PvP selection and payload/server arithmetic unchanged. Field selection uses typed/hero-buffed field power, then unbuffed field power, then deterministic numeric ID; raw exponential power cannot return as a tie-breaker.
+- A saved v10 encounter retains old HP, damage, selection, labels and shares until the next spawn. Accepted hero reset changes r and spawns atomically; soul reset changes total resets without changing r. No additional saved r snapshot is necessary if engine and pure reset reducers preserve that invariant and reload tests prove the reconstructed HP/party agree. Do not infer r from total resets.
+- The shared field API must cover actual volleys, actor membership, recovery/loss placement and field-party previews; replay/PvP paths remain separate. A trained early capture versus untrained later capture supplies a discriminating regression roster.
+- M(0)=1, so first3 cycles must be explored together. Retained souls, arbitrary legacy wealth and soul farming are not bounded by r; keep their adversarial evidence separate rather than claiming a universal minimum playtime for every save.
+- Continue capture-index/raw-PvP-power exposure, reward gaps, purchases, growth and effective damage diagnostics. Avoid the previously rejected 50,000-stage plateau even when a duration statistic looks attractive. No new hidden cap, time lock, live scaling or weakened acceptance statistic is implied.
+
+The original numerical gates, fixed denominators/censoring, untouched heldout seeds and later4–10 requirements remain. Candidate registration must precede measurement. Critic owns the independent receipt verifier; Host reviews Critic-authored changes. No native app was launched for this review.

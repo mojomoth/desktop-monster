@@ -74,10 +74,14 @@ describe('three DFO-inspired job studies on the starter skeleton', () => {
         const rectangles = (flipX: boolean): string[] => {
           const result: string[] = [];
           const ctx = { fillStyle: '', fillRect(x: number, y: number, w: number, h: number) {
-            expect([w, h]).toEqual([UNIT_SCALE, UNIT_SCALE]);
+            expect(h).toBe(UNIT_SCALE);
+            expect(w).toBeGreaterThanOrEqual(UNIT_SCALE);
+            expect(w % UNIT_SCALE).toBe(0);
             expect(x % UNIT_SCALE).toBe(0);
             expect(y % UNIT_SCALE).toBe(0);
-            result.push(`${x},${y},${ctx.fillStyle}`);
+            // Normalize strips to the original art cells before checking every
+            // pixel against the unchanged mirror oracle below.
+            for (let dx = 0; dx < w; dx += UNIT_SCALE) result.push(`${x + dx},${y},${ctx.fillStyle}`);
           } };
           drawSprite(ctx, sprite, frame, 0, 0, { flipX, scale: UNIT_SCALE });
           return result.sort();

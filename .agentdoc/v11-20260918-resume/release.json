@@ -1,0 +1,51 @@
+{
+  "version": "0.11.0",
+  "commands": [
+    {
+      "command": "npm run smoke",
+      "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/release-smoke-1789725125254.log",
+      "logHash": "857c4eec8d333d33a408ff0318ecea2d9f60ec15f87985dc3b1360aac253b9bf",
+      "at": "2026-09-18T09:52:10.287Z"
+    },
+    {
+      "command": "npm run package",
+      "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/release-mac-1789725154303.log",
+      "logHash": "e16738f29e28897a47f11fa37daf8ab3b49b079aae7ca73d8a1fb2d7ac7c57bf",
+      "at": "2026-09-18T09:53:05.745Z"
+    },
+    {
+      "command": "npm run package:win",
+      "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "exitCode": 0,
+      "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/release-windows-1789725227751.log",
+      "logHash": "0064dd5f5d0664412b961ff708a1aabce2c7abe0009749dab34c54cd7a7e12b8",
+      "at": "2026-09-18T09:54:19.592Z"
+    }
+  ],
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "packages": {
+    "macApp": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app",
+      "sha256": "9c8ccf14fe9043df99ced9d13a1f0de43a3ce047f4e14d2414c05c2825d29eaa"
+    },
+    "macDmg": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/DesMon-0.11.0-arm64.dmg",
+      "sha256": "1401152a102382e221ff9a77dc80e73a128b6b1012ebe4dcce694cadbc49c89e"
+    },
+    "windowsInstaller": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/DesMon Setup 0.11.0.exe",
+      "sha256": "6fbc96ec11d9bb00f59e67e735f3e179d6e2f6ec7d7d84b31601ac8844311118"
+    },
+    "windowsAppAsar": {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/release/win-unpacked/resources/app.asar",
+      "sha256": "1968ee4bfdfbc4ca0d22abe46e1cf94b82a230b301f7e07f3d5994b604f632bd"
+    }
+  }
+}

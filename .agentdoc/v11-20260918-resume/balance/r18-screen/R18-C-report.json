@@ -1,0 +1,210 @@
+{
+  "candidate": {
+    "id": "R18-C",
+    "parameters": {
+      "heroMinLevel": 26,
+      "heroLevelStepCap": 0,
+      "fieldHpNumerator": 1080,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 10935,
+      "fieldHpTailPolynomial": 0,
+      "fieldHpIndexCap": 159,
+      "fieldRebirthBonus": 9,
+      "fieldRebirthHalf": 1,
+      "fieldRebirthBonusScale": 16,
+      "fieldCompanionTailPolynomial": 1,
+      "fieldCompanionTailScale": 256,
+      "fieldCompanionIndexCap": 79,
+      "fieldCompanionBaseFloor": 14000,
+      "fieldCompanionGrowthBonus": 25,
+      "fieldHeroCycleBonus": 128,
+      "fieldHpResumeIndex": 399,
+      "fieldCompanionFeverMultiplier": 2,
+      "fieldRebirthCountCap": 5
+    }
+  },
+  "compiledFiles": {
+    "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+    "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "collection.js": "615de50bbbf684157ee7e0c698ef4e7d36ba6740ff4b8f5ee080dfd742459ca0",
+    "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+    "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+    "engine.js": "a855c28901d5f6716dee0675c9216363919761d8eebff974a7f6d1350fece4a0",
+    "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+    "fever.js": "ad9543b9430b8e056af1b209c22a915e08d46562ab68dfcc88a0764b8a7394da",
+    "formulas.js": "bd8c0f3af2a91b6d2277e97eb9a0e0a2a3003ae2c6f63c497a74fee25970193d",
+    "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+    "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+    "hero.js": "61393330dac7cdcf77aa4e87dc8cff19dae2fee23d97553ea5b7b8fb3ca0750d",
+    "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+    "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "monsters.js": "79de30b4114c58b417491cf7bb415f0ad5935dc4bcddeead01581ec359147744",
+    "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+    "progression.js": "56ec545938daf16b43bd48d728ce24a920afe7da0dbb6a49706e56096d61ae1a",
+    "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+    "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+  },
+  "rows": 3,
+  "raw": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-screen/R18-C-ordinary-3.jsonl",
+      "sha256": "19c9e4d4f31b3cf36a26c2e5d277b5e2f29478f0b4440ed0715e476d339f5528"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-screen/R18-C-intermittent-3.jsonl",
+      "sha256": "8c738a2fffb65c95c1628fa90148c6db4ea1447e6277d78e2eff02a21e6c2d10"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-screen/R18-C-high-3.jsonl",
+      "sha256": "88c59eefca4f9a6c21a3f5bf521775b3780d38f82cf1e745ab21056559b5dd72"
+    }
+  ],
+  "summaries": [
+    {
+      "profile": "ordinary",
+      "cycle": 1,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 220.5,
+      "p50": 220.5,
+      "p90": 220.5
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 2,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 208.08333333333334,
+      "p50": 208.08333333333334,
+      "p90": 208.08333333333334
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 3,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 231.91666666666666,
+      "p50": 231.91666666666666,
+      "p90": 231.91666666666666
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 1,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 225.83333333333334,
+      "p50": 225.83333333333334,
+      "p90": 225.83333333333334
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 2,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 227.16666666666666,
+      "p50": 227.16666666666666,
+      "p90": 227.16666666666666
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 3,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 253.33333333333334,
+      "p50": 253.33333333333334,
+      "p90": 253.33333333333334
+    },
+    {
+      "profile": "high",
+      "cycle": 1,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 173.41666666666666,
+      "p50": 173.41666666666666,
+      "p90": 173.41666666666666
+    },
+    {
+      "profile": "high",
+      "cycle": 2,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 185.33333333333334,
+      "p50": 185.33333333333334,
+      "p90": 185.33333333333334
+    },
+    {
+      "profile": "high",
+      "cycle": 3,
+      "n": 1,
+      "arrived": 1,
+      "nonarrival": 0,
+      "p10": 143.41666666666666,
+      "p50": 143.41666666666666,
+      "p90": 143.41666666666666
+    }
+  ],
+  "checks": [
+    {
+      "profile": "ordinary",
+      "cycle": 1,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 2,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 3,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 1,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 2,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 3,
+      "passed": true
+    },
+    {
+      "profile": "high",
+      "cycle": 1,
+      "passed": true
+    },
+    {
+      "profile": "high",
+      "cycle": 2,
+      "passed": true
+    },
+    {
+      "profile": "high",
+      "cycle": 3,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "score": {
+    "maximumMedianDeviation": 31.916666666666657,
+    "maximumP90": 253.33333333333334
+  },
+  "humanFun": false
+}

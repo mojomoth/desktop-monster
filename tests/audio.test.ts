@@ -121,6 +121,23 @@ const makeAudio = (): { audio: GameAudio; ctx: FakeContext; factoryCalls: () => 
 // --- synthesis --------------------------------------------------------------
 
 describe('createGameAudio (SPEC F24)', () => {
+  it('does not initialize or synthesize while muted and resumes the same context on unmute', () => {
+    const ctx = new FakeContext();
+    let muted = true, contexts = 0;
+    const audio = createGameAudio({ isMuted: () => muted, createContext: () => { contexts++; return ctx; } });
+    audio.attackTick(); audio.killArpeggio(); audio.levelUpFanfare(); audio.feverStart();
+    expect(contexts).toBe(0);
+    expect(ctx.oscillators).toHaveLength(0);
+    muted = false; audio.attackTick();
+    expect(contexts).toBe(1);
+    expect(ctx.oscillators).toHaveLength(1);
+    muted = true; audio.feverStart();
+    expect(ctx.oscillators).toHaveLength(1);
+    muted = false; audio.attackTick();
+    expect(contexts).toBe(1);
+    expect(ctx.oscillators).toHaveLength(2);
+  });
+
   it('creates the AudioContext lazily on the first blip and reuses it after', () => {
     const { audio, factoryCalls } = makeAudio();
     expect(factoryCalls()).toBe(0); // nothing at construction time

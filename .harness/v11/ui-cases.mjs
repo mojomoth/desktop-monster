@@ -83,6 +83,17 @@ export function latencyFamilies(samples) {
   });
 }
 
+export function assertLiveDisclosureState(before, after, requireCoinChange = false) {
+  assert(after.sameNode && after.focused && after.open && Math.abs(after.scrollY - before.scrollY) < 1 &&
+    Math.abs(after.cardTop - before.cardTop) < 1 &&
+    JSON.stringify(after.order.filter(id => before.order.includes(id))) === JSON.stringify(before.order),
+  'Disclosure node, focus, page, order and scroll must survive live saves');
+  assert(Number.isFinite(before.playTimeMs) && after.saves.length > 0 && after.saves.every(save => Number.isFinite(save.playTimeMs)) &&
+    after.saves.some(save => save.playTimeMs > before.playTimeMs), 'Production live saves must advance play time');
+  if (requireCoinChange) assert(typeof before.coins === 'string' &&
+    after.saves.some(save => typeof save.coins === 'string' && save.coins !== before.coins), 'An actual coin-changing save must reach the open disclosure');
+}
+
 /** Inspect decoded native PNG pixels, normalized to the 200×130 game canvas. */
 export function inspectHudPixels(data, width, height, regions) {
   const palette = { white: [222, 238, 214], yellow: [218, 212, 94], steel: [133, 149, 161],
@@ -399,17 +410,32 @@ export async function menuLiveCases(runtime, fixture) {
   const pageSummary = itemSelector('#inventory', pageCard) + ' .equipment-details > summary';
   await ui.click(pageSummary);
   const bagSection = '#inventory .equipment-section:nth-of-type(2)';
-  const before = await ui.menu(`(()=>{globalThis.__v11Focused=document.activeElement;return {order:${rowOrder(bagSection)},scrollY,
+  const before = await ui.menu(`(()=>{globalThis.__v11Focused=document.activeElement;globalThis.__v11OpenSummary=document.querySelector(${JSON.stringify(pageSummary)});return {order:${rowOrder(bagSection)},scrollY,
     cardTop:document.querySelector(${JSON.stringify(pageSummary)}).getBoundingClientRect().top,
-    saves:__v11Latency.snapshot().saves.length,coins:__v11Latency.snapshot().saves.at(-1)?.coins};})()`);
+    saves:__v11Latency.snapshot().saves.length,coins:__v11Latency.snapshot().saves.at(-1)?.coins,
+    playTimeMs:__v11Latency.snapshot().saves.at(-1)?.playTimeMs};})()`);
   const elapsedMs = await ui.menu(rafDelay(3200));
-  const after = await ui.menu(`({order:${rowOrder(bagSection)},focused:document.activeElement===globalThis.__v11Focused,scrollY,
+  const readDisclosure = () => ui.menu(`({order:${rowOrder(bagSection)},focused:document.activeElement===globalThis.__v11Focused,scrollY,
+    sameNode:document.querySelector(${JSON.stringify(pageSummary)})===globalThis.__v11OpenSummary,
     cardTop:document.querySelector(${JSON.stringify(pageSummary)}).getBoundingClientRect().top,
     open:document.querySelector(${JSON.stringify(pageSummary)}).parentElement.open,saves:__v11Latency.snapshot().saves.slice(${before.saves})})`);
-  check('inventory-open-focus-order-page-survive-live-saves', elapsedMs >= 3000 && after.focused && after.open &&
-    Math.abs(after.scrollY - before.scrollY) < 1 && Math.abs(after.cardTop - before.cardTop) < 1 &&
-    JSON.stringify(after.order.filter(id => before.order.includes(id))) === JSON.stringify(before.order) && after.saves.length > 0 &&
-    after.saves.some(save => save.coins !== before.coins), { before, after, elapsedMs, initial });
+  const after = await readDisclosure();
+  let liveSaveError; try { assertLiveDisclosureState(before, after); } catch (error) { liveSaveError = String(error); }
+  check('inventory-open-focus-order-page-survive-live-saves', elapsedMs >= 3000 && !liveSaveError,
+    { before, after, elapsedMs, initial, error: liveSaveError });
+  // Bounded hunting growth makes later kills slower than the save interval.
+  // Preserve the same open card across an actual coin update, without imposing
+  // a kill-every-3s requirement or including this wait in click latency samples.
+  let coinUpdate = after, coinUpdateError;
+  try {
+    await until(async () => {
+      coinUpdate = await readDisclosure(); assertLiveDisclosureState(before, coinUpdate);
+      return coinUpdate.saves.some(save => save.coins !== before.coins);
+    }, 'coin-changing save while the same disclosure remains open', 60_000);
+    assertLiveDisclosureState(before, coinUpdate, true);
+  } catch (error) { coinUpdateError = String(error); }
+  check('inventory-open-focus-order-page-survive-coin-update', !coinUpdateError,
+    { before, after: coinUpdate, maxAdditionalWaitMs: 60_000, error: coinUpdateError });
   value.screenshots.push(await ui.capture('inventory-live-page-two', 'menu'));
   await ui.click('#tab-shop');
   const shopSummary = '#shop .equipment-details > summary'; await ui.click(shopSummary);
@@ -590,6 +616,129 @@ export async function equipmentRestartCase(runtime, expected) {
   for (const key of ['bag', 'loadout', 'temporary']) check('restart-' + key, JSON.stringify(save.equipment[key]) === JSON.stringify(expected.equipment[key]));
   check('restart-wallet-and-purchases', save.coins === expected.coins && JSON.stringify(save.equipment.shop.boughtIds) === JSON.stringify(expected.equipment.shop.boughtIds));
   await ui.openMenu(); await ui.click('#tab-inventory'); value.screenshots.push(await ui.capture('restarted-manual-loadout', 'menu'));
+  value.passed = true; return value;
+}
+
+export function assertFieldPartyAgreement(view, cards) {
+  assert(view.frame && !view.frame.replay && view.frame.curveVersion === view.version && view.frame.curveRebirths === view.curveRebirths && view.frame.monsterIndex === view.monsterIndex,
+    'Rendered party has stale encounter/replay context');
+  assert.deepEqual(view.frame.ids, view.fieldIds, 'Rendered hunting membership differs from actual field power');
+  assert.equal(cards.length, view.labels.length, 'Roster labels omit or duplicate a companion');
+  for (const expected of view.labels) {
+    const card = cards.find(row => row.id === expected.id);
+    assert(card && card.raw === expected.raw && card.hunting === expected.hunting, 'Owned/hunting label differs for ' + expected.id);
+    assert.equal(card.pvp, view.pvpIds.includes(expected.id), 'PvP membership label differs for ' + expected.id);
+  }
+}
+
+export function assertGrowthPowerPreview(preview, before, after) {
+  assert(before && after && before.id === after.id, 'Growth preview target changed');
+  assert.equal(preview.text, `사냥 ${before.hunting.slice('사냥 공격력 '.length)} → ${after.hunting.slice('사냥 공격력 '.length)} · PvP ${before.raw.slice(4)} → ${after.raw.slice(4)}`,
+    'Growth preview differs from the applied hunting/PvP labels');
+  assert.equal(preview.title, `사냥 ${before.huntingValue} → ${after.huntingValue} · PvP ${before.rawValue} → ${after.rawValue}`,
+    'Growth preview exact integers differ from applied powers');
+}
+
+/** Public conditional breakpoint reads the actual drawParty arguments without pausing. */
+async function observeFieldParty(ui) {
+  await ui.field(`(()=>{globalThis.__v11PartyFrames={rows:[],overflow:false,record(row){if(this.rows.length>=10000){this.overflow=true;return;}this.rows.push(row);}};return true;})()`);
+  const location = await ui.main(`(async()=>{
+    const d=p.field.webContents.debugger,path='dist/web/renderer/game.js',source=p.fs.readFileSync(p.e.app.getAppPath()+'/'+path,'utf8'),lines=source.split(String.fromCharCode(10));
+    const matches=lines.map((line,i)=>line.trim()==='drawParty(ctx, myParty, partyFrame, GROUND_Y);'?i:-1).filter(i=>i>=0);
+    if(matches.length!==1)throw Error('Expected one field drawParty call');
+    const state=p.v11PartyObserver={pauseCount:0,breakpointId:null};
+    state.listener=(_event,method)=>{if(method==='Debugger.paused')state.pauseCount++;};
+    d.attach('1.3');d.on('message',state.listener);
+    state.cleanup=async()=>{if(state.closed)return;state.closed=true;try{if(d.isAttached()&&state.breakpointId)await d.sendCommand('Debugger.removeBreakpoint',{breakpointId:state.breakpointId});}
+      finally{d.removeListener('message',state.listener);if(d.isAttached())d.detach();}};
+    try{
+      await d.sendCommand('Debugger.enable');
+      const result=await d.sendCommand('Debugger.setBreakpointByUrl',{urlRegex:'/dist/web/renderer/game[.]js$',lineNumber:matches[0],
+        condition:'(globalThis.__v11PartyFrames.record({at:performance.now(),ids:myParty.map(c=>c.id),frame:partyFrame,curveVersion:state.monster.curveVersion,curveRebirths:state.monster.curveRebirths??0,monsterIndex:state.monster.index,replay:scene!==null}),false)'});
+      state.breakpointId=result.breakpointId;
+      if(result.locations.length!==1)throw Error('Field party observer did not resolve once');
+      const resolved=result.locations[0],loaded=await d.sendCommand('Debugger.getScriptSource',{scriptId:resolved.scriptId});
+      const hash=text=>p.require('node:crypto').createHash('sha256').update(text).digest('hex');
+      if(hash(loaded.scriptSource)!==hash(source))throw Error('Field party source mismatch');
+      return {sourcePath:path,scriptSha256:hash(source),...resolved};
+    }catch(error){await state.cleanup();throw error;}
+  })()`);
+  return { location, finish: () => ui.main(`(async()=>{const s=p.v11PartyObserver;try{return {location:${JSON.stringify(location)},pauseCount:s.pauseCount,
+    ...await p.field.webContents.executeJavaScript('({rows:__v11PartyFrames.rows,overflow:__v11PartyFrames.overflow})')};}finally{await s.cleanup();}})()`) };
+}
+
+export async function fieldPartyCases(runtime, ids) {
+  const ui = await controls(runtime), { value, check } = report();
+  const observer = await observeFieldParty(ui);
+  value.snapshots = [];
+  try {
+    await ui.field(`(${installHudInputObserver.toString()})()`);
+    await ui.openMenu(); await ui.menu(`(${installLatencyObserver.toString()})()`); await ui.click('#tab-roster');
+    const inspect = async () => ({ view: await ui.field(`(async()=>{const core=await import('../dist/web/core/index.js'),v=__v010Read(),s=v.state;
+      const version=s.monster.curveVersion??10,resets=s.monster.curveRebirths??0;
+      return {version,curveRebirths:resets,monsterIndex:s.monster.index,totalResets:s.rebirths,acceptedHeroCount:s.hero?.reincarnations??0,save:v.save,frame:__v11PartyFrames.rows.at(-1),
+        fieldIds:core.partyOrder(core.activeFieldCompanions(s.companions,s.monster.type,s.hero?.equipped,resets,version)).map(c=>c.id),
+        pvpIds:core.pvpParty(s.companions,s.pvpParty,s.hero?.equipped).map(c=>c.id),
+        labels:s.companions.map(c=>({id:c.id,raw:'PvP '+core.format(core.companionPower(c)),hunting:'사냥 공격력 '+core.format(core.fieldCompanionPower(c,resets,version)),
+          rawValue:String(core.companionPower(c)),huntingValue:String(core.fieldCompanionPower(c,resets,version))}))};})()`),
+      cards: await ui.menu(`Array.from(document.querySelectorAll('#roster [data-companion-id]'),node=>({id:node.dataset.companionId,
+        raw:node.querySelector('.power').textContent,hunting:node.querySelector('.hunting-power').textContent,pvp:!!node.querySelector('.pvp-mark')}))`) });
+    const snapshot = async (name, version, fifth) => {
+      let last;
+      const observed = await until(async () => {
+        last = await inspect();
+        try { assertFieldPartyAgreement(last.view, last.cards); return last.view.version === version ? last : null; }
+        catch (error) { if (error.code !== 'ERR_ASSERTION') throw error; return null; }
+      }, 'matching rendered field party and menu labels: ' + name);
+      check(name + '-draw-and-label-agreement', true, observed);
+      check(name + '-encounter-reset-metadata-agrees', observed.view.curveRebirths === 1 && observed.view.save.monsterCurveRebirths === 1 &&
+        observed.view.totalResets === 1 && observed.view.acceptedHeroCount === 1, observed.view);
+      check(name + '-independent-membership', JSON.stringify(observed.view.fieldIds) === JSON.stringify(['c1','c2','c3','c4',fifth]) &&
+        JSON.stringify(observed.view.pvpIds) === JSON.stringify(['c1','c2','c3','c4',ids.target]), observed.view);
+      value.snapshots.push({ name, ...observed });
+      value.screenshots.push(await ui.capture('field-party-' + name));
+      value.screenshots.push(await ui.capture('field-party-' + name + '-labels', 'menu'));
+      return observed.view;
+    };
+    const legacy = await snapshot('legacy', 10, ids.target);
+    check('legacy-encounter-not-killed-by-setup', legacy.monsterIndex === 1000 && legacy.save.killCount === 0);
+    await ui.field('__v11HudInputs.requests.push({at:performance.now(),kind:"native-sendInputEvent",source:"keyboard",keyCode:"A"})');
+    await ui.input();
+    await until(async () => (await ui.read()).state.monster.curveVersion === 11, 'one native hit spawns v11 encounter');
+    const hunting = await snapshot('new-curve', 11, ids.trained);
+    check('one-native-hit-switches-encounter-without-rewriting-roster', hunting.monsterIndex === 1001 && hunting.save.killCount === 1 &&
+      JSON.stringify(hunting.save.companions) === JSON.stringify(legacy.save.companions));
+    const selector = '#roster [data-companion-id="' + ids.target + '"] .row button:first-child';
+    await ui.click(selector);
+    check('growth-selection-open', await ui.menu('!document.querySelector("#cancel-selection").hidden'));
+    const action = { type: 'consume', targetId: ids.target, foodId: ids.food };
+    const material = '#roster [data-companion-id="' + ids.food + '"] .row button:first-child';
+    const previewSelector = '#roster [data-companion-id="' + ids.food + '"] .growth-power';
+    value.growthPreview = await ui.menu(`(()=>{const node=document.querySelector(${JSON.stringify(previewSelector)});
+      return node?{text:node.textContent,title:node.getAttribute('title')}:null;})()`);
+    await ui.menu(`__v11Latency.arm(${JSON.stringify({ family:'field-party',selector:material,kind:'action',retain:false,action })})`);
+    await ui.click(material); value.growthResult = await ui.menu('__v11Latency.take()');
+    const grown = await snapshot('grown', 11, ids.target);
+    assertGrowthCompletion(hunting.save, grown.save, value.growthResult);
+    assert(value.growthPreview, 'Growth material has no hunting/PvP preview');
+    assertGrowthPowerPreview(value.growthPreview, hunting.labels.find(c=>c.id===ids.target), grown.labels.find(c=>c.id===ids.target));
+    check('growth-preview-matches-applied-hunting-and-pvp', true, value.growthPreview);
+    check('growth-native-ack-updates-hunting-power-and-party', grown.save.companions.find(c=>c.id===ids.target)?.level === 3 &&
+      !grown.save.companions.some(c=>c.id===ids.food), value.growthResult);
+    const disk = await until(async () => {
+      const save = await ui.main(`JSON.parse(p.fs.readFileSync(${JSON.stringify(join(runtime.userData,'save.json'))},'utf8'))`);
+      return save.companions.find(c=>c.id===ids.target)?.level === 3 && !save.companions.some(c=>c.id===ids.food) ? save : null;
+    }, 'field growth persisted');
+    check('field-growth-disk-and-live-agree', JSON.stringify(disk.companions) === JSON.stringify(grown.save.companions));
+    value.inputTrace = await ui.field('__v11HudInputs');
+    check('exactly-one-native-field-keydown', value.inputTrace.requests.length === 1 && value.inputTrace.ipc.length === 0 &&
+      value.inputTrace.events.filter(event=>event.type==='keydown').length === 1 &&
+      value.inputTrace.events.filter(event=>event.type==='keyup').length === 1 &&
+      value.inputTrace.events.every(event=>event.isTrusted && event.code==='KeyA' && !event.repeat), value.inputTrace);
+  } catch (error) { error.ui = value; throw error; }
+  finally { value.partyTrace = await observer.finish(); }
+  check('actual-draw-observer-never-paused-or-overflowed', value.partyTrace.pauseCount === 0 && !value.partyTrace.overflow && value.partyTrace.rows.length > 0,
+    { location: value.partyTrace.location, rows: value.partyTrace.rows.length });
   value.passed = true; return value;
 }
 

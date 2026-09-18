@@ -1,0 +1,285 @@
+{
+  "version": 11,
+  "reviewer": "/root/skills_harness",
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "verdict": "approved",
+  "scope": "Final native functionality and visual evidence only",
+  "overallReleaseApproved": false,
+  "report": {
+    "path": ".agentdoc/v11-20260918-resume/native/final.json",
+    "sha256": "93e0674a6af7c02e943cad7e29359e34568bdf148e394fbed51d19f347bc1a7d"
+  },
+  "macAppAsarSha256": "31c94f63d3c0181d5289bb9655ec38586c02d8a6f4875a5e16cc337e8f623d1d",
+  "validation": "Independently ran validateNative against the current digest, release macApp ASAR and registered PERFORMANCE_PROTOCOL before the quiet performance run. Every check, source/package binding, artifact hash and raw timing derivation passed.",
+  "scenarios": [
+    {
+      "name": "menu-live-updates",
+      "checks": 12,
+      "allChecksPassed": true,
+      "runtimePassed": true,
+      "screenshots": [
+        {
+          "name": "inventory-live-page-two",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/menu-live-updates/inventory-live-page-two.png",
+          "sha256": "b0d5fb065e88b011a4827f5063290f94d8aede34ed45951f22bf52a4182f1291",
+          "viewed": true
+        },
+        {
+          "name": "shop-live-disclosure",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/menu-live-updates/shop-live-disclosure.png",
+          "sha256": "4b58921f937564128664332a4922a5c4d355b90807360cf8ca8fc042bd1284e0",
+          "viewed": true
+        },
+        {
+          "name": "growth-live-selection",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/menu-live-updates/growth-live-selection.png",
+          "sha256": "ad6c4392e713cc8d4a05aece6d8c3a4e3f0302a050068a389925f76cd52c8f16",
+          "viewed": true
+        },
+        {
+          "name": "growth-completed",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/menu-live-updates/growth-completed.png",
+          "sha256": "b0ee9cb548c2a6478aaf23aa68cf1d0d7f2415c9983e857d6732087aadb8ed4a",
+          "viewed": true
+        },
+        {
+          "name": "codex-heroes",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/menu-live-updates/codex-heroes.png",
+          "sha256": "c020b2dbd7807ed21f7b0222b4189506c8ed89addfd839a67ee0ce796b881213",
+          "viewed": true
+        },
+        {
+          "name": "codex-monsters",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/menu-live-updates/codex-monsters.png",
+          "sha256": "920248258e43028227425242ef6c331bce5976bdf633346871b2f9db7c2f2938",
+          "viewed": true
+        }
+      ],
+      "observations": [
+        "All eight menu tabs fit the 560px menu in one row. Hero/monster disclosure arrows appear at bottom right; repeated footer actions are absent.",
+        "Inventory and shop retain the same open DOM node, focus, page, order and scroll during advancing saves and an actual coin-changing update, including the original minimum 3.2s observation.",
+        "Growth selection/cancellation and real trusted-click material consumption are exercised. Successful ACK, level increment, material removal, feedback and durable save agree. The visible warning distinguishes personal growth from possible elemental/PvP party loss."
+      ]
+    },
+    {
+      "name": "manual-equipment",
+      "checks": 111,
+      "allChecksPassed": true,
+      "runtimePassed": true,
+      "screenshots": [
+        {
+          "name": "manual-weaker",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/manual-equipment/manual-weaker.png",
+          "sha256": "6454e98a3a9a608073d7a3df1acd8e137baaac0ffc63daf8562680ebcdcb6a72",
+          "viewed": true
+        },
+        {
+          "name": "full-bag-accessory-swap",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/manual-equipment/full-bag-accessory-swap.png",
+          "sha256": "3e3418b38e33df5b1ff60ff99faea0606b318156ebeed3ac24ed042c301f785f",
+          "viewed": true
+        },
+        {
+          "name": "hud-full-bag-counters",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/manual-equipment/hud-full-bag-counters.png",
+          "sha256": "5a980577ba6c8c42fdfcd703e390cadd44c774342bf1a770670390eb5fbba666",
+          "viewed": true
+        },
+        {
+          "name": "stronger-new-purchase",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/manual-equipment/stronger-new-purchase.png",
+          "sha256": "34d640b1090c63ed95c4338cdff08e7f7be14f6cc0e1db79df783a2af16dd7dc",
+          "viewed": true
+        },
+        {
+          "name": "hero-change-compatibility",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/manual-equipment/hero-change-compatibility.png",
+          "sha256": "2219ce6f6a53ba9921773ed9a1f733b59c5667ca3e350a72fcccbcb1643c25f2",
+          "viewed": true
+        }
+      ],
+      "observations": [
+        "Manual weaker equipment is retained through unrelated/weak acquisitions; stronger eligible new acquisition replaces it. Full-bag accessory replacement and compatible hero change are covered.",
+        "Two trusted rapid clicks produce exactly one successful action result and revision increment. Stale-action rejection preserves equipment and wallet; the evolving shop observation watermark is separately accounted for.",
+        "Full-bag HUD places kills, coins and BAG FULL at upper left without overlap."
+      ]
+    },
+    {
+      "name": "equipment-restart",
+      "checks": 4,
+      "allChecksPassed": true,
+      "runtimePassed": true,
+      "screenshots": [
+        {
+          "name": "restarted-manual-loadout",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/equipment-restart/restarted-manual-loadout.png",
+          "sha256": "cae19e9c51d2c351b30255bb9ac62b71517f613f814834966371c5df4b54e9b5",
+          "viewed": true
+        }
+      ],
+      "observations": [
+        "A new process with the same user data restores the weaker manual selection, despite a stronger stored item; live state, disk save and screenshot agree."
+      ]
+    },
+    {
+      "name": "hud-states",
+      "checks": 39,
+      "allChecksPassed": true,
+      "runtimePassed": true,
+      "screenshots": [
+        {
+          "name": "hud-boss-damage-start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-boss-damage-start.png",
+          "sha256": "a60f3e86a2da53dca71402a04ab890d7a9a65d2d620ef1c0470a66959dab78b7",
+          "viewed": true
+        },
+        {
+          "name": "hud-boss-damage-end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-boss-damage-end.png",
+          "sha256": "c1a59d649e13c179fd6b786ae2574da3357f5123e7f0e30e9365fbd1450b4188",
+          "viewed": true
+        },
+        {
+          "name": "hud-combined-start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-combined-start.png",
+          "sha256": "072a746681be3cac7611b9a9f44ec901b82114337ee7e50c990214ed7e8b9bb4",
+          "viewed": true
+        },
+        {
+          "name": "hud-fever-white-phase",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-fever-white-phase.png",
+          "sha256": "74bd55bd381ec9b55fb2193f7a2fe45d97f576a673e89ded544de8e65bcd3d57",
+          "viewed": true
+        },
+        {
+          "name": "hud-combined-level-white",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-combined-level-white.png",
+          "sha256": "37bd1842ff22bcf264364ac617e847d7a24baca0cff30d87f5381948c3c6a777",
+          "viewed": true
+        },
+        {
+          "name": "hud-normal-damage-start",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-normal-damage-start.png",
+          "sha256": "9a3442a2106007e3dc1658aede01ca92ae8095214f6bed9807534f0bfc1bd33c",
+          "viewed": true
+        },
+        {
+          "name": "hud-normal-damage-end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-normal-damage-end.png",
+          "sha256": "83fb82a452c8b82bdacf27b9ccd432d833555b94300d59fb1e3f4f238963a6ed",
+          "viewed": true
+        },
+        {
+          "name": "hud-combined-middle",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-combined-middle.png",
+          "sha256": "3661bf82c35c15de6b67ba55155c0b45d3b022ab30c6e57bc71054424edc3018",
+          "viewed": true
+        },
+        {
+          "name": "hud-combined-end",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-combined-end.png",
+          "sha256": "c244e5b24705aa950dca4e84132dcbd1775fc6b0435920263b742600da1ee0a5",
+          "viewed": true
+        },
+        {
+          "name": "hud-combined-expired",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/hud-states/hud-combined-expired.png",
+          "sha256": "33c340fdaee232d2934b295ca18f6a584891c55d74b31133ba873f714755f38a",
+          "viewed": true
+        }
+      ],
+      "observations": [
+        "All ten screenshots were viewed. Boss and normal damage start/end show outlined ink above the monster; the actual same-float endpoint ages are within 500–600ms and rise measurements match the 28px normal curve. Critical 42px behavior is also bound by source/unit coverage; the two isolated native endpoint samples are normal hits.",
+        "REBIRTH READY, outlined LEVEL UP and FEVER form the expected head stack. LEVEL UP changes yellow/white on its 600ms phase and expires at 2400ms; FEVER changes on its 200ms phase and is absent from the upper HUD.",
+        "The combined level-white and FEVER-white PNGs were additionally viewed at original detail. Exact PNG inspection confirms 848 native white FEVER pixels and no yellow at the white phase; source-derived logical glyph/outline raster checks agree.",
+        "The observer uses actual engine presentation age and source-bound read-only effects state. Native input provenance records 21 intended KeyA requests with expected trusted nonrepeat down/up pairs and no extra mouse/IPC trigger."
+      ]
+    },
+    {
+      "name": "field-party",
+      "checks": 17,
+      "allChecksPassed": true,
+      "runtimePassed": true,
+      "screenshots": [
+        {
+          "name": "field-party-legacy",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/field-party/field-party-legacy.png",
+          "sha256": "b8a33c190723abd6f748fa2275c5dfc63678a75370e55ce0f8cc5840e515ea4a",
+          "viewed": true
+        },
+        {
+          "name": "field-party-legacy-labels",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/field-party/field-party-legacy-labels.png",
+          "sha256": "f47db1005d1a984c1ddcff98e19509a235ec192afdd8e7001e382f05adbc3179",
+          "viewed": true
+        },
+        {
+          "name": "field-party-new-curve",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/field-party/field-party-new-curve.png",
+          "sha256": "5d21dcc9cf2f84127aa208edc8c407b68fda78cfc2d1a84a77b7ade047e72b64",
+          "viewed": true
+        },
+        {
+          "name": "field-party-new-curve-labels",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/field-party/field-party-new-curve-labels.png",
+          "sha256": "127111fe2ff2d396c9c2fa0e0a32d99b4ca6351b5eabe6d7cb71f9398a0681cd",
+          "viewed": true
+        },
+        {
+          "name": "field-party-grown",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/field-party/field-party-grown.png",
+          "sha256": "0420761459d4591c2aeba7b8d7f62645ec842dc98dd878ae054f58882b167b47",
+          "viewed": true
+        },
+        {
+          "name": "field-party-grown-labels",
+          "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/attempt-final-1789725817407/field-party/field-party-grown-labels.png",
+          "sha256": "e3af64793b6bcb119f83746cc800df88e035f4d58a6b91719ef8d3cbc4925205",
+          "viewed": true
+        }
+      ],
+      "observations": [
+        "All six field/label screenshots were viewed. Legacy-to-v11 spawn and real consume result update hunting labels and active party while preserving raw/PvP values.",
+        "Membership is proven by actual drawParty IDs and encounter curveRebirths=1, rather than inferred from similar-looking sprites: c1..c4+c6 legacy, c1..c4+c5 v11, then c1..c4+c6 after growth.",
+        "The growth preview is compared with actual applied hunting/PvP integers, including title values where displayed abbreviations could hide a mismatch; durable snapshot agrees."
+      ]
+    }
+  ],
+  "latency": [
+    {
+      "name": "tabs",
+      "n": 100,
+      "visualP95Ms": 31.700000047683716,
+      "resultP95Ms": 31.700000047683716,
+      "allTrusted": true
+    },
+    {
+      "name": "disclosures",
+      "n": 100,
+      "visualP95Ms": 31.5,
+      "resultP95Ms": 31.5,
+      "allTrusted": true
+    },
+    {
+      "name": "growth-selection",
+      "n": 100,
+      "visualP95Ms": 30.100000023841858,
+      "resultP95Ms": 30.100000023841858,
+      "allTrusted": true
+    },
+    {
+      "name": "equipment-actions",
+      "n": 107,
+      "visualP95Ms": 31.299999952316284,
+      "resultP95Ms": 46.60000002384186,
+      "allTrusted": true
+    }
+  ],
+  "timingInterpretation": "107 equipment samples bind actual MENU_ACTION entry and engine.apply start/return through nonpausing CDP tracepoints, raw ACK-derived action keys and packaged source hashes. Calibrated cross-process bounds retain measured 100µs Chromium quantization and IEEE754 epoch rounding. Subquantum order remains explicitly unresolved; ACK is not used as the core apply timestamp. Result paint is a double-requestAnimationFrame feedback proxy, not exact monitor presentation.",
+  "findings": [],
+  "limitations": [
+    "Five bounded native scenarios and 407 trusted click samples do not prove every possible saved state or human play style.",
+    "Windows hardware, live PostgreSQL/deployment and human fun are separate external checks.",
+    "Final CPU/RAM comparison and complete final release verification remain pending."
+  ]
+}

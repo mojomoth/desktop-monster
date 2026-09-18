@@ -1,0 +1,82 @@
+{
+  "version": 11,
+  "status": "selected-after-independent-guard-review-pending-heldout",
+  "selected": "R19-B",
+  "selectedAt": "2026-09-18T09:49:48.617Z",
+  "parameters": {
+    "heroMinLevel": 26,
+    "heroLevelStepCap": 0,
+    "fieldHpNumerator": 1080,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailNumerator": 10935,
+    "fieldHpTailPolynomial": 0,
+    "fieldHpIndexCap": 159,
+    "fieldRebirthBonus": 9,
+    "fieldRebirthHalf": 1,
+    "fieldRebirthBonusScale": 16,
+    "fieldCompanionTailPolynomial": 1,
+    "fieldCompanionTailScale": 256,
+    "fieldCompanionIndexCap": 79,
+    "fieldCompanionBaseFloor": 14000,
+    "fieldCompanionGrowthBonus": 25,
+    "fieldHeroCycleBonus": 128,
+    "fieldHpResumeIndex": 399,
+    "fieldCompanionFeverMultiplier": 2,
+    "fieldRebirthCountCap": 4
+  },
+  "score": {
+    "maximumMedianDeviation": 27.166666666666657,
+    "maximumP90": 283.9166666666667
+  },
+  "selectionReport": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-explore/report.json",
+  "selectionSha256": "ac6156bea14badf7dbb4bcdf1574dc090059b8e714aa19346c50c68d1c911900",
+  "artifacts": {
+    "growth": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-growth-b/report.json",
+      "sha256": "44dc2f8d7990cb20f0404d1c02eb618c08daa7519bcb246fe660fd532724db4c"
+    },
+    "reserveGrowth": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-reserve-b/report.json",
+      "sha256": "f5d719761888c2328eaea0153f7e573bc29188ed809ce91d56fe41a6077984a6"
+    },
+    "management": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-management-b/report.json",
+      "sha256": "224f904a3b21b598ef7bdd437257ec0f6c2d9c1cf52e1bef5f85c1192eed95e4"
+    },
+    "noReset": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-no-reset-b/report.json",
+      "sha256": "86be4b4882bd8f64119a269dc5f2a2d0bc68ece677c2958dde152e677f733d89"
+    },
+    "finiteFarm": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-finite-b/report.json",
+      "sha256": "5743ab255bc08e1b019bae1d14943dea8769eb7bd079aff8200f1b0a9dfb0321"
+    }
+  },
+  "emptyPartyReports": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-empty-party-guards/report.json",
+      "sha256": "17b8b2293f2f83ceec8c51a65d488a7ba03bff74704fdee7cc8a59d02c142818",
+      "cases": [
+        "zero-companions",
+        "removed-last-companion"
+      ]
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-after50-empty-party/report.json",
+      "sha256": "806d5a6d05d74ae75c621525358f64ca52dd941e43b91314119ca183dc7e4038",
+      "cases": [
+        "removed-last-after50"
+      ]
+    }
+  ],
+  "heldoutSeeds": {
+    "first": 126001,
+    "count": 100
+  },
+  "consumedHeldOutSeeds": [
+    {
+      "first": 125001,
+      "count": 100
+    }
+  ]
+}

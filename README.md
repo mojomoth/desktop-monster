@@ -1,10 +1,14 @@
 # DesMon — Desktop Monster
 
-## v0.11.0 개발
+## v0.11.0: HUD·메뉴·수동 장착·환생 밸런스
 
-v0.10.0 기준선은 `v0.10.0` 태그로 보존했습니다. HUD 배치·메뉴 반응·수동 장착과 반복 환생 곡선을 개선합니다. 실행은 [v11 하네스](.harness/v11/HARNESS.md), 기준은 [기능 계약](docs/v0.11/CONTRACT.md), 진행 상태는 [검증 기록](docs/v0.11/ACCEPTANCE.md)을 확인하세요.
+v0.10.0 기준선은 annotated `v0.10.0` 태그로 보존했습니다. 처치 수·금화를 좌상단으로 옮기고, 몬스터 머리 위 데미지와 영웅의 레벨업·FEVER 표시를 개선했습니다. 메뉴를 560px로 넓혀 8개 탭을 한 줄에 배치하고, 저장 갱신 중에도 펼침·성장 선택·포커스를 유지합니다. ‘영혼 회귀’는 영웅, ‘내보내기’는 내 기록에서 사용할 수 있습니다.
 
-개발 검증본은 `release/mac-arm64/DesMon.app`, `release/DesMon-0.11.0-arm64.dmg`, `release/DesMon Setup 0.11.0.exe`에 있습니다. 테스트 1,230개·하네스 검사 49개·린트·타입 검사·smoke·양 플랫폼 패키징이 통과했습니다. 실제 Electron에서 HUD·메뉴·수동 장착을 확인했고 클릭 407건의 시각 반응 p95는 최대 25ms였습니다. 환생 밸런스는 아직 채택하지 않았으며 유휴 CPU 기준도 초과해 전체 v0.11 완료 상태는 아닙니다. [인계 기록](docs/v0.11/HANDOFF.md)에 남은 판단과 재개 방법을 정리했습니다.
+장비를 직접 장착할 수 있으며 선택은 재시작 후에도 유지됩니다. 이후 얻은 호환 장비가 실제 장착 조합의 공격력을 높일 때만 자동 교체하고, 공격력이 같으면 현재 장비를 유지합니다. 시간 잠금 없이 새 영웅 환생 곡선을 적용했습니다. stage40부터 가능한 영혼 회귀는 별도 기능입니다. 등록된 일반·간헐 플레이의 1~10회 환생 중앙값이 각각 3~5시간 기준을 통과했습니다. 강한 기존 자산과 별도 성장 전략의 예외는 [밸런스 보고서](docs/v0.11/BALANCE_REPORT.md)에 공개합니다.
+
+테스트 1,264개·하네스 검사 82개·린트·타입 검사·smoke·macOS/Windows 패키징을 통과했습니다. 실제 Electron 183개 검사와 화면 28장 검토를 통과했고, 클릭 407건의 시각 반응 p95는 최대 31.7ms, 장비 적용 결과 p95는 46.6ms였습니다. 활동·방치 각30분의 CPU·메모리 회귀 기준도 통과했습니다. [성능 결과](docs/v0.11/PERFORMANCE_REPORT.md)에 기준선 대비 수치와 관측 한계를 기록했습니다. 완료 상태와 한계는 [검증 기록](docs/v0.11/ACCEPTANCE.md), 재현 방법은 [인계 기록](docs/v0.11/HANDOFF.md), 역할과 판정 절차는 [v11 하네스](.harness/v11/HARNESS.md)에 있습니다.
+
+로컬 산출물은 `release/mac-arm64/DesMon.app`, `release/DesMon-0.11.0-arm64.dmg`, `release/DesMon Setup 0.11.0.exe`입니다. 원격 push와 운영 서버 배포는 수행하지 않았습니다(`DESMON_SKIP_NET=1`).
 
 ## v0.10.0: 장비와 금화 경제
 
@@ -14,7 +18,7 @@ v0.10.0 기준선은 `v0.10.0` 태그로 보존했습니다. HUD 배치·메뉴 
 
 에픽 외형 후속 개선으로 무기 32종·악세사리 24종에 화염·초승달·용·날개·해골·유물 등의 전용 실루엣을 적용했습니다. 대기 중 무기가 턱을 덮던 합성 문제도 수정했습니다. [새 외형과 검증 기록](docs/v0.10/EPIC_ART.md)을 확인하세요.
 
-최신 패키지는 `release/mac-arm64/DesMon.app`, `release/DesMon-0.10.0-arm64.dmg`, `release/DesMon Setup 0.10.0.exe`입니다. 외형 개선 빌드의 테스트 1,202개·린트·타입 검사·실제 Electron 검증과 양 플랫폼 패키징 결과는 후속 기록에 연결합니다. 이전 장시간 관측과 최종 통합 AC는 외형 변경 전 동결 빌드의 기록이며, 새 빌드의 장시간 관측으로 표시하지 않습니다. [검증 상태](docs/v0.10/ACCEPTANCE.md), [장비 카탈로그](docs/v0.10/CATALOG.md), [밸런스 도출](docs/v0.10/BALANCE_REPORT.md), [이전 성능 관측](docs/v0.10/PERFORMANCE_REPORT.md), [인계 기록](docs/v0.10/HANDOFF.md)을 확인하세요. Windows 실기기·실제 PostgreSQL·사람의 재미 평가는 미수행입니다.
+v0.10.0 비교용 앱은 `.agentdoc/v11-20260918/preservation/DesMon-0.10.0.app`에 보존했습니다. 아래 검증은 이전 버전의 기록이며 현재 `release/mac-arm64/DesMon.app`은 v0.11.0입니다. 외형 개선 빌드의 테스트 1,202개·린트·타입 검사·실제 Electron 검증과 양 플랫폼 패키징 결과는 후속 기록에 연결합니다. 이전 장시간 관측과 최종 통합 AC는 외형 변경 전 동결 빌드의 기록이며, 새 빌드의 장시간 관측으로 표시하지 않습니다. [검증 상태](docs/v0.10/ACCEPTANCE.md), [장비 카탈로그](docs/v0.10/CATALOG.md), [밸런스 도출](docs/v0.10/BALANCE_REPORT.md), [이전 성능 관측](docs/v0.10/PERFORMANCE_REPORT.md), [인계 기록](docs/v0.10/HANDOFF.md)을 확인하세요. Windows 실기기·실제 PostgreSQL·사람의 재미 평가는 미수행입니다.
 
 ## v0.9.1 — 금화 PvP와 방어전 재생
 
@@ -182,18 +186,21 @@ bar tray hosts the menu (`DesMon v0.11.0`, input-mode status,
   with a 35 % chance (sparkle effect). Companions live in a roster of up to
   30. Companion power is `max(1, ⌊legacyBaseHp/20⌋) × level × 2^stars`.
   `legacyBaseHp` is the original normal-monster HP curve at the capture depth;
-  field progression tuning does not change the power of owned companions.
-- **Party of 5.** The **party** is the 5 companions with the highest power
-  *after* the type chart is applied against the monster currently on screen —
+  this owned/PvP power remains unchanged. Hunting uses a separate fixed curve
+  with diminishing level/star gains; roster cards and growth previews show
+  hunting and PvP values separately.
+- **Party of 5.** The hunting **party** is the 5 companions with the highest current-encounter
+  hunting power after hero buffs and the type chart are applied —
   so it is re-picked automatically on every volley and visibly changes when a
   new monster spawns. The party stands left of the hero as an overlapping
   group (bigger members further back) and fires one projectile each per
   second — a **volley** that damages, kills and loots entirely without input,
   so the game keeps progressing while you type in another app.
 - **Fever.** Landing 20 inputs within 3 seconds starts **fever mode**: a
-  hue-cycling aura around the hero, a `FEVER!` banner, an ascending blip, and
-  ×3 damage for both hero and companions for 5 seconds, followed by a
-  10-second cooldown before it can trigger again.
+  hue-cycling aura, a flashing outlined `FEVER!` label above the hero, and an
+  ascending blip. For 5 seconds the hero deals ×3 damage and hunting companions
+  deal ×2 damage, followed by a 10-second cooldown. A saved v0.10 encounter
+  retains its companion ×3 rule until the next monster spawns.
 - **Companion lifecycle.** In the Collection window a companion can be
   **consumed** (feed another companion to raise its level; no gameplay level cap),
   **fused** (two of the same species and star count → one with +1 star),
@@ -201,13 +208,14 @@ bar tray hosts the menu (`DesMon v0.11.0`, input-mode status,
   **sacrificed** (deleted for `1 + stars` souls). Levels must remain positive
   safe integers, at most 9,007,199,254,740,991; an overflowing operation
   changes neither the companions nor its materials. Reincarnation shows the
-  before/after power and requires a separate confirmation. Its base power
+  before/after power and requires a separate confirmation. Its owned/PvP base power
   becomes `2 / previous level` of the original (one fifth at level 10), so
-  gaining a star does not mean an immediate power increase.
-- **Rebirth.** From monster index 40 you may **rebirth**: the run resets to
+  gaining a star does not mean an immediate power increase. The preview
+  separately shows the hunting change under the fixed field curve.
+- **Soul recovery.** From monster index 40 you may use **영혼 회귀** in the hero tab: the run resets to
   level 1 / monster 0 but you gain `⌊index/8⌋` **souls**, and companions,
-  coins, trinkets, kills and your deepest index are kept. Souls multiply all
-  damage by `(1 + souls)` and turn the hero's slash gold. It remains available alongside hero reincarnation; it keeps your equipped
+  coins, trinkets, kills and your deepest index are kept. Souls multiply hero base
+  attack by `(1 + souls)` and turn the hero's slash gold. It remains available alongside hero reincarnation; it keeps your equipped
   appearance. Progression is endless, with no win state.
 - **A–Z numbers.** Damage and companion power are unbounded integers rendered
   in truncating A–Z notation: values under 1000 print verbatim, above that
@@ -218,17 +226,17 @@ bar tray hosts the menu (`DesMon v0.11.0`, input-mode status,
 ## Collection & Battle window
 
 The tray item **`영웅과 모험 기록…`** opens a small framed window
-(420×640) with eight tabs:
+(560×640) with eight tabs in one row:
 
-- **영웅** — hero damage, three reincarnation previews, and defer/gold reroll.
-- **장비** — one weapon, four accessories, bag capacity and temporary overflow.
+- **영웅** — hero damage, three reincarnation previews, defer/gold reroll, and soul recovery (영혼 회귀 · 외형 유지).
+- **장비** — one weapon, four accessories, manual equipment, bag capacity and temporary overflow. Manual choices persist across save/restart; newly obtained compatible upgrades may replace them, while equal attack preserves the current choice.
 - **상점** — hourly equipment stock, purchases, sales and enhancement, plus existing weapon training and rare lures.
 - **도감** — hero/monster acquisition records, unread discoveries, a free goal, and owned hero equipment.
-- **내 기록** — editable nickname, play time, kills, and reincarnation history.
+- **내 기록** — editable nickname, play time, kills, reincarnation history, and PNG export (내보내기).
 - **Roster** — one card per companion with its species art, type badge,
   level, stars and power in A–Z notation, a `★ PvP` mark when it is in your
-  PvP party, the Consume / Fuse / Reincarnate / Sacrifice buttons, and
-  Rebirth (enabled from monster index 40). Changes apply to the running game
+  PvP party, and the Consume / Fuse / Reincarnate / Sacrifice buttons.
+  Changes apply to the running game
   and are saved immediately.
 - **Ranking** — the global leaderboard (see below), with your row highlighted.
 - **Battle** — asynchronous PvP against another player (see below).

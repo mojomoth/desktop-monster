@@ -1,0 +1,46 @@
+Timestamp               Ty Process[PID:TID]
+2026-09-18 15:56:35.098 A  Electron[11798:2bf60d7] (CoreSpotlight) end-index-batch
+2026-09-18 15:56:35.102 A  Electron[11798:2bf60d7] (CoreSpotlight) index-items
+2026-09-18 15:56:37.073 Df Electron[11798:2bf5adc] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges]
+2026-09-18 15:56:37.073 Df Electron[11798:2bf5adc] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges] finishing enqueued operations
+2026-09-18 15:56:37.073 Df Electron[11798:2bf5b4a] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges]_block_invoke asyncing to main queue
+2026-09-18 15:56:37.073 Df Electron[11798:2bf60d8] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges]_block_invoke writing records
+2026-09-18 15:56:37.074 A  Electron[11798:2bf5b4a] (RunningBoardServices) didChangeInheritances
+2026-09-18 15:56:37.281 A  Electron[11798:2bf5adc] (CoreFoundation) Loading Preferences From User CFPrefsD
+2026-09-18 15:56:37.376 A  Electron[11798:2bf5adc] (CoreFoundation) Loading Preferences From User CFPrefsD
+2026-09-18 15:56:38.519 A  Electron[11798:2bf60d8] (RunningBoardServices) didChangeInheritances
+2026-09-18 15:56:38.599 A  Electron[11798:2bf5b4a] (CoreSpotlight) end-index-batch
+2026-09-18 15:56:38.599 A  Electron[11798:2bf5b4a] (CoreSpotlight) index-items
+2026-09-18 15:56:39.133 A  Electron[11798:2bf5adc] (CoreFoundation) Loading Preferences From User CFPrefsD
+2026-09-18 15:56:39.185 A  Electron[11798:2bf60d8] (RunningBoardServices) didChangeInheritances
+2026-09-18 15:56:39.210 Df Electron[11798:2bf5adc] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges]
+2026-09-18 15:56:39.211 Df Electron[11798:2bf5adc] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges] finishing enqueued operations
+2026-09-18 15:56:39.211 Df Electron[11798:2bf5b4a] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges]_block_invoke asyncing to main queue
+2026-09-18 15:56:39.211 Df Electron[11798:2bf60d8] [com.apple.AppKit:StateRestoration] -[NSPersistentUIManager flushAllChanges]_block_invoke writing records
+2026-09-18 15:56:39.554 A  Electron[11798:2bf5adc] (CoreFoundation) Loading Preferences From User CFPrefsD
+2026-09-18 15:56:41.005 Df Electron[11798:2bf5adc] [com.apple.FrontBoard:SceneClient] [com.apple.controlcenter:411914B6-8507-4BA8-867B-7D5018D5A719] Sending action(s) in update: NSSceneFenceAction
+2026-09-18 15:56:41.209 A  Electron[11798:2bf60d8] (CoreSpotlight) end-index-batch
+2026-09-18 15:56:41.209 A  Electron[11798:2bf60d8] (CoreSpotlight) index-items
+2026-09-18 15:56:42.586 Df Electron[11798:2bf5adc] [com.apple.BoardServices:XPCErrors] [C:3] Alloc com.apple.backboard.hid-services.xpc
+2026-09-18 15:56:42.586 Df Electron[11798:2bf5adc] [com.apple.xpc:connection] [0x11c0203e860] activating connection: mach=false listener=false peer=false name=(anonymous)
+2026-09-18 15:56:42.587 E  Electron[11798:2bf60d8] [com.apple.BaseBoard:Common] Unable to obtain a task name port right for pid 409: (os/kern) failure (0x5)
+2026-09-18 15:56:42.588 Df Electron[11798:2bf60d8] [com.apple.BackBoard:EventDelivery] BKSHIDEventDeliveryManager - connection activation
+2026-09-18 15:56:42.588 A  Electron[11798:2bf5adc] (AppKit) perform action for menu item
+2026-09-18 15:56:42.589 A  Electron[11798:2bf5adc] (AppKit) sendAction:
+2026-09-18 15:56:42.642 Df Electron[11798:2bf60d8] [com.apple.xpc:connection] [0x11c00075800] activating connection: mach=true listener=false peer=false name=com.apple.proactive.app-client.donation
+2026-09-18 15:56:42.647 Df Electron[11798:2bf5adc] [com.apple.FrontBoard:SceneClient] [com.apple.controlcenter:411914B6-8507-4BA8-867B-7D5018D5A719] Sending action(s) in update: NSSceneFenceAction
+2026-09-18 15:56:42.688 Df Electron[11798:2bf5b4a] [com.apple.xpc:connection] [0x11c00071340] invalidated because the current process cancelled the connection by calling xpc_connection_cancel()
+2026-09-18 15:56:42.688 Df Electron[11798:2bf5b4a] [com.apple.xpc:session] [0x11c01ae9900] Session canceled.
+2026-09-18 15:56:42.688 Df Electron[11798:2bf60d7] [com.apple.UIIntelligenceSupport:xpc] agent connection cancelled (details: Session manually canceled)
+2026-09-18 15:56:42.688 Df Electron[11798:2bf60d7] [com.apple.xpc:session] [0x11c01ae9900] Disposing of session
+2026-09-18 15:56:42.701 Df Electron[11798:2bf5adc] [com.apple.FrontBoard:SceneClient] [com.apple.controlcenter:411914B6-8507-4BA8-867B-7D5018D5A719] Sending action(s) in update: NSSceneFenceAction
+2026-09-18 15:56:42.720 E  Electron[11798:2bf63c8] [com.apple.FrontBoard:SceneClient] No scene exists for identity: com.apple.controlcenter:411914B6-8507-4BA8-867B-7D5018D5A719-Replicant[1]-Aux[1]-NSStatusItemView
+2026-09-18 15:56:42.720 E  Electron[11798:2bf63c8] [com.apple.FrontBoard:SceneClient] No scene exists for identity: com.apple.controlcenter:411914B6-8507-4BA8-867B-7D5018D5A719-Aux[1]-NSStatusItemView
+2026-09-18 15:56:46.282 Df Electron[11798:2bf5adc] [com.apple.network:path] nw_path_evaluator_cancel [B4C98DD4-69B8-41D9-BEFE-CC22D391F63F] cancel
+2026-09-18 15:56:46.286 Df Electron[11798:2bf5b4a] [com.apple.xpc:connection] [0x11c011469c0] activating connection: mach=true listener=false peer=false name=com.apple.powerlog.plxpclogger.xpc
+2026-09-18 15:56:46.286 Df Electron[11798:2bf5adc] [com.apple.CoreAnalytics:client] Entering exit handler.
+2026-09-18 15:56:46.286 Df Electron[11798:2bf5adc] [com.apple.CoreAnalytics:client] Queueing exit procedure onto XPC queue. Any further messages sent will be discarded. activeSendTransactions=0
+2026-09-18 15:56:46.286 Df Electron[11798:2bf63c8] [com.apple.CoreAnalytics:client] Cancelling XPC connection. Any further reply handler invocations will not retry messages
+2026-09-18 15:56:46.286 Df Electron[11798:2bf63c8] [com.apple.xpc:connection] [0x11800161540] invalidated because the current process cancelled the connection by calling xpc_connection_cancel()
+2026-09-18 15:56:46.286 Df Electron[11798:2bf5adc] [com.apple.CoreAnalytics:client] Exiting exit handler.
+2026-09-18 15:56:46.286 Df Electron[11798:2bf5b4a] [com.apple.CoreAnalytics:client] XPC connection invalidated (daemon unloaded/disabled)

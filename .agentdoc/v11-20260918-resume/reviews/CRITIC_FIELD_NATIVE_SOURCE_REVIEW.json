@@ -1,0 +1,34 @@
+{
+  "reviewer": "/root/skills_harness",
+  "at": "2026-09-18T07:29:25.711Z",
+  "source": "742decb6b308797bc758c584547ab4e84feb04bf72d55c6c096e54c94a8461bf",
+  "scope": "Resumed field-party native observer, lifecycle diagnostics and independent field/share raster tests",
+  "verdict": "approved-source-pending-native",
+  "files": {
+    ".harness/v11/ui-cases.mjs": "623dde4111dcb44caaaef3c07fb50074b52150f4bcc5bdab1e3c8a9a9cef81ed",
+    ".harness/v11/runtime.mjs": "b4f5caff8c0294381107ff27a0ede520567b7329eea1921f0427104a8c71798d",
+    ".harness/v11/runtime.test.mjs": "80cb23d926b018df890732697b7f3bad9104c4bf710c55a77ff853fa55ae50fa",
+    "tests/share-field-v11.test.ts": "260e1a0dbf8ddd5b4b888482da7ff0edfd4ca6f9208b8272c73ab6ccbad8acf4",
+    "tests/renderer-field-v11.test.ts": "ecb897e96877e9014a4171a8a60e1e79f670705a783dbeed36fc2837baf53627",
+    "tests/hud-v09.test.ts": "b8b6246fd65514014bd0ef9cad23d744477c73e9d837395a2aaff9d3a46dfe3e",
+    "tests/heroJobStudies.test.ts": "12e7d10526251b2979c481e2afe5b065194820f32f7d780a13e364f7614db5dc"
+  },
+  "checks": [
+    {
+      "command": "node --test .harness/v11/runtime.test.mjs .harness/v11/final-check.test.mjs .harness/v11/balance-verify.test.mjs",
+      "passed": true,
+      "total": 43
+    },
+    {
+      "command": "npx vitest run tests/share-field-v11.test.ts tests/renderer-field-v11.test.ts tests/hud-v09.test.ts tests/heroJobStudies.test.ts",
+      "passed": true,
+      "total": 14
+    }
+  ],
+  "limitations": [
+    "No resumed packaged native run performed by reviewer.",
+    "New field scenario requires nonneutral selected candidate; actual app source and five-scenario evidence still need final verification.",
+    "Balance winner, original heldout and separate management evidence remain pending.",
+    "Earlier performance failure remains open until unchanged-budget candidate observation passes."
+  ]
+}

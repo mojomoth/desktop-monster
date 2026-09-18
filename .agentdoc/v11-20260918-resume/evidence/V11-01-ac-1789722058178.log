@@ -1,0 +1,385 @@
+TAP version 13
+# Subtest: censored ordinary and stress trajectories must finish their registered exposure
+ok 1 - censored ordinary and stress trajectories must finish their registered exposure
+  ---
+  duration_ms: 2.102166
+  ...
+# Subtest: ten-cycle continuations may stop at18h only when first three cycles failed
+ok 2 - ten-cycle continuations may stop at18h only when first three cycles failed
+  ---
+  duration_ms: 0.618458
+  ...
+# Subtest: management keeps its20 exploration seeds separate from the280 heldout schedule and pacing verdict
+ok 3 - management keeps its20 exploration seeds separate from the280 heldout schedule and pacing verdict
+  ---
+  duration_ms: 2.296584
+  ...
+# Subtest: management rejects shortened/corrupt schedules, changed policy, and inconsistent reward telemetry
+ok 4 - management rejects shortened/corrupt schedules, changed policy, and inconsistent reward telemetry
+  ---
+  duration_ms: 0.921583
+  ...
+# Subtest: management cannot substitute another candidate, evaluator, compiled artifact, or pacing pass
+ok 5 - management cannot substitute another candidate, evaluator, compiled artifact, or pacing pass
+  ---
+  duration_ms: 0.972166
+  ...
+# Subtest: growth diagnostic retains60 trajectories and23 guards including later cycles without replacing heldout
+ok 6 - growth diagnostic retains60 trajectories and23 guards including later cycles without replacing heldout
+  ---
+  duration_ms: 1.215167
+  ...
+# Subtest: growth censored rows remain in every scheduled quantile and never turn null into a pass
+ok 7 - growth censored rows remain in every scheduled quantile and never turn null into a pass
+  ---
+  duration_ms: 1.009
+  ...
+# Subtest: growth actions independently enumerate actual volley gains, preserve owned stats and follow capture/consume continuity
+ok 8 - growth actions independently enumerate actual volley gains, preserve owned stats and follow capture/consume continuity
+  ---
+  duration_ms: 4.364334
+  ...
+# Subtest: growth accepts zero marginal gain only with the registered target/food tie break
+ok 9 - growth accepts zero marginal gain only with the registered target/food tie break
+  ---
+  duration_ms: 0.3645
+  ...
+# Subtest: new growth receipts bind the active fever factor to the actual version-specific core helper
+ok 10 - new growth receipts bind the active fever factor to the actual version-specific core helper
+  ---
+  duration_ms: 1.666125
+  ...
+# Subtest: growth report binding cannot omit guards or substitute a different code/candidate
+ok 11 - growth report binding cannot omit guards or substitute a different code/candidate
+  ---
+  duration_ms: 1.580667
+  ...
+# Subtest: reserve growth keeps20 high-input ten-cycle trajectories separate and usesp10 rather than a single minimum
+ok 12 - reserve growth keeps20 high-input ten-cycle trajectories separate and usesp10 rather than a single minimum
+  ---
+  duration_ms: 0.841625
+  ...
+# Subtest: reserve growth rejects incomplete horizons, aggressive five-member consumption and altered registration
+ok 13 - reserve growth rejects incomplete horizons, aggressive five-member consumption and altered registration
+  ---
+  duration_ms: 1.758625
+  ...
+# Subtest: reserve growth reuses real action checks and requires its own source-bound ten-group receipt
+ok 14 - reserve growth reuses real action checks and requires its own source-bound ten-group receipt
+  ---
+  duration_ms: 1.818458
+  ...
+# Subtest: no-reset retains20 complete24-hour exposures, zero hero actions and separate non-pacing telemetry
+ok 15 - no-reset retains20 complete24-hour exposures, zero hero actions and separate non-pacing telemetry
+  ---
+  duration_ms: 4.500666
+  ...
+# Subtest: no-reset verifies actual legal raw-weakest releases, capture continuity, souls and exact after-roster
+ok 16 - no-reset verifies actual legal raw-weakest releases, capture continuity, souls and exact after-roster
+  ---
+  duration_ms: 11.47025
+  ...
+# Subtest: no-reset receipt binds selected code and cannot claim pacing or human-fun acceptance
+ok 17 - no-reset receipt binds selected code and cannot claim pacing or human-fun acceptance
+  ---
+  duration_ms: 1.124458
+  ...
+# Subtest: approved field curve candidates preserve raw/PvP, XP, capture and no-timer parameters
+ok 18 - approved field curve candidates preserve raw/PvP, XP, capture and no-timer parameters
+  ---
+  duration_ms: 16.360333
+  ...
+# Subtest: reject hidden source tuning, changed tie-break baselines and fixed-registration contradictions
+ok 19 - reject hidden source tuning, changed tie-break baselines and fixed-registration contradictions
+  ---
+  duration_ms: 5.04975
+  ...
+# Subtest: candidate mutation rejects frozen keys, regex/path injection and invalid numeric domains
+ok 20 - candidate mutation rejects frozen keys, regex/path injection and invalid numeric domains
+  ---
+  duration_ms: 11.354542
+  ...
+# Subtest: fixed reset count cap retains neutral null and cannot hide in source or alter selection baseline
+ok 21 - fixed reset count cap retains neutral null and cannot hide in source or alter selection baseline
+  ---
+  duration_ms: 0.972583
+  ...
+# Subtest: progression scope parses literal source without executing expressions or accepting duplicates
+ok 22 - progression scope parses literal source without executing expressions or accepting duplicates
+  ---
+  duration_ms: 0.70025
+  ...
+# Subtest: package identity includes contents and symlink destinations without following cycles
+ok 23 - package identity includes contents and symlink destinations without following cycles
+  ---
+  duration_ms: 4.611583
+  ...
+# Subtest: same version with a different payload or native file fails installer equivalence
+ok 24 - same version with a different payload or native file fails installer equivalence
+  ---
+  duration_ms: 7.370834
+  ...
+# Subtest: latest failed gate or altered AC rejects prior success; final task has no circular receipt
+ok 25 - latest failed gate or altered AC rejects prior success; final task has no circular receipt
+  ---
+  duration_ms: 25.66025
+  ...
+# Subtest: independent scope reviews require actual authors, reviewed source and external limitations
+ok 26 - independent scope reviews require actual authors, reviewed source and external limitations
+  ---
+  duration_ms: 27.059
+  ...
+# Subtest: latency budgets require all families, paired finite samples and enough observations
+ok 27 - latency budgets require all families, paired finite samples and enough observations
+  ---
+  duration_ms: 26.681417
+  ...
+# Subtest: latency summaries cannot detach from trusted raw events or duplicate one click
+ok 28 - latency summaries cannot detach from trusted raw events or duplicate one click
+  ---
+  duration_ms: 20.910417
+  ...
+# Subtest: IPC/apply stages require source-bound events rather than ACK substitution
+ok 29 - IPC/apply stages require source-bound events rather than ACK substitution
+  ---
+  duration_ms: 21.254125
+  ...
+# Subtest: raw clock calibration brackets actions and exposes unresolved intervals without excusing inversions
+ok 30 - raw clock calibration brackets actions and exposes unresolved intervals without excusing inversions
+  ---
+  duration_ms: 14.284875
+  ...
+# Subtest: pinned timestamp quantization explains sub-quantum gaps but never excuses larger clock drift
+ok 31 - pinned timestamp quantization explains sub-quantum gaps but never excuses larger clock drift
+  ---
+  duration_ms: 13.100042
+  ...
+# Subtest: grouped pipeline samples cannot hide duplicate stages or detach from the complete trace
+ok 32 - grouped pipeline samples cannot hide duplicate stages or detach from the complete trace
+  ---
+  duration_ms: 17.337417
+  ...
+# Subtest: latest release command must pass for current source with its intact log
+ok 33 - latest release command must pass for current source with its intact log
+  ---
+  duration_ms: 1.030708
+  ...
+# Subtest: native reports bind all scenarios, current app, screenshots, isolation and latency
+ok 34 - native reports bind all scenarios, current app, screenshots, isolation and latency
+  ---
+  duration_ms: 44.311375
+  ...
+# Subtest: the pinned vendor subset and unmodified upstream hashes verify
+ok 35 - the pinned vendor subset and unmodified upstream hashes verify
+  ---
+  duration_ms: 0.616458
+  ...
+# Subtest: four fixed full-duration slots use the same unchanged observer and unchanged budgets
+ok 36 - four fixed full-duration slots use the same unchanged observer and unchanged budgets
+  ---
+  duration_ms: 2.13875
+  ...
+# Subtest: complete native rows pass; short duration, gaps, forged summary and wrong versions fail
+ok 37 - complete native rows pass; short duration, gaps, forged summary and wrong versions fail
+  ---
+  duration_ms: 22.133792
+  ...
+# Subtest: initial fixture persistence grace cannot hide changed, late or rolled-back saves
+ok 38 - initial fixture persistence grace cannot hide changed, late or rolled-back saves
+  ---
+  duration_ms: 11.297666
+  ...
+# Subtest: input schedule and raw process totals are independently checked
+ok 39 - input schedule and raw process totals are independently checked
+  ---
+  duration_ms: 13.793917
+  ...
+# Subtest: only explicit legacy current-monster migration defaults are normalized
+ok 40 - only explicit legacy current-monster migration defaults are normalized
+  ---
+  duration_ms: 0.168375
+  ...
+# Subtest: paired comparisons require serial unique fixtures, matched machines and frozen apps
+ok 41 - paired comparisons require serial unique fixtures, matched machines and frozen apps
+  ---
+  duration_ms: 77.406583
+  ...
+# Subtest: a measured CPU regression fails instead of silently broadening the budget
+ok 42 - a measured CPU regression fails instead of silently broadening the budget
+  ---
+  duration_ms: 19.047291
+  ...
+# Subtest: lifecycle binds exact main PID, save path and completed cleanup
+ok 43 - lifecycle binds exact main PID, save path and completed cleanup
+  ---
+  duration_ms: 3.145166
+  ...
+# Subtest: serial observations cannot launch another app during prior cleanup
+ok 44 - serial observations cannot launch another app during prior cleanup
+  ---
+  duration_ms: 0.404541
+  ...
+# Subtest: latest failure, stale source, changed log or artifact rejects earlier success
+ok 45 - latest failure, stale source, changed log or artifact rejects earlier success
+  ---
+  duration_ms: 4.225167
+  ...
+# Subtest: configuration rejects unknown dependencies, duplicate IDs and cycles
+ok 46 - configuration rejects unknown dependencies, duplicate IDs and cycles
+  ---
+  duration_ms: 0.747834
+  ...
+# Subtest: invalidation preserves attempts and reopens only affected descendants
+ok 47 - invalidation preserves attempts and reopens only affected descendants
+  ---
+  duration_ms: 9.683125
+  ...
+# Subtest: ownership prevents parent/child overlaps and required artifact omissions
+ok 48 - ownership prevents parent/child overlaps and required artifact omissions
+  ---
+  duration_ms: 0.0905
+  ...
+# Subtest: changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+ok 49 - changed AC contracts replace stale journal commands and invalidate dependents without erasing receipts
+  ---
+  duration_ms: 0.332
+  ...
+# Subtest: live ownership extensions retain work, reject traversal and reject another live owner
+ok 50 - live ownership extensions retain work, reject traversal and reject another live owner
+  ---
+  duration_ms: 0.271
+  ...
+# Subtest: source and protocol changes invalidate receipts while generated reports do not
+ok 51 - source and protocol changes invalidate receipts while generated reports do not
+  ---
+  duration_ms: 8.045375
+  ...
+# Subtest: field fixture chooses a discriminating trained level for different adopted tail scales and waits for one native hit
+ok 52 - field fixture chooses a discriminating trained level for different adopted tail scales and waits for one native hit
+  ---
+  duration_ms: 19.041542
+  ...
+# Subtest: field fixture uses Q2→Q3 to reverse real capped hunting membership with or without a base floor
+ok 53 - field fixture uses Q2→Q3 to reverse real capped hunting membership with or without a base floor
+  ---
+  duration_ms: 28.236042
+  ...
+# Subtest: field agreement rejects a stale/raw draw party or a misleading hunting/PvP label
+ok 54 - field agreement rejects a stale/raw draw party or a misleading hunting/PvP label
+  ---
+  duration_ms: 0.4885
+  ...
+# Subtest: growth preview must match actual applied hunting and PvP powers including integers hidden by formatting
+ok 55 - growth preview must match actual applied hunting and PvP powers including integers hidden by formatting
+  ---
+  duration_ms: 0.171833
+  ...
+# Subtest: lifecycle observer records quit stacks and shutdown events while preserving original calls and errors
+ok 56 - lifecycle observer records quit stacks and shutdown events while preserving original calls and errors
+  ---
+  duration_ms: 1.898667
+  ...
+# Subtest: HUD fixture starts with a surviving boss hit and reaches normal + ready + level-up + fever in one burst
+ok 57 - HUD fixture starts with a surviving boss hit and reaches normal + ready + level-up + fever in one burst
+  ---
+  duration_ms: 8.818792
+  ...
+# Subtest: menu live-save fixture progresses gold without removing its paginated bag or growth material
+ok 58 - menu live-save fixture progresses gold without removing its paginated bag or growth material
+  ---
+  duration_ms: 12.65875
+  ...
+# Subtest: live disclosure evidence requires the same state across a later coin-changing production save
+ok 59 - live disclosure evidence requires the same state across a later coin-changing production save
+  ---
+  duration_ms: 0.714875
+  ...
+# Subtest: full-bag native fixture supports explicit accessory swap, acquisitions, hero reconciliation and a weaker restart
+ok 60 - full-bag native fixture supports explicit accessory swap, acquisitions, hero reconciliation and a weaker restart
+  ---
+  duration_ms: 2.081958
+  ...
+# Subtest: local latency starts at a trusted click and finishes after two rendered frames
+ok 61 - local latency starts at a trusted click and finishes after two rendered frames
+  ---
+  duration_ms: 0.939917
+  ...
+# Subtest: applied latency waits for its matching production ACK and painted success
+ok 62 - applied latency waits for its matching production ACK and painted success
+  ---
+  duration_ms: 0.430709
+  ...
+# Subtest: native growth completion consumes a material, persists its level gain and remains separate from latency families
+ok 63 - native growth completion consumes a material, persists its level gain and remains separate from latency families
+  ---
+  duration_ms: 1.386542
+  ...
+# Subtest: untrusted clicks and rejected or absent production acknowledgments never count as samples
+ok 64 - untrusted clicks and rejected or absent production acknowledgments never count as samples
+  ---
+  duration_ms: 1.501459
+  ...
+# Subtest: native raster checks reject the startup-aged invisible boss float and verify actual rise
+ok 65 - native raster checks reject the startup-aged invisible boss float and verify actual rise
+  ---
+  duration_ms: 4.499167
+  ...
+# Subtest: native damage validation follows actual age through a startup dt jump without changing the rise curve
+ok 66 - native damage validation follows actual age through a startup dt jump without changing the rise curve
+  ---
+  duration_ms: 2.415959
+  ...
+# Subtest: native raster checks require complete glyph ink, outline and actual flash phase
+ok 67 - native raster checks require complete glyph ink, outline and actual flash phase
+  ---
+  duration_ms: 1.027792
+  ...
+# Subtest: serialized HUD geometry matches actual font drawing, including spaces with no glyph frame
+ok 68 - serialized HUD geometry matches actual font drawing, including spaces with no glyph frame
+  ---
+  duration_ms: 1.20525
+  ...
+# Subtest: HUD provenance distinguishes native repeats, mouse input and production input IPC without intercepting them
+ok 69 - HUD provenance distinguishes native repeats, mouse input and production input IPC without intercepting them
+  ---
+  duration_ms: 0.984875
+  ...
+# Subtest: duplicate-click evidence rejects sequential clicks, extra ACKs and repeated mutations
+ok 70 - duplicate-click evidence rejects sequential clicks, extra ACKs and repeated mutations
+  ---
+  duration_ms: 0.33525
+  ...
+# Subtest: pipeline recorder snapshots action identity and reports overflow without replacing earlier rows
+ok 71 - pipeline recorder snapshots action identity and reports overflow without replacing earlier rows
+  ---
+  duration_ms: 0.229625
+  ...
+# Subtest: clock calibration intersects resolution-bounded probes and rejects missing phases or drift beyond precision
+ok 72 - clock calibration intersects resolution-bounded probes and rejects missing phases or drift beyond precision
+  ---
+  duration_ms: 0.748709
+  ...
+# Subtest: dense timer observations retain repeated-read provenance and bounded distinct readings
+ok 73 - dense timer observations retain repeated-read provenance and bounded distinct readings
+  ---
+  duration_ms: 8.449667
+  ...
+# Subtest: pilot02 quantization gap is represented explicitly while larger drift remains a failure
+ok 74 - pilot02 quantization gap is represented explicitly while larger drift remains a failure
+  ---
+  duration_ms: 0.368167
+  ...
+# Subtest: public conditional tracepoints bind real source lines, preserve raw rows and clean up without pausing
+ok 75 - public conditional tracepoints bind real source lines, preserve raw rows and clean up without pausing
+  ---
+  duration_ms: 8.05125
+  ...
+1..75
+# tests 75
+# suites 0
+# pass 75
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 994.509

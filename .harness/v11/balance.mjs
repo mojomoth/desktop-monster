@@ -35,31 +35,82 @@ function compile(directory, candidate, sourceDirectory) {
     writeFileSync(resolve(directory, file.replace(/\.ts$/, '.js')), output);
   }
 }
-export function simulate(c, profile, seed, cyclesWanted, maxHours, tickMs = profile === 'high' ? 100 : 500) {
+export function simulate(c, profile, seed, cyclesWanted, maxHours, tickMs = profile === 'high' ? 100 : 500, policy = 'ordinary', recoveryQuota = 0) {
   let now = 0, nextInput = 0, previousAccepted = 0, income = 0n, sales = 0n, lastKill = 0, longestKillGap = 0;
   const started = performance.now(), cycles = [], wealthy = profile === 'wealthy';
   const initialCoins = wealthy ? 1000000n : 0n;
   const save = wealthy ? { ...c.DEFAULT_SAVE, level: 15, souls: 20, coins: String(initialCoins), companions: Array.from({ length: 5 }, (_, i) =>
     ({ id: `c${i + 1}`, speciesId: ['slime', 'bat', 'ghost', 'golem', 'dragon'][i], bossIndex: 39, level: 5, stars: 0 })), nextCompanionId: 6 } : null;
-  const engine = c.createEngine(save, c.mulberry32(seed), { equipmentSeed: seed ^ 0xe011, now: () => now });
-  let purchases = 0, enhancements = 0, soulRecoveries = 0, firstCompanionMs = null, firstReadyMs = null, firstPurchaseMs = null, equippedWeaponMs = 0;
-  const firstLevels = {}, checkpoints = [];
+  const sourceRng = c.mulberry32(seed);
+  let resetRngDraws = null, quotaCompletedAtMs = null;
+  const engine = c.createEngine(save, { next: () => { const draw = sourceRng.next(); resetRngDraws?.push(draw); return draw; } }, { equipmentSeed: seed ^ 0xe011, now: () => now });
+  let purchases = 0, enhancements = 0, soulRecoveries = 0, firstCompanionMs = null, firstReadyMs = null, firstPurchaseMs = null, firstEquippedWeaponMs = null, firstPartyBonusMs = null, equippedWeaponMs = 0;
+  const firstLevels = {}, checkpoints = [], growthActions = [], noResetActions = [], finiteFarmActions = [];
+  let heroOffers = 0, heroChoices = 0;
+  let observedHp = engine.getState().monsterHp, feverUntil = 0, longestKillGapContext = null, cycleLevelTimes = {}, heroApplied = 0n, companionApplied = 0n, heroReported = 0n, companionReported = 0n;
+  let feverCertainApplied = 0n, feverBoundaryApplied = 0n, feverActiveMs = 0, feverStarts = 0;
+  const damageMetrics = () => ({ heroApplied: String(heroApplied), companionApplied: String(companionApplied), heroReported: String(heroReported),
+    companionReported: String(companionReported), feverCertainApplied: String(feverCertainApplied), feverBoundaryApplied: String(feverBoundaryApplied), feverActiveMs, feverStarts });
+  let managementReleases = 0, maximumStage = 0, maxCapturedIndex = 0, maxCapturedRawPowerDigits = 1;
   let heroKills = 0, companionKills = 0, nextCheckpoint = 1800000, sampledHeapPeakBytes = 0;
-  const measure = events => {
+  const measure = (events, feverWindow = 'inactive') => {
     let actor = null;
     for (const event of events) {
-      if (event.type === 'attack') actor = 'hero';
-      if (event.type === 'companionAttack') actor = 'companion';
+      if (event.type === 'feverStart') { feverWindow = 'active'; feverStarts++; feverUntil = now + c.FEVER_MS; }
+      if (event.type === 'feverEnd') feverUntil = 0;
+      if (event.type === 'attack') { actor = 'hero'; heroReported += event.damage; }
+      if (event.type === 'companionAttack') { actor = 'companion'; companionReported += event.damage; }
+      if (event.type === 'monsterHit') {
+        const applied = observedHp - event.hpAfter; assert(applied >= 0n, 'Observed damage accounting');
+        if (actor === 'hero') heroApplied += applied; else if (actor === 'companion') companionApplied += applied;
+        if (feverWindow === 'active') feverCertainApplied += applied;
+        else if (feverWindow === 'boundary') feverBoundaryApplied += applied;
+        observedHp = event.hpAfter;
+      }
+      if (event.type === 'monsterSpawned') observedHp = event.monster.maxHp;
       if (event.type === 'itemDropped') income += event.drops.filter(drop => drop.item.kind === 'coin').reduce((sum, drop) => sum + BigInt(drop.amount), 0n);
       if (event.type === 'monsterKilled') {
-        longestKillGap = Math.max(longestKillGap, now - lastKill); lastKill = now;
+        if (now - lastKill > longestKillGap) { longestKillGap = now - lastKill; longestKillGapContext = { durationMs: longestKillGap, fromMs: lastKill, toMs: now, cycle: cycles.length + 1, stage: event.monster.index, boss: event.monster.boss }; }
+        lastKill = now;
         if (actor === 'hero') heroKills++; else if (actor === 'companion') companionKills++;
       }
-      if (event.type === 'bossCaptured') firstCompanionMs ??= now;
-      if (event.type === 'levelUp') firstLevels[event.newLevel] ??= now;
+      if (event.type === 'bossCaptured') {
+        firstCompanionMs ??= now; maxCapturedIndex = Math.max(maxCapturedIndex, event.companion.bossIndex);
+        maxCapturedRawPowerDigits = Math.max(maxCapturedRawPowerDigits, c.companionPower(event.companion).toString().length);
+      }
+      if (event.type === 'levelUp') { firstLevels[event.newLevel] ??= now; cycleLevelTimes[event.newLevel] ??= now - previousAccepted; }
     }
   };
-  const apply = action => { const events = engine.apply(action); measure(events); return engine.lastActionError() === null; };
+  const apply = action => { const events = engine.apply(action); measure(events); observedHp = engine.getState().monsterHp;
+    const accepted = engine.lastActionError() === null;
+    if (accepted && action.type === 'heroOffer') heroOffers++;
+    if (accepted && action.type === 'heroChoose') heroChoices++;
+    return accepted; };
+  const volley = (state, companions = state.companions) => c.activeFieldCompanions(companions, state.monster.type,
+    state.hero?.equipped, state.monster.curveRebirths ?? 0, state.monster.curveVersion ?? 10).reduce((sum, companion) => sum +
+      c.effectivePower(c.heroBuffedPower(c.fieldCompanionPower(companion, state.monster.curveRebirths ?? 0, state.monster.curveVersion ?? 10),
+        c.typeOf(companion.speciesId), state.hero?.equipped) * (10000n + c.equipmentBonus(state.equipment?.loadout, 'party')) / 10000n,
+        c.typeOf(companion.speciesId), state.monster.type) * (state.fever.active ? c.companionFeverMultiplier(state.monster.curveVersion ?? 10) : 1n), 0n);
+  const fieldContext = state => ({ companions: state.companions.map(companion => ({ ...companion })), heroEquipped: state.hero?.equipped ?? null,
+    acceptedHeroCount: state.hero?.reincarnations ?? 0, totalResets: state.rebirths, curveRebirths: state.monster.curveRebirths ?? 0,
+    enemyType: state.monster.type, curveVersion: state.monster.curveVersion ?? 10,
+    partyBonusBps: String(c.equipmentBonus(state.equipment?.loadout, 'party')), feverActive: state.fever.active, feverMultiplier: state.fever.active ? Number(c.companionFeverMultiplier(state.monster.curveVersion ?? 10)) : 1 });
+  const grow = state => {
+    if (state.companions.length <= 5) return;
+    const active = c.activeFieldCompanions(state.companions, state.monster.type, state.hero?.equipped, state.monster.curveRebirths ?? 0, state.monster.curveVersion ?? 10);
+    const ids = new Set(active.map(companion => companion.id)), before = volley(state);
+    let best = null;
+    for (const target of active) for (const food of state.companions.filter(companion => !ids.has(companion.id))) {
+      const action = { type: 'consume', targetId: target.id, foodId: food.id }, result = c.applyCollection(state, action);
+      if ('error' in result) continue;
+      const after = volley(state, result.state.companions), gain = after - before;
+      if (!best || gain > best.gain || gain === best.gain && (Number(target.id.slice(1)) < Number(best.target.id.slice(1)) ||
+        target.id === best.target.id && Number(food.id.slice(1)) < Number(best.food.id.slice(1)))) best = { action, target, food, gain, after,
+          targetAfter: result.state.companions.find(companion => companion.id === target.id) };
+    }
+    if (best && apply(best.action)) growthActions.push({ atMs: now, cycle: cycles.length + 1, targetId: best.target.id, foodId: best.food.id,
+      targetBefore: best.target, foodBefore: best.food, targetAfter: best.targetAfter, volleyBefore: String(before), volleyAfter: String(best.after), context: fieldContext(state) });
+  };
   const shop = () => {
     let state = engine.getState(), eq = state.equipment;
     if (eq.bag.length === eq.capacity) apply({ type: 'equipmentExpand', revision: eq.revision });
@@ -87,19 +138,33 @@ export function simulate(c, profile, seed, cyclesWanted, maxHours, tickMs = prof
       if (apply({ type: 'equipmentSell', itemId: item.id, revision: engine.getState().equipment.revision })) sales += c.sellPrice(item);
     }
   };
-  while (now < maxHours * 3600000 && cycles.length < cyclesWanted) {
+  while (now < maxHours * 3600000 && (policy === 'no-reset' || cycles.length < cyclesWanted)) {
     if (cyclesWanted > 3 && cycles.length < 3 && now >= 18 * 3600000) break;
     engine.beginEquipmentBatch();
     const active = profile !== 'idle' || now < 120000;
     const interval = profile === 'high' ? 125 : 500;
     while (nextInput <= now) {
-      if (active && (profile !== 'intermittent' || nextInput % 60000 < 15000)) measure(engine.attack('keyboard'));
+      if (active && (profile !== 'intermittent' || nextInput % 60000 < 15000)) measure(engine.attack('keyboard'), now < feverUntil ? 'active' : 'inactive');
       nextInput += interval;
     }
-    measure(engine.tick(tickMs)); now += tickMs;
+    const remainingFeverMs = Math.max(0, feverUntil - now); feverActiveMs += Math.min(tickMs, remainingFeverMs);
+    measure(engine.tick(tickMs), remainingFeverMs > tickMs ? 'active' : remainingFeverMs > 0 ? 'boundary' : 'inactive'); now += tickMs;
     if (now % 5000 === 0) {
-      let state = engine.getState();
-      if (c.heroReady(state.level, state.hero)) {
+      let state = engine.getState(); maximumStage = Math.max(maximumStage, state.monster.index);
+      if (policy === 'finite-farm' && soulRecoveries < recoveryQuota) {
+        if (state.monster.index >= c.REBIRTH_MIN_INDEX) {
+          // Match a fresh menu action batch so each saved receipt can be replayed independently.
+          engine.endEquipmentBatch(); engine.beginEquipmentBatch();
+          const before = engine.toSave(), action = { type: 'rebirth', equipmentConfirmation: c.heroChangeWarning(state.equipment, state.hero?.equipped.formId ?? 'h00') };
+          resetRngDraws = [];
+          if (apply(action)) {
+            soulRecoveries++;
+            finiteFarmActions.push({ atMs: now, action, before, after: engine.toSave(), rngDraws: resetRngDraws });
+            if (soulRecoveries === recoveryQuota) quotaCompletedAtMs = now;
+          }
+          resetRngDraws = null;
+        }
+      } else if (policy !== 'no-reset' && c.heroReady(state.level, state.hero)) {
         firstReadyMs ??= now;
         if (!state.hero?.choices.length) apply({ type: 'heroOffer' });
         state = engine.getState();
@@ -109,8 +174,23 @@ export function simulate(c, profile, seed, cyclesWanted, maxHours, tickMs = prof
           const after = engine.getState();
           cycles.push({ number: after.hero.reincarnations, readyAtMs: firstReadyMs, acceptedAtMs: now, intervalMs: now - previousAccepted,
             level: state.level, stage: state.monster.index, souls: after.souls, companions: after.companions.length,
-            kills: state.killCount, gold: String(state.coins), spent: String(state.progress.goldSpent), heroKills, companionKills });
-          previousAccepted = now; firstReadyMs = null; nextCheckpoint = now + 1800000;
+            kills: state.killCount, gold: String(state.coins), spent: String(state.progress.goldSpent), heroKills, companionKills, damage: damageMetrics(), field: fieldContext(state), levelTimesMs: cycleLevelTimes });
+          previousAccepted = now; cycleLevelTimes = {}; firstReadyMs = null; nextCheckpoint = now + 1800000;
+        }
+      } else if (policy === 'growth' || policy === 'reserve-growth' && state.companions.length === c.ROSTER_CAP) { grow(state);
+      } else if ((profile === 'management' || policy === 'no-reset') && state.companions.length === c.ROSTER_CAP && state.monster.boss) {
+        const weakest = [...state.companions].sort((a, b) => {
+          const difference = c.companionPower(a) - c.companionPower(b);
+          return difference < 0n ? -1 : difference > 0n ? 1 : Number(a.id.slice(1)) - Number(b.id.slice(1));
+        })[0];
+        if (c.companionPower({ id: 'visible-boss', speciesId: state.monster.speciesId, bossIndex: state.monster.index, level: 1, stars: 0 }) > c.companionPower(weakest) && apply({ type: 'sacrifice', id: weakest.id })) {
+          managementReleases++;
+          if (policy === 'no-reset') {
+            const after = engine.getState();
+            noResetActions.push({ atMs: now, targetBefore: weakest, context: { companions: state.companions,
+              monsterIndex: state.monster.index, monsterBoss: state.monster.boss, monsterSpeciesId: state.monster.speciesId,
+              heroReincarnations: state.hero?.reincarnations ?? 0, souls: state.souls }, after: { companions: after.companions, souls: after.souls } });
+          }
         }
       } else if (profile === 'soul-farming' && state.monster.index >= c.REBIRTH_MIN_INDEX) {
         if (apply({ type: 'rebirth', equipmentConfirmation: c.heroChangeWarning(state.equipment, state.hero?.equipped.formId ?? 'h00') })) soulRecoveries++;
@@ -118,11 +198,12 @@ export function simulate(c, profile, seed, cyclesWanted, maxHours, tickMs = prof
       engine.refreshShop(now);
       if (now % 30000 === 0 && profile !== 'idle') shop();
       state = engine.getState();
-      if (state.equipment.loadout.weapon) equippedWeaponMs += 5000;
+      if (state.equipment.loadout.weapon) { equippedWeaponMs += 5000; firstEquippedWeaponMs ??= now; }
+      if (c.equipmentBonus(state.equipment.loadout, 'party') > 0n) firstPartyBonusMs ??= now;
       if (now >= nextCheckpoint) {
         checkpoints.push({ cycle: cycles.length + 1, elapsedMs: now - previousAccepted, kills: state.killCount, stage: state.monster.index,
-          level: state.level, gold: String(state.coins), spent: String(state.progress.goldSpent), souls: state.souls, roster: state.companions.length,
-          attack: String(c.displayedHeroAttack(state)), heroKills, companionKills, weaponId: state.equipment.loadout.weapon?.id ?? null });
+          level: state.level, monsterHp: String(state.monsterHp), monsterMaxHp: String(state.monster.maxHp), gold: String(state.coins), spent: String(state.progress.goldSpent), souls: state.souls, roster: state.companions.length,
+          attack: String(c.displayedHeroAttack(state)), heroKills, companionKills, damage: damageMetrics(), field: fieldContext(state), weaponId: state.equipment.loadout.weapon?.id ?? null });
         nextCheckpoint += 1800000; sampledHeapPeakBytes = Math.max(sampledHeapPeakBytes, process.memoryUsage().heapUsed);
       }
       const items = c.equipmentItems(state.equipment), ids = items.map(item => item.id);
@@ -137,9 +218,12 @@ export function simulate(c, profile, seed, cyclesWanted, maxHours, tickMs = prof
   const serializationMs = performance.now() - serializationStart;
   return { profile, seed, cyclesWanted, cycles, durationMs: now, nonarrival: cyclesWanted - cycles.length, firstCompanionMs,
     final: { level: state.level, stage: state.monster.index, kills: state.killCount, souls: state.souls, companions: state.companions.length, coins: String(state.coins), spent: String(state.progress.goldSpent), income: String(income), sales: String(sales) },
-    purchases, enhancements, soulRecoveries, firstPurchaseMs, firstLevels, equippedWeaponMs, heroKills, companionKills, checkpoints,
+    finalHeroReincarnations: state.hero?.reincarnations ?? 0, finalTotalResets: state.rebirths, heroOffers, heroChoices,
+    recoveryQuota, quotaCompletedAtMs, finiteFarmActions, finiteFarmActionsSha256: sha(json(finiteFarmActions)),
+    noResetActions, noResetActionsSha256: sha(json(noResetActions)),
+    growthConsumes: growthActions.length, growthActions, growthActionsSha256: sha(json(growthActions)), damage: damageMetrics(), purchases, enhancements, soulRecoveries, managementReleases, maximumStage, maxCapturedIndex, maxCapturedRawPowerDigits, firstPurchaseMs, firstEquippedWeaponMs, firstPartyBonusMs, firstLevels, equippedWeaponMs, heroKills, companionKills, checkpoints,
     sampledHeapPeakBytes, serializationMs, saveBytes: Buffer.byteLength(serialized), maxCompanionBossIndex: Math.max(0, ...state.companions.map(companion => companion.bossIndex)),
-    longestKillGapMs: Math.max(longestKillGap, now - lastKill), processingMs: performance.now() - started,
+    longestKillGapMs: Math.max(longestKillGap, now - lastKill), longestKillGapContext: now - lastKill > longestKillGap ? { durationMs: now - lastKill, fromMs: lastKill, toMs: now, cycle: cycles.length + 1, stage: state.monster.index, boss: state.monster.boss, censored: true } : longestKillGapContext, processingMs: performance.now() - started,
     saveHash: sha(serialized) };
 }
 export function summarize(rows, protocol, cyclesWanted) {
@@ -168,10 +252,10 @@ async function main() {
   const [mode, destination, argument] = process.argv.slice(2);
   if (mode === 'worker') {
     const job = JSON.parse(argument), c = require(resolve(destination, 'compiled-' + job.candidate.id, 'index.js'));
-    for (let i = 0; i < job.count; i++) appendFileSync(job.output, JSON.stringify(simulate(c, job.profile, job.first + i, job.cycles, job.maxHours)) + '\n');
+    for (let i = 0; i < job.count; i++) appendFileSync(job.output, JSON.stringify(simulate(c, job.profile, job.first + i, job.cycles, job.maxHours, undefined, job.policy, job.recoveryQuota)) + '\n');
     return;
   }
-  assert(['explore', 'validate', 'pilot', 'profile'].includes(mode), 'Use explore|validate|pilot|profile RUN [candidateID]');
+  assert(['explore', 'validate', 'pilot', 'profile', 'screen', 'management', 'growth', 'growth-screen', 'reserve-growth', 'no-reset', 'finite-farm', 'finite-farm-screen'].includes(mode), 'Unknown balance mode');
   const run = resolve(destination), protocol = read(protocolPath), registration = read(candidatesPath), before = binding();
   assert(JSON.stringify(protocol.simulation) === JSON.stringify({ tickMs: 500, highTickMs: 100, decisionMs: 5000, shopVisitMs: 30000, firstCycleMaxHours: 12, firstThreeMaxHours: 18, tenCyclesMaxHours: 60, workers: 2 }), 'Evaluator rates/horizons must match the registered protocol');
   assert(!existsSync(resolve(run, 'binding.json')), 'A new immutable run directory is required');
@@ -194,13 +278,19 @@ async function main() {
     const after = binding(); assert(JSON.stringify(before) === JSON.stringify(after), 'Pilot source changed');
     writeFileSync(resolve(run, mode + '.json'), json({ ...(mode === 'pilot' ? { cadenceEqual: true } : {}), rows, binding: before, after })); return;
   }
-  const selected = mode === 'validate' ? registration.candidates.filter(candidate => candidate.id === argument) : registration.candidates;
+  const selected = ['validate', 'management', 'growth', 'reserve-growth', 'no-reset', 'finite-farm', 'finite-farm-screen'].includes(mode) ? registration.candidates.filter(candidate => candidate.id === argument) : registration.candidates;
   assert(selected.length && (mode !== 'validate' || registration.selected === argument), 'Validation requires a preregistered selected candidate');
   const reports = [];
   for (const candidate of selected) {
     const directory = resolve(run, 'compiled-' + candidate.id); compile(directory, candidate, sourceDirectory);
     const queue = [], outputs = [];
-    if (mode === 'explore') for (const profile of registration.profiles) queue.push({ candidate, profile, ...protocol.explorationSeeds, cycles: registration.profileCycles?.[profile] ?? registration.cycles, maxHours: registration.maxHours });
+    if (mode === 'explore' || mode === 'screen') for (const profile of registration.profiles) queue.push({ candidate, profile, ...protocol.explorationSeeds, ...(mode === 'screen' ? { count: 1 } : {}), cycles: mode === 'screen' ? 3 : registration.profileCycles?.[profile] ?? registration.cycles, maxHours: mode === 'screen' ? 18 : registration.maxHours });
+    else if (mode === 'growth' || mode === 'growth-screen') for (const profile of protocol.growth.profiles) queue.push({ candidate, profile, ...protocol.explorationSeeds, policy: 'growth', ...(mode === 'growth-screen' ? { count: 1 } : {}), cycles: mode === 'growth-screen' ? 3 : protocol.growth.profileCycles[profile], maxHours: mode === 'growth-screen' || profile === 'high' ? 18 : 60 });
+    else if (mode === 'reserve-growth') queue.push({ candidate, profile: protocol.reserveGrowth.profile, ...protocol.reserveGrowth.seeds, policy: 'reserve-growth', cycles: protocol.reserveGrowth.cycles, maxHours: protocol.reserveGrowth.maxHours });
+    else if (mode === 'no-reset') queue.push({ candidate, profile: protocol.noReset.profile, ...protocol.noReset.seeds, policy: 'no-reset', cycles: 0, maxHours: protocol.noReset.durationHours });
+    else if (mode === 'finite-farm' || mode === 'finite-farm-screen') for (const recoveryQuota of protocol.finiteFarm.recoveries) queue.push({ candidate, profile: protocol.finiteFarm.profile,
+      ...protocol.finiteFarm.seeds, ...(mode === 'finite-farm-screen' ? { count: 1 } : {}), policy: 'finite-farm', recoveryQuota, cycles: protocol.finiteFarm.cycles, maxHours: protocol.finiteFarm.maxHours });
+    else if (mode === 'management') queue.push({ candidate, profile: 'management', ...protocol.explorationSeeds, cycles: 10, maxHours: 60 });
     else {
       for (const profile of protocol.ordinaryProfiles) {
         queue.push({ candidate, profile, ...protocol.continuationSeeds, cycles: 10, maxHours: protocol.simulation.tenCyclesMaxHours });
@@ -210,7 +300,7 @@ async function main() {
     }
     await Promise.all(Array.from({ length: protocol.simulation.workers }, async () => {
       while (queue.length) {
-        const job = queue.shift(); job.output = resolve(run, `${candidate.id}-${job.profile}-${job.cycles}.jsonl`); outputs.push(job.output);
+        const job = queue.shift(); job.output = resolve(run, `${candidate.id}-${job.profile}-${job.cycles}${job.recoveryQuota ? '-farm' + job.recoveryQuota : ''}.jsonl`); outputs.push(job.output);
         assert(!existsSync(job.output), 'Refuse to overwrite raw evidence');
         await new Promise((yes, no) => { const child = spawn(process.execPath, [script, 'worker', run, JSON.stringify(job)], { stdio: ['ignore', 'inherit', 'inherit'] });
           child.on('error', no); child.on('exit', code => code === 0 ? yes() : no(Error('Balance worker exit ' + code))); });
@@ -219,10 +309,23 @@ async function main() {
     }));
     const rows = outputs.flatMap(file => readFileSync(file, 'utf8').trim().split('\n').filter(Boolean).map(line => JSON.parse(line)));
     const compiledFiles = Object.fromEntries(readdirSync(directory).sort().map(file => [file, sha(readFileSync(resolve(directory, file)))]));
-    reports.push({ candidate, compiledFiles, rows: rows.length, raw: outputs.map(file => ({ path: file, sha256: sha(readFileSync(file)) })), ...summarize(rows, protocol, mode === 'validate' ? 10 : registration.cycles) });
+    reports.push({ candidate, compiledFiles, rows: rows.length, raw: outputs.map(file => ({ path: file, sha256: sha(readFileSync(file)) })), ...summarize(rows, protocol, ['no-reset', 'finite-farm', 'finite-farm-screen'].includes(mode) ? 0 : mode === 'validate' || mode === 'management' || mode === 'growth' || mode === 'reserve-growth' ? 10 : mode === 'screen' || mode === 'growth-screen' ? 3 : registration.cycles) });
+    if (mode === 'finite-farm' || mode === 'finite-farm-screen') {
+      reports.at(-1).finiteFarmChecks = protocol.finiteFarm.recoveries.flatMap(recoveryQuota => summarize(rows.filter(row => row.recoveryQuota === recoveryQuota), protocol, 3).summaries
+        .map(entry => ({ recoveryQuota, ...entry, passed: entry.p10 !== null && entry.p10 >= protocol.finiteFarm.p10Minimum })));
+      reports.at(-1).finiteFarmPassed = reports.at(-1).finiteFarmChecks.every(check => check.passed);
+    }
+    if (mode === 'growth' || mode === 'growth-screen') {
+      reports.at(-1).growthChecks = reports.at(-1).summaries.map(entry => ({ profile: entry.profile, cycle: entry.cycle, n: entry.n, arrived: entry.arrived, nonarrival: entry.nonarrival, p10: entry.p10, passed: entry.p10 !== null && entry.p10 >= protocol.growth.p10Minimum }));
+      reports.at(-1).growthPassed = reports.at(-1).growthChecks.every(check => check.passed);
+    }
+    if (mode === 'reserve-growth') {
+      reports.at(-1).reserveGrowthChecks = reports.at(-1).summaries.map(entry => ({ profile: entry.profile, cycle: entry.cycle, n: entry.n, arrived: entry.arrived, nonarrival: entry.nonarrival, p10: entry.p10, passed: entry.p10 !== null && entry.p10 >= protocol.reserveGrowth.p10Minimum }));
+      reports.at(-1).reserveGrowthPassed = reports.at(-1).reserveGrowthChecks.every(check => check.passed);
+    }
     writeFileSync(resolve(run, candidate.id + '-report.json'), json(reports.at(-1)));
   }
   const after = binding(); assert(JSON.stringify(before) === JSON.stringify(after), 'Source or protocol changed during run; evidence is stale');
-  writeFileSync(resolve(run, 'report.json'), json({ mode, binding: before, after, reports, completedAt: new Date().toISOString() }));
+  writeFileSync(resolve(run, 'report.json'), json({ mode, ...(['management', 'growth', 'growth-screen', 'reserve-growth', 'no-reset', 'finite-farm', 'finite-farm-screen'].includes(mode) ? { diagnostic: true } : {}), binding: before, after, reports, completedAt: new Date().toISOString() }));
 }
 if (process.argv[1] && resolve(process.argv[1]) === script) await main();

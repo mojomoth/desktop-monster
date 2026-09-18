@@ -1,0 +1,11 @@
+# Host renderer cost changes: independent source review
+
+Reviewer `/root/skills_harness`. Bound file hashes are in `CRITIC_RENDER_COST_REVIEW.json`. No Electron launched. This approves the reviewed source behavior and deterministic tests; the old idle CPU failure remains open pending new registered evidence.
+
+`drawSprite` batches only horizontally adjacent identical palette characters, with positive integer scale and integer x/y. It preserves row boundaries, transparent/missing colors, mirroring and tint, and uses the original individual rectangles for fractional geometry. The actual field canvas does not add a transform that invalidates the integer coverage premise. No blocking correctness issue found. This reduces draw calls; it does not yet prove a CPU/GPU budget outcome.
+
+The new frozen-v0.10 painter oracle compares resulting raster pixels across every registered frame, three scales, mirroring, tint and clipping. Fractional geometry compares original rectangles exactly. Existing golden hashes remain unchanged: test capture normalization expands strips back into the same 2px art cells, preserving pixel/color/location assertions rather than changing expected images. Independently executed spriteRasterV11, sprites, equippedHeroCache and audio tests: **56/56 pass**, including 57,960 equipped-hero views and 3,840 fever/KO composites.
+
+The audio guard checks current muted settings before creating WebAudio or scheduling inaudible oscillators. Unmuting initializes normally and reuses that context; muting suppresses further notes. Renderer settings changes update the closure, and save/engine replacement reuses the same audio object. This addresses needless muted work directly. It does not prove the previously observed first-input stall was caused by audio, or replace device/native verification.
+
+Menu/share field label delegation is coherent with the shared core API, but the initial test's neutral curve and low-level discriminating roster did not independently prove different raw/field membership. Host was asked to use an activated curve and a roster whose order differs across the supported scale range. Final UI/native evidence remains pending after the numerical winner and latest package are frozen.

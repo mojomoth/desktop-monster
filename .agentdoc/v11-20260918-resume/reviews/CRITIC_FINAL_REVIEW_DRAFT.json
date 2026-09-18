@@ -1,0 +1,172 @@
+{
+  "version": 11,
+  "source": "82b5b9f3adada6aee2a3a472fcf086ade3aeca8063ff418c5a437b4df52013a8",
+  "passed": false,
+  "draft": true,
+  "reviews": [
+    {
+      "scope": "core",
+      "verdict": "pending",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root/balance"
+      ],
+      "evidence": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/reviews/CRITIC_GROWTH_REVIEW.md",
+        "sha256": "853830d81454857bd4b8c9624136e37b996f7419bea6426cb2a6019aa3d2a26f"
+      },
+      "sourceHashes": {
+        "src/core/equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+        "src/core/engine.ts": "8030905686033a03b05dd99b318879fb369b44367a8b986bf0cc1b06f35befb6",
+        "src/core/hero.ts": "4f342b906624ada81d02671102a429031da85b69c93787e38e4dfe4fc15d6308",
+        "src/core/collection.ts": "2f3c677365d6ee3aa3ccd151482e0a9c6fc4b1c7da8a3c58f2bd281485189ec0",
+        "src/core/formulas.ts": "903234f439ddee6376ab8e73c7d092ef1899a3297a32d0e163026c5512302836",
+        "src/core/save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+        "src/core/progression.ts": "91507fe9994bdf59e99b202347db6ea6f05fb94250049b9514387055c4cfbebf",
+        "src/core/types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d",
+        "src/core/monsters.ts": "1ce3aed70d2590478af6acd41861b4e95959bd25dbf2b0e82ddb3f118bc3ee78",
+        "src/core/index.ts": "d11597d322ea6e39ec8be7e264ada5d7b70f18fc03d9cf6d673b898d0e8917e6",
+        "tests/equipmentV11.test.ts": "b148e3cfadf543a04940d9353c218ee659c6281a9c9851b60ec58ce12d0b31d3",
+        "tests/progressionV11.test.ts": "bd58d066d71b4be31fabe5136013b66b41c727f1c5ea71b8003c1adfeca78671",
+        ".harness/v11/balance.mjs": "e4dcc1b29266ff11eb7de9a32693c5e21ab59155a8f1c62fa1b9809d1d646b25",
+        "docs/v0.11/EVALUATION_PROTOCOL.json": "dbad6971d89d5228a93a0b9a657813b35559e3195e75da7e018a43ff52354009",
+        "docs/v0.11/BALANCE_CANDIDATE.json": "8f49af2819e6f94e5788eb5911725e52df07595a2015c365de0be1904ab77e05",
+        "src/core/fever.ts": "0afa61bd670596c1292d74e7c0a607cd48c29bde64fd7ab7d09b59334193e036",
+        "tests/fever.test.ts": "f2501425e6ae44ee5a3cf6aebdaadf44c229c337f4eec2f85440616c5cb350c4",
+        "tests/engine.test.ts": "52eb39a29ad989e5a5ac06f1cc8b44a8e7d1e738de40514108f3ab0bde807165"
+      }
+    },
+    {
+      "scope": "ui",
+      "verdict": "pending",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root",
+        "/root/menu_review"
+      ],
+      "evidence": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/reviews/CRITIC_UI_DELTA_REVIEW.md",
+        "sha256": "de1db0c8d11acd3a11e662ad8f9a116b1edd4d2652138e4f503675def4565d2f"
+      },
+      "sourceHashes": {
+        "src/menu/index.ts": "4881138db8101b5a1b92c53c320df05fe96d47511c0e05833e795b1c29898672",
+        "src/menu/equipment.ts": "12895099e5a4b19a55f262f744086c9c4d917c377c085d3e2b653768b1b5bc16",
+        "src/menu/codex.ts": "9c257ec795092ed4a681d3c212bd6e6a72b7e21671d821c6781cd871ee6d643b",
+        "src/menu/share.ts": "90f804728129f3eacd0f47a1c2dcef633789f3828184106dcc5dfbf7713b69f3",
+        "src/main/ipc.ts": "e72adaa2c73a0ac5fdc273d7ff64ee8e330da39683777a0a0b6934ec3b06a6f3",
+        "src/main/menuWindow.ts": "659cc97944bb869f50849e5e9adf9dd695834d31bae714fa4572495abaa39632",
+        "src/main/tray.ts": "18b961d4f5b313260745c1ae92ddfbef45fce187d11e9a1dc85d7667e899eff7",
+        "src/shared/ipc.ts": "df4fc363662da62fd317565a1c0a5c74e9ad229c0b12cde8b54f80b0a1d3c3a2",
+        "src/preload/index.ts": "620b232c35470937e7654e839abfe88bab5a6492b0f0af689d0599a6548b96c0",
+        "src/renderer/index.ts": "0c60262af643662ea047800d0d4f7aea578fb8cb6f092c27c1029050b2a5da07",
+        "static/menu.html": "3395b61418431a55f07c71bcd970a09d83b948d9fe4cd51a1a248c84ee325366",
+        "static/menu.css": "559419c9953805bfa9fa83bd5141841355cd9d7c65871665af5b940771a0b931",
+        "tests/runtimeV8.test.ts": "dfca41af136c01bac52f88d0655a52e4fb63ba79501a12b1a6c926cc345af2aa",
+        "tests/tray.test.ts": "716bd49e3f919977b514d98692b3cb89a18dea37526b134a4ca026b592adee97",
+        "tests/menuV9.test.ts": "12006ad29debd9f87206edf2cececc5552b29bd74583ae2cb5da7751c734facd",
+        "tests/menu.test.ts": "6073db07acc92200e5357ad261525e16973e82e21b62acb41976109954415a17",
+        "tests/share.test.ts": "4d94054a8323b1663af11e15825049d2ef750f0e7cfbda2f63a162e490a88385",
+        "tests/share-field-v11.test.ts": "1993370d4b5e7943d5de444acea94656aebbf5aec3b5f32cbee3002c3efbcf9d",
+        "src/menu/view.ts": "1fc0777e17acb8a5cfefa20cf936cbc611cf6de180f4ffbedc38fefa085dd57e"
+      }
+    },
+    {
+      "scope": "visual",
+      "verdict": "pending",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root/menu_review",
+        "/root"
+      ],
+      "evidence": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/reviews/CRITIC_UI_DELTA_REVIEW.md",
+        "sha256": "de1db0c8d11acd3a11e662ad8f9a116b1edd4d2652138e4f503675def4565d2f"
+      },
+      "sourceHashes": {
+        "src/renderer/hud.ts": "521989b6527555283bc95bad6d324971fb1b711931d84645428eb79e10068ab3",
+        "src/renderer/game.ts": "732f7276c8107ba700b04acff5ab26e9121e919b5ba04c01ab6d3036f7c13018",
+        "src/renderer/sprites/sprite.ts": "d01951c90479e2be639b30f6670e99f6839a58ce4f8a49039b5d9cf2d720d19f",
+        "src/renderer/audio.ts": "1776966851492f4608999cf93d2ee59c3ada2b87c47123c996f8027520f34744",
+        "tests/expedition.test.ts": "6a253bee2e86931b8aecbeef7d364880927d01fcf85c6b578fb618916abf0cc1",
+        "tests/renderer-field-v11.test.ts": "60530e1ee739ddb58f9e3e4891a8fcd4a3046c1f89ffe86ac6617ed944ec9308",
+        "tests/spriteRasterV11.test.ts": "06ef007873b08773eef32500d359e90444bb174d845435a1c0dadd6962c81f14",
+        "tests/sprites.test.ts": "00389bd14c74a32a74b7fdbaa3220abbabd20f045cba01084d18cba21a86e4b4",
+        "tests/equippedHeroCache.test.ts": "dc3632d34037945972c39036174846b080244525346e60876635d8ae9db72511",
+        "tests/audio.test.ts": "ac1eeeda6834bfe8ffc99a34ba789a0321fb25e2910af31cd802a2cd1d5967ce",
+        "tests/hud-v09.test.ts": "b8b6246fd65514014bd0ef9cad23d744477c73e9d837395a2aaff9d3a46dfe3e",
+        "tests/heroJobStudies.test.ts": "12e7d10526251b2979c481e2afe5b065194820f32f7d780a13e364f7614db5dc"
+      }
+    },
+    {
+      "scope": "verification",
+      "verdict": "pending",
+      "reviewer": "/root",
+      "implementedBy": [
+        "/root/skills_harness",
+        "/root/balance"
+      ],
+      "evidence": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/reviews/HOST_VERIFIER_REVIEW.md",
+        "sha256": "0949e6c3ad6b2b7f0fc64692d36a2b8f1d1404f62a3bde6793e8bb0d1c1d38d6"
+      },
+      "sourceHashes": {
+        ".harness/v11/final-check.mjs": "46a7ee264a3d660a2f05a0197e15e02f35352c9885405e3ef0411d24cc4e81e8",
+        ".harness/v11/final-check.test.mjs": "a7450724e01bca91eefde4731627c2e72f0f919e44e29be883c8186ef39fbe5f",
+        ".harness/v11/balance-verify.mjs": "9735dbfb3c328f7189a35838f5c6995757e831db79aa8e06e9d930244901e298",
+        ".harness/v11/balance-verify.test.mjs": "14a955331892d382668a425f0ee1faef50c0a2f2045af34919f915b2468352b1",
+        ".harness/v11/performance-report.mjs": "f360e3831a3abec2229bea0414f0dfef576e72e527f98db5091260e60df5972b",
+        ".harness/v11/performance.test.mjs": "703fd3eb526f5e152f6edf4d237c292c996d012a1a6c33e6d020fe404d344460",
+        ".harness/v11/vendor/awesome-gamedev-agent-skills/SOURCES.json": "6fc3ab5e74df4faaa088a7f0a2f93e7c6dddda3ccf9071f2267340c4ba58cd21",
+        ".harness/v11/agents/designer.md": "605c76a2ead06b9925147544b23802b6ba853c9c70cb359c532264380700f024",
+        ".harness/v11/agents/critic.md": "2c4d63593549427c526a2ac9890b6f4643679c1284c4d4e52526c54d304b0ca6",
+        ".harness/v11/agents/balance.md": "751d60aa28027c1d08e67f31567ff725a759a2a629dc0cfe5f798342049dbcd9",
+        ".harness/v11/agents/playtester.md": "9d959ebe18b87b81271b405fc02a66797d072f12cca7d4bcaa13f7250b6a4696"
+      }
+    },
+    {
+      "scope": "orchestration",
+      "verdict": "pending",
+      "reviewer": "/root/skills_harness",
+      "implementedBy": [
+        "/root",
+        "/root/menu_review"
+      ],
+      "evidence": {
+        "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/reviews/CRITIC_FIELD_NATIVE_SOURCE_REVIEW.md",
+        "sha256": "28211dc60e04115588dc719e3b7f853847ceaa2377672122f51dd8065fd8cbf7"
+      },
+      "sourceHashes": {
+        ".harness/v11/run.mjs": "63e6638f36f3b8dd5274276046917f4ca7d15ecf7047ddbfd03290caec0fa710",
+        ".harness/v11/run.test.mjs": "072769196b674625425d016acd507475274a96527cb1f52043699f69b37aa5f7",
+        ".harness/v11/config.json": "52f62b62c64f254b69fbf83bc8bc0e5e148000da7e5448197394297e27234cd5",
+        ".harness/v11/runtime.mjs": "dbdd3a3e911b8cf7b5dc1abf933720780a80ce3bb3c6dc17225ec003324ff308",
+        ".harness/v11/runtime.test.mjs": "8dca7d69054c61518fb51779cb5706db42db723a855ff8c28714f2962983464a",
+        ".harness/v11/ui-cases.mjs": "f0a9856acf3fe52ec9b8700ae8c84a2824709d3fe90d01f26750c7cb930d2e51",
+        ".harness/v11/release.mjs": "c72f989fb48e1e8336e78e9a76455e2bb5a0811a442edd1b416c3cd68a433b26",
+        ".harness/v11/run-performance.mjs": "762dcfe35592a676cec7b7345365d06a766777f5607a7daa366abc80fd16994a",
+        ".harness/v11/HARNESS.md": "768d8479d76269de6bb521666456e71a548d03831c9202e929bea83339a7e7dc",
+        "docs/v0.11/CONTRACT.md": "e38956f67460d37499f7962db0cbda731d1334137862a5dd7291a65731e31b90",
+        "docs/v0.11/PERFORMANCE_PROTOCOL.json": "7a776e39bdd7b242bfad65bbbe85dcb554ee391f5c575f55b36ab29eac887bdd",
+        "SPEC.md": "a2b575a0dc44259d9819919cbe7025f1aa62547e231e8d709e586ff4567036f1"
+      }
+    }
+  ],
+  "externalChecks": {
+    "windowsHardware": {
+      "performed": false,
+      "note": "Packaging and installer checks do not constitute a run on Windows hardware."
+    },
+    "postgresql": {
+      "performed": false,
+      "note": "No real PostgreSQL deployment/migration was part of this local update."
+    },
+    "humanFun": {
+      "performed": false,
+      "note": "Deterministic playtime/management simulations do not constitute human fun evaluation."
+    },
+    "productionDeploy": {
+      "performed": false,
+      "note": "DESMON_SKIP_NET: local release work; no production deployment performed."
+    }
+  }
+}

@@ -1,0 +1,891 @@
+{
+  "version": 11,
+  "run": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume",
+  "createdAt": "2026-09-18T07:05:57.216Z",
+  "source": "683e3e49df3045f885e49f83395a91ade656238bf37007e3825fab4f631e33b8",
+  "agents": {
+    "Host": "/root",
+    "Designer": "/root/menu_review",
+    "Balance": "/root/balance",
+    "Critic": "/root/skills_harness"
+  },
+  "history": [
+    {
+      "at": "2026-09-18T07:05:57.276Z",
+      "action": "register",
+      "id": "Host",
+      "arg": "/root"
+    },
+    {
+      "at": "2026-09-18T07:05:57.308Z",
+      "action": "register",
+      "id": "Designer",
+      "arg": "/root/menu_review"
+    },
+    {
+      "at": "2026-09-18T07:05:57.340Z",
+      "action": "register",
+      "id": "Balance",
+      "arg": "/root/balance"
+    },
+    {
+      "at": "2026-09-18T07:05:57.372Z",
+      "action": "register",
+      "id": "Critic",
+      "arg": "/root/skills_harness"
+    },
+    {
+      "at": "2026-09-18T07:05:57.416Z",
+      "action": "start",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T07:05:57.460Z",
+      "action": "implemented",
+      "id": "V11-01",
+      "arg": "Expanded-scope contract and inherited harness ready for parallel implementation; final source verifier checks remain required"
+    },
+    {
+      "at": "2026-09-18T07:05:57.525Z",
+      "action": "start",
+      "id": "V11-02"
+    },
+    {
+      "at": "2026-09-18T07:05:57.573Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T07:05:57.622Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T07:11:12.693Z",
+      "action": "claim",
+      "id": "V11-04",
+      "arg": "[\"tests/sprites.test.ts\",\"tests/equippedHeroCache.test.ts\",\"tests/share.test.ts\",\"src/renderer/audio.ts\",\"tests/audio.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T07:13:10.819Z",
+      "action": "claim",
+      "id": "V11-03",
+      "arg": "[\"tests/renderer-field-v11.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T07:20:45.579Z",
+      "action": "claim",
+      "id": "V11-04",
+      "arg": "[\"tests/share-field-v11.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T07:23:47.114Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T07:24:06.588Z",
+      "action": "claim",
+      "id": "V11-04",
+      "arg": "[\"tests/heroJobStudies.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T07:27:04.450Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T07:30:26.733Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Designer renderer, HUD, field-party native scenario and lifecycle observation handed off; final frozen-source validation pending"
+    },
+    {
+      "at": "2026-09-18T07:34:17.605Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T07:40:13.479Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T07:49:35.425Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Designer final field/G/floor fixture, share isolation and actual growth preview native checks handed off; final source checks pending"
+    },
+    {
+      "at": "2026-09-18T08:18:10.755Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T08:23:33.457Z",
+      "action": "claim",
+      "id": "V11-04",
+      "arg": "[\"SPEC.md\"]"
+    },
+    {
+      "at": "2026-09-18T08:28:25.565Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Designer resume and FEVER neutral mock isolation passed 32 focused checks; final frozen-source gates and native validation remain required"
+    },
+    {
+      "at": "2026-09-18T08:39:18.615Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T08:40:01.504Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Designer neutral count-cap fixture isolation passed 32 focused checks; final frozen-source and native checks pending"
+    },
+    {
+      "at": "2026-09-18T08:46:10.121Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T08:53:32.378Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Designer audited initialized R18 fixtures and preserved same-disclosure actual coin-update coverage with bounded waiting; 130 focused Vitest and 37 Node checks passed; final native pending"
+    },
+    {
+      "at": "2026-09-18T08:58:26.113Z",
+      "action": "implemented",
+      "id": "V11-02",
+      "arg": "Balance handed off frozen R18-B core, protocol and tests; compiled hashes match measured candidate; 134 focused checks and lint passed; heldout validation proceeds as V11-05"
+    },
+    {
+      "at": "2026-09-18T08:58:26.214Z",
+      "action": "sync"
+    },
+    {
+      "at": "2026-09-18T08:58:36.079Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T08:58:36.184Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Designer implemented field party rendering, HUD and native coin-update coverage; expanded AC now includes field renderer tests"
+    },
+    {
+      "at": "2026-09-18T08:58:36.291Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T08:58:36.403Z",
+      "action": "implemented",
+      "id": "V11-04",
+      "arg": "Host implemented hunting/PvP growth previews, stable menu/manual equipment integration, exact sprite strips and lazy muted audio; expanded AC includes continuation regression checks"
+    },
+    {
+      "at": "2026-09-18T08:58:36.521Z",
+      "action": "start",
+      "id": "V11-05"
+    },
+    {
+      "at": "2026-09-18T09:00:59.237Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T09:04:51.557Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T09:04:58.431Z",
+      "action": "implemented",
+      "id": "V11-05",
+      "arg": "Untouched 280 trajectories and all preregistered diagnostics completed; independent verifier returned passed true; final manifest bound to frozen R18-B source"
+    },
+    {
+      "at": "2026-09-18T09:05:18.410Z",
+      "action": "start",
+      "id": "V11-02"
+    },
+    {
+      "at": "2026-09-18T09:05:18.450Z",
+      "action": "claim",
+      "id": "V11-02",
+      "arg": "[\"tests/progressionV5.test.ts\"]"
+    },
+    {
+      "at": "2026-09-18T09:05:18.618Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T09:08:26.543Z",
+      "action": "implemented",
+      "id": "V11-02",
+      "arg": "Preserved historical requirement-step coverage and added actual v11 plateau/readiness assertions; 13 focused progression tests and lint passed; core and numerical bindings unchanged"
+    },
+    {
+      "at": "2026-09-18T09:08:26.598Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Renderer transition test now verifies explicit legacy-to-v11 party IDs and preserves current/stale sprite assertions; 111 focused tests and lint passed"
+    },
+    {
+      "at": "2026-09-18T09:20:16.200Z",
+      "action": "sync"
+    },
+    {
+      "at": "2026-09-18T09:20:16.301Z",
+      "action": "start",
+      "id": "V11-02"
+    },
+    {
+      "at": "2026-09-18T09:20:16.353Z",
+      "action": "start",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T09:20:16.406Z",
+      "action": "start",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T09:27:12.901Z",
+      "action": "implemented",
+      "id": "V11-04",
+      "arg": "Menu/share and previews now use saved encounter total resets; live counter updates preserve roster DOM. 247 focused tests and scoped lint passed; final source gates/native/performance remain pending."
+    },
+    {
+      "at": "2026-09-18T09:28:14.833Z",
+      "action": "implemented",
+      "id": "V11-03",
+      "arg": "Renderer/native party and labels use encounter total reset metadata; discriminating raster/save-reload cases and consistent fixture counters added. 121 Vitest,37 Node and scoped lint passed; final native observation pending."
+    },
+    {
+      "at": "2026-09-18T09:50:06.943Z",
+      "action": "implemented",
+      "id": "V11-02",
+      "arg": "Paired encounter-total reset M, safe reset/auto-release counters and all consumers implemented; R19-B selected by unchanged180 trajectory qualifier with all registered separate guards independently reviewed. Freshheldout and final release verification pending."
+    },
+    {
+      "at": "2026-09-18T09:50:07.042Z",
+      "action": "start",
+      "id": "V11-05"
+    },
+    {
+      "at": "2026-09-18T09:50:34.491Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "gates"
+    },
+    {
+      "at": "2026-09-18T09:50:57.809Z",
+      "action": "check",
+      "id": "V11-01",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T09:51:04.275Z",
+      "action": "check",
+      "id": "V11-02",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T09:51:19.249Z",
+      "action": "check",
+      "id": "V11-03",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T09:51:45.893Z",
+      "action": "check",
+      "id": "V11-04",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T09:52:04.683Z",
+      "action": "verify",
+      "id": "V11-01"
+    },
+    {
+      "at": "2026-09-18T09:52:04.788Z",
+      "action": "verify",
+      "id": "V11-02"
+    },
+    {
+      "at": "2026-09-18T09:52:04.891Z",
+      "action": "verify",
+      "id": "V11-03"
+    },
+    {
+      "at": "2026-09-18T09:52:05.006Z",
+      "action": "verify",
+      "id": "V11-04"
+    },
+    {
+      "at": "2026-09-18T09:57:50.468Z",
+      "action": "start",
+      "id": "V11-06"
+    },
+    {
+      "at": "2026-09-18T11:09:44.976Z",
+      "action": "implemented",
+      "id": "V11-05",
+      "arg": "R19-B fresh heldout280 and original23 criteria passed; finite80 recovery1280 replay and growth/reserve guards accepted independently; source9397 frozen."
+    },
+    {
+      "at": "2026-09-18T11:09:52.753Z",
+      "action": "check",
+      "id": "V11-05",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T13:20:28.050Z",
+      "action": "verify",
+      "id": "V11-05"
+    },
+    {
+      "at": "2026-09-18T13:20:28.152Z",
+      "action": "implemented",
+      "id": "V11-06",
+      "arg": "Packaged native final: 5 scenarios,183 checks,28 PNGs independently reviewed,407 trusted samples,107 applied IPC traces,exact21 HUD key pairs; source9397 and appASAR31c94 bound."
+    },
+    {
+      "at": "2026-09-18T13:20:28.541Z",
+      "action": "check",
+      "id": "V11-06",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T13:21:08.656Z",
+      "action": "verify",
+      "id": "V11-06"
+    },
+    {
+      "at": "2026-09-18T13:21:42.653Z",
+      "action": "start",
+      "id": "V11-07"
+    },
+    {
+      "at": "2026-09-18T13:21:42.753Z",
+      "action": "implemented",
+      "id": "V11-07",
+      "arg": "Five independent source scopes approved; raw1440 performance and installer payloads independently reviewed. Final source/evidence hashes bound; external unperformed checks explicit."
+    },
+    {
+      "at": "2026-09-18T13:21:42.937Z",
+      "action": "check",
+      "id": "V11-07",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T13:21:52.441Z",
+      "action": "verify",
+      "id": "V11-07"
+    },
+    {
+      "at": "2026-09-18T13:21:52.544Z",
+      "action": "start",
+      "id": "V11-08"
+    },
+    {
+      "at": "2026-09-18T13:21:52.642Z",
+      "action": "implemented",
+      "id": "V11-08",
+      "arg": "All source tasks and independent reviews verified; smoke,macOS and Windows packages,installer extraction,native183 checks and full active/idle resource comparison passed; DESMON_SKIP_NET=1."
+    },
+    {
+      "at": "2026-09-18T13:22:06.318Z",
+      "action": "check",
+      "id": "V11-08",
+      "arg": "ac"
+    },
+    {
+      "at": "2026-09-18T13:23:19.258Z",
+      "action": "verify",
+      "id": "V11-08"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "V11-01",
+      "owner": "Host",
+      "dependencies": [],
+      "files": [
+        ".harness/v11/run.mjs",
+        ".harness/v11/run.test.mjs",
+        ".harness/v11/config.json",
+        ".harness/v11/HARNESS.md",
+        ".harness/v11/vendor",
+        ".harness/v11/agents",
+        "docs/v0.11/CONTRACT.md",
+        "docs/v0.11/ACCEPTANCE.md",
+        "docs/v0.11/PERFORMANCE_PROTOCOL.json",
+        ".harness/v11/release.mjs",
+        ".harness/v11/run-performance.mjs",
+        ".harness/v11/final-check.mjs",
+        ".harness/v11/final-check.test.mjs",
+        ".harness/v11/performance-report.mjs",
+        ".harness/v11/performance.test.mjs",
+        ".harness/v11/balance-verify.mjs",
+        ".harness/v11/balance-verify.test.mjs"
+      ],
+      "ac": "node --test .harness/v11/*.test.mjs",
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "152417cbee25bd61167f81d666c23225a05b5c64f49f431313fbf84dadfb8dac",
+          "after": "152417cbee25bd61167f81d666c23225a05b5c64f49f431313fbf84dadfb8dac",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-01-ac-1789722058178.log",
+          "logHash": "8a1324c22a434e48b2ef5e867a3a2beee744ba5eaa1bbd68dc1a24e52c665a94",
+          "artifacts": {},
+          "at": "2026-09-18T09:00:59.234Z"
+        },
+        {
+          "id": "ac",
+          "command": "node --test .harness/v11/*.test.mjs",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-01-ac-1789725056888.log",
+          "logHash": "425d54118c9af5715a8e7e87f9678105358085d759e7e6f9605daf2f2e6074e7",
+          "artifacts": {},
+          "at": "2026-09-18T09:50:57.807Z"
+        }
+      ],
+      "invalidations": [],
+      "agent": "/root",
+      "startedAt": "2026-09-18T07:05:57.404Z",
+      "source": "683e3e49df3045f885e49f83395a91ade656238bf37007e3825fab4f631e33b8",
+      "handoff": "Expanded-scope contract and inherited harness ready for parallel implementation; final source verifier checks remain required",
+      "implementedSource": "683e3e49df3045f885e49f83395a91ade656238bf37007e3825fab4f631e33b8",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/equipmentV11.test.ts tests/progressionV11.test.ts tests/progressionV5.test.ts tests/save.test.ts tests/engine.test.ts",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-02-ac-1789725062396.log",
+          "logHash": "3231c723cb793ba0fa21c1787708a58914839ca82a374748af37ee66afcb66d5",
+          "artifacts": {},
+          "at": "2026-09-18T09:51:04.273Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T09:20:16.192Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root/balance",
+      "startedAt": "2026-09-18T09:20:16.242Z",
+      "source": "2820154ae07102d56cd8a5137bdb9d6054a3d33e7a759c948bad97b1f90a16ad",
+      "handoff": "Paired encounter-total reset M, safe reset/auto-release counters and all consumers implemented; R19-B selected by unchanged180 trajectory qualifier with all registered separate guards independently reviewed. Freshheldout and final release verification pending.",
+      "implementedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "id": "V11-02",
+      "owner": "Balance",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/core",
+        "tests/equipmentV11.test.ts",
+        "tests/progressionV11.test.ts",
+        ".harness/v11/balance.mjs",
+        "docs/v0.11/EVALUATION_PROTOCOL.json",
+        "docs/v0.11/BALANCE_CANDIDATE.json",
+        "tests/formulas.test.ts",
+        "tests/progressionV7.test.ts",
+        "tests/engine.test.ts",
+        "tests/save.test.ts",
+        "tests/collection.test.ts",
+        "tests/heroArtCompatibility.test.ts",
+        "tests/progressionV5.test.ts"
+      ],
+      "ac": "npx vitest run tests/equipmentV11.test.ts tests/progressionV11.test.ts tests/progressionV5.test.ts tests/save.test.ts tests/engine.test.ts",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts tests/renderer-field-v11.test.ts",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-03-ac-1789725077117.log",
+          "logHash": "bcc9aa94f2fea4136d95f892c8e6a2a0c9af784da5506646beb4daafa455ad37",
+          "artifacts": {},
+          "at": "2026-09-18T09:51:19.247Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T08:58:26.210Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root/menu_review",
+      "startedAt": "2026-09-18T09:20:16.338Z",
+      "source": "2820154ae07102d56cd8a5137bdb9d6054a3d33e7a759c948bad97b1f90a16ad",
+      "handoff": "Renderer/native party and labels use encounter total reset metadata; discriminating raster/save-reload cases and consistent fixture counters added. 121 Vitest,37 Node and scoped lint passed; final native observation pending.",
+      "implementedSource": "0f9ce48cb3bd9135b0f98f5ae8e46534a4453b53199588bbf769fa5e72dd0d4f",
+      "id": "V11-03",
+      "owner": "Designer",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/renderer/hud.ts",
+        "src/renderer/game.ts",
+        "tests/hud-v09.test.ts",
+        "tests/hudV11.test.ts",
+        "tests/renderer.test.ts",
+        "tests/effects-v09.test.ts",
+        ".harness/v11/runtime.mjs",
+        ".harness/v11/ui-cases.mjs",
+        ".harness/v11/runtime.test.mjs",
+        "tests/expedition.test.ts",
+        "tests/renderer-field-v11.test.ts"
+      ],
+      "ac": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts tests/renderer-field-v11.test.ts",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "status": "verified",
+      "checks": [
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "c013d657bc20a1962d37d1a4d8daf399fccfce8c39800f79a5fa0ff30bceb6ce",
+          "after": "c013d657bc20a1962d37d1a4d8daf399fccfce8c39800f79a5fa0ff30bceb6ce",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-gates-1789716207501.log",
+          "logHash": "cfa152c73503ffc8ab19a5ca3ff6249e647beb99413b2443b3cab4f27f3e89bb",
+          "artifacts": {},
+          "at": "2026-09-18T07:23:47.112Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "4533c0f38ebde290b1a93db71144d62a796df174ee6fb262f2390662c6e967bd",
+          "after": "02694b577ee84f6965e5f01bff5cba0abc288832afc1baf0683cbb535945597e",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-gates-1789716391849.log",
+          "logHash": "096f63888386d41b9f944ebc45f9ea5a1390e5ae358fa8be0c8ce022fe1098e7",
+          "artifacts": {},
+          "at": "2026-09-18T07:27:04.444Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "5bc5145c68132c717cb7f38fb77b7398ba16b551c0bd2d823aeca8cb8c717374",
+          "after": "5bc5145c68132c717cb7f38fb77b7398ba16b551c0bd2d823aeca8cb8c717374",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-gates-1789716827018.log",
+          "logHash": "8c26acff9e1f7415bb94cb3afbe0037c800dd4c16c4861267b1b0cef38c30f68",
+          "artifacts": {},
+          "at": "2026-09-18T07:34:17.603Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "152417cbee25bd61167f81d666c23225a05b5c64f49f431313fbf84dadfb8dac",
+          "after": "152417cbee25bd61167f81d666c23225a05b5c64f49f431313fbf84dadfb8dac",
+          "exitCode": 1,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-gates-1789722268535.log",
+          "logHash": "e957d6309a81a0fd9de26fadd0f4cb94d8dabf7c02e9c6f753d0431e001acba7",
+          "artifacts": {},
+          "at": "2026-09-18T09:04:51.549Z"
+        },
+        {
+          "id": "gates",
+          "command": "npm test && npm run lint && npm run typecheck",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-gates-1789725007142.log",
+          "logHash": "a0118d9e74e95165e1ee61d5ca603a5afc136d66997b625e7e72ddc65824f6bf",
+          "artifacts": {},
+          "at": "2026-09-18T09:50:34.489Z"
+        },
+        {
+          "id": "ac",
+          "command": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts tests/spriteRasterV11.test.ts tests/equippedHeroCache.test.ts tests/heroJobStudies.test.ts tests/audio.test.ts tests/share.test.ts tests/share-field-v11.test.ts",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-ac-1789725089739.log",
+          "logHash": "220347d7f47c17eb04e4206fecb25229af017a6221303c093a998b81ad27a06a",
+          "artifacts": {},
+          "at": "2026-09-18T09:51:45.891Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-18T09:20:16.389Z",
+      "source": "2820154ae07102d56cd8a5137bdb9d6054a3d33e7a759c948bad97b1f90a16ad",
+      "id": "V11-04",
+      "owner": "Host",
+      "dependencies": [
+        "V11-01"
+      ],
+      "files": [
+        "src/menu",
+        "src/main/ipc.ts",
+        "src/main/menuWindow.ts",
+        "src/shared/ipc.ts",
+        "src/preload",
+        "src/renderer/index.ts",
+        "src/renderer/global.d.ts",
+        "static",
+        "tests/menu.test.ts",
+        "tests/equipmentMenuV10.test.ts",
+        "tests/ipc.test.ts",
+        "tests/packaging.test.ts",
+        "tests/window.test.ts",
+        "package.json",
+        "package-lock.json",
+        "README.md",
+        "eslint.config.mjs",
+        "src/main/tray.ts",
+        "tests/tray.test.ts",
+        "tests/runtimeV8.test.ts",
+        "src/renderer/sprites/sprite.ts",
+        "tests/spriteRasterV11.test.ts",
+        "tests/shareV9.test.ts",
+        "tests/sprites.test.ts",
+        "tests/equippedHeroCache.test.ts",
+        "tests/share.test.ts",
+        "src/renderer/audio.ts",
+        "tests/audio.test.ts",
+        "tests/share-field-v11.test.ts",
+        "tests/heroJobStudies.test.ts",
+        "SPEC.md"
+      ],
+      "ac": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts tests/spriteRasterV11.test.ts tests/equippedHeroCache.test.ts tests/heroJobStudies.test.ts tests/audio.test.ts tests/share.test.ts tests/share-field-v11.test.ts",
+      "handoff": "Menu/share and previews now use saved encounter total resets; live counter updates preserve roster DOM. 247 focused tests and scoped lint passed; final source gates/native/performance remain pending.",
+      "implementedSource": "98745d3aeb21e552cc0fa32df7dc5a188053c4156e763e303807a03fef784a3f",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-05",
+      "owner": "Balance",
+      "dependencies": [
+        "V11-02",
+        "V11-04"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/balance-verify.mjs {runDir}/balance/final.json",
+      "artifacts": [
+        "{runDir}/balance/final.json"
+      ],
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v11/balance-verify.mjs '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume'/balance/final.json",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-05-ac-1789729785079.log",
+          "logHash": "0baf2af5bb7c7137ed9ea9f656973a8563eb133d7df5eee6f1c5f61f001086f3",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/final.json": "549528a839663ef110e34ea03865f770b6a8c5b321c78c26af578032467a58e1"
+          },
+          "at": "2026-09-18T11:09:52.750Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T09:20:16.196Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root/balance",
+      "startedAt": "2026-09-18T09:50:07.029Z",
+      "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "handoff": "R19-B fresh heldout280 and original23 criteria passed; finite80 recovery1280 replay and growth/reserve guards accepted independently; source9397 frozen.",
+      "implementedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-06",
+      "owner": "Host",
+      "dependencies": [
+        "V11-02",
+        "V11-03",
+        "V11-04"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/runtime.mjs verify {runDir}/native/final.json",
+      "artifacts": [
+        "{runDir}/native/final.json"
+      ],
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v11/runtime.mjs verify '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume'/native/final.json",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-06-ac-1789737628254.log",
+          "logHash": "36b14bb338d27ec8ddf109219a1d89e79e9c43851bbd2438e359973af5fe897c",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/native/final.json": "93e0674a6af7c02e943cad7e29359e34568bdf148e394fbed51d19f347bc1a7d"
+          },
+          "at": "2026-09-18T13:20:28.538Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T09:20:16.196Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-18T09:57:50.444Z",
+      "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "handoff": "Packaged native final: 5 scenarios,183 checks,28 PNGs independently reviewed,407 trusted samples,107 applied IPC traces,exact21 HUD key pairs; source9397 and appASAR31c94 bound.",
+      "implementedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-07",
+      "owner": "Critic",
+      "dependencies": [
+        "V11-05",
+        "V11-06"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/final-check.mjs reviews {runDir}",
+      "artifacts": [
+        "{runDir}/reviews/final.json"
+      ],
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v11/final-check.mjs reviews '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume'",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-07-ac-1789737702850.log",
+          "logHash": "a19db98a9d6371a666fb87dad27b187181c2810949af1b8e8fa56068ca7d52da",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/reviews/final.json": "a19db98a9d6371a666fb87dad27b187181c2810949af1b8e8fa56068ca7d52da"
+          },
+          "at": "2026-09-18T13:21:42.935Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T09:20:16.196Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root/skills_harness",
+      "startedAt": "2026-09-18T13:21:42.637Z",
+      "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "handoff": "Five independent source scopes approved; raw1440 performance and installer payloads independently reviewed. Final source/evidence hashes bound; external unperformed checks explicit.",
+      "implementedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-08",
+      "owner": "Host",
+      "dependencies": [
+        "V11-07"
+      ],
+      "files": [],
+      "ac": "node .harness/v11/final-check.mjs final {runDir}",
+      "artifacts": [
+        "{runDir}/performance/comparison.json",
+        "{runDir}/release.json"
+      ],
+      "status": "verified",
+      "checks": [
+        {
+          "id": "ac",
+          "command": "node .harness/v11/final-check.mjs final '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume'",
+          "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+          "exitCode": 0,
+          "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-08-ac-1789737712741.log",
+          "logHash": "fb0e6095d3c427ad4f19a024c7303921eb15af13d4ed4c1ffc81a5bcf4fc4224",
+          "artifacts": {
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/performance/comparison.json": "5faf1075470c64fd6a9181c48eb4430cea215c4e75cdd7029d36118ee11a5865",
+            "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/release.json": "059883a28d8c3736d971925e3e7af49769791dc4c6ec9ef029b33c230c046c03"
+          },
+          "at": "2026-09-18T13:22:06.316Z"
+        }
+      ],
+      "invalidations": [
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T08:58:26.211Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        },
+        {
+          "at": "2026-09-18T09:20:16.196Z",
+          "reason": "Task contract changed; retained earlier receipts"
+        }
+      ],
+      "agent": "/root",
+      "startedAt": "2026-09-18T13:21:52.529Z",
+      "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "handoff": "All source tasks and independent reviews verified; smoke,macOS and Windows packages,installer extraction,native183 checks and full active/idle resource comparison passed; DESMON_SKIP_NET=1.",
+      "implementedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    }
+  ]
+}

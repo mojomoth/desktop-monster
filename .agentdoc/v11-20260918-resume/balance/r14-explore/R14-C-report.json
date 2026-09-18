@@ -1,0 +1,417 @@
+{
+  "candidate": {
+    "id": "R14-C",
+    "parameters": {
+      "heroMinLevel": 26,
+      "heroLevelStepCap": 0,
+      "fieldHpNumerator": 1080,
+      "fieldHpTailStartIndex": 79,
+      "fieldHpTailNumerator": 10950,
+      "fieldHpTailPolynomial": 0,
+      "fieldHpIndexCap": 159,
+      "fieldRebirthBonus": 12,
+      "fieldRebirthHalf": 1,
+      "fieldRebirthBonusScale": 16,
+      "fieldCompanionTailPolynomial": 1,
+      "fieldCompanionTailScale": 256,
+      "fieldCompanionIndexCap": 79,
+      "fieldCompanionBaseFloor": 10000,
+      "fieldCompanionGrowthBonus": 25,
+      "fieldHeroCycleBonus": 128
+    }
+  },
+  "compiledFiles": {
+    "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+    "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "collection.js": "615de50bbbf684157ee7e0c698ef4e7d36ba6740ff4b8f5ee080dfd742459ca0",
+    "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+    "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+    "engine.js": "db72dfdb31411e848a4adcf684687746075c9c067459731bebd6d000a962364a",
+    "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+    "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+    "formulas.js": "09142f06634467fb62e9c2257fc5fe56532fbf96774f97e35481bcda52187c3b",
+    "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+    "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+    "hero.js": "61393330dac7cdcf77aa4e87dc8cff19dae2fee23d97553ea5b7b8fb3ca0750d",
+    "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+    "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "monsters.js": "79de30b4114c58b417491cf7bb415f0ad5935dc4bcddeead01581ec359147744",
+    "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+    "progression.js": "0b4d9883580222f1c1d2c4672ef200eab3486410e49239300da09d803be25429",
+    "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+    "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+  },
+  "rows": 60,
+  "raw": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r14-explore/R14-C-ordinary-10.jsonl",
+      "sha256": "a714236ff026a0ea103954967536db004616a62a54128918e3d0367bb8119eae"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r14-explore/R14-C-intermittent-10.jsonl",
+      "sha256": "d6983bd5bb22c95b6cee6c7b8866fc8bd9b7c6a0cb10fb64834b551a81b4f2b4"
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r14-explore/R14-C-high-3.jsonl",
+      "sha256": "f2832a7d9affdf1f8ab597cf0225233c7c34abe4da3c029f56e04597bc9b1c48"
+    }
+  ],
+  "summaries": [
+    {
+      "profile": "ordinary",
+      "cycle": 1,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 232.83333333333334,
+      "p50": 258.25,
+      "p90": 303.1666666666667
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 2,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 225.08333333333334,
+      "p50": 257.25,
+      "p90": 288.3333333333333
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 3,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 206.33333333333334,
+      "p50": 278.75,
+      "p90": 329.6666666666667
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 4,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 222.91666666666666,
+      "p50": 288.6666666666667,
+      "p90": 333.25
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 5,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 235.75,
+      "p50": 324.4166666666667,
+      "p90": 346.5
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 6,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 231.91666666666666,
+      "p50": 302.9166666666667,
+      "p90": 345.3333333333333
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 7,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 249.41666666666666,
+      "p50": 313.5,
+      "p90": 350.5
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 8,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 226.75,
+      "p50": 332.6666666666667,
+      "p90": 364.4166666666667
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 9,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 246.91666666666666,
+      "p50": 268.8333333333333,
+      "p90": 347.25
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 10,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 239.83333333333334,
+      "p50": 313.5833333333333,
+      "p90": 361.3333333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 1,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 235.25,
+      "p50": 263.0833333333333,
+      "p90": 320.0833333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 2,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 227,
+      "p50": 273.1666666666667,
+      "p90": 303.25
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 3,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 235.25,
+      "p50": 281.9166666666667,
+      "p90": 334.3333333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 4,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 249.5,
+      "p50": 297.0833333333333,
+      "p90": 341.5
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 5,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 245.83333333333334,
+      "p50": 300.8333333333333,
+      "p90": 349.9166666666667
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 6,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 249.75,
+      "p50": 275.3333333333333,
+      "p90": 353.3333333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 7,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 252.75,
+      "p50": 275.8333333333333,
+      "p90": 351.3333333333333
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 8,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 237.41666666666666,
+      "p50": 300.5833333333333,
+      "p90": 355
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 9,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 246.58333333333334,
+      "p50": 313.5833333333333,
+      "p90": 361.9166666666667
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 10,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 256.5,
+      "p50": 291.0833333333333,
+      "p90": 358.25
+    },
+    {
+      "profile": "high",
+      "cycle": 1,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 134.08333333333334,
+      "p50": 154.58333333333334,
+      "p90": 173.16666666666666
+    },
+    {
+      "profile": "high",
+      "cycle": 2,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 125.33333333333333,
+      "p50": 159.58333333333334,
+      "p90": 178.5
+    },
+    {
+      "profile": "high",
+      "cycle": 3,
+      "n": 20,
+      "arrived": 20,
+      "nonarrival": 0,
+      "p10": 138.25,
+      "p50": 170.58333333333334,
+      "p90": 186.75
+    }
+  ],
+  "checks": [
+    {
+      "profile": "ordinary",
+      "cycle": 1,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 2,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 3,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 4,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 5,
+      "passed": false
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 6,
+      "passed": false
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 7,
+      "passed": false
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 8,
+      "passed": false
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 9,
+      "passed": true
+    },
+    {
+      "profile": "ordinary",
+      "cycle": 10,
+      "passed": false
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 1,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 2,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 3,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 4,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 5,
+      "passed": false
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 6,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 7,
+      "passed": true
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 8,
+      "passed": false
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 9,
+      "passed": false
+    },
+    {
+      "profile": "intermittent",
+      "cycle": 10,
+      "passed": true
+    },
+    {
+      "profile": "high",
+      "cycle": 1,
+      "passed": true
+    },
+    {
+      "profile": "high",
+      "cycle": 2,
+      "passed": true
+    },
+    {
+      "profile": "high",
+      "cycle": 3,
+      "passed": true
+    }
+  ],
+  "passed": false,
+  "score": {
+    "maximumMedianDeviation": 92.66666666666669,
+    "maximumP90": 364.4166666666667
+  },
+  "humanFun": false
+}

@@ -1,6 +1,7 @@
 import { saveProgress } from '../src/core/progress.js';
 import { describe, expect, it } from 'vitest';
-import { createEngine, DEFAULT_SAVE, displayNameOf, HERO_FORMS, mulberry32, SPECIES_IDS } from '../src/core/index.js';
+import { createEngine, DEFAULT_SAVE, displayNameOf, HERO_FORMS, mulberry32, SPECIES_IDS, activeFieldCompanions,
+  fieldCompanionPower, companionPower, format, monsterForIndex } from '../src/core/index.js';
 import { newHeroProgress } from '../src/core/hero.js';
 import { newProgress as newCoreProgress } from '../src/core/progress.js';
 import { drawShareCard, SHARE_CARD_SIZE } from '../src/menu/share.js';
@@ -22,6 +23,24 @@ function canvas() {
 const save = () => createEngine(DEFAULT_SAVE, mulberry32(1)).toSave();
 
 describe('share card composition', () => {
+  it('uses the current hunting lineup and shows separate hunting/PvP values through legacy migration', () => {
+    const state = save();
+    state.companions = Array.from({ length: 6 }, (_, i) => ({ id: `c${i + 1}`, speciesId: SPECIES_IDS[i]!,
+      bossIndex: i === 0 ? 31 : 95 + i * 8, level: i === 0 ? 20 : 1, stars: 0 }));
+    state.hero = { ...newHeroProgress(), reincarnations: 3 };
+    state.rebirths = 7; state.monsterCurveRebirths = 7;
+    for (const version of [10, 11] as const) {
+      state.monsterCurveVersion = version;
+      const out = canvas();
+      drawShareCard(out.ctx, { kind: 'party', save: state });
+      const target = monsterForIndex(state.monsterIndex, state.monsterSpeciesId);
+      const party = activeFieldCompanions(state.companions, target.type, state.hero.equipped, 7, version);
+      expect(out.words.filter(word => SPECIES_IDS.map(displayNameOf).includes(word))).toEqual(party.map(c => displayNameOf(c.speciesId)));
+      expect(out.words.filter(word => word.startsWith('사냥 공격력'))).toEqual(party.map(c => `사냥 공격력 ${format(fieldCompanionPower(c, 7, version))}`));
+      expect(out.words.filter(word => word.startsWith('PvP '))).toEqual(party.map(c => `PvP ${format(companionPower(c))} · ★${format(c.stars)}`));
+    }
+  });
+
   it('draws all six card types without mutating a frozen save or leaking internal IDs', () => {
     const state = save();
     state.companions = [{ id: 'private-id', speciesId: 'dragon', bossIndex: 7, level: 9, stars: 1 }];

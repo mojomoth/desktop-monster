@@ -34,20 +34,24 @@ function hashed(record) {
 
 export const REVIEW_SCOPES = Object.freeze({
   core: {authors: ['/root/balance'], files: ['src/core/equipment.ts', 'src/core/engine.ts', 'src/core/hero.ts', 'src/core/collection.ts',
-    'src/core/formulas.ts', 'src/core/save.ts', 'src/core/progression.ts', 'src/core/types.ts', 'src/core/monsters.ts',
-    'tests/equipmentV11.test.ts', 'tests/progressionV11.test.ts', '.harness/v11/balance.mjs', '.harness/v11/balance-verify.mjs', '.harness/v11/balance-verify.test.mjs',
+    'src/core/formulas.ts', 'src/core/save.ts', 'src/core/progression.ts', 'src/core/types.ts', 'src/core/monsters.ts', 'src/core/fever.ts',
+    'src/core/index.ts', 'tests/equipmentV11.test.ts', 'tests/progressionV11.test.ts', 'tests/progressionV5.test.ts', 'tests/fever.test.ts', 'tests/engine.test.ts', '.harness/v11/balance.mjs',
     'docs/v0.11/EVALUATION_PROTOCOL.json', 'docs/v0.11/BALANCE_CANDIDATE.json']},
-  ui: {authors: ['/root'], files: ['src/menu/index.ts', 'src/menu/equipment.ts', 'src/menu/codex.ts',
+  ui: {authors: ['/root', '/root/menu_review'], files: ['src/menu/index.ts', 'src/menu/equipment.ts', 'src/menu/codex.ts', 'src/menu/share.ts',
     'src/main/ipc.ts', 'src/main/menuWindow.ts', 'src/main/tray.ts', 'src/shared/ipc.ts', 'src/preload/index.ts',
-    'src/renderer/index.ts', 'static/menu.html', 'static/menu.css', 'tests/runtimeV8.test.ts', 'tests/tray.test.ts', 'tests/menuV9.test.ts']},
-  visual: {authors: ['/root/menu_review'], files: ['src/renderer/hud.ts', 'src/renderer/game.ts', 'tests/expedition.test.ts']},
-  verification: {authors: ['/root/skills_harness'], files: ['.harness/v11/final-check.mjs', '.harness/v11/final-check.test.mjs',
+    'src/renderer/index.ts', 'static/menu.html', 'static/menu.css', 'tests/runtimeV8.test.ts', 'tests/tray.test.ts', 'tests/menuV9.test.ts',
+    'tests/menu.test.ts', 'tests/share.test.ts', 'tests/share-field-v11.test.ts']},
+  visual: {authors: ['/root/menu_review', '/root'], files: ['src/renderer/hud.ts', 'src/renderer/game.ts', 'src/renderer/sprites/sprite.ts',
+    'src/renderer/audio.ts', 'tests/expedition.test.ts', 'tests/renderer.test.ts', 'tests/renderer-field-v11.test.ts', 'tests/spriteRasterV11.test.ts',
+    'tests/sprites.test.ts', 'tests/equippedHeroCache.test.ts', 'tests/audio.test.ts', 'tests/hud-v09.test.ts', 'tests/heroJobStudies.test.ts']},
+  verification: {authors: ['/root/skills_harness', '/root/balance'], files: ['.harness/v11/final-check.mjs', '.harness/v11/final-check.test.mjs',
+    '.harness/v11/balance-verify.mjs', '.harness/v11/balance-verify.test.mjs',
     '.harness/v11/performance-report.mjs', '.harness/v11/performance.test.mjs',
     '.harness/v11/vendor/awesome-gamedev-agent-skills/SOURCES.json', '.harness/v11/agents/designer.md',
     '.harness/v11/agents/critic.md', '.harness/v11/agents/balance.md', '.harness/v11/agents/playtester.md']},
   orchestration: {authors: ['/root', '/root/menu_review'], files: ['.harness/v11/run.mjs', '.harness/v11/run.test.mjs', '.harness/v11/config.json',
     '.harness/v11/runtime.mjs', '.harness/v11/runtime.test.mjs', '.harness/v11/ui-cases.mjs', '.harness/v11/release.mjs', '.harness/v11/run-performance.mjs',
-    '.harness/v11/HARNESS.md', 'docs/v0.11/CONTRACT.md', 'docs/v0.11/PERFORMANCE_PROTOCOL.json']},
+    '.harness/v11/HARNESS.md', 'SPEC.md', 'docs/v0.11/CONTRACT.md', 'docs/v0.11/PERFORMANCE_PROTOCOL.json']},
 });
 const agentId = value => typeof value === 'string' && /^\/root(?:\/[a-z0-9_]+)*$/.test(value);
 
@@ -89,7 +93,7 @@ export function validateReceipts(journal, current, run, tasks = config.tasks) {
   }
 }
 
-export const NATIVE_SCENARIOS = ['menu-live-updates', 'manual-equipment', 'equipment-restart', 'hud-states'];
+export const NATIVE_SCENARIOS = ['menu-live-updates', 'manual-equipment', 'equipment-restart', 'hud-states', 'field-party'];
 export const LATENCY_FAMILIES = ['tabs', 'disclosures', 'growth-selection', 'equipment-actions'];
 const percentile95 = values => [...values].sort((a, b) => a - b)[Math.floor((values.length - 1) * .95)];
 const finite = value => typeof value === 'number' && Number.isFinite(value);

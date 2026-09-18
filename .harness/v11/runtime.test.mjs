@@ -7,9 +7,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
 import ts from 'typescript';
-import { fixture } from './runtime.mjs';
+import { fixture, instrumentLifecycle } from './runtime.mjs';
 import { installLatencyObserver, installHudInputObserver, latencyFamilies, inspectHudPixels, assertDamageRaster, assertDamageRise, assertDamageTimeline, assertHudLabel, hudLabelGeometry, assertDuplicateBurst, assertGrowthCompletion,
-  makeStageRecorder, calibrateClock, sampleClockResolution, epochRoundingErrorMs, attachPipeline, installPipeline } from './ui-cases.mjs';
+  makeStageRecorder, calibrateClock, sampleClockResolution, epochRoundingErrorMs, attachPipeline, installPipeline, assertFieldPartyAgreement, assertGrowthPowerPreview, assertLiveDisclosureState } from './ui-cases.mjs';
 import { validatePipeline, validatePipelineTrace } from './final-check.mjs';
 
 // Current source, isolated output: never overwrite the package/performance build.
@@ -26,9 +26,117 @@ function compile(folder) {
 }
 for (const folder of ['core', 'renderer', 'shared']) compile(folder);
 const require = createRequire(import.meta.url), core = require(join(directory, 'core/index.js'));
+const progression = require(join(directory, 'core/progression.js'));
 const hud = require(join(directory, 'renderer/hud.js'));
 const sprites = require(join(directory, 'renderer/sprites/index.js'));
 test.after(() => rmSync(directory, { recursive: true, force: true }));
+
+function withProgression(parameters, run) {
+  const original = progression.PROGRESSION_PARAMETERS;
+  progression.PROGRESSION_PARAMETERS = { ...original, fieldHpResumeIndex: null, fieldRebirthCountCap: null,
+    fieldCompanionFeverMultiplier: 3, ...parameters };
+  try { run(); } finally { progression.PROGRESSION_PARAMETERS = original; }
+}
+
+test('field fixture chooses a discriminating trained level for different adopted tail scales and waits for one native hit', () => {
+  assert.throws(() => fixture({ ...core, PROGRESSION_PARAMETERS: { ...core.PROGRESSION_PARAMETERS, fieldCompanionTailPolynomial: 0 } }, core, 'field'), /adopted field curve/);
+  for (const polynomial of [1, 2]) for (const scale of [1, 8, 12, 64, 256]) withProgression({
+    fieldCompanionTailPolynomial: polynomial, fieldCompanionTailScale: scale,
+    fieldHpIndexCap: null, fieldCompanionIndexCap: null, fieldCompanionGrowthBonus: null, fieldCompanionBaseFloor: 0,
+  }, () => {
+      const { save, ids } = fixture(core, core, 'field', 1000), engine = core.createEngine(save, core.mulberry32(7));
+      assert.equal(save.hero.reincarnations, 1); assert.equal(save.rebirths, 1); assert.equal(save.monsterCurveRebirths, 1);
+      const trained = save.companions.find(c=>c.id===ids.trained), target = save.companions.find(c=>c.id===ids.target);
+      assert.equal(trained.bossIndex, 31);
+      assert(core.fieldCompanionPower(trained) > core.fieldCompanionPower(target));
+      assert(core.fieldCompanionPower(trained) < core.fieldCompanionPower({ ...target, level:3 }));
+      assert(core.companionPower(trained) < core.companionPower(target));
+      engine.tick(60_000);
+      assert.equal(engine.getState().monster.index, 1000); assert.equal(engine.getState().killCount, 0);
+      assert(engine.attack('keyboard').some(event=>event.type==='monsterSpawned'));
+      assert.equal(engine.getState().monster.index, 1001); assert.equal(engine.getState().monster.curveVersion, 11);
+      assert.equal(engine.getState().monster.curveRebirths, 1); assert.equal(engine.toSave().monsterCurveRebirths, 1);
+      engine.apply({ type:'consume', targetId:ids.target, foodId:ids.food });
+      assert.equal(engine.lastActionError(), null);
+      assert.equal(engine.getState().companions.find(c=>c.id===ids.target).level, 3);
+      assert(!engine.getState().companions.some(c=>c.id===ids.food));
+    });
+});
+
+test('field fixture uses Q2→Q3 to reverse real capped hunting membership with or without a base floor', () => {
+  for (const polynomial of [1, 2]) for (const scale of [1, 64, 256]) for (const bonus of [25, 50, 100]) for (const floor of [0, 10000]) withProgression({
+    fieldCompanionTailPolynomial: polynomial, fieldCompanionTailScale: scale,
+    fieldHpIndexCap: 159, fieldCompanionIndexCap: 79, fieldCompanionGrowthBonus: bonus, fieldCompanionBaseFloor: floor,
+  }, () => {
+    const { save, ids } = fixture(core, core, 'field', 1000), engine = core.createEngine(save, core.mulberry32(7));
+    const trained = save.companions.find(c=>c.id===ids.trained), target = save.companions.find(c=>c.id===ids.target);
+    assert.deepEqual([trained.bossIndex, trained.level, trained.stars], [79, 1, 1]);
+    assert.deepEqual([target.bossIndex, target.level, target.stars], [95, 1, 0]);
+    // Independent F31=38; clipped F79 is95 linear or237 quadratic before scaling.
+    const uncappedBase = 38n + BigInt(scale) * ((polynomial === 1 ? 95n : 237n) - 38n);
+    const base = uncappedBase > BigInt(floor) ? uncappedBase : BigInt(floor);
+    assert.equal(core.fieldCompanionPower(target), base);
+    assert.equal(core.fieldCompanionPower(trained), base * BigInt(200 + bonus) / 200n);
+    const rawIds = ['c1', 'c2', 'c3', 'c4', 'c6'], trainedIds = ['c1', 'c2', 'c3', 'c4', 'c5'];
+    const fieldIds = () => { const state=engine.getState(); return core.activeFieldCompanions(state.companions,
+      state.monster.type,state.hero.equipped,state.monster.curveRebirths??0,state.monster.curveVersion??10).map(c=>c.id); };
+    assert.deepEqual(fieldIds(), rawIds);
+    engine.tick(60_000); assert.equal(engine.getState().monster.index, 1000);
+    assert(engine.attack('keyboard').some(event=>event.type==='monsterSpawned'));
+    assert.deepEqual(fieldIds(), trainedIds);
+    engine.apply({ type:'consume', targetId:ids.target, foodId:ids.food });
+    assert.equal(engine.lastActionError(), null);
+    const grown = engine.getState().companions.find(c=>c.id===ids.target);
+    assert.equal(grown.level, 3);
+    assert.equal(core.fieldCompanionPower(grown), base * BigInt(300 + 2 * bonus) / 300n);
+    assert(!engine.getState().companions.some(c=>c.id===ids.food));
+    assert.deepEqual(fieldIds(), rawIds);
+    assert.deepEqual(core.activeCompanions(engine.getState().companions, 'water').map(c=>c.id), rawIds);
+  });
+});
+
+test('field agreement rejects a stale/raw draw party or a misleading hunting/PvP label', () => {
+  const view={version:11,curveRebirths:1,monsterIndex:1001,frame:{replay:false,curveVersion:11,curveRebirths:1,monsterIndex:1001,ids:['c5']},
+    fieldIds:['c5'],pvpIds:['c6'],labels:[{id:'c5',raw:'PvP 760',hunting:'사냥 공격력 760'},{id:'c6',raw:'PvP 291.92A',hunting:'사냥 공격력 342'}]};
+  const cards=view.labels.map(row=>({...row,pvp:row.id==='c6'}));
+  assert.doesNotThrow(()=>assertFieldPartyAgreement(view,cards));
+  assert.throws(()=>assertFieldPartyAgreement({...view,frame:{...view.frame,ids:['c6']}},cards),/membership/);
+  assert.throws(()=>assertFieldPartyAgreement({...view,frame:{...view.frame,curveVersion:10}},cards),/stale/);
+  assert.throws(()=>assertFieldPartyAgreement({...view,frame:{...view.frame,curveRebirths:0}},cards),/stale/);
+  assert.throws(()=>assertFieldPartyAgreement(view,cards.map(row=>row.id==='c6'?{...row,hunting:row.raw}:row)),/label differs/);
+  assert.throws(()=>assertFieldPartyAgreement(view,cards.map(row=>({...row,pvp:true}))),/PvP membership/);
+});
+
+test('growth preview must match actual applied hunting and PvP powers including integers hidden by formatting', () => {
+  const before={id:'c6',hunting:'사냥 공격력 1.23A',raw:'PvP 9.87A',huntingValue:'1234',rawValue:'9876'};
+  const after={id:'c6',hunting:'사냥 공격력 1.23A',raw:'PvP 29.62A',huntingValue:'1235',rawValue:'29628'};
+  const preview={text:'사냥 1.23A → 1.23A · PvP 9.87A → 29.62A',title:'사냥 1234 → 1235 · PvP 9876 → 29628'};
+  assert.doesNotThrow(()=>assertGrowthPowerPreview(preview,before,after));
+  assert.throws(()=>assertGrowthPowerPreview({...preview,title:'사냥 1234 → 1234 · PvP 9876 → 29628'},before,after),/exact integers/);
+  assert.throws(()=>assertGrowthPowerPreview({...preview,text:'사냥 1.23A → 1.24A · PvP 9.87A → 29.62A'},before,after),/applied hunting/);
+  assert.throws(()=>assertGrowthPowerPreview(preview,before,{...after,id:'c5'}),/target changed/);
+});
+
+test('lifecycle observer records quit stacks and shutdown events while preserving original calls and errors', t => {
+  const app=new EventEmitter(), processEmitter=new EventEmitter(), window=new EventEmitter(), rows=[], calls=[];
+  window.id=7;
+  app.quit=function(...args){calls.push({method:'quit',args,receiver:this});return 73;};
+  app.exit=function(code){calls.push({method:'exit',code,receiver:this});if(code===9)throw Error('original exit error');return code;};
+  app.getAppPath=()=>'/packaged';
+  const tray={setTitle:title=>calls.push({title}),setToolTip:tooltip=>calls.push({tooltip})};
+  const p={e:{app,BrowserWindow:{getAllWindows:()=>[window]}},fs:{appendFileSync:(_path,line)=>rows.push(JSON.parse(line))},
+    require:name=>name==='node:process'?processEmitter:{getActiveTray:()=>tray}};
+  instrumentLifecycle(p,'/isolated');
+  assert.equal(app.quit('reason'),73);assert.equal(app.exit(3),3);assert.throws(()=>app.exit(9),/original exit error/);
+  for(const event of ['before-quit','will-quit','window-all-closed'])app.emit(event);
+  app.emit('quit',{},3);window.emit('close');window.emit('closed');processEmitter.emit('exit',3);
+  app.emit('render-process-gone',{}, {id:5}, {reason:'crashed'});app.emit('child-process-gone',{}, {type:'GPU',reason:'killed'});
+  assert(rows.find(row=>row.event==='app.quit').stack.includes('Observed app.quit'));
+  assert.deepEqual(calls.filter(row=>row.method).map(row=>row.receiver),[app,app,app]);
+  for(const name of ['before-quit','will-quit','window-all-closed','quit','window-close','window-closed','process-exit','render-process-gone','child-process-gone'])assert(rows.some(row=>row.event===name));
+  t.mock.method(console,'error',()=>{});p.fs.appendFileSync=()=>{throw Error('disk unavailable');};
+  assert.equal(app.quit(),73); // Diagnostic I/O failure must never block shutdown.
+});
 
 test('HUD fixture starts with a surviving boss hit and reaches normal + ready + level-up + fever in one burst', () => {
   const { save } = fixture(core, core, 'hud', 1000), engine = core.createEngine(save, core.mulberry32(3));
@@ -57,6 +165,23 @@ test('menu live-save fixture progresses gold without removing its paginated bag 
   assert(snapshots.at(-1).progress.playTimeMs >= 100_000);
   assert(BigInt(snapshots.at(-1).coins) > BigInt(save.coins));
   assert(snapshots.at(-1).companions.some(companion => companion.id === 'c2'));
+});
+
+test('live disclosure evidence requires the same state across a later coin-changing production save', () => {
+  const before = { playTimeMs: 38_000, coins: '100', order: ['e1', 'e2'], scrollY: 50, cardTop: 70 };
+  const stable = { sameNode: true, focused: true, open: true, order: ['e1', 'e2'], scrollY: 50, cardTop: 70,
+    saves: [{ playTimeMs: 39_000, coins: '100' }, { playTimeMs: 41_200, coins: '100' }] };
+  assert.doesNotThrow(() => assertLiveDisclosureState(before, stable));
+  assert.throws(() => assertLiveDisclosureState(before, stable, true), /coin-changing save/);
+  const rewarded = { ...stable, saves: [...stable.saves, { playTimeMs: 41_500, coins: '101' }] };
+  assert.doesNotThrow(() => assertLiveDisclosureState(before, rewarded, true));
+  for (const change of [{ sameNode: false }, { focused: false }, { open: false }, { order: ['e2', 'e1'] }, { scrollY: 51 }, { cardTop: 71 }]) {
+    assert.throws(() => assertLiveDisclosureState(before, { ...rewarded, ...change }, true), /must survive/);
+  }
+  assert.throws(() => assertLiveDisclosureState(before, { ...stable, saves: [] }), /live saves/);
+  assert.throws(() => assertLiveDisclosureState(before, { ...stable, saves: [{ playTimeMs: 38_000, coins: '200' }] }), /live saves/);
+  assert.throws(() => assertLiveDisclosureState({ ...before, playTimeMs: undefined }, rewarded), /live saves/);
+  assert.throws(() => assertLiveDisclosureState(before, { ...stable, saves: [{ coins: '200' }] }), /live saves/);
 });
 
 test('full-bag native fixture supports explicit accessory swap, acquisitions, hero reconciliation and a weaker restart', () => {

@@ -1,0 +1,93 @@
+{
+  "version": 11,
+  "round": 11,
+  "stage": "capped-field-and-bounded-growth-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 31,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R11-A",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailStartIndex": 31,
+        "fieldHpTailNumerator": 12190,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 79,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R11-B",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailStartIndex": 31,
+        "fieldHpTailNumerator": 12200,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 79,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionGrowthBonus": 50,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R11-C",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailStartIndex": 31,
+        "fieldHpTailNumerator": 12210,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 79,
+        "fieldRebirthBonus": 1,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionGrowthBonus": 100,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "Designer/Critic/Hostapprovedfixedfieldcaps79 andGceilings1.25/1.5/2 afteractualR10growthcycle9=62m with103legalconsumes. R10heroHPdamage<1%ordinary meansfurtherheroshare tuninginsufficient; capture/typevariance andretainedgrowth mustbeaddressed. Fasterprefixthrough31,ramp31–79,thenfixedHP spreadsrewardcadence ratherthanlastlevel100m. Companioncapture-indexcap79onlyhunting, rawPvPunchanged. First3baseline+legalgrowthscreens; full20/10, management,growthguardandheldoutstillrequired."
+}

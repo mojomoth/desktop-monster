@@ -1,0 +1,15 @@
+# Companion FEVER and normative source binding
+
+Reviewer: `/root/skills_harness`. Source/schema review passed; numerical candidate adoption, final native evidence and release remain pending.
+
+The game/evaluator changes are independently reviewed here. The verifier changes are authored by this Critic and require the Host's separate approval; the tests below are not self-approval of that verification scope.
+
+The R17 implementation adds only a fixed companion field burst multiplier. Its neutral source value is3 and registered candidate value is2. `companionFeverMultiplier` returns the frozen3 for a legacy v10 encounter and the registered field value for v11. Hero attacks continue using the unchanged3×constant. Companion attacks select the multiplier for the actual current encounter at each booked attack and apply it after the existing hero/party/type integer rounding. FEVER triggering, window, duration and cooldown logic is otherwise unchanged. The raw owned/PvP power functions are unaffected.
+
+The growth evaluator uses this same helper after the same rounding steps. Its pre-action context records the active boolean, curve version and exact multiplier. For helper-bearing current candidates, the independent verifier requires the exact factor implied by that active state and the bound compiled core. It rejects a3×claim against a2×candidate, a1×claim while active, an active multiplier while inactive, or an omitted active flag. Archived pre-helper runs retain their original1×/3×schema for historical inspection. Candidate scope checks permit only2 or3 with an independent baseline3; original schedules, percentile gates and selection ordering are unchanged.
+
+The actual engine regression checks hero3×, legacy companion3×, v11 companion2×, expiration, raw power preservation, and a legacy encounter ending while FEVER remains active followed by a v11 spawn. Independently executed `npx vitest run tests/progressionV11.test.ts tests/fever.test.ts tests/engine.test.ts`:61/61 passed. The run/balance-verifier/final-check Node suites passed41/41. These are bounded tests, not the canonical full gate or native run.
+
+README and the current SPEC amendment distinguish hero and hunting companion damage while preserving the historical universal3×rows as legacy regression requirements. CONTRACT states the same current rule. Production defaults remain neutral pending measured candidate adoption, so these in-progress current-rule documents are not evidence that a candidate has already passed.
+
+The Host added `SPEC.md` to the runner input paths because its new amendment is normative. Read-only inspection and an isolated temporary-root check confirmed that changing SPEC changes the source digest, whereas adding an `.agentdoc` receipt does not. This does not create a report/hash feedback loop. The required orchestration review file set now includes SPEC; the core set also includes `fever.ts` and the legacy fever/engine tests. Final review bindings must be refreshed after source freeze.

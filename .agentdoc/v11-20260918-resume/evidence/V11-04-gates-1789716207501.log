@@ -1,0 +1,199 @@
+
+> desmon@0.11.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/performanceV8.test.ts (6 tests) 442ms
+   ✓ v0.8 performance evidence validation > binds reports, raw samples, screenshots, app bytes and observer source before accepting a matrix  347ms
+ ✓ tests/onlineV91.test.ts (10 tests) 563ms
+ ✓ tests/heroRendering.test.ts (5 tests) 462ms
+ ✓ tests/heroForms.test.ts (8 tests) 1062ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  924ms
+ ✓ tests/loot.test.ts (11 tests) 434ms
+ ✓ tests/engine.test.ts (45 tests) 1528ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent  1152ms
+ ✓ tests/onlineV9.test.ts (8 tests) 192ms
+ ✓ tests/measurementV8.test.ts (6 tests) 1554ms
+   ✓ v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly  1315ms
+ ❯ tests/hud-v09.test.ts (3 tests | 2 failed) 380ms
+   × v0.9 HUD readability > places counters top-left while preserving the head labels and XP in the full frame 26ms
+     → expected false to be true // Object.is equality
+   × v0.9 HUD readability > fits compact outlined counters below the drag strip with transparent space between rows 18ms
+     → expected false to be true // Object.is equality
+   ✓ v0.9 HUD readability > keeps monster-centered normal/critical damage clear of counters throughout its rise  333ms
+ ✓ tests/replayV91.test.ts (14 tests) 173ms
+ ✓ tests/expedition.test.ts (16 tests) 1300ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  1108ms
+ ✓ tests/spriteRasterV11.test.ts (2 tests) 883ms
+   ✓ v11 sprite strip raster equivalence > preserves every registered frame pixel with mirror, tint, scale and clipping  860ms
+ ✓ tests/codexV7.test.ts (10 tests) 123ms
+ ✓ tests/server/pvp.test.ts (14 tests) 31ms
+ ✓ tests/menu.test.ts (68 tests) 295ms
+ ✓ tests/hudV11.test.ts (8 tests) 1765ms
+   ✓ v0.11 head labels and field damage > stacks every combination above every idle hero without overlaps or cropped outlines  687ms
+   ✓ v0.11 head labels and field damage > anchors every monster and crown above its HP bar and keeps long rising hits inside the field  746ms
+ ✓ tests/progressionV5.test.ts (12 tests) 105ms
+ ✓ tests/progressionV7.test.ts (45 tests) 562ms
+ ❯ tests/heroJobStudies.test.ts (3 tests | 1 failed) 35ms
+   ✓ three DFO-inspired job studies on the starter skeleton > keeps all fifteen frames at 14×14, grounded, with the original face and hand anchors 25ms
+   ✓ three DFO-inspired job studies on the starter skeleton > provides distinct authored silhouettes and attached, pose-consistent blades 1ms
+   × three DFO-inspired job studies on the starter skeleton > renders every pose and its mirror on the existing integer pixel scale 9ms
+     → expected [ 8, 2 ] to deeply equal [ 2, 2 ]
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 125ms
+ ✓ tests/renderer.test.ts (104 tests) 277ms
+ ✓ tests/hero.test.ts (17 tests) 78ms
+ ✓ tests/net.test.ts (45 tests) 148ms
+ ✓ tests/sprites.test.ts (34 tests) 282ms
+ ✓ tests/shareV9.test.ts (9 tests) 52ms
+ ✓ tests/collection.test.ts (21 tests) 189ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 39ms
+ ✓ tests/equipmentRendering.test.ts (6 tests) 98ms
+ ✓ tests/v10Critic.test.ts (7 tests) 67ms
+ ✓ tests/effects-v09.test.ts (6 tests) 185ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 133ms
+ ✓ tests/progressV5.test.ts (12 tests) 149ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 66ms
+ ✓ tests/server/opponents.test.ts (10 tests) 61ms
+ ✓ tests/recoveryV9.test.ts (21 tests) 18ms
+ ✓ tests/pvpAbuseV91.test.ts (8 tests) 44ms
+ ✓ tests/server/v09.test.ts (9 tests) 31ms
+ ✓ tests/onlineV10.test.ts (7 tests) 46ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 38ms
+ ✓ tests/equipmentV10.test.ts (10 tests) 58ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 21ms
+ ✓ tests/formulas.test.ts (21 tests) 84ms
+ ✓ tests/progressionV11.test.ts (6 tests) 71ms
+ ✓ tests/server/app.test.ts (18 tests) 76ms
+ ✓ tests/progressV6.test.ts (15 tests) 24ms
+ ✓ tests/recoveryCaptureV9.test.ts (5 tests) 43ms
+ ✓ tests/recoveryV10.test.ts (4 tests) 31ms
+ ✓ tests/save.test.ts (15 tests) 45ms
+ ✓ tests/v10Review.test.ts (7 tests) 33ms
+ ✓ tests/share.test.ts (6 tests) 31ms
+ ✓ tests/onlineV8.test.ts (3 tests) 14ms
+ ✓ tests/equipmentSprites.test.ts (15 tests) 3865ms
+   ✓ v0.10 equipment production art > registers 224 structurally distinct icons, not palette swaps  645ms
+   ✓ v0.10 equipment production art > renders every compatible hero/weapon pairing with visible grips, integer pixels and grounded feet  1457ms
+   ✓ v0.10 equipment production art > preserves every visible weapon and contour pixel in fever/KO composites in both directions  457ms
+   ✓ v0.10 equipment production art > keeps the complete bobbing head visible with every compatible epic weapon  573ms
+ ✓ tests/menuV9.test.ts (14 tests) 53ms
+ ✓ tests/progressV7.test.ts (5 tests) 15ms
+ ✓ tests/identity.test.ts (8 tests) 8ms
+ ✓ tests/globalInput.test.ts (20 tests) 16ms
+ ✓ tests/runtimeV8.test.ts (9 tests) 21ms
+ ✓ tests/equipmentV11.test.ts (8 tests) 21ms
+ ✓ tests/effects.test.ts (7 tests) 9ms
+ ✓ tests/fever.test.ts (4 tests) 15ms
+ ✓ tests/renderer-field-v11.test.ts (6 tests) 27ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 13ms
+ ✓ tests/audio.test.ts (16 tests) 19ms
+ ✓ tests/goldV91.test.ts (15 tests) 14ms
+ ✓ tests/tray.test.ts (38 tests) 14ms
+ ✓ tests/equipmentMenuV10.test.ts (5 tests) 19ms
+ ✓ tests/settings.test.ts (4 tests) 11ms
+ ✓ tests/persistence.test.ts (10 tests) 14ms
+ ✓ tests/shareUiV9.test.ts (6 tests) 63ms
+ ✓ tests/ipc.test.ts (62 tests) 18ms
+ ✓ tests/server/pgTransaction.test.ts (10 tests) 9ms
+ ✓ tests/ipcV5.test.ts (7 tests) 13ms
+ ✓ tests/server/http.test.ts (9 tests) 11ms
+ ✓ tests/server/backendReviewV10.test.ts (5 tests) 16ms
+ ✓ tests/typeChart.test.ts (4 tests) 11ms
+ ✓ tests/packaging.test.ts (16 tests) 11ms
+ ✓ tests/window.test.ts (29 tests) 6ms
+ ✓ tests/share-field-v11.test.ts (2 tests) 9ms
+ ✓ tests/anim.test.ts (14 tests) 10ms
+ ✓ tests/thefts.test.ts (5 tests) 5ms
+ ✓ tests/fsm.test.ts (12 tests) 10ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 11ms
+ ✓ tests/defenseV91.test.ts (1 test) 3ms
+ ✓ tests/battle.test.ts (5 tests) 5ms
+ ✓ tests/deploy.test.ts (7 tests) 5ms
+ ✓ tests/platformV9.test.ts (3 tests) 5ms
+ ✓ tests/input.test.ts (9 tests) 7ms
+ ✓ tests/heroMenuReadiness.test.ts (4 tests) 6ms
+ ✓ tests/rendererInput.test.ts (8 tests) 3ms
+ ✓ tests/drag.test.ts (7 tests) 3ms
+ ✓ tests/bignum.test.ts (7 tests) 5ms
+ ✓ tests/scaffold.test.ts (1 test) 1ms
+ ✓ tests/balance.test.ts (3 tests) 6619ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  6576ms
+ ✓ tests/equippedHeroCache.test.ts (4 tests) 18208ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 57,960 equipped hero views  17142ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 3,840 fever/KO composites  1055ms
+
+ Test Files  2 failed | 92 passed (94)
+      Tests  3 failed | 1241 passed (1244)
+   Start at  16:23:28
+   Duration  18.85s (transform 3.05s, setup 0ms, collect 13.79s, tests 43.77s, environment 13ms, prepare 6.16s)
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/heroJobStudies.test.ts > three DFO-inspired job studies on the starter skeleton > renders every pose and its mirror on the existing integer pixel scale
+AssertionError: expected [ 8, 2 ] to deeply equal [ 2, 2 ]
+
+- Expected
++ Received
+
+  [
+-   2,
++   8,
+    2,
+  ]
+
+ ❯ Object.fillRect tests/heroJobStudies.test.ts:77:28
+     75|           const result: string[] = [];
+     76|           const ctx = { fillStyle: '', fillRect(x: number, y: number, …
+     77|             expect([w, h]).toEqual([UNIT_SCALE, UNIT_SCALE]);
+       |                            ^
+     78|             expect(x % UNIT_SCALE).toBe(0);
+     79|             expect(y % UNIT_SCALE).toBe(0);
+ ❯ drawSprite src/renderer/sprites/sprite.ts:88:11
+ ❯ rectangles tests/heroJobStudies.test.ts:82:11
+ ❯ tests/heroJobStudies.test.ts:87:16
+ ❯ tests/heroJobStudies.test.ts:73:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/hud-v09.test.ts > v0.9 HUD readability > places counters top-left while preserving the head labels and XP in the full frame
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/hud-v09.test.ts:43:68
+     41|       expect(headText.filter(rect => rect.color !== COLORS.void)).toEq…
+     42|       expect(headText.some(rect => rect.color === COLORS.void)).toBe(t…
+     43|       expect(headText.every(rect => rect.w === 1 && rect.h === 1)).toB…
+       |                                                                    ^
+     44|       expect(out.rects.some(rect => rect.x >= 54 && rect.x < 107 && re…
+     45|       expect(out.rects).toContainEqual({ x: 60, y: 86, w: XP_BAR_W, h:…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/hud-v09.test.ts > v0.9 HUD readability > fits compact outlined counters below the drag strip with transparent space between rows
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/hud-v09.test.ts:76:66
+     74|         expect(text.some(rect => rect.color === COLORS.void)).toBe(tru…
+     75|         // Only glyph pixels and their outline are painted; empty surr…
+     76|         expect(text.every(rect => rect.w === 1 && rect.h === 1)).toBe(…
+       |                                                                  ^
+     77|       }
+     78|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+

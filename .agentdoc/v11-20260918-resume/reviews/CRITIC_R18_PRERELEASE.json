@@ -1,0 +1,108 @@
+{
+  "reviewer": "/root/skills_harness",
+  "selectedByOriginalRule": "R18-B",
+  "heldoutVerified": false,
+  "releaseApproved": false,
+  "note": "Pre-adoption comparison binds diagnostics to the original selection candidate, not to a nonexistent heldout run.",
+  "scriptSha256": "218a281bd258860a20d5d49bb1f7a45827d4944ad4cdbf13da199e42d83f16d8",
+  "verifierSha256": "8012d329015423941f4a217af4b8689089c6059c9d863d346e990f5404f616b2",
+  "checked": [
+    {
+      "mode": "explore",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-explore/report.json",
+      "sha256": "1802d037d674e090d2bcbbd47c76924445caf209d0c29f76fac10528b5f29df4",
+      "rows": 180,
+      "ranking": [
+        {
+          "id": "R18-B",
+          "score": {
+            "maximumMedianDeviation": 27.166666666666657,
+            "maximumP90": 283.9166666666667
+          }
+        },
+        {
+          "id": "R18-C",
+          "score": {
+            "maximumMedianDeviation": 27.166666666666657,
+            "maximumP90": 287.25
+          }
+        },
+        {
+          "id": "R18-A",
+          "score": {
+            "maximumMedianDeviation": 34.83333333333334,
+            "maximumP90": 278.5833333333333
+          }
+        }
+      ]
+    },
+    {
+      "mode": "growth",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-growth-b/report.json",
+      "sha256": "dfcc29e2684458de4afbc4da3dc8deb0d2b1e20f5c7e425b9006ac9706803c35",
+      "complete": true,
+      "sourceAndRawVerified": true,
+      "rows": 60,
+      "growthActions": 5697,
+      "releases": 0,
+      "guards": 23,
+      "guardsPassed": true,
+      "minimumP10Minutes": 184.83333333333334,
+      "maximumStage": 368,
+      "capturedRawPowerDigits": 22,
+      "cyclesCompleted": 342,
+      "nonarrivals": 118
+    },
+    {
+      "mode": "reserve-growth",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-reserve-b/report.json",
+      "sha256": "a31e1c30834058b72cf2e81952b28453b24dc084a60d26ee6772fb71cdb29141",
+      "complete": true,
+      "sourceAndRawVerified": true,
+      "rows": 20,
+      "growthActions": 2412,
+      "releases": 0,
+      "guards": 10,
+      "guardsPassed": true,
+      "minimumP10Minutes": 125.75,
+      "maximumStage": 368,
+      "capturedRawPowerDigits": 22,
+      "cyclesCompleted": 200,
+      "nonarrivals": 0
+    },
+    {
+      "mode": "management",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-management-b/report.json",
+      "sha256": "75f0a30bff5831c59577e9ca5dc1c6f507ac21192accd8920939fa0b2ed5ae01",
+      "complete": true,
+      "sourceAndRawVerified": true,
+      "rows": 20,
+      "growthActions": 0,
+      "releases": 1854,
+      "guards": 0,
+      "guardsPassed": null,
+      "minimumP10Minutes": null,
+      "maximumStage": 368,
+      "capturedRawPowerDigits": 22,
+      "cyclesCompleted": 200,
+      "nonarrivals": 0
+    },
+    {
+      "mode": "no-reset",
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-no-reset-b/report.json",
+      "sha256": "032dbefa325f70e173cd5f24ee0b1c8b8f70fdeab063c80868070c12690bd6fc",
+      "complete": true,
+      "sourceAndRawVerified": true,
+      "rows": 20,
+      "growthActions": 0,
+      "releases": 0,
+      "guards": 0,
+      "guardsPassed": null,
+      "minimumP10Minutes": null,
+      "maximumStage": 462,
+      "capturedRawPowerDigits": 28,
+      "cyclesCompleted": 0,
+      "nonarrivals": 0
+    }
+  ]
+}

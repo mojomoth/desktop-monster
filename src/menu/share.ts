@@ -1,7 +1,7 @@
 // Pure PNG-card composition. The caller freezes the save/frame, creates a
 // 1200×1200 canvas, and owns preview, clipboard and file dialogs. This module
 // has no DOM, network, clock, RNG or save writes; only disclosed art is drawn.
-import { activeCompanions, companionPower } from '../core/collection.js';
+import { activeFieldCompanions, companionPower, fieldCompanionPower } from '../core/collection.js';
 import { format } from '../core/bignum.js';
 import { HERO_FORMS, heroAttackPower, heroEffectiveBuff, heroForm } from '../core/hero.js';
 import { trainedHeroPower } from '../core/economy.js';
@@ -66,17 +66,20 @@ const monsterArt = (id: string, stars = 0): Sprite => {
   return { ...art, palette: paletteForTier(art.palette, stars) };
 };
 
-function companion(ctx: ShareCanvas, member: Companion, x: number, y: number, w: number, h: number): void {
+function companion(ctx: ShareCanvas, member: Companion, x: number, y: number, w: number, h: number, save: Readonly<SaveFile>): void {
   panel(ctx, x, y, w, h);
-  sprite(ctx, monsterArt(member.speciesId, member.stars), x + w / 2, y + h - 116, w - 40, h - 156);
-  text(ctx, displayNameOf(member.speciesId), x + 16, y + h - 98, 26, COLORS.white, w - 32);
-  text(ctx, `Lv.${format(member.level)} · ${ELEMENT[typeOf(member.speciesId)]}`, x + 16, y + h - 61, 24, COLORS.cyan, w - 32);
-  text(ctx, `공격력 ${format(companionPower(member))} · ★${format(member.stars)}`, x + 16, y + h - 29, 20, COLORS.yellow, w - 32);
+  sprite(ctx, monsterArt(member.speciesId, member.stars), x + w / 2, y + h - 146, w - 40, h - 186);
+  text(ctx, displayNameOf(member.speciesId), x + 16, y + h - 128, 26, COLORS.white, w - 32);
+  text(ctx, `Lv.${format(member.level)} · ${ELEMENT[typeOf(member.speciesId)]}`, x + 16, y + h - 91, 24, COLORS.cyan, w - 32);
+  text(ctx, `PvP ${format(companionPower(member))} · ★${format(member.stars)}`, x + 16, y + h - 59, 20, COLORS.cyan, w - 32);
+  text(ctx, `사냥 공격력 ${format(fieldCompanionPower(member, save.monsterCurveRebirths ?? 0,
+    save.monsterCurveVersion ?? 10))}`, x + 16, y + h - 29, 20, COLORS.yellow, w - 32);
 }
 
 function fieldParty(save: Readonly<SaveFile>): Companion[] {
   const target = monsterForIndex(save.monsterIndex, save.monsterSpeciesId);
-  return activeCompanions(save.companions, target.type, save.hero?.equipped);
+  return activeFieldCompanions(save.companions, target.type, save.hero?.equipped,
+    save.monsterCurveRebirths ?? 0, save.monsterCurveVersion ?? 10);
 }
 
 /** Returns pagination metadata without exposing internal character/player IDs. */
@@ -107,7 +110,7 @@ export function drawShareCard(ctx: ShareCanvas, request: ShareCardRequest): Shar
       : '첫 번째 환생을 기다리는 중', 72, 1010, 28);
   } else if (request.kind === 'companion') {
     const member = save.companions.find(entry => entry.id === request.companionId);
-    if (member) companion(ctx, member, 72, 184, 1056, 860);
+    if (member) companion(ctx, member, 72, 184, 1056, 860, save);
     else text(ctx, '함께할 동료를 기다리는 중', 72, 550, 40);
   } else if (request.kind === 'party') {
     const party = fieldParty(save);
@@ -115,7 +118,7 @@ export function drawShareCard(ctx: ShareCanvas, request: ShareCardRequest): Shar
     if (party.length === 0) text(ctx, '첫 동료와 만날 날을 기다려요', 72, 550, 40);
     for (const [index, member] of party.entries()) {
       const row = Math.floor(index / 3);
-      companion(ctx, member, 72 + index % 3 * 360 + (row === 1 ? 180 : 0), 244 + row * 404, 336, 380);
+      companion(ctx, member, 72 + index % 3 * 360 + (row === 1 ? 180 : 0), 244 + row * 404, 336, 380, save);
     }
   } else if (request.kind === 'codex') {
     const kind = request.codexKind ?? 'hero';

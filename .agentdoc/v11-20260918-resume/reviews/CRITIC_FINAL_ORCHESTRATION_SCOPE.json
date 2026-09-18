@@ -1,0 +1,46 @@
+{
+  "version": 11,
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "scope": "orchestration",
+  "verdict": "approved",
+  "reviewer": "/root/skills_harness",
+  "implementedBy": [
+    "/root",
+    "/root/menu_review"
+  ],
+  "conclusion": "No unresolved material correctness finding. Current-source digest includes normative SPEC/config/protocol/source scripts and excludes generated receipts, avoiding metadata loops. Versioned task claims, literal AC commands, independent author scope requirements, source-bound native traces and same-observer performance protocol remain intact. Release runner binds successful smoke/mac/windows commands and artifact hashes to an unchanged source. Existing CURRENT v3 and v10 remain preserved; final task is excluded from its own receipt prerequisite.",
+  "reviewedFiles": {
+    ".harness/v11/run.mjs": "63e6638f36f3b8dd5274276046917f4ca7d15ecf7047ddbfd03290caec0fa710",
+    ".harness/v11/run.test.mjs": "072769196b674625425d016acd507475274a96527cb1f52043699f69b37aa5f7",
+    ".harness/v11/config.json": "b36f6845d52e737aca018f9e22f2f194775a60901025115048ea499ffef2715f",
+    ".harness/v11/runtime.mjs": "4facb16b9317ff36d6d90c3cb70d91133c44615ab3211b6a70c38a5cac9c71b3",
+    ".harness/v11/runtime.test.mjs": "c89ee37a99f100db427f72a431ce2ca0c67c2e5836823aedc90b1ecf7d1584d3",
+    ".harness/v11/ui-cases.mjs": "78af77b498d909965686276d22a04e4f079d2d20913b96bb37a9cfe02f89562d",
+    ".harness/v11/release.mjs": "c72f989fb48e1e8336e78e9a76455e2bb5a0811a442edd1b416c3cd68a433b26",
+    ".harness/v11/run-performance.mjs": "762dcfe35592a676cec7b7345365d06a766777f5607a7daa366abc80fd16994a",
+    ".harness/v11/HARNESS.md": "768d8479d76269de6bb521666456e71a548d03831c9202e929bea83339a7e7dc",
+    "SPEC.md": "e1e18481c2e27138944963c90c7e37e74bdd5336b1e15b4ba8ba1592d535ff28",
+    "docs/v0.11/CONTRACT.md": "43196204117622b8a0289f94661a209f32bbb274bcc81a7ee9324ba040db6a10",
+    "docs/v0.11/PERFORMANCE_PROTOCOL.json": "7a776e39bdd7b242bfad65bbbe85dcb554ee391f5c575f55b36ab29eac887bdd"
+  },
+  "comprehensiveReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_SOURCE_REVIEW.json",
+    "sha256": "b0c103ee7d2ec4cf2039fd5927dc7c8ba05d0d4fe2e424063cf51974bc7cc084"
+  },
+  "nativeReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_NATIVE_REVIEW.json",
+    "sha256": "c4619cb3495f7d3435e93dfb9f1dde28a5521a1487fa099545134ffd20efdf86"
+  },
+  "balanceReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_BALANCE_REVIEW.json",
+    "sha256": "c078ef971ae405d23255ba3312294484b4c101ff888269dda7300f2a2fb8d4ff"
+  },
+  "unresolvedFindings": [],
+  "overallReleaseApproved": false,
+  "limitations": [
+    "This approves four independent source/functionality scopes, not the complete release. The verification scope is authored by this reviewer and requires Host approval.",
+    "Quiet final candidate active/idle CPU/RAM comparison remains pending; the prior failed idle comparison stays preserved.",
+    "Simulation approval is policy-bound: aggressive growth retains all 118 missing scheduled cycles, no-reset observed no roster-release branch, and human fun is not certified.",
+    "Final package payload and external-check dispositions must be attached by the Host; native package binding has passed."
+  ]
+}

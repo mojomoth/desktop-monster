@@ -1,0 +1,129 @@
+
+> desmon@0.11.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/jeongyounglee/work/repo/desktop-monster
+
+ ✓ tests/progressionV7.test.ts (45 tests) 680ms
+ ✓ tests/heroForms.test.ts (8 tests) 634ms
+   ✓ v0.5 reincarnated hero art > supplies 70 complete registered 14×14 forms with animated idle and attack poses  485ms
+ ✓ tests/heroRendering.test.ts (5 tests) 441ms
+ ✓ tests/hud-v09.test.ts (3 tests) 459ms
+ ✓ tests/engine.test.ts (45 tests) 1060ms
+   ✓ attack engine (SPEC F06/F07/F08, Assumption 8) > a boss kill rolls capture after loot and emits bossCaptured with a c-prefixed id at 35 percent  705ms
+ ✓ tests/measurementV8.test.ts (6 tests) 1103ms
+   ✓ v0.8 collection policy measurement > preserves the original v7 first-card trajectory exactly  818ms
+ ✓ tests/loot.test.ts (11 tests) 364ms
+ ✓ tests/performanceV8.test.ts (6 tests) 449ms
+ ✓ tests/sprites.test.ts (34 tests) 235ms
+ ✓ tests/onlineV91.test.ts (10 tests) 338ms
+ ✓ tests/effects-v09.test.ts (6 tests) 187ms
+ ✓ tests/net.test.ts (45 tests) 166ms
+ ✓ tests/replayV91.test.ts (14 tests) 195ms
+ ✓ tests/onlineV9.test.ts (8 tests) 178ms
+ ✓ tests/progressV5.test.ts (12 tests) 97ms
+ ✓ tests/hudV11.test.ts (8 tests) 1649ms
+   ✓ v0.11 head labels and field damage > stacks every combination above every idle hero without overlaps or cropped outlines  643ms
+   ✓ v0.11 head labels and field damage > anchors every monster and crown above its HP bar and keeps long rising hits inside the field  624ms
+ ✓ tests/expedition.test.ts (16 tests) 1673ms
+   ✓ A3 — a full roster releases the boss instead of voiding it (H1/H2) > never swallows a capture draw: every full-roster boss draw emits an event  1376ms
+ ✓ tests/heroArtCompatibility.test.ts (2 tests) 79ms
+ ✓ tests/formulas.test.ts (21 tests) 73ms
+ ✓ tests/spriteRasterV11.test.ts (2 tests) 938ms
+   ✓ v11 sprite strip raster equivalence > preserves every registered frame pixel with mirror, tint, scale and clipping  903ms
+ ✓ tests/codexV7.test.ts (10 tests) 125ms
+ ✓ tests/server/opponents.test.ts (10 tests) 47ms
+ ✓ tests/server/companionLevelsV7.test.ts (9 tests) 51ms
+ ✓ tests/hero.test.ts (17 tests) 143ms
+ ✓ tests/pvpAbuseV91.test.ts (8 tests) 62ms
+ ✓ tests/pvpDirectoryV7.test.ts (20 tests) 73ms
+ ✓ tests/companionLevelsV7.test.ts (33 tests) 32ms
+ ✓ tests/v10Critic.test.ts (7 tests) 51ms
+ ✓ tests/progressionV11.test.ts (20 tests) 331ms
+ ✓ tests/shareV9.test.ts (9 tests) 79ms
+ ✓ tests/menu.test.ts (70 tests) 386ms
+ ✓ tests/equipmentRendering.test.ts (6 tests) 86ms
+ ✓ tests/recoveryV10.test.ts (4 tests) 19ms
+ ✓ tests/heroJobStudies.test.ts (3 tests) 218ms
+ ✓ tests/recoveryV9.test.ts (21 tests) 21ms
+ ✓ tests/equipmentSprites.test.ts (15 tests) 3132ms
+   ✓ v0.10 equipment production art > registers 224 structurally distinct icons, not palette swaps  343ms
+   ✓ v0.10 equipment production art > renders every compatible hero/weapon pairing with visible grips, integer pixels and grounded feet  1402ms
+   ✓ v0.10 equipment production art > keeps the complete bobbing head visible with every compatible epic weapon  588ms
+ ✓ tests/renderer.test.ts (104 tests) 295ms
+ ✓ tests/collection.test.ts (21 tests) 195ms
+ ✓ tests/goldV91.test.ts (15 tests) 31ms
+ ✓ tests/trainingPreview.test.ts (4 tests) 21ms
+ ✓ tests/save.test.ts (15 tests) 62ms
+ ✓ tests/identity.test.ts (8 tests) 13ms
+ ✓ tests/progressionV5.test.ts (13 tests) 185ms
+ ✓ tests/fever.test.ts (4 tests) 14ms
+ ✓ tests/server/pvp.test.ts (14 tests) 19ms
+ ✓ tests/anim.test.ts (14 tests) 9ms
+ ✓ tests/server/app.test.ts (18 tests) 36ms
+ ✓ tests/discoveryV5.test.ts (8 tests) 23ms
+ ✓ tests/server/v09.test.ts (9 tests) 20ms
+ ✓ tests/equipmentV10.test.ts (10 tests) 56ms
+ ✓ tests/recoveryCaptureV9.test.ts (5 tests) 34ms
+ ✓ tests/onlineV10.test.ts (7 tests) 27ms
+ ✓ tests/equipmentV11.test.ts (8 tests) 19ms
+ ✓ tests/progressV6.test.ts (15 tests) 30ms
+ ✓ tests/menuV9.test.ts (14 tests) 37ms
+ ✓ tests/heroEvolutionStudies.test.ts (2 tests) 35ms
+ ✓ tests/share.test.ts (6 tests) 32ms
+ ✓ tests/ipcV5.test.ts (7 tests) 16ms
+ ✓ tests/v10Review.test.ts (7 tests) 28ms
+ ✓ tests/runtimeV8.test.ts (9 tests) 29ms
+ ✓ tests/renderer-field-v11.test.ts (9 tests) 65ms
+ ✓ tests/globalInput.test.ts (20 tests) 31ms
+ ✓ tests/equipmentMenuV10.test.ts (5 tests) 21ms
+ ✓ tests/progressV7.test.ts (5 tests) 18ms
+ ✓ tests/onlineV8.test.ts (3 tests) 12ms
+ ✓ tests/shareUiV9.test.ts (6 tests) 17ms
+ ✓ tests/ipc.test.ts (62 tests) 13ms
+ ✓ tests/server/backendReviewV10.test.ts (5 tests) 9ms
+ ✓ tests/persistence.test.ts (10 tests) 11ms
+ ✓ tests/settings.test.ts (4 tests) 11ms
+ ✓ tests/typeChart.test.ts (4 tests) 6ms
+ ✓ tests/tray.test.ts (38 tests) 22ms
+ ✓ tests/audio.test.ts (16 tests) 24ms
+ ✓ tests/server/http.test.ts (9 tests) 7ms
+ ✓ tests/server/pgStore.test.ts (22 tests) 8ms
+ ✓ tests/platformV9.test.ts (3 tests) 6ms
+ ✓ tests/packaging.test.ts (16 tests) 9ms
+ ✓ tests/server/pgTransaction.test.ts (10 tests) 7ms
+ ✓ tests/fsm.test.ts (12 tests) 7ms
+ ✓ tests/thefts.test.ts (5 tests) 3ms
+ ✓ tests/rendererInput.test.ts (8 tests) 11ms
+ ✓ tests/bignum.test.ts (7 tests) 2ms
+ ✓ tests/deploy.test.ts (7 tests) 4ms
+ ✓ tests/input.test.ts (9 tests) 3ms
+ ✓ tests/window.test.ts (29 tests) 5ms
+ ✓ tests/share-field-v11.test.ts (2 tests) 7ms
+ ✓ tests/heroMenuReadiness.test.ts (4 tests) 5ms
+ ✓ tests/effects.test.ts (7 tests) 9ms
+ ✓ tests/defenseV91.test.ts (1 test) 2ms
+ ✓ tests/drag.test.ts (7 tests) 3ms
+ ✓ tests/battle.test.ts (5 tests) 10ms
+ ✓ tests/scaffold.test.ts (1 test) 1ms
+ ✓ tests/balance.test.ts (3 tests) 8654ms
+   ✓ v0.7 deterministic accounting and gold policy regression > checks 20 exploration seeds across active, warm-idle and intermittent play at 5/15/30 minutes  8611ms
+ ✓ tests/equippedHeroCache.test.ts (4 tests) 17409ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 57,960 equipped hero views  16331ms
+   ✓ bounded equipment rendering caches > preserves the revised final pixels of 3,840 fever/KO composites  1067ms
+
+ Test Files  94 passed (94)
+      Tests  1264 passed (1264)
+   Start at  18:50:07
+   Duration  17.93s (transform 2.59s, setup 0ms, collect 12.65s, tests 43.55s, environment 12ms, prepare 5.62s)
+
+
+> desmon@0.11.0 lint
+> eslint . --max-warnings 0
+
+
+> desmon@0.11.0 typecheck
+> tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit && tsc -p tsconfig.test.json
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m

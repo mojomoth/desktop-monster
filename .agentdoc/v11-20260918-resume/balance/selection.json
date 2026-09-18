@@ -1,0 +1,51 @@
+{
+  "version": 11,
+  "status": "selected-pending-independent-review-and-heldout",
+  "selected": "R18-B",
+  "selectedAt": "2026-09-18T08:51:46.006Z",
+  "parameters": {
+    "heroMinLevel": 26,
+    "heroLevelStepCap": 0,
+    "fieldHpNumerator": 1080,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailNumerator": 10935,
+    "fieldHpTailPolynomial": 0,
+    "fieldHpIndexCap": 159,
+    "fieldRebirthBonus": 9,
+    "fieldRebirthHalf": 1,
+    "fieldRebirthBonusScale": 16,
+    "fieldCompanionTailPolynomial": 1,
+    "fieldCompanionTailScale": 256,
+    "fieldCompanionIndexCap": 79,
+    "fieldCompanionBaseFloor": 14000,
+    "fieldCompanionGrowthBonus": 25,
+    "fieldHeroCycleBonus": 128,
+    "fieldHpResumeIndex": 399,
+    "fieldCompanionFeverMultiplier": 2,
+    "fieldRebirthCountCap": 4
+  },
+  "score": {
+    "maximumMedianDeviation": 27.166666666666657,
+    "maximumP90": 283.9166666666667
+  },
+  "selectionReport": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-explore/report.json",
+  "selectionSha256": "1802d037d674e090d2bcbbd47c76924445caf209d0c29f76fac10528b5f29df4",
+  "artifacts": {
+    "growth": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-growth-b/report.json",
+      "sha256": "dfcc29e2684458de4afbc4da3dc8deb0d2b1e20f5c7e425b9006ac9706803c35"
+    },
+    "reserveGrowth": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-reserve-b/report.json",
+      "sha256": "a31e1c30834058b72cf2e81952b28453b24dc084a60d26ee6772fb71cdb29141"
+    },
+    "management": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-management-b/report.json",
+      "sha256": "75f0a30bff5831c59577e9ca5dc1c6f507ac21192accd8920939fa0b2ed5ae01"
+    },
+    "noReset": {
+      "report": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r18-no-reset-b/report.json",
+      "sha256": "032dbefa325f70e173cd5f24ee0b1c8b8f70fdeab063c80868070c12690bd6fc"
+    }
+  }
+}

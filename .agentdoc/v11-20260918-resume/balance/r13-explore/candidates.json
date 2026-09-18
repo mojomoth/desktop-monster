@@ -1,0 +1,96 @@
+{
+  "version": 11,
+  "round": 13,
+  "stage": "floor-and-plateau-first-three-full-sample",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R13-A",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10930,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R13-B",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10940,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R13-C",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "R12screensremoveoldstage79quota trap andboundfrontier368 butHPtoo high: Afirstordinary424/inter299/high186; nextordinary250/287 high138/192. Lowerfixedtail to10930/10940/10950 (~20–30percentlessHP), raisefixedresetbonusfrom1/4to2/4 toretaincycle2+timing. All20explorationseedsfirst3 nowmeasuredbefore10cyclequalification. G25 preserved, fullowned/PvPunchanged; source andgrowthguard frozen."
+}

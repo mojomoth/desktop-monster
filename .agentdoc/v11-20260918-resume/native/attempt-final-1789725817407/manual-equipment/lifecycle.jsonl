@@ -1,0 +1,13 @@
+{"at":"2026-09-18T10:04:03.244Z","event":"diagnostic-tray-marker","available":true}
+{"at":"2026-09-18T10:04:03.245Z","event":"installed","note":"Pass-through observation in isolated native fixture; no quit prevention."}
+{"at":"2026-09-18T10:04:12.682Z","event":"app.quit","args":[],"stack":"Error: Observed app.quit\n    at globalThis.__v010Runtime.pending.p.e.app.<computed> [as quit] (<anonymous>:12:44)\n    at Immediate._onImmediate (<anonymous>:1:261)\n    at process.processImmediate (node:internal/timers:484:21)"}
+{"at":"2026-09-18T10:04:12.682Z","event":"before-quit"}
+{"at":"2026-09-18T10:04:12.683Z","event":"app.quit","args":[],"stack":"Error: Observed app.quit\n    at globalThis.__v010Runtime.pending.p.e.app.<computed> [as quit] (<anonymous>:12:44)\n    at /Users/jeongyounglee/work/repo/desktop-monster/release/mac-arm64/DesMon.app/Contents/Resources/app.asar/dist/electron/main/index.js:233:36"}
+{"at":"2026-09-18T10:04:12.683Z","event":"before-quit"}
+{"at":"2026-09-18T10:04:12.684Z","event":"window-close","id":2}
+{"at":"2026-09-18T10:04:12.785Z","event":"window-close","id":1}
+{"at":"2026-09-18T10:04:12.787Z","event":"window-closed","id":1}
+{"at":"2026-09-18T10:04:12.793Z","event":"window-closed","id":2}
+{"at":"2026-09-18T10:04:12.799Z","event":"will-quit"}
+{"at":"2026-09-18T10:04:12.799Z","event":"process-exit","exitCode":0}
+{"at":"2026-09-18T10:04:12.799Z","event":"quit","exitCode":0}

@@ -12,6 +12,26 @@
      DESMON_SKIP_NET=1. Table-cell ACs never contain the `|` character (rows
      are extracted by line and executed literally). -->
 
+## v0.11 amendments
+
+The current implementation and acceptance contract is [docs/v0.11/CONTRACT.md](docs/v0.11/CONTRACT.md).
+The numbered v2/v3 assumptions and feature rows below retain their historical regression scope.
+For v0.11 hunting, the fixed field curve and `activeFieldCompanions` replace raw/PvP power for
+field damage and party choice; owned/PvP statistics remain unchanged. During the same five-second
+FEVER window, hero damage stays ×3 while v0.11 hunting companion damage is ×2. This supersedes
+the universal companion ×3 wording in assumptions24/25 and F35. A saved v0.10 encounter retains
+its previous field curve and companion ×3 FEVER until the next spawn. Trigger, cooldown,
+integer damage rounding, type chart and PvP rules are unchanged.
+The shared field multiplier counts both hero rebirths and soul recoveries using the current
+encounter’s saved `curveRebirths` for HP, companion damage, party selection and displayed
+hunting power. Live counters do not alter a saved encounter. Reject reset-count or soul-reward
+overflow before changing any state; preserve raw companion/PvP values and legacy encounters.
+
+AC: `npx vitest run tests/progressionV11.test.ts tests/fever.test.ts tests/engine.test.ts`.
+Keep the legacy companion-tripling assertions and separately verify v0.11 doubling, expiration
+and the old-encounter/new-spawn transition. The complete v11 gates and source-bound measurements
+are defined in [.harness/v11/HARNESS.md](.harness/v11/HARNESS.md).
+
 ## Summary
 
 DesMon is a BongoCat-style macOS desktop companion: a small transparent,

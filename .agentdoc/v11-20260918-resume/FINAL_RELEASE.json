@@ -1,0 +1,125 @@
+{
+  "version": "0.11.0",
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "completedAt": "2026-09-18T13:24:29.133Z",
+  "passed": true,
+  "baseline": {
+    "tag": "v0.10.0",
+    "type": "annotated",
+    "commit": "c2b20bb7573c39515e21c40f7162d50966468be0"
+  },
+  "DESMON_SKIP_NET": "1",
+  "remotePush": false,
+  "productionDeploy": false,
+  "tasks": [
+    {
+      "id": "V11-01",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-02",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-03",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-04",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-05",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-06",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-07",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    },
+    {
+      "id": "V11-08",
+      "status": "verified",
+      "verifiedSource": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b"
+    }
+  ],
+  "canonicalGates": {
+    "id": "gates",
+    "command": "npm test && npm run lint && npm run typecheck",
+    "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+    "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+    "exitCode": 0,
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-04-gates-1789725007142.log",
+    "logHash": "a0118d9e74e95165e1ee61d5ca603a5afc136d66997b625e7e72ddc65824f6bf",
+    "artifacts": {},
+    "at": "2026-09-18T09:50:34.489Z"
+  },
+  "finalAc": {
+    "id": "ac",
+    "command": "node .harness/v11/final-check.mjs final '/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume'",
+    "before": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+    "after": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+    "exitCode": 0,
+    "log": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/evidence/V11-08-ac-1789737712741.log",
+    "logHash": "fb0e6095d3c427ad4f19a024c7303921eb15af13d4ed4c1ffc81a5bcf4fc4224",
+    "artifacts": {
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/performance/comparison.json": "5faf1075470c64fd6a9181c48eb4430cea215c4e75cdd7029d36118ee11a5865",
+      "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/release.json": "059883a28d8c3736d971925e3e7af49769791dc4c6ec9ef029b33c230c046c03"
+    },
+    "at": "2026-09-18T13:22:06.316Z"
+  },
+  "evidence": {
+    "loop.json": {
+      "path": ".agentdoc/v11-20260918-resume/loop.json",
+      "sha256": "88223bc4561d213039872155455a502ea93ae70f23e59f5195f79b17d7e63f03"
+    },
+    "balance/final.json": {
+      "path": ".agentdoc/v11-20260918-resume/balance/final.json",
+      "sha256": "549528a839663ef110e34ea03865f770b6a8c5b321c78c26af578032467a58e1"
+    },
+    "native/final.json": {
+      "path": ".agentdoc/v11-20260918-resume/native/final.json",
+      "sha256": "93e0674a6af7c02e943cad7e29359e34568bdf148e394fbed51d19f347bc1a7d"
+    },
+    "performance/comparison.json": {
+      "path": ".agentdoc/v11-20260918-resume/performance/comparison.json",
+      "sha256": "5faf1075470c64fd6a9181c48eb4430cea215c4e75cdd7029d36118ee11a5865"
+    },
+    "release.json": {
+      "path": ".agentdoc/v11-20260918-resume/release.json",
+      "sha256": "059883a28d8c3736d971925e3e7af49769791dc4c6ec9ef029b33c230c046c03"
+    },
+    "reviews/final.json": {
+      "path": ".agentdoc/v11-20260918-resume/reviews/final.json",
+      "sha256": "a19db98a9d6371a666fb87dad27b187181c2810949af1b8e8fa56068ca7d52da"
+    }
+  },
+  "reports": [
+    {
+      "path": "docs/v0.11/ACCEPTANCE.md",
+      "sha256": "2a9c563455ee7b35b53c49d904de1fdf807d8e96967ee7ff0a96123642a0c8e0"
+    },
+    {
+      "path": "docs/v0.11/BALANCE_REPORT.md",
+      "sha256": "0a98fe3cc6705e90eb4151c08fdc6e26c80614c9af41221843a493201fc34d6a"
+    },
+    {
+      "path": "docs/v0.11/PERFORMANCE_REPORT.md",
+      "sha256": "d8a47ea24aac3c6683a553a37ed2623e8aa53358e4d0398bd3fe4ebb1b18f900"
+    },
+    {
+      "path": "docs/v0.11/HANDOFF.md",
+      "sha256": "757b3972717b4c3229bf4c674ba7ab565e421a9acd80405621aa4042ff99fb00"
+    }
+  ]
+}

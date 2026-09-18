@@ -12,6 +12,7 @@
 import {
   autoParty,
   companionPower,
+  fieldCompanionPower,
   companionReincarnationPreview,
   DEFAULT_SAVE,
   format,
@@ -22,6 +23,7 @@ import {
   isSpeciesId,
   parseSave,
   PARTY_SIZE,
+  PROGRESSION_PARAMETERS,
   pvpParty,
   RELEASES_PER_SOUL,
   SPECIES_IDS,
@@ -486,7 +488,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
               if (pending) send({ type: 'consume', targetId: pending.id, foodId: row.id });
             })
         : button('성장', busy || !save.companions.some((food) => consumeTargets(save, food.id).includes(row.id)), () => {
-            select('consume', row, '성장 재료로 쓸 동료를 선택하세요. 재료는 사라집니다.');
+            select('consume', row, '성장 재료로 쓸 동료를 선택하세요. 재료는 사라집니다. 표시는 선택한 동료의 능력치이며, 다른 상성·PvP 파티는 약해질 수 있습니다.');
           });
 
     const fuse =
@@ -497,7 +499,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
               if (pending) send({ type: 'fuse', aId: pending.id, bId: row.id });
             })
         : button('융합', busy || !fusable, () => {
-            select('fuse', row, '같은 종·같은 별의 동료를 선택하세요. 둘이 하나가 됩니다.');
+            select('fuse', row, '같은 종·같은 별의 동료를 선택하세요. 둘이 하나가 됩니다. 표시는 선택한 동료의 능력치이며, 다른 상성·PvP 파티는 약해질 수 있습니다.');
           });
 
     const buttons = div(
@@ -518,25 +520,56 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
 
     const el = doc.createElement('div');
     el.className = 'card';
+    el.setAttribute?.('data-companion-id', row.id);
+    const hunting = span('hunting-power', `사냥 공격력 ${format(c ? fieldCompanionPower(c,
+      save.monsterCurveRebirths ?? 0, save.monsterCurveVersion ?? 10) : 0n)}`);
+    hunting.setAttribute?.('title', `${(save.monsterCurveVersion ?? 10) === 10
+      ? '현재 몬스터를 처치한 뒤 새 사냥 성장 곡선이 적용됩니다.'
+      : PROGRESSION_PARAMETERS.fieldCompanionGrowthBonus !== null
+        ? '사냥에서는 레벨·별의 성장 효과가 점차 완만해집니다. PvP 능력치는 그대로 반영합니다.'
+        : '사냥 공격력과 PvP 능력치를 따로 계산합니다.'} 현재 전투의 영웅 환생·영혼 회귀 효과를 포함하며, 영웅 버프·장비·상성·피버 효과는 전투 중 적용됩니다.`);
     el.append(
       speciesCanvas(row),
       span('name', row.name),
       span('stars', row.starText),
-      span('power', row.power),
+      div('companion-stats', span('power', `PvP ${row.power}`), hunting),
       // v3 (F75): the elemental badge, and the mark of a PvP party member.
       ...(c ? [span(miniRow(c).typeClass, miniRow(c).typeBadge)] : []),
       ...(savedParty().some((m) => m.id === row.id) ? [span('pvp-mark', '★ PvP')] : []),
       buttons,
     );
+    // Preview the same bounded collection mutations as the core. Compute only
+    // for eligible materials, so no overflow or unavailable action is shown.
+    const target = pending ? byId(pending.id) : undefined;
+    const grown = c && target && c.id !== target.id
+      ? pending?.kind === 'consume' && consumeTargets(save, c.id).includes(target.id)
+        ? { ...target, level: target.level + 1 + c.stars }
+        : pending?.kind === 'fuse' && fusable
+          ? { ...target, bossIndex: Math.max(target.bossIndex, c.bossIndex), level: 1, stars: target.stars + 1 }
+          : undefined
+      : undefined;
+    const powerChange = (before: Companion, after: Companion): MenuElement => {
+      const r = save.monsterCurveRebirths ?? 0, version = save.monsterCurveVersion ?? 10;
+      const huntingBefore = fieldCompanionPower(before, r, version), huntingAfter = fieldCompanionPower(after, r, version);
+      const pvpBefore = companionPower(before), pvpAfter = companionPower(after);
+      const text = span('growth-power', `사냥 ${format(huntingBefore)} → ${format(huntingAfter)} · PvP ${format(pvpBefore)} → ${format(pvpAfter)}`);
+      text.setAttribute?.('title', `사냥 ${huntingBefore} → ${huntingAfter} · PvP ${pvpBefore} → ${pvpAfter}`);
+      return text;
+    };
+    if (target && grown) el.append(div('row growth-preview',
+      span('muted', `선택한 동료: Lv.${format(target.level)} → ${format(grown.level)} · ★${format(target.stars)} → ${format(grown.stars)}`),
+      powerChange(target, grown),
+    ));
     const expected = reincarnation;
     const preview = expected?.id === row.id && c ? companionReincarnationPreview(c) : null;
-    if (expected && preview) {
+    if (expected && preview && c) {
       const power = span('reincarnation-power', `기본 힘 ${format(preview.beforePower)} → ${format(preview.afterPower)}`);
       power.setAttribute?.('title', `${preview.beforePower} → ${preview.afterPower}`);
       power.setAttribute?.('aria-label', `기본 힘 ${preview.beforePower}에서 ${preview.afterPower}로 변경`);
       el.append(div('row reincarnation-confirmation',
         span('reincarnation-result', `${row.name} · Lv.${expected.level} → Lv.${preview.level} · ★${expected.stars} → ★${preview.stars}`),
         power,
+        powerChange(c, { ...c, level: preview.level, stars: preview.stars }),
         span('muted', '환생하면 레벨이 초기화되어 기본 힘이 감소합니다.'),
         button('환생 확인', false, () => {
           if (reincarnation !== expected) return;
@@ -732,7 +765,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
     if (!doc.querySelector('#profile')?.hidden) updateProfile?.(save);
     // Keep an unchanged confirmation mounted during frequent save updates.
     const nextRosterKey = JSON.stringify([save.companions, save.pvpParty, save.hero?.equipped,
-      save.releasedCount, pending, reincarnation]);
+      save.monsterCurveRebirths, save.monsterCurveVersion, save.releasedCount, pending, reincarnation]);
     if (!roster.hidden && rosterKey !== nextRosterKey) {
       rosterKey = nextRosterKey;
       const rows = rosterRows(save);

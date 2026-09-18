@@ -1,0 +1,95 @@
+{
+  "version": 11,
+  "reviewer": "/root",
+  "verdict": "approved",
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "comparison": {
+    "path": ".agentdoc/v11-20260918-resume/performance/comparison.json",
+    "sha256": "5faf1075470c64fd6a9181c48eb4430cea215c4e75cdd7029d36118ee11a5865"
+  },
+  "independentRecomputation": {
+    "baseline-active": {
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "cpuP95": 2.0380305937182523,
+      "workingSetMiBP95": 216.765625,
+      "maximumObservedWorkingSetMiB": 368.953125,
+      "firstRawElapsedMs": 5454.351167000001,
+      "lastRawElapsedMs": 1800001.3254169999,
+      "inputCount": 3570,
+      "rawSha256": "422310b876623fd5c01b8e4ad4683411f0cc7b0ba2ff44ac3f07f2bdedd05cb1"
+    },
+    "baseline-idle": {
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "cpuP95": 1.3919052796931066,
+      "workingSetMiBP95": 200.328125,
+      "maximumObservedWorkingSetMiB": 399.46875,
+      "firstRawElapsedMs": 5065.020333,
+      "lastRawElapsedMs": 1800002.2901660001,
+      "inputCount": 0,
+      "rawSha256": "6900a7ad14d1bb8b2317f75936ea2c6014d1ed9830961b151dfd21fb9e45877d"
+    },
+    "candidate-active": {
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "cpuP95": 2.1060716382711355,
+      "workingSetMiBP95": 261.578125,
+      "maximumObservedWorkingSetMiB": 418.453125,
+      "firstRawElapsedMs": 5030.15825,
+      "lastRawElapsedMs": 1800003.693458,
+      "inputCount": 3567,
+      "rawSha256": "dcf642d520b54e3e1709b28642c210c13b3532daf9e11f196b0a88997058e003"
+    },
+    "candidate-idle": {
+      "rawSamples": 360,
+      "stableSamples": 301,
+      "cpuP95": 2.149374943656222,
+      "workingSetMiBP95": 215.734375,
+      "maximumObservedWorkingSetMiB": 400.9375,
+      "firstRawElapsedMs": 5021.576666,
+      "lastRawElapsedMs": 1800001.607875,
+      "inputCount": 0,
+      "rawSha256": "26ae756c89eb89a4d2b99d1e4e36d5819761209c2a24e956f44fe9cdacb0b586"
+    }
+  },
+  "comparisons": [
+    {
+      "profile": "active",
+      "cpu": {
+        "baseline": 2.0380305937182523,
+        "candidate": 2.1060716382711355,
+        "limit": 3.0380305937182523,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 216.765625,
+        "candidate": 261.578125,
+        "limit": 266.765625,
+        "passed": true
+      }
+    },
+    {
+      "profile": "idle",
+      "cpu": {
+        "baseline": 1.3919052796931066,
+        "candidate": 2.149374943656222,
+        "limit": 2.3919052796931064,
+        "passed": true
+      },
+      "workingSetMiB": {
+        "baseline": 200.328125,
+        "candidate": 215.734375,
+        "limit": 250.328125,
+        "passed": true
+      }
+    }
+  ],
+  "limitations": [
+    "p95 budgets do not bound peaks. Both candidate CPU p95 values exceed the original baseline but pass unchanged budgets.",
+    "Active memory p95 has 5.1875 MiB headroom; raw peak is retained.",
+    "Identical initial fixture and observer do not imply identical random capture trajectories; pacing intentionally changed.",
+    "Original failed idle comparison and all historical artifacts remain preserved.",
+    "Human fun, Windows hardware, real global hooks, live PostgreSQL and deployment were not performed."
+  ]
+}

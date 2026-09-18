@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createEngine } from '../src/core/engine.js';
 import { DEFAULT_SAVE } from '../src/core/save.js';
 import type { GameState } from '../src/core/types.js';
@@ -13,6 +13,7 @@ import type { EconomyAction } from '../src/core/economy.js';
 import { discoveryContext, newProgress } from '../src/core/progress.js';
 import { RARE_HERO_FORMS } from '../src/core/discovery.js';
 import { mulberry32 } from '../src/core/rng.js';
+import { PROGRESSION_PARAMETERS } from '../src/core/progression.js';
 
 const choices = (): HeroRoll[] => [
   { formId: 'h01', buffPercent: 10 }, { formId: 'h02', buffPercent: 15 }, { formId: 'h03', buffPercent: 20 },
@@ -23,12 +24,30 @@ const state = (hero?: HeroProgress): GameState => ({
 });
 
 describe('v0.5 reincarnation requirements and persistent offers', () => {
-  it('uses the declared exact sequence and keeps the plateau finite', () => {
-    expect(Array.from({ length: 15 }, (_, r) => heroRequiredLevel(r)))
-      .toEqual([0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 6].map((step) => HERO_MIN_LEVEL + step));
-    expect(heroRequiredLevel(500_000)).toBe(HERO_MIN_LEVEL + 6);
-    expect(heroRequiredLevel(Number.NaN)).toBe(HERO_MIN_LEVEL);
-    expect(heroRequiredLevel(-10)).toBe(HERO_MIN_LEVEL);
+  it('preserves the historical exact step sequence with explicit legacy parameters', async () => {
+    vi.resetModules();
+    vi.doMock('../src/core/progression.js', () => ({ PROGRESSION_PARAMETERS: {
+      ...PROGRESSION_PARAMETERS, heroMinLevel: 17, heroLevelStepEvery: 2, heroLevelStepCap: 6,
+    } }));
+    try {
+      const { heroRequiredLevel, HERO_MIN_LEVEL, heroReady, newHeroProgress } = await import('../src/core/hero.js');
+      expect(Array.from({ length: 15 }, (_, r) => heroRequiredLevel(r)))
+        .toEqual([0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 6, 6].map((step) => HERO_MIN_LEVEL + step));
+      expect(heroRequiredLevel(500_000)).toBe(HERO_MIN_LEVEL + 6);
+      expect(heroRequiredLevel(Number.NaN)).toBe(HERO_MIN_LEVEL);
+      expect(heroRequiredLevel(-10)).toBe(HERO_MIN_LEVEL);
+      for (let reincarnations = 0; reincarnations < 30; reincarnations++) {
+        const hero = { ...newHeroProgress(), reincarnations };
+        expect(heroReady(heroRequiredLevel(reincarnations) - 1, hero)).toBe(false);
+        expect(heroReady(heroRequiredLevel(reincarnations), hero)).toBe(true);
+        expect(heroReady(100, { ...hero, deferRemainingMs: 1 })).toBe(false);
+      }
+    } finally { vi.doUnmock('../src/core/progression.js'); vi.resetModules(); }
+  });
+
+  it('uses the measured v11 level26 plateau without weakening readiness or defer checks', () => {
+    expect(HERO_MIN_LEVEL).toBe(26);
+    expect([0, 1, 2, 3, 10, 30, 500_000, Number.NaN, -10].map(heroRequiredLevel)).toEqual(Array(9).fill(26));
     for (let reincarnations = 0; reincarnations < 30; reincarnations++) {
       const hero = { ...newHeroProgress(), reincarnations };
       expect(heroReady(heroRequiredLevel(reincarnations) - 1, hero)).toBe(false);
@@ -59,7 +78,7 @@ describe('v0.5 reincarnation requirements and persistent offers', () => {
     const hero = { ...newHeroProgress(), reincarnations: 2 };
     const result = applyHeroAction(state(hero), { type: 'heroOffer' }, mulberry32(12));
     if ('error' in result) throw new Error(result.error);
-    expect(result.state.hero?.offerLevel).toBe(HERO_MIN_LEVEL + 1);
+    expect(result.state.hero?.offerLevel).toBe(heroRequiredLevel(hero.reincarnations));
     expect(parseHeroProgress(result.state.hero)).toEqual(result.state.hero);
     const duplicateType = { ...hero, choices: [choices()[0]!, { formId: 'h06', buffPercent: 20 }, choices()[1]!] };
     expect(parseHeroProgress(duplicateType)?.choices).toEqual([]);

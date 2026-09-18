@@ -1,0 +1,101 @@
+{
+  "version": 11,
+  "round": 14,
+  "stage": "full-qualifying-exploration",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 10,
+  "maxHours": 60,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R14-A",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 10,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R14-B",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 11,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R14-C",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10950,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 12,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 10000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "R13-Cfull20seedfirst3 passesallordinary/interandhighcycles1/3; onlyhighcycle2p10=117below120. Firstordinary233/258/303,inter235/263/320p10/p50/p90. Preservefirstcurveexactly andregisterfractionalresetbonuses10/16,11/16,12/16 (~5/7.5/10percentmorefirstrepeatHP), measureall20ordinary/interthrough10/highthrough3. Firstgear/partybonus telemetryfinalizedbeforesourcefreeze. Selectionunchanged; management60? management20 andgrowth60guard requiredbeforeheldout/adoption.",
+  "profileCycles": {
+    "ordinary": 10,
+    "intermittent": 10,
+    "high": 3
+  }
+}

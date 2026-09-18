@@ -1,0 +1,83 @@
+{
+  "version": 11,
+  "round": 7,
+  "stage": "full-exploration-ten-cycles",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 10,
+  "maxHours": 60,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R7-A",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1118,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 3,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldCompanionTailScale": 8,
+        "fieldHeroCycleBonus": 52
+      }
+    },
+    {
+      "id": "R7-B",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1119,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 3,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldCompanionTailScale": 8,
+        "fieldHeroCycleBonus": 52
+      }
+    },
+    {
+      "id": "R7-C",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1120,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 3,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 2,
+        "fieldCompanionTailScale": 8,
+        "fieldHeroCycleBonus": 52
+      }
+    }
+  ],
+  "rationale": "R6-A nonadoptable screen: ordinary316/139/146, intermittent295/141/128, high196/139/124 minutes. Retained roster accelerates repeats; fixedRbonus3 compensates while slightly lowerHPprefix targetsfirstcycle240\u2013300. Threeadjacent registeredprefixes1118/1119/1120 testfull20seed schedules andcycles1\u201310. Noheldout used.",
+  "profileCycles": {
+    "ordinary": 10,
+    "intermittent": 10,
+    "high": 3
+  }
+}

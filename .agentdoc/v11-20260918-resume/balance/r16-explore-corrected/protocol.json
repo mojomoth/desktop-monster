@@ -1,0 +1,200 @@
+{
+  "version": 11,
+  "baselineParameters": {
+    "heroMinLevel": 17,
+    "heroLevelStepCap": 6,
+    "heroLevelStepEvery": 2,
+    "fieldHpNumerator": 1153,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailNumerator": 10450,
+    "fieldHpTailDenominator": 10000,
+    "fieldHpTailPolynomial": 0,
+    "fieldRebirthBonus": 0,
+    "fieldRebirthHalf": 1,
+    "fieldCompanionTailPolynomial": 0,
+    "fieldHeroCycleBonus": 0,
+    "fieldCompanionTailScale": 1,
+    "fieldRebirthBonusScale": 1,
+    "fieldHpIndexCap": null,
+    "fieldCompanionIndexCap": null,
+    "fieldCompanionGrowthBonus": null,
+    "fieldCompanionBaseFloor": 0,
+    "fieldHpResumeIndex": null
+  },
+  "id": "field-curve-2",
+  "explorationSeeds": {
+    "first": 120001,
+    "count": 20
+  },
+  "heldOutSeeds": {
+    "first": 125001,
+    "count": 100
+  },
+  "continuationSeeds": {
+    "first": 125001,
+    "count": 20
+  },
+  "ordinaryProfiles": [
+    "ordinary",
+    "intermittent"
+  ],
+  "stressProfiles": [
+    "high",
+    "idle",
+    "wealthy",
+    "soul-farming"
+  ],
+  "profiles": {
+    "ordinary": "One keyboard input every500ms, immediate hero choice; menu equipment purchase/enhance/sell every30s; no companion management.",
+    "intermittent": "Same, input only during first15s of each60s; no invented onboarding input.",
+    "high": "Keyboard input every125ms on100ms ticks; fever enabled; same shopping and hero choice.",
+    "idle": "First120s at2/s then no inputs; same hero choices, no equipment purchases.",
+    "wealthy": "2/s; initialLv15, souls20, gold1000000, fiveLv5 companions atboss39; same shopping and hero choice.",
+    "soul-farming": "2/s, same shopping; use soul recovery atstage40 at every5s decision, while hero-ready choices take priority. Report separately, no universal legacy timer claim."
+  },
+  "simulation": {
+    "tickMs": 500,
+    "highTickMs": 100,
+    "decisionMs": 5000,
+    "shopVisitMs": 30000,
+    "firstCycleMaxHours": 12,
+    "firstThreeMaxHours": 18,
+    "tenCyclesMaxHours": 60,
+    "workers": 2
+  },
+  "gates": {
+    "ordinaryFirstThreeMinutes": {
+      "p10Minimum": 120,
+      "p50Minimum": 180,
+      "p50Maximum": 300,
+      "p90Maximum": 360
+    },
+    "ordinaryLaterMinutes": {
+      "cycles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "p50Minimum": 180,
+      "p50Maximum": 300
+    },
+    "highFirstThreeMinutes": {
+      "p10Minimum": 120,
+      "minimumArrivalFraction": 0.9
+    },
+    "negativeWallets": 0,
+    "duplicateItemIds": 0,
+    "invalidLoadouts": 0,
+    "currencyAccountingErrors": 0
+  },
+  "selection": [
+    "All applicable gates pass",
+    "minimum maximum absolute ordinary-cycle p50 deviation from240min",
+    "minimum maximum ordinary-cycle p90",
+    "fewest changed parameters againstv0.10",
+    "lexicographic candidateID"
+  ],
+  "quantiles": "Sort all scheduled trajectories, pad each missing cycle interval withInfinity, use floor((n-1)*p); serializeInfinity asnull and keep nonarrival count. Never use successful-only quantiles for gates.",
+  "sourceBinding": "Hash every current core.ts, protocol, candidate registration and evaluator before and after each run. Candidate changes occur only in isolated compiled copies of registered progression initializers. Failed rounds remain immutable. Heldout is run only after candidate choice; rule or code changes require new receipts and fresh heldout seed range.",
+  "longRunSampling": "100heldout seeds per ordinary profile throughcycle3; registered first20 continue throughcycle10. High and separate adversarial profiles20heldout seeds each. These denominators are reported separately.",
+  "humanFun": false,
+  "fieldCurve": "B=max(1,floor(monsterMaxHp(i)/20)); j=min(i,indexCap) ifregisteredcap79 elsei. F=B(j) through31; after31 F=38+scale*(floor(38*(j+1)^p/32^p)-38), registeredp1or2/scale1..256. AfterFapplymax(1,F,registeredbaseFloor); defaultfloor0. OwnedQ=level*2^stars. NullgrowthBonus retainsQ; boundedG=(100Q+growthBonus*(Q-1))/(100Q), bonus25/50/100. Fieldpower floor(F*G*(4+K*r*(r+4))/4), racceptedhero countonly,K0..128. HP fixedstagecurve uses registeredindexCap79/159 ornull, thenM*R combinedbeforefinalfloor. Legacyv10 preservesrawpower/selection/HP, includingallgrowth. Noowned/PvP change. FixedHP plateau resumes after registered fieldHpResumeIndex: effectiveindex=min(i,cap) throughresume; afterresume cap+i-resume. Defaultnull retainsoldcap. No-reset high20x24h diagnostic neveroffers/chooseshero and refreshesfull30 roster withactuallegalrelease receipts.",
+  "screening": "Nonadoptable screen mode uses explorationSeeds.first once per registered candidate/profile through3cycles at18h; full20-seed10-cycle explore remains mandatory before winner selection.",
+  "management": {
+    "profile": "management",
+    "seeds": {
+      "first": 120001,
+      "count": 20
+    },
+    "cycles": 10,
+    "maxHours": 60,
+    "firstThreeMaxHours": 18,
+    "decisionMs": 5000,
+    "releasePolicy": "full-roster-visible-boss-stronger-than-raw-weakest",
+    "weakestOrder": [
+      "raw-companion-power",
+      "numeric-id"
+    ],
+    "heroReadyFirst": true
+  },
+  "fixedResetCurve": "R(t)=[bonusScale*(half+t)+bonus*t]/[bonusScale*(half+t)], totalresetcount t, integerbonusScale1..16 default1. M andR denominators combinebeforefieldHP finalfloor. R(0)=1.",
+  "damageTelemetry": "Cumulative hero/companion reportedandactual HPdamage separately, feverActiveMs andfeverStarts; feverCertainApplied onlyfullyactive attackwindows, feverBoundaryApplied separatesticksthatcrossend. No claimallboundarydamagewasfever. Checkpoint/cyclecumulativevaluesenableintervaldifferences.",
+  "growth": {
+    "profiles": [
+      "ordinary",
+      "intermittent",
+      "high"
+    ],
+    "seeds": {
+      "first": 120001,
+      "count": 20
+    },
+    "cycles": 10,
+    "profileCycles": {
+      "ordinary": 10,
+      "intermittent": 10,
+      "high": 3
+    },
+    "maxHours": 60,
+    "firstThreeMaxHours": 18,
+    "highMaxHours": 18,
+    "decisionMs": 5000,
+    "p10Minimum": 120,
+    "policy": "maximum-next-volley-consume-gain",
+    "target": "active-five",
+    "food": "inactive",
+    "tieBreak": [
+      "target-numeric-id",
+      "food-numeric-id"
+    ],
+    "minimumRoster": 5,
+    "heroReadyFirst": true,
+    "futureInformation": false
+  },
+  "rewardTelemetry": "Everycycle levelTimesMs; 30minutecheckpointsinclude currentHP/maxHP andactualfieldcontext; longestkillgap includesstage/boss/cycle/timebounds orcensoredflag. Growth actualactions include fullcurrentroster,hero,type,partybonus,fever andbefore/aftertypedvolley, hashed independently. No enjoymentclaim. firstEquippedWeaponMs/firstPartyBonusMs sampled atregistered5sdecisions separatelyfromfirstpurchase.",
+  "reserveGrowth": {
+    "profile": "high",
+    "seeds": {
+      "first": 120001,
+      "count": 20
+    },
+    "cycles": 10,
+    "maxHours": 60,
+    "firstThreeMaxHours": 18,
+    "decisionMs": 5000,
+    "p10Minimum": 120,
+    "trigger": "full-roster",
+    "rosterCapacity": 30,
+    "policy": "maximum-next-volley-consume-gain",
+    "target": "active-five",
+    "food": "inactive",
+    "tieBreak": [
+      "target-numeric-id",
+      "food-numeric-id"
+    ],
+    "minimumRoster": 29,
+    "heroReadyFirst": true,
+    "futureInformation": false
+  },
+  "noReset": {
+    "profile": "high",
+    "seeds": {
+      "first": 120001,
+      "count": 20
+    },
+    "durationHours": 24,
+    "decisionMs": 5000,
+    "heroReset": false,
+    "releasePolicy": "full-roster-visible-boss-stronger-than-raw-weakest",
+    "weakestOrder": [
+      "raw-companion-power",
+      "numeric-id"
+    ],
+    "rosterCapacity": 30
+  }
+}

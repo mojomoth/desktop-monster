@@ -94,6 +94,21 @@ function countingRng(values: number[]): { rng: Rng; draws: () => number } {
 
 const types = (events: GameEvent[]): string[] => events.map((e) => e.type);
 
+/** Keep historical swing choreography on its explicit curve; v11 migration is covered separately. */
+const withLegacyField = async (check: (core: typeof import('../src/core/index.js')) => void): Promise<void> => {
+  vi.resetModules();
+  vi.doMock('../src/core/progression.js', () => ({ PROGRESSION_PARAMETERS: Object.freeze({
+    ...PROGRESSION_PARAMETERS, fieldHpNumerator: 1153, fieldHpDenominator: 1000,
+    fieldHpTailStartIndex: 79, fieldHpTailNumerator: 10450, fieldHpTailDenominator: 10000,
+    fieldHpTailPolynomial: 0, fieldHpIndexCap: null, fieldHpResumeIndex: null,
+    fieldRebirthBonus: 0, fieldRebirthHalf: 1, fieldRebirthBonusScale: 1, fieldRebirthCountCap: null,
+    fieldCompanionTailPolynomial: 0, fieldCompanionTailScale: 1, fieldCompanionIndexCap: null,
+    fieldCompanionBaseFloor: 0, fieldCompanionGrowthBonus: null, fieldCompanionFeverMultiplier: 3, fieldHeroCycleBonus: 0,
+  }) }));
+  try { check(await import('../src/core/index.js')); }
+  finally { vi.doUnmock('../src/core/progression.js'); vi.resetModules(); }
+};
+
 describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
   it('starts fresh at level 1 with monster 0 at full hp', () => {
     const s = createEngine(null, calmRng()).getState();
@@ -199,15 +214,16 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
   });
 
   it('next monster spawns with index+1 and higher maxHp', () => {
-    const engine = createEngine(makeSave({ monsterHp: 1 }), calmRng());
+    const engine = createEngine({ ...upgradeSave(makeSave({ monsterIndex: 1, monsterHp: 1 })), monsterCurveVersion: 11 }, calmRng());
+    const previousMaxHp = engine.getState().monster.maxHp;
     const events = engine.attack('keyboard');
     const spawned = events[events.length - 1];
     if (spawned?.type !== 'monsterSpawned') throw new Error('expected monsterSpawned');
-    expect(spawned.monster.index).toBe(1);
-    expect(spawned.monster.maxHp).toBe(fieldMonsterMaxHp(1));
-    expect(spawned.monster.maxHp).toBeGreaterThan(fieldMonsterMaxHp(0));
+    expect(spawned.monster.index).toBe(2);
+    expect(spawned.monster.maxHp).toBe(fieldMonsterMaxHp(2));
+    expect(spawned.monster.maxHp).toBeGreaterThan(previousMaxHp);
     const s = engine.getState();
-    expect(s.monster.index).toBe(1);
+    expect(s.monster.index).toBe(2);
     expect(s.monsterHp).toBe(s.monster.maxHp);
   });
 
@@ -303,7 +319,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const killed = events[2];
     if (killed?.type !== 'monsterKilled') throw new Error('expected monsterKilled');
     expect(killed.monster.boss).toBe(true);
-    expect(killed.monster.maxHp).toBe(fieldMonsterMaxHp(7) * 5n);
+    expect(killed.monster.maxHp).toBe(fieldMonsterMaxHp(7, 0, 10) * 5n);
     expect(killed.xpGained).toBe(xpReward(7) * 5);
     const dropped = events[3];
     if (dropped?.type !== 'itemDropped') throw new Error('expected itemDropped');
@@ -626,7 +642,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(s.souls).toBe(5);
     expect(s.rebirths).toBe(1);
     expect(s.monster.index).toBe(0);
-    expect(s.monsterHp).toBe(fieldMonsterMaxHp(0));
+    expect(s.monsterHp).toBe(fieldMonsterMaxHp(0, s.rebirths, 11));
     expect(s.bestIndex).toBe(40); // rebirth keeps the record
     // damage = level 1 x (1 + 5 souls)
     expect(engine.attack('keyboard')[0]).toEqual({
@@ -669,7 +685,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     // A v2 save resumes with no party and still writes v3.
     expect(createEngine(makeSaveV2(), calmRng()).toSave().pvpParty).toEqual([]);
   });
-  it('tick fires one volley per 1000ms from the 5 best-matched companions and kills chain into the next monster', () => {
+  it('legacy curve: tick fires one volley per 1000ms from the 5 best-matched companions and kills chain into the next monster', () => withLegacyField(({ createEngine, fieldMonsterMaxHp, PROGRESSION_PARAMETERS }) => {
     // Powers 4/3/2/1 (bossIndex 7 → base 1); the whole roster fits in a party
     // of 5, so the enemy type only decides the ORDER they swing in.
     const roster: Companion[] = [
@@ -749,7 +765,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     for (const id of ['c1', 'c2', 'c3', 'c4']) {
       expect([...swingers(two), ...swingers(carried)].filter((x) => x === id).length).toBeGreaterThanOrEqual(2);
     }
-  });
+  }));
 
   it('attack timing is a hidden species attribute: bats strike first, golems last, all inside one window', () => {
     // SPEC F35 (2026-09-06): one swing per member per 1000-ms window, landing at
@@ -813,7 +829,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     expect(engine.getState().monsterHp).toBe(fieldMonsterMaxHp(60) - 15n);
   });
 
-  it('the field party changes when a monster of another type spawns', () => {
+  it('legacy curve: the field party changes when a monster of another type spawns', () => withLegacyField(({ createEngine }) => {
     // Six companions, five slots: the two the type chart drops differ per enemy.
     const roster: Companion[] = [
       { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 10, stars: 0 }, // water
@@ -851,7 +867,7 @@ describe('attack engine (SPEC F06/F07/F08, Assumption 8)', () => {
     const second = engine.tick(COMPANION_ATTACK_MS);
     expect([...attackers(second)].sort()).toEqual(['c1', 'c2', 'c4', 'c5', 'c6']);
     expect(attackers(second)).toEqual(landingOrder('wind'));
-  });
+  }));
 
   it('pvpResult with a replay is applied exactly like one without', () => {
     const pet: Companion = { id: 'c1', speciesId: 'slime', bossIndex: 7, level: 1, stars: 0 };

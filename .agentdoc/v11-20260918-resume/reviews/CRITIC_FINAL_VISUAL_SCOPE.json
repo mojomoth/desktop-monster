@@ -1,0 +1,47 @@
+{
+  "version": 11,
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "scope": "visual",
+  "verdict": "approved",
+  "reviewer": "/root/skills_harness",
+  "implementedBy": [
+    "/root/menu_review",
+    "/root"
+  ],
+  "conclusion": "No unresolved material correctness finding. HUD placement/animation, outlined monster numbers and head labels, current field party routing, sprite run batching and muted audio changes are source-reviewed. Historical pixel assertions retain their pixel oracle via run-strip normalization; 28 final native PNGs were inspected. Prior source-bound Chromium sprite RGBA equivalence evidence supplements the retained unit goldens.",
+  "reviewedFiles": {
+    "src/renderer/hud.ts": "521989b6527555283bc95bad6d324971fb1b711931d84645428eb79e10068ab3",
+    "src/renderer/game.ts": "2eb9bfeb4ef3c1b27a21f1f543c4558da3a0e1f980399f9a97bc7904f073b654",
+    "src/renderer/sprites/sprite.ts": "d01951c90479e2be639b30f6670e99f6839a58ce4f8a49039b5d9cf2d720d19f",
+    "src/renderer/audio.ts": "1776966851492f4608999cf93d2ee59c3ada2b87c47123c996f8027520f34744",
+    "tests/expedition.test.ts": "6a253bee2e86931b8aecbeef7d364880927d01fcf85c6b578fb618916abf0cc1",
+    "tests/renderer.test.ts": "5cd5f007a23dcce62530fd16e6892b7f0dd7f2269147e63b78baac6541eb41bb",
+    "tests/renderer-field-v11.test.ts": "c04e8df9c142d0a00cbf01a219c753c485eb5aa5ee3fd913ad1e4ab9a8f31d98",
+    "tests/spriteRasterV11.test.ts": "06ef007873b08773eef32500d359e90444bb174d845435a1c0dadd6962c81f14",
+    "tests/sprites.test.ts": "00389bd14c74a32a74b7fdbaa3220abbabd20f045cba01084d18cba21a86e4b4",
+    "tests/equippedHeroCache.test.ts": "dc3632d34037945972c39036174846b080244525346e60876635d8ae9db72511",
+    "tests/audio.test.ts": "ac1eeeda6834bfe8ffc99a34ba789a0321fb25e2910af31cd802a2cd1d5967ce",
+    "tests/hud-v09.test.ts": "b8b6246fd65514014bd0ef9cad23d744477c73e9d837395a2aaff9d3a46dfe3e",
+    "tests/heroJobStudies.test.ts": "12e7d10526251b2979c481e2afe5b065194820f32f7d780a13e364f7614db5dc"
+  },
+  "comprehensiveReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_SOURCE_REVIEW.json",
+    "sha256": "b0c103ee7d2ec4cf2039fd5927dc7c8ba05d0d4fe2e424063cf51974bc7cc084"
+  },
+  "nativeReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_NATIVE_REVIEW.json",
+    "sha256": "c4619cb3495f7d3435e93dfb9f1dde28a5521a1487fa099545134ffd20efdf86"
+  },
+  "balanceReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_BALANCE_REVIEW.json",
+    "sha256": "c078ef971ae405d23255ba3312294484b4c101ff888269dda7300f2a2fb8d4ff"
+  },
+  "unresolvedFindings": [],
+  "overallReleaseApproved": false,
+  "limitations": [
+    "This approves four independent source/functionality scopes, not the complete release. The verification scope is authored by this reviewer and requires Host approval.",
+    "Quiet final candidate active/idle CPU/RAM comparison remains pending; the prior failed idle comparison stays preserved.",
+    "Simulation approval is policy-bound: aggressive growth retains all 118 missing scheduled cycles, no-reset observed no roster-release branch, and human fun is not certified.",
+    "Final package payload and external-check dispositions must be attached by the Host; native package binding has passed."
+  ]
+}

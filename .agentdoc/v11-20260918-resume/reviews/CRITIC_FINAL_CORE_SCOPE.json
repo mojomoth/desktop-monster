@@ -1,0 +1,52 @@
+{
+  "version": 11,
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "scope": "core",
+  "verdict": "approved",
+  "reviewer": "/root/skills_harness",
+  "implementedBy": [
+    "/root/balance"
+  ],
+  "conclusion": "No unresolved material correctness finding. Manual equipment reconciliation, finite soul-farming remediation, encounter-snapshot total-reset scaling, normal t=r rounding equivalence, v10 encounter compatibility, reset and automatic-release atomic overflow guards are source-reviewed. Final selected R19-B core/compiled bindings and fresh heldout/diagnostic actions are independently verified; no quantitative gate or denominator was relaxed.",
+  "reviewedFiles": {
+    "src/core/equipment.ts": "7cf12bd395ef69cbf2972a502c4861d5e05fd3c1de97eafd8a7edba93255ce33",
+    "src/core/engine.ts": "8484cf119aab746b86400062abee5fc7aa9261214e49552a9a0fbf05130552dd",
+    "src/core/hero.ts": "5d35d3cc29f2113f82e1538cbd51f8887e1ba052019c751e7277fcc33f429693",
+    "src/core/collection.ts": "47b0edab26436932cb6a723539c9b35b3eb22b3534567fe9750e993c6a9369f1",
+    "src/core/formulas.ts": "bf1013d844f9fba0a1173f2173486723372df684c3e8d22acdf94ed847a8f942",
+    "src/core/save.ts": "cfee1463f4c64d6168c897e9db4733c44889d8c45de94e2d9897a7c54edfca30",
+    "src/core/progression.ts": "7873047a7cedb8606f98c28583e69c0b7579c94c67026c627b79d7b6ae54cd7c",
+    "src/core/types.ts": "5833d63c5a3af7eb34b761240c33c72d28090aa46ac0a2b66455e6f7a34ef69d",
+    "src/core/monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+    "src/core/fever.ts": "0afa61bd670596c1292d74e7c0a607cd48c29bde64fd7ab7d09b59334193e036",
+    "src/core/index.ts": "3dc0f4c575ba789b96efb89556801e08eb9a49f0cab409f5344f354c760e94d7",
+    "tests/equipmentV11.test.ts": "b148e3cfadf543a04940d9353c218ee659c6281a9c9851b60ec58ce12d0b31d3",
+    "tests/progressionV11.test.ts": "6138e6e877a32244e6cc57d87ebe4922c90f41ceb4f0902c3035707f89b2e097",
+    "tests/progressionV5.test.ts": "3a73dc1a24838b7ccb3b6c973b8f5834c27d80f62bcf86566176d7977a209972",
+    "tests/fever.test.ts": "f2501425e6ae44ee5a3cf6aebdaadf44c229c337f4eec2f85440616c5cb350c4",
+    "tests/engine.test.ts": "2c457f9578309a517518baecc140623c94cf03e6198cf6a6f9ab35a2f35614a4",
+    ".harness/v11/balance.mjs": "b7ec9c7d02cd1b557fe945c48fa556618c96304c1d881da36fe8f45c38e80114",
+    "docs/v0.11/EVALUATION_PROTOCOL.json": "8dc56ef5ad874fbecd1985191a439faab10849aa38beb133b9503a6a4358ee59",
+    "docs/v0.11/BALANCE_CANDIDATE.json": "b93d379450807773bb3753fd506a636cd55e5df8e987ce02c62e8d7b8f188ac9"
+  },
+  "comprehensiveReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_SOURCE_REVIEW.json",
+    "sha256": "b0c103ee7d2ec4cf2039fd5927dc7c8ba05d0d4fe2e424063cf51974bc7cc084"
+  },
+  "nativeReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_NATIVE_REVIEW.json",
+    "sha256": "c4619cb3495f7d3435e93dfb9f1dde28a5521a1487fa099545134ffd20efdf86"
+  },
+  "balanceReview": {
+    "path": ".agentdoc/v11-20260918-resume/reviews/CRITIC_FINAL_BALANCE_REVIEW.json",
+    "sha256": "c078ef971ae405d23255ba3312294484b4c101ff888269dda7300f2a2fb8d4ff"
+  },
+  "unresolvedFindings": [],
+  "overallReleaseApproved": false,
+  "limitations": [
+    "This approves four independent source/functionality scopes, not the complete release. The verification scope is authored by this reviewer and requires Host approval.",
+    "Quiet final candidate active/idle CPU/RAM comparison remains pending; the prior failed idle comparison stays preserved.",
+    "Simulation approval is policy-bound: aggressive growth retains all 118 missing scheduled cycles, no-reset observed no roster-release branch, and human fun is not certified.",
+    "Final package payload and external-check dispositions must be attached by the Host; native package binding has passed."
+  ]
+}

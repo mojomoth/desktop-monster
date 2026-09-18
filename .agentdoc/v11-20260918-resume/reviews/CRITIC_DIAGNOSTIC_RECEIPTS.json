@@ -1,0 +1,94 @@
+{
+  "reviewer": "/root/skills_harness",
+  "currentProductionAcceptance": false,
+  "verifierSha256": "a0e0ce52939092a2678263e50158cbd37104b1bea8be5d3255abcb74f8f30a77",
+  "scriptSha256": "dd0bf4044b7ad9e21bdc029aad54ca9906bbce3039ef8ec252c607f7675ed122",
+  "checks": [
+    {
+      "name": "r15-reserve-a",
+      "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r15-reserve-a/report.json",
+      "reportSha256": "ce02d8fff061709bf7096c5a93ee82e1396af4eb9fd693fd0ac1dd042460e03d",
+      "archiveVerified": true,
+      "mode": "reserve-growth",
+      "candidate": "R15-A",
+      "trajectories": 20,
+      "actualActions": 2389,
+      "p10Minutes": [
+        132.83333333333334,
+        132.5,
+        124.41666666666667,
+        129.41666666666666,
+        122.25,
+        132.66666666666666,
+        126,
+        130,
+        130.33333333333334,
+        129.58333333333334
+      ],
+      "guardsPassed": true,
+      "stageRange": [
+        0,
+        0
+      ],
+      "rawPowerDigitsRange": [
+        22,
+        22
+      ],
+      "heroReincarnations": [
+        10
+      ],
+      "exposureHours": [
+        25.540277777777778,
+        25.508333333333333,
+        27.10972222222222,
+        24.818055555555556,
+        25.4375,
+        27.47361111111111,
+        27.46527777777778,
+        26.397222222222222,
+        26.418055555555554,
+        26.691666666666666,
+        25.634722222222223,
+        26.698611111111113,
+        25.469444444444445,
+        25.518055555555556,
+        25.272222222222222,
+        25.66111111111111,
+        26.761111111111113,
+        26.03611111111111,
+        28.252777777777776,
+        27.294444444444444
+      ],
+      "elapsedMs": 5356.647125,
+      "limitation": "Reserve policy passes its ten guards; original R15-A pacing gates fail, so no adoption."
+    },
+    {
+      "name": "r16-no-reset-a",
+      "reportPath": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r16-no-reset-a/report.json",
+      "reportSha256": "6ed782056b23505756101a304bfa02f101c36b8ff3190cfb447ab525b85b1fd7",
+      "archiveVerified": true,
+      "mode": "no-reset",
+      "candidate": "R16-A",
+      "trajectories": 20,
+      "actualActions": 0,
+      "p10Minutes": null,
+      "guardsPassed": null,
+      "stageRange": [
+        457,
+        461
+      ],
+      "rawPowerDigitsRange": [
+        23,
+        28
+      ],
+      "heroReincarnations": [
+        0
+      ],
+      "exposureHours": [
+        24
+      ],
+      "elapsedMs": 235.17770800000017,
+      "limitation": "All twenty rows have zero releases, so the actual release branch is unobserved. Old arithmetic source superseded; selected-source diagnostic must be rerun."
+    }
+  ]
+}

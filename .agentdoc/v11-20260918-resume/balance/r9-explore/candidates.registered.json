@@ -1,0 +1,78 @@
+{
+  "version": 11,
+  "round": 9,
+  "stage": "fixed-linear-first-three-full-sample",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R9-A",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1123,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 64,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R9-B",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1124,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 64,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R9-C",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1125,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 2,
+        "fieldRebirthHalf": 1,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 64,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "R8p1screen improvesboundedcapture sensitivity buttooquick: C ordinary236/184/185,inter211/163/211,high112/138/119. RaisefixedHPprefix to1123/1124/1125 andK128 whilekeepingstage258,linear64,Rbonus2. Measureall20explorationseedsfirst3simultaneously before10-cyclequalification. R8 cadence100/500ms pilotpassed. Heldoutuntouched."
+}

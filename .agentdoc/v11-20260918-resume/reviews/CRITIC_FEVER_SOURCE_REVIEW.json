@@ -1,0 +1,38 @@
+{
+  "reviewer": "/root/skills_harness",
+  "source": "82b5b9f3adada6aee2a3a472fcf086ade3aeca8063ff418c5a437b4df52013a8",
+  "scope": "bounded source/schema review",
+  "passed": true,
+  "releaseApproved": false,
+  "sourceHashes": {
+    "src/core/fever.ts": "0afa61bd670596c1292d74e7c0a607cd48c29bde64fd7ab7d09b59334193e036",
+    "src/core/engine.ts": "8030905686033a03b05dd99b318879fb369b44367a8b986bf0cc1b06f35befb6",
+    "src/core/progression.ts": "91507fe9994bdf59e99b202347db6ea6f05fb94250049b9514387055c4cfbebf",
+    ".harness/v11/balance.mjs": "e4dcc1b29266ff11eb7de9a32693c5e21ab59155a8f1c62fa1b9809d1d646b25",
+    ".harness/v11/balance-verify.mjs": "9735dbfb3c328f7189a35838f5c6995757e831db79aa8e06e9d930244901e298",
+    ".harness/v11/balance-verify.test.mjs": "14a955331892d382668a425f0ee1faef50c0a2f2045af34919f915b2468352b1",
+    ".harness/v11/run.mjs": "63e6638f36f3b8dd5274276046917f4ca7d15ecf7047ddbfd03290caec0fa710",
+    ".harness/v11/run.test.mjs": "072769196b674625425d016acd507475274a96527cb1f52043699f69b37aa5f7",
+    ".harness/v11/final-check.mjs": "46a7ee264a3d660a2f05a0197e15e02f35352c9885405e3ef0411d24cc4e81e8",
+    "tests/progressionV11.test.ts": "bd58d066d71b4be31fabe5136013b66b41c727f1c5ea71b8003c1adfeca78671",
+    "tests/fever.test.ts": "f2501425e6ae44ee5a3cf6aebdaadf44c229c337f4eec2f85440616c5cb350c4",
+    "tests/engine.test.ts": "52eb39a29ad989e5a5ac06f1cc8b44a8e7d1e738de40514108f3ab0bde807165",
+    "README.md": "5722e095f3a550661b3dffdd8d9aa6cb1c4084829cc75584a65829bfdb5579a6",
+    "SPEC.md": "a2b575a0dc44259d9819919cbe7025f1aa62547e231e8d709e586ff4567036f1",
+    "docs/v0.11/CONTRACT.md": "e38956f67460d37499f7962db0cbda731d1334137862a5dd7291a65731e31b90"
+  },
+  "checks": [
+    {
+      "command": "npx vitest run tests/progressionV11.test.ts tests/fever.test.ts tests/engine.test.ts",
+      "passed": 61,
+      "failed": 0
+    },
+    {
+      "command": "node --test .harness/v11/run.test.mjs .harness/v11/balance-verify.test.mjs .harness/v11/final-check.test.mjs",
+      "passed": 41,
+      "failed": 0
+    }
+  ],
+  "specInvalidates": true,
+  "generatedEvidenceDoesNotInvalidate": true
+}

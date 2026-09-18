@@ -37,11 +37,11 @@ const progressedSave = (): SaveFile => {
 
 describe('v0.9 registered no-rest update with unchanged v0.7 progression rules', () => {
   it('binds every production parameter to the new registration and preserves named v0.7 content milestones', () => {
-    expect(Object.keys(PROGRESSION_PARAMETERS)).toHaveLength(24);
+    expect(Object.keys(PROGRESSION_PARAMETERS)).toHaveLength(35);
     expect(Object.isFrozen(PROGRESSION_PARAMETERS)).toBe(true);
     const selected = v11Registration.candidates.find(candidate => candidate.id === v11Registration.selected);
     expect(PROGRESSION_PARAMETERS).toEqual({ ...noRestUpdate.productionParameters,
-      fieldHpTailPolynomial: 0, fieldRebirthBonus: 0, fieldRebirthHalf: 1, ...selected?.parameters });
+      fieldHpTailPolynomial: 0, fieldHpIndexCap: null, fieldHpResumeIndex: null, fieldRebirthBonus: 0, fieldRebirthHalf: 1, fieldRebirthBonusScale: 1, fieldRebirthCountCap: null, fieldCompanionTailPolynomial: 0, fieldCompanionTailScale: 1, fieldCompanionIndexCap: null, fieldCompanionBaseFloor: 0, fieldCompanionGrowthBonus: null, fieldCompanionFeverMultiplier: 3, fieldHeroCycleBonus: 0, ...selected?.parameters });
     for (const milestone of protocol.milestones) {
       const definition = milestone.kind === 'hero' ? rareHero(milestone.id) : rareMonster(milestone.id);
       expect(definition, milestone.id).toBeDefined();
@@ -56,12 +56,17 @@ describe('v0.9 registered no-rest update with unchanged v0.7 progression rules',
   it('uses exact field/companion curves independently, keeping existing companion and PvP power', () => {
     const parameters = PROGRESSION_PARAMETERS;
     for (const index of [0, 7, 23, 71, 72, 78, 79, 80, 81, 87, 100, 5000]) {
-      const i = BigInt(index);
+      const i = BigInt(index), cap = parameters.fieldHpIndexCap, resume = parameters.fieldHpResumeIndex;
+      const fieldIndex = cap !== null && resume !== null && index > resume ? cap + (index - resume) : Math.min(index, cap ?? Infinity), fi = BigInt(fieldIndex);
       const original = 10n * 115n ** i / 100n ** i;
-      const prefix = parameters.fieldHpTailStartIndex === null ? i : BigInt(Math.min(index, parameters.fieldHpTailStartIndex));
-      const tail = i - prefix;
-      const field = 10n * BigInt(parameters.fieldHpNumerator) ** prefix * BigInt(parameters.fieldHpTailNumerator) ** tail /
+      const prefix = parameters.fieldHpTailStartIndex === null ? fi : BigInt(Math.min(fieldIndex, parameters.fieldHpTailStartIndex));
+      const tail = fi - prefix;
+      const exponential = 10n * BigInt(parameters.fieldHpNumerator) ** prefix * BigInt(parameters.fieldHpTailNumerator) ** tail /
         (BigInt(parameters.fieldHpDenominator) ** prefix * BigInt(parameters.fieldHpTailDenominator) ** tail);
+      const start = parameters.fieldHpTailStartIndex, power = BigInt(parameters.fieldHpTailPolynomial);
+      const prefixHp = 10n * BigInt(parameters.fieldHpNumerator) ** prefix / BigInt(parameters.fieldHpDenominator) ** prefix;
+      const field = start !== null && fieldIndex > start && power > 0n
+        ? prefixHp * BigInt(fieldIndex + 1) ** power / BigInt(start + 1) ** power : exponential;
       expect(fieldMonsterMaxHp(index)).toBe(field);
       expect(monsterMaxHp(index)).toBe(original);
       expect(fieldMonsterMaxHp(index)).toBe(field); // distinct caches must not reuse the other curve

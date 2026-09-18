@@ -93,6 +93,16 @@ canvas.species {
   text-align: right;
 }
 
+.companion-stats {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.hunting-power { color: #dad45e; overflow-wrap: anywhere; }
+
 .btn {
   padding: 6px 8px;
   color: #deeed6;

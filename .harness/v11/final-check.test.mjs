@@ -213,6 +213,9 @@ test('native reports bind all scenarios, current app, screenshots, isolation and
         ...(name === 'manual-equipment' ? {pipelineTrace: trace(samples)} : {})}};
     })};
   assert.doesNotThrow(() => validateNative(report, 'source', app, protocol, root));
+  const missingFieldParty = structuredClone(report);
+  missingFieldParty.attempts = missingFieldParty.attempts.filter(attempt => attempt.name !== 'field-party');
+  assert.throws(() => validateNative(missingFieldParty, 'source', app, protocol, root), /Missing\/duplicate native scenarios/);
   report.attempts[0].runtime.metadata.version = '0.10.0'; assert.throws(() => validateNative(report, 'source', app, protocol, root), /Failed native/);
   report.attempts[0].runtime.metadata.version = '0.11.0'; delete report.artifacts[shots[0].path];
   assert.throws(() => validateNative(report, 'source', app, protocol, root), /Screenshot omitted/);

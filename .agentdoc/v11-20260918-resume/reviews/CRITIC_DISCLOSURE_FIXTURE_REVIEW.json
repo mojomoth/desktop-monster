@@ -1,0 +1,16 @@
+{
+  "reviewer": "/root/skills_harness",
+  "sourceCorrectionApproved": true,
+  "nativeExecuted": false,
+  "releaseApproved": false,
+  "files": {
+    ".harness/v11/ui-cases.mjs": "3a97e66de107b95fb5891a71bde7426509e900e0de984b0639b83fa0883134af",
+    ".harness/v11/runtime.test.mjs": "dc73075400e7caa74a8135ea278013c102cd9e2e3e7101af518635b09c997960",
+    ".harness/v10/ui-cases.mjs": "0f336b774564867cd2df8588208e196ddf729693ca4509733757bd6d7a89be87"
+  },
+  "test": {
+    "command": "node --test --test-name-pattern='live disclosure evidence' .harness/v11/runtime.test.mjs",
+    "passed": 1,
+    "failed": 0
+  }
+}

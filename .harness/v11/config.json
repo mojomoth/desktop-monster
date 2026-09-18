@@ -21,7 +21,9 @@
         ".harness/v11/final-check.mjs",
         ".harness/v11/final-check.test.mjs",
         ".harness/v11/performance-report.mjs",
-        ".harness/v11/performance.test.mjs"
+        ".harness/v11/performance.test.mjs",
+        ".harness/v11/balance-verify.mjs",
+        ".harness/v11/balance-verify.test.mjs"
       ],
       "ac": "node --test .harness/v11/*.test.mjs"
     },
@@ -36,8 +38,6 @@
         "tests/equipmentV11.test.ts",
         "tests/progressionV11.test.ts",
         ".harness/v11/balance.mjs",
-        ".harness/v11/balance-verify.mjs",
-        ".harness/v11/balance-verify.test.mjs",
         "docs/v0.11/EVALUATION_PROTOCOL.json",
         "docs/v0.11/BALANCE_CANDIDATE.json",
         "tests/formulas.test.ts",
@@ -45,9 +45,10 @@
         "tests/engine.test.ts",
         "tests/save.test.ts",
         "tests/collection.test.ts",
-        "tests/heroArtCompatibility.test.ts"
+        "tests/heroArtCompatibility.test.ts",
+        "tests/progressionV5.test.ts"
       ],
-      "ac": "npx vitest run tests/equipmentV11.test.ts tests/progressionV11.test.ts tests/save.test.ts tests/engine.test.ts"
+      "ac": "npx vitest run tests/equipmentV11.test.ts tests/progressionV11.test.ts tests/progressionV5.test.ts tests/save.test.ts tests/engine.test.ts"
     },
     {
       "id": "V11-03",
@@ -65,9 +66,10 @@
         ".harness/v11/runtime.mjs",
         ".harness/v11/ui-cases.mjs",
         ".harness/v11/runtime.test.mjs",
-        "tests/expedition.test.ts"
+        "tests/expedition.test.ts",
+        "tests/renderer-field-v11.test.ts"
       ],
-      "ac": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts"
+      "ac": "npx vitest run tests/hud-v09.test.ts tests/hudV11.test.ts tests/renderer.test.ts tests/effects-v09.test.ts tests/renderer-field-v11.test.ts"
     },
     {
       "id": "V11-04",
@@ -95,9 +97,20 @@
         "eslint.config.mjs",
         "src/main/tray.ts",
         "tests/tray.test.ts",
-        "tests/runtimeV8.test.ts"
+        "tests/runtimeV8.test.ts",
+        "src/renderer/sprites/sprite.ts",
+        "tests/spriteRasterV11.test.ts",
+        "tests/shareV9.test.ts",
+        "tests/sprites.test.ts",
+        "tests/equippedHeroCache.test.ts",
+        "tests/share.test.ts",
+        "src/renderer/audio.ts",
+        "tests/audio.test.ts",
+        "tests/share-field-v11.test.ts",
+        "tests/heroJobStudies.test.ts",
+        "SPEC.md"
       ],
-      "ac": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts"
+      "ac": "npx vitest run tests/menu.test.ts tests/menuV9.test.ts tests/equipmentMenuV10.test.ts tests/ipc.test.ts tests/runtimeV8.test.ts tests/tray.test.ts tests/packaging.test.ts tests/spriteRasterV11.test.ts tests/equippedHeroCache.test.ts tests/heroJobStudies.test.ts tests/audio.test.ts tests/share.test.ts tests/share-field-v11.test.ts"
     },
     {
       "id": "V11-05",

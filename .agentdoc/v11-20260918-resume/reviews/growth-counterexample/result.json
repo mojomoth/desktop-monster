@@ -1,0 +1,5400 @@
+{
+  "diagnosticOnly": true,
+  "adopted": false,
+  "candidate": {
+    "id": "R10-A",
+    "parameters": {
+      "heroMinLevel": 24,
+      "heroLevelStepCap": 0,
+      "fieldHpNumerator": 1141,
+      "fieldHpTailNumerator": 10450,
+      "fieldHpTailPolynomial": 4,
+      "fieldRebirthBonus": 11,
+      "fieldRebirthHalf": 1,
+      "fieldRebirthBonusScale": 4,
+      "fieldCompanionTailPolynomial": 1,
+      "fieldCompanionTailScale": 256,
+      "fieldHeroCycleBonus": 128
+    }
+  },
+  "compiledFiles": {
+    "battle.js": "8f5a6a70ecde4cf39bb01eb72284a866df05371bfce1eedb959f54ee45f0a4d2",
+    "bignum.js": "6a1b05e74d3f72ca51c65eac6a6af9d9ecff38d67f2af47a89ce0f1035ac082d",
+    "collection.js": "076641bc40faeb0c8be8d8662666589cea060bef4738c70d115dfcfc78c31f10",
+    "discovery.js": "985824dd771778fc6e09c266b7930ca4f3b16ca3060941e11e58c67d2f73f68d",
+    "economy.js": "37364a42617cf39e994ed52cdd970c6a01a70df3117896c2b3c2bf2c413ffc82",
+    "engine.js": "db72dfdb31411e848a4adcf684687746075c9c067459731bebd6d000a962364a",
+    "equipment.js": "0d9f98577a4d9d202182d4a9f07fe6034d60631e9234ce4dd1cf8f1b0117a306",
+    "fever.js": "2ddcc533c2a91c973df59f5a39bcd109972fdf6be514768ec5342779b19c6c48",
+    "formulas.js": "176f05086e241adb6ffcd87556ad94ece38d77d88d214f1202d73bb3b3ed31b7",
+    "fsm.js": "e3129ae31aeb89f316820a994b269e5158270ad1d2389d53c711fba2babb3bee",
+    "gold.js": "c2dae194f0c9904c0e0ec23b3c42e6f13dbcb61a052e1080a823c177f5372eca",
+    "hero.js": "61393330dac7cdcf77aa4e87dc8cff19dae2fee23d97553ea5b7b8fb3ca0750d",
+    "index.js": "5e25eddd1a834191c6b9760fc0ef880fd12224f3dfbb1c0514327b16e2b590f3",
+    "input.js": "649fa2f593407bcb4d7f092fa34ff06d525e5f9bc9d4c2e8d592cd70736f5177",
+    "loot.js": "8e8b1112466f2d7dae2016408de60313b913be32449ca36f4100bbdaa45bbd79",
+    "monsters.js": "79de30b4114c58b417491cf7bb415f0ad5935dc4bcddeead01581ec359147744",
+    "progress.js": "59aa15e844cfedc2fbd63349df4b3322d7d9c8aa59a6103a07fdfcf10248697c",
+    "progression.js": "7476c270be8155fa83e03a4d49da6b492a0665d51e3b68f3d330d639be204e0d",
+    "rng.js": "a66c426f831505290e5154494bf74ec30f415874b1806bd3b1f658b118b724b5",
+    "save.js": "fd688c4b59fc5f419aebb37bbd6ddbe1adfeeafdfcf1af2309ca501499e4623d",
+    "types-chart.js": "e66642ead990055e04d62e9e24789dd94e894ee510eaf35e4f7a217d516a6bd9",
+    "types.js": "a94e2f3f1d5b39c18132535a02b00b3c455e4d5a87f9e62724dae780ef896876"
+  },
+  "sourceArchive": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r10-screen",
+  "scriptHash": "66a3647aec659231e60ba4602ec1bdc9e620839423b775326c22dadc24dc422e",
+  "evaluatorHash": "f7d2191aec2ebb4a2353f0675dbdde8dee467f02f46816500afa927dd884db9f",
+  "protocol": {
+    "initial": "ordinary DEFAULT_SAVE, same original gear/shop/input policy",
+    "seed": 120001,
+    "cycles": 10,
+    "maxHours": 60,
+    "decisionMs": 5000,
+    "action": "consume one weakest unselected companion into the strongest displayed field-power active companion; numeric ID ties; preserve five members; hero ready has priority"
+  },
+  "row": {
+    "profile": "ordinary",
+    "seed": 120001,
+    "cyclesWanted": 10,
+    "cycles": [
+      {
+        "number": 1,
+        "readyAtMs": 14220000,
+        "acceptedAtMs": 14220000,
+        "intervalMs": 14220000,
+        "level": 24,
+        "stage": 258,
+        "souls": 32,
+        "companions": 5,
+        "kills": 258,
+        "gold": "1599",
+        "spent": "15300",
+        "heroKills": 65,
+        "companionKills": 193,
+        "damage": {
+          "heroApplied": "17179260",
+          "companionApplied": "2841308195",
+          "heroReported": "17183477",
+          "companionReported": "2846698107",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 2,
+        "readyAtMs": 24275000,
+        "acceptedAtMs": 24275000,
+        "intervalMs": 10055000,
+        "level": 24,
+        "stage": 258,
+        "souls": 64,
+        "companions": 5,
+        "kills": 516,
+        "gold": "198",
+        "spent": "33600",
+        "heroKills": 65,
+        "companionKills": 451,
+        "damage": {
+          "heroApplied": "484437908",
+          "companionApplied": "1095698801210",
+          "heroReported": "484442125",
+          "companionReported": "1100683845166",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 3,
+        "readyAtMs": 35690000,
+        "acceptedAtMs": 35690000,
+        "intervalMs": 11415000,
+        "level": 24,
+        "stage": 258,
+        "souls": 96,
+        "companions": 5,
+        "kills": 774,
+        "gold": "3597",
+        "spent": "51600",
+        "heroKills": 65,
+        "companionKills": 709,
+        "damage": {
+          "heroApplied": "2107627884",
+          "companionApplied": "4213128462118",
+          "heroReported": "2107632101",
+          "companionReported": "4237137041536",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 4,
+        "readyAtMs": 43450000,
+        "acceptedAtMs": 43450000,
+        "intervalMs": 7760000,
+        "level": 24,
+        "stage": 258,
+        "souls": 128,
+        "companions": 5,
+        "kills": 1032,
+        "gold": "10496",
+        "spent": "67000",
+        "heroKills": 65,
+        "companionKills": 967,
+        "damage": {
+          "heroApplied": "4001341443",
+          "companionApplied": "10104266224151",
+          "heroReported": "4001345660",
+          "companionReported": "10185748151244",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 5,
+        "readyAtMs": 52585000,
+        "acceptedAtMs": 52585000,
+        "intervalMs": 9135000,
+        "level": 24,
+        "stage": 258,
+        "souls": 160,
+        "companions": 5,
+        "kills": 1290,
+        "gold": "5195",
+        "spent": "91000",
+        "heroKills": 66,
+        "companionKills": 1224,
+        "damage": {
+          "heroApplied": "11295705267",
+          "companionApplied": "19474678364452",
+          "heroReported": "11296019674",
+          "companionReported": "19643958058510",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 6,
+        "readyAtMs": 58155000,
+        "acceptedAtMs": 58155000,
+        "intervalMs": 5570000,
+        "level": 24,
+        "stage": 258,
+        "souls": 192,
+        "companions": 5,
+        "kills": 1548,
+        "gold": "21494",
+        "spent": "97000",
+        "heroKills": 66,
+        "companionKills": 1482,
+        "damage": {
+          "heroApplied": "14387477132",
+          "companionApplied": "33034471763459",
+          "heroReported": "14387791539",
+          "companionReported": "33427643744068",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 7,
+        "readyAtMs": 63775000,
+        "acceptedAtMs": 63775000,
+        "intervalMs": 5620000,
+        "level": 24,
+        "stage": 258,
+        "souls": 224,
+        "companions": 5,
+        "kills": 1806,
+        "gold": "22493",
+        "spent": "121000",
+        "heroKills": 66,
+        "companionKills": 1740,
+        "damage": {
+          "heroApplied": "23219580632",
+          "companionApplied": "51467183840102",
+          "heroReported": "23219895039",
+          "companionReported": "52261879576429",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 8,
+        "readyAtMs": 69450000,
+        "acceptedAtMs": 69450000,
+        "intervalMs": 5675000,
+        "level": 24,
+        "stage": 258,
+        "souls": 256,
+        "companions": 5,
+        "kills": 2064,
+        "gold": "5392",
+        "spent": "158600",
+        "heroKills": 66,
+        "companionKills": 1998,
+        "damage": {
+          "heroApplied": "34883766891",
+          "companionApplied": "75458705632097",
+          "heroReported": "34884081298",
+          "companionReported": "76711888260620",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 9,
+        "readyAtMs": 73170000,
+        "acceptedAtMs": 73170000,
+        "intervalMs": 3720000,
+        "level": 24,
+        "stage": 258,
+        "souls": 288,
+        "companions": 5,
+        "kills": 2322,
+        "gold": "1791",
+        "spent": "185400",
+        "heroKills": 66,
+        "companionKills": 2256,
+        "damage": {
+          "heroApplied": "39464466109",
+          "companionApplied": "105751463562969",
+          "heroReported": "39464780516",
+          "companionReported": "108118849897856",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      },
+      {
+        "number": 10,
+        "readyAtMs": 78090000,
+        "acceptedAtMs": 78090000,
+        "intervalMs": 4920000,
+        "level": 24,
+        "stage": 258,
+        "souls": 320,
+        "companions": 5,
+        "kills": 2580,
+        "gold": "5790",
+        "spent": "198300",
+        "heroKills": 66,
+        "companionKills": 2514,
+        "damage": {
+          "heroApplied": "69905543623",
+          "companionApplied": "142966571204587",
+          "heroReported": "69905858030",
+          "companionReported": "146349661337535",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        }
+      }
+    ],
+    "durationMs": 78090000,
+    "nonarrival": 0,
+    "firstCompanionMs": 60000,
+    "final": {
+      "level": 1,
+      "stage": 0,
+      "kills": 2580,
+      "souls": 320,
+      "companions": 5,
+      "coins": "5790",
+      "spent": "198300",
+      "income": "168990",
+      "sales": "35100"
+    },
+    "damage": {
+      "heroApplied": "69905543623",
+      "companionApplied": "142966571204587",
+      "heroReported": "69905858030",
+      "companionReported": "146349661337535",
+      "feverCertainApplied": "0",
+      "feverBoundaryApplied": "0",
+      "feverActiveMs": 0,
+      "feverStarts": 0
+    },
+    "purchases": 6,
+    "enhancements": 31,
+    "soulRecoveries": 0,
+    "managementReleases": 0,
+    "maximumStage": 258,
+    "maxCapturedIndex": 255,
+    "maxCapturedRawPowerDigits": 16,
+    "firstPurchaseMs": 7200000,
+    "firstLevels": {
+      "2": 14000,
+      "3": 21000,
+      "4": 26000,
+      "5": 33000,
+      "6": 33000,
+      "7": 36500,
+      "8": 44500,
+      "9": 44500,
+      "10": 52000,
+      "11": 60000,
+      "12": 88000,
+      "13": 107000,
+      "14": 180500,
+      "15": 384000,
+      "16": 1503500,
+      "17": 1681500,
+      "18": 1903000,
+      "19": 2158500,
+      "20": 2675500,
+      "21": 3822500,
+      "22": 5811000,
+      "23": 8653500,
+      "24": 14219500
+    },
+    "equippedWeaponMs": 60980000,
+    "heroKills": 66,
+    "companionKills": 2514,
+    "checkpoints": [
+      {
+        "cycle": 1,
+        "elapsedMs": 1800000,
+        "kills": 82,
+        "stage": 82,
+        "level": 17,
+        "gold": "1762",
+        "spent": "0",
+        "souls": 0,
+        "roster": 4,
+        "attack": "256",
+        "heroKills": 65,
+        "companionKills": 17,
+        "damage": {
+          "heroApplied": "714867",
+          "companionApplied": "4842940",
+          "heroReported": "719084",
+          "companionReported": "4945542",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 1,
+        "elapsedMs": 3600000,
+        "kills": 151,
+        "stage": 151,
+        "level": 20,
+        "gold": "5724",
+        "spent": "0",
+        "souls": 0,
+        "roster": 5,
+        "attack": "412",
+        "heroKills": 65,
+        "companionKills": 86,
+        "damage": {
+          "heroApplied": "2179907",
+          "companionApplied": "183418509",
+          "heroReported": "2184124",
+          "companionReported": "184579058",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 1,
+        "elapsedMs": 5400000,
+        "kills": 175,
+        "stage": 175,
+        "level": 21,
+        "gold": "7684",
+        "spent": "0",
+        "souls": 0,
+        "roster": 5,
+        "attack": "466",
+        "heroKills": 65,
+        "companionKills": 110,
+        "damage": {
+          "heroApplied": "4019623",
+          "companionApplied": "411591277",
+          "heroReported": "4023840",
+          "companionReported": "413278952",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 1,
+        "elapsedMs": 7200000,
+        "kills": 200,
+        "stage": 200,
+        "level": 22,
+        "gold": "967",
+        "spent": "9300",
+        "souls": 0,
+        "roster": 5,
+        "attack": "620",
+        "heroKills": 65,
+        "companionKills": 135,
+        "damage": {
+          "heroApplied": "6091921",
+          "companionApplied": "817539175",
+          "heroReported": "6096138",
+          "companionReported": "820233804",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 1,
+        "elapsedMs": 9000000,
+        "kills": 220,
+        "stage": 220,
+        "level": 23,
+        "gold": "145",
+        "spent": "12100",
+        "souls": 0,
+        "roster": 5,
+        "attack": "713",
+        "heroKills": 65,
+        "companionKills": 155,
+        "damage": {
+          "heroApplied": "8730765",
+          "companionApplied": "1275508306",
+          "heroReported": "8734982",
+          "companionReported": "1279161647",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 1,
+        "elapsedMs": 10800000,
+        "kills": 232,
+        "stage": 232,
+        "level": 23,
+        "gold": "1667",
+        "spent": "12100",
+        "souls": 0,
+        "roster": 5,
+        "attack": "713",
+        "heroKills": 65,
+        "companionKills": 167,
+        "damage": {
+          "heroApplied": "11637666",
+          "companionApplied": "1704928848",
+          "heroReported": "11641883",
+          "companionReported": "1709022098",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 1,
+        "elapsedMs": 12600000,
+        "kills": 247,
+        "stage": 247,
+        "level": 23,
+        "gold": "3192",
+        "spent": "12100",
+        "souls": 0,
+        "roster": 5,
+        "attack": "713",
+        "heroKills": 65,
+        "companionKills": 182,
+        "damage": {
+          "heroApplied": "14527455",
+          "companionApplied": "2231654182",
+          "heroReported": "14531672",
+          "companionReported": "2236309864",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 2,
+        "elapsedMs": 1800000,
+        "kills": 441,
+        "stage": 183,
+        "level": 22,
+        "gold": "5500",
+        "spent": "19800",
+        "souls": 32,
+        "roster": 5,
+        "attack": "20258",
+        "heroKills": 65,
+        "companionKills": 376,
+        "damage": {
+          "heroApplied": "84086126",
+          "companionApplied": "198609653389",
+          "heroReported": "84090343",
+          "companionReported": "202110592682",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 2,
+        "elapsedMs": 3600000,
+        "kills": 467,
+        "stage": 209,
+        "level": 22,
+        "gold": "8264",
+        "spent": "19800",
+        "souls": 32,
+        "roster": 5,
+        "attack": "20639",
+        "heroKills": 65,
+        "companionKills": 402,
+        "damage": {
+          "heroApplied": "165250326",
+          "companionApplied": "387841150964",
+          "heroReported": "165254543",
+          "companionReported": "391817838558",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 2,
+        "elapsedMs": 5400000,
+        "kills": 481,
+        "stage": 223,
+        "level": 23,
+        "gold": "567",
+        "spent": "28800",
+        "souls": 32,
+        "roster": 5,
+        "attack": "22721",
+        "heroKills": 65,
+        "companionKills": 416,
+        "damage": {
+          "heroApplied": "251490208",
+          "companionApplied": "549632448400",
+          "heroReported": "251494425",
+          "companionReported": "553803296416",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 2,
+        "elapsedMs": 7200000,
+        "kills": 497,
+        "stage": 239,
+        "level": 23,
+        "gold": "2419",
+        "spent": "28800",
+        "souls": 32,
+        "roster": 5,
+        "attack": "22721",
+        "heroKills": 65,
+        "companionKills": 432,
+        "damage": {
+          "heroApplied": "341738020",
+          "companionApplied": "762022377785",
+          "heroReported": "341742237",
+          "companionReported": "766506070446",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 2,
+        "elapsedMs": 9000000,
+        "kills": 508,
+        "stage": 250,
+        "level": 23,
+        "gold": "3973",
+        "spent": "28800",
+        "souls": 32,
+        "roster": 5,
+        "attack": "22721",
+        "heroKills": 65,
+        "companionKills": 443,
+        "damage": {
+          "heroApplied": "431554133",
+          "companionApplied": "938937029889",
+          "heroReported": "431558350",
+          "companionReported": "943802475858",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": null
+      },
+      {
+        "cycle": 3,
+        "elapsedMs": 1800000,
+        "kills": 694,
+        "stage": 178,
+        "level": 21,
+        "gold": "8296",
+        "spent": "33600",
+        "souls": 64,
+        "roster": 5,
+        "attack": "56549",
+        "heroKills": 65,
+        "companionKills": 629,
+        "damage": {
+          "heroApplied": "689750307",
+          "companionApplied": "1589585997108",
+          "heroReported": "689754524",
+          "companionReported": "1607098352344",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 3,
+        "elapsedMs": 3600000,
+        "kills": 723,
+        "stage": 207,
+        "level": 22,
+        "gold": "10943",
+        "spent": "33600",
+        "souls": 64,
+        "roster": 5,
+        "attack": "62470",
+        "heroKills": 65,
+        "companionKills": 658,
+        "damage": {
+          "heroApplied": "935537295",
+          "companionApplied": "2118632622649",
+          "heroReported": "935541512",
+          "companionReported": "2139083045020",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 3,
+        "elapsedMs": 5400000,
+        "kills": 741,
+        "stage": 225,
+        "level": 23,
+        "gold": "13116",
+        "spent": "33600",
+        "souls": 64,
+        "roster": 5,
+        "attack": "68687",
+        "heroKills": 65,
+        "companionKills": 676,
+        "damage": {
+          "heroApplied": "1189668874",
+          "companionApplied": "2693501187324",
+          "heroReported": "1189673091",
+          "companionReported": "2715346757149",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 3,
+        "elapsedMs": 7200000,
+        "kills": 754,
+        "stage": 238,
+        "level": 23,
+        "gold": "14438",
+        "spent": "33600",
+        "souls": 64,
+        "roster": 5,
+        "attack": "68687",
+        "heroKills": 65,
+        "companionKills": 689,
+        "damage": {
+          "heroApplied": "1463661317",
+          "companionApplied": "3139387345316",
+          "heroReported": "1463665534",
+          "companionReported": "3161759381520",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 3,
+        "elapsedMs": 9000000,
+        "kills": 763,
+        "stage": 247,
+        "level": 23,
+        "gold": "1090",
+        "spent": "51600",
+        "souls": 64,
+        "roster": 5,
+        "attack": "69249",
+        "heroKills": 65,
+        "companionKills": 698,
+        "damage": {
+          "heroApplied": "1738321363",
+          "companionApplied": "3592310545237",
+          "heroReported": "1738325580",
+          "companionReported": "3615711072079",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 3,
+        "elapsedMs": 10800000,
+        "kills": 771,
+        "stage": 255,
+        "level": 23,
+        "gold": "2095",
+        "spent": "51600",
+        "souls": 64,
+        "roster": 5,
+        "attack": "69249",
+        "heroKills": 65,
+        "companionKills": 706,
+        "damage": {
+          "heroApplied": "2013586138",
+          "companionApplied": "4066205219286",
+          "heroReported": "2013590355",
+          "companionReported": "4090120253662",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 4,
+        "elapsedMs": 1800000,
+        "kills": 952,
+        "stage": 178,
+        "level": 21,
+        "gold": "4695",
+        "spent": "64000",
+        "souls": 96,
+        "roster": 5,
+        "attack": "95598",
+        "heroKills": 65,
+        "companionKills": 887,
+        "damage": {
+          "heroApplied": "2471470006",
+          "companionApplied": "5134984082900",
+          "heroReported": "2471474223",
+          "companionReported": "5193981569190",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e98"
+      },
+      {
+        "cycle": 4,
+        "elapsedMs": 3600000,
+        "kills": 984,
+        "stage": 210,
+        "level": 22,
+        "gold": "7832",
+        "spent": "64000",
+        "souls": 96,
+        "roster": 5,
+        "attack": "105608",
+        "heroKills": 65,
+        "companionKills": 919,
+        "damage": {
+          "heroApplied": "2901400274",
+          "companionApplied": "6325537086435",
+          "heroReported": "2901404491",
+          "companionReported": "6392083289018",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e98"
+      },
+      {
+        "cycle": 4,
+        "elapsedMs": 5400000,
+        "kills": 1008,
+        "stage": 234,
+        "level": 23,
+        "gold": "7520",
+        "spent": "67000",
+        "souls": 96,
+        "roster": 5,
+        "attack": "116474",
+        "heroKills": 65,
+        "companionKills": 943,
+        "damage": {
+          "heroApplied": "3371583594",
+          "companionApplied": "7871845172462",
+          "heroReported": "3371587811",
+          "companionReported": "7946413633703",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e98"
+      },
+      {
+        "cycle": 4,
+        "elapsedMs": 7200000,
+        "kills": 1028,
+        "stage": 254,
+        "level": 23,
+        "gold": "9809",
+        "spent": "67000",
+        "souls": 96,
+        "roster": 5,
+        "attack": "116474",
+        "heroKills": 65,
+        "companionKills": 963,
+        "damage": {
+          "heroApplied": "3853320058",
+          "companionApplied": "9577395758430",
+          "heroReported": "3853324275",
+          "companionReported": "9658060800922",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e98"
+      },
+      {
+        "cycle": 5,
+        "elapsedMs": 1800000,
+        "kills": 1215,
+        "stage": 183,
+        "level": 22,
+        "gold": "7697",
+        "spent": "78200",
+        "souls": 128,
+        "roster": 5,
+        "attack": "332015",
+        "heroKills": 66,
+        "companionKills": 1149,
+        "damage": {
+          "heroApplied": "5097502726",
+          "companionApplied": "11732277851583",
+          "heroReported": "5097817133",
+          "companionReported": "11872760524403",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e172"
+      },
+      {
+        "cycle": 5,
+        "elapsedMs": 3600000,
+        "kills": 1239,
+        "stage": 207,
+        "level": 22,
+        "gold": "10041",
+        "spent": "78200",
+        "souls": 128,
+        "roster": 5,
+        "attack": "332015",
+        "heroKills": 66,
+        "companionKills": 1173,
+        "damage": {
+          "heroApplied": "6486653486",
+          "companionApplied": "13267323772300",
+          "heroReported": "6486967893",
+          "companionReported": "13416191705091",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e172"
+      },
+      {
+        "cycle": 5,
+        "elapsedMs": 5400000,
+        "kills": 1262,
+        "stage": 230,
+        "level": 23,
+        "gold": "1596",
+        "spent": "91000",
+        "souls": 128,
+        "roster": 5,
+        "attack": "381396",
+        "heroKills": 66,
+        "companionKills": 1196,
+        "damage": {
+          "heroApplied": "7990691925",
+          "companionApplied": "15276612441353",
+          "heroReported": "7991006332",
+          "companionReported": "15434992854230",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e172"
+      },
+      {
+        "cycle": 5,
+        "elapsedMs": 7200000,
+        "kills": 1279,
+        "stage": 247,
+        "level": 23,
+        "gold": "3588",
+        "spent": "91000",
+        "souls": 128,
+        "roster": 5,
+        "attack": "381396",
+        "heroKills": 66,
+        "companionKills": 1213,
+        "damage": {
+          "heroApplied": "9582638829",
+          "companionApplied": "17541318804626",
+          "heroReported": "9582953236",
+          "companionReported": "17706194363004",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e172"
+      },
+      {
+        "cycle": 5,
+        "elapsedMs": 9000000,
+        "kills": 1288,
+        "stage": 256,
+        "level": 23,
+        "gold": "5023",
+        "spent": "91000",
+        "souls": 128,
+        "roster": 5,
+        "attack": "381396",
+        "heroKills": 66,
+        "companionKills": 1222,
+        "damage": {
+          "heroApplied": "11177255505",
+          "companionApplied": "19295787773971",
+          "heroReported": "11177569912",
+          "companionReported": "19463901986078",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e172"
+      },
+      {
+        "cycle": 6,
+        "elapsedMs": 1800000,
+        "kills": 1490,
+        "stage": 200,
+        "level": 22,
+        "gold": "19062",
+        "spent": "91000",
+        "souls": 160,
+        "roster": 5,
+        "attack": "246628",
+        "heroKills": 66,
+        "companionKills": 1424,
+        "damage": {
+          "heroApplied": "12168832054",
+          "companionApplied": "23388160575195",
+          "heroReported": "12169146461",
+          "companionReported": "23716974324988",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 6,
+        "elapsedMs": 3600000,
+        "kills": 1525,
+        "stage": 235,
+        "level": 23,
+        "gold": "18597",
+        "spent": "97000",
+        "souls": 160,
+        "roster": 5,
+        "attack": "271175",
+        "heroKills": 66,
+        "companionKills": 1459,
+        "damage": {
+          "heroApplied": "13207440423",
+          "companionApplied": "28000828013989",
+          "heroReported": "13207754830",
+          "companionReported": "28367632957590",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 6,
+        "elapsedMs": 5400000,
+        "kills": 1545,
+        "stage": 255,
+        "level": 23,
+        "gold": "20892",
+        "spent": "97000",
+        "souls": 160,
+        "roster": 5,
+        "attack": "271175",
+        "heroKills": 66,
+        "companionKills": 1479,
+        "damage": {
+          "heroApplied": "14285361048",
+          "companionApplied": "32485616872128",
+          "heroReported": "14285675455",
+          "companionReported": "32873905910244",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e37"
+      },
+      {
+        "cycle": 7,
+        "elapsedMs": 1800000,
+        "kills": 1758,
+        "stage": 210,
+        "level": 22,
+        "gold": "16829",
+        "spent": "121000",
+        "souls": 192,
+        "roster": 5,
+        "attack": "654743",
+        "heroKills": 66,
+        "companionKills": 1692,
+        "damage": {
+          "heroApplied": "16864516161",
+          "companionApplied": "39697755408322",
+          "heroReported": "16864830568",
+          "companionReported": "40413578123623",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e230"
+      },
+      {
+        "cycle": 7,
+        "elapsedMs": 3600000,
+        "kills": 1786,
+        "stage": 238,
+        "level": 23,
+        "gold": "19834",
+        "spent": "121000",
+        "souls": 192,
+        "roster": 5,
+        "attack": "719908",
+        "heroKills": 66,
+        "companionKills": 1720,
+        "damage": {
+          "heroApplied": "19811399626",
+          "companionApplied": "45184985385589",
+          "heroReported": "19811714033",
+          "companionReported": "45956963724604",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e230"
+      },
+      {
+        "cycle": 7,
+        "elapsedMs": 5400000,
+        "kills": 1803,
+        "stage": 255,
+        "level": 23,
+        "gold": "21891",
+        "spent": "121000",
+        "souls": 192,
+        "roster": 5,
+        "attack": "719908",
+        "heroKills": 66,
+        "companionKills": 1737,
+        "damage": {
+          "heroApplied": "22849411386",
+          "companionApplied": "50841087193545",
+          "heroReported": "22849725793",
+          "companionReported": "51633010296378",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e230"
+      },
+      {
+        "cycle": 8,
+        "elapsedMs": 1800000,
+        "kills": 2005,
+        "stage": 199,
+        "level": 22,
+        "gold": "24025",
+        "spent": "133000",
+        "souls": 224,
+        "roster": 5,
+        "attack": "839631",
+        "heroKills": 66,
+        "companionKills": 1939,
+        "damage": {
+          "heroApplied": "26371673149",
+          "companionApplied": "58119807127836",
+          "heroReported": "26371987556",
+          "companionReported": "59237985845833",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e230"
+      },
+      {
+        "cycle": 8,
+        "elapsedMs": 3600000,
+        "kills": 2039,
+        "stage": 233,
+        "level": 23,
+        "gold": "2338",
+        "spent": "158600",
+        "souls": 224,
+        "roster": 5,
+        "attack": "963035",
+        "heroKills": 66,
+        "companionKills": 1973,
+        "damage": {
+          "heroApplied": "30202271112",
+          "companionApplied": "66122273310845",
+          "heroReported": "30202585519",
+          "companionReported": "67320662664438",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e230"
+      },
+      {
+        "cycle": 8,
+        "elapsedMs": 5400000,
+        "kills": 2061,
+        "stage": 255,
+        "level": 23,
+        "gold": "4790",
+        "spent": "158600",
+        "souls": 224,
+        "roster": 5,
+        "attack": "963035",
+        "heroKills": 66,
+        "companionKills": 1995,
+        "damage": {
+          "heroApplied": "34263389707",
+          "companionApplied": "73670751233394",
+          "heroReported": "34263704114",
+          "companionReported": "74913129961643",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e230"
+      },
+      {
+        "cycle": 9,
+        "elapsedMs": 1800000,
+        "kills": 2291,
+        "stage": 227,
+        "level": 23,
+        "gold": "21962",
+        "spent": "161400",
+        "souls": 256,
+        "roster": 5,
+        "attack": "500535",
+        "heroKills": 66,
+        "companionKills": 2225,
+        "damage": {
+          "heroApplied": "36634478499",
+          "companionApplied": "91410883268226",
+          "heroReported": "36634792906",
+          "companionReported": "93638474647688",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e89"
+      },
+      {
+        "cycle": 9,
+        "elapsedMs": 3600000,
+        "kills": 2319,
+        "stage": 255,
+        "level": 23,
+        "gold": "1189",
+        "spent": "185400",
+        "souls": 256,
+        "roster": 5,
+        "attack": "786091",
+        "heroKills": 66,
+        "companionKills": 2253,
+        "damage": {
+          "heroApplied": "39250690008",
+          "companionApplied": "104612390318836",
+          "heroReported": "39251004415",
+          "companionReported": "106970205668835",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e316"
+      },
+      {
+        "cycle": 10,
+        "elapsedMs": 1800000,
+        "kills": 2529,
+        "stage": 207,
+        "level": 22,
+        "gold": "12436",
+        "spent": "185500",
+        "souls": 288,
+        "roster": 5,
+        "attack": "2440689",
+        "heroKills": 66,
+        "companionKills": 2463,
+        "damage": {
+          "heroApplied": "48920598551",
+          "companionApplied": "118637869612379",
+          "heroReported": "48920912958",
+          "companionReported": "121801828569919",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e245"
+      },
+      {
+        "cycle": 10,
+        "elapsedMs": 3600000,
+        "kills": 2564,
+        "stage": 242,
+        "level": 23,
+        "gold": "3773",
+        "spent": "198300",
+        "souls": 288,
+        "roster": 5,
+        "attack": "2895109",
+        "heroKills": 66,
+        "companionKills": 2498,
+        "damage": {
+          "heroApplied": "60983516506",
+          "companionApplied": "132991202008033",
+          "heroReported": "60983830913",
+          "companionReported": "136309443114416",
+          "feverCertainApplied": "0",
+          "feverBoundaryApplied": "0",
+          "feverActiveMs": 0,
+          "feverStarts": 0
+        },
+        "weaponId": "e245"
+      }
+    ],
+    "sampledHeapPeakBytes": 43115360,
+    "serializationMs": 1.095832999999402,
+    "saveBytes": 15247,
+    "maxCompanionBossIndex": 239,
+    "longestKillGapMs": 904000,
+    "processingMs": 15433.598250000001,
+    "saveHash": "5306c3c04b1b471fb0a0e317486f17ba211bf7c3ee255d65a0ea2f0c7026c566"
+  },
+  "actions": [
+    {
+      "atMs": 2035000,
+      "cycle": 1,
+      "monsterIndex": 96,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c1"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 1,
+          "stars": 0
+        },
+        "food": {
+          "id": "c1",
+          "speciesId": "slagram",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "19494",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 2,
+          "stars": 0
+        },
+        "targetPower": "38988",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 4320000,
+      "cycle": 1,
+      "monsterIndex": 160,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c2"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 2,
+          "stars": 0
+        },
+        "food": {
+          "id": "c2",
+          "speciesId": "scorchbriar",
+          "bossIndex": 63,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "38988",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 3,
+          "stars": 0
+        },
+        "targetPower": "58482",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 6055000,
+      "cycle": 1,
+      "monsterIndex": 184,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c3"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 3,
+          "stars": 0
+        },
+        "food": {
+          "id": "c3",
+          "speciesId": "anchornaut",
+          "bossIndex": 71,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "58482",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 4,
+          "stars": 0
+        },
+        "targetPower": "77976",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 12000000,
+      "cycle": 1,
+      "monsterIndex": 240,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c5"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 4,
+          "stars": 0
+        },
+        "food": {
+          "id": "c5",
+          "speciesId": "fanjack",
+          "bossIndex": 87,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "77976",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 5,
+          "stars": 0
+        },
+        "targetPower": "97470",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 12875000,
+      "cycle": 1,
+      "monsterIndex": 248,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c4"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 5,
+          "stars": 0
+        },
+        "food": {
+          "id": "c4",
+          "speciesId": "emberwren",
+          "bossIndex": 79,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "97470",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 6,
+          "stars": 0
+        },
+        "targetPower": "116964",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 14225000,
+      "cycle": 2,
+      "monsterIndex": 25,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c11"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 6,
+          "stars": 0
+        },
+        "food": {
+          "id": "c11",
+          "speciesId": "conchguard",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "18831204",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 7,
+          "stars": 0
+        },
+        "targetPower": "21969738",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 14230000,
+      "cycle": 2,
+      "monsterIndex": 50,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c12"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 7,
+          "stars": 0
+        },
+        "food": {
+          "id": "c12",
+          "speciesId": "skreave",
+          "bossIndex": 39,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "21969738",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 8,
+          "stars": 0
+        },
+        "targetPower": "25108272",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 14345000,
+      "cycle": 2,
+      "monsterIndex": 104,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c13"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 8,
+          "stars": 0
+        },
+        "food": {
+          "id": "c13",
+          "speciesId": "cairnlith",
+          "bossIndex": 103,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "25108272",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 9,
+          "stars": 0
+        },
+        "targetPower": "28246806",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 14705000,
+      "cycle": 2,
+      "monsterIndex": 136,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c8"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 9,
+          "stars": 0
+        },
+        "food": {
+          "id": "c8",
+          "speciesId": "fellstump",
+          "bossIndex": 183,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "28246806",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 10,
+          "stars": 0
+        },
+        "targetPower": "31385340",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 14825000,
+      "cycle": 2,
+      "monsterIndex": 144,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c7"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 10,
+          "stars": 0
+        },
+        "food": {
+          "id": "c7",
+          "speciesId": "ashtusk",
+          "bossIndex": 159,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "31385340",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 11,
+          "stars": 0
+        },
+        "targetPower": "34523874",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 15225000,
+      "cycle": 2,
+      "monsterIndex": 160,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c15"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 11,
+          "stars": 0
+        },
+        "food": {
+          "id": "c15",
+          "speciesId": "panewhirr",
+          "bossIndex": 143,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "34523874",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 12,
+          "stars": 0
+        },
+        "targetPower": "37662408",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 17080000,
+      "cycle": 2,
+      "monsterIndex": 200,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c16"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 12,
+          "stars": 0
+        },
+        "food": {
+          "id": "c16",
+          "speciesId": "millox",
+          "bossIndex": 159,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "37662408",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 13,
+          "stars": 0
+        },
+        "targetPower": "40800942",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 19640000,
+      "cycle": 2,
+      "monsterIndex": 224,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c14"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 13,
+          "stars": 0
+        },
+        "food": {
+          "id": "c14",
+          "speciesId": "grumbol",
+          "bossIndex": 135,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "40800942",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 14,
+          "stars": 0
+        },
+        "targetPower": "43939476",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 21540000,
+      "cycle": 2,
+      "monsterIndex": 240,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c10"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 14,
+          "stars": 0
+        },
+        "food": {
+          "id": "c10",
+          "speciesId": "lantessa",
+          "bossIndex": 247,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "43939476",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 15,
+          "stars": 0
+        },
+        "targetPower": "47078010",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 22975000,
+      "cycle": 2,
+      "monsterIndex": 248,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c9"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 15,
+          "stars": 0
+        },
+        "food": {
+          "id": "c9",
+          "speciesId": "brimhide",
+          "bossIndex": 239,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "47078010",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 16,
+          "stars": 0
+        },
+        "targetPower": "50216544",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 24280000,
+      "cycle": 3,
+      "monsterIndex": 25,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c21"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 16,
+          "stars": 0
+        },
+        "food": {
+          "id": "c21",
+          "speciesId": "sumpfang",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "120083040",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 17,
+          "stars": 0
+        },
+        "targetPower": "127588230",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 24285000,
+      "cycle": 3,
+      "monsterIndex": 50,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c22"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 17,
+          "stars": 0
+        },
+        "food": {
+          "id": "c22",
+          "speciesId": "ashtusk",
+          "bossIndex": 47,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "127588230",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 18,
+          "stars": 0
+        },
+        "targetPower": "135093420",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 24290000,
+      "cycle": 3,
+      "monsterIndex": 65,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c23"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 18,
+          "stars": 0
+        },
+        "food": {
+          "id": "c23",
+          "speciesId": "rainheron",
+          "bossIndex": 55,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "135093420",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 19,
+          "stars": 0
+        },
+        "targetPower": "142598610",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 24295000,
+      "cycle": 3,
+      "monsterIndex": 71,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c24"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 19,
+          "stars": 0
+        },
+        "food": {
+          "id": "c24",
+          "speciesId": "pondstrider",
+          "bossIndex": 63,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "142598610",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 20,
+          "stars": 0
+        },
+        "targetPower": "150103800",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 24415000,
+      "cycle": 3,
+      "monsterIndex": 104,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c25"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 20,
+          "stars": 0
+        },
+        "food": {
+          "id": "c25",
+          "speciesId": "grumbol",
+          "bossIndex": 103,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "150103800",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 21,
+          "stars": 0
+        },
+        "targetPower": "157608990",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 24475000,
+      "cycle": 3,
+      "monsterIndex": 113,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c26"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 21,
+          "stars": 0
+        },
+        "food": {
+          "id": "c26",
+          "speciesId": "mournbell",
+          "bossIndex": 111,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "157608990",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 22,
+          "stars": 0
+        },
+        "targetPower": "165114180",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 26320000,
+      "cycle": 3,
+      "monsterIndex": 184,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c18"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 22,
+          "stars": 0
+        },
+        "food": {
+          "id": "c18",
+          "speciesId": "bellbuoy",
+          "bossIndex": 223,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "165114180",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 23,
+          "stars": 0
+        },
+        "targetPower": "172619370",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 27380000,
+      "cycle": 3,
+      "monsterIndex": 200,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c27"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 23,
+          "stars": 0
+        },
+        "food": {
+          "id": "c27",
+          "speciesId": "velmoth",
+          "bossIndex": 183,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "172619370",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 24,
+          "stars": 0
+        },
+        "targetPower": "180124560",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 35695000,
+      "cycle": 4,
+      "monsterIndex": 26,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c29"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 24,
+          "stars": 0
+        },
+        "food": {
+          "id": "c29",
+          "speciesId": "drusehog",
+          "bossIndex": 15,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "314867088",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 25,
+          "stars": 0
+        },
+        "targetPower": "327986550",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 35700000,
+      "cycle": 4,
+      "monsterIndex": 51,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c30"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 25,
+          "stars": 0
+        },
+        "food": {
+          "id": "c30",
+          "speciesId": "crownwyrm",
+          "bossIndex": 47,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "327986550",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 26,
+          "stars": 0
+        },
+        "targetPower": "341106012",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 35725000,
+      "cycle": 4,
+      "monsterIndex": 83,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c31"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 26,
+          "stars": 0
+        },
+        "food": {
+          "id": "c31",
+          "speciesId": "hooklure",
+          "bossIndex": 79,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "341106012",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 27,
+          "stars": 0
+        },
+        "targetPower": "354225474",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 35865000,
+      "cycle": 4,
+      "monsterIndex": 112,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c28"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 27,
+          "stars": 0
+        },
+        "food": {
+          "id": "c28",
+          "speciesId": "golem",
+          "bossIndex": 199,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "354225474",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 28,
+          "stars": 0
+        },
+        "targetPower": "367344936",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 36735000,
+      "cycle": 4,
+      "monsterIndex": 160,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c33"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 28,
+          "stars": 0
+        },
+        "food": {
+          "id": "c33",
+          "speciesId": "whirlseed",
+          "bossIndex": 159,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "367344936",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 29,
+          "stars": 0
+        },
+        "targetPower": "380464398",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 37430000,
+      "cycle": 4,
+      "monsterIndex": 176,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c34"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 29,
+          "stars": 0
+        },
+        "food": {
+          "id": "c34",
+          "speciesId": "chirrgrit",
+          "bossIndex": 175,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "380464398",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 30,
+          "stars": 0
+        },
+        "targetPower": "393583860",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 38395000,
+      "cycle": 4,
+      "monsterIndex": 200,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c32"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 30,
+          "stars": 0
+        },
+        "food": {
+          "id": "c32",
+          "speciesId": "kelpwarden",
+          "bossIndex": 111,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "393583860",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 31,
+          "stars": 0
+        },
+        "targetPower": "406703322",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 39695000,
+      "cycle": 4,
+      "monsterIndex": 216,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c35"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 31,
+          "stars": 0
+        },
+        "food": {
+          "id": "c35",
+          "speciesId": "emberwren",
+          "bossIndex": 199,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "406703322",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 32,
+          "stars": 0
+        },
+        "targetPower": "419822784",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 40890000,
+      "cycle": 4,
+      "monsterIndex": 232,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c36"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 32,
+          "stars": 0
+        },
+        "food": {
+          "id": "c36",
+          "speciesId": "wickmoth",
+          "bossIndex": 215,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "419822784",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 33,
+          "stars": 0
+        },
+        "targetPower": "432942246",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 43460000,
+      "cycle": 5,
+      "monsterIndex": 50,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c38"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 33,
+          "stars": 0
+        },
+        "food": {
+          "id": "c38",
+          "speciesId": "flintwren",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "659384550",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 34,
+          "stars": 0
+        },
+        "targetPower": "679365900",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 43465000,
+      "cycle": 5,
+      "monsterIndex": 64,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c39"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 34,
+          "stars": 0
+        },
+        "food": {
+          "id": "c39",
+          "speciesId": "gulpwick",
+          "bossIndex": 39,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "679365900",
+        "roster": 8
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 35,
+          "stars": 0
+        },
+        "targetPower": "699347250",
+        "roster": 7
+      }
+    },
+    {
+      "atMs": 43470000,
+      "cycle": 5,
+      "monsterIndex": 72,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c40"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 35,
+          "stars": 0
+        },
+        "food": {
+          "id": "c40",
+          "speciesId": "grumblode",
+          "bossIndex": 55,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "699347250",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 36,
+          "stars": 0
+        },
+        "targetPower": "719328600",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 43475000,
+      "cycle": 5,
+      "monsterIndex": 77,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c41"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 36,
+          "stars": 0
+        },
+        "food": {
+          "id": "c41",
+          "speciesId": "golem",
+          "bossIndex": 63,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "719328600",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 37,
+          "stars": 0
+        },
+        "targetPower": "739309950",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 43615000,
+      "cycle": 5,
+      "monsterIndex": 112,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c42"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 37,
+          "stars": 0
+        },
+        "food": {
+          "id": "c42",
+          "speciesId": "stormmanta",
+          "bossIndex": 111,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "739309950",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 38,
+          "stars": 0
+        },
+        "targetPower": "759291300",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 43805000,
+      "cycle": 5,
+      "monsterIndex": 128,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c43"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 38,
+          "stars": 0
+        },
+        "food": {
+          "id": "c43",
+          "speciesId": "crystaltortoise",
+          "bossIndex": 127,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "759291300",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 39,
+          "stars": 0
+        },
+        "targetPower": "779272650",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 43930000,
+      "cycle": 5,
+      "monsterIndex": 136,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c44"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 39,
+          "stars": 0
+        },
+        "food": {
+          "id": "c44",
+          "speciesId": "snipclaw",
+          "bossIndex": 135,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "779272650",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 40,
+          "stars": 0
+        },
+        "targetPower": "799254000",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 44920000,
+      "cycle": 5,
+      "monsterIndex": 176,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c37"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 40,
+          "stars": 0
+        },
+        "food": {
+          "id": "c37",
+          "speciesId": "duelphoenix",
+          "bossIndex": 231,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "799254000",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 41,
+          "stars": 0
+        },
+        "targetPower": "819235350",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 45495000,
+      "cycle": 5,
+      "monsterIndex": 184,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c45"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 41,
+          "stars": 0
+        },
+        "food": {
+          "id": "c45",
+          "speciesId": "hexweaver",
+          "bossIndex": 175,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "819235350",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 42,
+          "stars": 0
+        },
+        "targetPower": "839216700",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 46445000,
+      "cycle": 5,
+      "monsterIndex": 200,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c46"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 42,
+          "stars": 0
+        },
+        "food": {
+          "id": "c46",
+          "speciesId": "bellbuoy",
+          "bossIndex": 183,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "839216700",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 43,
+          "stars": 0
+        },
+        "targetPower": "859198050",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 49840000,
+      "cycle": 5,
+      "monsterIndex": 240,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c47"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 43,
+          "stars": 0
+        },
+        "food": {
+          "id": "c47",
+          "speciesId": "anchornaut",
+          "bossIndex": 199,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "859198050",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 44,
+          "stars": 0
+        },
+        "targetPower": "879179400",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52370000,
+      "cycle": 5,
+      "monsterIndex": 256,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c17"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 44,
+          "stars": 0
+        },
+        "food": {
+          "id": "c17",
+          "speciesId": "hexweaver",
+          "bossIndex": 199,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "879179400",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 45,
+          "stars": 0
+        },
+        "targetPower": "899160750",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52590000,
+      "cycle": 6,
+      "monsterIndex": 25,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c50"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 45,
+          "stars": 0
+        },
+        "food": {
+          "id": "c50",
+          "speciesId": "quietus",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1264088430",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 46,
+          "stars": 0
+        },
+        "targetPower": "1292179284",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52595000,
+      "cycle": 6,
+      "monsterIndex": 50,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c51"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 46,
+          "stars": 0
+        },
+        "food": {
+          "id": "c51",
+          "speciesId": "unblink",
+          "bossIndex": 39,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1292179284",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 47,
+          "stars": 0
+        },
+        "targetPower": "1320270138",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 52600000,
+      "cycle": 6,
+      "monsterIndex": 64,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c52"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 47,
+          "stars": 0
+        },
+        "food": {
+          "id": "c52",
+          "speciesId": "gallowplate",
+          "bossIndex": 47,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1320270138",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 48,
+          "stars": 0
+        },
+        "targetPower": "1348360992",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 52605000,
+      "cycle": 6,
+      "monsterIndex": 73,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c53"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 48,
+          "stars": 0
+        },
+        "food": {
+          "id": "c53",
+          "speciesId": "frostnewt",
+          "bossIndex": 55,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1348360992",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 49,
+          "stars": 0
+        },
+        "targetPower": "1376451846",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52670000,
+      "cycle": 6,
+      "monsterIndex": 105,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c19"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 49,
+          "stars": 0
+        },
+        "food": {
+          "id": "c19",
+          "speciesId": "sicklehood",
+          "bossIndex": 239,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1376451846",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 50,
+          "stars": 0
+        },
+        "targetPower": "1404542700",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52765000,
+      "cycle": 6,
+      "monsterIndex": 121,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c55"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 50,
+          "stars": 0
+        },
+        "food": {
+          "id": "c55",
+          "speciesId": "murkin",
+          "bossIndex": 119,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1404542700",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 51,
+          "stars": 0
+        },
+        "targetPower": "1432633554",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52805000,
+      "cycle": 6,
+      "monsterIndex": 128,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c54"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 51,
+          "stars": 0
+        },
+        "food": {
+          "id": "c54",
+          "speciesId": "dartfinch",
+          "bossIndex": 103,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1432633554",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 52,
+          "stars": 0
+        },
+        "targetPower": "1460724408",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 52865000,
+      "cycle": 6,
+      "monsterIndex": 136,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c56"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 52,
+          "stars": 0
+        },
+        "food": {
+          "id": "c56",
+          "speciesId": "skreave",
+          "bossIndex": 127,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1460724408",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 53,
+          "stars": 0
+        },
+        "targetPower": "1488815262",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 53580000,
+      "cycle": 6,
+      "monsterIndex": 176,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c57"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 53,
+          "stars": 0
+        },
+        "food": {
+          "id": "c57",
+          "speciesId": "stormmanta",
+          "bossIndex": 135,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1488815262",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 54,
+          "stars": 0
+        },
+        "targetPower": "1516906116",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 54950000,
+      "cycle": 6,
+      "monsterIndex": 216,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c20"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 54,
+          "stars": 0
+        },
+        "food": {
+          "id": "c20",
+          "speciesId": "clubprawn",
+          "bossIndex": 247,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1516906116",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 55,
+          "stars": 0
+        },
+        "targetPower": "1544996970",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 55590000,
+      "cycle": 6,
+      "monsterIndex": 224,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c49"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 55,
+          "stars": 0
+        },
+        "food": {
+          "id": "c49",
+          "speciesId": "ghost",
+          "bossIndex": 255,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "1544996970",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 56,
+          "stars": 0
+        },
+        "targetPower": "1573087824",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58160000,
+      "cycle": 7,
+      "monsterIndex": 25,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c61"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 56,
+          "stars": 0
+        },
+        "food": {
+          "id": "c61",
+          "speciesId": "stormmanta",
+          "bossIndex": 7,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2097086544",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 57,
+          "stars": 0
+        },
+        "targetPower": "2134534518",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58165000,
+      "cycle": 7,
+      "monsterIndex": 50,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c62"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 57,
+          "stars": 0
+        },
+        "food": {
+          "id": "c62",
+          "speciesId": "veilcap",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2134534518",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 58,
+          "stars": 0
+        },
+        "targetPower": "2171982492",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 58170000,
+      "cycle": 7,
+      "monsterIndex": 64,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c63"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 58,
+          "stars": 0
+        },
+        "food": {
+          "id": "c63",
+          "speciesId": "mirrorjelly",
+          "bossIndex": 47,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2171982492",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 59,
+          "stars": 0
+        },
+        "targetPower": "2209430466",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58190000,
+      "cycle": 7,
+      "monsterIndex": 83,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c64"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 59,
+          "stars": 0
+        },
+        "food": {
+          "id": "c64",
+          "speciesId": "kilnshell",
+          "bossIndex": 79,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2209430466",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 60,
+          "stars": 0
+        },
+        "targetPower": "2246878440",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58305000,
+      "cycle": 7,
+      "monsterIndex": 120,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c58"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 60,
+          "stars": 0
+        },
+        "food": {
+          "id": "c58",
+          "speciesId": "bat",
+          "bossIndex": 175,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2246878440",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 61,
+          "stars": 0
+        },
+        "targetPower": "2284326414",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58705000,
+      "cycle": 7,
+      "monsterIndex": 160,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c65"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 61,
+          "stars": 0
+        },
+        "food": {
+          "id": "c65",
+          "speciesId": "flintwren",
+          "bossIndex": 119,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2284326414",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 62,
+          "stars": 0
+        },
+        "targetPower": "2321774388",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58835000,
+      "cycle": 7,
+      "monsterIndex": 168,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c60"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 62,
+          "stars": 0
+        },
+        "food": {
+          "id": "c60",
+          "speciesId": "grumblode",
+          "bossIndex": 223,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2321774388",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 63,
+          "stars": 0
+        },
+        "targetPower": "2359222362",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 58945000,
+      "cycle": 7,
+      "monsterIndex": 176,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c66"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 63,
+          "stars": 0
+        },
+        "food": {
+          "id": "c66",
+          "speciesId": "matchling",
+          "bossIndex": 159,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2359222362",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 64,
+          "stars": 0
+        },
+        "targetPower": "2396670336",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 59085000,
+      "cycle": 7,
+      "monsterIndex": 184,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c68"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 64,
+          "stars": 0
+        },
+        "food": {
+          "id": "c68",
+          "speciesId": "arenakite",
+          "bossIndex": 175,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2396670336",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 65,
+          "stars": 0
+        },
+        "targetPower": "2434118310",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 59900000,
+      "cycle": 7,
+      "monsterIndex": 208,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c59"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 65,
+          "stars": 0
+        },
+        "food": {
+          "id": "c59",
+          "speciesId": "panewhirr",
+          "bossIndex": 215,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2434118310",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 66,
+          "stars": 0
+        },
+        "targetPower": "2471566284",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 60790000,
+      "cycle": 7,
+      "monsterIndex": 224,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c69"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 66,
+          "stars": 0
+        },
+        "food": {
+          "id": "c69",
+          "speciesId": "forgehulk",
+          "bossIndex": 183,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2471566284",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 67,
+          "stars": 0
+        },
+        "targetPower": "2509014258",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 61870000,
+      "cycle": 7,
+      "monsterIndex": 240,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c67"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 67,
+          "stars": 0
+        },
+        "food": {
+          "id": "c67",
+          "speciesId": "inkferret",
+          "bossIndex": 167,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "2509014258",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 68,
+          "stars": 0
+        },
+        "targetPower": "2546462232",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 63780000,
+      "cycle": 8,
+      "monsterIndex": 25,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c73"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 68,
+          "stars": 0
+        },
+        "food": {
+          "id": "c73",
+          "speciesId": "snipclaw",
+          "bossIndex": 15,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3267584280",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 69,
+          "stars": 0
+        },
+        "targetPower": "3315636990",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 63785000,
+      "cycle": 8,
+      "monsterIndex": 49,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c74"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 69,
+          "stars": 0
+        },
+        "food": {
+          "id": "c74",
+          "speciesId": "mistaxolotl",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3315636990",
+        "roster": 9
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 70,
+          "stars": 0
+        },
+        "targetPower": "3363689700",
+        "roster": 8
+      }
+    },
+    {
+      "atMs": 63790000,
+      "cycle": 8,
+      "monsterIndex": 63,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c75"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 70,
+          "stars": 0
+        },
+        "food": {
+          "id": "c75",
+          "speciesId": "skreave",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3363689700",
+        "roster": 9
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 71,
+          "stars": 0
+        },
+        "targetPower": "3411742410",
+        "roster": 8
+      }
+    },
+    {
+      "atMs": 63795000,
+      "cycle": 8,
+      "monsterIndex": 71,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c76"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 71,
+          "stars": 0
+        },
+        "food": {
+          "id": "c76",
+          "speciesId": "whirlseed",
+          "bossIndex": 39,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3411742410",
+        "roster": 8
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 72,
+          "stars": 0
+        },
+        "targetPower": "3459795120",
+        "roster": 7
+      }
+    },
+    {
+      "atMs": 63800000,
+      "cycle": 8,
+      "monsterIndex": 76,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c77"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 72,
+          "stars": 0
+        },
+        "food": {
+          "id": "c77",
+          "speciesId": "voidmaw",
+          "bossIndex": 47,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3459795120",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 73,
+          "stars": 0
+        },
+        "targetPower": "3507847830",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 63805000,
+      "cycle": 8,
+      "monsterIndex": 80,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c78"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 73,
+          "stars": 0
+        },
+        "food": {
+          "id": "c78",
+          "speciesId": "hexweaver",
+          "bossIndex": 55,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3507847830",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 74,
+          "stars": 0
+        },
+        "targetPower": "3555900540",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 63890000,
+      "cycle": 8,
+      "monsterIndex": 112,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c79"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 74,
+          "stars": 0
+        },
+        "food": {
+          "id": "c79",
+          "speciesId": "stormmanta",
+          "bossIndex": 111,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3555900540",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 75,
+          "stars": 0
+        },
+        "targetPower": "3603953250",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 63925000,
+      "cycle": 8,
+      "monsterIndex": 120,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c70"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 75,
+          "stars": 0
+        },
+        "food": {
+          "id": "c70",
+          "speciesId": "maskimp",
+          "bossIndex": 207,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3603953250",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 76,
+          "stars": 0
+        },
+        "targetPower": "3652005960",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 63990000,
+      "cycle": 8,
+      "monsterIndex": 128,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c71"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 76,
+          "stars": 0
+        },
+        "food": {
+          "id": "c71",
+          "speciesId": "shroudlamp",
+          "bossIndex": 223,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3652005960",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 77,
+          "stars": 0
+        },
+        "targetPower": "3700058670",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 64050000,
+      "cycle": 8,
+      "monsterIndex": 136,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c81"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 77,
+          "stars": 0
+        },
+        "food": {
+          "id": "c81",
+          "speciesId": "coinmole",
+          "bossIndex": 127,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3700058670",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 78,
+          "stars": 0
+        },
+        "targetPower": "3748111380",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 64560000,
+      "cycle": 8,
+      "monsterIndex": 168,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c72"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 78,
+          "stars": 0
+        },
+        "food": {
+          "id": "c72",
+          "speciesId": "chimbrel",
+          "bossIndex": 239,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3748111380",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 79,
+          "stars": 0
+        },
+        "targetPower": "3796164090",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 64810000,
+      "cycle": 8,
+      "monsterIndex": 176,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c80"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 79,
+          "stars": 0
+        },
+        "food": {
+          "id": "c80",
+          "speciesId": "crownwyrm",
+          "bossIndex": 119,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3796164090",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 80,
+          "stars": 0
+        },
+        "targetPower": "3844216800",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 65045000,
+      "cycle": 8,
+      "monsterIndex": 184,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c82"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 80,
+          "stars": 0
+        },
+        "food": {
+          "id": "c82",
+          "speciesId": "brimhide",
+          "bossIndex": 135,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3844216800",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 81,
+          "stars": 0
+        },
+        "targetPower": "3892269510",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 65935000,
+      "cycle": 8,
+      "monsterIndex": 208,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c83"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 81,
+          "stars": 0
+        },
+        "food": {
+          "id": "c83",
+          "speciesId": "brammel",
+          "bossIndex": 167,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3892269510",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 82,
+          "stars": 0
+        },
+        "targetPower": "3940322220",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 66310000,
+      "cycle": 8,
+      "monsterIndex": 216,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c84"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 82,
+          "stars": 0
+        },
+        "food": {
+          "id": "c84",
+          "speciesId": "spadeling",
+          "bossIndex": 175,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3940322220",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 83,
+          "stars": 0
+        },
+        "targetPower": "3988374930",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 66835000,
+      "cycle": 8,
+      "monsterIndex": 224,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c86"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 83,
+          "stars": 0
+        },
+        "food": {
+          "id": "c86",
+          "speciesId": "velmoth",
+          "bossIndex": 207,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "3988374930",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 84,
+          "stars": 0
+        },
+        "targetPower": "4036427640",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 68120000,
+      "cycle": 8,
+      "monsterIndex": 240,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c85"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 84,
+          "stars": 0
+        },
+        "food": {
+          "id": "c85",
+          "speciesId": "rictus",
+          "bossIndex": 183,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "4036427640",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 85,
+          "stars": 0
+        },
+        "targetPower": "4084480350",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69315000,
+      "cycle": 8,
+      "monsterIndex": 256,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c87"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 85,
+          "stars": 0
+        },
+        "food": {
+          "id": "c87",
+          "speciesId": "fanjack",
+          "bossIndex": 215,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "4084480350",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 86,
+          "stars": 0
+        },
+        "targetPower": "4132533060",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69455000,
+      "cycle": 9,
+      "monsterIndex": 25,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c91"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 86,
+          "stars": 0
+        },
+        "food": {
+          "id": "c91",
+          "speciesId": "coalscythe",
+          "bossIndex": 23,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5151835332",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 87,
+          "stars": 0
+        },
+        "targetPower": "5211740394",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69460000,
+      "cycle": 9,
+      "monsterIndex": 50,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c92"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 87,
+          "stars": 0
+        },
+        "food": {
+          "id": "c92",
+          "speciesId": "voidmaw",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5211740394",
+        "roster": 7
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 88,
+          "stars": 0
+        },
+        "targetPower": "5271645456",
+        "roster": 6
+      }
+    },
+    {
+      "atMs": 69465000,
+      "cycle": 9,
+      "monsterIndex": 67,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c93"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 88,
+          "stars": 0
+        },
+        "food": {
+          "id": "c93",
+          "speciesId": "bramblebear",
+          "bossIndex": 47,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5271645456",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 89,
+          "stars": 0
+        },
+        "targetPower": "5331550518",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69490000,
+      "cycle": 9,
+      "monsterIndex": 92,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c94"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 89,
+          "stars": 0
+        },
+        "food": {
+          "id": "c94",
+          "speciesId": "dartfinch",
+          "bossIndex": 87,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5331550518",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 90,
+          "stars": 0
+        },
+        "targetPower": "5391455580",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69500000,
+      "cycle": 9,
+      "monsterIndex": 100,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c95"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 90,
+          "stars": 0
+        },
+        "food": {
+          "id": "c95",
+          "speciesId": "stormmanta",
+          "bossIndex": 95,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5391455580",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 91,
+          "stars": 0
+        },
+        "targetPower": "5451360642",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69515000,
+      "cycle": 9,
+      "monsterIndex": 105,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c96"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 91,
+          "stars": 0
+        },
+        "food": {
+          "id": "c96",
+          "speciesId": "kraulk",
+          "bossIndex": 103,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5451360642",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 92,
+          "stars": 0
+        },
+        "targetPower": "5511265704",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69770000,
+      "cycle": 9,
+      "monsterIndex": 160,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c97"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 92,
+          "stars": 0
+        },
+        "food": {
+          "id": "c97",
+          "speciesId": "furnaceox",
+          "bossIndex": 159,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5511265704",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 93,
+          "stars": 0
+        },
+        "targetPower": "5571170766",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 69845000,
+      "cycle": 9,
+      "monsterIndex": 168,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c98"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 93,
+          "stars": 0
+        },
+        "food": {
+          "id": "c98",
+          "speciesId": "vellisk",
+          "bossIndex": 167,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5571170766",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 94,
+          "stars": 0
+        },
+        "targetPower": "5631075828",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 70550000,
+      "cycle": 9,
+      "monsterIndex": 208,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c99"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 94,
+          "stars": 0
+        },
+        "food": {
+          "id": "c99",
+          "speciesId": "whirlseed",
+          "bossIndex": 207,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5631075828",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 95,
+          "stars": 0
+        },
+        "targetPower": "5690980890",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 71165000,
+      "cycle": 9,
+      "monsterIndex": 224,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c90"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 95,
+          "stars": 0
+        },
+        "food": {
+          "id": "c90",
+          "speciesId": "kilnshell",
+          "bossIndex": 255,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "5690980890",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 96,
+          "stars": 0
+        },
+        "targetPower": "5750885952",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73180000,
+      "cycle": 10,
+      "monsterIndex": 48,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c101"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 96,
+          "stars": 0
+        },
+        "food": {
+          "id": "c101",
+          "speciesId": "gillstub",
+          "bossIndex": 31,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7008482880",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 97,
+          "stars": 0
+        },
+        "targetPower": "7081487910",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73200000,
+      "cycle": 10,
+      "monsterIndex": 80,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c102"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 97,
+          "stars": 0
+        },
+        "food": {
+          "id": "c102",
+          "speciesId": "skreave",
+          "bossIndex": 79,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7081487910",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 98,
+          "stars": 0
+        },
+        "targetPower": "7154492940",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73215000,
+      "cycle": 10,
+      "monsterIndex": 92,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c100"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 98,
+          "stars": 0
+        },
+        "food": {
+          "id": "c100",
+          "speciesId": "quagmaw",
+          "bossIndex": 223,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7154492940",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 99,
+          "stars": 0
+        },
+        "targetPower": "7227497970",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73275000,
+      "cycle": 10,
+      "monsterIndex": 113,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c103"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 99,
+          "stars": 0
+        },
+        "food": {
+          "id": "c103",
+          "speciesId": "hexweaver",
+          "bossIndex": 87,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7227497970",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 100,
+          "stars": 0
+        },
+        "targetPower": "7300503000",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73405000,
+      "cycle": 10,
+      "monsterIndex": 136,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c104"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 100,
+          "stars": 0
+        },
+        "food": {
+          "id": "c104",
+          "speciesId": "murkin",
+          "bossIndex": 111,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7300503000",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 101,
+          "stars": 0
+        },
+        "targetPower": "7373508030",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73570000,
+      "cycle": 10,
+      "monsterIndex": 152,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c105"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 101,
+          "stars": 0
+        },
+        "food": {
+          "id": "c105",
+          "speciesId": "victoryraven",
+          "bossIndex": 135,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7373508030",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 102,
+          "stars": 0
+        },
+        "targetPower": "7446513060",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 73650000,
+      "cycle": 10,
+      "monsterIndex": 160,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c107"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 102,
+          "stars": 0
+        },
+        "food": {
+          "id": "c107",
+          "speciesId": "furnaceox",
+          "bossIndex": 159,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7446513060",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 103,
+          "stars": 0
+        },
+        "targetPower": "7519518090",
+        "roster": 5
+      }
+    },
+    {
+      "atMs": 77170000,
+      "cycle": 10,
+      "monsterIndex": 248,
+      "action": {
+        "type": "consume",
+        "targetId": "c6",
+        "foodId": "c108"
+      },
+      "before": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 103,
+          "stars": 0
+        },
+        "food": {
+          "id": "c108",
+          "speciesId": "voidmaw",
+          "bossIndex": 247,
+          "level": 1,
+          "stars": 0
+        },
+        "targetPower": "7519518090",
+        "roster": 6
+      },
+      "after": {
+        "target": {
+          "id": "c6",
+          "speciesId": "voidmaw",
+          "bossIndex": 95,
+          "level": 104,
+          "stars": 0
+        },
+        "targetPower": "7592523120",
+        "roster": 5
+      }
+    }
+  ]
+}

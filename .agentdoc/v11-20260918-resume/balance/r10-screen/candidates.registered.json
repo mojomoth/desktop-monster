@@ -1,0 +1,81 @@
+{
+  "version": 11,
+  "round": 10,
+  "stage": "fixed-field-scale-and-rational-reset-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R10-A",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1141,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 11,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R10-B",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1142,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 11,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R10-C",
+      "parameters": {
+        "heroMinLevel": 24,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1143,
+        "fieldHpTailNumerator": 10450,
+        "fieldHpTailPolynomial": 4,
+        "fieldRebirthBonus": 11,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 4,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "R9full180trajectories: Aordinaryfirstmedian247/inter291 passupperbounds buthighp10~105; Chighpasseswhilefirstordinary/intermedians321/323fail. IncreasecontinuousFscale256 andmatchingHP toreduce input sensitivity; fractionalR11/4raisesretainedcycles~18%. Raw/PvP andstages258unchanged. ExactdamageandFEVER-windowtelemetryaddedbeforerun; managementusesactualincomingrawpowercomparison. Screenonly; full20/10requiredforselection, heldoutuntouched."
+}

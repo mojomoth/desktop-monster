@@ -101,6 +101,8 @@ export interface GameAudio {
 }
 
 export interface GameAudioOptions {
+  /** Muted play must not initialize WebAudio or synthesize inaudible notes. */
+  isMuted?(): boolean;
   /**
    * AudioContext factory, called lazily on the first blip. Return undefined
    * (or throw) to signal "no audio here" — the blips become no-ops. Tests
@@ -160,6 +162,7 @@ export function createGameAudio(options: GameAudioOptions = {}): GameAudio {
   };
 
   const play = (notes: readonly BlipNote[]): void => {
+    if (options.isMuted?.()) return;
     const ctx = ensureContext();
     if (ctx === undefined) {
       return;

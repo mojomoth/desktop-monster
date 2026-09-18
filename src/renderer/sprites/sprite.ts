@@ -63,6 +63,9 @@ export function drawSprite(
     return;
   }
   const scale = opts?.scale ?? 1;
+  // Integer-aligned adjacent pixels have identical coverage as one strip.
+  // Keep fractional geometry separate to preserve canvas edge blending.
+  const strips = Number.isInteger(x) && Number.isInteger(y) && Number.isInteger(scale) && scale > 0;
   for (let ry = 0; ry < sprite.h; ry++) {
     const row = rows[ry];
     if (row === undefined) {
@@ -77,8 +80,13 @@ export function drawSprite(
       if (color === undefined) {
         continue;
       }
+      let end = rx + 1;
+      if (strips) {
+        while (end < sprite.w && row.charAt(opts?.flipX === true ? sprite.w - 1 - end : end) === ch) end++;
+      }
       ctx.fillStyle = opts?.tint ?? color;
-      ctx.fillRect(x + rx * scale, y + ry * scale, scale, scale);
+      ctx.fillRect(x + rx * scale, y + ry * scale, (end - rx) * scale, scale);
+      rx = end - 1;
     }
   }
 }

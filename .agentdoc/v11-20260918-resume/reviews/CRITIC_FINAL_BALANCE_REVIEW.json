@@ -1,0 +1,142 @@
+{
+  "reviewer": "/root/skills_harness",
+  "source": "9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b",
+  "balanceApproved": true,
+  "overallReleaseApproved": false,
+  "finalManifest": {
+    "path": ".agentdoc/v11-20260918-resume/balance/final.json",
+    "sha256": "549528a839663ef110e34ea03865f770b6a8c5b321c78c26af578032467a58e1"
+  },
+  "validation": {
+    "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-heldout/report.json",
+    "sha256": "4052944fb47d8aa4d149efc028ecb042ab30496096efde215dbc989deb80b14a",
+    "rows": 280,
+    "checks": 23,
+    "allPass": true,
+    "firstThree": [
+      {
+        "profile": "ordinary",
+        "cycle": 1,
+        "n": 100,
+        "arrived": 100,
+        "nonarrival": 0,
+        "p10": 199.75,
+        "p50": 216.58333333333334,
+        "p90": 240.83333333333334
+      },
+      {
+        "profile": "ordinary",
+        "cycle": 2,
+        "n": 100,
+        "arrived": 100,
+        "nonarrival": 0,
+        "p10": 186.25,
+        "p50": 218.58333333333334,
+        "p90": 248.33333333333334
+      },
+      {
+        "profile": "ordinary",
+        "cycle": 3,
+        "n": 100,
+        "arrived": 100,
+        "nonarrival": 0,
+        "p10": 201.66666666666666,
+        "p50": 234.08333333333334,
+        "p90": 267.5
+      },
+      {
+        "profile": "intermittent",
+        "cycle": 1,
+        "n": 100,
+        "arrived": 100,
+        "nonarrival": 0,
+        "p10": 208.5,
+        "p50": 227.33333333333334,
+        "p90": 254.91666666666666
+      },
+      {
+        "profile": "intermittent",
+        "cycle": 2,
+        "n": 100,
+        "arrived": 100,
+        "nonarrival": 0,
+        "p10": 193.08333333333334,
+        "p50": 228.33333333333334,
+        "p90": 249.33333333333334
+      },
+      {
+        "profile": "intermittent",
+        "cycle": 3,
+        "n": 100,
+        "arrived": 100,
+        "nonarrival": 0,
+        "p10": 201.08333333333334,
+        "p50": 231.91666666666666,
+        "p90": 264.3333333333333
+      },
+      {
+        "profile": "high",
+        "cycle": 1,
+        "n": 20,
+        "arrived": 20,
+        "nonarrival": 0,
+        "p10": 136.33333333333334,
+        "p50": 149.58333333333334,
+        "p90": 168.33333333333334
+      },
+      {
+        "profile": "high",
+        "cycle": 2,
+        "n": 20,
+        "arrived": 20,
+        "nonarrival": 0,
+        "p10": 138.41666666666666,
+        "p50": 163.58333333333334,
+        "p90": 182.83333333333334
+      },
+      {
+        "profile": "high",
+        "cycle": 3,
+        "n": 20,
+        "arrived": 20,
+        "nonarrival": 0,
+        "p10": 140.83333333333334,
+        "p50": 164.75,
+        "p90": 189.25
+      }
+    ],
+    "laterMedianRange": [
+      217.33333333333334,
+      264.75
+    ]
+  },
+  "controlledCases": [
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-empty-party-guards/report.json",
+      "sha256": "17b8b2293f2f83ceec8c51a65d488a7ba03bff74704fdee7cc8a59d02c142818",
+      "cases": [
+        "zero-companions",
+        "removed-last-companion"
+      ]
+    },
+    {
+      "path": "/Users/jeongyounglee/work/repo/desktop-monster/.agentdoc/v11-20260918-resume/balance/r19-after50-empty-party/report.json",
+      "sha256": "806d5a6d05d74ae75c621525358f64ca52dd941e43b91314119ca183dc7e4038",
+      "cases": [
+        "removed-last-after50"
+      ]
+    }
+  ],
+  "controlledActionsPreviouslyReplayed": 43,
+  "growth": {
+    "arrived": 342,
+    "scheduled": 460,
+    "missing": 118
+  },
+  "limitations": [
+    "Policy-bound accelerated simulation, not human fun or universal legacy-save timing.",
+    "Growth p10 guards retain118missing cycles and do not guarantee every management policy3–5h.",
+    "No-reset observedzero releases; management1854 is aggregate source/policy verification.",
+    "Native/performance/package completion remains independently required."
+  ]
+}

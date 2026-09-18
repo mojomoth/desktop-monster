@@ -1,0 +1,21 @@
+{
+  "reviewer": "/root/skills_harness",
+  "scope": "Host sprite strips and muted audio",
+  "sourceHashes": {
+    "src/renderer/sprites/sprite.ts": "d01951c90479e2be639b30f6670e99f6839a58ce4f8a49039b5d9cf2d720d19f",
+    "src/renderer/audio.ts": "1776966851492f4608999cf93d2ee59c3ada2b87c47123c996f8027520f34744",
+    "src/renderer/index.ts": "0c60262af643662ea047800d0d4f7aea578fb8cb6f092c27c1029050b2a5da07",
+    "tests/spriteRasterV11.test.ts": "06ef007873b08773eef32500d359e90444bb174d845435a1c0dadd6962c81f14",
+    "tests/sprites.test.ts": "00389bd14c74a32a74b7fdbaa3220abbabd20f045cba01084d18cba21a86e4b4",
+    "tests/equippedHeroCache.test.ts": "dc3632d34037945972c39036174846b080244525346e60876635d8ae9db72511",
+    "tests/audio.test.ts": "ac1eeeda6834bfe8ffc99a34ba789a0321fb25e2910af31cd802a2cd1d5967ce"
+  },
+  "verdict": "source and deterministic pixel/audio checks approved; CPU outcome pending",
+  "tests": {
+    "command": "npx vitest run tests/spriteRasterV11.test.ts tests/sprites.test.ts tests/equippedHeroCache.test.ts tests/audio.test.ts",
+    "passed": 56,
+    "failed": 0
+  },
+  "performanceApproved": false,
+  "releaseApproved": false
+}

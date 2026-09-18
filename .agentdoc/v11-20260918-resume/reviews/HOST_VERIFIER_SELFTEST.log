@@ -1,0 +1,120 @@
+TAP version 13
+# Subtest: censored ordinary and stress trajectories must finish their registered exposure
+ok 1 - censored ordinary and stress trajectories must finish their registered exposure
+  ---
+  duration_ms: 2.237375
+  ...
+# Subtest: ten-cycle continuations may stop at18h only when first three cycles failed
+ok 2 - ten-cycle continuations may stop at18h only when first three cycles failed
+  ---
+  duration_ms: 0.69825
+  ...
+# Subtest: management keeps its20 exploration seeds separate from the280 heldout schedule and pacing verdict
+ok 3 - management keeps its20 exploration seeds separate from the280 heldout schedule and pacing verdict
+  ---
+  duration_ms: 1.538875
+  ...
+# Subtest: management rejects shortened/corrupt schedules, changed policy, and inconsistent reward telemetry
+ok 4 - management rejects shortened/corrupt schedules, changed policy, and inconsistent reward telemetry
+  ---
+  duration_ms: 1.259125
+  ...
+# Subtest: management cannot substitute another candidate, evaluator, compiled artifact, or pacing pass
+ok 5 - management cannot substitute another candidate, evaluator, compiled artifact, or pacing pass
+  ---
+  duration_ms: 0.800125
+  ...
+# Subtest: approved field curve candidates preserve raw/PvP, XP, capture and no-timer parameters
+ok 6 - approved field curve candidates preserve raw/PvP, XP, capture and no-timer parameters
+  ---
+  duration_ms: 11.854375
+  ...
+# Subtest: reject hidden source tuning, changed tie-break baselines and fixed-registration contradictions
+ok 7 - reject hidden source tuning, changed tie-break baselines and fixed-registration contradictions
+  ---
+  duration_ms: 2.0185
+  ...
+# Subtest: candidate mutation rejects frozen keys, regex/path injection and invalid numeric domains
+ok 8 - candidate mutation rejects frozen keys, regex/path injection and invalid numeric domains
+  ---
+  duration_ms: 5.084166
+  ...
+# Subtest: progression scope parses literal source without executing expressions or accepting duplicates
+ok 9 - progression scope parses literal source without executing expressions or accepting duplicates
+  ---
+  duration_ms: 0.750375
+  ...
+# Subtest: package identity includes contents and symlink destinations without following cycles
+ok 10 - package identity includes contents and symlink destinations without following cycles
+  ---
+  duration_ms: 4.521792
+  ...
+# Subtest: same version with a different payload or native file fails installer equivalence
+ok 11 - same version with a different payload or native file fails installer equivalence
+  ---
+  duration_ms: 4.1215
+  ...
+# Subtest: latest failed gate or altered AC rejects prior success; final task has no circular receipt
+ok 12 - latest failed gate or altered AC rejects prior success; final task has no circular receipt
+  ---
+  duration_ms: 22.45325
+  ...
+# Subtest: independent scope reviews require actual authors, reviewed source and external limitations
+ok 13 - independent scope reviews require actual authors, reviewed source and external limitations
+  ---
+  duration_ms: 16.466208
+  ...
+# Subtest: latency budgets require all families, paired finite samples and enough observations
+ok 14 - latency budgets require all families, paired finite samples and enough observations
+  ---
+  duration_ms: 20.811541
+  ...
+# Subtest: latency summaries cannot detach from trusted raw events or duplicate one click
+ok 15 - latency summaries cannot detach from trusted raw events or duplicate one click
+  ---
+  duration_ms: 16.806041
+  ...
+# Subtest: IPC/apply stages require source-bound events rather than ACK substitution
+ok 16 - IPC/apply stages require source-bound events rather than ACK substitution
+  ---
+  duration_ms: 20.327375
+  ...
+# Subtest: raw clock calibration brackets actions and exposes unresolved intervals without excusing inversions
+ok 17 - raw clock calibration brackets actions and exposes unresolved intervals without excusing inversions
+  ---
+  duration_ms: 13.011625
+  ...
+# Subtest: pinned timestamp quantization explains sub-quantum gaps but never excuses larger clock drift
+ok 18 - pinned timestamp quantization explains sub-quantum gaps but never excuses larger clock drift
+  ---
+  duration_ms: 12.395666
+  ...
+# Subtest: grouped pipeline samples cannot hide duplicate stages or detach from the complete trace
+ok 19 - grouped pipeline samples cannot hide duplicate stages or detach from the complete trace
+  ---
+  duration_ms: 16.164792
+  ...
+# Subtest: latest release command must pass for current source with its intact log
+ok 20 - latest release command must pass for current source with its intact log
+  ---
+  duration_ms: 1.033375
+  ...
+# Subtest: native reports bind all scenarios, current app, screenshots, isolation and latency
+ok 21 - native reports bind all scenarios, current app, screenshots, isolation and latency
+  ---
+  duration_ms: 37.916
+  ...
+# Subtest: the pinned vendor subset and unmodified upstream hashes verify
+ok 22 - the pinned vendor subset and unmodified upstream hashes verify
+  ---
+  duration_ms: 3.2165
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 307.910959

@@ -8,7 +8,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 beforeEach(() => { vi.spyOn(Date, 'now').mockReturnValue(0); });
 afterEach(() => { vi.restoreAllMocks(); });
-import { DEFAULT_SAVE, parseSave, createEngine, mulberry32, HERO_MIN_LEVEL } from '../src/core/index.js';
+import { DEFAULT_SAVE, parseSave, createEngine, mulberry32, HERO_MIN_LEVEL, fieldCompanionPower, companionPower, format } from '../src/core/index.js';
 import type { CollectionAction, SaveFile } from '../src/core/index.js';
 import type {
   Companion,
@@ -429,9 +429,9 @@ describe('menu page', () => {
       'Slime Lv 4',
     ]);
     expect(doc.el('roster').find('power').map((el) => el.textContent)).toEqual([
-      '623A',
-      '4.35A',
-      '32',
+      'PvP 623A',
+      'PvP 4.35A',
+      'PvP 32',
     ]);
     expect(doc.el('roster').find('stars').map((el) => el.textContent)).toEqual([
       '★×1',
@@ -450,7 +450,7 @@ describe('menu page', () => {
     expect(button(doc, 1, 2).disabled).toBe(true);
 
     button(doc, 0, 0).click(); // Consume on the dragon: pick it as the target
-    expect(doc.el('result').textContent).toBe('Dragon Lv 10 · 성장 재료로 쓸 동료를 선택하세요. 재료는 사라집니다.');
+    expect(doc.el('result').textContent).toBe('Dragon Lv 10 · 성장 재료로 쓸 동료를 선택하세요. 재료는 사라집니다. 표시는 선택한 동료의 능력치이며, 다른 상성·PvP 파티는 약해질 수 있습니다.');
     expect(button(doc, 0, 0).textContent).toBe('취소');
     button(doc, 1, 0).click(); // feed it the 2-star slime
     expect(fake.actions).toEqual([{ type: 'consume', targetId: 'c2', foodId: 'c3' }]);
@@ -524,6 +524,53 @@ describe('menu page', () => {
 });
 
 describe('v0.7 companion reincarnation confirmation', () => {
+  it.each([10, 11] as const)('previews consume, fuse and reincarnation hunting/PvP power against actual core actions for curve %i', version => {
+    const members: Companion[] = [
+      { id: 'c1', speciesId: 'slime', bossIndex: 79, level: 10, stars: 1 },
+      { id: 'c2', speciesId: 'slime', bossIndex: 95, level: 1, stars: 1 },
+    ];
+    for (const kind of ['consume', 'fuse', 'reincarnate'] as const) {
+      const state = parseSave({ ...DEFAULT_SAVE, companions: members, monsterCurveVersion: version,
+        rebirths: 7, monsterCurveRebirths: 7,
+        hero: { ...newHeroProgress(), reincarnations: 3 } });
+      const { doc, fake } = mounted(state);
+      const targetCard = doc.el('roster').find('card').find(card => card.attributes['data-companion-id'] === 'c1')!;
+      targetCard.find('btn')[kind === 'consume' ? 0 : kind === 'fuse' ? 1 : 2]!.click();
+      const action: CollectionAction = kind === 'consume' ? { type: kind, targetId: 'c1', foodId: 'c2' }
+        : kind === 'fuse' ? { type: kind, aId: 'c1', bId: 'c2' } : { type: kind, id: 'c1' };
+      const engine = createEngine(state, mulberry32(2)); engine.apply(action);
+      expect(engine.lastActionError()).toBeNull();
+      const after = engine.getState().companions.find(c => c.id === 'c1')!;
+      const label = `사냥 ${fieldCompanionPower(members[0]!, 7, version)} → ${fieldCompanionPower(after, 7, version)} · PvP ${companionPower(members[0]!)} → ${companionPower(after)}`;
+      const preview = doc.el('roster').find('growth-power');
+      expect(preview).toHaveLength(1);
+      expect(preview[0]!.attributes['title']).toBe(label);
+      expect(fake.actions).toEqual([]); // The preview never sends a mutation.
+      fake.emit({ ...state, coins: '1' });
+      expect(doc.el('roster').find('growth-power')[0]).toBe(preview[0]);
+    }
+  });
+
+  it('refreshes hunting power with encounter reset counts and preserves cards across live counter changes', () => {
+    const member: Companion = { id: 'c1', speciesId: 'dragon', bossIndex: 95, level: 2, stars: 1 };
+    const legacy = parseSave({ ...DEFAULT_SAVE, companions: [member], monsterCurveVersion: 10,
+      rebirths: 7, monsterCurveRebirths: 2,
+      hero: { ...newHeroProgress(), reincarnations: 2 } });
+    const { doc, fake } = mounted(legacy);
+    expect(texts(doc.el('roster'), 'hunting-power')).toEqual([`사냥 공격력 ${format(companionPower(member))}`]);
+    for (const [curve, count, level] of [[11, 2, 2], [11, 3, 2], [11, 3, 4]] as const) {
+      const next = parseSave({ ...legacy, monsterCurveVersion: curve, monsterCurveRebirths: count,
+        companions: [{ ...member, level }] });
+      fake.emit(next);
+      expect(texts(doc.el('roster'), 'power')).toEqual([`PvP ${format(companionPower(next.companions[0]!))}`]);
+      expect(texts(doc.el('roster'), 'hunting-power')).toEqual([`사냥 공격력 ${format(fieldCompanionPower(next.companions[0]!, count, curve))}`]);
+      const card = doc.el('roster').find('card')[0];
+      fake.emit({ ...next, rebirths: 8, hero: { ...next.hero!, reincarnations: 3 } });
+      expect(doc.el('roster').find('card')[0]).toBe(card);
+      expect(texts(doc.el('roster'), 'hunting-power')).toEqual([`사냥 공격력 ${format(fieldCompanionPower(next.companions[0]!, count, curve))}`]);
+    }
+  });
+
   const companion = { id: 'c1', speciesId: 'dragon', bossIndex: 7, level: 10, stars: 2 };
   const confirmation = (doc: FakeDoc): FakeEl => child(doc.el('roster'), 'reincarnation-confirmation', 0);
 

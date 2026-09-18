@@ -1,17 +1,38 @@
-# v0.11 Acceptance
+# v0.11.0 검증 기록
 
-All tasks and current status are in `.agentdoc/v11-20260918/loop.json`. Required behavior and quantitative targets are in CONTRACT.md. No task is verified until final-source AC and canonical gates succeed.
+동결 소스는 `9397d1abd6ec13db2b253b4bcfdb11febcff15780eab6decc9609ccaa333f30b`다. 구현·수치·실제 앱 검증·성능 비교·패키징·독립 검토를 통과했다. 전체 완료 여부는 [작업 저널](../../.agentdoc/v11-20260918-resume/loop.json)의 현재 소스 검증 상태를 따른다.
 
-## Current checkpoint (2026-09-18)
+## 현재 검증
 
-- Baseline committed as `c2b20bb7573c39515e21c40f7162d50966468be0`, with annotated tag `v0.10.0`. Original macOS and Windows apps/installers are preserved locally and excluded from Git.
-- HUD, menu, manual equipment and action-result feedback are implemented. The canonical gates passed 1,230 tests, lint and typecheck for source `27b4228e0696122d0ea3e69c25978470246ca881b59c19b99920a6d9bb1b5b7f`; all 49 Node harness tests and tasks 01/03/04 AC also passed. Source-bound receipts and logs are retained in the run journal; later source or protocol changes require new receipts.
-- Packaged Electron pilot06 passed 165 checks across menu persistence, actual companion growth, manual equipment, restart and HUD. Its 407 trusted clicks cover four action families: visual p95 23.4–25.0 ms and equipment applied-result p95 35.7 ms. All 107 equipment actions have separate source-bound main IPC/core apply/ACK/paint observations. The HUD scenario recorded exactly 21 intended trusted key pairs. Independent review viewed all 22 PNGs and recomputed 35 HUD regions, including visible damage near the animation end and concurrent level-up/ready/FEVER phases. `native/pilot-06.json` and `reviews/CRITIC_NATIVE_PILOT_06.md` contain the evidence.
-- Earlier failed native attempts remain retained. Read-only actual animation ages replaced the invalid startup wall-time assumption; explicit pinned Chromium timer precision replaced inconsistent clock interval intersections. Pilot05's extra early damage origin remains unexplained because it predated input tracing. Three subsequent focused runs and full pilot06 pass with exact input provenance. A separate diagnostic observed a first-attack frame stall; its cause and status relative to v0.10 are not established.
-- Exact macOS DMG, Windows NSIS installer and smoke commands passed again for the current checkpoint source. The packaged app payload remains byte-identical to the app observed in native/performance runs. Installer extraction and current payload checks are recorded in `evidence/current-checkpoint-validation.json`. These are development packages, not a completed v0.11 release.
-- All four baseline/candidate active/idle observations completed 30 minutes each, with 360 raw samples each. The comparison fails the idle CPU budget: candidate p95 2.430934% versus the 2.391905% limit (baseline 1.391905%). Active CPU and both memory comparisons pass. Raw records show different random capture trajectories despite the same initial fixture; short diagnostics investigate that confound but cannot replace the failed registered observation.
-- A later fixed-scene profiling pair was incomplete: baseline completed 60 seconds, but the candidate main inspector lost its context after approximately 40 seconds and the app exited with code 0. The cause is unestablished. Source/app hashes, raw errors and partial measurements are preserved in `performance/diagnostic-profile`; no successful paired comparison or performance remediation is claimed.
-- Four balance candidate rounds have no accepted winner. Production pacing constants remain unchanged. A field-only companion-curve amendment has been proposed to the user; it is not implemented or approved. Held-out seeds and final balance acceptance remain pending.
-- `DESMON_SKIP_NET=1`: no remote push or production deployment. Real Windows hardware, global input permission, live PostgreSQL and human enjoyment are not certified by these checks.
+| 항목 | 결과 | 증거 |
+|---|---|---|
+| v0.10.0 보존 | annotated tag `v0.10.0` → `c2b20bb7573c39515e21c40f7162d50966468be0` | 로컬 Git 태그·보존 앱 |
+| 기본 검사 | `npm test && npm run lint && npm run typecheck` 통과: 94파일, 1,264테스트 | [소스 동결](../../.agentdoc/v11-20260918-resume/evidence/source-freeze-02.json), [저널](../../.agentdoc/v11-20260918-resume/loop.json) |
+| 하네스 | Node 검사 82/82 통과 | 저널의 V11-01 AC |
+| 환생 | 새 검증 280경로, 기본 시간 기준 23개 모두 통과 | [밸런스 보고서](BALANCE_REPORT.md), [원본 목록](../../.agentdoc/v11-20260918-resume/balance/final.json) |
+| 추가 단축 경로 | 유한 영혼 회귀 80경로·240/240회 도달, 12개 p10 기준 통과 | 같은 밸런스 목록의 finiteFarmReport |
+| 실제 앱 | 5시나리오·183검사, 28 PNG 독립 검토 통과 | [native 최종 기록](../../.agentdoc/v11-20260918-resume/native/final.json) |
+| 클릭 반응 | 탭·펼침·성장 선택 각100회, 장비107회; 시각 p95 최대31.7ms, 장비 결과46.6ms | native 원본407개 표본·107개 IPC/코어/ACK/표시 추적 |
+| smoke·패키징 | SMOKE_OK; macOS ARM64 DMG·Windows NSIS 생성, 실제 설치파일 추출 내용 대조 통과 | [release](../../.agentdoc/v11-20260918-resume/release.json), [설치 내용](../../.agentdoc/v11-20260918-resume/evidence/package-payloads-02.json) |
+| CPU·메모리 | v0.10·v0.11 활동·방치 각30분, 원본1,440개 재계산; 네 자원 기준 통과 | [성능 결과](PERFORMANCE_REPORT.md), [기준선 보존](../../.agentdoc/v11-20260918-resume/performance/BASELINE_REUSE.json) |
+| 독립 검토 | 코어·UI·시각·실행 절차는 Critic, 검증 코드 자체는 Host가 검토 | [리뷰 기록](../../.agentdoc/v11-20260918-resume/reviews/) |
 
-Evidence is under `.agentdoc/v11-20260918`; detailed balance findings are in `reviews/CRITIC_BALANCE_FEASIBILITY.md`. Generated results do not replace the source-bound release gates.
+## 실제 앱에서 확인한 동작
+
+처치 수·금화와 수집 도착점·가방 부족 안내를 좌상단으로 옮겼다. 일반·보스의 머리·왕관·HP바 기준으로 데미지를 배치하고 일반28px/치명42px 상승을 적용했다. 끝나기 직전에도 숫자의 실제 픽셀이 화면 안에 남는지 확인했다. 레벨업은 환생 준비 위에서 2.4초 표시하며 600ms 색상 점멸과 어두운1px 외곽선을 갖는다. FEVER는 영웅 위 한 곳에서만 200ms 색상 점멸하며 레벨업·환생 준비와 겹치지 않는다. PvP 결과는 별도다.
+
+영웅·몬스터 도감은 오른쪽 아래 화살표와 키보드 펼침을 유지한다. 실제 금화 저장 갱신 전후로 장비·상점 카드의 DOM, 펼침, 포커스, 페이지, 스크롤이 유지됐다. 동료 성장 선택·가까운 취소/안내와 실제 소모 저장도 확인했다. 8개 탭이 한 줄에 있고 반복 하단 동작은 해당 탭으로 이동했다. 클릭 직후 진행 상태를 보여주며 실제 코어 반영과 ACK 이후 결과를 표시한다. 빠른 중복 클릭2회가 실제 행동1회와 revision+1만 만드는 것도 확인했다.
+
+수동 무기·악세사리 장착, 가득 찬 악세사리 교체, 가방 포화, 약한 장비 획득 시 유지, 강한 호환 장비 획득 시 교체, 재시작 유지, 직업 변경과 오래된 revision 거절을 확인했다. 필드 파티·공격·메뉴·공유는 같은 전투 곡선/회귀 스냅샷을 사용하고 원본 PvP 수치는 유지한다. 기존 전투를 마친 다음부터 새 곡선을 적용한다.
+
+## 밸런스 판정과 한계
+
+R19-B를 후보 비교와 사전 등록된 선택 규칙으로 채택했다. 일반 첫 세 환생 중앙값은 3:36:35 / 3:38:35 / 3:54:05, 간헐은 3:47:20 / 3:48:20 / 3:51:55다. 두 정책의 4~10회도 각각 중앙값3~5시간을 통과했다. 영혼 회귀 준비 시간을 포함한80경로에서 첫 세 주기의12개 p10이 모두2시간 이상이었다. 전체 행동·RNG 재생과 무동료 경계 검사를 별도로 수행했다.
+
+강한 기존 자산의 진행 중 첫 주기는 중앙값1:42:30으로 신규 플레이 인증과 구분한다. 즉시 동료 소모 성장의118/460 미도달 회차는 삭제하지 않았다. 예비 동료와 타입 대응을 잃는 전략은 후반이 더 느려질 수 있다. 새 곡선에서 모든 전략·임의의 기존 자산·무기한 플레이의 시간을 보장하지 않는다. 초반 레벨 상승과 후반 레벨 간격도 균일하지 않다. 자세한 분위수·보상 간격·정책·관측 한계는 밸런스 보고서에 있다.
+
+## 보존한 실패와 인증 범위
+
+이전 개발 체크포인트 `5d3d1d9`와 `.agentdoc/v11-20260918`를 보존했다. 그때의 방치 CPU p95 2.430934%는 기준2.391905%를 초과했고, 미완료 진단과 초기 native 실패도 남아 있다. 현재 소스의 결과로 과거 실패를 덮어쓰지 않는다. 후보 R18-B는 기본 시간 검사를 통과했지만 50회 영혼 회귀 후 첫 환생6분20초 경로가 발견돼 최종 채택을 취소했다. 해당 결과와 이미 사용한 시드를 보존하고 새 시드126001~126100으로 R19를 검증했다. 판정 기준을 낮추지 않았다.
+
+가속 시뮬레이션은 등록된 정책의 성장 시간을, 실제 Electron 검사는 입력·화면·저장·자원을 측정한다. 사람의 재미 평가는 수행하지 않았다. Windows 설치파일 내용 검증은 Windows 실기기 실행을 뜻하지 않는다. 실제 Accessibility 전역 입력, 실제 PostgreSQL, 운영 서버 배포는 수행하지 않았다. `DESMON_SKIP_NET=1`; 원격 push도 없다. Smoke 종료 뒤 관측된 Mojo 오디오 종료 로그는 보존했으며, SMOKE_OK/exit0 외에 실제 소리 청취를 인증하지 않는다.

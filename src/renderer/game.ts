@@ -20,7 +20,7 @@
 // so tests run under vitest's node environment.
 
 import {
-  activeCompanions,
+  activeFieldCompanions,
   createEngine,
   effectiveness,
   FEVER_MS,
@@ -319,8 +319,9 @@ function speciesSpritesFor(speciesId: string): SpeciesSprites {
  * type-adjusted power against THIS monster. Never cached — the auto-change
  * has to be visible the frame after a new monster spawns (§6).
  */
-function fieldParty(state: GameState): Companion[] {
-  return partyOrder(activeCompanions(state.companions, state.monster.type, state.hero?.equipped));
+function fieldParty(state: GameState, companions: readonly Companion[] = state.companions): Companion[] {
+  return partyOrder(activeFieldCompanions(companions, state.monster.type, state.hero?.equipped,
+    state.monster.curveRebirths ?? 0, state.monster.curveVersion ?? 10));
 }
 
 /** Where a member of `party` stands, or null when it is not on the field. */
@@ -635,7 +636,7 @@ export function createGame(
       if (lostId !== null) {
         // It is already off the roster: scatter the art it was drawn with,
         // where it stood. A benched loss was never on screen.
-        const party = partyOrder(activeCompanions(before, state.monster.type, state.hero?.equipped));
+        const party = fieldParty(state, before);
         const lost = party.find((c) => c.id === lostId);
         const slot = partySlotOf(party, lostId);
         if (lost !== undefined && slot !== null) {

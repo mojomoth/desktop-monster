@@ -1,0 +1,101 @@
+{
+  "version": 11,
+  "round": 15,
+  "stage": "first-three-screening",
+  "status": "registered-before-measurement",
+  "selected": null,
+  "profiles": [
+    "ordinary",
+    "intermittent",
+    "high"
+  ],
+  "cycles": 3,
+  "maxHours": 18,
+  "fixed": {
+    "xpBase": 20,
+    "xpGrowth": 1.42,
+    "fieldHpDenominator": 1000,
+    "fieldHpTailStartIndex": 79,
+    "fieldHpTailDenominator": 10000,
+    "companionHpNumerator": 115,
+    "companionHpDenominator": 100,
+    "captureChance": 0.35,
+    "firstCaptureBossIndex": 63,
+    "earlyCaptureCount": 5,
+    "heroRestMs": 0,
+    "heroDeferMs": 30000,
+    "fieldCompanionTailStartIndex": 31
+  },
+  "candidateLevers": "Required levels, predetermined fieldHP stage/reset curve, fixed field-only companion quadratic base and accepted-hero-count factor M; no timers/livepower adaptation/raw companion/PvP changes.",
+  "candidates": [
+    {
+      "id": "R15-A",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10955,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 10,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R15-B",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10960,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 10,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    },
+    {
+      "id": "R15-C",
+      "parameters": {
+        "heroMinLevel": 26,
+        "heroLevelStepCap": 0,
+        "fieldHpNumerator": 1080,
+        "fieldHpTailStartIndex": 79,
+        "fieldHpTailNumerator": 10965,
+        "fieldHpTailPolynomial": 0,
+        "fieldHpIndexCap": 159,
+        "fieldRebirthBonus": 10,
+        "fieldRebirthHalf": 1,
+        "fieldRebirthBonusScale": 16,
+        "fieldCompanionTailPolynomial": 1,
+        "fieldCompanionTailScale": 256,
+        "fieldCompanionIndexCap": 79,
+        "fieldCompanionBaseFloor": 14000,
+        "fieldCompanionGrowthBonus": 25,
+        "fieldHeroCycleBonus": 128
+      }
+    }
+  ],
+  "rationale": "R14 all180 complete, all candidates fail late ordinary medians; original high first3 pass. Increase fixed field base floor10000 to14000 (cap79 max14630) to reduce capture-index variation and early-guarantee quota inversion, without raw/PvP changes. Tail10955/60/65 offsets floor increase; resetbonus10/16 retained. Screen one exploration seed each profile first3 before full20/10 registration. Reserve-growth high20x10 additionally preregistered at unchanged p10>=120/non-null; original280/growth60/management20 preserved.",
+  "profileCycles": {
+    "ordinary": 3,
+    "intermittent": 3,
+    "high": 3
+  }
+}
