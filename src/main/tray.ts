@@ -7,7 +7,7 @@ import type { GameSettings, InputModePayload, SaveStatus } from '../shared/ipc.j
 import { GAME_SCALES, SCALE_LABELS } from './settings.js';
 
 /** First (disabled) menu row; tests pin the version against package.json. */
-export const TRAY_TITLE = 'DesMon v0.11.0';
+export const TRAY_TITLE = 'DesMon v0.12.0';
 export const TRAY_TOOLTIP = 'DesMon';
 export const INPUT_GLOBAL_LABEL = '입력: 전체 입력 연결됨';
 export const INPUT_FALLBACK_LABEL = '입력: 게임 창 안에서만 · 연결 안내…';

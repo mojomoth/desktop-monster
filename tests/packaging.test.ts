@@ -148,7 +148,7 @@ describe('version bump (F76; was F57)', () => {
       version: string;
       packages: Record<string, { version?: string }>;
     };
-    expect(pkg.version).toBe('0.11.0');
+    expect(pkg.version).toBe('0.12.0');
     expect(lock.version).toBe(pkg.version);
     expect(lock.packages['']?.version).toBe(pkg.version);
   });
