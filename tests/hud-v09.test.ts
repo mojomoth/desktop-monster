@@ -51,15 +51,15 @@ describe('v0.9 HUD readability', () => {
       expect(out.rects).toContainEqual({ x: 60, y: 86, w: XP_BAR_W, h: XP_BAR_H, color: COLORS.steel });
       expect(out.rects).toContainEqual({ x: 61, y: 87, w: Math.max(1, Math.round((XP_BAR_W - 2) * 3 / xpToNext(item.level))), h: XP_BAR_H - 2, color: COLORS.cyan });
       const counters = canvas(); drawCounters(counters.ctx, engine.getState(), VIEW_W);
-      expect(out.rects.filter(rect => rect.x < 66 && rect.y >= 23 && rect.y < 41)).toEqual(counters.rects);
+      expect(out.rects.filter(rect => rect.x < 66 && rect.y >= 31 && rect.y < 49)).toEqual(counters.rects);
       expect(engine.toSave()).toEqual(before);
     }
   });
 
   it('fits compact outlined counters below the drag strip with transparent space between rows', () => {
     expect(COUNTER_SCALE).toBe(1);
-    expect(COUNTER_TOP).toBe(24);
-    expect(COIN_COUNTER_Y).toBe(34);
+    expect(COUNTER_TOP).toBe(32);
+    expect(COIN_COUNTER_Y).toBe(42);
     for (const value of [0, 7, 999, 1000, Number.MAX_SAFE_INTEGER]) {
       const state = { ...createEngine(null, mulberry32(1)).getState(), coins: BigInt(value), killCount: value };
       for (const pop of [false, true]) {
@@ -68,9 +68,9 @@ describe('v0.9 HUD readability', () => {
         for (const rect of right.rects) {
           expect(rect.x).toBeGreaterThanOrEqual(1);
           expect(rect.x + rect.w).toBeLessThan(66);
-          expect(rect.y).toBeGreaterThanOrEqual(23);
-          expect(rect.y + rect.h).toBeLessThanOrEqual(41);
-          expect(rect.y <= 31 && rect.y + rect.h > 31).toBe(false); // no opaque panel joining the rows
+          expect(rect.y).toBeGreaterThanOrEqual(31);
+          expect(rect.y + rect.h).toBeLessThanOrEqual(49);
+          expect(rect.y <= 39 && rect.y + rect.h > 39).toBe(false); // no opaque panel joining the rows
         }
         const textX = COUNTER_TEXT_X;
         const text = glyphCells(right.rects).filter(rect => rect.x >= textX - 1 && rect.y >= COIN_COUNTER_Y - 1);

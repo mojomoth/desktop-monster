@@ -1321,7 +1321,7 @@ export function createGame(
         state,
         HERO_X + Math.floor((heroIdle.w * SPRITE_SCALE) / 2),
         heroTop - 2,
-        scene === null ? { levelUp: banner, ...(state.fever.active ? { feverAgeMs: FEVER_MS - state.fever.remainingMs } : {}) } : {},
+        { timeMs: shownTime, ...(scene === null ? { levelUp: banner, ...(state.fever.active ? { feverAgeMs: FEVER_MS - state.fever.remainingMs } : {}) } : {}) },
       );
       drawFloats(ctx, scene?.floats ?? floats);
       drawCounters(screen, state, VIEW_W, scene === null && coinPopAgeMs < COUNTER_POP_MS);

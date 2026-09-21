@@ -4,7 +4,7 @@ import { heroRequiredLevel, newHeroProgress } from '../src/core/hero.js';
 import {
   BAG_FULL_Y, BANNER_MS, BANNER_Y, COIN_COUNTER_X, COIN_COUNTER_Y, createBanner, createFloatPool,
   drawBanner, drawCounters, drawFeverLabel, drawFloats, drawLevelHud, FEVER_FLASH_MS,
-  FIELD_FLOAT_RISE_PX, LEVEL_UP_FLASH_MS, LEVEL_UP_MS, showBanner, spawnFieldFloat, spawnFloat,
+  FIELD_FLOAT_RISE_PX, LEVEL_UP_FLASH_MS, LEVEL_UP_MS, REBIRTH_READY_FLASH_MS, showBanner, spawnFieldFloat, spawnFloat,
   tickBanner, tickFloats, VICTORY_TEXT,
 } from '../src/renderer/hud.js';
 import { createGame, DROP_TARGET_X, DROP_TARGET_Y, heroHudTop, monsterFloatAnchor, monsterHpBarY, VIEW_H, VIEW_W } from '../src/renderer/game.js';
@@ -29,15 +29,15 @@ describe('v0.11 head labels and field damage', () => {
     const base = createEngine(DEFAULT_SAVE).getState();
     for (const form of ['h00', ...HERO_FORMS.map(hero => hero.id)]) {
       for (const ready of [false, true]) for (const levelUp of [false, true]) for (const fever of [false, true]) {
-        for (const ageMs of [0, 200, 600, 2399]) {
+        for (const ageMs of [0, 200, 600, 799, 800, 1599, 1600, 2399]) {
           const state = { ...base, level: ready ? heroRequiredLevel(0) : 1,
             hero: { ...newHeroProgress(), equipped: { formId: form, buffPercent: 0 } } };
           const bottom = heroHudTop(form) - 2;
           const banner = createBanner(); if (levelUp) { showBanner(banner); tickBanner(banner, ageMs); }
-          const first = canvas(); drawLevelHud(first.ctx, state, 80, bottom);
-          const leveled = canvas(); drawLevelHud(leveled.ctx, state, 80, bottom, { levelUp: banner });
+          const first = canvas(); drawLevelHud(first.ctx, state, 80, bottom, { timeMs: ageMs });
+          const leveled = canvas(); drawLevelHud(leveled.ctx, state, 80, bottom, { levelUp: banner, timeMs: ageMs });
           const out = canvas(); drawLevelHud(out.ctx, state, 80, bottom,
-            { levelUp: banner, ...(fever ? { feverAgeMs: ageMs } : {}) });
+            { levelUp: banner, timeMs: ageMs, ...(fever ? { feverAgeMs: ageMs } : {}) });
           const groups = [first.rects, leveled.rects.slice(first.rects.length), out.rects.slice(leveled.rects.length)]
             .filter(group => group.length).map(bounds);
           for (const [i, box] of groups.entries()) {
@@ -89,6 +89,7 @@ describe('v0.11 head labels and field damage', () => {
   });
 
   it('retains simultaneous level-up, ready and fever feedback in the live field through every color phase', () => {
+    expect(REBIRTH_READY_FLASH_MS).toBe(800);
     const level = heroRequiredLevel(0);
     const game = createGame(createEngine({ ...DEFAULT_SAVE, level, xp: xpToNext(level) - 1, monsterHp: '1', hero: newHeroProgress() }));
     let sawLevelUp = false;
@@ -99,14 +100,16 @@ describe('v0.11 head labels and field damage', () => {
     expect(sawLevelUp).toBe(true);
     expect(game.getState().fever.active).toBe(true);
     let age = 0;
-    for (const target of [0, 199, 200, 599, 600, 1199, 1200, 2399, 2400]) {
+    for (const target of [0, 199, 200, 599, 600, 799, 800, 1199, 1200, 1599, 1600, 2399, 2400]) {
       game.update(target - age); age = target;
       const banner = createBanner(); showBanner(banner); tickBanner(banner, age);
       const expected = canvas(); drawLevelHud(expected.ctx, game.getState(), 80, heroHudTop('h00') - 2,
-        { levelUp: banner, feverAgeMs: FEVER_MS - game.getState().fever.remainingMs });
+        { levelUp: banner, feverAgeMs: FEVER_MS - game.getState().fever.remainingMs, timeMs: age });
       const actual = canvas(); game.draw(actual.ctx);
       const painted = new Set(actual.rects.map(rect => JSON.stringify(rect)));
       expect(expected.rects.every(rect => painted.has(JSON.stringify(rect)))).toBe(true);
+      const readyInk = actual.rects.filter(rect => rect.x >= 55 && rect.x < 105 && rect.y >= 72 && rect.y < 77 && rect.color !== COLORS.void);
+      expect(new Set(readyInk.map(rect => rect.color))).toEqual(new Set([Math.floor(age / 800) % 2 ? COLORS.steel : COLORS.yellow]));
       expect(actual.rects.filter(rect => rect.y >= BANNER_Y && rect.y < BANNER_Y + 10 && rect.w === 2 && rect.h === 2)).toEqual([]);
     }
   });

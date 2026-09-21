@@ -79,5 +79,8 @@ test('source and protocol changes invalidate receipts while generated reports do
     const second = digest(root);
     writeFileSync(join(root, 'docs/v0.11/EVALUATION_PROTOCOL.json'), '{"changed":true}');
     assert.notEqual(digest(root), second);
+    const third = digest(root);
+    writeFileSync(join(root, 'README.md'), 'Changed operator documentation checked by packaging.test.ts');
+    assert.notEqual(digest(root), third);
   } finally { rmSync(root, {recursive:true, force:true}); }
 });

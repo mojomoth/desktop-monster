@@ -25,13 +25,15 @@ import type { SpriteCanvas } from './sprites/index.js';
 /** Gap between HUD chrome and the canvas edges, in game pixels. */
 export const HUD_MARGIN = 2;
 /** Keep counters below the drag strip, closer to the field. */
-export const COUNTER_TOP = 24;
+export const COUNTER_TOP = 32;
 export const COUNTER_SCALE = 1;
 export const COUNTER_ROW_GAP = 10;
 export const COIN_COUNTER_Y = COUNTER_TOP + COUNTER_ROW_GAP;
 export const COIN_COUNTER_X = HUD_MARGIN;
 export const COUNTER_TEXT_X = HUD_MARGIN + 9;
 export const BAG_FULL_Y = COIN_COUNTER_Y + 12;
+/** Slow ready-label pulse; keep the outline and occupied space in both phases. */
+export const REBIRTH_READY_FLASH_MS = 800;
 /** XP progress bar box size (above the hero, under the LV text). */
 export const XP_BAR_W = 40;
 export const XP_BAR_H = 4;
@@ -85,7 +87,7 @@ export function drawLevelHud(
   state: Readonly<GameState>,
   cx: number,
   bottom: number,
-  effects: { levelUp?: Banner; feverAgeMs?: number } = {},
+  effects: { levelUp?: Banner; feverAgeMs?: number; timeMs?: number } = {},
 ): void {
   const barX = Math.round(cx - XP_BAR_W / 2);
   const barY = bottom - XP_BAR_H;
@@ -96,7 +98,8 @@ export function drawLevelHud(
   if (heroReady(state.level, state.hero)) {
     const ready = 'REBIRTH READY';
     labelY -= FONT_H + 2;
-    drawOutlinedText(ctx, ready, Math.round(cx - textWidth(ready) / 2), labelY, 1, COLORS.yellow);
+    const color = Math.floor((effects.timeMs ?? 0) / REBIRTH_READY_FLASH_MS) % 2 === 0 ? COLORS.yellow : COLORS.steel;
+    drawOutlinedText(ctx, ready, Math.round(cx - textWidth(ready) / 2), labelY, 1, color);
   }
   if (effects.levelUp?.active && effects.levelUp.text === LEVEL_UP_TEXT) {
     labelY -= FONT_H + 2;

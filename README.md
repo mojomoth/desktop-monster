@@ -212,6 +212,9 @@ bar tray hosts the menu (`DesMon v0.11.0`, input-mode status,
   becomes `2 / previous level` of the original (one fifth at level 10), so
   gaining a star does not mean an immediate power increase. The preview
   separately shows the hunting change under the fixed field curve.
+- **Hero rebirth.** Reach level 26 to choose a new hero and restart at level 1,
+  keeping your companions and following the equipment compatibility preview.
+  The required level remains 26 on later cycles; there is no elapsed-time lock.
 - **Soul recovery.** From monster index 40 you may use **영혼 회귀** in the hero tab: the run resets to
   level 1 / monster 0 but you gain `⌊index/8⌋` **souls**, and companions,
   coins, trinkets, kills and your deepest index are kept. Souls multiply hero base

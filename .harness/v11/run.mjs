@@ -23,7 +23,7 @@ export function manifest(paths, root = ROOT) {
   paths.forEach(visit);
   return files;
 }
-export const INPUT_PATHS = ['src','static','tests','scripts','.harness/v11','SPEC.md','docs/v0.11/CONTRACT.md',
+export const INPUT_PATHS = ['src','static','tests','scripts','.harness/v11','SPEC.md','README.md','docs/v0.11/CONTRACT.md',
   'docs/v0.11/BALANCE_CANDIDATE.json','docs/v0.11/EVALUATION_PROTOCOL.json','docs/v0.11/PERFORMANCE_PROTOCOL.json','.harness/v10/launcher.mjs','.harness/v10/performance-v4.mjs','.harness/v10/ui-cases.mjs','.harness/v7/loop/package-check.mjs','.harness/v7/loop/evidence.mjs','.harness/v7/loop/config.mjs','.harness/v7/config.json','package.json','package-lock.json',
   'eslint.config.mjs','tsconfig.base.json','tsconfig.main.json','tsconfig.renderer.json','tsconfig.test.json'];
 export const digest = (root = ROOT) => sha(json(manifest(INPUT_PATHS, root)));

@@ -801,7 +801,7 @@ export async function hudCases(runtime, feverInputs) {
       let error; try { assertHudLabel(raster[key], color, definition.inkPixels, definition.top); } catch (failure) { error = String(failure); }
       check(name + '-visible-' + key + '-' + color, !error, { raster: raster[key], expected: definition, error });
     };
-    verifyLabel('ready', 'yellow', geometry.ready);
+    verifyLabel('ready', Math.floor(after.effects.presentationMs / 800) % 2 ? 'steel' : 'yellow', geometry.ready);
     if (levelActive) verifyLabel('level', Math.floor(after.levelAge / 600) % 2 ? 'white' : 'yellow', geometry.level);
     if (after.state.fever.active) verifyLabel('fever', Math.floor((5000 - after.state.fever.remainingMs) / 200) % 2 ? 'white' : 'yellow', fever);
     return { ...after, raster, timing: { before, after } };
