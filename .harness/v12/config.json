@@ -1,0 +1,194 @@
+{
+  "version": 12,
+  "productVersion": "0.12.0",
+  "codexModel": "gpt-5.6-sol",
+  "lanes": 3,
+  "agents": {
+    "Host": "/root/loop/host",
+    "Balance": "/root/loop/balance",
+    "Critic": "/root/loop/critic",
+    "Designer": "/root/loop/designer",
+    "Codex": "/root/loop/codex"
+  },
+  "tasks": [
+    {
+      "id": "V12-00",
+      "precheck": true,
+      "title": "Baseline: v0.11.0 tag, pending HUD follow-up committed, version 0.12.0",
+      "owner": "Host",
+      "stage": "A",
+      "dependencies": [],
+      "files": ["package.json", "package-lock.json", "src/main/tray.ts", "tests/packaging.test.ts", "README.md"],
+      "ac": "git tag --list v0.11.0 | grep -q v0.11.0 && node -e \"process.exit(require('./package.json').version === '0.12.0' ? 0 : 1)\" && npx vitest run tests/tray.test.ts tests/packaging.test.ts"
+    },
+    {
+      "id": "V12-01",
+      "precheck": true,
+      "title": "Harness v12: journal, uninterrupted loop, codex lanes, preview gate, contract",
+      "owner": "Host",
+      "stage": "A",
+      "dependencies": ["V12-00"],
+      "files": [".harness/v12/run.mjs", ".harness/v12/run.test.mjs", ".harness/v12/config.json", ".harness/v12/HARNESS.md", ".harness/v12/loop.mjs", ".harness/v12/loop.test.mjs",
+        ".harness/v12/codex", ".harness/v12/agents", ".harness/v12/vendor", ".harness/v12/raid-preview.mjs", ".harness/v12/preview-shell.mjs", ".harness/v12/fixtures",
+        ".harness/v12/final-check.mjs", ".harness/v12/final-check.test.mjs", ".harness/v12/release.mjs", ".harness/v12/runtime.mjs", ".harness/v12/runtime.test.mjs",
+        ".harness/v12/ui-cases.mjs", ".harness/v12/run-performance.mjs", ".harness/v12/performance-report.mjs", ".harness/v12/performance.test.mjs",
+        "docs/v0.12/CONTRACT.md", "docs/v0.12/RAID_ART.md", "docs/v0.12/PERFORMANCE_PROTOCOL.json"],
+      "ac": "node --test .harness/v12/*.test.mjs"
+    },
+    {
+      "id": "V12-02",
+      "title": "Raid balance protocol: tunable ranges, lobby simulation design, registered targets, seeds, three candidates",
+      "owner": "Balance",
+      "stage": "A",
+      "dependencies": ["V12-01"],
+      "files": ["docs/v0.12/EVALUATION_PROTOCOL.json", "docs/v0.12/BALANCE_CANDIDATE.json", ".harness/v12/raid-balance.mjs", ".harness/v12/raid-balance.test.mjs"],
+      "ac": "node .harness/v12/raid-balance.mjs validate && node --test .harness/v12/raid-balance.test.mjs",
+      "notes": "Plan §7. Register everything BEFORE any simulation: tunables + legal ranges (RAID_PARAMETERS keys from plan §1.2), lobby sampling (v11 trajectory checkpoints, sizes 3/8/20, profile mix 0.6/0.3/0.1, cadence ×U(0.7,1.3), 20% no-show, 10% AFK), whale lobby, exploration seeds 130001–130020, held-out 136001–136100 (list v11 consumed ranges), targets table, selection rule, ≥3 candidates. `validate` checks the JSON shape/ranges/seed disjointness and that RAID_PARAMETERS keys match src/core/raid.ts once it exists (skip gracefully before V12-04). The simulator itself (`explore`/`select`) is V12-13; `validate` must not need the core yet."
+    },
+    {
+      "id": "V12-03",
+      "title": "Independent review of the raid protocol (Critic)",
+      "owner": "Critic",
+      "stage": "A",
+      "dependencies": ["V12-02"],
+      "files": ["docs/v0.12/REVIEWS/PROTOCOL.md"],
+      "ac": "test -s docs/v0.12/REVIEWS/PROTOCOL.md && grep -q '^verdict: approved' docs/v0.12/REVIEWS/PROTOCOL.md",
+      "notes": "Attack list in agents/critic.md §Raid. If findings are blocker/major, write `verdict: revise` with numbered findings and end with result BLOCKED so the loop re-dispatches V12-02 with your findings in its Notes; otherwise `verdict: approved`."
+    },
+    {
+      "id": "V12-04",
+      "title": "Core raid rules: RAID_PARAMETERS, RAID_BOSSES, RAID_CATALOG, engine.raidAttack, heroicAttack, raidReward action, shared wire types",
+      "owner": "Balance",
+      "stage": "A",
+      "dependencies": ["V12-01"],
+      "files": ["src/core/raid.ts", "src/core/engine.ts", "src/core/equipment.ts", "src/core/battle.ts", "src/core/collection.ts", "src/core/index.ts", "src/shared/api.ts",
+        "tests/raidCore.test.ts", "tests/engine.test.ts", "tests/collection.test.ts", "tests/equipmentSprites.test.ts"],
+      "ac": "npx vitest run tests/raidCore.test.ts tests/engine.test.ts tests/collection.test.ts tests/equipmentSprites.test.ts tests/save.test.ts",
+      "notes": "Plan §1.2 (frozen numeric literal RAID_PARAMETERS — plain literals only, the verifier parses the AST), §2.4, §2.2 types. RAID_CATALOG stays OUT of EQUIPMENT_CATALOG (224 pin). Do not touch the renderer or the server."
+    },
+    {
+      "id": "V12-05a", "title": "Raid boss art: water (Codex, two variants then refinement rounds)", "owner": "Codex", "stage": "A", "art": "boss", "element": "water",
+      "dependencies": ["V12-01"], "files": ["src/renderer/sprites/raidBoss/water.ts", "tests/raidBosses.test.ts"],
+      "ac": "npx vitest run tests/raidBosses.test.ts tests/sprites.test.ts"
+    },
+    {
+      "id": "V12-05b", "title": "Raid boss art: wind (Codex)", "owner": "Codex", "stage": "A", "art": "boss", "element": "wind",
+      "dependencies": ["V12-05a"], "files": ["src/renderer/sprites/raidBoss/wind.ts", "tests/raidBosses.test.ts"],
+      "ac": "npx vitest run tests/raidBosses.test.ts tests/sprites.test.ts"
+    },
+    {
+      "id": "V12-05c", "title": "Raid boss art: dark (Codex)", "owner": "Codex", "stage": "A", "art": "boss", "element": "dark",
+      "dependencies": ["V12-05a"], "files": ["src/renderer/sprites/raidBoss/dark.ts"],
+      "ac": "npx vitest run tests/raidBosses.test.ts tests/sprites.test.ts"
+    },
+    {
+      "id": "V12-05d", "title": "Raid boss art: earth (Codex)", "owner": "Codex", "stage": "A", "art": "boss", "element": "earth",
+      "dependencies": ["V12-05a"], "files": ["src/renderer/sprites/raidBoss/earth.ts"],
+      "ac": "npx vitest run tests/raidBosses.test.ts tests/sprites.test.ts"
+    },
+    {
+      "id": "V12-05e", "title": "Raid boss art: fire (Codex)", "owner": "Codex", "stage": "A", "art": "boss", "element": "fire",
+      "dependencies": ["V12-05a"], "files": ["src/renderer/sprites/raidBoss/fire.ts"],
+      "ac": "npx vitest run tests/raidBosses.test.ts tests/sprites.test.ts"
+    },
+    {
+      "id": "V12-06", "title": "Raid item art: 10 epic icons with raid provenance (Codex)", "owner": "Codex", "stage": "A", "art": "items",
+      "dependencies": ["V12-04"], "files": ["src/renderer/sprites/raidEquipment.ts", "src/renderer/sprites/equipment.ts", "src/renderer/sprites/epicEquipment.ts", "tests/raidEquipment.test.ts"],
+      "ac": "npx vitest run tests/raidEquipment.test.ts tests/equipmentSprites.test.ts tests/sprites.test.ts"
+    },
+    {
+      "id": "V12-07a", "title": "In-game raid screen: raidScene draw module, boss registry, pixel 참여 button (Codex)", "owner": "Codex", "stage": "A", "art": "scene",
+      "dependencies": ["V12-04", "V12-05b", "V12-05c", "V12-05d", "V12-05e", "V12-06"],
+      "files": ["src/renderer/raidScene.ts", "src/renderer/sprites/raidBosses.ts", "src/renderer/sprites/index.ts", "src/renderer/hud.ts", "static/style.css", "static/index.html",
+        "tests/raidScene.test.ts", "tests/hud-v09.test.ts", "tests/window.test.ts"],
+      "ac": "npx vitest run tests/raidScene.test.ts tests/sprites.test.ts tests/window.test.ts tests/hud-v09.test.ts tests/hudV11.test.ts"
+    },
+    {
+      "id": "V12-07b", "title": "Raid menu tab view + pixel popup component (Codex)", "owner": "Codex", "stage": "A", "art": "menu",
+      "dependencies": ["V12-04", "V12-05b", "V12-05c", "V12-05d", "V12-05e", "V12-06"],
+      "files": ["src/menu/raid.ts", "src/menu/popup.ts", "static/menu.html", "static/menu.css", "tests/menuRaid.test.ts", "tests/menuPopup.test.ts"],
+      "ac": "npx vitest run tests/menuRaid.test.ts tests/menuPopup.test.ts tests/menu.test.ts"
+    },
+    {
+      "id": "V12-08", "title": "Preview gate: expected screens rendered, vision-critiqued and APPROVED BY THE USER (stage A ends here)", "owner": "Host", "stage": "A", "human": true,
+      "dependencies": ["V12-07a", "V12-07b", "V12-03"],
+      "files": ["docs/v0.12/RAID_ART.md", "docs/v0.12/raid-preview.html"],
+      "ac": "node .harness/v12/raid-preview.mjs verify {runDir}/preview/final.json",
+      "artifacts": ["{runDir}/preview/final.json"]
+    },
+    {
+      "id": "V12-09", "title": "Server: raid document, lazy phases, routes outside the players lock, attack validation, raids table", "owner": "Host", "stage": "B",
+      "dependencies": ["V12-08", "V12-04"],
+      "files": ["src/server/raid.ts", "src/server/app.ts", "src/server/store.ts", "src/server/pgStore.ts", "src/server/probe.ts", "tests/server/raid.test.ts", "tests/server/pgStore.test.ts", "tests/server/pgTransaction.test.ts", "tests/deploy.test.ts"],
+      "ac": "npx vitest run tests/server tests/deploy.test.ts",
+      "notes": "Plan §2. Injected clock only; no timers in app.ts; raid routes bypass store.transaction; RAID_RATE_LIMIT budget; flush ponytail comment; update the pgStore CREATE TABLE pin 1→2."
+    },
+    {
+      "id": "V12-10", "title": "Client: net methods, raid watcher, IPC/preload, claim exactly-once, remove native popups", "owner": "Host", "stage": "B",
+      "dependencies": ["V12-09"],
+      "files": ["src/main/net.ts", "src/main/raid.ts", "src/main/coordinator.ts", "src/main/recovery.ts", "src/main/ipc.ts", "src/main/index.ts", "src/main/thefts.ts", "src/main/share.ts",
+        "src/shared/ipc.ts", "src/preload/index.ts", "src/renderer/global.d.ts", "src/menu/index.ts",
+        "tests/raidWatcher.test.ts", "tests/ipc.test.ts", "tests/net.test.ts", "tests/recoveryRaid.test.ts", "tests/thefts.test.ts", "tests/recoveryV10.test.ts", "tests/coordinator.test.ts"],
+      "ac": "npx vitest run tests/raidWatcher.test.ts tests/ipc.test.ts tests/net.test.ts tests/recoveryRaid.test.ts tests/thefts.test.ts && ! grep -rn 'showMessageBox\\|new Notification' src/main",
+      "notes": "Plan §3 and §5.2: IPC.CONFIRM replaces the three dialog.showMessageBox sites; theft Notification becomes an in-game toast + one menu popup; only share.ts's OS save dialog stays. src/menu/index.ts here = MenuBridge + CONFIRM handling only; the raid tab wiring is V12-12."
+    },
+    {
+      "id": "V12-11", "title": "Renderer integration: raid slot in game.ts, attack/update/draw branches, #raid-status wiring", "owner": "Designer", "stage": "B",
+      "dependencies": ["V12-10"],
+      "files": ["src/renderer/game.ts", "src/renderer/index.ts", "src/renderer/raidScene.ts", "tests/renderer-raid.test.ts", "tests/renderer.test.ts", "tests/hudV11.test.ts", "tests/replayV91.test.ts"],
+      "ac": "npx vitest run tests/renderer-raid.test.ts tests/renderer.test.ts tests/hudV11.test.ts tests/replayV91.test.ts tests/raidScene.test.ts",
+      "notes": "Plan §4.2–4.3. Field monster/XP untouched during a raid; PvP replay queue preserved; countdown text uses the server `now` offset."
+    },
+    {
+      "id": "V12-12", "title": "Menu wiring: raid tab activation, live state, popup routing", "owner": "Host", "stage": "B",
+      "dependencies": ["V12-10"],
+      "files": ["src/menu/index.ts", "src/menu/raid.ts", "src/menu/popup.ts", "tests/menu.test.ts", "tests/menuRaid.test.ts", "tests/menuV9.test.ts"],
+      "ac": "npx vitest run tests/menu.test.ts tests/menuRaid.test.ts tests/menuPopup.test.ts tests/menuV9.test.ts"
+    },
+    {
+      "id": "V12-13", "title": "Raid balance: simulate registered lobbies, explore three candidates, select, run held-out once, write BALANCE_REPORT", "owner": "Balance", "stage": "B",
+      "dependencies": ["V12-09", "V12-03"],
+      "files": [".harness/v12/raid-balance.mjs", ".harness/v12/raid-balance.test.mjs", "src/core/raid.ts", "docs/v0.12/BALANCE_CANDIDATE.json", "docs/v0.12/BALANCE_REPORT.md", "tests/raidCore.test.ts"],
+      "ac": "node .harness/v12/raid-balance.mjs select {runDir}/raid-balance && node --test .harness/v12/raid-balance.test.mjs",
+      "artifacts": ["{runDir}/raid-balance/final.json"],
+      "notes": "Candidates run on isolated compiled copies of src/core (v11 balance.mjs compile pattern); production RAID_PARAMETERS changes only to the registered winner, as plain literals."
+    },
+    {
+      "id": "V12-14", "title": "Independent raid balance verifier (Critic)", "owner": "Critic", "stage": "B",
+      "dependencies": ["V12-13"],
+      "files": [".harness/v12/raid-balance-verify.mjs", ".harness/v12/raid-balance-verify.test.mjs", "docs/v0.12/REVIEWS/BALANCE.md"],
+      "ac": "node .harness/v12/raid-balance-verify.mjs {runDir}/raid-balance/final.json && node --test .harness/v12/raid-balance-verify.test.mjs",
+      "notes": "Export `verifyRaidBalance(path)` returning {passed:true,...}; AST-parse RAID_PARAMETERS; recompute bossHp/rewards with your own formula; re-run held-out seeds; refuse consumed seed ranges. Never trust report.pass."
+    },
+    {
+      "id": "V12-15", "title": "Native scenarios: v11 five + raid-hud-states + raid-battle, latency families raid-click/raid-confirm", "owner": "Host", "stage": "B",
+      "dependencies": ["V12-11", "V12-12"],
+      "files": [".harness/v12/ui-cases.mjs", ".harness/v12/runtime.mjs", ".harness/v12/runtime.test.mjs", ".harness/v12/fixtures"],
+      "ac": "node .harness/v12/runtime.mjs verify {runDir}/native/final.json",
+      "artifacts": ["{runDir}/native/final.json"],
+      "notes": "Needs `npm run package` first (runtime.mjs runs the packaged app); run `npm run package` first in the worktree (packaged app under release/ is what runtime.mjs drives). DESMON_SKIP_NET fixture server pushes RAID_STATE; real sendInputEvent clicks only."
+    },
+    {
+      "id": "V12-16", "title": "Deploy: Postgres rotation, push v3, render deploy, healthz + probe, AGENTS.md/SPEC/README", "owner": "Host", "stage": "B", "push": true,
+      "dependencies": ["V12-09", "V12-14"],
+      "files": ["AGENTS.md", "SPEC.md", "README.md", "src/server/probe.ts"],
+      "ac": "node .harness/v12/final-check.mjs deploy {runDir}",
+      "artifacts": ["{runDir}/deploy.json"],
+      "notes": "Plan §9. Write {runDir}/deploy.json {sha, url, healthz:{ok,sha}, probe, db:{id,created,expires}, at}. Rotate the DB only while the live raid phase is gathering/skipped."
+    },
+    {
+      "id": "V12-17", "title": "Independent scope reviews (Critic; Host reviews the verification scope)", "owner": "Critic", "stage": "B",
+      "dependencies": ["V12-14", "V12-15", "V12-16"],
+      "files": ["docs/v0.12/REVIEWS"],
+      "ac": "node .harness/v12/final-check.mjs reviews {runDir}",
+      "artifacts": ["{runDir}/reviews/final.json"]
+    },
+    {
+      "id": "V12-18", "title": "Release: performance comparison, smoke, mac + windows packages, ACCEPTANCE/HANDOFF/README", "owner": "Host", "stage": "B",
+      "dependencies": ["V12-17"],
+      "files": ["docs/v0.12/ACCEPTANCE.md", "docs/v0.12/HANDOFF.md", "README.md"],
+      "ac": "node .harness/v12/final-check.mjs final {runDir}",
+      "artifacts": ["{runDir}/performance/comparison.json", "{runDir}/release.json"]
+    }
+  ]
+}
