@@ -1,5 +1,6 @@
 // Equipment is authored as pixel geometry. Tier changes the working part and
 // rarity changes its guard/mount: no numbered pixels or recolour-only variants.
+import { RAID_CATALOG } from '../../core/raid.js';
 import { EQUIPMENT_CATALOG, equipmentTemplate, RARITY_COLORS } from '../../core/equipment.js';
 import type { EquipmentItem, EquipmentRarity, EquipmentTemplate, WeaponType } from '../../core/equipment.js';
 import { drawSprite, registerSprites } from './sprite.js';
@@ -130,6 +131,15 @@ for (const template of EQUIPMENT_CATALOG) {
   icons.set(template.id, { w: 16, h: 16,
     palette: { e: '#140c1c', m: metals[rank]!, w: '#f0eee5', a: accents[rank]!, j: ITEM_RARITY_COLORS[template.rarity] },
     frames: [cells.map(row => row.join(''))] });
+}
+// Temporary raid item art: reuse matching existing epic icons until the ten
+// dedicated raid designs are approved. Provenance and rewards already use real IDs.
+for (const template of RAID_CATALOG) {
+  const source = EQUIPMENT_CATALOG.find(candidate => candidate.rarity === 'epic' && candidate.kind === template.kind
+    && candidate.weaponType === template.weaponType && candidate.accessoryType === template.accessoryType
+    && candidate.tier === template.tier);
+  const sprite = source && icons.get(source.id);
+  if (sprite) icons.set(template.id, sprite);
 }
 registerSprites(Object.fromEntries([...icons].map(([id, sprite]) => [`equipment.${id}.icon`, sprite])));
 

@@ -7,9 +7,12 @@ export const BOSSES = [boss('raid-water', '심해의 군주 틸라칸', 'water')
 const conditions = (have = [1, 0], mine = [false, false], qualified = [true, false]) => [
   { id: 'level', kind: 'level', min: 30, need: 3, have: have[0], mine: mine[0], qualified: qualified[0] },
   { id: 'bestIndex', kind: 'bestIndex', min: 60, need: 3, have: have[1], mine: mine[1], qualified: qualified[1] }];
-const me = (over = {}) => ({ unlocker: false, joined: false, confirmed: false, damage: '0', seq: 0, claimed: false, ...over });
+const me = (over = {}) => ({ playerId: 'p3', unlocker: false, joined: false, confirmed: false, damage: '0', seq: 0, claimed: false, ...over });
 const base = (phase, over = {}) => ({ raidId: 'r7', cycle: 7, boss: BOSSES[2], phase, gatherDeadline: NOW + 20 * H,
-  conditions: conditions(), capacity: 20, joined: 0, openToAll: false, confirmed: 0, me: me(), ...over });
+  conditions: conditions(), capacity: 20, joined: 0, openToAll: false, confirmed: 0,
+  participants: Array.from({ length: over.confirmed ?? 0 }, (_, i) => ({ playerId: `p${i}`, name: `player${i}`,
+    formId: `h${String(i).padStart(2, '0')}`, level: 30 + i, damage: i === 3 ? over.me?.damage ?? '0' : '0' })),
+  me: me(), ...over });
 export const VIEWS = {
   gathering: { now: NOW, raid: base('gathering') },
   gatheringQualified: { now: NOW, raid: base('gathering', { conditions: conditions([2, 1], [false, false], [true, true]) }) },
@@ -30,7 +33,7 @@ export const VIEWS = {
     confirmUntil: NOW - 110_000, battleEnd: NOW - 30_000, claimUntil: NOW + 7 * 24 * H, joined: 12, confirmed: 8,
     battle: { bossHp: '1840000', hpLeft: '0', elapsedMs: 98_000, killed: true, top: [{ name: 'Bongo_Knight', damage: '610400' }, { name: 'mojo', damage: '404000' }] },
     me: me({ unlocker: true, joined: true, confirmed: true, damage: '404000', seq: 98, rank: 2, claimed: true,
-      reward: { raidId: 'r7', rank: 2, of: 8, xpLevels: 3, goldKills: 500, itemTemplateId: 'raid-dark-weapon' } }) }) },
+      reward: { raidId: 'r7', rank: 2, of: 8, xpLevels: 3, goldKills: 500, level: 33, bestIndex: 60, rewardBps: 10000, itemTemplateId: 'raid-dark-weapon' } }) }) },
 };
 /** RaidStateView for the in-game scene (plan §4.1). */
 export const SCENE = {

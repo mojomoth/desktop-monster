@@ -42,9 +42,11 @@ describe('PgStore DDL is idempotent and int8-free (F46, §4)', () => {
     );
   });
 
-  it('has no matches table and no other CREATE TABLE', () => {
+  it('adds only the raid documents table beside players, with no matches table', () => {
     expect(pgStore).not.toContain('CREATE TABLE IF NOT EXISTS matches');
-    expect(pgStore.match(/CREATE TABLE/g)).toHaveLength(1);
+    expect(pgStore.match(/CREATE TABLE/g)).toHaveLength(2);
+    expect(pgStore).toContain('CREATE TABLE IF NOT EXISTS raids');
+    expect(pgStore).toContain('ON CONFLICT (id) DO UPDATE SET doc = EXCLUDED.doc');
   });
 
   it('thefts column is added idempotently', () => {

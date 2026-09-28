@@ -1,4 +1,5 @@
 // v0.10 equipment. Pure domain code; every item has one physical owner location.
+import { RAID_CATALOG } from './raid.js';
 import type { GameState, GameEvent } from './types.js';
 import type { HeroRoll } from './hero.js';
 import { heroAttackPower, isHeroRoll } from './hero.js';
@@ -19,7 +20,7 @@ export interface EquipmentTemplate {
   /** Weapon attack percent, or the accessory's additive attack basis points. */
   attack: number; allowedJobs: readonly number[];
   bonus: 'critical' | 'party'; bonusBps: number;
-  price: string; enhanceBase: string; epicBossId?: string;
+  price: string; enhanceBase: string; epicBossId?: string; raidBossId?: string;
 }
 export interface EquipmentItem {
   id: string; templateId: string; enhancement: string; roll: number; seed: number; attempts: string;
@@ -118,7 +119,7 @@ export const EQUIPMENT_CATALOG: readonly EquipmentTemplate[] = Object.freeze([
       }))))),
 ]);
 const CATALOG = new Map(EQUIPMENT_CATALOG.map(item => [item.id, item]));
-export const equipmentTemplate = (id: string): EquipmentTemplate | undefined => CATALOG.get(id);
+export const equipmentTemplate = (id: string): EquipmentTemplate | undefined => CATALOG.get(id) ?? RAID_CATALOG.find(item => item.id === id);
 export const equipmentName = (item: EquipmentItem): string => `${equipmentTemplate(item.templateId)?.name ?? item.templateId} +${item.enhancement}`;
 export const epicLootForBoss = (id: string): readonly EquipmentTemplate[] => EQUIPMENT_CATALOG.filter(item => item.epicBossId === id);
 const decimal = (value: unknown): value is string => typeof value === 'string' && /^(0|[1-9]\d*)$/.test(value);
@@ -127,7 +128,7 @@ export function isEquipmentItem(value: unknown): value is EquipmentItem {
   if (!value || typeof value !== 'object') return false;
   const item = value as Partial<EquipmentItem>;
   return typeof item.id === 'string' && /^e[1-9]\d*$/.test(item.id) && Number.isSafeInteger(Number(item.id.slice(1))) && typeof item.templateId === 'string' &&
-    CATALOG.has(item.templateId) && decimal(item.enhancement) && decimal(item.attempts) &&
+    equipmentTemplate(item.templateId) !== undefined && decimal(item.enhancement) && decimal(item.attempts) &&
     safe(item.roll) && item.roll >= 90 && item.roll <= 110 && safe(item.seed) && item.seed <= 0xffffffff;
 }
 const copyItems = (items: EquipmentItem[]): EquipmentItem[] => items.map(item => ({ ...item }));
@@ -204,7 +205,7 @@ export function parseEquipment(raw: unknown): EquipmentState {
     nextId: Math.max(safe(value.nextId) ? value.nextId : 1,
       ...[...seen, ...stock.map(item => item.id)].map(id => Number(id.slice(1)) + 1).filter(Number.isSafeInteger)),
     rngState: safe(value.rngState) ? value.rngState >>> 0 : base.rngState,
-    acquired: Object.fromEntries(Object.entries(value.acquired ?? {}).filter(([id, count]) => CATALOG.has(id) && safe(count))),
+    acquired: Object.fromEntries(Object.entries(value.acquired ?? {}).filter(([id, count]) => equipmentTemplate(id) !== undefined && safe(count))),
     shop: { serial: safe(shop?.serial) ? shop.serial : 0,
       nextRefreshAt: safe(shop?.nextRefreshAt) ? shop.nextRefreshAt : 0,
       lastObservedAt: safe(shop?.lastObservedAt) ? shop.lastObservedAt : 0,
@@ -217,7 +218,7 @@ const nextRandom = (state: EquipmentState): number => {
   return rng.next();
 };
 export function createEquipmentItem(state: EquipmentState, templateId: string): EquipmentItem {
-  if (!CATALOG.has(templateId) || !Number.isSafeInteger(state.nextId) || state.nextId < 1 || state.nextId >= Number.MAX_SAFE_INTEGER) {
+  if (!equipmentTemplate(templateId) || !Number.isSafeInteger(state.nextId) || state.nextId < 1 || state.nextId >= Number.MAX_SAFE_INTEGER) {
     throw new RangeError('Equipment allocator or template is invalid');
   }
   return { id: `e${state.nextId++}`, templateId, enhancement: '0', roll: 90 + Math.floor(nextRandom(state) * 21),

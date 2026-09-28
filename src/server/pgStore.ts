@@ -1,3 +1,4 @@
+import type { RaidDocument } from './raid.js';
 // T41 — Postgres backend for Store (SPEC F46, SERVER_ARCHITECTURE §4). Only
 // reached in production: `npm test` uses MemoryStore and never loads `pg`.
 // node-postgres returns int8/count as strings, so nothing here is int8:
@@ -12,6 +13,9 @@ import type { PlayerRow, ScoreKey, Store } from './store.js';
 import { metricValue } from './store.js';
 
 const DDL = `
+CREATE TABLE IF NOT EXISTS raids (
+  id text PRIMARY KEY, doc jsonb NOT NULL, updated_at timestamptz NOT NULL DEFAULT now()
+);
 CREATE TABLE IF NOT EXISTS players (
   id uuid PRIMARY KEY,
   token_hash text NOT NULL UNIQUE,
@@ -135,6 +139,15 @@ export class PgStore implements Store {
     const pool = new Pool({ connectionString, ssl });
     await pool.query(DDL);
     return new PgStore(pool);
+  }
+
+  async getRaid(id: string): Promise<RaidDocument | null> {
+    const result = await this.pool.query('SELECT doc FROM raids WHERE id = $1', [id]);
+    return (result.rows[0]?.['doc'] as RaidDocument | undefined) ?? null;
+  }
+
+  async putRaid(id: string, doc: RaidDocument): Promise<void> {
+    await this.pool.query('INSERT INTO raids (id, doc) VALUES ($1, $2::jsonb) ON CONFLICT (id) DO UPDATE SET doc = EXCLUDED.doc, updated_at = now()', [id, JSON.stringify(doc)]);
   }
 
   async createPlayer(p: { id: string; tokenHash: string; name: string }): Promise<void> {

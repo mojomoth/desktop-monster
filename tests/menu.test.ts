@@ -11,6 +11,7 @@ afterEach(() => { vi.restoreAllMocks(); });
 import { DEFAULT_SAVE, parseSave, createEngine, mulberry32, HERO_MIN_LEVEL, fieldCompanionPower, companionPower, format } from '../src/core/index.js';
 import type { CollectionAction, SaveFile } from '../src/core/index.js';
 import type {
+  RaidLiveResponse,
   Companion,
   IdentityPayload,
   LeaderboardResult,
@@ -119,7 +120,7 @@ class FakeDoc implements MenuDocument {
   private readonly byId = new Map<string, FakeEl>();
 
   constructor(v4 = false) {
-    for (const id of ['tab-roster', 'tab-ranking', 'tab-battle'].concat(v4 ? ['tab-hero', 'hero', 'opponents',
+    for (const id of ['tab-roster', 'tab-ranking', 'tab-battle'].concat(v4 ? ['tab-hero', 'hero', 'opponents', 'tab-raid', 'raid', 'popup-host',
       'save-status', 'tab-shop', 'shop', 'tab-codex', 'codex', 'tab-profile', 'profile', 'profile-stats', 'name-status', 'save-name',
       'game-content', 'save-recovery', 'recovery-title', 'recovery-description', 'recovery-status', 'open-save-folder', 'recovery-quit', 'welcome', 'connect-input',
       'skip-welcome', 'input-permission', 'input-status', 'welcome-status', 'settings-status', 'mute-toggle', 'shake-toggle'] : []).concat([
@@ -1503,3 +1504,101 @@ describe('v0.8 menu setup and persistent save status', () => {
 });
 
 function newProgress(...args: Parameters<typeof newCoreProgress>) { return saveProgress(newCoreProgress(...args)); }
+
+describe('raid bridge integration', () => {
+  const raid = (phase: 'countdown' | 'confirming' | 'settled' = 'countdown'): RaidLiveResponse => ({ now: 1000,
+    raid: { raidId: 'r7', cycle: 7, boss: { id: 'raid-dark', name: '공허의 눈 노크튀르', element: 'dark' }, phase,
+      gatherDeadline: 0, battleAt: 100_000, confirmUntil: 91_000, capacity: 50, joined: 32, confirmed: 0, openToAll: true,
+      conditions: [], participants: [], me: { playerId: 'p1', unlocker: false, joined: phase !== 'countdown', confirmed: phase === 'settled', damage: '0', seq: 0, claimed: false } } });
+  it('counts down between server polls without remounting controls', () => {
+    vi.useFakeTimers(); vi.setSystemTime(0);
+    try {
+      const doc = new FakeDoc(true), fake = makeBridge(); let publish: (view: RaidLiveResponse | null) => void = () => undefined;
+      fake.bridge.onRaidState = cb => { publish = cb; return () => undefined; };
+      mountMenu(doc, fake.bridge); publish(raid()); doc.el('tab-raid').click();
+      const button = doc.el('raid').find('raid-action')[0]!;
+      expect(doc.el('raid').find('raid-countdown')[0]?.textContent).toBe('레이드 시작까지 00:01:39');
+      vi.advanceTimersByTime(2000);
+      expect(doc.el('raid').find('raid-countdown')[0]?.textContent).toBe('레이드 시작까지 00:01:37');
+      expect(doc.el('raid').find('raid-action')[0]).toBe(button);
+    } finally { vi.useRealTimers(); }
+  });
+  it('locks duplicate requests, displays failures, retries, and preserves state on connection loss', async () => {
+    const doc = new FakeDoc(true), fake = makeBridge();
+    let publish: (view: RaidLiveResponse | null) => void = () => undefined;
+    let connection: (online: boolean) => void = () => undefined;
+    fake.bridge.onRaidState = cb => { publish = cb; return () => undefined; };
+    fake.bridge.onRaidConnection = cb => { connection = cb; return () => undefined; };
+    let settle: (result: NetResult<RaidLiveResponse>) => void = () => undefined;
+    const send = vi.fn(() => new Promise<NetResult<RaidLiveResponse>>(resolve => { settle = resolve; })); fake.bridge.raidAction = send;
+    mountMenu(doc, fake.bridge); publish(raid()); connection(true); doc.el('tab-raid').click();
+    expect(doc.el('raid').hidden).toBe(false);
+    const button = doc.el('raid').find('raid-action')[0]!;
+    button.click(); button.click(); expect(send).toHaveBeenCalledTimes(1); expect(button.textContent).toBe('요청 중…');
+    settle({ ok: false, error: 'network' }); await Promise.resolve(); await Promise.resolve();
+    expect(doc.el('raid').find('raid-inline-feedback')[0]?.textContent).toContain('완료하지 못했습니다');
+    button.click(); expect(send).toHaveBeenCalledTimes(2);
+    const joined = raid(); joined.raid.me.joined = true; settle({ ok: true, value: joined }); await Promise.resolve(); await Promise.resolve();
+    expect(button.textContent).toBe('참여 완료'); connection(false); button.click(); expect(send).toHaveBeenCalledTimes(2);
+    expect(doc.el('raid').find('raid-connection')[0]?.textContent).toContain('마지막 상태');
+  });
+  it('repeated confirming pushes never dispatch or reopen the popup after dismissal, and manual retry confirms once', async () => {
+    const doc = new FakeDoc(true), fake = makeBridge(); let publish: (view: RaidLiveResponse | null) => void = () => undefined;
+    let connection: (online: boolean) => void = () => undefined;
+    fake.bridge.onRaidState = cb => { publish = cb; return () => undefined; };
+    fake.bridge.onRaidConnection = cb => { connection = cb; return () => undefined; };
+    const confirmed = raid('confirming'); confirmed.raid.me.confirmed = true;
+    const send = vi.fn(async () => ({ ok: true as const, value: confirmed })); fake.bridge.raidAction = send;
+    mountMenu(doc, fake.bridge); connection(true); publish(raid('confirming'));
+    const first = doc.el('popup-host').children[0]!;
+    publish(raid('confirming')); expect(doc.el('popup-host').children).toEqual([first]); expect(send).not.toHaveBeenCalled();
+    first.find('btn')[0]!.click(); await Promise.resolve(); publish(raid('confirming'));
+    expect(doc.el('popup-host').children).toHaveLength(0);
+    doc.el('raid').find('raid-action')[0]!.click(); doc.el('raid').find('raid-action')[0]!.click();
+    expect(doc.el('popup-host').children).toHaveLength(1);
+    doc.el('popup-host').find('popup-primary')[0]!.click(); await Promise.resolve(); await Promise.resolve();
+    expect(send).toHaveBeenCalledExactlyOnceWith({ type: 'confirm' }); expect(doc.el('popup-host').children).toHaveLength(0);
+  });
+  it('opens a result only after its local receipt and deduplicates repeated native replacement requests', async () => {
+    const doc = new FakeDoc(true), fake = makeBridge(); let publish: (view: RaidLiveResponse | null) => void = () => undefined;
+    let confirmation: (request: { id: string; spec: import('../src/menu/popup.js').PopupSpec }) => void = () => undefined;
+    fake.bridge.onRaidState = cb => { publish = cb; return () => undefined; };
+    fake.bridge.onConfirm = cb => { confirmation = cb; return () => undefined; };
+    fake.bridge.confirmResponse = vi.fn(); mountMenu(doc, fake.bridge);
+    const settled = raid('settled'); settled.raid.me.claimed = true;
+    settled.raid.me.reward = { raidId: 'r7', rank: 2, of: 32, level: 33, bestIndex: 60, xpLevels: 3, goldKills: 500, rewardBps: 10000 };
+    publish(settled); expect(doc.el('popup-host').children).toHaveLength(0);
+    fake.emit({ ...DEFAULT_SAVE, appliedRaidIds: ['r7'] }); expect(doc.el('popup-host').find('popup')).toHaveLength(1);
+    doc.el('popup-host').find('btn')[0]!.click(); publish(settled); expect(doc.el('popup-host').children).toHaveLength(0);
+    const request = { id: 'confirm-1', spec: { title: '장비 강화', body: '강화합니다.', buttons: [{ label: '취소', value: 'cancel' }] } };
+    confirmation(request); confirmation(request); doc.el('popup-host').find('btn')[0]!.click(); await Promise.resolve(); confirmation(request);
+    expect(fake.bridge.confirmResponse).toHaveBeenCalledExactlyOnceWith('confirm-1', 'cancel'); expect(doc.el('popup-host').children).toHaveLength(0);
+  });
+  it.each(['confirmed', 'battle', 'skipped', 'next-raid'] as const)('dismisses only the stale active or queued raid confirmation on %s', async change => {
+    for (const queued of [false, true]) {
+      const doc = new FakeDoc(true), fake = makeBridge();
+      let publish: (view: RaidLiveResponse | null) => void = () => undefined;
+      let connection: (online: boolean) => void = () => undefined;
+      let confirmation: (request: { id: string; spec: import('../src/menu/popup.js').PopupSpec }) => void = () => undefined;
+      fake.bridge.onRaidState = cb => { publish = cb; return () => undefined; };
+      fake.bridge.onRaidConnection = cb => { connection = cb; return () => undefined; };
+      fake.bridge.onConfirm = cb => { confirmation = cb; return () => undefined; };
+      fake.bridge.confirmResponse = vi.fn(); fake.bridge.raidAction = vi.fn();
+      mountMenu(doc, fake.bridge); connection(true);
+      const request = { id: 'native-1', spec: { title: '장비 강화', body: '강화합니다.', buttons: [{ label: '취소', value: 'cancel' }] } };
+      if (queued) confirmation(request);
+      publish(raid('confirming'));
+      if (!queued) confirmation(request);
+      const next = raid('confirming');
+      if (change === 'confirmed') next.raid.me.confirmed = true;
+      else if (change === 'next-raid') { next.raid.raidId = 'r8'; next.raid.phase = 'gathering'; }
+      else next.raid.phase = change;
+      publish(next); await Promise.resolve();
+      expect(doc.el('popup-host').find('popup-title')[0]?.textContent).toBe('장비 강화');
+      expect(fake.bridge.raidAction).not.toHaveBeenCalled();
+      doc.el('popup-host').find('btn')[0]!.click(); await Promise.resolve();
+      expect(fake.bridge.confirmResponse).toHaveBeenCalledExactlyOnceWith('native-1', 'cancel');
+      expect(doc.el('popup-host').children).toHaveLength(0);
+    }
+  });
+});

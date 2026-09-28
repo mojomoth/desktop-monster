@@ -37,13 +37,18 @@ export interface HeroicBattle extends Battle {
 }
 interface HeroicFighter { snapshot: HeroicBattleFighter; remaining: bigint; criticalBps: number }
 
+/** Same equipped hero attack used by the field, frozen at raid confirmation. */
+export function heroicAttack(hero: HeroCombatSnapshot): bigint {
+  return loadoutAttack(trainedHeroPower(heroAttackPower(hero.level, hero.souls, hero.reincarnations), hero.trainingLevel), hero.loadout);
+}
+
 /** Entry snapshots freeze passives. Equipment adds damage, never hero HP. */
 function heroicLine(party: readonly Companion[], hero: HeroCombatSnapshot): HeroicFighter[] {
   const base = trainedHeroPower(heroAttackPower(hero.level, hero.souls, hero.reincarnations), hero.trainingLevel);
   const type = heroForm(hero.hero.formId)?.type;
   const extraCrit = equipmentBonus(hero.loadout, 'critical');
   const commander: HeroicFighter = { snapshot: { id: '@hero', kind: 'hero', formId: hero.hero.formId,
-    hp: String(base * BATTLE_HP_MULT), attack: String(loadoutAttack(base, hero.loadout)), ...(type ? { type } : {}) },
+    hp: String(base * BATTLE_HP_MULT), attack: String(heroicAttack(hero)), ...(type ? { type } : {}) },
     remaining: base * BATTLE_HP_MULT, criticalBps: 1000 + Number(extraCrit > 4000n ? 4000n : extraCrit) };
   const teamBonus = 10000n + equipmentBonus(hero.loadout, 'party');
   return [commander, ...partyOrder(party).reverse().map(c => ({ snapshot: {

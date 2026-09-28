@@ -6,17 +6,15 @@ import { randomUUID } from 'node:crypto';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { app, Menu, nativeImage, Notification, systemPreferences, Tray } from 'electron';
+import { app, Menu, nativeImage, systemPreferences, Tray } from 'electron';
 import type { BrowserWindow } from 'electron';
-import type { Theft } from '../shared/api.js';
 import { SimulatedInputDriver } from '../core/index.js';
 import { IPC } from '../shared/ipc.js';
 import { getCurrentInputMode, onceGlobalInput, startGlobalInput } from './globalInput.js';
 import { readIdentity, writeIdentity } from './identity.js';
-import { getSaveStatus, flushProgressBeforeQuit, registerIpcHandlers, sendToAll, requestProgressReset } from './ipc.js';
+import { getSaveStatus, showTheftNotice, flushProgressBeforeQuit, registerIpcHandlers, sendToAll, requestProgressReset } from './ipc.js';
 import { initializeSteam } from './steam.js';
 import { showMenuWindow } from './menuWindow.js';
-import type { NetSession } from './net.js';
 import { createTheftWatcher } from './thefts.js';
 import { createDefenseWatcher } from './defense.js';
 import { setupTray, type TrayController } from './tray.js';
@@ -53,42 +51,6 @@ function runSmokeSequence(win: BrowserWindow): void {
     process.stdout.write('SMOKE_OK\n');
     app.exit(0);
   }, SMOKE_EXIT_DELAY_MS);
-}
-
-/** Whole hours left in a theft's 24 h reclaim window, never negative. */
-const hoursLeft = (reclaimUntil: number): number =>
-  Math.max(0, Math.ceil((reclaimUntil - Date.now()) / 3_600_000));
-
-/**
- * SPEC F74: the ONE main-originated action. The server re-ids the companion,
- * so the game window adds it as-is, flushes the save, and STATE_CHANGED
- * carries it on to the menu. A failed reclaim is silent — the inbox in the
- * menu is the place that explains why.
- */
-function reclaimAndApply(session: NetSession, theftId: string): void { void session.reclaim(theftId); }
-
-/**
- * Native notification for one theft, click → reclaim. The whole body is
- * guarded: `Notification` is OS-owned and its failure must cost a toast, not
- * the app.
- */
-function makeNotifier(session: NetSession): (t: Theft) => void {
-  return (t) => {
-    try {
-      const species = t.companion.speciesId;
-      const speciesName = species.charAt(0).toUpperCase() + species.slice(1);
-      const n = new Notification({
-        title: 'DesMon',
-        body: `${t.thiefName}에게 ${speciesName} Lv ${String(t.companion.level)} 동료를 빼앗겼습니다. 눌러 회수하세요 · 회수 기한 ${String(hoursLeft(t.reclaimUntil))}시간 남음.`,
-      });
-      n.on('click', () => {
-        reclaimAndApply(session, t.id);
-      });
-      n.show();
-    } catch {
-      // an unusable notifier is not a reason to take the game down
-    }
-  };
 }
 
 // Accessory lifecycle order matters: setName first, single-instance gate,
@@ -177,12 +139,13 @@ if (!app.requestSingleInstanceLock()) {
     applyOverlayScale(win, preferences.gameScale);
     win.webContents.setAudioMuted(preferences.muted);
     smokeWin = win;
-    const openMenu = (guide = false): void => {
+    const openMenu = (guide = false): BrowserWindow | undefined => {
       if (guide && !changeSettings({ welcomeSeen: false }).ok) return;
       const menu = showMenuWindow();
       if (!preferences.welcomeSeen) menu.once('closed', () => {
         if (!preferences.welcomeSeen) changeSettings({ welcomeSeen: true });
       });
+      return menu;
     };
     runtime.tray = setupTray({
       title: `DesMon v${app.getVersion()}`,
@@ -200,7 +163,12 @@ if (!app.requestSingleInstanceLock()) {
         showWelcome: () => { openMenu(true); },
         openAccessibilitySettings: () => { openMenu(true); },
         openCollection: () => { openMenu(); },
-        resetProgress: () => { void requestProgressReset(); },
+        resetProgress: () => {
+          const menu = openMenu();
+          if (!menu) return;
+          if (menu.webContents.isLoading()) menu.webContents.once('did-finish-load', () => { void requestProgressReset(); });
+          else void requestProgressReset();
+        },
         quit: () => { app.quit(); },
       },
     });
@@ -210,12 +178,11 @@ if (!app.requestSingleInstanceLock()) {
       const defense = session.pollIncoming ? createDefenseWatcher({ poll: () => session.pollIncoming!(), setInterval, clearInterval }) : null;
       startDefense = () => defense?.start();
       // Theft watcher (SPEC F74): SMOKE never starts it, so a smoke run stays
-      // offline. No notification support → no watcher at all: there would be
-      // nothing to show, so there is nothing to poll for either.
-      const watcher = getSaveStatus().state !== 'load-error' && Notification.isSupported()
+      // offline. Game notices use the field toast and menu pixel popup.
+      const watcher = getSaveStatus().state !== 'load-error'
         ? createTheftWatcher({
             session,
-            notify: makeNotifier(session),
+            notify: showTheftNotice,
             setInterval,
             clearInterval,
             readIdentity: () => readIdentity(app.getPath('userData'), randomUUID),

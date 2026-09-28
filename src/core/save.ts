@@ -103,6 +103,7 @@ export interface SaveFileV4 extends Omit<SaveFileV3, 'version' | 'coins' | 'prog
   coins: string;
   progress?: SavedProgress;
   equipment?: EquipmentState;
+  appliedRaidIds?: string[];
   monsterEpicBossId?: string;
   monsterCurveVersion?: 10 | 11;
   monsterCurveRebirths?: number;
@@ -197,6 +198,7 @@ export function serializeSave(save: SaveInput): string {
     releasedCount: v3.releasedCount ?? 0,
     hero: parseHeroProgress(v3.hero),
     progress: v3.progress ? saveProgress(v3.progress) : undefined,
+    appliedRaidIds: v3.appliedRaidIds ? [...v3.appliedRaidIds] : undefined,
     equipment: v3.equipment ? copyEquipment(v3.equipment) : undefined,
     monsterEpicBossId: v3.monsterEpicBossId,
     monsterCurveVersion: v3.monsterCurveVersion,
@@ -324,6 +326,7 @@ export function parseSave(raw: unknown): SaveFileV4 {
     releasedCount: intField(record['releasedCount'], 0, 0),
     ...(hero ? { hero } : {}),
     ...(progress ? { progress: saveProgress(progress) } : {}),
+    ...(record['appliedRaidIds'] === undefined ? {} : { appliedRaidIds: Array.isArray(record['appliedRaidIds']) ? [...new Set(record['appliedRaidIds'].filter((id): id is string => typeof id === 'string' && /^r\d{1,16}$/.test(id)))] : [] }),
     ...(record['equipment'] === undefined ? {} : { equipment: parseEquipment(record['equipment']) }),
     ...(typeof record['monsterEpicBossId'] === 'string' ? { monsterEpicBossId: record['monsterEpicBossId'] } : {}),
     ...(record['monsterCurveVersion'] === 10 || record['monsterCurveVersion'] === 11 ? {

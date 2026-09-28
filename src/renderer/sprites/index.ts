@@ -61,3 +61,5 @@ export {
   textWidth,
 } from './font.js';
 export type { DrawTextOptions } from './font.js';
+
+export { drawRaidBoss, RAID_BOSS_SCALE, RAID_BOSS_SPRITES } from './raidBosses.js';

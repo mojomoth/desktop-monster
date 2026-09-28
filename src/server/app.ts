@@ -1,3 +1,5 @@
+import { createRaidService, RAID_RATE_LIMIT } from './raid.js';
+import type { RaidParameters } from '../core/raid.js';
 // T39 — the application handler (SPEC F44, SERVER_ARCHITECTURE §2–§4).
 // A trust boundary: every request is rate limited, authenticated and shape-
 // validated before it reaches the store, and handle() never throws — a store
@@ -43,6 +45,7 @@ import { currentGold, publicGold, raidGold, isDecimalGold, DEFENSE_COOLDOWN_MS, 
 import type { PlayerRow, Store } from './store.js';
 
 export interface AppDeps {
+  raidParameters?: RaidParameters;
   store: Store;
   /** Milliseconds since the epoch. Injected — tests use a counter. */
   now: () => number;
@@ -186,10 +189,11 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
   /** The theft records still inside their reclaim window. */
   const pending = (row: PlayerRow): Theft[] =>
     row.thefts.filter((t) => t.reclaimUntil >= deps.now());
+  const raids = createRaidService(deps.store, deps.now, deps.randomSeed, deps.raidParameters);
   const windows = new Map<string, { start: number; count: number }>();
 
   /** Fixed window per token hash (else per ip). Returns retryAfterSec when over. */
-  const overLimit = (req: ApiRequest): number | null => {
+  const overLimit = (req: ApiRequest, limit = RATE_LIMIT, prefix = ''): number | null => {
     const at = deps.now();
     if (windows.size > RATE_KEYS_MAX) {
       for (const [key, w] of windows) {
@@ -198,14 +202,14 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
         }
       }
     }
-    const key = req.auth === null ? `ip:${req.ip}` : sha256(req.auth);
+    const key = prefix + (req.auth === null ? `ip:${req.ip}` : sha256(req.auth));
     const window = windows.get(key);
     if (!window || at - window.start >= RATE_WINDOW_MS) {
       windows.set(key, { start: at, count: 1 });
       return null;
     }
     window.count += 1;
-    return window.count > RATE_LIMIT
+    return window.count > limit
       ? Math.ceil((RATE_WINDOW_MS - (at - window.start)) / 1000)
       : null;
   };
@@ -622,6 +626,12 @@ export function createApp(deps: AppDeps): { handle: ApiHandler } {
   return {
     handle: async (req) => {
       try {
+        if (req.path.startsWith('/v1/raid/')) {
+          const retryAfter = overLimit(req, RAID_RATE_LIMIT, 'raid:');
+          if (retryAfter !== null) return error(429, 'rate_limited', retryAfter);
+          const me = await caller(req, deps.store);
+          return me ? await raids.handle(req, me) : error(401, 'unauthorized');
+        }
         const retryAfterSec = overLimit(req);
         return retryAfterSec === null
           ? await deps.store.transaction((store) => route(req, store))

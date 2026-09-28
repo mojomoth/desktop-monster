@@ -64,6 +64,10 @@ import { heroPanel, heroCanvas } from './hero.js';
 import { mountCodex } from './codex.js';
 import { mountShop } from './economy.js';
 import { mountProfile } from './profile.js';
+import { mountRaid } from './raid.js';
+import { mountPopup, raidConfirmSpec, raidResultSpec } from './popup.js';
+import type { PopupSpec, PopupKeyEvent } from './popup.js';
+import type { RaidAction, RaidLiveResponse } from '../shared/api.js';
 import { NICK_RE } from '../shared/api.js';
 import type { GameSettings, SettingsResult, ConnectInputResult, InputModePayload, SaveStatus, ActionResultPayload } from '../shared/ipc.js';
 
@@ -73,12 +77,17 @@ export interface MenuElement {
   textContent: string | null;
   hidden: boolean;
   disabled?: boolean;
+  readonly isConnected?: boolean;
   /** The name field's text; absent on everything else. */
   value?: string;
   width?: number;
   height?: number;
   /** Native details disclosure state, preserved across live save updates. */
   open?: boolean;
+  showModal?(): void;
+  close?(): void;
+  onkeydown?: ((event: PopupKeyEvent) => void) | null;
+  oncancel?: ((event: { preventDefault(): void }) => void) | null;
   append(...children: unknown[]): void;
   replaceChildren(...children: unknown[]): void;
   addEventListener(type: 'click' | 'change', listener: () => void): void;
@@ -98,6 +107,15 @@ export interface MenuDocument {
 
 /** The slice of window.desmon this page needs (src/renderer/global.d.ts). */
 export interface MenuBridge {
+  getRaidState?(): Promise<RaidLiveResponse | null>;
+  onRaidState?(cb: (view: RaidLiveResponse | null) => void): () => void;
+  raidAction?(action: RaidAction): Promise<NetResult<RaidLiveResponse>>;
+  getRaidConnection?(): Promise<boolean>;
+  onRaidConnection?(cb: (connected: boolean) => void): () => void;
+  onOpenRaid?(cb: () => void): () => void;
+  onConfirm?(cb: (request: { id: string; spec: PopupSpec }) => void): () => void;
+  confirmResponse?(id: string, value: string): void;
+  onTheftNotice?(cb: (theft: Theft) => void): () => void;
   onPvpPlayback?(cb: (active: boolean) => void): () => void;
   reportMenuReady(): void;
   onSaveFailed?(cb: () => void): () => void;
@@ -127,7 +145,7 @@ export interface MenuBridge {
 }
 
 /** Tab ids — each is both the tab button (`#tab-<id>`) and its panel (`#<id>`). */
-const PANELS = ['hero', 'codex', 'roster', 'inventory', 'shop', 'battle', 'ranking', 'profile'] as const;
+const PANELS = ['hero', 'codex', 'roster', 'inventory', 'shop', 'battle', 'raid', 'ranking', 'profile'] as const;
 
 /**
  * Card art: species idle frame at the uniform 1x scale (2026-09-04) on a fixed
@@ -368,6 +386,94 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   for (const t of tabs) {
     t.tab?.addEventListener('click', () => activateTab(t.id));
   }
+
+  const raidRoot = doc.querySelector('#raid');
+  const popupHost = doc.querySelector('#popup-host');
+  const popup = popupHost ? mountPopup(doc, popupHost) : undefined;
+  let raidView: RaidLiveResponse | null = null;
+  let raidReceivedAt = 0;
+  let raidConnected = false;
+  let raidPending = false;
+  let raidError = '';
+  let confirmingPopup: { raidId: string; spec: PopupSpec } | undefined;
+  const promptedRaids = new Set<string>();
+  const shownResults = new Set<string>();
+  const applyRaidView = (view: RaidLiveResponse | null): void => {
+    if (view && raidView && view.now < raidView.now) return;
+    raidView = view;
+    raidReceivedAt = Date.now();
+    updateRaidUi();
+  };
+  const submitRaid = async (action: RaidAction): Promise<void> => {
+    if (raidPending || !raidConnected || !api.raidAction) return;
+    raidPending = true; raidError = ''; updateRaidUi();
+    try {
+      const response = await api.raidAction(action);
+      if (response.ok) { applyRaidView(response.value); raidError = ''; }
+      else raidError = response.error === 'raid-full' ? '정원이 마감되었습니다.'
+        : response.error === 'raid-phase' || response.error === 'expired' ? '참여 시간이 지났습니다. 현재 레이드 상태를 확인해 주세요.'
+          : '요청을 완료하지 못했습니다. 연결을 확인한 뒤 다시 시도해 주세요.';
+    } catch { raidError = '연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.'; }
+    finally { raidPending = false; updateRaidUi(); }
+  };
+  const confirmRaid = (): void => {
+    const view = raidView;
+    if (!popup || !view || view.raid.phase !== 'confirming' || !view.raid.me.joined || view.raid.me.confirmed || confirmingPopup) return;
+    const prompt = { raidId: view.raid.raidId, spec: raidConfirmSpec(view) };
+    confirmingPopup = prompt;
+    promptedRaids.add(view.raid.raidId);
+    void popup.open(prompt.spec).then(value => {
+      if (confirmingPopup === prompt) confirmingPopup = undefined;
+      if (value === 'confirm' && raidView?.raid.raidId === view.raid.raidId && raidView.raid.phase === 'confirming' && !raidView.raid.me.confirmed) void submitRaid({ type: 'confirm' });
+    });
+  };
+  const updateRaid = raidRoot ? mountRaid(doc, raidRoot, action => {
+    if (action.type === 'confirm') confirmRaid(); else void submitRaid(action);
+  }) : undefined;
+  const updateRaidUi = (): void => {
+    if (confirmingPopup && (raidView?.raid.raidId !== confirmingPopup.raidId || raidView.raid.phase !== 'confirming' || raidView.raid.me.confirmed)) {
+      const stale = confirmingPopup;
+      confirmingPopup = undefined;
+      popup?.dismiss(stale.spec);
+    }
+    updateRaid?.(raidView, (raidView?.now ?? 0) + Math.max(0, Date.now() - raidReceivedAt), { connected: raidConnected, pending: raidPending,
+      error: raidError, appliedRaidIds: save.appliedRaidIds });
+    if (!raidView || loadBlocked) return;
+    if (raidConnected && raidView.raid.phase === 'confirming' && !promptedRaids.has(raidView.raid.raidId)) confirmRaid();
+    for (const raid of [raidView.previous, raidView.raid]) {
+      if (!raid?.me.reward || !save.appliedRaidIds?.includes(raid.raidId) || shownResults.has(raid.raidId) || !popup) continue;
+      shownResults.add(raid.raidId);
+      const spec = raidResultSpec(raid.me.reward, true, raid.battle?.killed === true);
+      spec.boss = raid.boss;
+      void popup.open(spec);
+    }
+  };
+  let sawRaidPush = false;
+  let sawRaidConnection = false;
+  api.onRaidState?.(view => { sawRaidPush = true; applyRaidView(view); });
+  void api.getRaidState?.().then(view => { if (!sawRaidPush) applyRaidView(view); }, () => updateRaidUi());
+  api.onRaidConnection?.(connected => { sawRaidConnection = true; raidConnected = connected; updateRaidUi(); });
+  void api.getRaidConnection?.().then(connected => {
+    if (!sawRaidConnection) { raidConnected = connected; updateRaidUi(); }
+  }, () => updateRaidUi());
+  api.onOpenRaid?.(() => { activateTab('raid'); if (raidConnected) confirmRaid(); });
+  const pendingConfirmations = new Set<string>();
+  api.onConfirm?.(request => {
+    if (!popup || pendingConfirmations.has(request.id)) return;
+    pendingConfirmations.add(request.id);
+    void popup.open(request.spec).then(value => {
+      api.confirmResponse?.(request.id, value);
+    });
+  });
+  const theftNotices = new Set<string>();
+  api.onTheftNotice?.(theft => {
+    if (!popup || theftNotices.has(theft.id)) return;
+    theftNotices.add(theft.id);
+    void popup.open({ title: '동료를 되찾을 수 있어요', body: `${theft.thiefName}에게 동료를 빼앗겼습니다. 대전 탭에서 되찾기 시간을 확인하세요.`,
+      buttons: [{ label: '닫기', value: 'close' }, { label: '대전 보기', value: 'battle', primary: true }], cancelValue: 'close' })
+      .then(value => { if (value === 'battle') activateTab('battle'); });
+  });
+  updateRaidUi();
 
   const span = (className: string, text: string): MenuElement => {
     const e = doc.createElement('span');
@@ -1108,6 +1214,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
       : settingsBlocked ? '처음 시작할 설정을 저장하지 못했습니다. 저장 폴더 권한을 확인하고 앱을 다시 실행하세요.'
       : next.state === 'load-error' ? '저장 데이터를 읽지 못해 게임을 시작하지 않았습니다. 기존 파일은 그대로 두었습니다.' : '';
     render();
+    updateRaidUi();
   };
   let sawSaveStatus = false;
   api.onSaveStatus?.((next) => { sawSaveStatus = true; showSaveStatus(next); });
@@ -1150,6 +1257,7 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
   api.onStateChanged((raw) => {
     // Trust boundary: the payload is whatever main read off disk.
     save = parseSave(raw);
+    updateRaidUi();
     if (pending && !save.companions.some(companion => companion.id === pending?.id)) {
       pending = null;
       result.textContent = '선택한 동료가 없어져 선택을 취소했습니다.';
@@ -1173,7 +1281,10 @@ export function mountMenu(doc: MenuDocument, api: MenuBridge): void {
     render();
   });
 
-  setInterval(() => { if (!shopEl?.hidden && !loadBlocked) updateShop?.(save); }, 1000);
+  setInterval(() => {
+    if (!shopEl?.hidden && !loadBlocked) updateShop?.(save);
+    if (raidRoot && !raidRoot.hidden) updateRaidUi();
+  }, 1000);
   render();
   api.reportMenuReady();
 }

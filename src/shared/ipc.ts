@@ -6,6 +6,16 @@
 // tests/ipc.test.ts asserts the preload's literal copies stay in sync.
 
 export const IPC = {
+  RAID_STATE: 'desmon:raid-state',
+  GET_RAID_STATE: 'desmon:get-raid-state',
+  RAID_ACTION: 'desmon:raid-action',
+  RAID_DAMAGE: 'desmon:raid-damage',
+  RAID_CONNECTION: 'desmon:raid-connection',
+  GET_RAID_CONNECTION: 'desmon:get-raid-connection',
+  CONFIRM: 'desmon:confirm',
+  CONFIRM_RESPONSE: 'desmon:confirm-response',
+  THEFT_NOTICE: 'desmon:theft-notice',
+
   /** main → renderer (send): one global/simulated input event. */
   INPUT: 'desmon:input',
   /** main → renderer (send): input-mode change (global vs fallback). */
@@ -163,3 +173,7 @@ export interface MoveWindowPayload {
 export type MenuActionPayload = unknown;
 
 export interface ActionResultPayload { action: MenuActionPayload; ok: boolean; error?: string }
+
+export interface RaidDamagePayload { raidId: string; damage: string; crit: boolean; fever: boolean }
+export interface PopupSpec { title: string; body: string | string[]; buttons: { label: string; value: string; primary?: boolean }[]; cancelValue?: string }
+export interface PopupRequest { id: string; spec: PopupSpec }

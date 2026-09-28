@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import { canEquip, EQUIPMENT_CATALOG, RARITY_COLORS, WEAPON_TYPES } from '../src/core/equipment.js';
 import type { EquipmentItem } from '../src/core/equipment.js';
+import { RAID_CATALOG } from '../src/core/raid.js';
 import { equipmentIcon } from '../src/renderer/sprites/equipment.js';
 import { drawEquippedHero, EQUIPPED_HERO_PADDING, equippedHeroSprite, HERO_HANDS, heroBodyLayers, heroEquipmentPose, heldWeaponGeometry } from '../src/renderer/sprites/equippedHero.js';
 import { HERO_FORM_IDS, heroFormSprite } from '../src/renderer/sprites/heroForms.js';
@@ -33,6 +34,16 @@ function drawing(id: string, weapon: EquipmentItem | null, attacking = false, fr
 }
 
 describe('v0.10 equipment production art', () => {
+  it('keeps raid reward items visible using explicitly temporary, existing epic art', () => {
+    expect(RAID_CATALOG).toHaveLength(10);
+    for (const template of RAID_CATALOG) {
+      const icon = equipmentIcon(template.id);
+      expect(icon, template.id).toBeDefined();
+      expect(EQUIPMENT_CATALOG.some(source => equipmentIcon(source.id) === icon)).toBe(true);
+      expect(icon!.frames[0]!.join('').replaceAll('.', '').length).toBeGreaterThan(20);
+    }
+  });
+
   it('preserves the 168 non-epic icon shapes and palettes through the epic art revision', () => {
     // Captured from the verified pre-revision build, before changing epic art.
     const icons = EQUIPMENT_CATALOG.filter(t => t.rarity !== 'epic').map(t => [t.id, equipmentIcon(t.id)]);

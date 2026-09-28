@@ -1,0 +1,191 @@
+{
+  "kind": "shared production renderers with synthetic data, not live-server evidence or art approval",
+  "field": [
+    "battle-8-dark",
+    "battle-8-light",
+    "battle-20-dark",
+    "battle-20-light",
+    "battle-32-dark",
+    "battle-32-light",
+    "battle-50-dark",
+    "battle-50-light",
+    "baseline",
+    "countdown",
+    "alert",
+    "confirmed",
+    "victory",
+    "defeat"
+  ],
+  "menu": [
+    {
+      "state": "gathering",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": []
+    },
+    {
+      "state": "countdown",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": []
+    },
+    {
+      "state": "confirming",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": [
+        {
+          "left": 76,
+          "top": 148.40625,
+          "right": 484,
+          "bottom": 491.578125
+        }
+      ]
+    },
+    {
+      "state": "result",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": [
+        {
+          "left": 76,
+          "top": 148.40625,
+          "right": 484,
+          "bottom": 491.578125
+        }
+      ]
+    },
+    {
+      "state": "full",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": []
+    },
+    {
+      "state": "battle",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": []
+    },
+    {
+      "state": "failure",
+      "width": 560,
+      "height": 640,
+      "viewport": {
+        "width": 560,
+        "height": 640
+      },
+      "dialogs": [
+        {
+          "left": 76,
+          "top": 148.40625,
+          "right": 484,
+          "bottom": 491.578125
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "field confirmation button keyboard activation -> 참여 완료",
+    "50-player scene real game.attack changes canvas immediately",
+    "confirming: focus trapped, Escape closes",
+    "result: focus trapped, Escape closes",
+    "failure: focus trapped, Escape closes",
+    "failure reward fixture carries no victory item"
+  ],
+  "errors": [],
+  "sources": {
+    ".harness/v12/fixtures/raid.mjs": "3fae69c7b2362b5f82460ae4307e450f4b9e8dc1985edb1069bb251a3e52ff13",
+    "docs/v0.12/preview-src/build.mjs": "d37cdeede9d9f5cc06ceb2a7347dc4d75042389b38100fb9cec54eccb956b9be",
+    "docs/v0.12/preview-src/field.css": "45fe26cf0c812fb73d458ccc11a3907f4554b1fc347cea9cf5ca66eb8573660e",
+    "docs/v0.12/preview-src/field.ts": "fd9f2834905742a9c6d3458738af6e61f5758cc4d139a837d57e70894e81c3b4",
+    "docs/v0.12/preview-src/menu.css": "fbaba80306b429976eb185d24f8e1ec0c5fe27e010f31036ca2c87ab5952139d",
+    "docs/v0.12/preview-src/menu.ts": "fd6b70122cbfed4f46a871c939020c7e652bd3a2b858316255df2bc6994bf2c8",
+    "src/core/battle.ts": "d584e69d082f5c98e55e995c8d60154e728584033826761b4c9f81e6cbde48ec",
+    "src/core/bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+    "src/core/collection.ts": "2fa3cc83e797a80a5d0c0f83c4b39b3b75d48918b7e982e24814f82b384d7eae",
+    "src/core/discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+    "src/core/economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+    "src/core/engine.ts": "d960ec997af628d8b70b0e5e8106bb1e3458940bed02220e13a579c57857cf88",
+    "src/core/equipment.ts": "4d9e8014ebd27b99804834c46103cc981574cded00cab19871a63ce2f452b4d0",
+    "src/core/fever.ts": "0afa61bd670596c1292d74e7c0a607cd48c29bde64fd7ab7d09b59334193e036",
+    "src/core/formulas.ts": "bf1013d844f9fba0a1173f2173486723372df684c3e8d22acdf94ed847a8f942",
+    "src/core/fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+    "src/core/gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+    "src/core/hero.ts": "5d35d3cc29f2113f82e1538cbd51f8887e1ba052019c751e7277fcc33f429693",
+    "src/core/index.ts": "e91841b4b272ff16742df477d25646c23d565b5adc586805cd4b67fecb97a8d8",
+    "src/core/input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+    "src/core/loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+    "src/core/monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+    "src/core/progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+    "src/core/progression.ts": "7873047a7cedb8606f98c28583e69c0b7579c94c67026c627b79d7b6ae54cd7c",
+    "src/core/raid.ts": "13670a8acb069e4a0d44713372427aa6fc131f6de87ba80e1d824f9cb98a115b",
+    "src/core/rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+    "src/core/save.ts": "c734e06fbd3ae15bd0572798f0290939627c005e4e5b20af4d33aac52de691b0",
+    "src/core/types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+    "src/menu/hero.ts": "50037df08a9434637816fe0e3d494c74bef16819cdbbd742e279ccbc5596eb6d",
+    "src/menu/popup.ts": "835067400f5b33e92f75ea2e8a469677517c73f115fa82f265316cc0674c0598",
+    "src/menu/raid.ts": "c83cf6c306b07ac52381e71549b3dd5b07c408fc4a04dc49554284b81b9ed71c",
+    "src/renderer/anim.ts": "2d70b60ff614d65ec04ac8eb46ccdb25765ffc22229066fc5b5baccd993d64a4",
+    "src/renderer/audio.ts": "1776966851492f4608999cf93d2ee59c3ada2b87c47123c996f8027520f34744",
+    "src/renderer/effects.ts": "421d56e65fc803643080a37f1e89d090714f937c4a2b77826342186caa4a61d5",
+    "src/renderer/game.ts": "76c854b9646a3cb10b58bea490393697feb75270bfb54dd616796ca5757725a9",
+    "src/renderer/hud.ts": "75428182a807b4be042ee51eb7c2026185a7ff260095a9eba0748e64ecd9e270",
+    "src/renderer/raidScene.ts": "8a36af8044a47a6dc5e9a6e3e016019e181a3cb5dbdfdb6fff4064f73dc7a7b4",
+    "src/renderer/sprites/aura.ts": "4ff9f07919ef85a11bd20cf44072f5b1685e3c889dfb87fa9e5e2a1eb89a5cc0",
+    "src/renderer/sprites/boss.ts": "adce81ccf723a8d5a9653dd4600906064c1c2789367188d6036520e981f078d9",
+    "src/renderer/sprites/companion.ts": "ec04aaefb5adf5b57359f9546e1cef8456143976614368a1dbe3f2f53e86adad",
+    "src/renderer/sprites/epicEquipment.ts": "977327b212374bd6b03d8b1aa897d8ce8047fa0539ddf9eb9cfdd32ed487e3d6",
+    "src/renderer/sprites/equipment.ts": "ce12ae4bf1b735ec129eab4cdecc6ae6cc77f45a4d0733223c821634ee1e2a1c",
+    "src/renderer/sprites/equippedHero.ts": "c63e92703bf37c9302b1e66e3ccb3f213dc51de7f4da5e868117852333ecaf31",
+    "src/renderer/sprites/font.ts": "39b1ccd019fa1a5512ef2711c324bf431f558ed5db2e6f807f186bc9c7c63e37",
+    "src/renderer/sprites/hero.ts": "2ccc263954b7374a2492a677737142b3ecaeefd102cb7dc96ca503cbb1ddff1c",
+    "src/renderer/sprites/heroAgileLooks.ts": "0cd5da7908bc042f0adf8eb5ccd15f33aeabffcb192247c2b7456d1b5950d033",
+    "src/renderer/sprites/heroArcaneLooks.ts": "7969d7fa4817644d31a5783918a7e5a3e22fec560720511f3516148370e4e208",
+    "src/renderer/sprites/heroForms.ts": "6880bd9fe7dbfff957b5f2deb5f4e56292bebb9f01442fdac4d552a8c89ca5ce",
+    "src/renderer/sprites/heroJobStudies.ts": "28b7e4aebded38788ca39d837dd04f5c09e1bdf3a0f4b136aab73c067fe58d0d",
+    "src/renderer/sprites/heroKnightLooks.ts": "00476819d25a649ac249a6a0dde3c06b74da2c56c91dd70139446c152f5f7cc8",
+    "src/renderer/sprites/heroLook.ts": "8f850fc00feeed86df33c6c71b0b1d507477a7dfb19515455df1194e1e4f5db4",
+    "src/renderer/sprites/heroRareLooks.ts": "622d65fd06ee3194a9c31cda128114210cbd3738d23e43f8c98d307bdf5e7708",
+    "src/renderer/sprites/index.ts": "9e1dc59ba103891532eb970c359d3900284fc5148a9814b982b678a35c241dfd",
+    "src/renderer/sprites/items.ts": "45eaa25e7da57c894950e12c111380a010cfceb15033d07c6e282ca1a41548c9",
+    "src/renderer/sprites/monsters.ts": "ebdd0442e6dc8bb42417d584b6ab2e9b8e2beb1c65fbe371bef59f5e760c5987",
+    "src/renderer/sprites/palette.ts": "25014b3496ad4d8c1360bf14f850215158bb1644762902e5d7a0e3bf77b95df3",
+    "src/renderer/sprites/party.ts": "36de0b0de6f807cb4b93210a2a3eb2c1e4b2008cabe71086eb8877fe6fa6b52d",
+    "src/renderer/sprites/raidBosses.ts": "31d72a32b11e706cbab1ae2bd37a2ac0b4d50b019ad25b91bf96e325213e81ff",
+    "src/renderer/sprites/species/dark.ts": "44ad085949960d0d0e1d6fb293dd278c851c25ab1f1dcb6e3200356639ef38f3",
+    "src/renderer/sprites/species/earth.ts": "8d54a781d953e87980f7d5dcc36602bc8b8d6eed6be4f6c42aca1fa1b5ca95f4",
+    "src/renderer/sprites/species/fire.ts": "5d3347e1b1241580f138e28189ffb13004fc2e6fca5fa8b8543b51fecb971a6c",
+    "src/renderer/sprites/species/rare.ts": "ce9e7a287591e2115b6428dd7d023649a1ef7afa4cbf09447b23d250d7e748fb",
+    "src/renderer/sprites/species/water.ts": "e5e1ce02c7d2ba463d67e084839e6e4510489e449f0dd1381748b349703eca8b",
+    "src/renderer/sprites/species/wind.ts": "18a9f4d80a97cf8ce5a758d8d1738fcf1f36c301eec5f63bedcf89acbe08e6e6",
+    "src/renderer/sprites/sprite.ts": "d01951c90479e2be639b30f6670e99f6839a58ce4f8a49039b5d9cf2d720d19f",
+    "static/menu.css": "2abcdd3488053a163521c5ff5e1a684867e8d3b86b40407172ae43f2d47af978",
+    "static/style.css": "7e1df1760aae1acc389f78a5245b9ec81f83923a9ddc57e70319665d7ca9b6ed"
+  },
+  "recapturedAt": "2026-09-24T09:51:54.840Z"
+}

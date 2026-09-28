@@ -53,6 +53,7 @@ export interface GameState {
   killCount: number;
   coins: bigint;
   equipment?: EquipmentState;
+  appliedRaidIds?: string[];
   pvpGoldNet?: string;
   pvpGoldDebt?: string;
   /** Trinket id → count. */

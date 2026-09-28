@@ -311,7 +311,7 @@ function drawScaledText(
 }
 
 /** A one-pixel outline follows the glyphs while the space around them stays transparent. */
-function drawOutlinedText(ctx: SpriteCanvas, text: string, x: number, y: number, scale: number, color: string): void {
+export function drawOutlinedText(ctx: SpriteCanvas, text: string, x: number, y: number, scale: number, color: string): void {
   for (const [ox, oy] of [[-1, 0], [1, 0], [0, -1], [0, 1]] as const) {
     drawScaledText(ctx, text, x + ox, y + oy, scale, COLORS.void);
   }

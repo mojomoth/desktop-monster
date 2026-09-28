@@ -1,3 +1,4 @@
+import type { RaidDocument } from './raid.js';
 // T39 — player storage (SPEC F44, SERVER_ARCHITECTURE §4). One interface for
 // both backends: MemoryStore here (tests + DB-less runs), PgStore later. Every
 // method is async so the two stay interchangeable.
@@ -29,6 +30,8 @@ export interface PlayerRow {
 }
 
 export interface Store {
+  getRaid(id: string): Promise<RaidDocument | null>;
+  putRaid(id: string, doc: RaidDocument): Promise<void>;
   /** Serialize mutations and roll back every write if work throws. */
   transaction<T>(work: (store: Store) => Promise<T>): Promise<T>;
   createPlayer(p: { id: string; tokenHash: string; name: string }): Promise<void>;
@@ -92,6 +95,10 @@ const view = ({ id, name, snapshot, stolenIds, lastPvpAt, thefts, wins, losses, 
 });
 
 export class MemoryStore implements Store {
+  // Raid documents have their own queue, outside player transaction rollback.
+  private readonly raids = new Map<string, RaidDocument>();
+  async getRaid(id: string): Promise<RaidDocument | null> { return structuredClone(this.raids.get(id) ?? null); }
+  async putRaid(id: string, doc: RaidDocument): Promise<void> { this.raids.set(id, structuredClone(doc)); }
   private readonly rows = new Map<string, MemoryRow>();
   private seq = 0;
   private tail: Promise<void> = Promise.resolve();

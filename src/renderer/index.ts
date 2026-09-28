@@ -9,6 +9,9 @@
 import { createEngine, parseSave } from '../core/index.js';
 import type { ActionResultPayload } from '../shared/ipc.js';
 import type { CollectionAction } from '../core/index.js';
+import type { RaidLiveResponse } from '../shared/api.js';
+import { raidViewOf } from './raidScene.js';
+import { raidStatus } from './raidStatus.js';
 import { setupWindowDrag } from './drag.js';
 import { createGame, createSaveScheduler } from './game.js';
 import type { GameOptions } from './game.js';
@@ -68,7 +71,11 @@ async function boot(): Promise<void> {
     attempt();
   };
   const pvpStatus = document.getElementById('field-pvp-status');
+  const finishedRaids = new Set<string>();
   const options: GameOptions = { screenShake: settings.screenShake,
+    raidConnected: true,
+    onRaidDamage: hit => window.desmon.raidDamage(hit),
+    onRaidComplete: id => { finishedRaids.add(id); },
     onReplayComplete: completeReplay,
     onReplayStatus: presentation => {
       if (!pvpStatus) return;
@@ -81,6 +88,61 @@ async function boot(): Promise<void> {
   let game = createGame(engine, audio, options);
   let generation = await window.desmon.getGeneration();
   let paused = false;
+  window.desmon.onTheftNotice(notice => {
+    if (!pvpStatus || game.isReplaying() || game.isRaiding()) return;
+    const text = `동료 Lv ${notice.companion.level} 약탈 · 메뉴에서 회수 가능`;
+    pvpStatus.hidden = false;
+    pvpStatus.textContent = text;
+    window.setTimeout(() => { if (pvpStatus.textContent === text) pvpStatus.hidden = true; }, 5000);
+  });
+  let raidLive: RaidLiveResponse | null = null;
+  let raidReceivedAt = performance.now();
+  let raidBusy = false;
+  let raidError = '';
+  let raidErrorUntil = 0;
+  const raidButton = document.getElementById('raid-status') as HTMLButtonElement | null;
+  const paintRaidStatus = (): void => {
+    if (!raidButton) return;
+    const now = (raidLive?.now ?? 0) + performance.now() - raidReceivedAt;
+    const status = raidStatus(raidLive, now, options.raidConnected !== false);
+    const retryError = raidError && performance.now() < raidErrorUntil;
+    raidButton.hidden = status.hidden && !retryError;
+    raidButton.textContent = raidBusy ? '참전 확인 중…' : retryError ? raidError : status.text;
+    raidButton.className = status.className;
+    raidButton.disabled = raidBusy || paused || !status.actionable;
+  };
+  const receiveRaid = (live: RaidLiveResponse | null): void => {
+    if (live && raidLive && live.now < raidLive.now) return;
+    const view = live ? raidViewOf(live, raidLive) : null;
+    if (!view || !finishedRaids.has(view.raidId)) game.raidState(view);
+    raidLive = live;
+    raidReceivedAt = performance.now();
+    paintRaidStatus();
+  };
+  let sawRaidPush = false;
+  window.desmon.onRaidState(live => { sawRaidPush = true; receiveRaid(live); });
+  void window.desmon.getRaidState().then(live => { if (!sawRaidPush) receiveRaid(live); }, () => { options.raidConnected = false; paintRaidStatus(); });
+  let sawConnectionPush = false;
+  const connection = (connected: boolean): void => { options.raidConnected = connected; paintRaidStatus(); };
+  window.desmon.onRaidConnection(connected => { sawConnectionPush = true; connection(connected); });
+  void window.desmon.getRaidConnection().then(connected => { if (!sawConnectionPush) connection(connected); }, () => connection(false));
+  for (const event of ['mousedown', 'keydown'] as const) raidButton?.addEventListener(event, e => e.stopPropagation());
+  raidButton?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (raidBusy || raidButton.disabled) return;
+    raidBusy = true;
+    raidError = '';
+    paintRaidStatus();
+    void window.desmon.raidAction({ type: 'confirm' }).then(reply => {
+      if (reply.ok) receiveRaid(reply.value);
+      else raidError = reply.error === 'raid-full' ? '레이드 정원 마감' : reply.error === 'raid-phase'
+        ? '참여 시간이 지났습니다' : '참여 실패 · 다시 참여';
+    }, () => { raidError = '참여 실패 · 다시 참여'; }).finally(() => {
+      raidBusy = false;
+      raidErrorUntil = performance.now() + 5000;
+      paintRaidStatus();
+    });
+  });
 
   // WHEN to save is the scheduler's policy (game.ts, unit-tested there);
   // WHAT a save is stays right here: the engine snapshot over the bridge.
@@ -167,7 +229,10 @@ async function boot(): Promise<void> {
   });
   window.desmon.onReleaseState((release) => {
     if (release.generation <= generation) return;
-    if (release.replace) game = createGame(createEngine(parseSave(release.save)), audio, options);
+    if (release.replace) {
+      game = createGame(createEngine(parseSave(release.save)), audio, options);
+      if (raidLive && !finishedRaids.has(raidLive.raid.raidId)) game.raidState(raidViewOf(raidLive, raidLive));
+    }
     else for (const action of release.actions) game.apply(action as CollectionAction);
     for (const replay of release.replays ?? []) game.enqueueReplay(replay);
     generation = release.generation;
@@ -185,7 +250,7 @@ async function boot(): Promise<void> {
     last = now;
     // The engine clock lives in the rAF loop: companion volleys and fever
     // transitions come back as events and persist like any other progress.
-    const hunting = !paused && !game.isReplaying();
+    const hunting = !paused && !game.isReplaying() && !game.isRaiding();
     if (!paused) settleFrame(dt);
     // Even an untouched, companion-less field has play time to preserve.
     if (hunting) unsavedActiveMs += dt;
@@ -194,6 +259,7 @@ async function boot(): Promise<void> {
       saves.flush();
     }
     game.draw(ctx);
+    paintRaidStatus();
     if (!reportedFirstFrame) {
       reportedFirstFrame = true;
       // First painted frame: tell main the scene is live (smoke exits on it).

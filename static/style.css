@@ -57,3 +57,19 @@ canvas {
   text-shadow: -1px 0 #140c1c, 1px 0 #140c1c, 0 -1px #140c1c, 0 1px #140c1c;
   pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+
+#raid-status {
+  position: absolute; top: 26px; left: 50%; transform: translateX(-50%);
+  max-width: calc(100% - 16px); margin: 0; padding: 3px 7px;
+  border: 2px solid #8595a1; border-radius: 0; box-shadow: 2px 2px 0 #140c1c, -2px -2px 0 #140c1c;
+  color: #deeed6; background: #140c1c; font: 12px/1.2 ui-monospace, monospace;
+  white-space: nowrap; image-rendering: pixelated; pointer-events: none;
+  -webkit-app-region: no-drag;
+}
+#raid-status:disabled { opacity: 1; }
+#raid-status.alert { background: #dad45e; color: #140c1c; border-color: #d04648; cursor: pointer; pointer-events: auto; animation: raid-alert 600ms steps(1) infinite; }
+#raid-status.done { border-color: #6daa2c; color: #deeed6; background: #346524; }
+#raid-status.offline { top: auto; bottom: 2px; color: #dad45e; }
+#raid-status:focus-visible { outline: 2px solid #deeed6; outline-offset: 2px; }
+@keyframes raid-alert { 50% { border-color: #dad45e; } }
+@media (prefers-reduced-motion: reduce) { #raid-status.alert { animation: none; } }

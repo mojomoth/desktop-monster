@@ -5,7 +5,7 @@
 // the game, which never waits on any of this.
 
 import type {
-  ApiError,
+  ApiError, RaidLiveResponse, RaidAttackRequest, RaidAttackResponse, RaidClaimResponse, RaidReward,
   Companion,
   HeroAppearance,
   HeroCombatSnapshot, WireLoadout, WireFighter,
@@ -32,6 +32,9 @@ import type {
 } from '../shared/api.js';
 import { isValidName, parsePvpHistory, readIdentity, recordPvpHistory, writeIdentity, type Identity } from './identity.js';
 import { isHeroCombatSnapshot } from '../core/equipment.js';
+import { xpToNext } from '../core/formulas.js';
+import { RAID_BOSSES, RAID_CATALOG } from '../core/raid.js';
+import { heroForm } from '../core/hero.js';
 import { isHeroRoll } from '../core/hero.js';
 import { SPECIES_IDS } from '../core/monsters.js';
 import { EQUIPMENT_PROTOCOL, COMPANION_ID_RE, INT_MAX, LEADERBOARD_MAX, LEVEL_MAX, NICK_RE, PARTY_SIZE_MAX, THEFTS_MAX } from '../shared/api.js';
@@ -40,6 +43,12 @@ import { EQUIPMENT_PROTOCOL, COMPANION_ID_RE, INT_MAX, LEADERBOARD_MAX, LEVEL_MA
 export const NET_TIMEOUT_MS = 5000;
 
 export interface NetClient {
+  raidLive?(token: string): Promise<NetResult<RaidLiveResponse>>;
+  raidParticipate?(token: string, conditionId: string): Promise<NetResult<RaidLiveResponse>>;
+  raidJoin?(token: string): Promise<NetResult<RaidLiveResponse>>;
+  raidConfirm?(token: string): Promise<NetResult<RaidLiveResponse>>;
+  raidAttack?(token: string, batch: RaidAttackRequest): Promise<NetResult<RaidAttackResponse>>;
+  raidClaim?(token: string, raidId: string): Promise<NetResult<RaidClaimResponse>>;
   register(name: string): Promise<NetResult<RegisterResponse>>;
   upload(token: string, snapshot: Snapshot): Promise<NetResult<SnapshotResponse>>;
   leaderboard(token: string | null, n: number, metric?: LeaderboardMetric): Promise<NetResult<LeaderboardResponse>>;
@@ -70,6 +79,12 @@ export interface SnapshotSource {
 }
 
 export interface NetSession {
+  raidLive?(): Promise<NetResult<RaidLiveResponse>>;
+  raidParticipate?(conditionId: string): Promise<NetResult<RaidLiveResponse>>;
+  raidJoin?(): Promise<NetResult<RaidLiveResponse>>;
+  raidConfirm?(): Promise<NetResult<RaidLiveResponse>>;
+  raidAttack?(batch: RaidAttackRequest): Promise<NetResult<RaidAttackResponse>>;
+  raidClaim?(raidId: string): Promise<NetResult<RaidClaimResponse>>;
   pollIncoming?(): Promise<NetResult<null>>;
   identity(): IdentityPayload;
   pvpHistory(): { wins: number; losses: number };
@@ -125,6 +140,56 @@ const currency = (v: unknown, signed = false): v is string | number =>
 const transferAmount = (v: unknown, signed = false): boolean => currency(v, signed) && BigInt(v) >= (signed ? -75n : 0n) && BigInt(v) <= 75n;
 const playerId = (v: unknown): boolean => typeof v === 'string' && /^[A-Za-z0-9-]{1,64}$/.test(v);
 const companionId = (v: unknown): boolean => typeof v === 'string' && COMPANION_ID_RE.test(v);
+
+const raidNumber = (v: unknown): boolean => integer(v, 0, Number.MAX_SAFE_INTEGER);
+const raidDecimal = (v: unknown): v is string => typeof v === 'string' && /^(0|[1-9]\d{0,39})$/.test(v);
+const raidId = (v: unknown): v is string => typeof v === 'string' && /^r\d{1,12}$/.test(v);
+export function isRaidReward(value: unknown): value is RaidReward {
+  const r = object(value);
+  return !!r && raidId(r.raidId) && integer(r.rank, 1) && integer(r.of, 1) && Number(r.rank) <= Number(r.of) &&
+    integer(r.xpLevels, 0, 10) && integer(r.goldKills, 0, 5000) && integer(r.level, 1, LEVEL_MAX) && integer(r.bestIndex) &&
+    integer(r.rewardBps, 0, 10000) && Number.isSafeInteger(Math.floor(xpToNext(Number(r.level)) * Number(r.xpLevels) * Number(r.rewardBps) / 10000)) && (r.itemTemplateId === undefined || RAID_CATALOG.some(i => i.id === r.itemTemplateId));
+}
+export function isRaidView(value: unknown): boolean {
+  const r = object(value), boss = object(r?.boss), me = object(r?.me);
+  if (!r || !boss || !me || !raidId(r.raidId) || !raidNumber(r.cycle) ||
+    !RAID_BOSSES.some(b => b.id === boss.id && b.name === boss.name && b.element === boss.element) ||
+    !['gathering', 'countdown', 'confirming', 'battle', 'settled', 'skipped'].includes(String(r.phase)) ||
+    !raidNumber(r.gatherDeadline) || !integer(r.capacity, 1) || !integer(r.joined, 0, Number(r.capacity)) ||
+    !integer(r.confirmed, 0, Number(r.joined)) || typeof r.openToAll !== 'boolean' || !playerId(me.playerId) ||
+    !['unlocker', 'joined', 'confirmed', 'claimed'].every(k => typeof me[k] === 'boolean') ||
+    !raidDecimal(me.damage) || !raidNumber(me.seq) || (me.rank !== undefined && !integer(me.rank, 1)) ||
+    (me.reward !== undefined && (!isRaidReward(me.reward) || me.reward.raidId !== r.raidId))) return false;
+  if (!['unlockedAt', 'battleAt', 'priorityUntil', 'confirmUntil', 'battleEnd', 'claimUntil']
+    .every(k => r[k] === undefined || raidNumber(r[k]))) return false;
+  if (!Array.isArray(r.conditions) || r.conditions.length !== 2 || !r.conditions.every(v => {
+    const c = object(v);
+    return !!c && (c.id === 'level' || c.id === 'bestIndex') && c.kind === c.id && integer(c.min) &&
+      integer(c.need, 1, Number(r.capacity)) && integer(c.have, 0, Number(r.capacity)) &&
+      typeof c.mine === 'boolean' && typeof c.qualified === 'boolean';
+  }) || new Set(r.conditions.map(v => (v as { id: string }).id)).size !== 2) return false;
+  if (!Array.isArray(r.participants) || r.participants.length !== r.confirmed || !r.participants.every(v => {
+    const p = object(v);
+    return !!p && playerId(p.playerId) && typeof p.name === 'string' && NICK_RE.test(p.name) &&
+      typeof p.formId === 'string' && (p.formId === 'h00' || !!heroForm(p.formId)) && integer(p.level, 1, LEVEL_MAX) && raidDecimal(p.damage);
+  }) || new Set(r.participants.map(v => (v as { playerId: string }).playerId)).size !== r.participants.length) return false;
+  if (me.confirmed && !r.participants.some(v => (v as { playerId: string }).playerId === me.playerId)) return false;
+  if (r.battle !== undefined) {
+    const b = object(r.battle);
+    if (!b || !raidDecimal(b.bossHp) || BigInt(b.bossHp) <= 0n || !raidDecimal(b.hpLeft) ||
+      BigInt(b.hpLeft) > BigInt(b.bossHp) || !raidNumber(b.elapsedMs) || typeof b.killed !== 'boolean' ||
+      !Array.isArray(b.top) || b.top.length > 10 || !b.top.every(v => {
+        const p = object(v); return !!p && typeof p.name === 'string' && NICK_RE.test(p.name) && raidDecimal(p.damage);
+      })) return false;
+  }
+  if ((r.phase === 'battle' || r.phase === 'settled') && (!r.battle || r.battleEnd === undefined || r.confirmUntil === undefined)) return false;
+  if ((r.phase === 'countdown' || r.phase === 'confirming') && r.battleAt === undefined) return false;
+  return r.phase !== 'confirming' || r.confirmUntil !== undefined;
+}
+export function isRaidLive(value: unknown): value is RaidLiveResponse {
+  const r = object(value);
+  return !!r && raidNumber(r.now) && isRaidView(r.raid) && (r.previous === undefined || isRaidView(r.previous));
+}
 
 /** All companion-bearing replies cross this boundary before reaching saves or sprites. */
 function isCompanion(value: unknown): boolean {
@@ -316,6 +381,8 @@ export function createNetClient(o: {
     if (error.error === 'upgrade_required') return { ok: false, error: 'sync-required', status: res.status };
     if (error.error === 'gold_conflict') return { ok: false, error: 'gold-conflict', status: res.status };
     if (error.error === 'defense_cooldown' || error.error === 'inbox_full') return { ok: false, error: 'opponent-busy', retryAfterSec: error.retryAfterSec };
+    if (error.error === 'raid_phase') return { ok: false, error: 'raid-phase', status: res.status };
+    if (error.error === 'raid_full') return { ok: false, error: 'raid-full', status: res.status };
     if (res.status === 409) return { ok: false, error: 'gone', status: 409 };
     if (res.status === 400 && error.error === 'bad_party') return { ok: false, error: 'stale-party', status: 400 };
     if (res.status === 429 && error.error === 'cooldown') {
@@ -325,6 +392,14 @@ export function createNetClient(o: {
   }
 
   return {
+    raidLive: token => call<RaidLiveResponse>('GET', '/v1/raid/live', token, undefined, isRaidLive),
+    raidParticipate: (token, conditionId) => call<RaidLiveResponse>('POST', '/v1/raid/participate', token, { conditionId }, isRaidLive),
+    raidJoin: token => call<RaidLiveResponse>('POST', '/v1/raid/join', token, {}, isRaidLive),
+    raidConfirm: token => call<RaidLiveResponse>('POST', '/v1/raid/confirm', token, {}, isRaidLive),
+    raidAttack: (token, batch) => call<RaidAttackResponse>('POST', '/v1/raid/attack', token, batch,
+      v => isRaidLive(v) && typeof object(v)?.['accepted'] === 'boolean' && integer(object(v)?.['expectedSeq'], 1, Number.MAX_SAFE_INTEGER)),
+    raidClaim: (token, raidId) => call<RaidClaimResponse>('POST', '/v1/raid/claim', token, { raidId },
+      v => isRaidReward(object(v)?.['reward']) && object(object(v)?.['reward'])?.['raidId'] === raidId),
     register: (name) => call<RegisterResponse>('POST', '/v1/players', null, { nickname: name }),
     upload: (token, snapshot) => call<SnapshotResponse>('PUT', '/v1/snapshot', token, snapshot, isSnapshotResponse),
     leaderboard: (token, n, metric) => call<LeaderboardResponse>('GET', `/v1/leaderboard?n=${n}${metric ? `&metric=${metric}` : ''}`, token),
@@ -434,6 +509,12 @@ export function createNetSession(deps: {
     res !== null && res.ok ? res.value.removed : [];
 
   return {
+    raidLive: () => client.raidLive ? withToken(t => client.raidLive!(t)) : Promise.resolve({ ok: false, error: 'offline' }),
+    raidParticipate: id => client.raidParticipate ? withToken(t => client.raidParticipate!(t, id)) : Promise.resolve({ ok: false, error: 'offline' }),
+    raidJoin: () => client.raidJoin ? withToken(t => client.raidJoin!(t)) : Promise.resolve({ ok: false, error: 'offline' }),
+    raidConfirm: () => client.raidConfirm ? withToken(t => client.raidConfirm!(t)) : Promise.resolve({ ok: false, error: 'offline' }),
+    raidAttack: batch => client.raidAttack ? withToken(t => client.raidAttack!(t, batch)) : Promise.resolve({ ok: false, error: 'offline' }),
+    raidClaim: id => client.raidClaim ? withToken(t => client.raidClaim!(t, id)) : Promise.resolve({ ok: false, error: 'offline' }),
     setGoldRevision(revision) { goldRevision = revision; },
     events: after => client.events ? withToken(token => client.events!(token, after)) : Promise.resolve({ ok: false, error: 'sync-required' }),
     ackEvents: through => client.ackEvents ? withToken(token => client.ackEvents!(token, through)) : Promise.resolve({ ok: false, error: 'sync-required' }),

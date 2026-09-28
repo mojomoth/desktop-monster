@@ -1,3 +1,4 @@
+import { raidReward } from './raid.js';
 // Attack engine — SPEC F06/F07/F08, Assumption 8 (damage applies at input
 // time; animation/timing state lives elsewhere). Pure TypeScript, zero
 // imports of electron/DOM/node. All randomness comes from the injected Rng.
@@ -56,6 +57,8 @@ export const PARTY_STAGGER_MS = 70;
 export interface Engine {
   /** One input → one reducer step; returns the events it produced, in order. */
   attack(source: InputSource): GameEvent[];
+  raidAttack(source: InputSource): GameEvent[];
+  raidTick(dtMs: number): GameEvent[];
   /**
    * Advance the engine clock by dtMs and emit what the clock produced
    * (non-finite/negative dt counts as 0). The ONLY way time moves forward.
@@ -175,6 +178,7 @@ export function createEngine(
   rng = { next: () => { const value = suppliedRng.next(); observedSeed ??= Math.floor(value * 0x100000000); return value; } };
   const upgraded = save ? upgradeSave(save) : null;
   const state = initialState(upgraded, rng);
+  state.appliedRaidIds = [...(upgraded?.appliedRaidIds ?? [])];
   state.equipment = upgraded?.equipment ? parseEquipment(upgraded.equipment) : newEquipment(options.now?.() ?? 0, observedSeed ?? 0x10e010);
   let equipmentBatch: EquipmentBatch | null = null;
   let actionError: string | null = null;
@@ -338,7 +342,7 @@ export function createEngine(
     refreshShop(now: number): GameEvent[] {
       return refreshEquipmentShop(state.equipment!, now, state.level) ? [{ type: 'equipmentChanged', revision: state.equipment!.revision }] : [];
     },
-    attack(source: InputSource): GameEvent[] {
+    raidAttack(source: InputSource): GameEvent[] {
       const events: GameEvent[] = [];
 
       // The input stamps the clock and may light fever BEFORE its own attack
@@ -353,9 +357,20 @@ export function createEngine(
         (crit ? BigInt(CRIT_MULT) : 1n) *
         (feverActive(fever, clockMs) ? FEVER_MULT : 1n);
       events.push({ type: 'attack', damage, crit, source });
-      applyDamage(damage, events);
-
       return events;
+    },
+
+    attack(source: InputSource): GameEvent[] {
+      const events = engine.raidAttack(source);
+      const hit = events.find(event => event.type === 'attack');
+      if (hit?.type === 'attack') applyDamage(hit.damage, events);
+      return events;
+    },
+    raidTick(dtMs: number): GameEvent[] {
+      clockMs += Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
+      pending = []; nextWindowMs = clockMs + COMPANION_ATTACK_MS;
+      const cooled = feverTick(fever, clockMs); fever = cooled.fever;
+      return cooled.ended ? [{ type: 'feverEnd' }] : [];
     },
 
     tick(dtMs: number): GameEvent[] {
@@ -418,6 +433,11 @@ export function createEngine(
 
     apply(a: CollectionAction): GameEvent[] {
       actionError = null;
+      if (a.type === 'raidReward') {
+        const result = raidReward(state, a);
+        if ('error' in result) { actionError = result.error; return []; }
+        Object.assign(state, result.state); return result.events;
+      }
       if (a.type === 'syncPvpProgress') {
         if ([a.wins, a.losses].every((value) => Number.isSafeInteger(value) && value >= 0)) {
           state.progress!.pvpWins = a.wins;
@@ -468,6 +488,7 @@ export function createEngine(
     getState(): Readonly<GameState> {
       return {
         ...state,
+        appliedRaidIds: [...(state.appliedRaidIds ?? [])],
         fever: feverView(),
         monster: { ...state.monster },
         items: { ...state.items },
@@ -482,6 +503,7 @@ export function createEngine(
     toSave(): SaveFile {
       return {
         version: 4,
+        ...(state.appliedRaidIds?.length ? { appliedRaidIds: [...state.appliedRaidIds] } : {}),
         level: state.level,
         xp: state.xp,
         killCount: state.killCount,

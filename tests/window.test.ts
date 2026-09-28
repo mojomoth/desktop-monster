@@ -132,14 +132,13 @@ describe('theft watcher (F74, src/main/index.ts)', () => {
     expect(indexTs).toContain('watcher?.stop()');
   });
 
-  it('notifies with the F74 body and routes clicks through durable server-owned recovery', () => {
-    expect(indexTs).toContain('Notification.isSupported()');
-    expect(indexTs).toContain("title: 'DesMon'");
-    expect(indexTs).toContain('${speciesName} Lv ${String(t.companion.level)} 동료를 빼앗겼습니다.');
-    expect(indexTs).toContain('눌러 회수하세요 · 회수 기한 ${String(hoursLeft(t.reclaimUntil))}시간 남음.');
-    expect(indexTs).toContain("n.on('click'");
-    expect(indexTs).toContain('void session.reclaim(theftId)');
-    expect(indexTs).toContain('reclaimAndApply(session, t.id)');
+  it('delivers game notices and preserves durable server-owned recovery', () => {
+    expect(indexTs).not.toContain('Notification.isSupported()');
+    expect(indexTs).toContain('notify: showTheftNotice');
+    expect(indexTs).not.toContain('new Notification');
+    expect(read('src/main/ipc.ts')).toContain('sendToAll(IPC.THEFT_NOTICE, theft)');
+    expect(read('src/renderer/index.ts')).toContain('window.desmon.onTheftNotice');
+    expect(read('src/menu/index.ts')).toContain('api.onTheftNotice');
     expect(read('src/main/ipc.ts')).toContain('reclaim: id => coordinator!.reclaim(id)');
     const coordinator = read('src/main/coordinator.ts');
     const reclaim = coordinator.slice(coordinator.indexOf('private async finishReclaim'), coordinator.indexOf('private async synchronize'));

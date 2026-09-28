@@ -5,8 +5,8 @@ import { join } from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { parseSave } from '../core/save.js';
 import type { SaveFile } from '../core/save.js';
-import type { PvpResult, PvpGoldState, PvpPresentation } from '../shared/api.js';
-import { isPvpResponse, isGoldState, isPvpPresentation } from './net.js';
+import type { RaidReward, PvpResult, PvpGoldState, PvpPresentation } from '../shared/api.js';
+import { isRaidReward, isPvpResponse, isGoldState, isPvpPresentation } from './net.js';
 
 export interface PendingBattle { opponentId: string; matchId: string; party: string[]; before: SaveFile; mode?: import('../shared/api.js').PvpMode }
 export interface LastBattle { at: number; before: SaveFile; result: PvpResult }
@@ -16,6 +16,8 @@ export interface RecoveryMetadata {
   reconcilePending: boolean;
   pendingBattle?: PendingBattle;
   pendingReclaim?: string;
+  pendingRaidClaim?: { raidId: string; reward?: RaidReward };
+  claimedRaidIds?: string[];
   lastBattle?: LastBattle;
   committedOperationId?: string;
   gold?: PvpGoldState;
@@ -37,6 +39,10 @@ function validMetadata(raw: unknown): raw is RecoveryMetadata {
     typeof raw.pendingBattle.opponentId !== 'string' || !Array.isArray(raw.pendingBattle.party) ||
     !raw.pendingBattle.party.every(x => typeof x === 'string') || !validSave(raw.pendingBattle.before))) return false;
   if (raw.pendingReclaim !== undefined && typeof raw.pendingReclaim !== 'string') return false;
+  if (raw.pendingRaidClaim !== undefined && (!record(raw.pendingRaidClaim) || typeof raw.pendingRaidClaim.raidId !== 'string' ||
+    !/^r\d{1,12}$/.test(raw.pendingRaidClaim.raidId) || (raw.pendingRaidClaim.reward !== undefined &&
+    (!isRaidReward(raw.pendingRaidClaim.reward) || raw.pendingRaidClaim.reward.raidId !== raw.pendingRaidClaim.raidId)))) return false;
+  if (raw.claimedRaidIds !== undefined && (!Array.isArray(raw.claimedRaidIds) || !raw.claimedRaidIds.every(id => typeof id === 'string' && /^r\d{1,12}$/.test(id)))) return false;
   if (raw.gold !== undefined && !isGoldState(raw.gold)) return false;
   if (raw.defenseCursor !== undefined && (!Number.isSafeInteger(raw.defenseCursor) || Number(raw.defenseCursor) < 0)) return false;
   if (raw.replays !== undefined && (!Array.isArray(raw.replays) || raw.replays.length > 6 || !raw.replays.every(isPvpPresentation) ||
@@ -89,7 +95,9 @@ export class RecoveryStore {
     if (save.nextCompanionId > this.metadata.highWater) this.update({ highWater: save.nextCompanionId });
   }
   allocationSafe(save: SaveFile): SaveFile {
-    return { ...save, nextCompanionId: Math.max(save.nextCompanionId, this.metadata.highWater) };
+    const receipts = [...new Set([...(save.appliedRaidIds ?? []), ...(this.metadata.claimedRaidIds ?? [])])];
+    return { ...save, nextCompanionId: Math.max(save.nextCompanionId, this.metadata.highWater),
+      ...(receipts.length ? { appliedRaidIds: receipts } : {}) };
   }
   recoverCommit(): SaveFile | null {
     const raw = this.read('operation.json');

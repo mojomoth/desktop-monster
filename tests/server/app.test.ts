@@ -317,6 +317,8 @@ describe('createApp', () => {
       throw new Error('store is down');
     };
     const broken: Store = {
+      getRaid: boom,
+      putRaid: boom,
       transaction: boom,
       createPlayer: boom,
       getByToken: boom,

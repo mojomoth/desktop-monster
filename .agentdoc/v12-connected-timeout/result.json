@@ -1,0 +1,378 @@
+{
+  "sourceHashes": {
+    "src/core/battle.ts": "d584e69d082f5c98e55e995c8d60154e728584033826761b4c9f81e6cbde48ec",
+    "src/core/bignum.ts": "10c9479f311b94f5459ca5d21132511150e8c96e8e9678424368730a905152f8",
+    "src/core/collection.ts": "2fa3cc83e797a80a5d0c0f83c4b39b3b75d48918b7e982e24814f82b384d7eae",
+    "src/core/discovery.ts": "1ce7eb1bc0553a56e321182422c1f81fee05f751ad814ab2603b8a50669ff3d2",
+    "src/core/economy.ts": "6dee4a3920a3abcfded591fe1173007ba59782a1627478207d51043d022760f0",
+    "src/core/engine.ts": "d960ec997af628d8b70b0e5e8106bb1e3458940bed02220e13a579c57857cf88",
+    "src/core/equipment.ts": "4d9e8014ebd27b99804834c46103cc981574cded00cab19871a63ce2f452b4d0",
+    "src/core/fever.ts": "0afa61bd670596c1292d74e7c0a607cd48c29bde64fd7ab7d09b59334193e036",
+    "src/core/formulas.ts": "bf1013d844f9fba0a1173f2173486723372df684c3e8d22acdf94ed847a8f942",
+    "src/core/fsm.ts": "245d7ac24c93353885af11aa89518ba5d5f087f7eb3e83697ca0bfca1931740a",
+    "src/core/gold.ts": "11d762410fd90149a4895a00ee155208f4ddca9ba856aac70b78b39b1d3e0343",
+    "src/core/hero.ts": "5d35d3cc29f2113f82e1538cbd51f8887e1ba052019c751e7277fcc33f429693",
+    "src/core/index.ts": "e91841b4b272ff16742df477d25646c23d565b5adc586805cd4b67fecb97a8d8",
+    "src/core/input.ts": "6c00c08634ac86b87e154444ffad48e30e6d81fdd7fa3931f6136dbc277521e5",
+    "src/core/loot.ts": "7ae617d33e5567268172c9c2d294915c1bf2aa7b935f80463a5fd3adbbbf7fff",
+    "src/core/monsters.ts": "e6eb1e4ccaf09beac39a6b7baa0c47236bbc61ec239f95791e97423a4fc77ebb",
+    "src/core/progress.ts": "081e72fe93052b627f7080e643377c444b9a4bf85226d3754e0f96501154220b",
+    "src/core/progression.ts": "7873047a7cedb8606f98c28583e69c0b7579c94c67026c627b79d7b6ae54cd7c",
+    "src/core/raid.ts": "13670a8acb069e4a0d44713372427aa6fc131f6de87ba80e1d824f9cb98a115b",
+    "src/core/rng.ts": "7eba983147e8f892dd0a13c4830def3f942677a5ea084101a7274a0ddd2e3255",
+    "src/core/save.ts": "c734e06fbd3ae15bd0572798f0290939627c005e4e5b20af4d33aac52de691b0",
+    "src/core/types-chart.ts": "98ca060b4bbffd9236eb03141511f014020c8fa2f1892ac203261036ae327193",
+    "src/core/types.ts": "cb2280b2f5ef3d540be2f8c8a12bcf4c41c44a4db7fbbdc54b1186b392b80cf1",
+    "src/main/coordinator.ts": "5aa78f9f5a04b7550bdb0d6496d99a4461314bd070175c65f9bf77f9aa896995",
+    "src/main/defense.ts": "b744821e964e87f4feafe3d1fe2f3732c14769e051d7394a90df7a7376c13491",
+    "src/main/globalInput.ts": "3f1b441951dcf47e7368bf9cba7675f79d2dbcc108fd27d5349fee452ac59bf4",
+    "src/main/identity.ts": "f174db37997c7fdf69bfa937b13670eec4a65b31ac9c65c12dec0565219fb751",
+    "src/main/index.ts": "7961defe5b5306d0c5a47718ab9bf9e99f6f3471088b510e6ea655c88b28373b",
+    "src/main/ipc.ts": "4ec3ac4a3c5fa235c366dc22ceee040e23bed3960bb659271fd0f8e37459b7bb",
+    "src/main/menuWindow.ts": "659cc97944bb869f50849e5e9adf9dd695834d31bae714fa4572495abaa39632",
+    "src/main/net.ts": "d4bfb893658c111e677cad1ee2feff92a372e3720933307c5d79a56701beb9e6",
+    "src/main/persistence.ts": "007dd9f0709f64bc035d962ce488381f60627608e2ea0f26f55584bfdac960ad",
+    "src/main/raid.ts": "c7424e0b7289156c15e90c096e99980398cb75c492bfe1222ee312764c8cc953",
+    "src/main/recovery.ts": "95c214907c56dffe455aced545a9005aa2865e92c348ffdc27f182fd8c092f3e",
+    "src/main/settings.ts": "975843bc32c3e6a0ce16667285e1a4c3b27dc2ab7d7e54910aceffc3c10f06f0",
+    "src/main/share.ts": "5a00bb8661b009aa173b43efc79837444e0179aa98128de8aac2fe23f2f5f553",
+    "src/main/steam.ts": "260ea5484f37174c40cd0dccb3d8b18f48a0cf3a41555d8dd70a908f2dfa4c45",
+    "src/main/thefts.ts": "34e2bb647d905e85cf244f6889e978ed11ef87f672c99744f38ba20c71d929aa",
+    "src/main/tray.ts": "f33b79bf9eca4a8a95b81b50869ed0d459225b88527285d5a9530dbd3fd8ab6b",
+    "src/main/trayIcon.ts": "e8541876935edff7eb0d917a5cf6750191b729aed5f080bbc93b751414eaf1bb",
+    "src/main/window.ts": "3591781c68bac7f2f4a1c2647c7e36225d80f2985669a7bdeaac5d70b1b7cc25",
+    "src/menu/codex.ts": "9c257ec795092ed4a681d3c212bd6e6a72b7e21671d821c6781cd871ee6d643b",
+    "src/menu/economy.ts": "b98702c530a984c39275bbef54342a5e40a088f4bd96696cc7259ede6ff86fcd",
+    "src/menu/equipment.ts": "12895099e5a4b19a55f262f744086c9c4d917c377c085d3e2b653768b1b5bc16",
+    "src/menu/hero.ts": "50037df08a9434637816fe0e3d494c74bef16819cdbbd742e279ccbc5596eb6d",
+    "src/menu/index.ts": "8594345cd474cbe87218a7a43d01709002f90f86b608dfe0c4d9029a04168602",
+    "src/menu/popup.ts": "835067400f5b33e92f75ea2e8a469677517c73f115fa82f265316cc0674c0598",
+    "src/menu/profile.ts": "bdf9215a03abf5e493e8358f339d0165fc7f032ce232e28a0394719c3e6f1fcf",
+    "src/menu/raid.ts": "c83cf6c306b07ac52381e71549b3dd5b07c408fc4a04dc49554284b81b9ed71c",
+    "src/menu/recoveryUi.ts": "6eb097249ae0a30f2c801036593fa6e8eb3ffdc74a7a72b15eeebb42f60efefb",
+    "src/menu/share.ts": "9b1146b4a8d7a526d7de124102b4b720447ea42d08399f7663d54b684ee90cb8",
+    "src/menu/shareUi.ts": "2b931f3b51db91558fa343f8e0960bd51277217f00c2dcbd526ad5dfe059d73e",
+    "src/menu/view.ts": "1fc0777e17acb8a5cfefa20cf936cbc611cf6de180f4ffbedc38fefa085dd57e",
+    "src/preload/index.ts": "afe2643eacf4a4597726150c1370aaa549d4c726904909cbdb389239b781387d",
+    "src/renderer/anim.ts": "2d70b60ff614d65ec04ac8eb46ccdb25765ffc22229066fc5b5baccd993d64a4",
+    "src/renderer/audio.ts": "1776966851492f4608999cf93d2ee59c3ada2b87c47123c996f8027520f34744",
+    "src/renderer/drag.ts": "3508bb714990d586a11a9d70f77b7ee2737c86293b325da7d7887f100f134fc4",
+    "src/renderer/effects.ts": "421d56e65fc803643080a37f1e89d090714f937c4a2b77826342186caa4a61d5",
+    "src/renderer/game.ts": "76c854b9646a3cb10b58bea490393697feb75270bfb54dd616796ca5757725a9",
+    "src/renderer/global.d.ts": "8ac2e52f106ff73d5a8e60fb3a5563db72c2d1689db9e4e13c41d1ca0b7cbc43",
+    "src/renderer/hud.ts": "75428182a807b4be042ee51eb7c2026185a7ff260095a9eba0748e64ecd9e270",
+    "src/renderer/index.ts": "85c07ea8137b19eeabeaa4280fb7880f7db2490968f812552a6647e8d47ff0bf",
+    "src/renderer/input.ts": "7cae155c97b06b4e9136c36fea3603e1ef1a7f46bc5ff7fb3db5b137ea5a25c6",
+    "src/renderer/raidScene.ts": "8a36af8044a47a6dc5e9a6e3e016019e181a3cb5dbdfdb6fff4064f73dc7a7b4",
+    "src/renderer/raidStatus.ts": "7fa2a332e4bd133576f8c9678662520a58cbca33224debb68de55545a1468230",
+    "src/renderer/sprites/aura.ts": "4ff9f07919ef85a11bd20cf44072f5b1685e3c889dfb87fa9e5e2a1eb89a5cc0",
+    "src/renderer/sprites/boss.ts": "adce81ccf723a8d5a9653dd4600906064c1c2789367188d6036520e981f078d9",
+    "src/renderer/sprites/companion.ts": "ec04aaefb5adf5b57359f9546e1cef8456143976614368a1dbe3f2f53e86adad",
+    "src/renderer/sprites/epicEquipment.ts": "977327b212374bd6b03d8b1aa897d8ce8047fa0539ddf9eb9cfdd32ed487e3d6",
+    "src/renderer/sprites/equipment.ts": "ce12ae4bf1b735ec129eab4cdecc6ae6cc77f45a4d0733223c821634ee1e2a1c",
+    "src/renderer/sprites/equipmentGallery.ts": "539f01a345266ad541057d09ab79bc3f5f028381a5a1e07587f7adb010a8f7be",
+    "src/renderer/sprites/equippedHero.ts": "c63e92703bf37c9302b1e66e3ccb3f213dc51de7f4da5e868117852333ecaf31",
+    "src/renderer/sprites/font.ts": "39b1ccd019fa1a5512ef2711c324bf431f558ed5db2e6f807f186bc9c7c63e37",
+    "src/renderer/sprites/hero.ts": "2ccc263954b7374a2492a677737142b3ecaeefd102cb7dc96ca503cbb1ddff1c",
+    "src/renderer/sprites/heroAgileLooks.ts": "0cd5da7908bc042f0adf8eb5ccd15f33aeabffcb192247c2b7456d1b5950d033",
+    "src/renderer/sprites/heroArcaneLooks.ts": "7969d7fa4817644d31a5783918a7e5a3e22fec560720511f3516148370e4e208",
+    "src/renderer/sprites/heroEvolutionStudies.ts": "1afca4420849a609181b914f9f7c8229d311b44e290b97ecc8b1e67ee05632e3",
+    "src/renderer/sprites/heroForms.ts": "6880bd9fe7dbfff957b5f2deb5f4e56292bebb9f01442fdac4d552a8c89ca5ce",
+    "src/renderer/sprites/heroJobStudies.ts": "28b7e4aebded38788ca39d837dd04f5c09e1bdf3a0f4b136aab73c067fe58d0d",
+    "src/renderer/sprites/heroKnightLooks.ts": "00476819d25a649ac249a6a0dde3c06b74da2c56c91dd70139446c152f5f7cc8",
+    "src/renderer/sprites/heroLook.ts": "8f850fc00feeed86df33c6c71b0b1d507477a7dfb19515455df1194e1e4f5db4",
+    "src/renderer/sprites/heroRareLooks.ts": "622d65fd06ee3194a9c31cda128114210cbd3738d23e43f8c98d307bdf5e7708",
+    "src/renderer/sprites/index.ts": "9e1dc59ba103891532eb970c359d3900284fc5148a9814b982b678a35c241dfd",
+    "src/renderer/sprites/items.ts": "45eaa25e7da57c894950e12c111380a010cfceb15033d07c6e282ca1a41548c9",
+    "src/renderer/sprites/monsters.ts": "ebdd0442e6dc8bb42417d584b6ab2e9b8e2beb1c65fbe371bef59f5e760c5987",
+    "src/renderer/sprites/palette.ts": "25014b3496ad4d8c1360bf14f850215158bb1644762902e5d7a0e3bf77b95df3",
+    "src/renderer/sprites/party.ts": "36de0b0de6f807cb4b93210a2a3eb2c1e4b2008cabe71086eb8877fe6fa6b52d",
+    "src/renderer/sprites/raidBosses.ts": "31d72a32b11e706cbab1ae2bd37a2ac0b4d50b019ad25b91bf96e325213e81ff",
+    "src/renderer/sprites/species/dark.ts": "44ad085949960d0d0e1d6fb293dd278c851c25ab1f1dcb6e3200356639ef38f3",
+    "src/renderer/sprites/species/earth.ts": "8d54a781d953e87980f7d5dcc36602bc8b8d6eed6be4f6c42aca1fa1b5ca95f4",
+    "src/renderer/sprites/species/fire.ts": "5d3347e1b1241580f138e28189ffb13004fc2e6fca5fa8b8543b51fecb971a6c",
+    "src/renderer/sprites/species/rare.ts": "ce9e7a287591e2115b6428dd7d023649a1ef7afa4cbf09447b23d250d7e748fb",
+    "src/renderer/sprites/species/water.ts": "e5e1ce02c7d2ba463d67e084839e6e4510489e449f0dd1381748b349703eca8b",
+    "src/renderer/sprites/species/wind.ts": "18a9f4d80a97cf8ce5a758d8d1738fcf1f36c301eec5f63bedcf89acbe08e6e6",
+    "src/renderer/sprites/sprite.ts": "d01951c90479e2be639b30f6670e99f6839a58ce4f8a49039b5d9cf2d720d19f",
+    "src/server/app.ts": "f99303ba804518236758633b3e63c46cfc6bb8c5f6303caff9696119f2174e3f",
+    "src/server/gold.ts": "c070a5d9f24503100eee2fc7e2e9df59af5361c525f7be6c2e812d308c855d6b",
+    "src/server/http.ts": "5fe51cf7cd00283383616a858878175e337abede7084bdbc09af0de4774168a3",
+    "src/server/index.ts": "792de7673b8fdc9630a4a3350ad1a7a55caa529ae6c808858980b938a97af09b",
+    "src/server/pg.d.ts": "80ebb37a3080e0e1da36e2862a36122377805eceb774a3396ad5fa3684dbcd76",
+    "src/server/pgStore.ts": "0786fd1bdce61be07cc4f82ba5f426552066fdfeb4367e8bdee04f1228e5bf40",
+    "src/server/probe.ts": "e27e95f4df03a171fbd8f6acbc29ec7c674d5052c73314c93d49e8f573dd74ee",
+    "src/server/raid.ts": "10ba1933ec29a1b0d78c5f1ac247555f732c823e24efcf5a9f7462b50f9cb01a",
+    "src/server/store.ts": "b7add9e32f67636db72b58384195571eb1293299ccffde1b90a0ee68bb72a3dd",
+    "src/shared/api.ts": "dbea7028c4459934fa04b5c70f0a610956f6add1157c2cec58c20959e70afc0d",
+    "src/shared/ipc.ts": "d5fe411e271f9f68138e1439d3df4382fc382c4b92f85a0151ee3c998b02368d",
+    "src/shared/serverUrl.ts": "58655905c079fcd3b4a943289ebe12f4d145b3be6c9720af882371f67d6a96fe",
+    "static/index.html": "4c258c792f393053f58bb7f07cdee7db68378fdd744b8f807f37170327d34006",
+    "static/menu.css": "2abcdd3488053a163521c5ff5e1a684867e8d3b86b40407172ae43f2d47af978",
+    "static/menu.html": "aab6037fc14ffb42c11b5791826c50a5cd8138c98b9b923f3e9c1575b0931314",
+    "static/style.css": "7e1df1760aae1acc389f78a5245b9ec81f83923a9ddc57e70319665d7ca9b6ed"
+  },
+  "profile": "/var/folders/lx/2l4_myln77j11v_rskxlc7kr0000gn/T/desmon-raid-connected-R4Sy2g",
+  "transport": "actual node:http + MemoryStore",
+  "productionServer": false,
+  "scenario": "timeout",
+  "checks": [
+    "real field click explicitly confirms; popup keyboard trap/Escape",
+    "actual field inputs -> IPC -> batch POST -> authoritative HP; field monster unchanged; XP changes only by authoritative reward",
+    "failed HTTP request keeps raid presentation and reconnects",
+    "timeout result automatically delivered once through durable save and result popup",
+    "560px menu and result dialog stay in viewport"
+  ],
+  "passed": true,
+  "requests": [
+    {
+      "path": "/v1/players",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "path": "/v1/thefts",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/pvp/events",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/snapshot",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/snapshot",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/participate",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/snapshot",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/participate",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/snapshot",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/join",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/me",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/snapshot",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/confirm",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/attack",
+      "method": "POST",
+      "status": 200,
+      "body": {
+        "raidId": "r2",
+        "seq": 1,
+        "clicks": 8,
+        "crits": 0,
+        "damage": "73968",
+        "feverMs": 0
+      }
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 503
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/claim",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/v1/raid/live",
+      "method": "GET",
+      "status": 200
+    }
+  ],
+  "errors": []
+}

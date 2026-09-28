@@ -44,6 +44,8 @@ import type {
   WireBlow,
 } from '../core/index.js';
 import type { BattleReplay, HeroCombatSnapshot, PvpPresentation, WireFighter } from '../shared/api.js';
+import { applyRaidState, createRaidScene, drawRaid, raidLocalHit, tickRaid } from './raidScene.js';
+import type { RaidScene, RaidStateView } from './raidScene.js';
 import { equipmentTemplate } from '../core/equipment.js';
 import {
   createHeroAnim,
@@ -214,6 +216,9 @@ export function shakeOffset(ageMs: number): { dx: number; dy: number } {
 /** Presentation switches (the renderer turns the shake on; tests keep it off for exact rects). */
 export interface GameOptions {
   screenShake?: boolean;
+  raidConnected?: boolean;
+  onRaidDamage?: (hit: { raidId: string; damage: string; crit: boolean; fever: boolean }) => void;
+  onRaidComplete?: (raidId: string) => void;
   onReplayStatus?: (presentation: PvpPresentation | null) => void;
   onReplayComplete?: (battleId: string) => void;
 }
@@ -525,6 +530,8 @@ export interface Game {
   /** Queue an already committed result; playback never applies its gold delta. */
   enqueueReplay(presentation: PvpPresentation): void;
   isReplaying(): boolean;
+  isRaiding(): boolean;
+  raidState(view: RaidStateView | null): void;
   /** Repaint the full VIEW_W×VIEW_H scene. */
   draw(ctx: GameCanvas): void;
   getState(): Readonly<GameState>;
@@ -583,6 +590,9 @@ export function createGame(
   let scene: BattleScene | null = null;
   const sceneQueue: BattleScene[] = [];
   const completedReplays = new Set<string>();
+  let raid: RaidScene | null = null;
+  const completedRaids = new Set<string>();
+  const expiredRaids = new Set<string>();
 
   /** Drop every in-flight presentation system (Reset Progress and rebirth). */
   const clearPresentation = (): void => {
@@ -1041,7 +1051,7 @@ export function createGame(
   const queueScene = (next: BattleScene): void => {
     if (scene === null) {
       scene = next;
-      options.onReplayStatus?.(next.presentation);
+      if (!raid) options.onReplayStatus?.(next.presentation);
     } else sceneQueue.push(next);
   };
   const legacyReplay = (replay: BattleReplay, won?: boolean): BattleScene => {
@@ -1071,6 +1081,20 @@ export function createGame(
     endEquipmentBatch: (): GameEvent[] => { const events = engine.endEquipmentBatch(); handleEvents(events); return events; },
     refreshShop: (now): GameEvent[] => { const events = engine.refreshShop(now); handleEvents(events); return events; },
     attack(source: InputSource): GameEvent[] {
+      if (raid !== null) {
+        if (raid.view.phase === 'battle' && raid.view.remainingMs > 0 && options.raidConnected !== false) {
+          const events = engine.raidAttack(source);
+          for (const event of events) {
+            if (event.type !== 'attack') continue;
+            raidLocalHit(raid, event.damage, event.crit);
+            options.onRaidDamage?.({ raidId: raid.view.raidId, damage: String(event.damage),
+              crit: event.crit, fever: engine.getState().fever.active });
+            audio.attackTick();
+          }
+          return events;
+        }
+        return [];
+      }
       // PvP attacks are driven exclusively by the timed battle blows.
       if (scene !== null) return [];
       // Inputs still deal damage immediately; visual swings finish with one pending.
@@ -1082,6 +1106,20 @@ export function createGame(
 
     update(dtMs: number): GameEvent[] {
       const dt = Number.isFinite(dtMs) && dtMs > 0 ? dtMs : 0;
+      if (raid !== null) {
+        engine.raidTick(dt);
+        if (!tickRaid(raid, dt)) {
+          const id = raid.view.raidId;
+          const settled = raid.view.phase === 'settled';
+          const history = settled ? completedRaids : expiredRaids;
+          history.add(id);
+          if (history.size > REPLAY_HISTORY_SIZE) history.delete(history.values().next().value!);
+          raid = null;
+          if (settled) options.onRaidComplete?.(id);
+          if (scene) options.onReplayStatus?.(scene.presentation);
+        }
+        return [];
+      }
       if (scene !== null) {
         advanceScene(dt);
         return []; // Never catch up field time, including the scene's last frame.
@@ -1141,9 +1179,24 @@ export function createGame(
     playReplay: (replay, won): void => { legacyReplay(replay, won); },
     enqueueReplay,
     isReplaying: (): boolean => scene !== null,
+    isRaiding: (): boolean => raid !== null,
+    raidState(view): void {
+      if (view === null) { raid = null; if (scene) options.onReplayStatus?.(scene.presentation); return; }
+      if (completedRaids.has(view.raidId)) return;
+      if (view.phase === 'battle' && (expiredRaids.has(view.raidId) || view.remainingMs <= 0 && raid === null)) return;
+      if (raid?.view.raidId === view.raidId) applyRaidState(raid, view);
+      else raid = createRaidScene(view);
+      options.onReplayStatus?.(null);
+    },
 
     draw(screen: GameCanvas): void {
       screen.clearRect(0, 0, VIEW_W, VIEW_H);
+      if (raid !== null) {
+        drawField(screen);
+        drawRaid(screen, raid);
+        drawCounters(screen, engine.getState(), VIEW_W);
+        return;
+      }
       // A critical hit shakes the world (everything but the top-left counters
       // and the banner) for SHAKE_MS; `ctx` is the shifted view of `screen`.
       const shake = scene === null && options.screenShake === true && shakeAgeMs < SHAKE_MS ? shakeOffset(shakeAgeMs) : null;
@@ -1341,6 +1394,7 @@ export function createGame(
     },
 
     reset(rng?: Rng): void {
+      raid = null;
       engine = createEngine(null, rng);
       clearPresentation();
     },

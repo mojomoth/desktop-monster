@@ -5,6 +5,7 @@
 // the preload source so the two can never drift.
 
 import type {
+  RaidLiveResponse, RaidAction, Theft,
   IdentityPayload,
   LeaderboardResult,
   MatchResult,
@@ -17,6 +18,7 @@ import type {
   PvpPresentation,
 } from '../shared/api.js';
 import type {
+  RaidDamagePayload, PopupRequest,
   GameSettings,
   SettingsResult,
   ConnectInputResult,
@@ -31,6 +33,15 @@ import type {
 declare global {
   interface Window {
     desmon: {
+      onRaidState(cb: (view: RaidLiveResponse | null) => void): () => void;
+      getRaidState(): Promise<RaidLiveResponse | null>;
+      raidAction(action: RaidAction): Promise<NetResult<RaidLiveResponse>>;
+      raidDamage(hit: RaidDamagePayload): void;
+      onRaidConnection(cb: (online: boolean) => void): () => void;
+      getRaidConnection(): Promise<boolean>;
+      onConfirm(cb: (request: PopupRequest) => void): () => void;
+      confirmResponse(id: string, value: string): void;
+      onTheftNotice(cb: (notice: Theft) => void): () => void;
       onPrepareState(cb: (p: PrepareStatePayload) => void): () => void;
       captureState(requestId: string, generation: number, save: unknown): Promise<void>;
       onReleaseState(cb: (p: ReleaseStatePayload) => void): () => void;

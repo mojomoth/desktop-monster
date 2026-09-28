@@ -107,3 +107,7 @@ export {
   TRINKET_TABLE,
 } from './loot.js';
 export type { WeightedTrinket } from './loot.js';
+
+export { RAID_PARAMETERS, RAID_BOSSES, RAID_CATALOG, raidLootForBoss, raidReward } from './raid.js';
+export type { RaidParameters } from './raid.js';
+export { heroicAttack } from './battle.js';

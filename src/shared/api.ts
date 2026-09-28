@@ -156,6 +156,8 @@ export interface ApiError { error: string; retryAfterSec?: number }
 
 // IPC-level shapes (main → renderer results; SERVER_ARCHITECTURE §6).
 export type NetError =
+  | 'raid-phase'
+  | 'raid-full'
   | 'busy'
   | 'storage'
   | 'sync-required'
@@ -200,3 +202,29 @@ export const MATCH_TTL_MS = 120_000;
 export const RECLAIM_WINDOW_MS = 86_400_000;
 /** Thefts kept per victim row. */
 export const THEFTS_MAX = 8;
+
+/** Raid protocol. Participant arrays contain every confirmed hero. */
+export const RAID_PHASES = ['gathering', 'countdown', 'confirming', 'battle', 'settled', 'skipped'] as const;
+export type RaidPhase = typeof RAID_PHASES[number];
+export interface RaidBoss { id: string; name: string; element: MonsterType }
+export interface RaidCondition { id: string; kind: 'level' | 'bestIndex'; min: number; need: number; have: number; mine: boolean; qualified: boolean }
+export interface RaidContributor { playerId: string; name: string; formId: string; level: number; damage: string }
+export interface RaidReward {
+  raidId: string; rank: number; of: number; xpLevels: number; goldKills: number;
+  /** Frozen at confirmation; delayed claims cannot scale up their rewards. */
+  level: number; bestIndex: number; rewardBps: number; itemTemplateId?: string;
+}
+export interface RaidView {
+  raidId: string; cycle: number; boss: RaidBoss; phase: RaidPhase; gatherDeadline: number;
+  conditions: RaidCondition[]; capacity: number; joined: number; confirmed: number; openToAll: boolean;
+  participants: RaidContributor[];
+  unlockedAt?: number; battleAt?: number; priorityUntil?: number; confirmUntil?: number; battleEnd?: number; claimUntil?: number;
+  battle?: { bossHp: string; hpLeft: string; elapsedMs: number; killed: boolean; top: { name: string; damage: string }[] };
+  me: { playerId: string; unlocker: boolean; joined: boolean; confirmed: boolean; damage: string; seq: number;
+    claimed: boolean; rank?: number; reward?: RaidReward };
+}
+export interface RaidLiveResponse { now: number; raid: RaidView; previous?: RaidView }
+export interface RaidAttackRequest { raidId: string; seq: number; damage: string; clicks: number; crits: number; feverMs: number }
+export interface RaidAttackResponse extends RaidLiveResponse { accepted: boolean; expectedSeq: number }
+export interface RaidClaimResponse { reward: RaidReward }
+export type RaidAction = { type: 'participate'; conditionId: string } | { type: 'join' | 'confirm' };

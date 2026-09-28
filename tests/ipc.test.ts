@@ -31,6 +31,26 @@ vi.mock('../src/main/recovery.js', () => ({ RecoveryStore: class {
   allocationSafe(value: unknown): unknown { return value; }
 } }));
 import { registerIpcHandlers } from '../src/main/ipc.js';
+import { ProgressCoordinator } from '../src/main/coordinator.js';
+
+describe('raid IPC sender binding', () => {
+  it('rejects forged matching URLs and permits only the actual field and menu webContents', async () => {
+    const action = vi.spyOn(ProgressCoordinator.prototype, 'raidAction').mockResolvedValue({ ok: false, error: 'offline' });
+    try {
+      registerIpcHandlers();
+      const invoke = relay.handlers.get(IPC.RAID_ACTION)!;
+      for (const sender of [{ ...relay.menu, id: 99 }, { ...relay.game, id: 98 },
+        { ...relay.menu, id: 97, getURL: () => 'https://example.invalid/static/menu.html' }]) {
+        expect(await invoke({ sender }, { type: 'confirm' })).toEqual({ ok: false, error: 'raid-phase' });
+      }
+      expect(action).not.toHaveBeenCalled();
+      for (const sender of [relay.menu, relay.game]) expect(await invoke({ sender }, { type: 'confirm' }))
+        .toEqual({ ok: false, error: 'offline' });
+      expect(action).toHaveBeenCalledTimes(2);
+      expect(action).toHaveBeenLastCalledWith({ type: 'confirm' });
+    } finally { action.mockRestore(); }
+  });
+});
 
 describe('v0.9 main-owned companion IPC', () => {
   it('rejects malformed and well-formed menu-forged ownership and battle results', () => {
@@ -97,6 +117,16 @@ const mainIndexTs = read('src/main/index.ts');
 describe('shared IPC channels (src/shared/ipc.ts)', () => {
   it('defines the GAME_ARCHITECTURE §3.2 table plus first-frame, move-window and the net channels', () => {
     expect(IPC).toEqual({
+      RAID_STATE: 'desmon:raid-state',
+      GET_RAID_STATE: 'desmon:get-raid-state',
+      RAID_ACTION: 'desmon:raid-action',
+      RAID_DAMAGE: 'desmon:raid-damage',
+      RAID_CONNECTION: 'desmon:raid-connection',
+      GET_RAID_CONNECTION: 'desmon:get-raid-connection',
+      CONFIRM: 'desmon:confirm',
+      CONFIRM_RESPONSE: 'desmon:confirm-response',
+      THEFT_NOTICE: 'desmon:theft-notice',
+
       INPUT: 'desmon:input',
       INPUT_MODE: 'desmon:input-mode',
       GET_INPUT_MODE: 'desmon:get-input-mode',
@@ -285,8 +315,11 @@ describe('main IPC handlers (src/main/ipc.ts)', () => {
     }
     // Raw ACTION is only the local menu relay. Server-owned mutations are
     // committed first, then delivered as a single RELEASE_STATE transaction.
-    expect(mainIpcTs.match(/webContents\.send\(/g)).toHaveLength(2);
-    expect(mainIpcTs.lastIndexOf('webContents.send(')).toBeLessThan(mainIpcTs.indexOf('ipcMain.handle'));
+    // The extra targeted message opens a pixel confirmation, never an ACTION.
+    const withoutConfirmation = mainIpcTs.replace('menu.webContents.send(IPC.CONFIRM, { id, spec });', '');
+    expect(mainIpcTs).toContain('menu.webContents.send(IPC.CONFIRM, { id, spec });');
+    expect(withoutConfirmation.match(/webContents\.send\(/g)).toHaveLength(2);
+    expect(withoutConfirmation.lastIndexOf('webContents.send(')).toBeLessThan(withoutConfirmation.indexOf('ipcMain.handle'));
     expect(mainIpcTs.match(/IPC\.ACTION\b/g)).toHaveLength(1);
     expect(mainIpcTs).toContain('sendToAll(IPC.RELEASE_STATE, state)');
     const coordinator = read('src/main/coordinator.ts');

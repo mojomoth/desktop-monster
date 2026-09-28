@@ -1,3 +1,4 @@
+import type { RaidReward } from '../shared/api.js';
 import { settlePvpGold } from './gold.js';
 // Companion collection — SPEC F32 (Assumptions 5/23/24/26; GAME_DESIGN_V2
 // §4/§6). Pure TypeScript, zero imports of electron/DOM/node. Every export is
@@ -157,6 +158,7 @@ export type CollectionEvent =
 
 /** Every roster/prestige operation the menu and the net layer can request. */
 export type CollectionAction =
+  | ({ type: 'raidReward' } & RaidReward)
   | HeroAction
   | EconomyAction
   | EquipmentAction

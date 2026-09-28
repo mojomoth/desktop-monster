@@ -1,7 +1,7 @@
 // Main-process IPC handlers (SPEC F17 + F22 main half; GAME_ARCHITECTURE §3.2).
 
 import { randomUUID } from 'node:crypto';
-import { app, BrowserWindow, ipcMain, shell, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import type { WebContents } from 'electron';
 import type { CollectionAction } from '../core/collection.js';
 import { isCompanionSnapshot, isDiscoveryAction, migrateProgress, parseSave } from '../core/index.js';
@@ -10,6 +10,7 @@ import { equipmentItems, equipmentName, heroChangeWarning } from '../core/equipm
 import { isHeroRoll } from '../core/hero.js';
 import { LEADERBOARD_DEFAULT, LEADERBOARD_MAX } from '../shared/api.js';
 import type {
+  RaidAction, RaidLiveResponse, Theft,
   IdentityPayload,
   LeaderboardResult,
   MatchResult,
@@ -21,7 +22,7 @@ import type {
 } from '../shared/api.js';
 import { IPC } from '../shared/ipc.js';
 import type {
-  GameSettings, ActionResultPayload,
+  RaidDamagePayload, PopupSpec, GameSettings, ActionResultPayload,
   SettingsResult,
   ConnectInputResult,
   SaveStatus,
@@ -37,10 +38,17 @@ import { getCurrentInputMode } from './globalInput.js';
 import { createNetClient, createNetSession, type NetSession } from './net.js';
 import { readSaveFileResult, writeSaveFile, type SaveFileReadResult } from './persistence.js';
 import { readSettings, updateSettings } from './settings.js';
+import { createRaidWatcher } from './raid.js';
 import { ProgressCoordinator } from './coordinator.js';
 import { exportPng } from './share.js';
 import type { OperationResult } from '../shared/ipc.js';
 
+const pendingThefts: Theft[] = [];
+export function showTheftNotice(theft: Theft): void {
+  if (!pendingThefts.some(t => t.id === theft.id)) pendingThefts.push(theft);
+  sendToAll(IPC.THEFT_NOTICE, theft);
+  if (pendingThefts.length > 32) pendingThefts.shift();
+}
 let saveStatus: SaveStatus = { state: 'ready' };
 export function getSaveStatus(): SaveStatus { return { ...saveStatus }; }
 let flushForQuit: () => Promise<boolean> = async () => true;
@@ -254,18 +262,68 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
       }
     }
   });
+  const raid = createRaidWatcher({ session,
+    action: action => coordinator ? coordinator.raidAction(action) : Promise.resolve({ ok: false, error: 'offline' }),
+    claim: id => coordinator ? coordinator.claimRaid(id) : Promise.resolve({ ok: false, error: 'offline' }),
+    claimed: id => coordinator?.hasRaidClaim(id) ?? false,
+    push: view => { sendToAll(IPC.RAID_STATE, view); },
+    connection: online => sendToAll(IPC.RAID_CONNECTION, online), setTimeout, clearTimeout,
+  });
+  const inRaid = (): boolean => raid.last?.raid.phase === 'battle' && raid.last.raid.me.confirmed;
+  ipcMain.handle(IPC.GET_RAID_STATE, (): Promise<RaidLiveResponse | null> => {
+    if (!process.env.SMOKE && !blocked()) void raid.poll();
+    return Promise.resolve(raid.last);
+  });
+  ipcMain.handle(IPC.GET_RAID_CONNECTION, () => raid.online);
+  ipcMain.handle(IPC.RAID_ACTION, (event, payload: unknown): Promise<NetResult<RaidLiveResponse>> => {
+    const p = payload as Partial<RaidAction> | null;
+    const menu = BrowserWindow.getAllWindows().find(w => w.webContents.getURL().endsWith('/static/menu.html'));
+    const authorized = event.sender.id === field()?.id || event.sender.id === menu?.webContents.id;
+    if (!authorized || blocked() || !p || !['participate', 'join', 'confirm'].includes(String(p.type)) ||
+      (p.type === 'participate' && p.conditionId !== 'level' && p.conditionId !== 'bestIndex')) return Promise.resolve({ ok: false, error: 'raid-phase' });
+    return raid.act(p as RaidAction);
+  });
+  ipcMain.on(IPC.RAID_DAMAGE, (event, payload: unknown) => {
+    if (blocked() || event.sender.id !== field()?.id || !payload || typeof payload !== 'object') return;
+    const p = payload as Partial<RaidDamagePayload>;
+    if (typeof p.raidId !== 'string' || !/^r\d{1,12}$/.test(p.raidId) ||
+      typeof p.damage !== 'string' || !/^(0|[1-9]\d{0,39})$/.test(p.damage) || typeof p.crit !== 'boolean' || typeof p.fever !== 'boolean') return;
+    raid.report(p as RaidDamagePayload);
+  });
+  const confirmations = new Map<string, { sender: number; finish: (value: string) => void; values: string[] }>();
+  const pixelConfirm = (spec: PopupSpec): Promise<boolean> => {
+    const menu = BrowserWindow.getAllWindows().find(w => w.webContents.getURL().endsWith('/static/menu.html'));
+    if (!menu) return Promise.resolve(false);
+    return new Promise(resolve => {
+      const id = randomUUID();
+      const finish = (value: string): void => {
+        if (!confirmations.delete(id)) return;
+        clearTimeout(timer); menu.webContents.removeListener('destroyed', closed); resolve(value === 'confirm');
+      };
+      const closed = (): void => finish('cancel');
+      const timer = setTimeout(closed, 120000);
+      confirmations.set(id, { sender: menu.webContents.id, finish, values: spec.buttons.map(b => b.value) });
+      menu.webContents.once('destroyed', closed);
+      menu.webContents.send(IPC.CONFIRM, { id, spec });
+    });
+  };
+  ipcMain.on(IPC.CONFIRM_RESPONSE, (event, payload: unknown) => {
+    const p = payload as { id?: unknown; value?: unknown } | null;
+    if (typeof p?.id !== 'string' || typeof p.value !== 'string') return;
+    const request = confirmations.get(p.id);
+    if (request?.sender === event.sender.id && request.values.includes(p.value)) request.finish(p.value);
+  });
   let confirming = false;
   const resetOrRestore = async (id?: string): Promise<OperationResult> => {
-    if (confirming || coordinatorBlocked() || !coordinator || coordinator.pending) return { ok: false, error: '진행 중인 전투·회수를 먼저 완료하세요.' };
+    if (inRaid() || confirming || coordinatorBlocked() || !coordinator || coordinator.pending) return { ok: false, error: '진행 중인 전투·회수를 먼저 완료하세요.' };
     confirming = true;
     try {
       if (id !== undefined && !coordinator.recovery.list().some(c => c.id === id)) return { ok: false, error: '복원할 백업을 찾을 수 없습니다.' };
-      const { response } = await dialog.showMessageBox({ type: 'warning', title: id ? '진행 복원' : '진행 초기화',
-        message: id ? '선택한 백업 시점으로 돌아갈까요?' : '진행을 초기화할까요?',
-        detail: (id ? '백업 이후의 로컬 진행은 선택한 시점으로 교체됩니다.' : '레벨·재화·영웅·동료·도감 등 게임 진행이 처음으로 돌아갑니다.') +
-          '\n현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.\n계정·이름·설정·온라인 전적은 유지됩니다.',
-        buttons: ['취소', id ? '백업으로 복원' : '백업 후 초기화'], defaultId: 0, cancelId: 0, noLink: true });
-      return response === 1 ? await coordinator.resetOrRestore(id) : { ok: false };
+      const yes = await pixelConfirm({ title: id ? '진행 복원' : '진행 초기화',
+        body: [(id ? '선택한 백업 시점으로 돌아갈까요?' : '레벨·재화·영웅·동료·도감 등 게임 진행이 처음으로 돌아갑니다.'),
+          '현재 진행은 먼저 백업합니다. 최근 5개 백업을 내 기록에서 복원할 수 있습니다.', '계정·이름·설정·온라인 전적은 유지됩니다.'],
+        buttons: [{ label: '취소', value: 'cancel', primary: true }, { label: id ? '백업으로 복원' : '백업 후 초기화', value: 'confirm' }], cancelValue: 'cancel' });
+      return yes && !inRaid() && !coordinatorBlocked() && !coordinator.pending ? await coordinator.resetOrRestore(id) : { ok: false };
     } catch { return { ok: false, error: '확인 창을 열지 못했습니다.' }; }
     finally { confirming = false; }
   };
@@ -282,7 +340,7 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
     return ok;
   });
   ipcMain.handle(IPC.BATTLE_OPPONENT, (_event, id: unknown): Promise<NetResult<PvpResult>> =>
-    !coordinatorBlocked() && coordinator && typeof id === 'string' && /^[A-Za-z0-9-]{1,64}$/.test(id)
+    !inRaid() && !coordinatorBlocked() && coordinator && typeof id === 'string' && /^[A-Za-z0-9-]{1,64}$/.test(id)
       ? coordinator.battleOpponent(id) : Promise.resolve({ ok: false, error: 'busy' }));
   ipcMain.handle(IPC.EXPORT_PNG, (_event, value: unknown) => exportPng(value));
   ipcMain.handle(IPC.FIELD_IMAGE, async (): Promise<string | null> => {
@@ -359,6 +417,7 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
     if (action === null || ['addCompanion', 'removeCompanions', 'pvpResult'].includes(action.type)) return;
     let relayed = false;
     try {
+    if (inRaid()) throw Error('레이드가 끝난 뒤 다시 시도하세요.');
     if (coordinator?.replaying) throw Error('PvP 재생이 끝난 뒤 다시 시도하세요.');
     if (coordinatorBlocked() || coordinator?.pending || confirming) return;
     if (action.type === 'heroEquip' || action.type === 'heroChoose' || action.type === 'rebirth') {
@@ -373,11 +432,10 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
         for (;;) {
           const state = coordinator?.latest ?? parseSave(latestSave);
           if (state.equipment?.temporary.length) {
-            const reply = await dialog.showMessageBox({ type: 'warning', title: '임시 장비 소멸 확인',
-              message: '영웅을 변경하면 아래 임시 장비가 사라집니다.',
-              detail: state.equipment.temporary.map(equipmentName).join('\n'),
-              buttons: ['취소', '장비 삭제 후 변경'], defaultId: 0, cancelId: 0, noLink: true });
-            if (reply.response !== 1 || coordinatorBlocked() || coordinator?.pending) return;
+            const yes = await pixelConfirm({ title: '임시 장비 소멸 확인',
+              body: ['영웅을 변경하면 아래 임시 장비가 사라집니다.', ...state.equipment.temporary.map(equipmentName)],
+              buttons: [{ label: '취소', value: 'cancel', primary: true }, { label: '장비 삭제 후 변경', value: 'confirm' }], cancelValue: 'cancel' });
+            if (!yes || inRaid() || coordinatorBlocked() || coordinator?.pending) return;
           }
           const live = coordinator?.latest ?? parseSave(latestSave);
           const next = heroChangeWarning(live.equipment, target, offer);
@@ -395,11 +453,10 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
       if (BigInt(item.enhancement) >= 5n) {
         confirming = true;
         try {
-          const reply = await dialog.showMessageBox({ type: 'warning', title: '장비 강화',
-            message: `${equipmentName(item)} 강화에 실패하면 장비가 파괴됩니다.`,
-            detail: '확인한 확률과 비용으로 강화를 진행합니다. 장비 상태가 바뀌면 이 요청은 취소됩니다.',
-            buttons: ['취소', '강화'], defaultId: 0, cancelId: 0, noLink: true });
-          if (reply.response !== 1 || coordinatorBlocked() || coordinator?.pending) return;
+          const yes = await pixelConfirm({ title: '장비 강화',
+            body: [`${equipmentName(item)} 강화에 실패하면 장비가 파괴됩니다.`, '확인한 확률과 비용으로 강화를 진행합니다. 장비 상태가 바뀌면 이 요청은 취소됩니다.'],
+            buttons: [{ label: '취소', value: 'cancel', primary: true }, { label: '강화', value: 'confirm' }], cancelValue: 'cancel' });
+          if (!yes || inRaid() || coordinatorBlocked() || coordinator?.pending) return;
         } finally { confirming = false; }
       }
     }
@@ -466,6 +523,9 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
 
   // The menu's single boot path: answer the SENDER with the save on disk.
   ipcMain.on(IPC.MENU_READY, (event) => {
+    event.sender.send(IPC.RAID_STATE, raid.last);
+    event.sender.send(IPC.RAID_CONNECTION, raid.online);
+    for (const theft of pendingThefts.splice(0)) event.sender.send(IPC.THEFT_NOTICE, theft);
     event.sender.send(IPC.SAVE_STATUS, getSaveStatus());
     event.sender.send(IPC.PVP_PLAYBACK, coordinator?.replaying ?? false);
     if (blocked()) return;
@@ -473,6 +533,7 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
   });
 
   ipcMain.on(IPC.FIRST_FRAME, () => {
+    if (!process.env.SMOKE && !blocked()) raid.start();
     options.onFirstFrame?.();
   });
 
@@ -494,6 +555,8 @@ export function registerIpcHandlers(options: IpcOptions = {}): NetSession {
     const [x = 0, y = 0] = win.getPosition();
     win.setPosition(x + dx, y + dy);
   });
+
+  app.on?.('will-quit', () => { raid.stop(); for (const request of [...confirmations.values()]) request.finish('cancel'); });
 
   // Notification clicks share the same durable mutation boundary as the menu.
   return coordinator ? { ...session, reclaim: id => coordinator!.reclaim(id), thefts: () => coordinator!.thefts(),

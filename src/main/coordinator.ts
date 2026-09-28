@@ -4,7 +4,7 @@ import { EQUIPMENT_PROTOCOL } from '../shared/api.js';
 import { createEngine, parseSave, settlePvpGold } from '../core/index.js';
 import type { SaveFile } from '../core/save.js';
 import type { CollectionAction } from '../core/collection.js';
-import type { LeaderboardMetric, LeaderboardResult, NetResult, OpponentListResult, PvpResult, ReclaimResult, TheftsResult, PvpGoldState, PvpPresentation } from '../shared/api.js';
+import type { RaidAction, RaidLiveResponse, RaidClaimResponse, LeaderboardMetric, LeaderboardResult, NetResult, OpponentListResult, PvpResult, ReclaimResult, TheftsResult, PvpGoldState, PvpPresentation } from '../shared/api.js';
 import type { NetSession } from './net.js';
 import { RecoveryStore } from './recovery.js';
 import { readSaveFileResult, writeSaveFile } from './persistence.js';
@@ -23,6 +23,7 @@ export class ProgressCoordinator {
   private replaced = false;
   private lastWalletSync = 0;
   private polling = false;
+  private raidClaiming = false;
   private readonly reclaimRequest: NetSession['reclaim'];
   constructor(private readonly o: {
     directory: string; initial: SaveFile; session: NetSession;
@@ -36,7 +37,7 @@ export class ProgressCoordinator {
     this.latest = this.recovery.allocationSafe(parseSave(disk.kind === 'loaded' ? disk.value : o.initial));
     this.reclaimRequest = o.session.reclaim.bind(o.session);
   }
-  get pending(): boolean { return !!this.recovery.state.pendingBattle || !!this.recovery.state.pendingReclaim; }
+  get pending(): boolean { return !!this.recovery.state.pendingBattle || !!this.recovery.state.pendingReclaim || !!this.recovery.state.pendingRaidClaim; }
   get replaying(): boolean { return this.pendingReplays().length > 0; }
   pendingReplays(): PvpPresentation[] { return this.recovery.state.replays ?? []; }
   completeReplay(id: string): boolean {
@@ -63,13 +64,17 @@ export class ProgressCoordinator {
     }
   }
   private persist(save: SaveFile): void {
+    save = this.recovery.allocationSafe(save);
     this.recovery.observe(save);
     if (!writeSaveFile(this.o.directory, save)) throw Error('Could not save progress');
     this.latest = save; this.o.session.onSave(save); this.o.status(false);
   }
   private apply(actions: CollectionAction[], patch: Parameters<RecoveryStore['commit']>[1] = {}): void {
     const engine = createEngine(this.latest);
-    for (const action of actions) engine.apply(action);
+    for (const action of actions) {
+      engine.apply(action);
+      if (action.type === 'raidReward' && engine.lastActionError()) throw Error(engine.lastActionError()!);
+    }
     this.latest = this.recovery.commit(engine.toSave(), patch);
     this.actions.push(...actions);
     this.o.session.onSave(this.latest);
@@ -156,12 +161,65 @@ export class ProgressCoordinator {
     else if (reply.error === 'expired' || reply.error === 'gone') this.recovery.update({ pendingReclaim: undefined });
     return reply;
   }
+  hasRaidClaim(id: string): boolean { return this.recovery.state.claimedRaidIds?.includes(id) ?? false; }
+  private async finishRaidClaim(): Promise<NetResult<RaidClaimResponse>> {
+    const pending = this.recovery.state.pendingRaidClaim;
+    if (!pending) return failure('busy');
+    let reward = pending.reward;
+    if (!reward) {
+      const reply = await this.o.session.raidClaim?.(pending.raidId);
+      if (!reply) return failure('sync-required');
+      if (!reply.ok) {
+        if (reply.error === 'expired' || reply.error === 'gone') this.recovery.update({ pendingRaidClaim: undefined });
+        return reply;
+      }
+      reward = reply.value.reward;
+      this.recovery.update({ pendingRaidClaim: { raidId: pending.raidId, reward } });
+    }
+    this.apply([{ type: 'raidReward', ...reward }], { pendingRaidClaim: undefined,
+      claimedRaidIds: [...new Set([...(this.recovery.state.claimedRaidIds ?? []), pending.raidId])] });
+    return { ok: true, value: { reward } };
+  }
+  async claimRaid(id: string): Promise<NetResult<unknown>> {
+    if (this.hasRaidClaim(id)) return { ok: true, value: null };
+    if (this.raidClaiming || this.busy || this.faulted || this.replaying) return failure('busy');
+    this.raidClaiming = true;
+    try {
+      const pending = this.recovery.state.pendingRaidClaim;
+      if (pending && pending.raidId !== id) return failure('busy');
+      if (!pending) this.recovery.update({ pendingRaidClaim: { raidId: id } });
+      // The request is durable before HTTP, but hunting need not pause while a
+      // sleeping server replies. Only the local application captures the field.
+      if (!pending?.reward) {
+        const reply = await this.o.session.raidClaim?.(id);
+        if (!reply) return failure('sync-required');
+        if (!reply.ok) {
+          if (reply.error === 'expired' || reply.error === 'gone') this.recovery.update({ pendingRaidClaim: undefined });
+          return reply;
+        }
+        this.recovery.update({ pendingRaidClaim: { raidId: id, reward: reply.value.reward } });
+      }
+      return await this.boundary(() => this.finishRaidClaim());
+    } catch { this.o.status(true); return failure('storage'); }
+    finally { this.raidClaiming = false; }
+  }
+  async raidAction(action: RaidAction): Promise<NetResult<RaidLiveResponse>> {
+    return this.boundary(async () => {
+      const synced = await this.synchronize(); if (!synced.ok) return synced;
+      const request = action.type === 'participate' ? this.o.session.raidParticipate?.(action.conditionId)
+        : action.type === 'join' ? this.o.session.raidJoin?.() : this.o.session.raidConfirm?.();
+      return await request ?? failure('sync-required');
+    });
+  }
   private async synchronize(): Promise<NetResult<null>> {
     if (this.recovery.state.pendingBattle) {
       const recovered = await this.finishBattle(); if (!recovered.ok && recovered.error !== 'expired') return recovered;
     }
     if (this.recovery.state.pendingReclaim) {
       const recovered = await this.finishReclaim(); if (!recovered.ok && recovered.error !== 'expired' && recovered.error !== 'gone') return recovered;
+    }
+    if (this.recovery.state.pendingRaidClaim) {
+      const recovered = await this.finishRaidClaim(); if (!recovered.ok && recovered.error !== 'expired' && recovered.error !== 'gone') return recovered;
     }
     for (let attempt = 0; attempt < 3; attempt++) {
       const me = await this.o.session.me();
@@ -188,11 +246,18 @@ export class ProgressCoordinator {
   }
   /** Receipt ACK follows durable local delivery; animation completion is independent. */
   async pollIncoming(): Promise<NetResult<null>> {
-    if (this.polling || this.busy || this.faulted || this.replaying) return failure('busy');
+    if (this.raidClaiming || this.polling || this.busy || this.faulted || this.replaying) return failure('busy');
+    if (this.recovery.state.pendingRaidClaim?.reward) return this.boundary(async () => {
+      const done = await this.finishRaidClaim(); return done.ok ? { ok: true, value: null } : done;
+    });
     if (!this.o.session.events || !this.o.session.ackEvents || !this.o.session.identity().online) return failure('sync-required');
     this.polling = true;
     try {
       const pending = this.recovery.state;
+      if (pending.pendingRaidClaim) {
+        const done = await this.claimRaid(pending.pendingRaidClaim.raidId);
+        return done.ok ? { ok: true, value: null } : done;
+      }
       if (pending.pendingBattle || pending.pendingReclaim) {
         // Fetch first: an offline retry must not pause the hunting engine while it times out.
         if (pending.pendingBattle) {

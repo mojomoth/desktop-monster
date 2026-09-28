@@ -9,6 +9,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { IpcRendererEvent } from 'electron';
 import type {
+  RaidLiveResponse, RaidAction, Theft,
   IdentityPayload,
   LeaderboardResult,
   MatchResult,
@@ -21,6 +22,7 @@ import type {
   PvpPresentation,
 } from '../shared/api.js';
 import type {
+  RaidDamagePayload, PopupRequest,
   GameSettings,
   SettingsResult,
   ConnectInputResult,
@@ -44,6 +46,15 @@ function subscribe(channel: string, cb: (payload: unknown) => void): () => void 
 }
 
 const desmon = {
+  onRaidState: (cb: (view: RaidLiveResponse | null) => void): (() => void) => subscribe('desmon:raid-state', p => cb(p as RaidLiveResponse | null)),
+  getRaidState: (): Promise<RaidLiveResponse | null> => ipcRenderer.invoke('desmon:get-raid-state') as Promise<RaidLiveResponse | null>,
+  raidAction: (action: RaidAction): Promise<NetResult<RaidLiveResponse>> => ipcRenderer.invoke('desmon:raid-action', action) as Promise<NetResult<RaidLiveResponse>>,
+  raidDamage: (hit: RaidDamagePayload): void => { ipcRenderer.send('desmon:raid-damage', hit); },
+  onRaidConnection: (cb: (online: boolean) => void): (() => void) => subscribe('desmon:raid-connection', p => cb(p === true)),
+  getRaidConnection: (): Promise<boolean> => ipcRenderer.invoke('desmon:get-raid-connection') as Promise<boolean>,
+  onConfirm: (cb: (request: PopupRequest) => void): (() => void) => subscribe('desmon:confirm', p => cb(p as PopupRequest)),
+  confirmResponse: (id: string, value: string): void => { ipcRenderer.send('desmon:confirm-response', { id, value }); },
+  onTheftNotice: (cb: (notice: Theft) => void): (() => void) => subscribe('desmon:theft-notice', p => cb(p as Theft)),
   onPrepareState: (cb: (p: PrepareStatePayload) => void): (() => void) => subscribe('desmon:prepare-state', p => cb(p as PrepareStatePayload)),
   captureState: (requestId: string, generation: number, save: unknown): Promise<void> => ipcRenderer.invoke('desmon:capture-state', { requestId, generation, save }) as Promise<void>,
   onReleaseState: (cb: (p: ReleaseStatePayload) => void): (() => void) => subscribe('desmon:release-state', p => cb(p as ReleaseStatePayload)),

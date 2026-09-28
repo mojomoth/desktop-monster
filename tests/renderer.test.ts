@@ -2138,7 +2138,8 @@ describe('renderer boot source contract (src/renderer/index.ts)', () => {
     expect(rendererIndex).not.toContain('game.reset()');
     expect(rendererIndex).toContain('window.desmon.onPrepareState');
     expect(rendererIndex).toContain('window.desmon.captureState(request.requestId, generation, game.toSave())');
-    expect(rendererIndex).toContain('if (release.replace) game = createGame(createEngine(parseSave(release.save))');
+    expect(rendererIndex).toMatch(/if \(release.replace\) \{\s+game = createGame\(createEngine\(parseSave\(release.save\)\), audio, options\);/);
+    expect(rendererIndex).toContain('if (raidLive && !finishedRaids.has(raidLive.raid.raidId)) game.raidState(raidViewOf(raidLive, raidLive));');
     expect(rendererIndex).toContain('if (release.generation <= generation) return');
   });
 
